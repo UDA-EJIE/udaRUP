@@ -541,7 +541,7 @@ handler that will select the items using the API methods.
 
         // Internal knowledge of DataTables to loop over all information elements
         $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('div.paginationContainer > div > div:first-child');
+            el = $('#'+ctx.sTableId+'PaginationContainer > div > div:first-child');
 
             var output = $('<span class="select-info"/>');
             add(output, 'row', rows);
@@ -577,6 +577,11 @@ handler that will select the items using the API methods.
      */
     function init(ctx) {
         var api = new DataTable.Api(ctx);
+        
+        //Se añade el context, al pagination container
+        if($('#'+ctx.sTableId).next($('div.paginationContainer')).length === 1){
+        	$('#'+ctx.sTableId).next($('div.paginationContainer')).attr('id',ctx.sTableId+'PaginationContainer');
+        }
 
         // Row callback so that classes can be added to rows and cells if the item
         // was selected before the element was created. This will happen with the
@@ -706,7 +711,7 @@ handler that will select the items using the API methods.
         $.each(ctx.multiselection.selectedIds, function (index, value) {
             var idx = -1;
             $.each(api.context[0].json.rows, function (indexData, valueData) {
-                if (value === DataTable.Api().rupTable.getIdPk(valueData)) {
+                if (value === DataTable.Api().rupTable.getIdPk(valueData,ctx.oInit)) {
                     idx = indexData;
                     return false;
                 }
@@ -751,98 +756,102 @@ handler that will select the items using the API methods.
         var columnDefs = ctx.oInit.aoColumnDefs;
         if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
             //Se rellena todo, la columna select.
-
-            var input = $('<div>')
-                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
-                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
-                .append(
-                    $('<input/>')
-                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
-                        .attr('type', 'checkbox')
-                ).append(
-                    $('<label/>')
-                );
-
-
-            var link = $('<a/>')
-                .addClass('ui-icon rup-table_checkmenu_arrow')
-                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
-
-            input.click(function () {
-                var dt = new DataTable.Api(ctx);
-                if ($(this).find('input').is(':checked')) {
-                    deselectAllPage(dt);
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                    selectAllPage(dt);
-                }
-            });
-
-            link.click(function () {
-                var dt = new DataTable.Api(ctx);
-                //Marcar todos
-                if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-                //Desmarcar todos
-                if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                }
-                if (ctx.multiselection.selectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                }
-                if (ctx.multiselection.deselectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                }
-                //Si la pagina esta completamente seleccionada
-                if (checkPageSelectedAll(dt, true)) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                }
-
-                //Si la pagina esta completamente deseleccionada
-                if (checkPageSelectedAll(dt, false)) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-
-            });
-
-            if (ctx.nTable.tHead !== null) {
-                var th = $(ctx.nTable.tHead.rows[0].cells[0]);
-                th.append(input, link);
-            }
-
-            if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
-                _createContexMenuSelect($('#' + link[0].id), ctx);
-            }
+        	//si metes esta propiedad se oculta el div:
+        	if(ctx.oInit.multiSelect === undefined || !ctx.oInit.multiSelect.hideMultiselect){
+		            var input = $('<div>')
+		                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
+		                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
+		                .append(
+		                    $('<input/>')
+		                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
+		                        .attr('type', 'checkbox')
+		                ).append(
+		                    $('<label/>')
+		                );
+		
+		
+		            var link = $('<a/>')
+		                .addClass('ui-icon rup-table_checkmenu_arrow')
+		                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
+		
+		            input.click(function () {
+		                var dt = new DataTable.Api(ctx);
+		                if ($(this).find('input').is(':checked')) {
+		                    deselectAllPage(dt);
+		                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+		                } else {
+		                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+		                    selectAllPage(dt);
+		                }
+		            });
+	        	
+	
+	            link.click(function () {
+	                var dt = new DataTable.Api(ctx);
+	                //Marcar todos
+	                if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                }
+	                //Desmarcar todos
+	                if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                }
+	                if (ctx.multiselection.selectedIds.length > 0) {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                }
+	                if (ctx.multiselection.deselectedIds.length > 0) {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                }
+	                //Si la pagina esta completamente seleccionada
+	                if (checkPageSelectedAll(dt, true)) {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                } else {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                }
+	
+	                //Si la pagina esta completamente deseleccionada
+	                if (checkPageSelectedAll(dt, false)) {
+	                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+	                    // Desmarcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+	                } else {
+	                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+	                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+	                    // Marcamos el check del tHead
+	                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+	                }
+	
+	            });
+	
+	            if (ctx.nTable.tHead !== null) {
+	                var th = $(ctx.nTable.tHead.rows[0].cells[0]);
+	                th.append(input, link);
+	            }
+	
+	            if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
+	                _createContexMenuSelect($('#' + link[0].id), ctx);
+	            }
+            
+        	}
 
             //Se aseguro que no sea orderable
             columnDefs[0].orderable = false;
@@ -1086,7 +1095,7 @@ handler that will select the items using the API methods.
         dt['rows']().multiSelect();
         if (dt.page() === 0) {
             DataTable.Api().rupTable.selectPencil(ctx, 0);
-            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
+            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0],ctx.oInit);
         } else {
             DataTable.Api().rupTable.selectPencil(ctx, -1);
             ctx.multiselection.lastSelectedId = '';
@@ -1384,7 +1393,7 @@ handler that will select the items using the API methods.
             if (id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0) {
                 if (line === undefined) {
                     $.each(ctx.json.rows, function (index, value) {
-                        if (DataTable.Api().rupTable.getIdPk(value) === id) {
+                        if (DataTable.Api().rupTable.getIdPk(value,ctx.oInit) === id) {
                             line = index;
                             return false;
                         }
@@ -1607,7 +1616,7 @@ handler that will select the items using the API methods.
         }
 
         if (multiSelect === false) {
-            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data()), 0, pagina, 0, ctx);
+            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(),ctx.oInit), 0, pagina, 0, ctx);
             //Cuando se resta de 1 en 1 la accion es empty
             ctx.multiselection.accion = '';
             var deselectes = this.deselect();
@@ -1635,7 +1644,7 @@ handler that will select the items using the API methods.
             // Marcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
 
             //Se mira el contador para sumar seleccionados
             if (ctx.multiselection.numSelected < ctx.json.recordsTotal &&
@@ -1654,7 +1663,7 @@ handler that will select the items using the API methods.
             if (ctx.multiselection.selectedAll) { //Si pagina y están todos sleccionados se pintan.
                 var ctx = api.settings()[0];
                 $.each(api.context[0].aoData, function (idx) {
-                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
                     //Si esta en la lista de deselecionados, significa que no debería marcarse.
                     if (jQuery.inArray(id, ctx.multiselection.deselectedIds) === -1) {
                         ctx.aoData[idx]._multiSelect_selected = true;
@@ -1774,7 +1783,7 @@ handler that will select the items using the API methods.
             // Desmarcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', false);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData,ctx.oInit);
 
             //Se mira el contador para restar deselecionados.
             if (ctx.multiselection.numSelected > 0 &&

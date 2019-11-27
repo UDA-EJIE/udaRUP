@@ -15509,104 +15509,158 @@ fieldset {
 .btn-material[class*="primary-high-emphasis"] {
   background-color: #1472a4; }
   .btn-material[class*="primary-high-emphasis"]:hover {
-    background-color: #1472a4; }
+    background-color: #1472a4;
+    border-color: #1472a4; }
 
 .btn-material[class*="secondary-high-emphasis"] {
   background-color: #6c757d; }
   .btn-material[class*="secondary-high-emphasis"]:hover {
-    background-color: #6c757d; }
+    background-color: #6c757d;
+    border-color: #6c757d; }
 
 .btn-material[class*="success-high-emphasis"] {
   background-color: #4caf50; }
   .btn-material[class*="success-high-emphasis"]:hover {
-    background-color: #4caf50; }
+    background-color: #4caf50;
+    border-color: #4caf50; }
 
 .btn-material[class*="danger-high-emphasis"] {
   background-color: #dc3545; }
   .btn-material[class*="danger-high-emphasis"]:hover {
-    background-color: #dc3545; }
+    background-color: #dc3545;
+    border-color: #dc3545; }
 
 .btn-material[class*="warning-dark-high-emphasis"] {
   background-color: #ffc107; }
   .btn-material[class*="warning-dark-high-emphasis"]:hover {
-    background-color: #ffc107; }
+    background-color: #ffc107;
+    border-color: #ffc107; }
 
 .btn-material[class*="info-high-emphasis"] {
   background-color: #03a9f4; }
   .btn-material[class*="info-high-emphasis"]:hover {
-    background-color: #03a9f4; }
+    background-color: #03a9f4;
+    border-color: #03a9f4; }
+  .btn-material[class*="info-high-emphasis"]:focus {
+    border: 1px solid #03a9f4; }
+
+.btn-material[class*="high-emphasis"]:focus {
+  opacity: 0.6; }
 
 /* ENFASIS MEDIO */
 .btn-material[class*="primary-medium-emphasis"] {
   color: #1472a4; }
   .btn-material[class*="primary-medium-emphasis"]:hover {
-    background-color: #e7f0f5; }
+    background-color: #e7f0f5;
+    border-color: #e7f0f5; }
+  .btn-material[class*="primary-medium-emphasis"]:focus {
+    background-color: #b8d4e3;
+    border-color: #b8d4e3; }
 
 .btn-material[class*="secondary-medium-emphasis"] {
   color: #6c757d; }
   .btn-material[class*="secondary-medium-emphasis"]:hover {
-    background-color: #f0f1f2; }
+    background-color: #f0f1f2;
+    border-color: #f0f1f2; }
+  .btn-material[class*="secondary-medium-emphasis"]:focus {
+    background-color: #d2d5d8;
+    border-color: #d2d5d8; }
 
 .btn-material[class*="success-medium-emphasis"] {
   color: #4caf50; }
   .btn-material[class*="success-medium-emphasis"]:hover {
-    background-color: #edf7ed; }
+    background-color: #edf7ed;
+    border-color: #edf7ed; }
+  .btn-material[class*="success-medium-emphasis"]:focus {
+    background-color: #c9e7ca;
+    border-color: #c9e7ca; }
 
 .btn-material[class*="danger-medium-emphasis"] {
   color: #dc3545; }
   .btn-material[class*="danger-medium-emphasis"]:hover {
-    background-color: #fbeaec; }
+    background-color: #fbeaec;
+    border-color: #fbeaec; }
+  .btn-material[class*="danger-medium-emphasis"]:focus {
+    background-color: #f4c2c7;
+    border-color: #f4c2c7; }
 
 .btn-material[class*="warning-dark-medium-emphasis"]:hover {
-  background-color: #fff8e6; }
+  background-color: #fff8e6;
+  border-color: #fff8e6; }
+
+.btn-material[class*="warning-dark-medium-emphasis"]:focus {
+  background-color: #ffecb4;
+  border-color: #ffecb4; }
 
 .btn-material[class*="info-medium-emphasis"] {
   color: #03a9f4; }
   .btn-material[class*="info-medium-emphasis"]:hover {
-    background-color: #e5f6fd; }
+    background-color: #e5f6fd;
+    border-color: #e5f6fd; }
+  .btn-material[class*="info-medium-emphasis"]:focus {
+    background-color: #b3e5fb;
+    border-color: #b3e5fb; }
 
 /* ENFASIS BAJO */
 .btn-material[class*="primary-low-emphasis"] {
   color: #1472a4; }
   .btn-material[class*="primary-low-emphasis"]:hover {
-    background-color: #e7f0f5; }
+    background-color: #e7f0f5;
+    border-color: #e7f0f5; }
   .btn-material[class*="primary-low-emphasis"]:active {
     background-color: #b8d4e3; }
+  .btn-material[class*="primary-low-emphasis"]:focus {
+    border: 3px solid #b8d4e3; }
 
 .btn-material[class*="secondary-low-emphasis"] {
   color: #6c757d; }
   .btn-material[class*="secondary-low-emphasis"]:hover {
-    background-color: #f0f1f2; }
+    background-color: #f0f1f2;
+    border-color: #f0f1f2; }
   .btn-material[class*="secondary-low-emphasis"]:active {
     background-color: #d2d5d8; }
+  .btn-material[class*="secondary-low-emphasis"]:focus {
+    border: 3px solid #d2d5d8; }
 
 .btn-material[class*="success-low-emphasis"] {
   color: #4caf50; }
   .btn-material[class*="success-low-emphasis"]:hover {
-    background-color: #edf7ed; }
+    background-color: #edf7ed;
+    border-color: #edf7ed; }
   .btn-material[class*="success-low-emphasis"]:active {
     background-color: #c9e7ca; }
+  .btn-material[class*="success-low-emphasis"]:focus {
+    border: 3px solid #c9e7ca; }
 
 .btn-material[class*="danger-low-emphasis"] {
   color: #dc3545; }
   .btn-material[class*="danger-low-emphasis"]:hover {
-    background-color: #fbeaec; }
+    background-color: #fbeaec;
+    border-color: #fbeaec; }
   .btn-material[class*="danger-low-emphasis"]:active {
     background-color: #f4c2c7; }
+  .btn-material[class*="danger-low-emphasis"]:focus {
+    border: 3px solid #f4c2c7; }
 
 .btn-material[class*="warning-dark-low-emphasis"] {
   color: #212529; }
   .btn-material[class*="warning-dark-low-emphasis"]:hover {
-    background-color: #fff8e6; }
+    background-color: #fff8e6;
+    border-color: #fff8e6; }
   .btn-material[class*="warning-dark-low-emphasis"]:active {
     background-color: #ffecb4; }
+  .btn-material[class*="warning-dark-low-emphasis"]:focus {
+    border: 3px solid #ffecb4; }
 
 .btn-material[class*="info-low-emphasis"] {
   color: #03a9f4; }
   .btn-material[class*="info-low-emphasis"]:hover {
-    background-color: #e5f6fd; }
+    background-color: #e5f6fd;
+    border-color: #e5f6fd; }
   .btn-material[class*="info-low-emphasis"]:active {
     background-color: #b3e5fb; }
+  .btn-material[class*="info-low-emphasis"]:focus {
+    border: 3px solid #b3e5fb; }
 
 /* ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES */
 /* ENFASIS ALTO */
@@ -15653,13 +15707,13 @@ fieldset {
   min-width: 64px;
   height: 30px;
   padding: 6px 10px;
-  border: none;
+  border: 3px solid transparent;
   border-radius: 4px;
   font-size: .9rem !important;
   /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   font-weight: 400;
   letter-spacing: initial;
-  line-height: 1;
+  line-height: .7;
   text-decoration: none;
   text-transform: uppercase;
   box-sizing: border-box;
@@ -15700,6 +15754,7 @@ fieldset {
   /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
   height: 34px;
   padding: 6px 13px;
+  line-height: .8;
   /* AJUSTE DE TAMAÑO DEL ICONO */ }
   .btn-material-lg > i.mdi {
     font-size: 1.6rem; }

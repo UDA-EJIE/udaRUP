@@ -100,19 +100,25 @@
         var rowsBody = $(ctx.nTBody);
         //Se edita el row/fila.
         if (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined) {
-            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
-                idRow = this._DT_RowIndex;
-                //Añadir la seleccion del mismo.
-                if (ctx.oInit.multiSelect !== undefined) {
-                    dt['row'](idRow).multiSelect();
-                } else {
-                    $('tr', rowsBody).removeClass('selected tr-highlight');
-                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
-                }
-                _getRowSelected(dt, 'PUT');
-                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
-            });
+        	var sel = ctx.oInit.multiSelect;
+        	if(sel === undefined){
+        		sel = ctx.oInit.select;
+        	}
+        	if(!sel.deleteDoubleClick){//Propiedad para desactivar el doble click.
+	            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
+	                idRow = this._DT_RowIndex;
+	                //Añadir la seleccion del mismo.
+	                if (ctx.oInit.multiSelect !== undefined) {
+	                    dt['row'](idRow).multiSelect();
+	                } else {
+	                    $('tr', rowsBody).removeClass('selected tr-highlight');
+	                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
+	                }
+	                _getRowSelected(dt, 'PUT');
+	                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
+	                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+	            });
+        	}
         }
 
         //Se captura evento de cierre
@@ -330,7 +336,7 @@
         if (actionType === 'PUT') {
             if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
                 //se obtiene el row entero de bbdd, meter parametro opcional.
-                var pk = DataTable.Api().rupTable.getIdPk(row);
+                var pk = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
                 var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
                 //se evita slash en la url GET como parámetros.Formateo de fecha.
                 var regexSlash = new RegExp('/', 'g');
@@ -382,7 +388,7 @@
             }
             $.rup_utils.populateForm(rowArray, idForm);
             var multiselection = ctx.multiselection;
-            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), multiselection.selectedIds);
+            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row,ctx.oInit), multiselection.selectedIds);
             if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
                 indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
             }
@@ -400,7 +406,7 @@
             _updateDetailPagination(ctx, indexInArray + 1, numTotal);
             DataTable.Api().rupTable.selectPencil(ctx, idRow);
             // Se guarda el ultimo id editado.
-            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
+            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
             // Se muestra el dialog.
             ctx.oInit.formEdit.$navigationBar.show();
             // Asignamos un valor a la variable del título del formulario
@@ -556,8 +562,8 @@
                             ctx.seeker.search.funcionParams.length > 0) {
                             _comprobarSeeker(row, ctx, idRow);
                         }
-                        ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row);
-                        ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row);
+                        ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
+                        ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
                         ctx.multiselection.internalFeedback.type = undefined; //se recarga el type no esta definido.
                     } else {
                         // Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
@@ -952,7 +958,7 @@
             } else { //Si no se pagina se abre directamente la funcion.
                 DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line);
                 var rowSelectAux = ctx.json.rows[ctx.multiselection.selectedRowsPerPage[0].line];
-                ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux);
+                ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux,ctx.oInit);
                 DataTable.Api().select.deselect(ctx);
                 DataTable.Api().select.drawSelectId(ctx);
             }
@@ -1163,11 +1169,11 @@
 
         $.each(rows, function (index, row) {
             if (index > lineInit) {
-                var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
+                var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row,ctx.oInit), ctx.multiselection.deselectedIds);
                 if (indexInArray === -1) {
                     line = index;
                     var arra = {
-                        id: DataTable.Api().rupTable.getIdPk(row),
+                        id: DataTable.Api().rupTable.getIdPk(row,ctx.oInit),
                         page: ctx.json.page,
                         line: index
                     };
@@ -1201,11 +1207,11 @@
         for (var index = rows.length - 1; index >= 0; index--) {
             var row = rows[index];
             if (index < lineInit) {
-                var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row), ctx.multiselection.deselectedIds);
+                var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row,ctx.oInit), ctx.multiselection.deselectedIds);
                 if (indexInArray === -1) {
                     line = index;
                     var arra = {
-                        id: DataTable.Api().rupTable.getIdPk(row),
+                        id: DataTable.Api().rupTable.getIdPk(row,ctx.oInit),
                         page: ctx.json.page,
                         line: index
                     };
@@ -1255,7 +1261,8 @@
                     row = row.replace(regex, '/');
                     _callSaveAjax('DELETE', dt, '', idRow, false, ctx.oInit.formEdit.detailForm, '/' + row);
                 }
-            }
+            },
+            CANCELFunction : ctx.oInit.formEdit.cancelDeleteFunction
         });
     }
 
@@ -1418,7 +1425,12 @@
      *
      */
     function _addChildIcons(ctx) {
+    	var fistColumn = true;
         var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
+        	if(fistColumn){//La primera columna nunca se puede ocultar.
+        		b = true;
+        		fistColumn = false;
+        	}
             return b === false ? a + 1 : a;
         }, 0);
         if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
@@ -1519,6 +1531,9 @@
                     $('div.rup-table-formEdit-detail').removeClass('d-none');
                 }
             }, {}));
+            if(ctx.oInit.formEdit.cancelDeleteFunction === undefined){
+                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {  };
+            }
         }
 
     });
