@@ -956,13 +956,6 @@
                     }
 
                     button.blur();
-                })
-                .on('keyup.dtb', function (e) {
-                    if (e.keyCode === 13) {
-                        if (!button.hasClass(buttonDom.disabled) && config.action) {
-                            action(e, dt, button, config);
-                        }
-                    }
                 });
 
             // Make `a` tags act like a link
