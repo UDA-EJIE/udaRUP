@@ -159,9 +159,9 @@ DataTable.inlineEdit.init = function ( dt ) {
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'cancel',
          action: function ( ) {
-        	 	$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+        	 	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
         		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-        	 	$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
+        	 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
         		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 	    		ctx.inlineEdit.lastRow = undefined;
 	    		ctx.oInit.inlineEdit.alta = undefined;
@@ -421,14 +421,14 @@ function _editInline ( dt,ctx, idRow ){
 	}
 	
 	// Habilitamos en la botonera y contextMenu
-	$('#' + ctx.sTableId+'saveButton_1').removeClass('disabledButtonsTable');
+	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', false);
 	$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
-	$('#' + ctx.sTableId+'cancelButton_1').removeClass('disabledButtonsTable');
+	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', false);
 	$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
 	
 	// Cuando sea añadir registro no hay que habilitar el boton de informes
 	if(!$rowSelect.hasClass("odd new")){
-		$('#' + ctx.sTableId+'informes_01').removeClass('disabledButtonsTable');
+		$('#' + ctx.sTableId+'informes_01').prop('disabled', false);
 	}
 
 	DataTable.Api().seeker.enabledButtons(ctx);
@@ -1181,9 +1181,9 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		contentType : 'application/json',
 		async : true,
 		success : function(data, status, xhr) {
-			$('#' + ctx.sTableId+'saveButton_1').addClass('disabledButtonsTable');
+			$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
 			$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-			$('#' + ctx.sTableId+'cancelButton_1').addClass('disabledButtonsTable');
+			$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
 			$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 			ctx.oInit.inlineEdit.alta = undefined;
 			var dt = $('#'+ctx.sTableId).DataTable();

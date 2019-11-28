@@ -126,7 +126,7 @@ function _deselectMaster(dt,ctx,idHidden){
 	} ).html( ctx.oLanguage.sZeroRecords ) )[0];
 	$('#'+ctx.sTableId + " > tbody").append($tr);
 	ctx.seeker.search.$searchRow.hide();
-	$("#"+ctx.sTableId+'addButton_1').addClass('disabledButtonsTable');
+	$("#"+ctx.sTableId+'addButton_1').prop('disabled', true);
 	DataTable.Api().select.deselect(ctx);
 }
 
