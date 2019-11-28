@@ -677,23 +677,19 @@
     function _callFeedbackOk(ctx, feedback, msgFeedBack, type) {
         $('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
         var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
+        
+        try {
+        	feedback.rup_feedback('destroy');
+        } catch(ex) {
+        }
+        
         feedback.rup_feedback({
             message: msgFeedBack,
             type: type,
             block: false,
-            gotoTop: false
+            gotoTop: false,
+            delay: confDelay
         });
-        feedback.rup_feedback('set', msgFeedBack);
-        // Aseguramos que el estilo es correcto.
-        if (type === 'ok') {
-            setTimeout(function () {
-                if (feedback.find('div').length > 0) { //asegurar que esta inicializado
-                    feedback.rup_feedback('destroy');
-                    feedback.css('width', '100%');
-                    $('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
-                }
-            }, confDelay);
-        }
     }
 
 
