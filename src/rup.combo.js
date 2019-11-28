@@ -1743,6 +1743,9 @@
 
                             multiChange(settings);
                             $('#' + settings.id).addClass('inited');
+                            
+                            // Evento que se ejecuta cuando la carga de datos ha sido satisfactoria.
+                            $('#' + settings.id).triggerHandler('comboAjaxLoadSucess', [data]);
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             if (settings.onLoadError !== null) {
