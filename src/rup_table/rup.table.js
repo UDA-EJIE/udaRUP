@@ -1246,6 +1246,14 @@ import { PassThrough } from "stream";
             tabla.on( 'draw', function (e,settingsTable) {
                 if(settings.searchPaginator){//Mirar el crear paginador
                     $self._createSearchPaginator($(this),settingsTable);
+                    // Deshabilitamos los botones de paginacion si es necesario
+                	$.each($("ul.pagination li.recolocatedPagination_iconButton"),function( ){
+                		if($(this).hasClass("disabled")) {
+                			$("#" + this.id + " a").prop("tabindex", "-1");
+                		} else {
+                			$("#" + this.id + " a").prop("tabindex", "0");
+                		}
+                    });
                     //Si el seeker esta vacio ocultarlo
                     if(settingsTable.seeker !== undefined && 
 							settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined){
