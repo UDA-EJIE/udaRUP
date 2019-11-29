@@ -69,15 +69,18 @@ DataTable.inlineEdit.init = function ( dt ) {
 	var ctx = dt.settings()[0];
 	ctx.inlineEdit = {};
 	var idRow;
-	//Se edita el row/fila.
+	// Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
-	rowsBody.on( 'dblclick.DT','tr[role="row"]',  function () {
-		if($(this).hasClass('editable')){
-			return false;
+	rowsBody.on( 'dblclick.DT keypress','tr[role="row"]',  function (e) {
+		// Solo selecciona si se pulsa sobre el enter o se hace click izquierdo col raton
+		if(e.which == 1 || e.which == 13){
+			if($(this).hasClass('editable')){
+				return false;
+			}
+			idRow = this._DT_RowIndex;
+			_editInline(dt,ctx,idRow);
+			$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
 		}
-		idRow = this._DT_RowIndex;
-		_editInline(dt,ctx,idRow);
-		$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
 	} );
 	
 	dt.on( 'responsive-display', function ( e, table, row, showHide) {//si se crea el tr hijo

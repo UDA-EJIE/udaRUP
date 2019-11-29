@@ -1391,7 +1391,7 @@ import { PassThrough } from "stream";
         feedback:{
             okFeedbackConfig:{
                 closeLink: true,
-                delay:2000
+                delay: 2000
             }
         },
         responsive: {           
@@ -1416,6 +1416,13 @@ import { PassThrough } from "stream";
 	    blockPKeditForm: true,
 	    searchPaginator:true,
 	    pagingType: "full",
+	    createdRow: function( row, data, dataIndex, a, b, c ) {
+	        var ctx = $("#" + this[0].id).rup_table("getContext");
+	        
+	        if(ctx.oInit.select != undefined){
+	        	$(row).attr('tabindex', '0');
+	        }
+	    },
 	    columnDefs: [],
         adapter: 'table_material',
 	    order: [[ 1, 'asc' ]],

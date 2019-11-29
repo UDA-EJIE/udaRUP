@@ -69,9 +69,10 @@
         var ctx = dt.settings()[0];
         ctx.select = [];
         var rowsBody = $( ctx.nTBody);
-        //Se edita el row/fila.
-        rowsBody.on( 'click.DT','tr[role="row"]',  function (e) {
-            if(!$(e.target).is(':checkbox')){//no hacer nada si el evento es de un checkbox, esta en ediccion
+        // Se selecciona una fila
+        rowsBody.on( 'click.DT keydown','tr[role="row"]',  function (e) {
+        	// Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
+            if(e.which == 1 || e.which == 32){
                 if(e.target.className.indexOf("openResponsive") > -1 
 					|| $(this).hasClass('editable')){
                     return false;

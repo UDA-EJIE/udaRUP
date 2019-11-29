@@ -105,18 +105,21 @@
         		sel = ctx.oInit.select;
         	}
         	if(!sel.deleteDoubleClick){//Propiedad para desactivar el doble click.
-	            rowsBody.on('dblclick.DT', 'tr[role="row"]', function () {
-	                idRow = this._DT_RowIndex;
-	                //Añadir la seleccion del mismo.
-	                if (ctx.oInit.multiSelect !== undefined) {
-	                    dt['row'](idRow).multiSelect();
-	                } else {
-	                    $('tr', rowsBody).removeClass('selected tr-highlight');
-	                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
-	                }
-	                _getRowSelected(dt, 'PUT');
-	                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
-	                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+	            rowsBody.on('dblclick.DT keypress', 'tr[role="row"]', function (e) {
+	            	// Solo selecciona si se pulsa sobre el enter o se hace click izquierdo col raton
+	            	if(e.which == 1 || e.which == 13){
+		            	idRow = this._DT_RowIndex;
+		                // Añadir la seleccion del mismo.
+		                if (ctx.oInit.multiSelect !== undefined) {
+		                    dt['row'](idRow).multiSelect();
+		                } else {
+		                    $('tr', rowsBody).removeClass('selected tr-highlight');
+		                    DataTable.Api().select.selectRowIndex(dt, idRow, true);
+		                }
+		                _getRowSelected(dt, 'PUT');
+		                DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
+		                $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+	            	}
 	            });
         	}
         }
