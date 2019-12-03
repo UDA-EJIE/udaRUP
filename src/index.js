@@ -3,6 +3,7 @@
  * VENDOR
  */
 import 'jquery';
+import 'jquery-migrate';
 import 'bootstrap';
 
 import 'bootstrap/scss/bootstrap.scss';

@@ -147,7 +147,7 @@ Get the current order of the columns, as an array. Note that the valuesgiven in
 **Example**  
 ```js
 // Get column ordering for the table   var order = $.fn.dataTable.ColReorder( dataTable ).fnOrder();
-	 
+     
 ```
 <a name="fnOrder"></a>
 

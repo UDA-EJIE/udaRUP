@@ -56,9 +56,9 @@ var html = '<nav class="rup-navbar navbar">\
                                 </div>\
                             </li>\
                     </ul>\
-			  </nav>';
-		$('#content').append(html);
-		$('nav').rup_navbar(); 
+              </nav>';
+        $('#content').append(html);
+        $('nav').rup_navbar(); 
 ```
 
 * [rup_navbar](#module_rup_navbar)

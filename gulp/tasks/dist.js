@@ -7,8 +7,8 @@ gulp.task('dist:x21a:clean', function () {
         .pipe(clean({force: true}));
 });
 
-gulp.task('dist:x21a:copy', async function () {
-    gulp.src('./dist/**/*.*')
+gulp.task('dist:x21a:copy', function () {
+    return gulp.src('./dist/**/*.*')
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/4x/rup/'));
 });
 
