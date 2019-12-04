@@ -41,6 +41,7 @@ $radio-material-ripple-size: 6px;
     input[type='radio'] {
         position: absolute;
         z-index: -1;
+        opacity: 0;
 
         /* CUANDO PASA EL RATON POR ENCIMA */
         &:hover:enabled~label::before,
@@ -114,19 +115,6 @@ $radio-material-ripple-size: 6px;
 
         &:disabled {
             pointer-events: none;
-        }
-    }
-}
-
-// PARA CUANDO EL RADIO ESTA DENTRO DE UN DIALOGO
-.dialog-content-material {
-    .radio-material {
-        label {
-
-            &::before,
-            &::after {
-                left: 6px;
-            }
         }
     }
 }

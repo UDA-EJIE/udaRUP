@@ -20,6 +20,10 @@ function clearDatatable(done) {
         $.contextMenu('destroy');
     }
 
+    $('.rup-dialog').each((i,e)=>{
+        $('#'+$(e).attr('aria-describedby')).rup_dialog('destroy');
+    });
+
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();

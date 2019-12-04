@@ -1267,10 +1267,18 @@
             $.each($('#' + $self[0].id + ' thead th'), function () {
                 $self._createTooltip($(this));
             });
-
-            tabla.on('draw', function (e, settingsTable) {
-                if (settings.searchPaginator) { //Mirar el crear paginador
-                    $self._createSearchPaginator($(this), settingsTable);
+			
+            tabla.on( 'draw', function (e,settingsTable) {
+                if(settings.searchPaginator){//Mirar el crear paginador
+                    $self._createSearchPaginator($(this),settingsTable);
+                    // Deshabilitamos los botones de paginacion si es necesario
+                	$.each($("ul.pagination li.recolocatedPagination_iconButton"),function( ){
+                		if($(this).hasClass("disabled")) {
+                			$("#" + this.id + " a").prop("tabindex", "-1");
+                		} else {
+                			$("#" + this.id + " a").prop("tabindex", "0");
+                		}
+                    });
                     //Si el seeker esta vacio ocultarlo
                     if (settingsTable.seeker !== undefined &&
                         settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined) {
@@ -1433,21 +1441,28 @@
             selectorResponsive: 'td span.dtr-data'
         },
         dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-            't<"container-fluid paginationContainer"' +
-            '<"row"' +
-            '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-            '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
-            '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
-            '>' +
-            '>' +
-            'r',
-        multiplePkToken: '~',
-        primaryKey: ['id'],
-        blockPKeditForm: true,
-        searchPaginator: true,
-        pagingType: 'full',
-        columnDefs: [],
+			't<"container-fluid paginationContainer"' +
+				'<"row"' +
+					'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+					'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+					'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+					'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+				'>' +
+			'>' +
+			'r',
+	    multiplePkToken: '~',
+	    primaryKey:["id"],
+	    blockPKeditForm: true,
+	    searchPaginator:true,
+	    pagingType: "full",
+	    createdRow: function( row, data, dataIndex, a, b, c ) {
+	        var ctx = $("#" + this[0].id).rup_table("getContext");
+	        
+	        if(ctx.oInit.select != undefined){
+	        	$(row).attr('tabindex', '0');
+	        }
+	    },
+	    columnDefs: [],
         adapter: 'table_material',
         order: [
             [1, 'asc']

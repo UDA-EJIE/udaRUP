@@ -93,7 +93,7 @@
                     tag: 'button',
                     className: 'col-12 col-sm-auto btn-material',
                     active: 'active',
-                    disabled: 'disabledButtonsTable'
+                    disabled: 'disabled'
                 },
                 buttonLiner: {
                     tag: 'span',
@@ -956,13 +956,6 @@
                     }
 
                     button.blur();
-                })
-                .on('keyup.dtb', function (e) {
-                    if (e.keyCode === 13) {
-                        if (!button.hasClass(buttonDom.disabled) && config.action) {
-                            action(e, dt, button, config);
-                        }
-                    }
                 });
 
             // Make `a` tags act like a link
@@ -2190,7 +2183,7 @@
         var opts = ctx._buttons[0].inst.s.buttons;
         $.each(opts, function () {
             if (exception === undefined) {
-                $(this.node).addClass('disabledButtonsTable'); //para el toolbar
+                $(this.node).prop('disabled', true); //para el toolbar
                 $('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable'); //para el contextmenu
             } else if (this.node.id !== exception) { //ponemos los regex a cero menos la excepcion
                 this.conf.displayRegex = undefined;
@@ -2437,7 +2430,7 @@
      *
      */
     var _enableCollection = function (id) {
-        $('#' + id).removeClass('disabledButtonsTable');
+        $('#' + id).prop('disabled', false);
     };
 
     /**
@@ -2451,7 +2444,7 @@
      *
      */
     var _disableCollection = function (id) {
-        $('#' + id).addClass('disabledButtonsTable');
+        $('#' + id).prop('disabled', true);
     };
 
     /**
@@ -2465,7 +2458,8 @@
      *
      */
     var _enableButtonAndContextMenuOption = function (id) {
-        $('#' + id + ', #' + id + '_contextMenuToolbar').removeClass('disabledButtonsTable');
+        $('#' + id).prop('disabled', false);
+        $('#' + id + '_contextMenuToolbar').removeClass('disabledButtonsTable');
     };
 
     /**
@@ -2479,7 +2473,8 @@
      *
      */
     var _disableButtonAndContextMenuOption = function (id) {
-        $('#' + id + '_contextMenuToolbar, #' + id).addClass('disabledButtonsTable');
+    	$('#' + id).prop('disabled', true);
+    	$('#' + id + '_contextMenuToolbar').addClass('disabledButtonsTable');
     };
 
     /**

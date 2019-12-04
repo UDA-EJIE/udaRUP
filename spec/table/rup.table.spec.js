@@ -19,6 +19,10 @@ function clearDatatable(done) {
         $.contextMenu('destroy');
     }
 
+    $('.rup-dialog').each((i,e)=>{
+        $('#'+$(e).attr('aria-describedby')).rup_dialog('destroy');
+    });
+
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
@@ -206,7 +210,8 @@ function testDatatable() {
             });
             describe('Edición con formulario > ', () => {
                 describe('Edición de elementos existentes > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
+                        $('#example').on('tableEditFormClickRow', done);
                         $('tbody > tr:eq(0) > td:eq(1)').dblclick();
                     });
 
@@ -532,11 +537,11 @@ function testDatatable() {
                     });
 
                     it('Solo el botón add está habilitado:', () => {
-                        expect($('.table_toolbar_btnAdd').hasClass('disabledButtonsTable')).toBeFalsy();
-                        expect($('.table_toolbar_btnEdit').hasClass('disabledButtonsTable')).toBeTruthy();
-                        expect($('.table_toolbar_btnClone').hasClass('disabledButtonsTable')).toBeTruthy();
-                        expect($('.table_toolbar_btnDelete').hasClass('disabledButtonsTable')).toBeTruthy();
-                        expect($('.buttons-collection').hasClass('disabledButtonsTable')).toBeTruthy();
+                        expect($('.table_toolbar_btnAdd').is(':disabled')).toBeFalsy();
+                        expect($('.table_toolbar_btnEdit').is(':disabled')).toBeTruthy();
+                        expect($('.table_toolbar_btnClone').is(':disabled')).toBeTruthy();
+                        expect($('.table_toolbar_btnDelete').is(':disabled')).toBeTruthy();
+                        expect($('.buttons-collection').is(':disabled')).toBeTruthy();
                     });
                 });
                 describe('Añadido de nuevo botón > ', () => {

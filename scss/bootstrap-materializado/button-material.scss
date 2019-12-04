@@ -23,6 +23,15 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $primary-color;
 		border-color: $primary-color;
+	}
+	
+	&:active {
+		border-color: $primary-color;
+	}	
+	
+	&:focus {
+		background-color: $primary-color;
+		background-color: $primary-color-very-dark;
 	}		
 }
 
@@ -32,6 +41,15 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $secondary-color;
 		border-color: $secondary-color;
+	}
+	
+	&:active {
+		border-color: $secondary-color;
+	}	
+	
+	&:focus {
+		background-color: $secondary-color;
+		background-color: $secondary-color-very-dark;
 	}		
 }
 
@@ -41,6 +59,15 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $success-color;
 		border-color: $success-color;
+	}
+	
+	&:active {
+		border-color: $success-color;
+	}	
+	
+	&:focus {
+		background-color: $success-color;
+		background-color: $success-color-very-dark;
 	}		
 }
 
@@ -50,6 +77,15 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $danger-color;
 		border-color: $danger-color;
+	}
+	
+	&:active {
+		border-color: $danger-color;
+	}	
+	
+	&:focus {
+		background-color: $danger-color;
+		background-color: $danger-color-very-dark;
 	}		
 }
 
@@ -59,6 +95,15 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $warning-color;
 		border-color: $warning-color;
+	}
+	
+	&:active {
+		border-color: $warning-color;
+	}	
+	
+	&:focus {
+		background-color: $warning-color;
+		background-color: $warning-color-very-dark;
 	}		
 }
 
@@ -68,15 +113,16 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $info-color;
 		border-color: $info-color;
+	}
+	
+	&:active {
+		border-color: $info-color;
 	}	
 	
 	&:focus {
-		border: 1px solid $info-color;
+		background-color: $info-color;
+		background-color: $info-color-very-dark;
 	}
-}
-
-.btn-material[class*="high-emphasis"]:focus {
-	opacity: 0.6;
 }
 
 /* ENFASIS MEDIO */
@@ -86,11 +132,13 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $primary-color-very-light;
 		border-color: $primary-color-very-light;
+		color: $white-color;
 	}	
 	
 	&:focus {
 		background-color: $primary-color-light;
 		border-color: $primary-color-light;
+		color: $white-color;
 	}	
 }
 
@@ -100,11 +148,13 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $secondary-color-very-light;
 		border-color: $secondary-color-very-light;
+		color: $white-color;
 	}	
 	
 	&:focus {
 		background-color: $secondary-color-light;
 		border-color: $secondary-color-light;
+		color: $white-color;
 	}	
 }
 
@@ -114,11 +164,13 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $success-color-very-light;
 		border-color: $success-color-very-light;
+		color: $white-color;
 	}	
 	
 	&:focus {
 		background-color: $success-color-light;
 		border-color: $success-color-light;
+		color: $white-color;
 	}	
 }
 
@@ -128,11 +180,13 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $danger-color-very-light;
 		border-color: $danger-color-very-light;
+		color: $white-color;
 	}
 	
 	&:focus {
 		background-color: $danger-color-light;
 		border-color: $danger-color-light;
+		color: $white-color;
 	}	
 }
 
@@ -154,11 +208,13 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $info-color-very-light;
 		border-color: $info-color-very-light;
+		color: $white-color;
 	}
 	
 	&:focus {
 		background-color: $info-color-light;
 		border-color: $info-color-light;
+		color: $white-color;
 	}		
 }
 
@@ -169,14 +225,19 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $primary-color-very-light;
 		border-color: $primary-color-very-light;
+		color: $white-color;
 	}
 	
 	&:active {
 		background-color: $primary-color-light;
+		
+		&:focus {
+			color: $white-color;
+		}
 	}
 	
 	&:focus {
-		border: 3px solid $primary-color-light;
+		border: 2px solid $primary-color-light;
 	}
 }
 
@@ -186,14 +247,19 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $secondary-color-very-light;
 		border-color: $secondary-color-very-light;
+		color: $white-color;
 	}
 	
 	&:active {
 		background-color: $secondary-color-light;
+		
+		&:focus {
+			color: $white-color;
+		}
 	}
 	
 	&:focus {
-		border: 3px solid $secondary-color-light;
+		border: 2px solid $secondary-color-light;
 	}
 }
 
@@ -203,14 +269,19 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $success-color-very-light;
 		border-color: $success-color-very-light;
+		color: $white-color;
 	}
 	
 	&:active {
 		background-color: $success-color-light;
+		
+		&:focus {
+			color: $white-color;
+		}
 	}
 	
 	&:focus {
-		border: 3px solid $success-color-light;
+		border: 2px solid $success-color-light;
 	}
 }
 
@@ -220,14 +291,19 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $danger-color-very-light;
 		border-color: $danger-color-very-light;
+		color: $white-color;
 	}
 	
 	&:active {
 		background-color: $danger-color-light;
+		
+		&:focus {
+			color: $white-color;
+		}
 	}
 	
 	&:focus {
-		border: 3px solid $danger-color-light;
+		border: 2px solid $danger-color-light;
 	}
 }
 
@@ -244,7 +320,7 @@ $btn-material-box-shadow-active:
 	}
 	
 	&:focus {
-		border: 3px solid $warning-color-light;
+		border: 2px solid $warning-color-light;
 	}
 }
 
@@ -254,14 +330,19 @@ $btn-material-box-shadow-active:
 	&:hover {
 		background-color: $info-color-very-light;
 		border-color: $info-color-very-light;
+		color: $white-color;
 	}
 	
 	&:active {
 		background-color: $info-color-light;
+		
+		&:focus {
+			color: $white-color;
+		}
 	}
 	
 	&:focus {
-		border: 3px solid $info-color-light;
+		border: 2px solid $info-color-light;
 	}
 }
 
@@ -329,7 +410,7 @@ $btn-material-box-shadow-active:
 	min-width: 64px;
 	height: 30px;
 	padding: 6px 10px;
-	border: 3px solid $no-color;
+	border: 2px solid $no-color;
 	border-radius: 4px;
 	font-size: .9rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	font-weight: 400;
@@ -348,6 +429,7 @@ $btn-material-box-shadow-active:
 	&:disabled {
 		color: rgba(0, 0, 0, 0.37);
 		background-color: rgba(0, 0, 0, 0.12);
+		border-color: $no-color;
 		box-shadow: none;
 		cursor: default;
 		pointer-events: none;

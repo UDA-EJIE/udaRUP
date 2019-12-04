@@ -49,7 +49,16 @@
 	};
 	
 	function clearValidation(element) {
-		if ($(element).parent().hasClass('rup-validate-field-error')) {
+		if($(element)[0].type === "checkbox" || $(element)[0].type === "radio") {
+			var name = $(element).prop('name'),
+				$container = $(element).parents(".form-row").find("label[data-title='" + name + "']");
+			
+			if ($container.hasClass('rup-validate-field-error')) {
+				$container.removeClass('rup-validate-field-error');
+				$container.find('i.mdi').remove();
+				$container.find('span.error').remove();
+			}
+		} else if ($(element).parent().hasClass('rup-validate-field-error')) {
 			$(element).parent().removeClass('rup-validate-field-error');
 			$(element).parent().find('i.mdi').remove();
 			$(element).parent().find('span.error').remove();
@@ -65,26 +74,18 @@
 			$container = element.parent(),
 			$icon = $('<i class="mdi mdi-close error" aria-hidden="true"></i>');
 			
+		// Si el elemento a validar es un checkbox/radio elegir otra posicion para su correcto visualizacion
+		if(element[0].type === "checkbox" || element[0].type === "radio") {
+			$container = element.parents(".form-row").find("label[data-title='" + name + "']");
+			
+			$icon.addClass("ml-3");
+		}
+		
 		// Posicionamiento del label e icon
 		$container
-			.addClass('rup-validate-field-error');
-		
-		// Si el elemento a validar es un checkbox/radio añadir ciertas clases para su correcto posicionamiento
-		if(element[0].type === 'checkbox') {
-			$container
-				.append($icon.addClass('align-top'))
-				.append(error.addClass('row col-12 ml-3'));
-		} 
-		else if(element[0].type === 'radio') {
-			$container
-				.append($icon)
-				.append(error.addClass('row col-12 ml-5 pl-3'));
-		}	
-		else {
-			$container	
-				.append($icon)
-				.append(error);
-		}
+			.addClass('rup-validate-field-error')
+			.append($icon)
+			.append(error);
 		
 	};
 

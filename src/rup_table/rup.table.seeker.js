@@ -589,7 +589,7 @@
                 } else if ($(this).attr('ruptype') === 'time') {
                     $(this).rup_time('disable');
                 } else {
-                    $(this).attr('disabled', true);
+                    $(this).prop('disabled', true);
                 }
             });
         }
@@ -606,7 +606,7 @@
                 } else if ($(this).attr('ruptype') === 'time') {
                     $(this).rup_time('enable');
                 } else {
-                    $(this).removeAttr('disabled');
+                    $(this).prop('disabled', false);
                 }
             });
         }
