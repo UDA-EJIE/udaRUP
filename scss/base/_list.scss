@@ -35,6 +35,14 @@ $listColorDark: #204d71;
     }
 }
 
+.rup_list-sticky {
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1000;
+    width: calc(100% - 102px);
+}
+
 .rup_list-header {
     margin-bottom: .5rem;
 }
