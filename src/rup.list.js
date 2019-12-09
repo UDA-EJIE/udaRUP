@@ -525,6 +525,46 @@
         },
 
         /**
+         * Método que aplica el modo 'sticky' al header
+         * @name _headerSticky
+         * @function
+         */
+        _headerSticky: function () {
+            const self = this;
+            const opciones = self.options;
+
+            if ($('.rup-navbar')) {
+                window.scrollHeight = $('.rup-navbar').height();
+            } else {
+                window.scrollHeight = 0;
+            }
+
+            $(window).on('scroll', function () {
+                var targetOpciones = opciones._header.obj[0].getBoundingClientRect(),
+                    targetTopPoint = targetOpciones.top;
+
+                if (opciones._header.obj.hasClass('rup_list-sticky')) {
+                    targetOpciones = self.element[0].getBoundingClientRect();
+                    targetTopPoint = targetOpciones.top;
+                }
+
+                if (targetTopPoint < window.scrollHeight) {
+                    opciones._header.obj.addClass('rup_list-sticky');
+                    opciones._header.obj.css({
+                        'top': window.scrollHeight
+                    });
+                } else if (targetTopPoint >= window.scrollHeight) {
+                    if (opciones._header.obj.hasClass('rup_list-sticky')) {
+                        opciones._header.obj.removeClass('rup_list-sticky');
+                        opciones._header.obj.css({
+                            'top': 0
+                        });
+                    }
+                }
+            });
+        },
+        
+        /**
          * Método interno que configura el boton de alternar el sord en la ordenación simple
          * @name _sordButtonInit
          * @function
@@ -1564,6 +1604,10 @@
                         if (opciones.isScrollList) {
                             $pagenavF.hide();
                             $pagenavH.hide();
+                        }
+
+                        if (opciones.isHeaderSticky) {
+                            self._headerSticky.apply(self);
                         }
 
                         self.element
