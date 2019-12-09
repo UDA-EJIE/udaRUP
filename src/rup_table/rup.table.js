@@ -1460,12 +1460,12 @@
 	    multiplePkToken: '~',
 	    primaryKey:["id"],
 	    blockPKeditForm: true,
-	    searchPaginator:true,
+	    searchPaginator: true,
 	    pagingType: "full",
 	    createdRow: function( row, data, dataIndex, a, b, c ) {
 	        var ctx = $("#" + this[0].id).rup_table("getContext");
 	        
-	        if(ctx.oInit.select != undefined){
+	        if(ctx.oInit.select != undefined || ctx.oInit.multiSelect.hideMultiselect){
 	        	$(row).attr('tabindex', '0');
 	        }
 	    },

@@ -118,3 +118,12 @@ $radio-material-ripple-size: 6px;
         }
     }
 }
+
+.radio-label-material {
+	height: 1.5rem;
+	
+	label {
+		font-size: .9rem;
+		color: $primary-color;
+	}
+}
