@@ -308,6 +308,19 @@
                 type: 'reports',
                 buttons: listadoExports
             };
+
+		// Ajusta el tamaño de los botones por defecto en caso de que haya sido especificado en las preferencias
+        if(ctx.oInit.buttons.size !== undefined) {
+        	$.each(ctx.ext.buttons, function (name, item) {
+				if(item.className !== undefined) {
+	                if(ctx.oInit.buttons.size === 'lg') {
+	                	item.className += " btn-material-lg";
+	                } else if(ctx.oInit.buttons.size === 'sm') {
+	                	item.className += " btn-material-sm";
+	                }
+				}
+			});
+        }
         
     	if(ctx.oInit.buttons.blackListButtons !== undefined){
     		if(ctx.oInit.buttons.blackListButtons === 'all'){//si no se quiere ninguno se elimina
