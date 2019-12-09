@@ -20,8 +20,10 @@
     "doc": "gulp doc",
     "watch": "gulp watch",
     "demo": "webpack-dev-server --config=./demo/webpack.config.js",
-    "test": "run-s build & karma start --single-run --no-auto-watch karma.conf.js",
-    "test:dev": "run-s build & karma start --reporters html,kjhtml --browsers Chrome karma.conf.js"
+    "test:karma": "karma start --single-run --no-auto-watch karma.conf.js",
+    "test:karma:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
+    "test": "run-s build test:karma",
+    "test:dev": "run-s build test:karma:dev"
   },
   "repository": {
     "type": "git",
