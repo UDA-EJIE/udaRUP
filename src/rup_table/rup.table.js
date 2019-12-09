@@ -1267,7 +1267,7 @@ import { PassThrough } from "stream";
 
                 if(settings.select !== undefined || settings.multiSelect !== undefined){//AL repintar vigilar el select.
                     if(settings.select !== undefined){//AL repintar vigilar el select.
-                        if(settingsTable.select.selectedRowsPerPage !== undefined){
+                        if(settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined){
                             //viene de la navegacion buscar el id.
                             var line = 0;
                             var ctx = tabla.context[0];
@@ -1340,8 +1340,20 @@ import { PassThrough } from "stream";
                 if(settings.inlineEdit === undefined && settings.formEdit === undefined){
                     DataTable.Api().editForm.addchildIcons(settingsTable);
                 }
-
 			  });
+            
+            tabla.on('responsive-resize.dt', function (event, dt) {
+            	let ctx = dt.context[0];
+            	
+            	if(ctx.oInit.formEdit !== undefined && ctx.oInit.responsive !== undefined
+						&& ctx.oInit.responsive.selectorResponsive !== undefined){//si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+                    DataTable.Api().editForm.addchildIcons(ctx);
+                }
+            	
+                if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+                    DataTable.Api().editForm.addchildIcons(ctx);
+                }
+            });
 			
             tabla.on( 'destroy', function (e,settingsTable) {
 
