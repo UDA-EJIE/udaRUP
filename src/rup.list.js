@@ -369,11 +369,12 @@
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
-                    if (opciones.isScrollList) {
-                        self.element.prepend(item);
-                    } else {
-                        self.element.append(item);
-                    }
+                    // if (opciones.isScrollList) {
+                    //     self.element.prepend(item);
+                    // } else {
+                    //     self.element.append(item);
+                    // }
+                    self.element.append(item);
                 });
 
                 /**
@@ -486,50 +487,41 @@
          * @function
          */
         _scrollListInit: function () {
-            let self = this;
-            let opciones = self.options;
+            var self = this;
 
-            opciones._header.pagenav.hide();
-            opciones._footer.pagenav.hide();
+            self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
+            self.options.stepOnLoad = false;
 
-            // TODO: Crear una lista invisible para el target <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            var stepCounter = 0;
+            
+            $(window).on('scroll', function () {
+                var windowHeight = document.documentElement.clientHeight,
+                    targetOpciones = self.element[0].getBoundingClientRect(),
+                    targetHeight = targetOpciones.height,
+                    targetTopPoint = targetOpciones.top,
+                    targetButtomPoint = targetHeight + targetTopPoint + 150;
 
-            //se crea un div señal que habrá que detectar para cargar más elementos
-            let $scrollSignal = $('<div id="scrollSignal" ></div>');
-            // se inserta el div señal debajo del div que contendrá los elementos de la lista
-            $(self.element).after($scrollSignal);
-            //se crea un elemento nav que estará "oculto" con height:0 y width:0
-            //ya que si se utiliza el atributo hidden, scrollspy lo ignora
-            let $navElement = $('<nav id="rupListScrollspy" style="height:0px; width:0px;"><ul><li><a href="#scrollSignal"></a></li></ul></nav>');
-            //y se añade antes del div que contendrá los elementos de la lista
-            $(self.element).before($navElement);
-            // se cambia el elemento body añadiendo los atributos necesarios para que sea compatible con scrollspy
-            $('body').css({
-                'position': 'relative'
-            });
-            $('body').scrollspy({
-                target: '#rupListScrollspy'
-            });
-
-            //se establece el número de elementos totales a  mostrar
-            let numRegistros = this.rup_list().data().count();
-
-            //en el momento que se activa el elemento
-            $('#rupListScrollspy').on('activate.bs.scrollspy', function () {
-                //se establece el número de elementos mostrados
-                let registrosMostrados = $('.rup-list-item').length;
-                //se busca el atributo href del elemento activo
-                var activeElement = $(this).find('li.active a').attr('href');
-                //si el href coincide con el div señal 
-                //y el número de elementos mostrados es menor al número total de elementos
-                if (activeSection === '#scrollSignal' && registrosMostrados < numRegistros) {
-                    //se establece que la página con los items "a mostrar" sea la siguiente a la actual
-                    opciones.page = opciones.page + 1;
-                    //se hace un filter de la página nueva, con lo que carga el siguiente bloque de elementos
-                    self._doFilter();
+                self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
+                
+                if (self.options.stepLoad == self.options.page) {
+                    if (targetButtomPoint < windowHeight) {
+                        stepCounter++;
+                        if (stepCounter == 1) {
+                            if (self.element.children().length <= self.options.rowNum.value * self.options.page) {
+                                if (!self.options.stepOnLoad) {
+                                    self.options.stepOnLoad = true;
+                                    self.options.page++;
+                                    self._doFilter();
+                                    setTimeout(function () {
+                                        stepCounter = 0;
+                                        self.options.stepOnLoad = false;
+                                    }, 50 + (self.options.rowNum.value * 50));
+                                }
+                            }
+                        }
+                    }
                 }
             });
-
         },
 
         /**
@@ -1482,6 +1474,11 @@
                 }
             };
 
+            if (opciones.isScrollList) {
+                self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
+                self.options.stepOnLoad = false;
+            }
+
             // opciones.feedback.rup_feedback('hide');
 
             if ($('#' + opciones.filterForm).rup_form('valid')) {
@@ -1562,6 +1559,11 @@
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
                                 opciones._content.slideDown();
                             }
+                        }
+
+                        if (opciones.isScrollList) {
+                            $pagenavF.hide();
+                            $pagenavH.hide();
                         }
 
                         self.element
