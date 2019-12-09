@@ -816,9 +816,9 @@ describe('Test rup_calendar (default)', () => {
                     cal.on('afterShowCell', () => {
                         done();
                     });
-                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
+                    cal.rup_calendar('showCell', new Date(1543618800000));
                 });
-                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
+                cal.rup_calendar('navigate', new Date(1543618800000));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
                 expect($('#cal-slide-box').css('display')).toBe('block');
@@ -831,9 +831,9 @@ describe('Test rup_calendar (default)', () => {
                         cal.on('afterHideCell', done);
                         cal.rup_calendar('hideCells');
                     });
-                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
+                    cal.rup_calendar('showCell', new Date(1543618800000));
                 });
-                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
+                cal.rup_calendar('navigate', new Date(1543618800000));
             });
             it(' > Deben ocultarse los eventos desplegados', () => {
                 expect($('#cal-slide-box').css('display')).toBe('none');
