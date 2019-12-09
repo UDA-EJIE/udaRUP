@@ -29,15 +29,16 @@ import TabsStaticView from 'components/tabs/tabsStaticView';
 import WizardSimpleView from 'components/wizard/simple/wizardSimpleView';
 import WizardDynamicView from 'components/wizard/dynamic/wizardDynamicView';
 import ComboSimpleView from 'components/combo/comboSimple/comboSimpleView';
-import TableView from 'table/tableView';
-import JqtableFilterView from 'jqtable/jqtableFilterView';
+import TableEditInlineView from 'components/table/editInline/tableView';
+import TableEditFormView from 'components/table/editForm/tableView';
+import JqtableFilterView from 'components/jqtable/jqtableFilterView';
 import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHorizontalView';
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
 import CalendarView from 'components/calendar/calendarView';
-import ListView from 'list/listView';
-import ListDobleView from 'list/doble/listDobleView';
-import ListDialogView from 'list/dialog/listDialogView';
+import ListView from 'components/list/listView';
+import ListDobleView from 'components/list/doble/listDobleView';
+import ListDialogView from 'components/list/dialog/listDialogView';
 
 var RupResponsiveDemoApp = new Marionette.Application();
 
@@ -49,7 +50,8 @@ var MyRouter = Marionette.AppRouter.extend({
         'autocomplete' : 'autocomplete',
         'feedback' : 'feedback',
         'tooltip' : 'tooltip',
-        'datatable' : 'datatable',
+        'tableEditInline' : 'tableEditInline',
+        'tableEditForm' : 'tableEditForm',
         'message' : 'message',
         'dialog' : 'dialog',
         'progressbar' : 'progressbar',
@@ -101,8 +103,11 @@ var RouteController = Marionette.Controller.extend({
     tooltip: function() {
         RupResponsiveDemoApp.mainView.Container.show(new TooltipView());
     },
-    datatable: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new TableView());
+    tableEditInline: function() {
+        RupResponsiveDemoApp.mainView.Container.show(new TableEditInlineView());
+    },
+    tableEditForm: function() {
+        RupResponsiveDemoApp.mainView.Container.show(new TableEditFormView());
     },
     button: function(){
         RupResponsiveDemoApp.mainView.Container.show(new ButtonView());

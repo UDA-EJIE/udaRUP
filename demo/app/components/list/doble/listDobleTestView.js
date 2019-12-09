@@ -1,7 +1,7 @@
 /* eslint-env jquery,amd */
 define(['jquery', 'marionette',
     './listDobleTemplate.hbs',
-    '../../../../src/rup.list.js',
+    'rup.list',
     'rup.combo'
 ], function ($, Marionette, ListDobleTestTemplate) {
     var ListDobleTestView = Marionette.LayoutView.extend({

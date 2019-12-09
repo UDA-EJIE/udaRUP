@@ -5,7 +5,7 @@ define(['marionette',
     './listDialogJsTemplate.hbs',
     './listDialogBody',
     './listDialogTestView',
-    '../../shared/component/componentExampleCodeView',
+    '../../../shared/component/componentExampleCodeView',
     'rup.list'], function(Marionette, ListDialogLayoutTemplate, ListDialogTemplate, ListDialogJsTemplate, ListDialogBody, ListDialogTestView, ComponentExampleCodeView){
 
     var ListDialogView = Marionette.LayoutView.extend({

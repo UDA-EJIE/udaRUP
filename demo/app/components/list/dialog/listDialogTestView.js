@@ -1,7 +1,7 @@
 /* eslint-env jquery,amd */
 define(['jquery', 'marionette',
     './listDialogTemplate.hbs',
-    '../../../../src/rup.list.js',
+    'rup.list',
     'rup.combo',
     'rup.dialog'
 ], function ($, Marionette, ListDialogTestTemplate) {

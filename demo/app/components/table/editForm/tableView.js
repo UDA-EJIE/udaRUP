@@ -4,7 +4,7 @@ define(['marionette',
     './tableJsTemplate.hbs',
     './tableBody',
     './tableTestView',
-    '../shared/component/componentExampleCodeView',
+    '../../../shared/component/componentExampleCodeView',
     'rup_table/rup.table'], function(Marionette, TableLayoutTemplate, TableTemplate, TableJsTemplate, TableBody, TableTestView, ComponentExampleCodeView){
 
     var TableView = Marionette.LayoutView.extend({

@@ -1,6 +1,6 @@
 define(['jquery', 'marionette',
     './tableTemplate.hbs',
-    '../../../src/rup_table/rup.table.js',
+    'rup_table/rup.table',
     'rup.validate'
 ], function ($, Marionette, TableTestTemplate) {
     var TableTestView = Marionette.LayoutView.extend({
@@ -20,6 +20,10 @@ define(['jquery', 'marionette',
             multiSelect: {
                 style: 'multi'
             },
+            columnDefs: [{
+                'targets': [2],
+                'className': 'never'
+            }],
             colModel: [{
                 name: 'id',
                 index: 'id',

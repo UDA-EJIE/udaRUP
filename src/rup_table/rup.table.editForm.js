@@ -1423,17 +1423,19 @@
      *
      */
     function _addChildIcons(ctx) {
-        var fistColumn = true;
-        var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
-            if (fistColumn) { //La primera columna nunca se puede ocultar.
-                b = true;
-                fistColumn = false;
+        let hasHidden = false;
+        let columnsVisiblity = ctx.responsive._columnsVisiblity();
+        for (let i = 0; i < columnsVisiblity.length; i++) {
+            if (!columnsVisiblity[i]) {
+                if (!ctx.aoColumns[i].className || ctx.aoColumns[i].className.indexOf('never') < 0) {
+                    hasHidden = true;
+                }
             }
-            return b === false ? a + 1 : a;
-        }, 0);
+        }
+
         if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
             $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
-            if (count > 0) { //añadir span ala primera fila
+            if (hasHidden) { //añadir span ala primera fila
                 $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
                     var $span = $('<span/>');
                     if ($(this).find('span.openResponsive').length === 0) {

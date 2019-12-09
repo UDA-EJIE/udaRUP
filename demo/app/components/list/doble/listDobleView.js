@@ -5,7 +5,7 @@ define(['marionette',
     './listDobleJsTemplate.hbs',
     './listDobleBody',
     './listDobleTestView',
-    '../../shared/component/componentExampleCodeView',
+    '../../../shared/component/componentExampleCodeView',
     'rup.list'], function(Marionette, ListDobleLayoutTemplate, ListDobleTemplate, ListDobleJsTemplate, ListDobleBody, ListDobleTestView, ComponentExampleCodeView){
 
     var ListDobleView = Marionette.LayoutView.extend({

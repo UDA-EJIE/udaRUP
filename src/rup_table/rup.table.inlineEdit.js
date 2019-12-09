@@ -169,6 +169,10 @@
                 dt.ajax.reload(undefined, false);
             }
         };
+
+        $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
+            _addChildIcons(ctx);
+        }));
     };
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -356,12 +360,19 @@
      *
      */
     function _addChildIcons(ctx) {
-        var count = ctx.responsive.s.current.reduce(function (a, b) {
-            return b === false ? a + 1 : a;
-        }, 0);
+        let hasHidden = false;
+        let columnsVisiblity = ctx.responsive._columnsVisiblity();
+        for (let i = 0; i < columnsVisiblity.length; i++) {
+            if (!columnsVisiblity[i]) {
+                if (!ctx.aoColumns[i].className || ctx.aoColumns[i].className.indexOf('never') < 0) {
+                    hasHidden = true;
+                }
+            }
+        }
+
         if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
             $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
-            if (count > 0) { //añadir span ala primera fila
+            if (hasHidden) { //añadir span ala primera fila
                 $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
                     var $span = $('<span/>');
                     if ($(this).find('span.openResponsive').length === 0) {
