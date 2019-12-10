@@ -694,3 +694,10 @@ section>h1, section>h2, section>h3, section>h4, section>h5, section>h6 {
 .celdaEspacio {
 	width: 5em;
 }
+
+/* separador tabla double */
+@media (min-width: 1200px) {
+	.tableDoubleBorder {
+		border-left: 1px solid #343a40;
+	}
+}
