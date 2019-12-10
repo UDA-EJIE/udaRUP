@@ -382,7 +382,11 @@ handler that will select the items using the API methods.
                 if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
                 }
+                
                 var ctx = dt.settings()[0];
+                var row = $(event.target);
+
+                row.triggerHandler('tableSelectBeforeSelectRow');
                 
                 if ((event.shiftKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
                 	rangeSelection(dt, event);
@@ -404,6 +408,8 @@ handler that will select the items using the API methods.
 						});
 					}
     			}
+                
+                row.triggerHandler('tableSelectAfterSelectRow');
             });
     }
     
@@ -429,7 +435,10 @@ handler that will select the items using the API methods.
                     }
                     
                     var ctx = dt.settings()[0];
-                    
+                    var row = $(event.target);
+
+	                row.triggerHandler('tableSelectBeforeSelectRow');
+	                
                     if (event.shiftKey && event.which === 32) {
     		        	rangeSelection(dt, event);
         			} else if(ctx.multiselection.lastSelectedIsRange) {
@@ -439,14 +448,11 @@ handler that will select the items using the API methods.
         				// Se selecciona una fila si la propiedad 'hideMultiselect' es true
         		        if(ctx.oInit.multiSelect.hideMultiselect) {
         		        	// Solo selecciona si se pulsa sobre la barra espaciadora
-        		            if(event.which == 32){
-        	            		var row = $(event.target);
-        		            	
-        		                if(event.target.className.indexOf("openResponsive") > -1 
+        		            if(event.which === 32){
+        	            		if(event.target.className.indexOf("openResponsive") > -1 
         							|| row.hasClass('editable')){
         		                    return false;
         		                }
-        		                row.triggerHandler('tableSelectBeforeSelectRow');
         		                var idRow = row.index();
         		                
         		                // Se deselecciona
@@ -458,11 +464,12 @@ handler that will select the items using the API methods.
         		                else{ 
         		                	dt.row(idRow).multiSelect();
         		                }
-        		                row.triggerHandler('tableSelectAfterSelectRow');
         		            }
         		        }
     					rowSelection(dt, event);
                     }
+                    
+	                row.triggerHandler('tableSelectAfterSelectRow');
             	}
             });
     }
@@ -1633,10 +1640,6 @@ handler that will select the items using the API methods.
 
         return this.iterator('table', function (ctx) {
             ctx._multiSelect.selector = selector;
-
-            if (ctx._multiSelect.style !== 'api') {
-                enableMouseSelection(new DataTable.Api(ctx));
-            }
         });
     });
 
