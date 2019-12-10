@@ -2210,6 +2210,10 @@
     DataTable.Api.register('buttons.initButtons()', function (ctx, opts) {
         _initButtons(ctx, opts);
     });
+    
+    DataTable.Api.register('buttons.deleteNotForm()', function (dt) {
+    	 _deleteAllSelects(dt);
+    });
 
 
 
