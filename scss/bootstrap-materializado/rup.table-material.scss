@@ -147,6 +147,18 @@ table.dataTable thead {
 	}
 }*/
 
+/* SE HACE TRANSPARENTE LA SELECCION DE TEXTO PARA EVITAR
+   UN BUG VISUAL CUANDO SE SELECCIONA POR RANGOS */
+table.dataTable tbody {
+	td::-moz-selection {
+	  background-color: $no-color;
+	}
+	
+	td::selection {
+    	background-color: $no-color;
+	}
+}
+
 form + div.paginationContainer {
 	border-bottom-left-radius: 7px;
 	border-bottom-right-radius: 7px;

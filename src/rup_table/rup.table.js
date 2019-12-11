@@ -1275,11 +1275,11 @@
                     if(settings.searchPaginator){//Mirar el crear paginador
                         $self._createSearchPaginator($(this),settingsTable);
                         // Deshabilitamos los botones de paginacion si es necesario
-                        $.each($("ul.pagination li.recolocatedPagination_iconButton"),function( ){
-                            if($(this).hasClass("disabled")) {
-                                $("#" + this.id + " a").prop("tabindex", "-1");
+                        $.each($('ul.pagination li.recolocatedPagination_iconButton'),function( ){
+                            if($(this).hasClass('disabled')) {
+                                $('#' + this.id + ' a').prop('tabindex', '-1');
                             } else {
-                                $("#" + this.id + " a").prop("tabindex", "0");
+                                $('#' + this.id + ' a').prop('tabindex', '0');
                             }
                         });
                         //Si el seeker esta vacio ocultarlo
@@ -1295,7 +1295,7 @@
 
                     if (settings.select !== undefined || settings.multiSelect !== undefined) { //AL repintar vigilar el select.
                         if (settings.select !== undefined) { //AL repintar vigilar el select.
-                            if (settingsTable.select.selectedRowsPerPage !== undefined) {
+                            if(settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined){
                                 //viene de la navegacion buscar el id.
                                 var line = 0;
                                 var ctx = tabla.context[0];
@@ -1375,6 +1375,19 @@
                         DataTable.Api().editForm.addchildIcons(settingsTable);
                     }
 
+                });
+
+                tabla.on('responsive-resize.dt', function (event, dt) {
+                    let ctx = dt.context[0];
+                    
+                    if (ctx.oInit.formEdit !== undefined && ctx.oInit.responsive !== undefined &&
+                        ctx.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+                        DataTable.Api().editForm.addchildIcons(ctx);
+                    }
+                    
+                    if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+                        DataTable.Api().editForm.addchildIcons(ctx);
+                    }
                 });
 
                 tabla.on('destroy', function (e, settingsTable) {
@@ -1457,19 +1470,19 @@
 				'>' +
 			'>' +
 			'r',
-	    multiplePkToken: '~',
-	    primaryKey:["id"],
-	    blockPKeditForm: true,
-	    searchPaginator: true,
-	    pagingType: "full",
-	    createdRow: function( row, data, dataIndex, a, b, c ) {
-	        var ctx = $("#" + this[0].id).rup_table("getContext");
-	        
-	        if(ctx.oInit.select != undefined || ctx.oInit.multiSelect.hideMultiselect){
-	        	$(row).attr('tabindex', '0');
-	        }
-	    },
-	    columnDefs: [],
+        multiplePkToken: '~',
+        primaryKey: ['id'],
+        blockPKeditForm: true,
+        searchPaginator: true,
+        pagingType: 'full',
+        createdRow: function (row) {
+            var ctx = $('#' + this[0].id).rup_table('getContext');
+
+            if (ctx.oInit.select != undefined || ctx.oInit.multiSelect.hideMultiselect) {
+                $(row).attr('tabindex', '0');
+            }
+        },
+        columnDefs: [],
         adapter: 'table_material',
         order: [
             [1, 'asc']
