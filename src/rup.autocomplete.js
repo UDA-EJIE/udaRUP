@@ -137,7 +137,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 
 				// Comprobamos si tiene la referencia al campo hidden
 				if (data.$hiddenField) {
-					data.$hiddenField.attr('rup_autocomplete_label', value);
+					data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
 
 					loadObjects = $self.data('loadObjects');
 					newObject[value] = data.$hiddenField.val();
