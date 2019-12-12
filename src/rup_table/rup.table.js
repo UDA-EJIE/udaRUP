@@ -506,15 +506,16 @@ import { PassThrough } from "stream";
 			* @param {object} options Opciones del componente
 			*
 		  */
-        _ajaxOptions(options) {
+        _ajaxOptions(settings) {
 			
-            options.id = this[0].id;
-            $('#'+options.id).triggerHandler('tableFilterInitialize');
-            var ajaxData = {
-                'url': options.urls.filter,
+        	settings.id = this[0].id;
+            $('#'+settings.id).triggerHandler('tableFilterInitialize');
+            
+            let ajaxData = {
+                'url': settings.urls.filter,
                 'dataSrc': function ( json ) {
-                    var ret = {};
-                    $('#'+options.id).triggerHandler('tableFilterBeforeShow');
+                    let ret = {};
+                    $('#'+settings.id).triggerHandler('tableFilterBeforeShow');
                     json.recordsTotal = json.records;
                     json.recordsFiltered = json.records;
 
@@ -522,10 +523,9 @@ import { PassThrough } from "stream";
                     ret.recordsFiltered = json.records;
                     ret.data = json.rows;
 
-                    var table = $('#'+options.id).DataTable();
-                    var ctx = table.context[0];
-
-                    var settings = options;
+                    let table = $('#'+settings.id).DataTable();
+                    let ctx = table.context[0];
+                    
                     if(settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)){
                         DataTable.Api().rupTable.reorderDataFromServer(json,ctx);
                     }
@@ -552,7 +552,10 @@ import { PassThrough } from "stream";
                 'contentType': 'application/json',
                 'dataType': 'json'
             };
-
+            
+            if(settings.customError !== undefined) {
+            	ajaxData.error = settings.customError;
+            }
 
             return ajaxData;
         },
