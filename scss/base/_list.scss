@@ -7,7 +7,7 @@ $listColorNormal: #337ab7;
 $listColorDark: #204d71;
 
 .rup_list {
-    transition: all .5s ease;
+    // transition: all .5s ease;
 
     .list-item {
         border: 1px solid $checkbox-material-border-color;
@@ -39,8 +39,11 @@ $listColorDark: #204d71;
     position: fixed;
     top: 0;
     background-color: #ffffff;
-    z-index: 1000;
+    z-index: 80;
     width: calc(100% - 102px);
+    @media screen and (max-width: 768px) {
+        width: calc(100% - 78px);
+    }
 }
 
 .rup_list-header {
@@ -57,7 +60,7 @@ $listColorDark: #204d71;
     margin-left: 0;
     margin-right: 0;
     padding: .75rem 0;
-    transition: all .5s ease;
+    // transition: all .5s ease;
 
     button {
         height: 100%;

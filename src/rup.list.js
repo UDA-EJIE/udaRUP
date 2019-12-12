@@ -369,12 +369,8 @@
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
-                    // if (opciones.isScrollList) {
-                    //     self.element.prepend(item);
-                    // } else {
-                    //     self.element.append(item);
-                    // }
                     self.element.append(item);
+                    
                 });
 
                 /**
@@ -493,6 +489,14 @@
             self.options.stepOnLoad = false;
 
             var stepCounter = 0;
+
+            $(self.element).on('scrollListPageNext', function () {
+                return self.options.page++;
+            });
+
+            $(self.element).on('scrollListPagePrev', function () {
+                return self.options.page--;
+            });
             
             $(window).on('scroll', function () {
                 var windowHeight = document.documentElement.clientHeight,
@@ -510,7 +514,7 @@
                             if (self.element.children().length <= self.options.rowNum.value * self.options.page) {
                                 if (!self.options.stepOnLoad) {
                                     self.options.stepOnLoad = true;
-                                    self.options.page++;
+                                    $(self.element).trigger('scrollListPageNext');
                                     self._doFilter();
                                     setTimeout(function () {
                                         stepCounter = 0;
@@ -550,15 +554,13 @@
 
                 if (targetTopPoint < window.scrollHeight) {
                     opciones._header.obj.addClass('rup_list-sticky');
-                    opciones._header.obj.css({
-                        'top': window.scrollHeight
-                    });
+                    self.element.css({'padding-top': opciones._header.obj[0].offsetHeight});
+                    opciones._header.obj.css({'top': window.scrollHeight});
                 } else if (targetTopPoint >= window.scrollHeight) {
                     if (opciones._header.obj.hasClass('rup_list-sticky')) {
                         opciones._header.obj.removeClass('rup_list-sticky');
-                        opciones._header.obj.css({
-                            'top': 0
-                        });
+                        self.element.css({'padding-top': 0});
+                        opciones._header.obj.css({'top': 0});
                     }
                 }
             });
