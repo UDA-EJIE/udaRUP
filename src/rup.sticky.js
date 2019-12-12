@@ -81,17 +81,24 @@
             *
             */
         _navbarSticky() {
-            var headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0;
+            var headerOuterHeight = $('header').length !=0 ? $('header').outerHeight(true) : 0,
+                parent,
+                shadowElem = $('<div>', {id: 'shadow-elem-sticky'});
 
             window.scrollHeight = 0;
             $(window).scroll(function () {
                 headerOuterHeight = $('header').outerHeight();
+    
+                parent = $('.rup-navbar.navbar').parent();
+                parent.append(shadowElem);
 
                 if ($(this).scrollTop() < headerOuterHeight) {
                     if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
                         $('.rup-navbar.navbar').removeClass('rup-navbar-sticky');
+                        $('#shadow-elem-sticky').css({'padding-top': 0});
                     }
                 } else if ($(this).scrollTop() >= headerOuterHeight) {
+                    $('#shadow-elem-sticky').css({'padding-top': $('.rup-navbar.navbar')[0].offsetHeight});
                     $('.rup-navbar.navbar').addClass('rup-navbar-sticky');
                 }
             });
