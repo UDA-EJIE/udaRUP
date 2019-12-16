@@ -205,6 +205,12 @@ export function createListScroll(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
+export function createHeaderSticky(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isHeaderSticky = true;
+    $('#' + idLista).rup_list(opts);
+}
+
 export function createListMultiorder(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.isMultiSort = true;

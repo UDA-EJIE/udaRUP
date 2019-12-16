@@ -583,39 +583,55 @@ describe('Test rup_list', () => {
             });
         });
 
-        // describe('> Carga en Scroll', () => {
+        describe('> Carga Scroll', () => {
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createListScroll('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+                $('window, body').css({'height': '2000px'});
+                $('html, body').animate({scrollTop: 500}, 500);
+            });
+            afterAll(() => {
+                window.scrollTo(0, 0);
+            });
+            it('la Funcionalidad de carga:', () => {
+                jasmine.clock().install();
+                setTimeout(() => {
+                    window.scrollTo(0, 500);
+                    expect(window.pageYOffset).toEqual(500);
+                }, 51 + ($('#rup-list').children().length * 50));
+                jasmine.clock().tick(51 + ($('#rup-list').children().length * 50));
+                jasmine.clock().uninstall();
+                expect($('#rup-list').children().length).toEqual(11);
+            });
+            it('El bloque de paginación debe desaparecer:', () => {
+                expect($('#rup-list-header-nav').is(':visible')).toBe(false);
+                expect($('#rup-list-footer-nav').is(':visible')).toBe(false);
+            });
+        });
+        
+        // describe('> Header Sticky', () => {
         //     beforeAll((done) => {
         //         testutils.loadCss(done);
         //     });
         //     beforeEach((done) => {
-        //         listGen.createListScroll('rup-list', () => {
+        //         listGen.createHeaderSticky('rup-list', () => {
         //             $('#rup-list').on('load', done);
         //             $('#rup-list').rup_list('filter');
         //         });
+        //         $('window, body').css({'height': '2000px'});
+        //         $('html, body').animate({scrollTop: 500}, 500);
         //     });
-
-        //     it('El bloque de paginación debe desaparecer:', () => {
-        //         expect($('#rup-list-header-nav').is(':visible')).toBe(false);
-        //         expect($('#rup-list-footer-nav').is(':visible')).toBe(false);
+        //     afterAll(() => {
+        //         window.scrollTo(0, 0);
         //     });
-        //     it('Debe crear el div señal y colocarlo después del listado:', () => {
-        //         expect($('#scrollSignal').length).toBe(1);
-        //         expect($('#rup-list').next().attr('id').toBe('scrollSignal'));
-        //     });
-        //     it('Debe crear el nav señal y colocarlo antes del listado:', () => {
-        //         expect($('#rupListScrollspy').length).toBe(1);
-        //         expect($('#rup-list').previous().attr('id').toBe('rupListScrollspy'));
-        //         expect($('#rupListScrollspy').width().toBe(0));
-        //         expect($('#rupListScrollspy').height().toBe(0));
-        //     });
-        //     it('El body debe tener position relative y data-target apuntando al nav creado:', () => {
-        //         expect($('body').css('position').toBe('relative'));
-        //         expect($('body').scrollspy('target').toBe('#rupListScrollspy'));
-        //     });
-        //     it('El número de elementos mostrados en pantalla debe ser igual al total de elementos a mostrar:', () => {
-        //         expect($('.rup-list-item').length).toEqual($('#rup-list').rup_list().data().count());
+        //     it('El header debe tener el class:', () => {
+        //         expect($('#rup-list-header').hasClass('rup_list-sticky')).toEqual(true);
         //     });
         // });
-
     });
 });
