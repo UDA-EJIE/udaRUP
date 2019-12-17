@@ -70,6 +70,14 @@ define(['jquery', 'marionette',
             isMultiSort: true,
             // isScrollList: true,
             // isHeaderSticky: true,
+            // show: {
+            //     animation: 'fade',
+            //     delay: 1000
+            // },
+            // hide: {
+            //     animation: 'fade',
+            //     delay: 500
+            // },
             modElement: (ev, item, json) => {
                 var userVal = item.find('#usuario_value_' + json.codigoPK);
                 userVal.text(userVal.text() + ' :D');
