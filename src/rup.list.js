@@ -1654,26 +1654,34 @@
                             self._headerSticky.apply(self);
                         }
 
-                        function setOptionsShowCallback (elem) {
-                            if ($(elem).next().length == 0) {
-                                self.element.css('height', 'auto');
-                                self.element.trigger('load');
-                                if (opciones.isScrollList && opciones.stepOnLoad) {
-                                    self._unlock();
-                                }
-                                if (opciones.isScrollList) {
-                                    self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
-                                    self.options.stepOnLoad = false;
-                                } 
-                            }
-                        }
-
                         self.element
                             .children().each(function (i, e) {
                                 setTimeout(function () {
-                                    $(e).show(opciones.show.animation, {}, opciones.show.delay, setOptionsShowCallback(e));
+                                    $(e).show(opciones.show.animation, {}, opciones.show.delay, function () {
+                                        if ($(e).next().length == 0) {
+                                            self.element.css('height', 'auto');
+                                            self.element.trigger('load');
+                                            if (opciones.isScrollList && opciones.stepOnLoad) {
+                                                self._unlock();
+                                            }
+                                            if (opciones.isScrollList) {
+                                                self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
+                                                self.options.stepOnLoad = false;
+                                            } 
+                                        }
+                                    });
                                     if (!opciones.show.animation) {
-                                        setOptionsShowCallback(e);
+                                        if ($(e).next().length == 0) {
+                                            self.element.css('height', 'auto');
+                                            self.element.trigger('load');
+                                            if (opciones.isScrollList && opciones.stepOnLoad) {
+                                                self._unlock();
+                                            }
+                                            if (opciones.isScrollList) {
+                                                self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
+                                                self.options.stepOnLoad = false;
+                                            } 
+                                        }
                                     }
                                 }, 50 + (i * 50));
                             });
