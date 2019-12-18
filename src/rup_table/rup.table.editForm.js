@@ -1424,43 +1424,46 @@
      *
      */
     function _addChildIcons(ctx) {
-    	var fistColumn = true;
-        var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
-        	if(fistColumn){//La primera columna nunca se puede ocultar.
-        		b = true;
-        		fistColumn = false;
-        	}
-            return b === false ? a + 1 : a;
-        }, 0);
-        if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
-            $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
-            if (count > 0) { //añadir span ala primera fila
-                $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-                    var $span = $('<span/>');
-                    if ($(this).find('span.openResponsive').length === 0) {
-                        $(this).prepend($span.addClass('openResponsive'));
-                    } else { //si ya existe se asigna el valor.
-                        $span = $(this).find('span.openResponsive');
-                    }
-                    if ($(this).parent().next().hasClass('child')) {
-                        $span.addClass('closeResponsive');
-                    }
-                    var $fila = $(this).parent();
-                    $span.click(function (event) {
-                        if ($fila.hasClass('editable') && $fila.find('.closeResponsive').length) { //no se hace nada. si esta editando
-                            event.stopPropagation();
-                        } else {
-                            if ($span.hasClass('closeResponsive')) {
-                                $span.removeClass('closeResponsive');
-                            } else {
-                                $span.addClass('closeResponsive');
-                            }
-                        }
-                    });
-                });
-            }
-        }
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+    	try {
+	    	var fistColumn = true;
+	        var count = ctx.responsive._columnsVisiblity().reduce(function (a, b) {
+	        	if(fistColumn){//La primera columna nunca se puede ocultar.
+	        		b = true;
+	        		fistColumn = false;
+	        	}
+	            return b === false ? a + 1 : a;
+	        }, 0);
+	        if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
+	            $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
+	            if (count > 0) { //añadir span ala primera fila
+	                $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
+	                    var $span = $('<span/>');
+	                    if ($(this).find('span.openResponsive').length === 0) {
+	                        $(this).prepend($span.addClass('openResponsive'));
+	                    } else { //si ya existe se asigna el valor.
+	                        $span = $(this).find('span.openResponsive');
+	                    }
+	                    if ($(this).parent().next().hasClass('child')) {
+	                        $span.addClass('closeResponsive');
+	                    }
+	                    var $fila = $(this).parent();
+	                    $span.click(function (event) {
+	                        if ($fila.hasClass('editable') && $fila.find('.closeResponsive').length) { //no se hace nada. si esta editando
+	                            event.stopPropagation();
+	                        } else {
+	                            if ($span.hasClass('closeResponsive')) {
+	                                $span.removeClass('closeResponsive');
+	                            } else {
+	                                $span.addClass('closeResponsive');
+	                            }
+	                        }
+	                    });
+	                });
+	            }
+	        }
+	        
+	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+        } catch(error) {}
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
