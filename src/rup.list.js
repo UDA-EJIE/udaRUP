@@ -171,6 +171,7 @@
             sord: 'asc',
             visiblePages: 5,
             createFooter: true,
+            loader: () => {},
             modElement: () => {},
             load: function () {}
         },
@@ -272,12 +273,7 @@
                 /**
                  * OVERLAY (Lock & Unlock)
                  */
-                opciones._idOverlay = selfId + '-overlay';
-                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '" class="rup_list-overlay"/>');
-                opciones._overlay
-                    .append('<div class="rup_list-overlay-layer"/>')
-                    .append('<div class="rup_list-overlay-loader"/>');
-                opciones._overlay.addClass('rup_list-overlay');
+                self._loader.apply(self);
 
                 /**
                  * FEEDBACK
@@ -567,6 +563,25 @@
                     }
                 }
             });
+        },
+
+        /**
+         * Método que crea el loader
+         * @name _loader
+         * @function
+         */
+        _loader: function () {
+            const self = this;
+            const opciones = self.options;
+            const selfId = self.element.attr('id');
+
+            if (!opciones._overlay) {
+                opciones._idOverlay = selfId + '-overlay';
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '" class="rup_list-overlay"/>');
+                opciones._overlay.append('<div class="rup_list-overlay-layer"/>').append('<div class="rup_list-overlay-loader"/>');
+            }
+
+            opciones.loader(opciones._overlay);
         },
         
         /**

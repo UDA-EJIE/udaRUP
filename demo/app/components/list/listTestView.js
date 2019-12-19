@@ -78,6 +78,10 @@ define(['jquery', 'marionette',
             //     animation: 'fade',
             //     delay: 500
             // },
+            // loader: (ui) => {
+            //     ui.children().remove();
+            //     ui.append('loading...').css('text-align', 'center');
+            // },
             modElement: (ev, item, json) => {
                 var userVal = item.find('#usuario_value_' + json.codigoPK);
                 userVal.text(userVal.text() + ' :D');
