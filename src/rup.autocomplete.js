@@ -797,8 +797,8 @@ input.
 					}
 					$('#' + settings.id).attr('rup_autocomplete_label', selected_value);
 					$('#' + settings.id).data('selected', true);
-					$self.triggerHandler('rupAutocomplete_select', [ui]);
 					$('#' + settings.id).val(ui.item.value);
+					$self.triggerHandler('rupAutocomplete_select', [ui]);
 					return false;
 				};
 				settings.focus = function (event, ui) {
