@@ -606,7 +606,7 @@ describe('Test rup_list', () => {
                 }, 51 + ($('#rup-list').children().length * 50));
                 jasmine.clock().tick(51 + ($('#rup-list').children().length * 50));
                 jasmine.clock().uninstall();
-                expect($('#rup-list').children().length).toEqual(11);
+                expect($('#rup-list').children().length).toEqual(10);
             });
             it('El bloque de paginación debe desaparecer:', () => {
                 expect($('#rup-list-header-nav').is(':visible')).toBe(false);

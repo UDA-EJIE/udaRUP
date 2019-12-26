@@ -487,7 +487,7 @@
             self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
             self.options.stepOnLoad = false;
 
-            var stepCounter = 0;
+            self.options.stepCounter = 0;
 
             $(self.element).on('scrollListPageNext', function () {
                 return self.options.page++;
@@ -508,17 +508,14 @@
                 
                 if (self.options.stepLoad == self.options.page) {
                     if (targetButtomPoint < windowHeight) {
-                        stepCounter++;
-                        if (stepCounter == 1) {
+                        self.options.stepCounter++;
+                        if (self.options.stepCounter == 1) {
                             if (self.element.children().length <= self.options.rowNum.value * self.options.page) {
                                 if (!self.options.stepOnLoad) {
                                     self.options.stepOnLoad = true;
                                     self._lock();
                                     $(self.element).trigger('scrollListPageNext');
                                     self._doFilter();
-                                    setTimeout(function () {
-                                        stepCounter = 0;
-                                    }, 50 + (self.options.rowNum.value * 50));
                                 }
                             }
                         }
@@ -1455,22 +1452,23 @@
             
             if (opciones.isScrollList && opciones.stepOnLoad) {
                 $('#' + opciones._idOverlay).remove();
-                opciones._overlay.appendTo(opciones._content.find('#rup-list'));
-                opciones._footer.obj.css('margin-top', 220 + 'px');
-
-                opciones._overlay.height(220);
+                opciones._overlay.css({
+                    'position': 'relative',
+                    'height': 'auto'
+                });
+                self.element.after(opciones._overlay);
             } else {
                 opciones._header.obj.css('opacity', '0.3');
                 self.element.css('opacity', '0.3');
                 opciones._footer.obj.css('opacity', '0.3');
 
                 $('#' + opciones._idOverlay).remove();
-                opciones._overlay.prependTo(opciones._content);
-    
+                opciones._overlay.css({
+                    'position': 'absolute'
+                });
+                opciones._content.prepend(opciones._overlay);
                 opciones._overlay.height(opciones._content.height());
             }
-
-            
         },
 
         /**
@@ -1487,10 +1485,6 @@
             self.element.css('opacity', '1');
             opciones._footer.obj.css('opacity', '1');
             $('#' + opciones._idOverlay).remove();
-
-            if (opciones.isScrollList && opciones.stepOnLoad) {
-                opciones._footer.obj.css('margin-top', '0');
-            }
         },
 
         /**
@@ -1682,6 +1676,7 @@
                                             if (opciones.isScrollList) {
                                                 self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
                                                 self.options.stepOnLoad = false;
+                                                self.options.stepCounter = 0;
                                             } 
                                         }
                                     });
@@ -1695,6 +1690,7 @@
                                             if (opciones.isScrollList) {
                                                 self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
                                                 self.options.stepOnLoad = false;
+                                                self.options.stepCounter = 0;
                                             } 
                                         }
                                     }
