@@ -685,7 +685,9 @@
 
         try {
             feedback.rup_feedback('destroy');
-        } catch (ex) {}
+        } catch (ex) {
+            console.error(ex);
+        }
 
         feedback.rup_feedback({
             message: msgFeedBack,
@@ -1423,45 +1425,48 @@
      *
      */
     function _addChildIcons(ctx) {
-        let hasHidden = false;
-        let columnsVisiblity = ctx.responsive._columnsVisiblity();
-        for (let i = 0; i < columnsVisiblity.length; i++) {
-            if (!columnsVisiblity[i]) {
-                if (!ctx.aoColumns[i].className || ctx.aoColumns[i].className.indexOf('never') < 0) {
-                    hasHidden = true;
+        try {
+            let hasHidden = false;
+            let columnsVisiblity = ctx.responsive._columnsVisiblity();
+            for (let i = 0; i < columnsVisiblity.length; i++) {
+                if (!columnsVisiblity[i]) {
+                    if (!ctx.aoColumns[i].className || ctx.aoColumns[i].className.indexOf('never') < 0) {
+                        hasHidden = true;
+                    }
                 }
             }
-        }
 
-        if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
-            $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
-            if (hasHidden) { //añadir span ala primera fila
-                $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-                    var $span = $('<span/>');
-                    if ($(this).find('span.openResponsive').length === 0) {
-                        $(this).prepend($span.addClass('openResponsive'));
-                    } else { //si ya existe se asigna el valor.
-                        $span = $(this).find('span.openResponsive');
-                    }
-                    if ($(this).parent().next().hasClass('child')) {
-                        $span.addClass('closeResponsive');
-                    }
-                    var $fila = $(this).parent();
-                    $span.click(function (event) {
-                        if ($fila.hasClass('editable') && $fila.find('.closeResponsive').length) { //no se hace nada. si esta editando
-                            event.stopPropagation();
-                        } else {
-                            if ($span.hasClass('closeResponsive')) {
-                                $span.removeClass('closeResponsive');
-                            } else {
-                                $span.addClass('closeResponsive');
-                            }
+            if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
+                $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
+                if (hasHidden) { //añadir span ala primera fila
+                    $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
+                        var $span = $('<span/>');
+                        if ($(this).find('span.openResponsive').length === 0) {
+                            $(this).prepend($span.addClass('openResponsive'));
+                        } else { //si ya existe se asigna el valor.
+                            $span = $(this).find('span.openResponsive');
                         }
+                        if ($(this).parent().next().hasClass('child')) {
+                            $span.addClass('closeResponsive');
+                        }
+                        var $fila = $(this).parent();
+                        $span.click(function (event) {
+                            if ($fila.hasClass('editable') && $fila.find('.closeResponsive').length) { //no se hace nada. si esta editando
+                                event.stopPropagation();
+                            } else {
+                                if ($span.hasClass('closeResponsive')) {
+                                    $span.removeClass('closeResponsive');
+                                } else {
+                                    $span.addClass('closeResponsive');
+                                }
+                            }
+                        });
                     });
-                });
+                }
             }
-        }
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+
+            $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+        } catch (error) {}
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

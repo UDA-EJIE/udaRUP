@@ -3504,7 +3504,9 @@
         var defaultButtons = api.init().buttons || DataTable.defaults.buttons;
         var numOfSelectedRows = ctx.multiselection.numSelected;
         var collectionObject;
-
+        
+        $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeToolbarInit');
+        
         if ($('#' + ctx.sTableId + '_filter_form').length > 0) {
             new Buttons(api, defaultButtons).container().insertBefore($('#' + ctx.sTableId + '_filter_form'));
         } else {
@@ -3526,7 +3528,8 @@
             ctx._buttons[0].inst.s.disableAllButttons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
         }
-
+        
+        $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterToolbarInit');
     }
 
     // DataTables `dom` feature option

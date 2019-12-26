@@ -523,15 +523,16 @@
          * @param {object} options Opciones del componente
          *
          */
-        _ajaxOptions(options) {
+        _ajaxOptions(settings) {
 
-            options.id = this[0].id;
-            $('#' + options.id).triggerHandler('tableFilterInitialize');
-            var ajaxData = {
-                'url': options.urls.filter,
+            settings.id = this[0].id;
+            $('#' + settings.id).triggerHandler('tableFilterInitialize');
+
+            let ajaxData = {
+                'url': settings.urls.filter,
                 'dataSrc': function (json) {
-                    var ret = {};
-                    $('#' + options.id).triggerHandler('tableFilterBeforeShow');
+                    let ret = {};
+                    $('#' + settings.id).triggerHandler('tableFilterBeforeShow');
                     json.recordsTotal = json.records;
                     json.recordsFiltered = json.records;
 
@@ -539,10 +540,9 @@
                     ret.recordsFiltered = json.records;
                     ret.data = json.rows;
 
-                    var table = $('#' + options.id).DataTable();
-                    var ctx = table.context[0];
+                    let table = $('#' + settings.id).DataTable();
+                    let ctx = table.context[0];
 
-                    var settings = options;
                     if (settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)) {
                         DataTable.Api().rupTable.reorderDataFromServer(json, ctx);
                     }
@@ -570,6 +570,9 @@
                 'dataType': 'json'
             };
 
+            if (settings.customError !== undefined) {
+                ajaxData.error = settings.customError;
+            }
 
             return ajaxData;
         },
@@ -600,8 +603,8 @@
                 ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
                 data.seeker = {};
                 data.seeker.selectedIds = [];
-                $.each(ctx.seeker.search.funcionParams,function(index,p) {
-                    data.seeker.selectedIds.splice(index,0,DataTable.Api().rupTable.getIdPk(p.pk,ctx.oInit));
+                $.each(ctx.seeker.search.funcionParams, function (index, p) {
+                    data.seeker.selectedIds.splice(index, 0, DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit));
                 });
             }
 
@@ -963,7 +966,7 @@
 
                     //VALUE
                     fieldValue = ' = ';
-                    
+
                     switch ($(field)[0].tagName) {
                     case 'INPUT':
                         fieldValue = fieldValue + $(field).val();
@@ -1125,7 +1128,7 @@
                     content: {
                         text: id.text()
                     },
-                    show:{
+                    show: {
                         event: 'mouseover'
                     },
                     position: {
@@ -1270,13 +1273,13 @@
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     $self._createTooltip($(this));
                 });
-                
-                tabla.on( 'draw', function (e,settingsTable) {
-                    if(settings.searchPaginator){//Mirar el crear paginador
-                        $self._createSearchPaginator($(this),settingsTable);
+
+                tabla.on('draw', function (e, settingsTable) {
+                    if (settings.searchPaginator) { //Mirar el crear paginador
+                        $self._createSearchPaginator($(this), settingsTable);
                         // Deshabilitamos los botones de paginacion si es necesario
-                        $.each($('ul.pagination li.recolocatedPagination_iconButton'),function( ){
-                            if($(this).hasClass('disabled')) {
+                        $.each($('ul.pagination li.recolocatedPagination_iconButton'), function () {
+                            if ($(this).hasClass('disabled')) {
                                 $('#' + this.id + ' a').prop('tabindex', '-1');
                             } else {
                                 $('#' + this.id + ' a').prop('tabindex', '0');
@@ -1295,7 +1298,7 @@
 
                     if (settings.select !== undefined || settings.multiSelect !== undefined) { //AL repintar vigilar el select.
                         if (settings.select !== undefined) { //AL repintar vigilar el select.
-                            if(settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined){
+                            if (settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined) {
                                 //viene de la navegacion buscar el id.
                                 var line = 0;
                                 var ctx = tabla.context[0];
@@ -1358,10 +1361,10 @@
                                 ctx.oInit.inlineEdit.rowDefault = undefined;
                             }
                             //	}
-                        }else if(ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0){
-                            var rowsBody = $( ctx.nTBody);
-                            var $tr = $('tr:nth-child(1)',rowsBody);
-                            if(DataTable.Api().rupTable.getIdPk(ctx.json.rows[0],ctx.oInit) === ctx.multiselection.selectedRowsPerPage[0].id){
+                        } else if (ctx.oInit.select !== undefined && ctx.multiselection.selectedRowsPerPage.length > 0) {
+                            var rowsBody = $(ctx.nTBody);
+                            var $tr = $('tr:nth-child(1)', rowsBody);
+                            if (DataTable.Api().rupTable.getIdPk(ctx.json.rows[0], ctx.oInit) === ctx.multiselection.selectedRowsPerPage[0].id) {
                                 $tr.addClass('selected tr-highlight');
                             }
                         }
@@ -1379,13 +1382,13 @@
 
                 tabla.on('responsive-resize.dt', function (event, dt) {
                     let ctx = dt.context[0];
-                    
+
                     if (ctx.oInit.formEdit !== undefined && ctx.oInit.responsive !== undefined &&
                         ctx.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
                         DataTable.Api().editForm.addchildIcons(ctx);
                     }
-                    
-                    if(settings.inlineEdit === undefined && settings.formEdit === undefined){
+
+                    if (settings.inlineEdit === undefined && settings.formEdit === undefined) {
                         DataTable.Api().editForm.addchildIcons(ctx);
                     }
                 });
@@ -1422,7 +1425,7 @@
 
                 //Se audita el componente
                 $.rup.auditComponent('rup_table', 'init');
-            
+
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
@@ -1461,15 +1464,15 @@
             selectorResponsive: 'td span.dtr-data'
         },
         dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-			't<"container-fluid paginationContainer"' +
-				'<"row"' +
-					'<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-					'<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-					'<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
-					'<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
-				'>' +
-			'>' +
-			'r',
+            't<"container-fluid paginationContainer"' +
+            '<"row"' +
+            '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
+            '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
+            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+            '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
+            '>' +
+            '>' +
+            'r',
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
