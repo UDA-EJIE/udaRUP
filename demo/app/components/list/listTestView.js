@@ -78,6 +78,7 @@ define(['jquery', 'marionette',
             //     animation: 'fade',
             //     delay: 500
             // },
+            // print: './print.css',
             // loader: (ui) => {
             //     ui.children().remove();
             //     ui.append('loading...').css('text-align', 'center');

@@ -375,6 +375,13 @@
                 self._pagenavInit.apply(self);
 
                 /**
+                 * PRINT
+                 */
+                if (opciones.print) {
+                    self._print.apply(self);
+                }
+
+                /**
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
@@ -579,6 +586,27 @@
             }
 
             opciones.loader(opciones._overlay);
+        },
+
+        /**
+         * Método para iniciar los estilos
+         * @name _print
+         * @function
+         */
+        _print: function () {
+            const self = this;
+            const opciones = self.options;
+
+            var tagPrint = $('<link>', {
+                'id': 'rup-list-print',
+                'rel': 'stylesheet',
+                'media': 'print',
+                'href': opciones.print
+            });
+
+            if ($('#rup-list-print').length == 0) {
+                $('head').prepend(tagPrint);
+            }
         },
         
         /**

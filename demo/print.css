@@ -1,0 +1,57 @@
+@media print and (orientation: portrait) {
+    div#header,
+    div#language,
+    div#menu,
+    div#overlay,
+    div#breadCrumb,
+    div#listMainBody,
+    div#listTest h2,
+    fieldset.p-4,
+    div#rup-list-feedback,
+    div#listCode,
+    div#footer,
+    h4 {
+        display: none;
+        visibility:hidden;
+    }
+    
+    div#container {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    div.rup_list-sticky {
+        position: relative;
+        width: 100%;
+    }
+}
+
+@media print and (orientation: landscape) {
+    div#header,
+    div#language,
+    div#menu,
+    div#overlay,
+    div#breadCrumb,
+    div#listMainBody,
+    div#listTest h2,
+    fieldset.p-4,
+    div#rup-list-feedback,
+    div#listCode,
+    div#footer,
+    h4 {
+        display: none;
+        visibility:hidden;
+    }
+
+    div#container {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    div.rup_list-sticky {
+        position: relative;
+        width: 100%;
+    }
+}
