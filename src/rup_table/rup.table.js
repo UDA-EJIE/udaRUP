@@ -1213,10 +1213,10 @@ import { PassThrough } from "stream";
                     },
                     selectorResponsive: 'td span.dtr-data'};		
 					
-                settings.responsive = responsive;;
+                settings.responsive = responsive;
             }
-            //se añaden los css para las flechas.
-            $.each($('#'+$self[0].id+' thead th'),function( ){
+            // Se añaden los CSS para las flechas.
+            $.each($('#'+$self[0].id+' thead th'),function(){
                 var titulo = $(this).text();
                 $(this).text('');
                 var span1 = $("<span/>").addClass('d-block d-xl-inline').text(titulo);
