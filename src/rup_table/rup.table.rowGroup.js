@@ -227,18 +227,19 @@ $.extend( RowGroup.prototype, {
 				trCreate.insertBefore( firstRow.node() );
 				
 				$('td',trCreate).prepend(span);
-				span.click(function () {
-					var position = Number(this.getAttribute('identificador'));
-					if($(this).hasClass('ui-icon-circlesmall-minus')){
-						$(this.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).hide();
-						$(this).addClass('ui-icon-circlesmall-plus');
-						$(this).removeClass('ui-icon-circlesmall-minus');
+				trCreate.click(function () {
+					let span = $(this).find('span')[0];
+					let position = Number(span.getAttribute("identificador"));
+					if($(span).hasClass('ui-icon-circlesmall-minus')){
+						$(span.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).hide();
+						$(span).addClass('ui-icon-circlesmall-plus');
+						$(span).removeClass('ui-icon-circlesmall-minus');
 					}else{
-						$(this.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).show();
-						$(this).addClass('ui-icon-circlesmall-minus');
-						$(this).removeClass('ui-icon-circlesmall-plus');
+						$(span.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).show();
+						$(span).addClass('ui-icon-circlesmall-minus');
+						$(span).removeClass('ui-icon-circlesmall-plus');
 					}
-					$(this).triggerHandler('tablaGroupingClickGroup');
+					$(span).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 
@@ -250,18 +251,19 @@ $.extend( RowGroup.prototype, {
 				trCreate.insertAfter( dt.row( group[ group.length-1 ] ).node() );
 				
 				$('td',trCreate).prepend(span);
-				span.click(function () {
-					var position = Number(this.getAttribute('identificador'));
-					if($(this).hasClass('ui-icon-circlesmall-minus')){
-						$(this.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).hide();
-						$(this).addClass('ui-icon-circlesmall-plus');
-						$(this).removeClass('ui-icon-circlesmall-minus');
+				trCreate.click(function () {
+					let span = $(this).find('span')[0];
+					let position = Number(span.getAttribute("identificador"));
+					if($(span).hasClass('ui-icon-circlesmall-minus')){
+						$(span.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).hide();
+						$(span).addClass('ui-icon-circlesmall-plus');
+						$(span).removeClass('ui-icon-circlesmall-minus');
 					}else{
-						$(this.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).show();
-						$(this).addClass('ui-icon-circlesmall-minus');
-						$(this).removeClass('ui-icon-circlesmall-plus');
+						$(span.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).show();
+						$(span).addClass('ui-icon-circlesmall-minus');
+						$(span).removeClass('ui-icon-circlesmall-plus');
 					}
-					$(this).triggerHandler('tablaGroupingClickGroup');
+					$(span).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 		}
