@@ -375,13 +375,6 @@
                 self._pagenavInit.apply(self);
 
                 /**
-                 * PRINT
-                 */
-                if (opciones.print) {
-                    self._print.apply(self);
-                }
-
-                /**
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
@@ -597,15 +590,64 @@
             const self = this;
             const opciones = self.options;
 
-            var tagPrint = $('<link>', {
-                'id': 'rup-list-print',
-                'rel': 'stylesheet',
-                'media': 'print',
-                'href': opciones.print
-            });
+            if ($('#listPrint').length == 0) {
+                var newBtnPrint = $('<button id="listPrint">Imprimir</button>');
+                newBtnPrint.appendTo($('#listFilterForm .float-right'));
+                newBtnPrint.on('click', btnPrintMain);
+            }
 
-            if ($('#rup-list-print').length == 0) {
-                $('head').prepend(tagPrint);
+
+            function btnPrintMain (e) {
+                e.preventDefault();
+                var winPrint = window.open('','_blank'),
+                    winContent,
+                    sidx = '',
+                    sord = '',
+                    filter = {
+                        filter: $('#' + opciones.filterForm).rup_form('formToJson'),
+                        page: opciones.page,
+                        rows: opciones.records,
+                        sidx: sidx,
+                        sord: sord,
+                        multiselection: opciones.multiselection,
+                        core: {
+                            pkNames: [opciones.key],
+                            pkToken: '~'
+                        }
+                    },
+                    tagPrint = $('<link>', {
+                        'id': 'rup-list-print',
+                        'rel': 'stylesheet',
+                        // 'media': 'print',
+                        'href': opciones.print
+                    });
+
+                if (opciones.isMultiSort) {
+                    sidx = opciones.multiorder.sidx;
+                    sord = opciones.multiorder.sord;
+                } else {
+                    sidx = opciones.sidx.value;
+                    sord = opciones.sord;
+                }
+
+                jQuery.rup_ajax({
+                    url: opciones.action,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: JSON.stringify(filter),
+                    contentType: 'application/json',
+                    success: function (xhr) {
+                        winContent = $('<div id="rup-list-print" class="rup_list-print">');
+                        for (var i = 0; i < xhr.rows.length; i++) {
+                            winContent.append($('<p id="rup-list-print-item" class="rup_list-print-item">' + xhr.rows[i].usuario+ '</p>'));
+                        }
+                        winContent = winContent[0].outerHTML;
+                        tagPrint = tagPrint[0].outerHTML;
+                        winPrint.document.write(winContent);
+                        $(winPrint.document.head).append(tagPrint);
+                        // winPrint.print();
+                    }
+                });
             }
         },
         
@@ -1630,6 +1672,7 @@
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
+                                opciones.records = records;
                                 var msgRecords =
                                     $.rup.i18nTemplate($.rup.i18n.base.rup_table.defaults, 'recordtext', initRecord, endRecord, records);
                                 opciones.feedback.rup_feedback({});
@@ -1689,6 +1732,10 @@
 
                         if (opciones.isHeaderSticky) {
                             self._headerSticky.apply(self);
+                        }
+
+                        if (opciones.print) {
+                            self._print.apply(self);
                         }
 
                         self.element
