@@ -583,12 +583,12 @@ describe('Test rup_list', () => {
             });
         });
 
-        describe('> Carga Scroll', () => {
+        describe('> Carga Scroll x5', () => {
             beforeAll((done) => {
                 testutils.loadCss(done);
             });
             beforeEach((done) => {
-                listGen.createListScroll('rup-list', () => {
+                listGen.createListScrollx5('rup-list', () => {
                     $('#rup-list').on('load', done);
                     $('#rup-list').rup_list('filter');
                 });
@@ -606,7 +606,38 @@ describe('Test rup_list', () => {
                 }, 51 + ($('#rup-list').children().length * 50));
                 jasmine.clock().tick(51 + ($('#rup-list').children().length * 50));
                 jasmine.clock().uninstall();
-                expect($('#rup-list').children().length).toEqual(10);
+                expect($('#rup-list').children().length).toEqual(10 + $('#rup-list').find('.ui-effects-placeholder').length);
+            });
+            it('El bloque de paginación debe desaparecer:', () => {
+                expect($('#rup-list-header-nav').is(':visible')).toBe(false);
+                expect($('#rup-list-footer-nav').is(':visible')).toBe(false);
+            });
+        });
+
+        describe('> Carga Scroll x10', () => {
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createListScrollx10('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+                $('window, body').css({'height': '2000px'});
+                $('html, body').animate({scrollTop: 100}, 300);
+            });
+            afterAll(() => {
+                window.scrollTo(0, 0);
+            });
+            it('la Funcionalidad de carga:', () => {
+                jasmine.clock().install();
+                setTimeout(() => {
+                    window.scrollTo(0, 500);
+                    expect(window.pageYOffset).toEqual(500);
+                }, 51 + ($('#rup-list').children().length * 50));
+                jasmine.clock().tick(51 + ($('#rup-list').children().length * 50));
+                jasmine.clock().uninstall();
+                expect($('#rup-list').children().length).toEqual(20 + $('#rup-list').find('.ui-effects-placeholder').length);
             });
             it('El bloque de paginación debe desaparecer:', () => {
                 expect($('#rup-list-header-nav').is(':visible')).toBe(false);
@@ -630,7 +661,7 @@ describe('Test rup_list', () => {
         //         window.scrollTo(0, 0);
         //     });
         //     it('El header debe tener el class:', () => {
-        //         expect($('#rup-list-header').hasClass('rup_list-sticky')).toEqual(true);
+        //         expect($('#rup-list-header').hasClass('rup_list-sticky')).toEqual(false);
         //     });
         // });
     });

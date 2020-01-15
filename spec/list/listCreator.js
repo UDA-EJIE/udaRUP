@@ -199,9 +199,17 @@ export function createList(idLista, callback){
     $('#' + idLista).rup_list(opts);
 } 
 
-export function createListScroll(idLista, callback){
+export function createListScrollx5(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.isScrollList = true;
+    opts.rowNum.value = 5;
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createListScrollx10(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isScrollList = true;
+    opts.rowNum.value = 10;
     $('#' + idLista).rup_list(opts);
 }
 
@@ -210,6 +218,15 @@ export function createHeaderSticky(idLista, callback){
     opts.isHeaderSticky = true;
     $('#' + idLista).rup_list(opts);
 }
+
+// export function createLoader(idLista, callback){
+//     let opts = commonListCreator(idLista, callback);
+//     opts.loader = (ui) => {
+//         ui.children().remove();
+//         ui.append('loading...').css('text-aligh', 'center');
+//     };
+//     $('#' + idLista).rup_list(opts);
+// }
 
 export function createListMultiorder(idLista, callback){
     let opts = commonListCreator(idLista, callback);
