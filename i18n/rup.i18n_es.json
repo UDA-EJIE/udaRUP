@@ -84,6 +84,7 @@
     "metodError": "Error en el método:",
     "parameterError": "Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
     "parametro": "Parametro: ",
+    "charError": "Carácter no aceptable",
     "rupCheckStyleError": "NO SE CUMPLEN LAS NORMAS DE LA GUIA DE ESTILOS DE RUP. DEBE EXISTIR UNA ACCIÓN SECUNDARIA.",
     "save": "Guardar",
     "save_repeat": "Guardar y continuar",

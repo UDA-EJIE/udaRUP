@@ -84,6 +84,7 @@
     "metodError": "Metodoan Errorea:",
     "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
     "parametro": "eu_Parametro: ",
+    "charError": "eu_Caracter no aceptable",
     "rupCheckStyleError": "RUP ESTILOEN GIDAKO ARAUAK EZ DIRA BETETZEN. BIGARREN MAILAKO EKINTZA BAT BEHARREZKOA DA.",
     "save": "Gorde",
     "save_repeat": "Gorde eta jarraitu",

@@ -301,7 +301,12 @@
 			for (var i = 0; i < nvp.length; i++) {
 				pair = nvp[i].split('=');
 				name = decodeURIComponent(pair[0]);
-				value = decodeURIComponent(pair[1]);
+				try {
+					value = decodeURIComponent(pair[1]);
+				}
+				catch(error) {
+					return false;
+				}
 
 				path = name.match(/(^[^\[]+)(\[.*\]$)?/);
 				first = path[1];

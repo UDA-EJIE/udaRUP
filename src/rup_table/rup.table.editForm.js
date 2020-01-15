@@ -449,12 +449,26 @@
 
             // Verificar los checkbox vacíos.
             row = _returnCheckEmpty(idForm, _editFormSerialize(idForm));
-
+            
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
-            ctx.oInit.formEdit.okCallBack = true;
-
-            _callSaveAjax(actionType, dt, row, idRow, false, ctx.oInit.formEdit.detailForm, '');
+            
+        	let idTableDetail = ctx.oInit.formEdit.detailForm;
+            
+            // Muestra un feedback de error por caracter ilegal
+            if(!row) {
+            	ctx.oInit.formEdit.okCallBack = false;
+            	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+            	let divErrorFeedback = feed;
+                if (divErrorFeedback.length === 0) {
+                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                }
+                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+            } else {
+            	ctx.oInit.formEdit.okCallBack = true;
+            	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
+            }
         });
 
 
