@@ -196,6 +196,7 @@ $.extend( RowGroup.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+		var ctx = dt.context[0];
 		var rows = dt.rows( { page: 'current' } );
 		var groupedRows = [];
 		var last, display;
@@ -230,16 +231,12 @@ $.extend( RowGroup.prototype, {
 				trCreate.click(function () {
 					let span = $(this).find('span')[0];
 					let position = Number(span.getAttribute("identificador"));
+					
 					if($(span).hasClass('ui-icon-circlesmall-minus')){
-						$(span.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).hide();
-						$(span).addClass('ui-icon-circlesmall-plus');
-						$(span).removeClass('ui-icon-circlesmall-minus');
+						DataTable.Api().rowGroup().collapse(ctx, position, span, "next");
 					}else{
-						$(span.parentNode.parentElement).nextAll().slice(0,groupedRows[position].length).show();
-						$(span).addClass('ui-icon-circlesmall-minus');
-						$(span).removeClass('ui-icon-circlesmall-plus');
+						DataTable.Api().rowGroup().expand(ctx, position, span, "next");
 					}
-					$(span).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
 
@@ -254,18 +251,18 @@ $.extend( RowGroup.prototype, {
 				trCreate.click(function () {
 					let span = $(this).find('span')[0];
 					let position = Number(span.getAttribute("identificador"));
+					
 					if($(span).hasClass('ui-icon-circlesmall-minus')){
-						$(span.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).hide();
-						$(span).addClass('ui-icon-circlesmall-plus');
-						$(span).removeClass('ui-icon-circlesmall-minus');
+						DataTable.Api().rowGroup().collapse(ctx, position, span, "prev");
 					}else{
-						$(span.parentNode.parentElement).prevAll().slice(0,groupedRows[position].length).show();
-						$(span).addClass('ui-icon-circlesmall-minus');
-						$(span).removeClass('ui-icon-circlesmall-plus');
+						DataTable.Api().rowGroup().expand(ctx, position, span, "prev");
 					}
-					$(span).triggerHandler('tablaGroupingClickGroup');
 				});
 			}
+		}
+		
+		if(ctx.oInit.rowGroup.hiddenDefault) {
+			DataTable.Api().rowGroup().collapse(ctx);
 		}
 	},
 
@@ -298,6 +295,36 @@ $.extend( RowGroup.prototype, {
 		return row
 			.addClass( this.c.className )
 			.addClass( className );
+	},
+	
+	/*
+	 * Get the rows of a group.
+	 * @param [object] group Group parent row
+	 * @param [string] direction Sets the direction in which elements will be selected
+	 * @private 
+	 */
+	_getRowsByGroup: function(group, direction) {
+		let rows = [];
+		
+		if(direction === "prev") {
+			$.each(group.prevAll(), function() {
+				if($(this).hasClass("group")) {
+					return false;
+				}
+				
+				rows.push(this);
+			})
+		} else {
+			$.each(group.nextAll(), function() {
+				if($(this).hasClass("group")) {
+					return false;
+				}
+				
+				rows.push(this);
+			})
+		}
+		
+		return rows;
 	}
 } );
 
@@ -394,6 +421,56 @@ DataTable.Api.register( 'rowGroup().dataSrc()', function ( val ) {
 			ctx.rowGroup.dataSrc( val );
 		}
 	} );
+} );
+
+DataTable.Api.register( 'rowGroup().expand()', function (ctx, position, span, direction) {
+	// Si es undefined es que quiere expandir todos
+	if(position === undefined) {
+		let selectorRowPadre = $(ctx.nTBody).find("tr.group span");
+		
+		$(ctx.nTBody).find("tr:not(.group)").show();
+		selectorRowPadre.addClass('ui-icon-circlesmall-minus');
+		selectorRowPadre.removeClass('ui-icon-circlesmall-plus');
+	} else {
+		if(span === undefined) {
+			span = $(ctx.nTBody).find("[identificador=" + position + "]")[0];
+		}
+		
+		let rows = ctx.rowGroup._getRowsByGroup($(span.parentNode.parentElement), direction);
+		
+		$.each(rows, function() {
+			$(this).show();
+		});
+		
+		$(span).addClass('ui-icon-circlesmall-minus');
+		$(span).removeClass('ui-icon-circlesmall-plus');
+		$(span).triggerHandler('tablaGroupingClickGroup');
+	}
+} );
+
+DataTable.Api.register( 'rowGroup().collapse()', function (ctx, position, span, direction) {
+	// Si es undefined es que quiere colapsar todos
+	if(position === undefined) {
+		let selectorRowPadre = $(ctx.nTBody).find("tr.group span");
+		
+		$(ctx.nTBody).find("tr:not(.group)").hide();
+		selectorRowPadre.addClass('ui-icon-circlesmall-plus');
+		selectorRowPadre.removeClass('ui-icon-circlesmall-minus');
+	} else {
+		if(span === undefined) {
+			span = $(ctx.nTBody).find("[identificador=" + position + "]")[0];
+		}
+		
+		let rows = ctx.rowGroup._getRowsByGroup($(span.parentNode.parentElement), direction);
+		
+		$.each(rows, function() {
+			$(this).hide();
+		});
+		
+		$(span).addClass('ui-icon-circlesmall-plus');
+		$(span).removeClass('ui-icon-circlesmall-minus');
+		$(span).triggerHandler('tablaGroupingClickGroup');
+	}
 } );
 
 
