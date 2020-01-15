@@ -301,12 +301,10 @@
 			for (var i = 0; i < nvp.length; i++) {
 				pair = nvp[i].split('=');
 				name = decodeURIComponent(pair[0]);
-				try {
-					value = decodeURIComponent(pair[1]);
-				}
-				catch(error) {
+				if(pair[1].includes("%")) {
 					return false;
 				}
+				value = decodeURIComponent(pair[1]);
 
 				path = name.match(/(^[^\[]+)(\[.*\]$)?/);
 				first = path[1];

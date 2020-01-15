@@ -1094,6 +1094,11 @@ function _inlineEditFormSerialize($fila,ctx,child){
 		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
 			var value = $(obj).val();
+			// Comprobar si contiene un caracter invalido
+			if(value.includes("%")){
+				serializedForm = false;
+				return false;
+			}
 			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
 				value = "0";
 				if($(obj).prop('checked')){
@@ -1105,7 +1110,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	});
 	
 	//añadir los no editables,en caso de SOLO edición, 
-	if(!selectores[0].hasClass('new')){
+	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
 		jQuery.grep(ctx.oInit.colModel, function( n,i) {
 			  if ( n.editable !== true ){
 				  var text = ctx.json.rows[$fila.index()][n.name];
@@ -1134,12 +1139,22 @@ function _guardar(ctx,$fila,child){
 
 	//Se serializa el formulario con los cambios
 	var row = _inlineEditFormSerialize($fila,ctx,child);
-	var actionType = "PUT";
-	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
-		actionType = "POST";
-	}
-	_callSaveAjax(actionType,ctx,$fila,row,'');
-	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
+	
+	if(!row) {
+    	let divErrorFeedback = $('#' + ctx.sTableId + 'feedback_error');
+		if(divErrorFeedback.length === 0){
+			divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_error').insertBefore('#'+ctx.sTableId);
+		}
+    	_callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
+		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
+    } else {
+    	var actionType = "PUT";
+    	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
+    		actionType = "POST";
+    	}
+    	_callSaveAjax(actionType,ctx,$fila,row,'');
+    	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
+    }
 }
 
 /**
