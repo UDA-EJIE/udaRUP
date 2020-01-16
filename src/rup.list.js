@@ -596,19 +596,16 @@
                 newBtnPrint.on('click', btnPrintMain);
             }
 
-
             function btnPrintMain (e) {
                 e.preventDefault();
                 var winPrint = window.open('','_blank'),
                     winContent,
-                    sidx = '',
-                    sord = '',
                     filter = {
                         filter: $('#' + opciones.filterForm).rup_form('formToJson'),
                         page: opciones.page,
                         rows: opciones.records,
-                        sidx: sidx,
-                        sord: sord,
+                        sidx: '',
+                        sord: '',
                         multiselection: opciones.multiselection,
                         core: {
                             pkNames: [opciones.key],
@@ -616,19 +613,14 @@
                         }
                     },
                     tagPrint = $('<link>', {
-                        'id': 'rup-list-print',
+                        'id': 'rup-list-link-print',
                         'rel': 'stylesheet',
                         // 'media': 'print',
                         'href': opciones.print
                     });
 
-                if (opciones.isMultiSort) {
-                    sidx = opciones.multiorder.sidx;
-                    sord = opciones.multiorder.sord;
-                } else {
-                    sidx = opciones.sidx.value;
-                    sord = opciones.sord;
-                }
+                tagPrint = tagPrint[0].outerHTML;
+                winPrint.document.write(tagPrint);
 
                 jQuery.rup_ajax({
                     url: opciones.action,
@@ -642,10 +634,10 @@
                             winContent.append($('<p id="rup-list-print-item" class="rup_list-print-item">' + xhr.rows[i].usuario+ '</p>'));
                         }
                         winContent = winContent[0].outerHTML;
-                        tagPrint = tagPrint[0].outerHTML;
                         winPrint.document.write(winContent);
-                        $(winPrint.document.head).append(tagPrint);
-                        // winPrint.print();
+                        setTimeout(() => {
+                            winPrint.print();
+                        }, 1);
                     }
                 });
             }
