@@ -645,24 +645,24 @@ describe('Test rup_list', () => {
             });
         });
         
-        // describe('> Header Sticky', () => {
-        //     beforeAll((done) => {
-        //         testutils.loadCss(done);
-        //     });
-        //     beforeEach((done) => {
-        //         listGen.createHeaderSticky('rup-list', () => {
-        //             $('#rup-list').on('load', done);
-        //             $('#rup-list').rup_list('filter');
-        //         });
-        //         $('window, body').css({'height': '2000px'});
-        //         $('html, body').animate({scrollTop: 500}, 500);
-        //     });
-        //     afterAll(() => {
-        //         window.scrollTo(0, 0);
-        //     });
-        //     it('El header debe tener el class:', () => {
-        //         expect($('#rup-list-header').hasClass('rup_list-sticky')).toEqual(false);
-        //     });
-        // });
+        describe('> Header Sticky', () => {
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createHeaderSticky('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+                $('window, body').css({'height': '2000px'});
+                $('html, body').animate({scrollTop: 500}, 500);
+            });
+            afterAll(() => {
+                window.scrollTo(0, 0);
+            });
+            it('El header debe tener el class:', () => {
+                expect($('#rup-list-header').hasClass('rup_list-sticky')).toEqual(true);
+            });
+        });
     });
 });

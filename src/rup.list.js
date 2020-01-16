@@ -592,7 +592,7 @@
 
             if ($('#listPrint').length == 0) {
                 var newBtnPrint = $('<button id="listPrint">Imprimir</button>');
-                newBtnPrint.appendTo($('#listFilterForm .float-right'));
+                newBtnPrint.appendTo($('#listFilterForm'));
                 newBtnPrint.on('click', btnPrintMain);
             }
 
