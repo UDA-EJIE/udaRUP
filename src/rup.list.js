@@ -533,7 +533,7 @@
             const self = this;
             const opciones = self.options;
 
-            if ($('.rup-navbar')) {
+            if ($('.rup-navbar').length != 0) {
                 window.scrollHeight = $('.rup-navbar').height();
             } else {
                 window.scrollHeight = 0;
