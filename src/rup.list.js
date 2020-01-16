@@ -602,7 +602,7 @@
                     winContent,
                     filter = {
                         filter: $('#' + opciones.filterForm).rup_form('formToJson'),
-                        page: opciones.page,
+                        page: 1,
                         rows: opciones.records,
                         sidx: '',
                         sord: '',
