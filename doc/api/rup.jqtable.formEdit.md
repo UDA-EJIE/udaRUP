@@ -79,7 +79,7 @@ Elimina el registro correspondiente al identificador indicado y utilizando las o
 
 **Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), [<code>rupTable\_afterDeleteRow</code>](#module_rup_jqtable+event_rupTable_afterDeleteRow), [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_deleteAfterSubmit</code>, <code>module:rup\_jqtable#event:rupTable\_afterDeleteRow</code>, <code>module:rup\_jqtable#event:rupTable\_beforeDeleteRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -97,7 +97,7 @@ Edita el registro correspondiente al identificador indicado y utilizando las opc
 
 **Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeEditRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -115,7 +115,7 @@ Muestra el formulario de detalle para permitir al usuario insertar un nuevo regi
 
 **Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeAddRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ Clona el registro correspondiente al identificador indicado y utilizando las opc
 
 **Kind**: inner method of [<code>rup\_jqtable/formEdit</code>](#module_rup_jqtable/formEdit)  
 **Returns**: <code>object</code> - - Referencia al propio objecto jQuery.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeCloneRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

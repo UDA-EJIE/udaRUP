@@ -1,0 +1,203 @@
+$mordFieldColor: #e9ecef;
+$mordFieldColorHover: #ced1d4;
+$listShadows: #ddd;
+$listBorders: #bbb;
+$listColorLight: #69a3d6;
+$listColorNormal: #337ab7;
+$listColorDark: #204d71;
+
+.rup_list {
+    // transition: all .5s ease;
+
+    .list-item {
+        border: 1px solid $checkbox-material-border-color;
+        border-color: transparent;
+        border-radius: 0;
+        box-shadow: 1px 1px 11px $listShadows;
+        margin: 1rem 0;
+        padding: .75rem;
+        position: relative;
+        width: auto;
+
+        &:hover {
+            background-color: $secondary-color-very-light;
+            cursor: pointer;
+        }
+    }
+
+    .list-item-selected {
+        background-color: $primary-color;
+        color: $rup-color-white;
+
+        &:hover {
+            background-color: $primary-color;
+        }
+    }
+}
+
+.rup_list-sticky {
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 80;
+    width: calc(100% - 102px);
+    @media screen and (max-width: 768px) {
+        width: calc(100% - 78px);
+    }
+}
+
+.rup_list-header {
+    margin-bottom: .5rem;
+}
+
+.rup_list-footer {
+    margin-top: .5rem;
+}
+
+.rup_list-header,
+.rup_list-footer {
+    border: 1px solid $listBorders;
+    margin-left: 0;
+    margin-right: 0;
+    padding: .75rem 0;
+    // transition: all .5s ease;
+
+    button {
+        height: 100%;
+    }
+
+    nav {
+        float: right;
+
+        a {
+            line-height: 3.5rem;
+        }
+    }
+
+    .rup_list-header-rowNum,
+    .rup_list-footer-rowNum {
+        &+span {
+            a {
+                width: 100% !important;
+            }
+        }
+    }
+
+    .rup_list-header-sidx,
+    .rup_list-footer-sidx {
+        &+span {
+            a {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
+.rup_list-overlay {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+
+    .rup_list-overlay-layer {
+        filter: alpha(opacity=0);
+        opacity: 1;
+        z-index: 11;
+    }
+
+    .rup_list-overlay-loader {
+        animation: spin 2s linear infinite;
+        border: 7px solid transparent;
+        border-radius: 50%;
+        border-top-color: $listColorLight;
+        display: block;
+        height: 15vh;
+        left: 50%;
+        margin: -5% 0 0 -8vh;
+        max-height: 20rem;
+        max-width: 20rem;
+        position: relative;
+        top: 50%;
+        width: 15vh;
+        z-index: 12;
+
+        &::before {
+            animation: spin 3s linear infinite;
+            border: 7px solid transparent;
+            border-radius: 50%;
+            border-top-color: $listColorNormal;
+            bottom: 5px;
+            content: '';
+            left: 5px;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+
+        &::after {
+            animation: spin 1.5s linear infinite;
+            border: 7px solid transparent;
+            border-radius: 50%;
+            border-top-color: $listColorDark;
+            bottom: 15px;
+            content: '';
+            left: 15px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+    }
+}
+
+.rup_list-mord-dialog {
+    display: flex;
+    flex-direction: column;
+
+    .rup_list-mord-orderfields {
+        display: flex;
+
+        .rup_list-mord-field {
+            background-color: $mordFieldColor;
+            margin-right: .5rem;
+            padding: 0 0 0 8px;
+
+            &:hover {
+                background-color: $mordFieldColorHover;
+            }
+
+            i {
+                background-color: $primary-color;
+                border-radius: 0 4px 4px 0;
+                color: $rup-color-white;
+                font-size: 14px;
+                margin: 0 0 0 5px;
+                padding: 5px 1px;
+            }
+        }
+    }
+
+    .rup_list-mord-ordersort {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rup_list-ord-line {
+        display: flex;
+
+        button {
+            max-width: 3rem;
+            padding: .5rem;
+        }
+    }
+}

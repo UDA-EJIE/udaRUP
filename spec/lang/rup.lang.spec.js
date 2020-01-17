@@ -13,12 +13,17 @@ describe('Test Lang >', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
-        var html = '<a class="nav-link rup-nav-tool-icon" href="#" ' +
-                    'id="exampleLang" data-toggle="dropdown">' +
-                    '    <i class="mdi mdi-earth" aria-hidden="true"></i>' +
-                    '    <span data-rup-lang-current=""></span></a>' +
-                    '<div class="dropdown-menu" aria-labelledby="exampleLang"></div>';
+    beforeEach((done) => {
+        var html = `
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">TEST</a>
+                <a class="nav-link rup-nav-tool-icon" href="#" id="exampleLang" data-toggle="dropdown">
+                    <i class="mdi mdi-earth" aria-hidden="true"></i>
+                    <span data-rup-lang-current=""></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="exampleLang"></div>
+            </nav>
+        `;
         $('#content').append(html);
         $('#exampleLang').rup_language({
             languages: jQuery.rup.AVAILABLE_LANGS_ARRAY
@@ -28,6 +33,7 @@ describe('Test Lang >', () => {
             modo: 'portal'
         });
         $lang = $('#exampleLang');
+        setTimeout(done, 200);
     });
 
     afterEach(() => {

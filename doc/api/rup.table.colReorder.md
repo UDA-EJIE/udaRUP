@@ -147,7 +147,7 @@ Get the current order of the columns, as an array. Note that the valuesgiven in
 **Example**  
 ```js
 // Get column ordering for the table   var order = $.fn.dataTable.ColReorder( dataTable ).fnOrder();
-	 
+     
 ```
 <a name="fnOrder"></a>
 
@@ -188,7 +188,7 @@ Convert from the original column index, to the original
 
 <a name="_fnCursorPosition"></a>
 
-## _fnCursorPosition(e, prop) ⇒ <code>number</code>
+## \_fnCursorPosition(e, prop) ⇒ <code>number</code>
 Get cursor position regardless of mouse or touch input
 
 **Kind**: global function  

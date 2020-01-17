@@ -17,10 +17,10 @@ var properties = {		min: 0,		max: 500	};$("#idSlider").rup_slider(properties
     * [~enable()](#module_rup_slider..enable) ⇒ <code>jQuery</code>
     * [~disable()](#module_rup_slider..disable) ⇒ <code>jQuery</code>
     * [~instance()](#module_rup_slider..instance) ⇒ <code>object</code>
-    * [~option(param)](#module_rup_slider..option) ⇒ <code>jQuery</code>
     * [~option()](#module_rup_slider..option) ⇒ <code>object</code>
     * [~option(paramName)](#module_rup_slider..option) ⇒ <code>object</code>
     * [~option(paramName, paramValue)](#module_rup_slider..option) ⇒ <code>jQuery</code>
+    * [~option(param)](#module_rup_slider..option) ⇒ <code>jQuery</code>
 
 <a name="module_rup_slider..getRupValue"></a>
 
@@ -95,22 +95,6 @@ jQuery("#idSlider").rup_slider("instance");
 ```
 <a name="module_rup_slider..option"></a>
 
-### rup_slider~option(param) ⇒ <code>jQuery</code>
-Permite asignar el valor de una o varias propiedades de configuración.
-
-**Kind**: inner method of [<code>rup\_slider</code>](#module_rup_slider)  
-**Returns**: <code>jQuery</code> - - Retorna la referencia al elemento.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| param | <code>object</code> | Objeto clave/valor con las propiedades de configuración y sus valores. |
-
-**Example**  
-```js
-jQuery("#idSlider").rup_slider("option", {min:10, max:60});
-```
-<a name="module_rup_slider..option"></a>
-
 ### rup_slider~option() ⇒ <code>object</code>
 Devuelve un objeto clave/valor que contiene las propiedades de configuración del control.
 
@@ -152,4 +136,20 @@ Asigna un valor a la propiedad indentificada por parámetro.
 **Example**  
 ```js
 jQuery("#idSlider").rup_slider("option", "min", 50);
+```
+<a name="module_rup_slider..option"></a>
+
+### rup_slider~option(param) ⇒ <code>jQuery</code>
+Permite asignar el valor de una o varias propiedades de configuración.
+
+**Kind**: inner method of [<code>rup\_slider</code>](#module_rup_slider)  
+**Returns**: <code>jQuery</code> - - Retorna la referencia al elemento.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| param | <code>object</code> | Objeto clave/valor con las propiedades de configuración y sus valores. |
+
+**Example**  
+```js
+jQuery("#idSlider").rup_slider("option", {min:10, max:60});
 ```

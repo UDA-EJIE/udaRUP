@@ -393,8 +393,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [
-        {
+            "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -664,11 +663,15 @@
     "elements": "fr_Elementos",
     "emptyChanges": "fr_No se han realizado cambios.",
     "errors": {
-      "errcap": "Error",
-      "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
-      "model": "Las columnas de nombres son diferentes de las columnas de modelo",
-      "norecords": "No hay datos para procesar",
-      "nourl": "No se ha especificado una URL"
+            "errcap": "fr_Error",
+            "errorOnGet": "fr_Se ha producido un error al tratar de recuperar los datos",
+            "model": "fr_Las columnas de nombres son diferentes de las columnas de modelo",
+            "norecords": "fr_No hay datos para procesar",
+            "nourl": "fr_No se ha especificado una URL",
+            "noMasterPKField": {
+                "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
+                "title": "fr_Error en la inicialización de la tabla"
+            }
     },
     "feedback": {
       "deletedOK": "fr_El elemento se ha borrado correctamente.",
@@ -864,8 +867,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [
-        {
+            "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -1051,6 +1053,27 @@
       "06-12": "Día de la Constitución",
       "08-12": "Inmaculada Concepción",
       "25-12": "Navidad"
+        }
+    },
+    "rup_list": {
+        "errors": {
+            "validateSkeletonDialog": {
+                "title": "fr_Esqueleto no válido",
+                "msg": "fr_El esqueleto HTML sobre el que montar el listado no es correcto."
+            }
+        },
+        "multiSortDialog": {
+            "title": "fr_Multi-ordenación",
+            "msg1": "fr_Seleccione alguna de las opciones disponibles para agregar a la multi-ordenación:",
+            "msg2": "fr_Si no se visualiza ninguno es porque ya han sido todos incluídos en la ordenación en la lista inferior.",
+            "msg3": "fr_Campos ya incluídos en la ordenación:",
+            "msg4": "fr_Puede reordenarlos, eliminarlos o cambiar el tipo de ordenación de cada uno."
+        },
+        "multiselection": {
+            "deselectAll": "fr_Desmarcar todos",
+            "deselectAllPage": "fr_Desmarcar visibles",
+            "selectAll": "fr_Marcar todos",
+            "selectAllPage": "fr_Marcar visibles"
     }
   }
 }

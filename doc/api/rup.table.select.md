@@ -19,11 +19,11 @@ Módulo que permite toda la seleción simple
 Se inicializa el componente select
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Datatable 1.0.0  
+**Since**: UDA 3.4.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dt | <code>object</code> | Es el objeto datatable. |
+| dt | <code>object</code> | Es el objeto table. |
 
 <a name="module_rup.table.select..drawSelectId"></a>
 
@@ -31,11 +31,11 @@ Se inicializa el componente select
 Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Datatable 1.0.0  
+**Since**: UDA 3.4.0 // Table 1.0.0  
 <a name="module_rup.table.select..drawSelectId"></a>
 
 ### rup.table.select~drawSelectId()
 Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Datatable 1.0.0  
+**Since**: UDA 3.4.0 // Table 1.0.0  

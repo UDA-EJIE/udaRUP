@@ -47,7 +47,7 @@ Metodo que realiza la pre-configuración del plugin toolbar del componente RUP T
 Metodo que realiza la post-configuración del plugin toolbar del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
 **Kind**: inner method of [<code>rup\_jqtable/toolbar</code>](#module_rup_jqtable/toolbar)  
-**Emits**: [<code>rupTable\_feedbackClose</code>](#module_rup_jqtable+event_rupTable_feedbackClose)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_feedbackClose</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

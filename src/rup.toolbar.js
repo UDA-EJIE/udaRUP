@@ -38,30 +38,28 @@
  * $("#idToolbar").rup_toolbar(properties);
  */
 
-/*global define */
-/*global jQuery */
 
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd) {
 
-		// AMD. Register as an anonymous module.
-		define(['jquery', './rup.base', 'block-ui'], factory);
-	} else {
+        // AMD. Register as an anonymous module.
+        define(['jquery', './rup.base', 'block-ui'], factory);
+    } else {
 
-		// Browser globals
-		factory(jQuery);
-	}
+        // Browser globals
+        factory(jQuery);
+    }
 }(function ($) {
 
 
-	$.rup_toolbar = $.rup_toolbar || {};
-	$.extend($.rup_toolbar, {
-		extend: function (methods) {
-			$.fn.extend(methods);
-		}
-	});
+    $.rup_toolbar = $.rup_toolbar || {};
+    $.extend($.rup_toolbar, {
+        extend: function (methods) {
+            $.fn.extend(methods);
+        }
+    });
 
-	/**
+    /**
      * Función de callback a ejecutar cuando se realiza un click sobre un botón de la botonera.
      *
      * @callback module:rup_toolbar~buttonClick
@@ -79,7 +77,7 @@
      * $("#idToolbar").rup_toolbar("addButton", newButton);
      */
 
-	/**
+    /**
      * Definición del tipo de objeto que representa un botón de la botonera.
      *
      * @typedef {Object} module:rup_toolbar~button
@@ -90,7 +88,7 @@
      * @property {module:rup_toolbar~buttonClick} click - Función javascript que se ejecutará cuando se pulse el botón al que se ha asociado.
      */
 
-	/**
+    /**
      * Definición del tipo de objeto que representa un mButton de la botonera.
      *
      * @typedef {Object} module:rup_toolbar~mButton
@@ -101,11 +99,11 @@
      * @property {module:rup_toolbar~button[]} buttons - Botones que va a incluir el botón con menú.
      */
 
-	//Variable interna del toolbar para gestión de MButtons
-	$.rup_toolbar.showingMB = null;
+    //Variable interna del toolbar para gestión de MButtons
+    $.rup_toolbar.showingMB = null;
 
-	$.rup_toolbar.extend({
-		/**
+    $.rup_toolbar.extend({
+        /**
          * Añade un nuevo botón a la botonera. Las características del botón se especifican en los parámetros del método.
          *
          * @name addButton
@@ -120,10 +118,10 @@
          *
          * $("#idToolbar").rup_date("addButton", button);
          */
-		addButton: function (obj, json_i18n) {
-			return $.proxy(this[0]._ADAPTER.addButton, this)(obj, json_i18n);
-		},
-		/**
+        addButton: function (obj, json_i18n) {
+            return $.proxy(this[0]._ADAPTER.addButton, this)(obj, json_i18n);
+        },
+        /**
          * Añade un nuevo menu button a la botonera. Las características del mButton se especifican en los parámetros del método.
          *
          * @name addMButton
@@ -141,18 +139,18 @@
          *
          * $("#idToolbar").rup_date("addMButton", mButton);
          */
-		addMButton: function (obj, json_i18n) {
-			if(obj.idParent === undefined) {
-				obj.idParent = this.id;
-			}
-			if(!obj.click){
-				obj.click = this.showMButton;
-			}
-			return $.proxy(this[0]._ADAPTER.addMButton, this)(obj, json_i18n);
-		},
+        addMButton: function (obj, json_i18n) {
+            if (obj.idParent === undefined) {
+                obj.idParent = this.id;
+            }
+            if (!obj.click) {
+                obj.click = this.showMButton;
+            }
+            return $.proxy(this[0]._ADAPTER.addMButton, this)(obj, json_i18n);
+        },
 
 
-		/**
+        /**
          * Se añaden un conjunto de botones a un menu button existente.
          *
          * @name addButtonsToMButton
@@ -170,41 +168,40 @@
          * $("#idToolbar").rup_date("addMButton", "mbuton1", buttons);
          */
 
-		addButtonsToMButton: function (buttons, menuButton, json_i18n) {
-			return $.proxy(this[0]._ADAPTER.addButtonsToMButton, this)(buttons, menuButton, json_i18n);
-		},
+        addButtonsToMButton: function (buttons, menuButton, json_i18n) {
+            return $.proxy(this[0]._ADAPTER.addButtonsToMButton, this)(buttons, menuButton, json_i18n);
+        },
 
-		/**
+        /**
          * Se muestra la capa con los mButtons
          *
          * @function showMButton
          * @example
          * $("#idToolbar").rup_date("showMButton");
          */
-		showMButton: function () { //Muestra la capa con los mbuttons
+        showMButton: function () { //Muestra la capa con los mbuttons
 
-			var self = $(this),
-				top = self.offset().top + self.getTotalHeight(),
-				showingMB = $.rup_toolbar.showingMB,
-				actualMB = this.id;
-			if (showingMB === actualMB) {
-				$("ul[id*='" + showingMB + "']").slideUp('fast');
-				self.removeClass('rup-toolbar_menuButtonSlided');
-				showingMB = null;
-				//Se pulsa sobre otro elemento
-			} else {
-				$("ul[id*='" + showingMB + "']").slideUp('fast');
-				$("ul[id*='" + actualMB + "']").slideDown('fast');
-				$('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
-				self.addClass('rup-toolbar_menuButtonSlided');
-				showingMB = actualMB;
-			}
+            var self = $(this),
+                showingMB = $.rup_toolbar.showingMB,
+                actualMB = this.id;
+            if (showingMB === actualMB) {
+                $('ul[id*=\'' + showingMB + '\']').slideUp('fast');
+                self.removeClass('rup-toolbar_menuButtonSlided');
+                showingMB = null;
+                //Se pulsa sobre otro elemento
+            } else {
+                $('ul[id*=\'' + showingMB + '\']').slideUp('fast');
+                $('ul[id*=\'' + actualMB + '\']').slideDown('fast');
+                $('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
+                self.addClass('rup-toolbar_menuButtonSlided');
+                showingMB = actualMB;
+            }
 
-			$.rup_toolbar.showingMB = showingMB;
+            $.rup_toolbar.showingMB = showingMB;
 
-			return false;
-		},
-		/**
+            return false;
+        },
+        /**
          * Desabilita el botón correspondiente al identificador indicado.
          *
          * @function  disableButton
@@ -212,13 +209,15 @@
          * @example
          * $("#idToolbar").rup_date("disableButton","idEditButton");
          */
-		disableButton: function (id) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').button('disable');
-		},
-		/**
+        disableButton: function (id) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']')
+                .button('disable')
+                .attr('disabled', true);
+        },
+        /**
          * Habilita el botón correspondiente al identificador indicado.
          *
          * @function enableButton
@@ -226,13 +225,15 @@
          * @example
          * $("#idToolbar").rup_date("enableButton","idEditButton");
          */
-		enableButton: function (id) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').button('enable');
-		},
-		/**
+        enableButton: function (id) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']')
+                .button('enable')
+                .attr('disabled', false);
+        },
+        /**
          * Añade el estilo de css indicado para simular un estado press en el botón.
          *
          * @function pressButton
@@ -241,13 +242,13 @@
          * @example
          * $("#idToolbar").rup_date("pressButton","idEditButton","preesed-button");
          */
-		pressButton: function (id, css) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').addClass(css);
-		},
-		/**
+        pressButton: function (id, css) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']').addClass(css);
+        },
+        /**
          * Elimina el estilo de css indicado para simular un estado press en el botón.
          *
          * @function  unpressButton
@@ -256,13 +257,13 @@
          * @example
          * $("#idToolbar").rup_date("unpressButton","idEditButton","preesed-button");
          */
-		unpressButton: function (id, css) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').removeClass(css);
-		},
-		/**
+        unpressButton: function (id, css) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']').removeClass(css);
+        },
+        /**
          * Alterna el estado del estilo de css indicado para simular un estado press en el botón.
          *
          * @function  tooglePressButton
@@ -271,13 +272,13 @@
          * @example
          * $("#idToolbar").rup_date("tooglePressButton","idEditButton","preesed-button");
          */
-		tooglePressButton: function (id, css) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').toggleClass(css);
-		},
-		/**
+        tooglePressButton: function (id, css) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']').toggleClass(css);
+        },
+        /**
          * Actualiza el botón al estado que determina la configuración actual.
          *
          * @function  refresh
@@ -285,159 +286,159 @@
          * @example
          * $("#idToolbar").rup_date("refresh");
          */
-		refreshButton: function (id) {
-			if (id.indexOf(this.attr('id')) === -1) {
-				id = this.attr('id') + '##' + id;
-			}
-			$('[id=\'' + id + '\']').button('refresh');
-		},
-		/**
+        refreshButton: function (id) {
+            if (id.indexOf(this.attr('id')) === -1) {
+                id = this.attr('id') + '##' + id;
+            }
+            $('[id=\'' + id + '\']').button('refresh');
+        },
+        /**
          * Configura la gestión de eventos de teclado en el botón.
          *
          * @function  _setKeyDown
          * @private
          * @param {object} boton - Referencia al button.
          */
-		_setKeyDown: function (boton) {
-			boton.bind('keydown', function (event) {
-				var object = $(event.currentTarget),
-					objectParent = object.parent(),
-					nextObject;
-				switch (event.keyCode) {
-				case $.ui.keyCode.TAB:
-					if (!event.shiftKey) {
-						if (object.next().attr('id') !== objectParent.attr('id') + '-rightButtons') {
-																												//Siguiente boton
-							nextObject = object.next(':focusable');
-						} else {
-																												//Primer botón de los alineados derecha
-							nextObject = object.next().children(':focusable:first');
-						}
+        _setKeyDown: function (boton) {
+            boton.bind('keydown', function (event) {
+                var object = $(event.currentTarget),
+                    objectParent = object.parent(),
+                    nextObject;
+                switch (event.keyCode) {
+                case $.ui.keyCode.TAB:
+                    if (!event.shiftKey) {
+                        if (object.next().attr('id') !== objectParent.attr('id') + '-rightButtons') {
+                            //Siguiente boton
+                            nextObject = object.next(':focusable');
+                        } else {
+                            //Primer botón de los alineados derecha
+                            nextObject = object.next().children(':focusable:first');
+                        }
 
-																								//Navegar entre botones
-						if (nextObject.size() === 1) {
-							nextObject.focus();
-							$.rup_toolbar.focusedExternally[objectParent.attr('id')] = true;
-							return false;
-						}
-					}
-				}
-			});
-		}
-	});
+                        //Navegar entre botones
+                        if (nextObject.size() === 1) {
+                            nextObject.focus();
+                            $.rup_toolbar.focusedExternally[objectParent.attr('id')] = true;
+                            return false;
+                        }
+                    }
+                }
+            });
+        }
+    });
 
-	$.rup_toolbar.hideMButtons = function () {
-		var showingMB = $.rup_toolbar.showingMB;
-		$("ul[id*='" + showingMB + "']").slideUp('fast');
-		$('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
-		showingMB = null;
-		$.rup_toolbar.showingMB = showingMB;
-	};
+    $.rup_toolbar.hideMButtons = function () {
+        var showingMB = $.rup_toolbar.showingMB;
+        $('ul[id*=\'' + showingMB + '\']').slideUp('fast');
+        $('[id=\'' + showingMB + '\']').removeClass('rup-toolbar_menuButtonSlided');
+        showingMB = null;
+        $.rup_toolbar.showingMB = showingMB;
+    };
 
-	$.fn.getTotalHeight = function () { //Función auxilliar que obtiene el alto total del boton, teniendo en cuenta todos los posibles paddings
-		return $(this).height() + parseInt($(this).css('paddingTop')) + parseInt($(this).css('paddingBottom')) + parseInt($(this).css('borderTopWidth')) + parseInt($(this).css('borderBottomWidth'));
-	};
+    $.fn.getTotalHeight = function () { //Función auxilliar que obtiene el alto total del boton, teniendo en cuenta todos los posibles paddings
+        return $(this).height() + parseInt($(this).css('paddingTop')) + parseInt($(this).css('paddingBottom')) + parseInt($(this).css('borderTopWidth')) + parseInt($(this).css('borderBottomWidth'));
+    };
 
-	$.fn.rup_toolbar = function (...properties) {
-		if(typeof properties[0] == "string") {
-			this[properties[0]].apply(this,properties.splice(1));
-			return undefined;
-		}
-		return this.each(function () {
+    $.fn.rup_toolbar = function (...properties) {
+        if (typeof properties[0] == 'string') {
+            this[properties[0]].apply(this, properties.splice(1));
+            return undefined;
+        }
+        return this.each(function () {
 
 
-			//Carga de los valores por defecto para los atributos que no ha introducido el usuario
-			var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
-				t = $(this),
-				json_i18n, rightButtons = [];
-				
-			this._ADAPTER = $.rup.adapter[settings.adapter];
-			//Se guarda el marcador de foco de la botonera
-			if ($.rup_toolbar.focusedExternally === undefined) {
-				$.rup_toolbar.focusedExternally = {};
-			}
-			$.rup_toolbar.focusedExternally[this.id] = false;
+            //Carga de los valores por defecto para los atributos que no ha introducido el usuario
+            var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
+                t = $(this),
+                json_i18n, rightButtons = [];
 
-			settings.id = this.id;
-			//Literales
-			json_i18n = $.rup.i18n.app[settings.id];
+            this._ADAPTER = $.rup.adapter[settings.adapter];
+            //Se guarda el marcador de foco de la botonera
+            if ($.rup_toolbar.focusedExternally === undefined) {
+                $.rup_toolbar.focusedExternally = {};
+            }
+            $.rup_toolbar.focusedExternally[this.id] = false;
 
-			//Anyadir estilo
-			t.addClass('rup-toolbar ui-widget-header ui-widget ui-widget-content');
+            settings.id = this.id;
+            //Literales
+            json_i18n = $.rup.i18n.app[settings.id];
 
-			//Tamanyo
-			if (settings.width != null) {
-				t.width(settings.width);
-			}
+            //Anyadir estilo
+            t.addClass('rup-toolbar ui-widget-header ui-widget ui-widget-content');
 
-			//Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
-			$(document).add("ul li").on('click', $.rup_toolbar.hideMButtons);
-			//Botones
-			for (var i = 0; i < settings.buttons.length; i += 1) {
-				var obj = settings.buttons[i];
+            //Tamanyo
+            if (settings.width != null) {
+                t.width(settings.width);
+            }
 
-				// Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
-				if (!(obj.right !== undefined && obj.right === true)) {
-					//MButton
-					if (obj.buttons) {
+            //Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
+            $(document).add('ul li').on('click', $.rup_toolbar.hideMButtons);
+            //Botones
+            for (var i = 0; i < settings.buttons.length; i += 1) {
+                var obj = settings.buttons[i];
 
-						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-						var mbutton = t.addMButton($.extend({
-							idParent: this.id,
-							id: obj.id,
-							i18nCaption: obj.i18nCaption,
-							css: obj.css,
-							click: t.showMButton
-						}, obj), json_i18n);
-						if (mbutton !== null) {
-							t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
-						}
-						//Button
-					} else {
-						t.addButton(obj, json_i18n);
-					}
-				} else {
-					rightButtons.push(obj);
-				}
-			}
+                // Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
+                if (!(obj.right !== undefined && obj.right === true)) {
+                    //MButton
+                    if (obj.buttons) {
 
-			for (var i = 0; i < rightButtons.length; i += 1) {
-				var dObj = rightButtons[i];
+                        // el boton dispone de una definicion de botones anidados, por lo que es un mbutton
+                        let mbutton = t.addMButton($.extend({
+                            idParent: this.id,
+                            id: obj.id,
+                            i18nCaption: obj.i18nCaption,
+                            css: obj.css,
+                            click: t.showMButton
+                        }, obj), json_i18n);
+                        if (mbutton !== null) {
+                            t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
+                        }
+                        //Button
+                    } else {
+                        t.addButton(obj, json_i18n);
+                    }
+                } else {
+                    rightButtons.push(obj);
+                }
+            }
 
-				//MButton
-				if (dObj.buttons) {
-					// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-					mbutton = t.addMButton({
-						id: dObj.id,
-						i18nCaption: dObj.i18nCaption,
-						css: dObj.css,
-						click: t.showMButton,
-						right: dObj.right
-					}, json_i18n);
+            for (let i = 0; i < rightButtons.length; i += 1) {
+                var dObj = rightButtons[i];
 
-					if (mbutton !== null) {
-						t.addButtonsToMButton(dObj.buttons, mbutton, json_i18n);
-					}
-					//Button
-				} else {
-					t.addButton(dObj, json_i18n);
-				}
-			}
+                //MButton
+                if (dObj.buttons) {
+                    // el boton dispone de una definicion de botones anidados, por lo que es un mbutton
+                    let mbutton = t.addMButton({
+                        id: dObj.id,
+                        i18nCaption: dObj.i18nCaption,
+                        css: dObj.css,
+                        click: t.showMButton,
+                        right: dObj.right
+                    }, json_i18n);
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_toolbar', 'init');
-		});
-	};
+                    if (mbutton !== null) {
+                        t.addButtonsToMButton(dObj.buttons, mbutton, json_i18n);
+                    }
+                    //Button
+                } else {
+                    t.addButton(dObj, json_i18n);
+                }
+            }
 
-	/* VALORES POR DEFECTO */
-	$.fn.rup_toolbar.defaults = {
-		width: null,
-		buttons: [],
-		mbuttons: null,
-		adapter: 'toolbar_material'
-	};
+            //Se audita el componente
+            $.rup.auditComponent('rup_toolbar', 'init');
+        });
+    };
 
-	/**
+    /* VALORES POR DEFECTO */
+    $.fn.rup_toolbar.defaults = {
+        width: null,
+        buttons: [],
+        mbuttons: null,
+        adapter: 'toolbar_material'
+    };
+
+    /**
      * @description Propiedades de configuración del componente.
      *
      * @name options

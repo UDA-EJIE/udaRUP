@@ -350,8 +350,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [
-        {
+            "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -627,7 +626,11 @@
       "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
       "model": "Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "No hay datos para procesar",
-      "nourl": "No se ha especificado una URL"
+            "nourl": "No se ha especificado una URL",
+            "noMasterPKField": {
+                "msg": "Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
+                "title": "Error en la inicialización de la tabla"
+            }
     },
     "feedback": {
       "deletedOK": "El elemento se ha borrado correctamente.",
@@ -779,8 +782,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [
-        {
+            "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -966,6 +968,27 @@
       "06-12": "Día de la Constitución",
       "08-12": "Inmaculada Concepción",
       "25-12": "Navidad"
+        }
+    },
+    "rup_list": {
+        "errors": {
+            "validateSkeletonDialog": {
+                "title": "Esqueleto no válido",
+                "msg": "El esqueleto HTML sobre el que montar el listado no es correcto."
+            }
+        },
+        "multiSortDialog": {
+            "title": "Multi-ordenación",
+            "msg1": "Seleccione alguna de las opciones disponibles para agregar a la multi-ordenación:",
+            "msg2": "Si no se visualiza ninguno es porque ya han sido todos incluídos en la ordenación en la lista inferior.",
+            "msg3": "Campos ya incluídos en la ordenación:",
+            "msg4": "Puede reordenarlos, eliminarlos o cambiar el tipo de ordenación de cada uno."
+        },
+        "multiselection": {
+            "deselectAll": "Desmarcar todos",
+            "deselectAllPage": "Desmarcar visibles",
+            "selectAll": "Marcar todos",
+            "selectAllPage": "Marcar visibles"
     }
   }
 }

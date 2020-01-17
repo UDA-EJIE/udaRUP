@@ -26,9 +26,6 @@
  * });
  */
 
-/*global define */
-/*global jQuery */
-
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
 
@@ -109,7 +106,7 @@
             this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError'));
 
             settings._close = settings.close;
-            settings.close = function (event, ui) {
+            settings.close = function () {
                 focused.focus();
                 if (settings._close !== undefined) {
                     $this._destroy(self);
@@ -127,7 +124,9 @@
 
             var self = this._createDiv().appendTo('body');
             self.dialog(settings);
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
+            if(self.data('uiDialog')){
+                self.data('uiDialog').uiDialog.addClass('rup-message rup-message-error');
+            }
             this._createCloseLink(self);
             this._addStyles(self, 'error', settings.message);
             docHeight = $(document).height();
@@ -136,8 +135,10 @@
             this._dialogInPortal(docWidth, docHeight, self, settings);
 			
             // Limpieza del componente
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            if(self.data('uiDialog')){
+                self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+                self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            }
 
             //Se audita el componente
             $.rup.auditComponent('rup_message', 'init');
@@ -173,7 +174,7 @@
             this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.confirmacion'));
 
             settings._close = settings.close;
-            settings.close = function (event, ui) {
+            settings.close = function () {
                 focused.focus();
                 if (settings._close !== undefined) {
                     $this._destroy(self);
@@ -237,7 +238,7 @@
             this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.correct'));
 
             settings._close = settings.close;
-            settings.close = function (event, ui) {
+            settings.close = function () {
                 focused.focus();
                 if (settings._close !== undefined) {
                     $this._destroy(self);
@@ -255,7 +256,9 @@
 
             var self = this._createDiv().appendTo('body');
             self.dialog(settings);
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
+            if(self.data('uiDialog')){
+                self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
+            }
 
             this._createCloseLink(self);
             this._addStyles(self, 'ok', settings.message);
@@ -265,8 +268,10 @@
             this._dialogInPortal(docWidth, docHeight, self, settings);
 			
             // Limpieza del componente
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-            self.data('uiDialog') && self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            if(self.data('uiDialog')){
+                self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
+                self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
+            }
 
             //Se audita el componente
             $.rup.auditComponent('rup_message', 'init');
@@ -294,7 +299,7 @@
             this._rupProperties(settings, $.rup.i18nParse($.rup.i18n.base, 'rup_message.alert'));
 
             settings._close = settings.close;
-            settings.close = function (event, ui) {
+            settings.close = function () {
                 focused.focus();
                 if (settings._close !== undefined) {
                     $this._destroy(self);
@@ -354,9 +359,9 @@
          * @private
          */
         _createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
-            self.prev("div")
+            self.prev('div')
                 .append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
-                .on('click', 'i.mdi', function (event) {
+                .on('click', 'i.mdi', function () {
                     self.dialog('close');
                     return false;
                 });
@@ -412,7 +417,7 @@
                     .attr('id', self[0].id + '_cancel')
                     .addClass($.rup.adapter[$.rup_messages.defaults.adapter].classComponent())
                     .html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cancel'))
-                    .click(function (event) {
+                    .click(function () {
                         self.dialog('close');
                         if (clickFnc !== undefined) {
                             clickFnc.call(this, self);
@@ -457,10 +462,12 @@
          */
         _rupProperties: function (properties, title) {
             properties.autoOpen = false;
-            properties.modal = true,
-            properties.resizable = false,
-            properties.title = (properties.title === null || properties.title === '' ? title : properties.title);
-            properties.closeText = $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError.cerrar'),
+            properties.modal = true;
+            properties.resizable = false;
+            if(properties.title === null || properties.title === ''){
+                properties.title = title;
+            }
+            properties.closeText = $.rup.i18nParse($.rup.i18n.base, 'rup_message.tituloError.cerrar');
             properties.close = function () {
                 $(this).remove();
             };

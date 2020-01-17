@@ -11,68 +11,22 @@ $("#idAutocomplete").rup_autocomplete({	source : "autocomplete/remote",	source
 ```
 
 * [rup_autocomplete](#module_rup_autocomplete)
-    * _instance_
-        * ["rupAutocomplete_loadComplete"](#module_rup_autocomplete+event_rupAutocomplete_loadComplete)
-        * ["rupAutocomplete_change"](#module_rup_autocomplete+event_rupAutocomplete_change)
-        * ["rupAutocomplete_select"](#module_rup_autocomplete+event_rupAutocomplete_select)
-        * ["rupAutocomplete_beforeLoadComplete"](#module_rup_autocomplete+event_rupAutocomplete_beforeLoadComplete)
-    * _inner_
-        * [~defaults](#module_rup_autocomplete..defaults)
-        * [~getRupValue()](#module_rup_autocomplete..getRupValue) ⇒ <code>string</code> \| <code>number</code>
-        * [~setRupValue(param)](#module_rup_autocomplete..setRupValue)
-        * [~destroy()](#module_rup_autocomplete..destroy)
-        * [~off()](#module_rup_autocomplete..off)
-        * [~on()](#module_rup_autocomplete..on)
-        * [~disable()](#module_rup_autocomplete..disable)
-        * [~enable()](#module_rup_autocomplete..enable)
-        * [~option(optionName, [value], aux)](#module_rup_autocomplete..option)
-        * [~search(term)](#module_rup_autocomplete..search)
-        * [~close()](#module_rup_autocomplete..close)
-        * [~val()](#module_rup_autocomplete..val)
-        * [~set(value, label)](#module_rup_autocomplete..set)
-        * [~success()](#module_rup_autocomplete..success)
-        * [~onLoadError](#module_rup_autocomplete..onLoadError) : <code>function</code>
+    * [~defaults](#module_rup_autocomplete..defaults)
+    * [~getRupValue()](#module_rup_autocomplete..getRupValue) ⇒ <code>string</code> \| <code>number</code>
+    * [~setRupValue(param)](#module_rup_autocomplete..setRupValue)
+    * [~destroy()](#module_rup_autocomplete..destroy)
+    * [~off()](#module_rup_autocomplete..off)
+    * [~on()](#module_rup_autocomplete..on)
+    * [~disable()](#module_rup_autocomplete..disable)
+    * [~enable()](#module_rup_autocomplete..enable)
+    * [~option(optionName, [value], aux)](#module_rup_autocomplete..option)
+    * [~search(term)](#module_rup_autocomplete..search)
+    * [~close()](#module_rup_autocomplete..close)
+    * [~val()](#module_rup_autocomplete..val)
+    * [~set(value, label)](#module_rup_autocomplete..set)
+    * [~success()](#module_rup_autocomplete..success)
+    * [~onLoadError](#module_rup_autocomplete..onLoadError) : <code>function</code>
 
-<a name="module_rup_autocomplete+event_rupAutocomplete_loadComplete"></a>
-
-### "rupAutocomplete_loadComplete"
-Permite asociar una función que se ejecutará cuando se complete la carga de los registros correspondientes al texto de búsqueda introducido.
-
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
-**Example**  
-```js
-$("#autocomplete").on("rupAutocomplete_loadComplete", function(event, data){});
-```
-<a name="module_rup_autocomplete+event_rupAutocomplete_change"></a>
-
-### "rupAutocomplete_change"
-Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del comonente
-
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
-**Example**  
-```js
-$("#autocomplete").on("rupAutocomplete_change", function(event, data){});
-```
-<a name="module_rup_autocomplete+event_rupAutocomplete_select"></a>
-
-### "rupAutocomplete_select"
-Permite asociar una función que se ejecutará cuando se produzca la selección de un registro de entre la lista de resultados
-
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
-**Example**  
-```js
-$("#autocomplete").on("rupAutocomplete_select", function(event, data){});
-```
-<a name="module_rup_autocomplete+event_rupAutocomplete_beforeLoadComplete"></a>
-
-### "rupAutocomplete_beforeLoadComplete"
-Permite manipular la respuesta del servidor antes de construir la lista de resultados.
-
-**Kind**: event emitted by [<code>rup\_autocomplete</code>](#module_rup_autocomplete)  
-**Example**  
-```js
-$("#autocomplete").on("rupAutocomplete_beforeLoadComplete", function(event, data){});
-```
 <a name="module_rup_autocomplete..defaults"></a>
 
 ### rup_autocomplete~defaults

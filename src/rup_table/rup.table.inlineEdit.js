@@ -26,8 +26,7 @@
 		define( ['jquery', 'datatables.net'], function ( $ ) {
 			return factory( $, window, document );
 		} );
-	}
-	else if ( typeof exports === 'object' ) {
+    } else if (typeof exports === 'object') {
 		// CommonJS
 		module.exports = function (root, $) {
 			if ( ! root ) {
@@ -40,8 +39,7 @@
 
 			return factory( $, root, root.document );
 		};
-	}
-	else {
+    } else {
 		// Browser
 		factory( jQuery, window, document );
 	}
@@ -73,7 +71,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	var rowsBody = $( ctx.nTBody);
 	rowsBody.on( 'dblclick.DT keypress','tr[role="row"]',  function (e) {
 		// Solo selecciona si se pulsa sobre el enter o se hace click izquierdo col raton
-		if(e.which == 1 || e.which == 13){
+            if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
 			if($(this).hasClass('editable')){
 				return false;
 			}
@@ -100,7 +98,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		}
 	    	}
 			if($(row.node()).hasClass('selected')){
-				row.child().addClass( "selected tr-highlight");
+                    row.child().addClass('selected tr-highlight');
 			}
 	    }
 	} );
@@ -118,8 +116,8 @@ DataTable.inlineEdit.init = function ( dt ) {
 		var rulesAux = ctx.oInit.inlineEdit.validate.rules;
 		 ctx.oInit.inlineEdit.validate.rules = {};
 		$.each(rulesAux,function(name,rule) {
-			ctx.oInit.inlineEdit.validate.rules[name+"_inline"] = rule;
-			ctx.oInit.inlineEdit.validate.rules[name+"_inline_child"] = rule;
+                ctx.oInit.inlineEdit.validate.rules[name + '_inline'] = rule;
+                ctx.oInit.inlineEdit.validate.rules[name + '_inline_child'] = rule;
 		});
 
 	}
@@ -140,7 +138,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
-         icon: "mdi-content-save",
+            icon: 'mdi-content-save',
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'save',
@@ -157,7 +155,7 @@ DataTable.inlineEdit.init = function ( dt ) {
          },
          id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
          className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
-         icon: "mdi-cancel",
+            icon: 'mdi-cancel',
          displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
          insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
          type: 'cancel',
@@ -168,9 +166,13 @@ DataTable.inlineEdit.init = function ( dt ) {
         		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 	    		ctx.inlineEdit.lastRow = undefined;
 	    		ctx.oInit.inlineEdit.alta = undefined;
-	    		dt.ajax.reload(undefined,false)
+                dt.ajax.reload(undefined, false);
        }
     };
+
+        $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
+            _addChildIcons(ctx);
+        }));
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -227,14 +229,20 @@ function init ( ctx ) {
 	api.on( 'preXhr.dt.dtSelect', function () {
 		// note that column selection doesn't need to be cached and then
 		// reselected, as they are already selected
-		var rows = api.rows( { selected: true } ).ids( true ).filter( function ( d ) {
+            var rows = api.rows({
+                selected: true
+            }).ids(true).filter(function (d) {
 			return d !== undefined;
 		} );
 
-		var cells = api.cells( { selected: true } ).eq(0).map( function ( cellIdx ) {
+            var cells = api.cells({
+                selected: true
+            }).eq(0).map(function (cellIdx) {
 			var id = api.row( cellIdx.row ).id( true );
-			return id ?
-				{ row: id, column: cellIdx.column } :
+                return id ? {
+                    row: id,
+                    column: cellIdx.column
+                } :
 				undefined;
 		} ).filter( function ( d ) {
 			return d !== undefined;
@@ -260,8 +268,7 @@ function init ( ctx ) {
 	} );
 }
 
-function eventTrigger ( api, type, args, any )
-{
+    function eventTrigger(api, type, args, any) {
 	if ( any && ! api.flatten().length ) {
 		return;
 	}
@@ -353,11 +360,20 @@ function _add(dt,ctx){
 *
 */
 function _addChildIcons(ctx){
-	var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+        let hasHidden = false;
+        let columnsVisiblity = ctx.responsive._columnsVisiblity();
+        for (let i = 0; i < columnsVisiblity.length; i++) {
+            if (!columnsVisiblity[i]) {
+                if (!ctx.aoColumns[i].className || ctx.aoColumns[i].className.indexOf('never') < 0) {
+                    hasHidden = true;
+                }
+            }
+        }
+
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
-		$('#'+ctx.sTableId).find("tbody td:first-child span.openResponsive").remove();
-		if(count > 0){//añadir span ala primera fila
-			$.each($('#'+ctx.sTableId).find("tbody td:first-child:not(.child):not(.dataTables_empty)"),function( ){
+            $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
+            if (hasHidden) { //añadir span ala primera fila
+                $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
 				var $span = $('<span/>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
@@ -417,7 +433,7 @@ function _editInline ( dt,ctx, idRow ){
 		_restaurarFila(ctx,false);
 	}
 	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
-	if(!$rowSelect.hasClass("editable")){
+        if (!$rowSelect.hasClass('editable')) {
 		_changeInputsToRup(ctx,idRow);
 		//se deshabilitan los botones de la tabla.
 		DataTable.Api().buttons.disableAllButtons(ctx);
@@ -430,7 +446,7 @@ function _editInline ( dt,ctx, idRow ){
 	$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
 	
 	// Cuando sea añadir registro no hay que habilitar el boton de informes
-	if(!$rowSelect.hasClass("odd new")){
+        if (!$rowSelect.hasClass('odd new')) {
 		$('#' + ctx.sTableId+'informes_01').prop('disabled', false);
 	}
 
@@ -440,8 +456,8 @@ function _editInline ( dt,ctx, idRow ){
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	selectores[0] = $selectorTr;
-	if($selectorTr.next().find(".child").length === 1){
-		selectores[1] = $selectorTr.next().find(".child");
+        if ($selectorTr.next().find('.child').length === 1) {
+            selectores[1] = $selectorTr.next().find('.child');
 	}
 	
 	$.each(selectores,function() {//se crea evento para los selectores creados.
@@ -460,8 +476,8 @@ function _editInline ( dt,ctx, idRow ){
 	}
 	
 	dt.responsive.recalc();
-	if(ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined
-			 && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $selectorTr.find('span.openResponsive').length === 0){//revisar cuando es clone por si el responsive falla
+        if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined &&
+            ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $selectorTr.find('span.openResponsive').length === 0) { //revisar cuando es clone por si el responsive falla
 		 _addChildIcons(ctx);
 	}
 }
@@ -481,7 +497,11 @@ function _editInline ( dt,ctx, idRow ){
 */
 function _getRowSelected(dt,actionType){
 	var ctx = dt.settings()[0];
-	var rowDefault = {id:0,page:1,line:0};
+        var rowDefault = {
+            id: 0,
+            page: 1,
+            line: 0
+        };
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
 	if(!ctx.multiselection.selectedAll){
 		//Si no hay un ultimo señalado se coge el ultimo
@@ -571,12 +591,14 @@ function _cloneLine(dt,ctx,line){
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
 	}
 	ctx.multiselection.selectedIds = [];
-	ctx.multiselection.lastSelectedId = "";
+        ctx.multiselection.lastSelectedId = '';
 	ctx.multiselection.numSelected = 0;
 	$.each(ctx.oInit.primaryKey,function() {
-		dt.row(0).data()[this] = "";
+            dt.row(0).data()[this] = '';
 	});
-	var columnsHide = dt.columns().responsiveHidden().reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+        var columnsHide = dt.columns().responsiveHidden().reduce(function (a, b) {
+            return b === false ? a + 1 : a;
+        }, 0);
 	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
 		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
 	}
@@ -652,7 +674,11 @@ function _getLineByPageSelected(ctx,lineInit){
 			var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row,ctx.oInit), ctx.multiselection.deselectedIds);
 			if(indexInArray === -1){
 				line = index;
-				var arra = {id:DataTable.Api().rupTable.getIdPk(row,ctx.oInit),page:ctx.json.page,line:index};
+                    var arra = {
+                        id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
+                        page: ctx.json.page,
+                        line: index
+                    };
 				if(ctx.oInit.inilineEdit !== undefined){
 					ctx.oInit.inilineEdit.currentPos = arra;
 				}
@@ -693,7 +719,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
 		var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+positionLastRow+')');
 		ctx.inlineEdit.lastRow = undefined;
-		if($selectorTr.data( "events" ) !== undefined){
+            if ($selectorTr.data('events') !== undefined) {
 			$selectorTr.off('keydown');
 		}
 		
@@ -702,7 +728,7 @@ function _restaurarFila(ctx,limpiar){
 		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
 			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
 		}
-		if($fila !== undefined && $fila.hasClass("new")){// se elimna el tr, porque no se guardo
+            if ($fila !== undefined && $fila.hasClass('new')) { // se elimna el tr, porque no se guardo
 			$fila.next('.child').remove();
 			$fila.remove();
 			//se asegura resturar multiselection
@@ -745,7 +771,7 @@ function _changeInputsToRup(ctx,idRow){
 		//Si existe el responsive
 		//Campos sin responsive
 		var $target = $fila.find(ctx.oInit.responsive.details.target);
-		if($target.length > 0 && $fila.next().find(".child").length === 0){
+            if ($target.length > 0 && $fila.next().find('.child').length === 0) {
 			$target.click();
 		}
 		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
@@ -778,9 +804,9 @@ function _changeInputsToRup(ctx,idRow){
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	$fila.addClass('editable');
 	var colModel = ctx.oInit.colModel;
-	var child = "";
+        var child = '';
 	if($fila.hasClass('child')){
-		child = "_child";
+            child = '_child';
 		$fila = $fila.prev();
 	}
 	var ocultos = 0;
@@ -792,12 +818,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		var celda = $(this);
 		var $celda = $(celda);
 		
-		if(!$celda.hasClass("select-checkbox")){
+            if (!$celda.hasClass('select-checkbox')) {
 			var cellColModel = colModel[cont];
 			if(cellColModel.editable===true || !edicion){
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
-				$input.attr('id', cellColModel.name+'_inline'+child).attr("oldtitle",title);
+                    $input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
 				
 				// Si es el primero dejar el focus
 				if(ctx.inlineEdit.lastRow.cellValues[0] === undefined){
@@ -823,11 +849,11 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				
 				// Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
 				if(!$('#'+colModelName+'_inline').parent().hasClass('form-groupMaterial')) {
-					$('#'+colModelName+'_inline').wrap("<div class='form-groupMaterial'></div>");
+                        $('#' + colModelName + '_inline').wrap('<div class=\'form-groupMaterial\'></div>');
 				}
 				// Lo mismo que el anterior pero cuando se ha aplicado el responsivo.
 				if(!$('#'+colModelName+'_inline_child').parent().hasClass('form-groupMaterial')) {
-					$('#'+colModelName+'_inline_child').wrap("<div class='form-groupMaterial'></div>");
+                        $('#' + colModelName + '_inline_child').wrap('<div class=\'form-groupMaterial\'></div>');
 				}
 
 				var columns = jQuery.grep(ctx.aoColumns, function( n) {
@@ -902,20 +928,22 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 */
 function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 
-	if($fila.hasClass("editable")){
+        if ($fila.hasClass('editable')) {
 		var colModel = ctx.oInit.colModel;
-		$fila.removeClass("editable");
+            $fila.removeClass('editable');
 		
 		$celdas.each( function() {
 			var celda = $(this);
 			var $celda = $(celda);
 	
-			if(!$celda.hasClass("select-checkbox")){
+                if (!$celda.hasClass('select-checkbox')) {
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
 					if($celda.find('span.openResponsive').length){// si esta volverle a dar la funcionalidad, y es responsive
-						var count = ctx.responsive.s.current.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+                            var count = ctx.responsive.s.current.reduce(function (a, b) {
+                                return b === false ? a + 1 : a;
+                            }, 0);
 					
 						if(count > 0){// si hay responsive	
 							var $span = $celda.find('span.openResponsive');
@@ -955,7 +983,9 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 *
 */
 function _comprobarFila(ctx,$fila){
-	var count = ctx.responsive.s.current.reduce(function (a,b) {return b === false ? a+1 : a;}, 0 );
+        var count = ctx.responsive.s.current.reduce(function (a, b) {
+            return b === false ? a + 1 : a;
+        }, 0);
 	var $span = $fila.find('span.openResponsive');
 	if($fila.next('.child').length === 0){
 		$span.click();
@@ -989,10 +1019,10 @@ function _comprobarFila(ctx,$fila){
 *
 */
 function _crearEventos(ctx,$selector){
-	if($selector.data( "events" ) === undefined || $selector.data( "events" ).keydown === undefined){
+        if ($selector.data('events') === undefined || $selector.data('events').keydown === undefined) {
 		$selector.keydown(function(e) {
 		    if (e.keyCode === 27) {//Esc
-		    	if($selector.hasClass("new")){//si se da alta y se cancela.
+                    if ($selector.hasClass('new')) { //si se da alta y se cancela.
 		    		var dt = $('#'+ctx.sTableId).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
 		    		ctx.oInit.inlineEdit.alta = undefined;
@@ -1008,7 +1038,7 @@ function _crearEventos(ctx,$selector){
 		    		$selector = $selector.parent('tr');
 		    	}
 		    	if($selector.find('.child').length === 1 || $selector.hasClass('child')){
-		    		child = true;;
+                        child = true;
 		    	}
 		    	_guardar(ctx,$selector,child);
 		    	return false;
@@ -1088,8 +1118,8 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	$.each(selectores,function() {
 		//añadir las columnas parents y child
 		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input,td:not([style*="display: none"]):not(".select-checkbox") select';
-		if(this.hasClass("child")){//si es el hijo solo buscar los select e inputs que hay.
-			busqueda = "select,input";
+            if (this.hasClass('child')) { //si es el hijo solo buscar los select e inputs que hay.
+                busqueda = 'select,input';
 		}
 		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
@@ -1100,9 +1130,9 @@ function _inlineEditFormSerialize($fila,ctx,child){
 				return false;
 			}
 			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
-				value = "0";
+                    value = '0';
 				if($(obj).prop('checked')){
-					value = "1";
+                        value = '1';
 				}
 			}
 			serializedForm[nombre] = value;
@@ -1148,12 +1178,12 @@ function _guardar(ctx,$fila,child){
     	_callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
 		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
     } else {
-    	var actionType = "PUT";
-    	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
-    		actionType = "POST";
-    	}
-    	_callSaveAjax(actionType,ctx,$fila,row,'');
-    	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
+        var actionType = 'PUT';
+	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
+            actionType = 'POST';
+	}
+	_callSaveAjax(actionType,ctx,$fila,row,'');
+	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
     }
 }
 
@@ -1189,9 +1219,14 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 
 	var ajaxOptions = {
 		url : ctx.oInit.urlBase+url,
-		accepts: {'*':'*/*','html':'text/html','json':'application/json, text/javascript',
+            accepts: {
+                '*': '*/*',
+                'html': 'text/html',
+                'json': 'application/json, text/javascript',
 			'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-			'text':'text/plain','xml':'application/xml, text/xml'},
+                'text': 'text/plain',
+                'xml': 'application/xml, text/xml'
+            },
 		type : actionType,
 		data : row,
 		dataType : 'json',
@@ -1220,8 +1255,8 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 							return;
 						}
 					});
-					if(ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search)
-							&& ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0){
+                        if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) &&
+                            ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
 						_comprobarSeeker(row,ctx,$fila.index());
 					}
 					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
@@ -1271,7 +1306,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,
-		feedback:feed.rup_feedback({type:"ok",block:false})
+            feedback: feed.rup_feedback({
+                type: 'ok',
+                block: false
+            })
 	};
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
@@ -1306,7 +1344,12 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
 	$('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
 	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-	feedback.rup_feedback({message:msgFeedBack,type:type,block:false, gotoTop:false});
+        feedback.rup_feedback({
+            message: msgFeedBack,
+            type: type,
+            block: false,
+            gotoTop: false
+        });
 	feedback.rup_feedback('set',msgFeedBack);
 	//Aseguramos que el estilo es correcto.
 	if(type === 'ok'){
@@ -1337,15 +1380,17 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	table.columns().responsiveHidden().each( function(valor,i) {
 		if(!$fila.find('td:eq('+i+')').hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
 			if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
-				var value = "";
+                    var value = '';
 				if(valor){//se coge el valor del child.
-					var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+                        var cont = ctx.inlineEdit.lastRow.columnsHidden.reduce(function (a, b) {
+                            return b === false ? a + 1 : a;
+                        }, 0);
 					var total = ctx.inlineEdit.lastRow.columnsHidden.length;
 					cont = cont + i - total;
 					var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
 					value = $inputChild.val();
 					if($inputChild.length > 0){
-						$('#'+$inputChild[0].id.replace("_child","")).prop('disabled', false);
+                            $('#' + $inputChild[0].id.replace('_child', '')).prop('disabled', false);
 					}
 					if($inputChild.is(':checkbox')){//x si es checkbox
 						if($inputChild.prop('checked')){
@@ -1369,7 +1414,9 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				}
 				
 			}else{
-				var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce( function (a,b) {return b === false ? a+1 : a;}, 0 );
+                    var contar = ctx.inlineEdit.lastRow.columnsHidden.reduce(function (a, b) {
+                        return b === false ? a + 1 : a;
+                    }, 0);
 				var totalContar = ctx.inlineEdit.lastRow.columnsHidden.length;
 				contar = contar + i - totalContar;
 				// se asigna valor normal
@@ -1397,7 +1444,11 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				}
 			}
 			//Guardar los inputs
-			ctx.inlineEdit.lastRow.rupValues.push({idCell: i, value: value, visible:valor});
+                ctx.inlineEdit.lastRow.rupValues.push({
+                    idCell: i,
+                    value: value,
+                    visible: valor
+                });
 		}
 	});
 }
@@ -1546,7 +1597,10 @@ function _deleteAllSelects(dt){
 		OKFunction: function () {
 			if(ctx.multiselection.selectedIds.length > 1){
 				var row = {};
-				row.core =  {'pkToken': ctx.oInit.multiplePkToken,'pkNames': ctx.oInit.primaryKey};
+                    row.core = {
+                        'pkToken': ctx.oInit.multiplePkToken,
+                        'pkNames': ctx.oInit.primaryKey
+                    };
 				row.multiselection = {};
 				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
 				if(row.multiselection.selectedAll){
@@ -1621,8 +1675,8 @@ apiRegister( 'inlineEdit.restaurarFila()', function (ctx, limpiar ) {
 apiRegister( 'inlineEdit.editSameLine()', function (ctx, idx ) {
 	var mismaLinea = false;
 	
-	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined
-			&& ctx.inlineEdit.lastRow.idx === idx){
+        if (ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
+            ctx.inlineEdit.lastRow.idx === idx) {
 		mismaLinea = true;
 	}
 	

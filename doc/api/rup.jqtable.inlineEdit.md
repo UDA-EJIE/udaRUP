@@ -66,7 +66,7 @@ Añade una nueva línea en blanco al mantenimiento para permitir introducir los 
 
 **Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeAddRow</code>](#module_rup_jqtable+event_rupTable_beforeAddRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeAddRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ Clona un registro determinado. Añade una nueva línea con el contenido del regi
 
 **Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeCloneRow</code>](#module_rup_jqtable+event_rupTable_beforeCloneRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeCloneRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -101,7 +101,7 @@ Pone el registro indicado en modo edición para permitir la edición de sus dato
 
 **Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_beforeEditRow</code>](#module_rup_jqtable+event_rupTable_beforeEditRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeEditRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ Elimina el registro indicado.
 
 **Kind**: inner method of [<code>rup\_jqtable/inlineEdit</code>](#module_rup_jqtable/inlineEdit)  
 **Returns**: <code>object</code> - - Referencia jQuery a la propia tabla.  
-**Emits**: [<code>rupTable\_deleteAfterSubmit</code>](#module_rup_jqtable+event_rupTable_deleteAfterSubmit), <code>module:rup\_jqtable#event:rupTable\_deleteAfterComplete</code>, [<code>rupTable\_beforeDeleteRow</code>](#module_rup_jqtable+event_rupTable_beforeDeleteRow)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_deleteAfterSubmit</code>, <code>module:rup\_jqtable#event:rupTable\_deleteAfterComplete</code>, <code>module:rup\_jqtable#event:rupTable\_beforeDeleteRow</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

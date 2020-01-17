@@ -7,10 +7,7 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o de var
 **See**: El componente está basado en el plugin [jQuery UI Selectmenu](http://jqueryui.com/selectmenu/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/selectmenu/).  
 **Example**  
 ```js
-$("#idCombo").rup_combo({
-	source : "comboSimple/remote",
-	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}
-});
+$("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}});
 ```
 
 * [rup_combo](#module_rup_combo)
@@ -83,8 +80,7 @@ $("#idCombo").rup_combo("getRupValue");
 <a name="module_rup_combo..setRupValue"></a>
 
 ### rup_combo~setRupValue(param)
-Método utilizado para asignar el valor al componente. Este método es el utilizado por
-el resto de componentes RUP para estandarizar la asignación del valor al Combo.
+Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor al Combo.
 
 **Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 
@@ -149,10 +145,7 @@ Selecciona el elemento enviado como parámetro. En caso de ser un numérico se s
 
 **Example**  
 ```js
-// Simple
-$("#idCombo").rup_combo("select", 2);
-// Multiple
-$("#idCombo").rup_combo("select", [0,2]);
+// Simple$("#idCombo").rup_combo("select", 2);// Multiple$("#idCombo").rup_combo("select", [0,2]);
 ```
 <a name="module_rup_combo..selectLabel"></a>
 
@@ -167,10 +160,7 @@ Selecciona el elemento del combo que contiene como texto el indicado. En caso de
 
 **Example**  
 ```js
-// Simple
-$("#idCombo").rup_combo("selectLabel", "No");
-// Multiple
-$("#idCombo").rup_combo("selectLabel", ["No","Si"]);
+// Simple$("#idCombo").rup_combo("selectLabel", "No");// Multiple$("#idCombo").rup_combo("selectLabel", ["No","Si"]);
 ```
 <a name="module_rup_combo..value"></a>
 

@@ -18,12 +18,12 @@ var properties = {		value: 50	};$("#idProgressbar").rup_progressbar(propertie
     * [~disable()](#module_rup_progressbar..disable) ⇒ <code>jQuery</code>
     * [~enable()](#module_rup_progressbar..enable) ⇒ <code>jQuery</code>
     * [~instance()](#module_rup_progressbar..instance) ⇒ <code>object</code>
-    * [~option(param)](#module_rup_progressbar..option) ⇒ <code>jQuery</code>
     * [~option()](#module_rup_progressbar..option) ⇒ <code>object</code>
     * [~option(paramName)](#module_rup_progressbar..option) ⇒ <code>object</code>
     * [~option(paramName, paramValue)](#module_rup_progressbar..option) ⇒ <code>jQuery</code>
-    * [~value(value)](#module_rup_progressbar..value) ⇒ <code>jQuery</code>
+    * [~option(param)](#module_rup_progressbar..option) ⇒ <code>jQuery</code>
     * [~value()](#module_rup_progressbar..value) ⇒ <code>number</code>
+    * [~value(value)](#module_rup_progressbar..value) ⇒ <code>jQuery</code>
     * [~widget()](#module_rup_progressbar..widget) ⇒ <code>jQuery</code>
 
 <a name="module_rup_progressbar..defaults"></a>
@@ -114,22 +114,6 @@ jQuery("#idProgressbar").rup_progressbar("instance");
 ```
 <a name="module_rup_progressbar..option"></a>
 
-### rup_progressbar~option(param) ⇒ <code>jQuery</code>
-Permite asignar el valor de una o varias propiedades de configuración.
-
-**Kind**: inner method of [<code>rup\_progressbar</code>](#module_rup_progressbar)  
-**Returns**: <code>jQuery</code> - - Retorna la referencia al elemento.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| param | <code>object</code> | Objeto clave/valor con las propiedades de configuración y sus valores. |
-
-**Example**  
-```js
-jQuery("#idProgressbar").rup_progressbar("option", {value:50, max:0});
-```
-<a name="module_rup_progressbar..option"></a>
-
 ### rup_progressbar~option() ⇒ <code>object</code>
 Devuelve un objeto clave/valor que contiene las propiedades de configuración de la barra de progreso.
 
@@ -172,6 +156,33 @@ Asigna un valor a la propiedad indentificada por parámetro.
 ```js
 jQuery("#idProgressbar").rup_progressbar("option", "value", 50);
 ```
+<a name="module_rup_progressbar..option"></a>
+
+### rup_progressbar~option(param) ⇒ <code>jQuery</code>
+Permite asignar el valor de una o varias propiedades de configuración.
+
+**Kind**: inner method of [<code>rup\_progressbar</code>](#module_rup_progressbar)  
+**Returns**: <code>jQuery</code> - - Retorna la referencia al elemento.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| param | <code>object</code> | Objeto clave/valor con las propiedades de configuración y sus valores. |
+
+**Example**  
+```js
+jQuery("#idProgressbar").rup_progressbar("option", {value:50, max:0});
+```
+<a name="module_rup_progressbar..value"></a>
+
+### rup_progressbar~value() ⇒ <code>number</code>
+Devuelve el valor actual de la barra de progreso.
+
+**Kind**: inner method of [<code>rup\_progressbar</code>](#module_rup_progressbar)  
+**Returns**: <code>number</code> - - Valor actual de la barra de progreso.  
+**Example**  
+```js
+jQuery("#idProgressbar").rup_progressbar("value");
+```
 <a name="module_rup_progressbar..value"></a>
 
 ### rup_progressbar~value(value) ⇒ <code>jQuery</code>
@@ -187,17 +198,6 @@ Asigna un valor a la barra de progreso.
 **Example**  
 ```js
 jQuery("#idProgressbar").rup_progressbar("value", 50);
-```
-<a name="module_rup_progressbar..value"></a>
-
-### rup_progressbar~value() ⇒ <code>number</code>
-Devuelve el valor actual de la barra de progreso.
-
-**Kind**: inner method of [<code>rup\_progressbar</code>](#module_rup_progressbar)  
-**Returns**: <code>number</code> - - Valor actual de la barra de progreso.  
-**Example**  
-```js
-jQuery("#idProgressbar").rup_progressbar("value");
 ```
 <a name="module_rup_progressbar..widget"></a>
 

@@ -64,7 +64,7 @@ Metodo que realiza la post-configuración del plugin filter del componente RUP T
 Limpia los campos del formulario de filtrado.
 
 **Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_filter\_beforeCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_beforeCleanFilterForm), [<code>rupTable\_filter\_afterCleanFilterForm</code>](#module_rup_jqtable+event_rupTable_filter_afterCleanFilterForm)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_filter\_beforeCleanFilterForm</code>, <code>module:rup\_jqtable#event:rupTable\_filter\_afterCleanFilterForm</code>  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("cleanFilterForm");
@@ -75,7 +75,7 @@ $("#idComponente").rup_jqtable("cleanFilterForm");
 Realiza el filtrado de acuerdo a los datos existentes en el formulario de filtrado.
 
 **Kind**: inner method of [<code>rup\_jqtable/filter</code>](#module_rup_jqtable/filter)  
-**Emits**: [<code>rupTable\_beforeFilter</code>](#module_rup_jqtable+event_rupTable_beforeFilter)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeFilter</code>  
 **Example**  
 ```js
 $("#idComponente").rup_jqtable("filter");

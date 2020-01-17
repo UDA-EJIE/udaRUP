@@ -10,7 +10,6 @@ var properties = {	width: 1000,	buttons:[		{i18nCaption:"buscar", css:"buscar
 ```
 
 * [rup_toolbar](#module_rup_toolbar)
-    * [~options](#module_rup_toolbar..options)
     * [~addButton()](#module_rup_toolbar..addButton)
     * [~addMButton()](#module_rup_toolbar..addMButton)
     * [~addButtonsToMButton()](#module_rup_toolbar..addButtonsToMButton)
@@ -24,20 +23,6 @@ var properties = {	width: 1000,	buttons:[		{i18nCaption:"buscar", css:"buscar
     * [~buttonClick](#module_rup_toolbar..buttonClick) : <code>function</code>
     * [~button](#module_rup_toolbar..button) : <code>Object</code>
     * [~mButton](#module_rup_toolbar..mButton) : <code>Object</code>
-
-<a name="module_rup_toolbar..options"></a>
-
-### rup_toolbar~options
-Propiedades de configuración del componente.
-
-**Kind**: inner property of [<code>rup\_toolbar</code>](#module_rup_toolbar)  
-**Properties**
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| [width] | <code>Integer</code> | <code></code> | Tamaño que tendrá la botonera. Por defecto ocupará toda la página. |
-| [buttons] | [<code>Array.&lt;button&gt;</code>](#module_rup_toolbar..button) |  | Array de botones a mostrar. |
-| [mbuttons] | [<code>Array.&lt;mButton&gt;</code>](#module_rup_toolbar..mButton) |  | Array de botones con menú a mostrar. |
 
 <a name="module_rup_toolbar..addButton"></a>
 

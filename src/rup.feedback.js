@@ -31,9 +31,6 @@
  * $("#id_capa").rup_feedback (properties);
  */
 
-/*global define */
-/*global jQuery */
- 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
 
@@ -124,16 +121,16 @@ de la aplicación pueda cerrar la capa manualmente.
         _create: function () {
             var opciones = this.options;
             opciones._idFeedback =
-				this.element
-				    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
-				    .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
-				    .attr({
-				        role: 'alert'
-				    })
-				    .css('display', opciones.block ? 'block' : 'none')
-				    .css('visibility', 'hidden')
-				    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
-				    .attr('id');
+                this.element
+                    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
+                    .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
+                    .attr({
+                        role: 'alert'
+                    })
+                    .css('display', opciones.block ? 'block' : 'none')
+                    .css('visibility', 'hidden')
+                    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
+                    .attr('id');
 
             //Crear capa cierre
             opciones._divClose = $('<div />')
@@ -173,7 +170,6 @@ de la aplicación pueda cerrar la capa manualmente.
      * jQuery("#feedback").rup_feedback("destroy");
      */
         destroy: function () {
-            var opciones = this.options;
             this.element
                 .removeClass()
                 .removeAttr('role')
@@ -254,6 +250,8 @@ de la aplicación pueda cerrar la capa manualmente.
             if (opciones.delay != null) {
                 this.hide();
             }
+
+            $('#' + this.options._idFeedback).trigger('rupFeedback_afterSet');
         },
         /**
      * Oculta la capa del feedback con una animación. <br/><br/>

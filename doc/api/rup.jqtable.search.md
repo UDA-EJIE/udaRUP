@@ -80,7 +80,7 @@ $("#idTable").rup_jqtable("toggleSearchForm");
 Genera la barra de controles para gestionar la búsqueda.
 
 **Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable\_searchAfterCreateToolbar</code>](#module_rup_jqtable+event_rupTable_searchAfterCreateToolbar)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_searchAfterCreateToolbar</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("createSearchToolbar");
@@ -121,7 +121,7 @@ $("#idTable").rup_jqtable("navigateToMatchedRow", matchedRow);
 Lanza la operación de búsqueda además del evento previo.
 
 **Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>rupTable\_beforeSearch</code>](#module_rup_jqtable+event_rupTable_beforeSearch)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_beforeSearch</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("search");
@@ -132,7 +132,7 @@ $("#idTable").rup_jqtable("search");
 Lanza la operación de búsqueda.
 
 **Kind**: inner method of [<code>rup\_jqtable/search</code>](#module_rup_jqtable/search)  
-**Emits**: [<code>masterDetail</code>](#module_rup_jqtable+rupTable_searchBeforeSubmit.rupTable.event_masterDetail)  
+**Emits**: <code>module:rup\_jqtable#rupTable\_searchBeforeSubmit.rupTable.event:masterDetail</code>  
 **Example**  
 ```js
 $("#idTable").rup_jqtable("doSearch");

@@ -384,7 +384,7 @@ RowGroup.defaults = {
 };
 
 
-RowGroup.version = "1.0.2";
+    RowGroup.version = '1.0.2';
 
 
 $.fn.dataTable.RowGroup = RowGroup;

@@ -144,7 +144,7 @@ function messageTester(msgType) {
                 beforeEach((done) => {
                     window.done = done;
                     $('.ui-dialog').on('dialogclose', done);
-                    $('button.ui-dialog-titlebar-close').click();
+                    $('i.mdi.mdi-close.float-right.pointer').click();
                 });
                 it('Se cierra el message:', (done) => {
                     expect($('.ui-dialog:visible').length).toBe(0);

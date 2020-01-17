@@ -14,81 +14,76 @@
  * que establece la Licencia.
  */
 
-/*global define */
-/*global jQuery */
 
 (function( factory ) {
-	if ( typeof define === 'function' && define.amd ) {
+    if ( typeof define === 'function' && define.amd ) {
 
-		// AMD. Register as an anonymous module.
-		define(['jquery','./rup.base'], factory );
-	} else {
+        // AMD. Register as an anonymous module.
+        define(['jquery','./rup.base'], factory );
+    } else {
 
-		// Browser globals
-		factory(jQuery);
-	}
+        // Browser globals
+        factory(jQuery);
+    }
 }(function ($) {
 
-	//****************************************************************************************************************
-	// DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
-	//****************************************************************************************************************
+    //****************************************************************************************************************
+    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que contendrá los métodos y la función de jQuery)
+    //****************************************************************************************************************
 
-	var rup_spinner = {};
+    var rup_spinner = {};
 
-	//Se configura el arranque de UDA para que alberge el nuevo patrón
-	$.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_spinner', rup_spinner));
+    //Se configura el arranque de UDA para que alberge el nuevo patrón
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_spinner', rup_spinner));
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PÚBLICOS
-	//*******************************
-	$.fn.rup_spinner('extend',{
-		getRupValue: function() {
-			var $self = this, value;
-			value = this.spinner('value');
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PÚBLICOS
+    //*******************************
+    $.fn.rup_spinner('extend',{
+        getRupValue: function() {
+            return this.spinner('value');
+        },
+        setRupValue: function(value){
+            var $self = this;
 
-			return value;
-		},
-		setRupValue: function(value){
-			var $self = this;
+            $self.spinner('value', value);
 
-			$self.spinner('value', value);
+            return $self;
+        }
+    });
 
-			return $self;
-		}
-	});
+    //*******************************
+    // DEFINICIÓN DE MÉTODOS PRIVADOS
+    //*******************************
 
-	//*******************************
-	// DEFINICIÓN DE MÉTODOS PRIVADOS
-	//*******************************
+    $.fn.rup_spinner('extend',{
+        _bar: function() {
+            return this;
+        }
+    });
 
-	$.fn.rup_spinner('extend',{
-		_bar: function() {
-			return this;
-		}
-	});
-
-	//*******************************
-	// MÉTODO DE INICIALIZACION
-	//*******************************
-	$.fn.rup_spinner('extend', {
-		_init : function(args){
-			var $self = this, settings = $.extend({}, $.fn.rup_spinner.defaults, args[0]);
+    //*******************************
+    // MÉTODO DE INICIALIZACION
+    //*******************************
+    $.fn.rup_spinner('extend', {
+        _init : function(args){
+            var $self = this, settings = $.extend({}, $.fn.rup_spinner.defaults, args[0]);
 
 
-			$self.addClass('rup_spinner');
-			$self.attr('ruptype','spinner');
-			$self.spinner(settings);
+            $self.addClass('rup_spinner');
+            $self.attr('ruptype','spinner');
+            $self.spinner(settings);
 
-			//Se audita el componente
-			$.rup.auditComponent('rup_spinner', 'init');
-		}
-	});
+            //Se audita el componente
+            $.rup.auditComponent('rup_spinner', 'init');
+        }
+    });
 
-	//******************************************************
-	// DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-	//******************************************************
-	$.fn.rup_spinner.defaults = {
-		foobar: false
-	};
+    //******************************************************
+    // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
+    //******************************************************
+    $.fn.rup_spinner.defaults = {
+        foobar: false
+    };
 
 }));

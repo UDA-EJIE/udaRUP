@@ -23,9 +23,6 @@
  * @memberOf jQuery
  */
 
-/*global define */
-/*global jQuery */
-
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 
@@ -131,7 +128,7 @@
 						parseJSON('[]', path);
 					} else {
 						for (var i = 0; i < obj.length; i++) {
-							var index = '[' + i + ']',
+                            let index = '[' + i + ']',
 								name = path + index;
 							parseJSON(obj[i], name);
 						}
@@ -245,7 +242,7 @@
 			if (typeof sid === 'string') {
 				returnIdSelector = sid;
 				if (escaped === true) {
-					returnIdSelector = String(returnIdSelector).replace(/[!"#$%&'()*+,.\/:; <=>?@\[\\\]\^`{|}~]/g, '\\$&');
+                    returnIdSelector = String(returnIdSelector).replace(/[!"#$%&'()*+,./:; <=>?@[\\\]^`{|}~]/g, '\\$&');
 				}
 				return returnIdSelector[0] === '#' ? returnIdSelector : '#' + returnIdSelector;
 			}
@@ -276,10 +273,10 @@
 				} else {
 					if (root instanceof Array) {
 						root.push(value);
-					} else if (path[0].indexOf(".") != -1) {
+                    } else if (path[0].indexOf('.') != -1) {
 						// Entra por aquí en caso de que uno de los path sea un objeto
-						var padre = path[0].slice(0, path[0].indexOf("."));
-						var hijo = path[0].slice(path[0].indexOf(".") + 1, path[0].length);
+                        var padre = path[0].slice(0, path[0].indexOf('.'));
+                        var hijo = path[0].slice(path[0].indexOf('.') + 1, path[0].length);
 
 						if (root[padre] != undefined) {
 							root[padre][hijo] = value;
@@ -306,7 +303,7 @@
 				}
 				value = decodeURIComponent(pair[1]);
 
-				path = name.match(/(^[^\[]+)(\[.*\]$)?/);
+                path = name.match(/(^[^[]+)(\[.*\]$)?/);
 				first = path[1];
 
 				if (path[2]) {
@@ -355,12 +352,28 @@
 			return cadena.toLowerCase();
 		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
-			var ruptype, formElem;
+            var formElem;
 			var tree_data, selectorArray;
+
+            function loadedJstreeEvent(){
+                var selectorArbol = this.id;
+                //$(this).rup_tree("setRupValue",$arbol[selectorArbol]);
+
+                $(this).trigger('rup_filter_treeLoaded', $arbol[selectorArbol]);
+            }
+
+            function populateRadioCheckbox() {
+                if ($(this).val() == aData[i]) {
+                    $(this).attr('checked', 'checked');
+                } else {
+                    $(this).removeAttr('checked');
+                }
+            }
+
 			if (aData) {
 
 				for (var i in aData) {
-					tree_data = new Array();
+                    tree_data = [];
 					formElem = $('[name=\'' + i + '\']', formid);
 					if (formElem.length == 0) {
 						selectorArray = i.substr(0, i.indexOf('['));
@@ -379,25 +392,14 @@
 							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', tree_data);
 							var $arbol = [];
 							$arbol[selectorArray] = tree_data;
-							formElem.on('loaded.jstree', function (event, data) {
-								var selectorArbol = this.id;
-								//$(this).rup_tree("setRupValue",$arbol[selectorArbol]);
-
-								$(this).trigger('rup_filter_treeLoaded', $arbol[selectorArbol]);
-							});
+                            formElem.on('loaded.jstree', loadedJstreeEvent);
 
 						} else {
 							// Forma de evitar el EVAL
 							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
 						}
 					} else if (formElem.is('input:radio') || formElem.is('input:checkbox')) {
-						formElem.each(function () {
-							if ($(this).val() == aData[i]) {
-								$(this).attr('checked', 'checked');
-							} else {
-								$(this).removeAttr('checked');
-							}
-						});
+                        formElem.each(populateRadioCheckbox);
 					} else if (formElem.is('select')) {
 						formElem.val(aData[i]).click();
 					} else if (formElem.is(':not(img)')) { // this is very slow on big table and form.
@@ -409,7 +411,7 @@
 
 		//DATE UTILS
 		createDate: function (day, month, year) {
-			return $.datepicker.formatDate($.rup.i18n.base['rup_date'].dateFormat, new Date(year, month - 1, day));
+            return $.datepicker.formatDate($.rup.i18n.base.rup_date.dateFormat, new Date(year, month - 1, day));
 		},
 		createTime: function (hour, minute, second) {
 			return new Date(null, null, null, hour, minute, second);
@@ -466,7 +468,7 @@
 				return false;
 			}
 
-			var value = document.cookie.match('(?:^|;)\\s*' + name.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + '=([^;]*)');
+            var value = document.cookie.match('(?:^|;)\\s*' + name.replace(/([-.*+?^${}()|[\]/\\])/g, '\\$1') + '=([^;]*)');
 			return (value) ? decodeURIComponent(value[1]) : null;
 		},
 		get: function (name, json) {
@@ -518,7 +520,7 @@
 			}
 			for (var propertyName in x) {
 				if (typeof x[propertyName] == 'object' && typeof y[propertyName] == 'object') {
-					objectsAreSame = compareObjects(x[propertyName], y[propertyName]);
+                    objectsAreSame = this.compareObjects(x[propertyName], y[propertyName]);
 					if (!objectsAreSame) break;
 				} else {
 					if (x[propertyName] !== y[propertyName]) {
@@ -531,7 +533,7 @@
 		},
 		escapeId: function (id) {
 			if (id) {
-				return id.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
+                return id.replace(/([ #;&,.+*~':"!^$[\]()=>|/@])/g, '\\$1');
 			}
 
 			return '';
@@ -589,31 +591,31 @@
 							$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_utils.relToAbsUrlParamError') + url + $.rup.i18nParse($.rup.i18n.base, 'rup_utils.relToAbsUrlParamErrorEnd'));
 							return (undefined);
 						} else if (fChar2 === '/') {
-							var analyzedUrl = $.url(urlPage.attr('href'), true);
+                            let analyzedUrl = $.url(urlPage.attr('href'), true);
 							return (analyzedUrl.attr('base') + analyzedUrl.attr('directory') + url.substring(2, url.length));
 						} else if (fChar2 === '.') {
 							var urlPageFragments = urlPage.attr('pathname').split('/');
 							var urlPageLength = (urlPageFragments.length) - 2;
 							if ((url.substring(2, 3) !== undefined) && (url.substring(2, 3) === '/')) {
-								var urlFragments = url.split('../');
-								var urlLength = (urlFragments.length) - 1;
+                                let urlFragments = url.split('../');
+                                let urlLength = (urlFragments.length) - 1;
 								if (urlLength >= urlPageLength) {
 									return (urlPage.attr('protocol') + '//' + urlPage.attr('host') + '/' + urlFragments[urlFragments.length - 1]);
 								} else {
-									var cade = '';
-									for (var i = urlPageLength - urlLength; i > 0; i--) {
+                                    let cade = '';
+                                    for (let i = urlPageLength - urlLength; i > 0; i--) {
 										cade = urlPageFragments[i] + '/' + cade;
 									}
 									return (urlPage.attr('protocol') + '//' + urlPage.attr('host') + '/' + cade + urlFragments[urlFragments.length - 1]);
 								}
 							} else {
-								var urlFragments = url.split('..');
-								var urlLength = (urlFragments.length) - 1;
+                                let urlFragments = url.split('..');
+                                let urlLength = (urlFragments.length) - 1;
 								if (urlLength >= urlPageLength) {
 									return (urlPage.attr('protocol') + '//' + urlPage.attr('host') + urlFragments[urlFragments.length - 1]);
 								} else {
-									var cade = '';
-									for (var i = urlPageLength - urlLength; i > 0; i--) {
+                                    let cade = '';
+                                    for (let i = urlPageLength - urlLength; i > 0; i--) {
 										cade = urlPageFragments[i] + '/' + cade;
 									}
 									return (urlPage.attr('protocol') + '//' + urlPage.attr('host') + '/' + cade + urlFragments[urlFragments.length - 1]);
@@ -624,7 +626,7 @@
 							return (undefined);
 						}
 					} else {
-						var analyzedUrl = $.url(urlPage.attr('href'), true);
+                        let analyzedUrl = $.url(urlPage.attr('href'), true);
 						return (analyzedUrl.attr('base') + analyzedUrl.attr('directory') + url);
 					}
 				} else {
@@ -753,7 +755,7 @@
 			return $.inArray(elem, array);
 		},
 		getRupValueAsJson: function (name, value) {
-			var arrTmp, returnArray, dotNotation = false,
+            var arrTmp, dotNotation = false,
 				dotProperty, tmpJson, returnArray = [];
 
 			if (name) {
@@ -798,13 +800,12 @@
 			return null;
 		},
 		getRupValueWrapped: function (name, value) {
-			var arrTmp, dotNotation = false,
+            var arrTmp,
 				dotProperty, wrapObj = {};
 			if (name) {
 				// Miramos si el name contiene notación dot
 				arrTmp = name.split('.');
 				if (arrTmp.length > 1) {
-					dotNotation = true;
 					dotProperty = arrTmp[arrTmp.length - 1];
 				} else {
 					return value;
@@ -912,7 +913,7 @@
 				return val === null || val === '' ?
 					null :
 					jQuery.isArray(val) ?
-					jQuery.map(val, function (val, i) {
+                        jQuery.map(val, function (val) {
 						return {
 							name: elem.name,
 							value: val
@@ -960,7 +961,7 @@
 				return val === null ?
 					null :
 					jQuery.isArray(val) ?
-					jQuery.map(val, function (val, i) {
+                        jQuery.map(val, function (val) {
 						return {
 							name: elem.name,
 							value: val
@@ -1006,7 +1007,7 @@
 			var chr1, chr2, chr3;
 			var enc1, enc2, enc3, enc4;
 			var i = 0;
-			input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
+            input = input.replace(/[^A-Za-z0-9+/=]/g, '');
 			while (i < input.length) {
 				enc1 = this._keyStr.indexOf(input.charAt(i++));
 				enc2 = this._keyStr.indexOf(input.charAt(i++));
@@ -1049,20 +1050,22 @@
 		_utf8_decode: function (utftext) {
 			var string = '';
 			var i = 0;
-			var c = c1 = c2 = 0;
+            var c1 = 0;
+            var c2 = 0;
+            var c3 = 0;
 			while (i < utftext.length) {
-				c = utftext.charCodeAt(i);
-				if (c < 128) {
-					string += String.fromCharCode(c);
+                c1 = utftext.charCodeAt(i);
+                if (c1 < 128) {
+                    string += String.fromCharCode(c1);
 					i++;
-				} else if ((c > 191) && (c < 224)) {
+                } else if ((c1 > 191) && (c1 < 224)) {
 					c2 = utftext.charCodeAt(i + 1);
-					string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    string += String.fromCharCode(((c1 & 31) << 6) | (c2 & 63));
 					i += 2;
 				} else {
 					c2 = utftext.charCodeAt(i + 1);
 					c3 = utftext.charCodeAt(i + 2);
-					string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    string += String.fromCharCode(((c1 & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
 					i += 3;
 				}
 			}

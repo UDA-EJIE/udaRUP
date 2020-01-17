@@ -417,11 +417,12 @@ input.
          * $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
          */
 		set: function (value, label) {
+            var $self;
 				if ($(this).attr('id').indexOf('_label') >= 0 ) {
 					var array = $(this).attr('id').split('_label');
-					var $self = $('#'+array[0]);
+                $self = $('#'+array[0]);
 				} else {
-					var $self = $(this);
+                $self = $(this);
 				}
 				var $selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
 				loadObjects, newObject = {};
@@ -545,7 +546,7 @@ input.
 						//parte trasera
 						//var nAtras = literal.indexOf(labelLimpio.substr(termLimpio.length));
 						
-						var nAtras = literal.indexOf("</strong>")+9;
+                        var nAtras = literal.indexOf('</strong>')+9;
 						literal = returnValue.label;
 						returnValue.label = literal.substr(0,nAtras)+label.substr(n+termLimpio.length);
 					}
@@ -667,7 +668,7 @@ input.
 								var n = labelLimpio.indexOf(termLimpio);
 								returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
 								//parte trasera
-								var nAtras = literal.indexOf("</strong>")+9;
+                                var nAtras = literal.indexOf('</strong>')+9;
 								literal = returnValue.label;
 								returnValue.label = literal.substr(0,nAtras)+item.label.substr(n+termLimpio.length);
 							}
@@ -856,7 +857,7 @@ input.
 				}
 
 				// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
-				settings.$menu.on('scroll', (e) => {
+                settings.$menu.on('scroll', () => {
 					jQuery('#' + settings.id + '_label').focus();
 					settings.$menu.show();
 				});
