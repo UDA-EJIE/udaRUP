@@ -1481,7 +1481,7 @@
         createdRow: function (row) {
             var ctx = $('#' + this[0].id).rup_table('getContext');
 	        
-	        if(ctx.oInit.select != undefined || ctx.oInit.multiSelect.hideMultiselect){
+	        if(ctx.oInit.select != undefined || (ctx.oInit.multiSelect != undefined && ctx.oInit.multiSelect.hideMultiselect)){
 	        	$(row).attr('tabindex', '0');
 	        }
 	    },
