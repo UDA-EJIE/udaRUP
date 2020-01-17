@@ -388,7 +388,7 @@ handler that will select the items using the API methods.
 
                 row.triggerHandler('tableSelectBeforeSelectRow');
                 
-                if ((event.shiftKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
+                if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
                 	rangeSelection(dt, event);
     			} else if(ctx.multiselection.lastSelectedIsRange) {
     				if(event.target.type !== 'checkbox') {
@@ -439,7 +439,7 @@ handler that will select the items using the API methods.
 
 	                row.triggerHandler('tableSelectBeforeSelectRow');
 	                
-                    if (event.shiftKey && event.which === 32) {
+                    if (event.shiftKey && event.which === 32 || event.ctrlKey && event.which === 32) {
     		        	rangeSelection(dt, event);
         			} else if(ctx.multiselection.lastSelectedIsRange) {
     					deselectAllPage(dt);
@@ -487,37 +487,49 @@ handler that will select the items using the API methods.
     function rangeSelection(dt, event) {
     	var ctx = dt.settings()[0];
     	
-    	// Desde / Hasta
-		var fromIndex;
-		if(dt['rows']({selected: true}).any()) {
-			fromIndex = ctx.multiselection.selectedRowsPerPage[$.inArray(ctx.multiselection.lastSelectedId, ctx.multiselection.selectedIds)].line;
-		} else {
-			fromIndex = $(event.target).closest('tr').index();
-		}
-		var toIndex = $(event.target).closest('tr').index();
-		
-		// Guardar id desde
-		var idBase = ctx.multiselection.lastSelectedId;
-		
-		deselectAllPage(dt);
-		
-		if(fromIndex < toIndex) {
-			toIndex++;
-			for(var i = fromIndex; i < toIndex; i++) {
-				dt.row(i).multiSelect();
-			}
-		} else if(fromIndex > toIndex) {
-			toIndex--;
-			for(var i = fromIndex; i > toIndex; i--) {
-				dt.row(i).multiSelect();
-			}
-		} else {
-			dt.row(fromIndex).multiSelect();
-			idBase = ctx.multiselection.lastSelectedId;
-		}
-		
-		ctx.multiselection.lastSelectedId = idBase;
-		ctx.multiselection.lastSelectedIsRange = true;
+    	if(event.ctrlKey) {
+    		let cell = dt.cell($(event.target).closest('td, th'));
+    		let index = $(event.target).closest('tr').index();
+    		let idx = cell.index().row;
+    		
+    		let isSelected = dt['row'](idx, {
+                selected: true
+            }).any();
+            
+            dt['row'](idx).multiSelect(!isSelected);  
+    	} else {
+    		// Desde / Hasta
+    		let fromIndex;
+    		if(dt['rows']({selected: true}).any()) {
+    			fromIndex = ctx.multiselection.selectedRowsPerPage[$.inArray(ctx.multiselection.lastSelectedId, ctx.multiselection.selectedIds)].line;
+    		} else {
+    			fromIndex = $(event.target).closest('tr').index();
+    		}
+    		let toIndex = $(event.target).closest('tr').index();
+    		
+    		// Guardar id desde
+    		let idBase = ctx.multiselection.lastSelectedId;
+    		
+    		deselectAllPage(dt);
+    		
+    		if(fromIndex < toIndex) {
+    			toIndex++;
+    			for(let i = fromIndex; i < toIndex; i++) {
+    				dt.row(i).multiSelect();
+    			}
+    		} else if(fromIndex > toIndex) {
+    			toIndex--;
+    			for(let i = fromIndex; i > toIndex; i--) {
+    				dt.row(i).multiSelect();
+    			}
+    		} else {
+    			dt.row(fromIndex).multiSelect();
+    			idBase = ctx.multiselection.lastSelectedId;
+    		}
+    		
+    		ctx.multiselection.lastSelectedId = idBase;
+    		ctx.multiselection.lastSelectedIsRange = true;
+    	}
     }
     
     /**
