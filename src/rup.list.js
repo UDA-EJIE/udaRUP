@@ -16,6 +16,8 @@
 
 /* eslint-disable no-console */
 
+import Printd from 'printd';
+
 /**
  * Presenta los elementos que presenta una tabla rup_table en formato listado. Pensado para movilidad.
  *
@@ -598,29 +600,40 @@
 
             function btnPrintMain (e) {
                 e.preventDefault();
-                var winPrint = window.open('','_blank'),
-                    winContent,
-                    filter = {
-                        filter: $('#' + opciones.filterForm).rup_form('formToJson'),
-                        page: 1,
-                        rows: opciones.records,
-                        sidx: '',
-                        sord: '',
-                        multiselection: opciones.multiselection,
-                        core: {
-                            pkNames: [opciones.key],
-                            pkToken: '~'
-                        }
-                    },
-                    tagPrint = $('<link>', {
+                var doc = new Printd(),
+                    printDoc = $('<div id="print-doc"></div>'),
+                    printTagStyle = $('<link>', {
                         'id': 'rup-list-link-print',
                         'rel': 'stylesheet',
                         // 'media': 'print',
                         'href': opciones.print
-                    });
+                    }),
+                    sidx = '',
+                    sord = '';
+                    
 
-                tagPrint = tagPrint[0].outerHTML;
-                winPrint.document.write(tagPrint);
+                if (opciones.isMultiSort) {
+                    sidx = opciones.multiorder.sidx;
+                    sord = opciones.multiorder.sord;
+                } else {
+                    sidx = opciones.sidx.value;
+                    sord = opciones.sord;
+                }
+
+                var filter = {
+                    filter: $('#' + opciones.filterForm).rup_form('formToJson'),
+                    page: 1,
+                    rows: opciones.records,
+                    sidx: sidx,
+                    sord: sord,
+                    multiselection: opciones.multiselection,
+                    core: {
+                        pkNames: [opciones.key],
+                        pkToken: '~'
+                    }
+                };
+
+                printDoc.append(printTagStyle);
 
                 jQuery.rup_ajax({
                     url: opciones.action,
@@ -629,15 +642,20 @@
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
-                        winContent = $('<div id="rup-list-print" class="rup_list-print">');
-                        for (var i = 0; i < xhr.rows.length; i++) {
-                            winContent.append($('<p id="rup-list-print-item" class="rup_list-print-item">' + xhr.rows[i].usuario+ '</p>'));
+                        if (!opciones.multiselection.selectedIds) {
+                            for (var i = 0; i < xhr.rows.length; i++) {
+                                printDoc.append($('<p>' + xhr.rows[i].usuario + '</p>'));
+                            }
+                        } else {
+                            for (var x = 0; x < xhr.rows.length; x++) {
+                                for (var y = 0; y < xhr.reorderedSelection.length; y++) {
+                                    if (xhr.rows[x].codigoPK == xhr.reorderedSelection[y].pk.codigoPK) {
+                                        printDoc.append($('<p>' + xhr.rows[x].usuario + '</p>'));
+                                    }
+                                }
+                            }
                         }
-                        winContent = winContent[0].outerHTML;
-                        winPrint.document.write(winContent);
-                        setTimeout(() => {
-                            winPrint.print();
-                        }, 1);
+                        doc.print(printDoc[0]);
                     }
                 });
             }
