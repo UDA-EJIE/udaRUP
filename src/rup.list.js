@@ -108,15 +108,15 @@ import Printd from 'printd';
     /**
      * @description Opciones por defecto de configuración de rowNum
      * @name defaultsRowNum
-     * 
+     *
      * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de los elementos por página
-     * @property {String} [value=5] - Valor del source por defecto 
+     * @property {String} [value=5] - Valor del source por defecto
      */
 
     /**
      * @description Opciones por defecto de configuración de sidx
      * @name defaultsSidx
-     * 
+     *
      * @property {Array} [sorce=Array] - Es un array de objetos con las propiedades value e i18nCaption que serán los elementos disponibles para la seleccion de la ordenacion.
      * @property {String} [value=5] - Valor del source por defecto. En caso de ser multiOrdenacion se pueden añadir campos separados por comas
      */
@@ -124,7 +124,7 @@ import Printd from 'printd';
     /**
      * @description Opciones por defecto de configuración de selectable
      * @name defaultsSelectable
-     * 
+     *
      * @property {boolean} [multi=null] - Si es true será de selección múltiple, de ser false será de seleccion simple.
      * @property {selector} [value=null] - Selctor JQuery sobre el que se deberá hacer click para seleccionar o deseleccionar elementos.
      */
@@ -132,7 +132,7 @@ import Printd from 'printd';
     /**
      * @description Eventos lanzados sobre rup-list
      * @name defaultsEvents
-     * 
+     *
      * @property [initComplete] - Se lanza una vez el componente ha sido inicializado.
      * @property [listAfterMultiselection] - Se lanza tras finalizar operaciones de multiseleccion desde el desplegable.
      * @property [rup_list-mord-inited] - Se lanza una vez se ha inicializado la característica de multiorder
@@ -180,11 +180,11 @@ import Printd from 'printd';
 
         /**
          * Método interno para cambiar el valor de algunas opciones
-         * 
+         *
          * @name _changeOption
          * @function
-         * @param {String} key 
-         * @param {*} value 
+         * @param {String} key
+         * @param {*} value
          */
         _changeOption: function (key, value) {
             var opciones = this.options;
@@ -368,7 +368,7 @@ import Printd from 'printd';
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
                     self.element.append(item);
-                    
+
                 });
 
                 /**
@@ -381,7 +381,23 @@ import Printd from 'printd';
                  */
                 if (opciones.selectable) {
                     $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
-                    $('[rup-list-selector="enabled"]').click(function (e) {
+
+                    var isControl = false;
+                    var lastClickedPK;
+
+                    $(document).on('keydown', (e) => {
+                        if (e.keyCode == '17') {
+                            isControl = true;
+                        }
+                    });
+
+                    $(document).on('keyup', (e) => {
+                        if (e.keyCode == '17') {
+                            isControl = false;
+                        }
+                    });
+
+                    $('[rup-list-selector="enabled"]').on('click', function (e) {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
                         if (opciones.multiselection.selectedIds == null) {
@@ -390,46 +406,7 @@ import Printd from 'printd';
                         if (opciones.multiselection.selectedRowsPerPage == null) {
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
-                        let select = (clickedPK) => {
-                            if (!opciones.selectable.multi) {
-                                opciones.multiselection.selectedAll = false;
-                                opciones.multiselection.selectedIds = [];
-                                opciones.multiselection.selectedRowsPerPage = [];
-                            }
-                            opciones.multiselection.selectedRowsPerPage.push({
-                                id: self.element[0].id + '-itemTemplate_' + clickedPK,
-                                line: (function () {
-                                    let cont = 0;
-                                    let final = 0;
-                                    self.element.children().toArray().forEach(element => {
-                                        if (element.id == self.element.id + '-itemTemplate_' + clickedPK) {
-                                            final = cont;
-                                        }
-                                        cont++;
-                                    });
-                                    return final;
-                                })(),
-                                page: opciones.page
-                            });
-                            opciones.multiselection.selectedIds.push(clickedPK);
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
-                        };
-                        let deselect = (clickedPK) => {
-                            let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
-                            opciones.multiselection.selectedIds.splice(index, 1);
-                            opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
-                                elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
-                            );
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        };
-                        let selectAll = (clickedPK) => {
-                            deselect(clickedPK);
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
-                        };
-                        let deselectAll = (clickedPK) => {
-                            select(clickedPK);
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        };
+
                         if (opciones.multiselection.selectedIds.includes(clickedPK)) {
                             if (opciones.multiselection.selectedAll) {
                                 selectAll(clickedPK);
@@ -450,6 +427,73 @@ import Printd from 'printd';
                             opciones.multiselection.selectedRowsPerPage = null;
                         }
                     });
+
+                    let select = (clickedPK) => {
+                        if (!opciones.selectable.multi) {
+                            opciones.multiselection.selectedAll = false;
+                            opciones.multiselection.selectedIds = [];
+                            opciones.multiselection.selectedRowsPerPage = [];
+                        }
+                        opciones.multiselection.selectedRowsPerPage.push({
+                            id: self.element[0].id + '-itemTemplate_' + clickedPK,
+                            line: (function () {
+                                let cont = 0;
+                                let final = 0;
+                                self.element.children().toArray().forEach(element => {
+                                    if (element.id == self.element.id + '-itemTemplate_' + clickedPK) {
+                                        final = cont;
+                                    }
+                                    cont++;
+                                });
+                                return final;
+                            })(),
+                            page: (function () {
+                                if (opciones.isScrollList) {
+                                    return 1;
+                                } else {
+                                    return opciones.page;
+                                }
+                            })()
+                        });
+                        opciones.multiselection.selectedIds.push(clickedPK);
+                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+
+                        if (opciones.multiselection.selectedIds.length > 1) {
+                            lastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 2];
+                            if (!isControl) {
+                                deselect(lastClickedPK);
+                                if (opciones.multiselection.selectedIds.length > 0) {
+                                    for (var i = 0; i < opciones.multiselection.selectedIds.length; i++) {
+                                        $('#' + self.element[0].id + '-itemTemplate_' + opciones.multiselection.selectedIds[i]).removeClass('list-item-selected');
+                                    }
+                                    opciones.multiselection.selectedAll = false;
+                                    opciones.multiselection.selectedIds = [];
+                                    opciones.multiselection.selectedRowsPerPage = [];
+                                    select(clickedPK);
+                                }
+                            }
+                        }
+                    };
+
+                    let deselect = (clickedPK) => {
+                        let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
+                        opciones.multiselection.selectedIds.splice(index, 1);
+                        opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
+                            elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
+                        );
+                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                    };
+
+                    let selectAll = (clickedPK) => {
+                        deselect(clickedPK);
+                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                    };
+
+                    let deselectAll = (clickedPK) => {
+                        select(clickedPK);
+                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                    };
+
                     opciones.multiselection = {
                         selectedIds: null,
                         selectedAll: false,
@@ -498,7 +542,7 @@ import Printd from 'printd';
             $(self.element).on('scrollListPagePrev', function () {
                 return self.options.page--;
             });
-            
+
             $(window).on('scroll', function () {
                 var windowHeight = document.documentElement.clientHeight,
                     targetOpciones = self.element[0].getBoundingClientRect(),
@@ -507,7 +551,7 @@ import Printd from 'printd';
                     targetButtomPoint = targetHeight + targetTopPoint + 150;
 
                 self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
-                
+
                 if (self.options.stepLoad == self.options.page) {
                     if (targetButtomPoint < windowHeight) {
                         self.options.stepCounter++;
@@ -610,7 +654,7 @@ import Printd from 'printd';
                     }),
                     sidx = '',
                     sord = '';
-                    
+
 
                 if (opciones.isMultiSort) {
                     sidx = opciones.multiorder.sidx;
@@ -660,7 +704,7 @@ import Printd from 'printd';
                 });
             }
         },
-        
+
         /**
          * Método interno que configura el boton de alternar el sord en la ordenación simple
          * @name _sordButtonInit
@@ -1009,10 +1053,10 @@ import Printd from 'printd';
 
         /**
          * Método interno que crea la estructura de las líneas en la multiordenación
-         * 
+         *
          * @name _actualizarOrdenMulti
          * @function
-         * @param {Event} e 
+         * @param {Event} e
          * @param {JQueryObj} self  Objeto JQuery del botón
          * @param {String} ord  Direccion de la ordenación con la que se va a generar la línea
          */
@@ -1057,7 +1101,7 @@ import Printd from 'printd';
 
         /**
          * Método interno que da funcionalidad a cada línea en la multiordenación
-         * 
+         *
          * @name _fnOrderOfOrderFields
          * @function
          * @param {JQuery} ctx La instancia de rup_list
@@ -1161,7 +1205,7 @@ import Printd from 'printd';
             $('.rup_list-mord-remove', line).click(() => {
                 //recreamos el botón
                 let $btn = $(`
-                    <button class="rup_list-mord-field btn btn-material btn-material-sm btn-material-primary-low-emphasis" 
+                    <button class="rup_list-mord-field btn btn-material btn-material-sm btn-material-primary-low-emphasis"
                         data-ordValue="${$(line).attr('data-ordValue')}">
                         ${opciones.sidx.source.filter(x => x.value == $(line).attr('data-ordValue'))[0].i18nCaption}
                         <i class="mdi mdi-plus"/>
@@ -1182,7 +1226,7 @@ import Printd from 'printd';
 
         /**
          * Método interno para seleccionar todos los elementos de la lista.
-         * 
+         *
          * @name _selectAll
          * @function
          */
@@ -1202,7 +1246,7 @@ import Printd from 'printd';
 
         /**
          * Método interno para deseleccionar todos los elementos de la lista
-         * 
+         *
          * @name _deselectAll
          * @function
          */
@@ -1221,7 +1265,7 @@ import Printd from 'printd';
 
         /**
          * Método interno para seleccionar todos los elementos en la página actual
-         * 
+         *
          * @name _selectPage
          * @function
          */
@@ -1281,7 +1325,7 @@ import Printd from 'printd';
 
         /**
          * Método interno para deseleccionar todos los elementos en la página actual
-         * 
+         *
          * @name _deselectPage
          * @function
          */
@@ -1341,7 +1385,7 @@ import Printd from 'printd';
 
         /**
          * Método interno que genera el desplegable de multiseleccion
-         * 
+         *
          * @name _generateSelectablesBtnGroup
          * @function
          */
@@ -1352,8 +1396,8 @@ import Printd from 'printd';
 
             let $btnGroup = $(`
                 <div class="btn-group h-100" role="group">
-                    <button id="${selfId + '-display-selectables'}" 
-                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" 
+                    <button id="${selfId + '-display-selectables'}"
+                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         ${opciones._header.selectables.text()}
                     </button>
@@ -1399,7 +1443,7 @@ import Printd from 'printd';
 
         /**
          * Método interno para obtener los Ids de la página actual
-         * 
+         *
          * @name _getPageIds
          * @function
          */
@@ -1414,7 +1458,7 @@ import Printd from 'printd';
 
         /**
          * Método interno que otorga funcionalidad a la paginación
-         * 
+         *
          * @name _pagenavManagement
          * @function
          * @param {Number} numPages Número total de páginas
@@ -1522,14 +1566,14 @@ import Printd from 'printd';
 
         /**
          * Método interno que se encarga del bloqueo del componente
-         * 
+         *
          * @name _lock
          * @function
          */
         _lock: function () {
             const self = this;
             const opciones = self.options;
-            
+
             if (opciones.isScrollList && opciones.stepOnLoad) {
                 $('#' + opciones._idOverlay).remove();
                 opciones._overlay.css({
@@ -1553,7 +1597,7 @@ import Printd from 'printd';
 
         /**
          * Método interno que se encarga del desbloqueo del componente
-         * 
+         *
          * @name _unlock
          * @function
          */
@@ -1569,7 +1613,7 @@ import Printd from 'printd';
 
         /**
          * Método para destruir el componente
-         * 
+         *
          * @name destroy
          * @function
          * @example
@@ -1587,7 +1631,7 @@ import Printd from 'printd';
 
         /**
          * Método interno que se encarga de realizar el filtrado y construir la lista desde los datos recibidos
-         * 
+         *
          * @name _doFilter
          * @function
          */
@@ -1662,6 +1706,14 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
+                        if (!opciones.content) {
+                            opciones.content = xhr.rows;
+                        } else {
+                            var x = opciones.content.length;
+                            for (var i = 0; i < xhr.rows.length; i++) {
+                                opciones.content[x + i] = xhr.rows[i];
+                            }
+                        }
                         $pagenavH.find('.page').remove();
                         $pagenavF.find('.page').remove();
 
@@ -1762,7 +1814,7 @@ import Printd from 'printd';
                                                 self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
                                                 self.options.stepOnLoad = false;
                                                 self.options.stepCounter = 0;
-                                            } 
+                                            }
                                         }
                                     });
                                     if (!opciones.show.animation) {
@@ -1776,7 +1828,7 @@ import Printd from 'printd';
                                                 self.options.stepLoad = self.element.children().length / self.options.rowNum.value;
                                                 self.options.stepOnLoad = false;
                                                 self.options.stepCounter = 0;
-                                            } 
+                                            }
                                         }
                                     }
                                 }, 50 + (i * 50));
@@ -1805,7 +1857,7 @@ import Printd from 'printd';
 
         /**
          * Método que se encarga de realizar una recarga de la lista
-         * 
+         *
          * @name reload
          * @function
          * @example
@@ -1840,7 +1892,7 @@ import Printd from 'printd';
 
         /**
          * Método que se encarga de realizar el filtrado de la lista
-         * 
+         *
          * @name filter
          * @function
          * @example
@@ -1878,7 +1930,7 @@ import Printd from 'printd';
 
         /**
          * Método para cambiar la página actual.
-         * 
+         *
          * @name page
          * @function
          * @param {Number} page La página a la que navegar
@@ -1892,7 +1944,7 @@ import Printd from 'printd';
 
         /**
          * Método que obtiene la información de la selección actual
-         * 
+         *
          * @name getSelectedIds
          * @function
          * @example
