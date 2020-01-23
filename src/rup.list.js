@@ -452,7 +452,7 @@ import Printd from 'printd';
                         } else if (isShift && !isControl) {
                             if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
                                 let newRangeClickedPK = clickedPK;
-                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
                                 deselectRest(modeAll);
                                 selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
                             } else {
