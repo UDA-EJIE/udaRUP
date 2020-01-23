@@ -751,7 +751,7 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
-                        if (!opciones.multiselection.selectedIds) {
+                        if (!opciones.multiselection.selectedIds || opciones.multiselection.selectedIds.length == 0) {
                             for (var i = 0; i < xhr.rows.length; i++) {
                                 printDoc.append($('<p>' + xhr.rows[i].usuario + '</p>'));
                             }
