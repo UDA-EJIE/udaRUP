@@ -382,55 +382,99 @@ import Printd from 'printd';
                 if (opciones.selectable) {
                     $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
 
-                    var isControl = false;
-                    var lastClickedPK;
+                    opciones.multiselection = {
+                        selectedIds: null,
+                        selectedAll: false,
+                        selectedRowsPerPage: null
+                    };
+                    self._generateSelectablesBtnGroup();
+
+                    var isControl = false,
+                        isShift = false,
+                        modeAll;
 
                     $(document).on('keydown', (e) => {
+                        e.preventDefault();
                         if (e.keyCode == '17') {
                             isControl = true;
+                        } else if (e.keyCode == '16') {
+                            isShift = true;
                         }
                     });
 
                     $(document).on('keyup', (e) => {
+                        e.preventDefault();
                         if (e.keyCode == '17') {
                             isControl = false;
+                        } else if (e.keyCode == '16') {
+                            isShift = false;
                         }
                     });
 
-                    $('[rup-list-selector="enabled"]').on('click', function (e) {
+                    $('[rup-list-selector="enabled"]').on('click', (e) => {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
+
                         if (opciones.multiselection.selectedIds == null) {
                             opciones.multiselection.selectedIds = [];
                         }
+
                         if (opciones.multiselection.selectedRowsPerPage == null) {
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
 
-                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                            if (opciones.multiselection.selectedAll) {
-                                selectAll(clickedPK);
-                            } else {
-                                deselect(clickedPK);
-                            }
+                        if (opciones.multiselection.selectedAll) {
+                            modeAll = true;
                         } else {
-                            if (opciones.multiselection.selectedAll) {
-                                deselectAll(clickedPK);
+                            modeAll = false;
+                        }
+
+                        if (isShift && isControl) {
+                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
+                                let newRangeClickedPK = clickedPK;
+                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                                if (posicionClicked[0] > posicionClicked[1]) {
+                                    deselect(newRangeLastClickedPK, modeAll);
+                                    selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                } else {
+                                    selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                }
                             } else {
-                                select(clickedPK);
+                                select(clickedPK, modeAll);
                             }
-                        }
-                        if (opciones.multiselection.selectedIds.length == 0) {
-                            opciones.multiselection.selectedIds = null;
-                        }
-                        if (opciones.multiselection.selectedRowsPerPage.length == 0) {
-                            opciones.multiselection.selectedRowsPerPage = null;
+                        } else if (!isShift && isControl) {
+                            if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                deselect(clickedPK, modeAll);
+                            } else {
+                                select(clickedPK, modeAll);
+                            }
+                        } else if (isShift && !isControl) {
+                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                let newRangeClickedPK = clickedPK;
+                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                                deselectRest(modeAll);
+                                selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                            } else {
+                                select(clickedPK, modeAll);
+                            }
+                        } else if (!isShift && !isControl) {
+                            if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                deselect(clickedPK, modeAll);
+                            } else {
+                                deselectRest(modeAll);
+                                select(clickedPK, modeAll);
+                            }
                         }
                     });
 
-                    let select = (clickedPK) => {
+                    let select = (clickedPK, modeAll) => {
                         if (!opciones.selectable.multi) {
-                            opciones.multiselection.selectedAll = false;
+                            if (!modeAll) {
+                                opciones.multiselection.selectedAll = false;
+                            } else {
+                                opciones.multiselection.selectedAll = true;
+                            }
                             opciones.multiselection.selectedIds = [];
                             opciones.multiselection.selectedRowsPerPage = [];
                         }
@@ -456,50 +500,71 @@ import Printd from 'printd';
                             })()
                         });
                         opciones.multiselection.selectedIds.push(clickedPK);
-                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
-
-                        if (opciones.multiselection.selectedIds.length > 1) {
-                            lastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 2];
-                            if (!isControl) {
-                                deselect(lastClickedPK);
-                                if (opciones.multiselection.selectedIds.length > 0) {
-                                    for (var i = 0; i < opciones.multiselection.selectedIds.length; i++) {
-                                        $('#' + self.element[0].id + '-itemTemplate_' + opciones.multiselection.selectedIds[i]).removeClass('list-item-selected');
-                                    }
-                                    opciones.multiselection.selectedAll = false;
-                                    opciones.multiselection.selectedIds = [];
-                                    opciones.multiselection.selectedRowsPerPage = [];
-                                    select(clickedPK);
-                                }
-                            }
+                        if (!modeAll) {
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        } else {
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         }
                     };
 
-                    let deselect = (clickedPK) => {
+                    let deselect = (clickedPK, modeAll) => {
                         let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
                         opciones.multiselection.selectedIds.splice(index, 1);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
                             elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
                         );
-                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        if (!modeAll) {
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                        } else {
+                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                        }
                     };
 
-                    let selectAll = (clickedPK) => {
-                        deselect(clickedPK);
-                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                    let deselectRest = (modeAll) => {
+                        if (!modeAll) {
+                            opciones.multiselection.selectedAll = false;
+                        } else {
+                            opciones.multiselection.selectedAll = true;
+                        }
+                        opciones.multiselection.selectedIds = [];
+                        opciones.multiselection.selectedRowsPerPage = [];
+                        for (let i = 0; i < opciones.content.length; i++) {
+                            if (!modeAll) {
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).removeClass('list-item-selected');
+                            } else {
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).addClass('list-item-selected');
+                            }
+                        }
                     };
 
-                    let deselectAll = (clickedPK) => {
-                        select(clickedPK);
-                        $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                    let selectRange = (lastClickedPK, clickedPK, modeAll) => {
+                        var posicionClicked = getPosicion(lastClickedPK, clickedPK);
+                        if (posicionClicked[0] > posicionClicked[1]) {
+                            for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
+                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                }
+                            }
+                        } else {
+                            for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
+                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                }
+                            }
+                        }
                     };
-
-                    opciones.multiselection = {
-                        selectedIds: null,
-                        selectedAll: false,
-                        selectedRowsPerPage: null
+                    
+                    let getPosicion = (lastClickedPK, clickedPK) => {
+                        var posicionClicked = {};
+                        for (let i = 0; i < opciones.content.length; i++) {
+                            if (opciones.content[i].codigoPK == clickedPK) {
+                                posicionClicked[0] = i;
+                            } else if (opciones.content[i].codigoPK == lastClickedPK) {
+                                posicionClicked[1] = i;
+                            }
+                        }
+                        return posicionClicked;
                     };
-                    self._generateSelectablesBtnGroup();
                 }
 
                 /**
