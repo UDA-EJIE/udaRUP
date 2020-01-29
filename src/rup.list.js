@@ -394,7 +394,6 @@ import Printd from 'printd';
                         modeAll;
 
                     $(document).on('keydown', (e) => {
-                        e.preventDefault();
                         if (e.keyCode == '17') {
                             isControl = true;
                         } else if (e.keyCode == '16') {
@@ -403,7 +402,6 @@ import Printd from 'printd';
                     });
 
                     $(document).on('keyup', (e) => {
-                        e.preventDefault();
                         if (e.keyCode == '17') {
                             isControl = false;
                         } else if (e.keyCode == '16') {
