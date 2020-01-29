@@ -1771,7 +1771,7 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
-                        if (!opciones.content) {
+                        if (!opciones.content || filter.filter.length != 0) {
                             opciones.content = xhr.rows;
                         } else {
                             var x = opciones.content.length;
