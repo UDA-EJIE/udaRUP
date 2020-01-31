@@ -1769,14 +1769,6 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
-                        if (!opciones.content || filter.filter.length != 0) {
-                            opciones.content = xhr.rows;
-                        } else {
-                            var x = opciones.content.length;
-                            for (var i = 0; i < xhr.rows.length; i++) {
-                                opciones.content[x + i] = xhr.rows[i];
-                            }
-                        }
                         $pagenavH.find('.page').remove();
                         $pagenavF.find('.page').remove();
 
@@ -1840,6 +1832,23 @@ import Printd from 'printd';
 
                                 // Si no se está mostrando el content se despliega
                                 opciones._content.slideDown();
+
+                                if (!opciones.content) {
+                                    opciones.content = {};
+                                }
+
+                                if (opciones.content.length == 0 || opciones.content.length == undefined){
+                                    opciones.content = xhr.rows;
+                                } else {
+                                    if (!opciones.isScrollList) {
+                                        opciones.content = xhr.rows;
+                                    } else {
+                                        var x = opciones.content.length;
+                                        for (let i = 0; i < xhr.rows.length; i++) {
+                                            opciones.content[x + i] = xhr.rows[i];
+                                        }
+                                    }
+                                }
                             } else {
                                 // Si no se devuelven resultados
                                 opciones._header.obj.hide();
