@@ -104,7 +104,37 @@
                                 if (!currResult[namePart]) currResult[namePart] = {};
                                 currResult = currResult[namePart];
                             } else {
-                                currResult[namePart] = Object.assign(currResult[namePart], value);
+
+                                var checkJSON = function (m) {
+
+                                    if (typeof m == 'object') {
+                                        try {
+                                            m = JSON.stringify(m);
+                                        } catch (err) {
+                                            return false;
+                                        }
+                                    }
+
+                                    if (typeof m == 'string') {
+                                        try {
+                                            m = JSON.parse(m);
+                                        } catch (err) {
+                                            return false;
+                                        }
+                                    }
+
+                                    if (typeof m != 'object') {
+                                        return false;
+                                    }
+                                    return true;
+
+                                };
+
+                                if(currResult[namePart] && checkJSON(currResult[namePart])){
+                                    currResult[namePart] = Object.assign({}, currResult[namePart], value);
+                                } else {
+                                    currResult[namePart] = value;
+                                }
                             }
                         }
                     }
@@ -153,29 +183,29 @@
             return jQuery(fieldNode)['rup_' + ruptype]('getRupValue');
         } else {
             switch (fieldNode.nodeName) {
-            case 'HIDDEN':
-            case 'INPUT':
-            case 'TEXTAREA':
-                switch (fieldNode.type.toLowerCase()) {
-                case 'radio':
-                case 'checkbox':
-                    if (fieldNode.checked) return fieldNode.value;
+                case 'HIDDEN':
+                case 'INPUT':
+                case 'TEXTAREA':
+                    switch (fieldNode.type.toLowerCase()) {
+                        case 'radio':
+                        case 'checkbox':
+                            if (fieldNode.checked) return fieldNode.value;
+                            break;
+
+                        case 'button':
+                        case 'reset':
+                        case 'submit':
+                        case 'image':
+                            return '';
+                        default:
+                            return fieldNode.value;
+                    }
                     break;
 
-                case 'button':
-                case 'reset':
-                case 'submit':
-                case 'image':
-                    return '';
+                case 'SELECT':
+                    return getSelectedOptionValue(fieldNode);
                 default:
-                    return fieldNode.value;
-                }
-                break;
-
-            case 'SELECT':
-                return getSelectedOptionValue(fieldNode);
-            default:
-                break;
+                    break;
             }
         }
 
