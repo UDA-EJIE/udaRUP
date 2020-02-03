@@ -12,7 +12,7 @@
     <property name="destDir" value="${baseDir}/dist"/>
     
     <property name="udaLibBaseDir" value="${baseDir}/udaLib/x38ShLibClasses"/>
-    <property name="udaLibBuildDir" value="${udaLibBaseDir}/bin"/>
+    <property name="udaLibBuildDir" value="${udaLibBaseDir}/target/classes"/>
     <property name="udaLibDestDir" value="${destDir}/udaLib/${udaLibVersion}"/>
     
     <property name="udaRupBaseDir" value="${baseDir}/udaRUP"/>
@@ -218,26 +218,21 @@
         
         <exec dir="${udaRupBaseDir}" executable="npm.cmd" failonerror="true">
             <arg value="run" />
-            <arg value="all" />
+            <arg value="all:x21a" />
         </exec>
     </target>
     
     <!-- Genera los distribuibles: Carpeta rup y zip -->
     <target name="udaRupDist" description="Genera los distribuibles de RUP" depends="udaRupBuild">
         <echo>Limpiando...</echo>
-        <delete dir="${udaRupDestDir}/xxx" />
         <delete dir="${udaRupDestDir}/${udaRupFolder}" />
         <delete file="${udaRupZip}" />
         
         <echo>Generando carpeta rup...</echo>
         
         <copy todir="${udaRupDestDir}/${udaRupFolder}">
-            <fileset dir="${udaRupBuildDir}">
-                <exclude name="css/main.css"/>
-            </fileset>
+            <fileset dir="${udaRupBuildDir}" />
         </copy>
-        
-        <copy file="${udaRupBuildDir}/css/main.css" tofile="${udaRupDestDir}/xxx/css/main.css" />
         
         <echo>Generando comprimido ${udaRupZip}...</echo>
         <zip destfile="${udaRupZip}"
@@ -327,12 +322,8 @@
         <echo>Destino: ${udaTemplatesBaseDir}/${udaTemplatesRupFolder}</echo>
           
         <copy todir="${udaTemplatesBaseDir}/${udaTemplatesRupFolder}">
-            <fileset dir="${udaRupDestDir}/${udaRupFolder}">
-                <exclude name="css/main.css"/>
-            </fileset>
+            <fileset dir="${udaRupDestDir}/${udaRupFolder}" />
         </copy>
-        
-        <copy file="${udaRupDestDir}/xxx/css/main.css" tofile="${udaTemplatesBaseDir}/${udaTemplatesAppFolder}/styles/main.css" />
            
     </target>
     

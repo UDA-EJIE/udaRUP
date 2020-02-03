@@ -666,7 +666,7 @@
                                 if (wasInited) {
                                     $('#' + settings.id).addClass('inited');
                                 }
-
+                                settings.ultimosValores = data;
                                 $('#' + settings.id).triggerHandler('comboAjaxSucess', [data]);
                             },
                             error: function (xhr, textStatus, errorThrown) {
@@ -678,6 +678,37 @@
                             }
                         });
                         settings.ultimaLlamada = data;
+                    }else if(settings.ultimosValores !== undefined){//Si la ultima llamada cogio los datos, no hace falta ir al controller los coge del componente.
+                        if (settings.blank != null) {
+                            var isOptgroup = false;
+
+                            // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+                            $.each(data[0], function (key, value) {
+                                if (typeof value === 'object' && value !== null) {
+                                    isOptgroup = true;
+                                    return false;
+                                }
+                            });
+
+                            // Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+                            // en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+                            if (isOptgroup) {
+                                settings.blankDone = false;
+                            }
+                        }
+                        rupCombo._ajaxSuccess(settings.ultimosValores, settings, $('#' + settings.id));
+
+                        // Evento de finalizacion de carga (necesario para trabajar con el manteniminto)
+                        if (settings.onLoadSuccess !== null) {
+                            jQuery(settings.onLoadSuccess($('#' + settings.id)));
+                        }
+                        multiChange(settings);
+
+                        if (wasInited) {
+                            $('#' + settings.id).addClass('inited');
+                        }
+                        
+                        $('#' + settings.id).triggerHandler('comboAjaxSucess', [settings.ultimosValores]);
                     }
 
                     //delete rupCombo;
