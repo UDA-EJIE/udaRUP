@@ -219,14 +219,18 @@ export function createHeaderSticky(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
-// export function createLoader(idLista, callback){
-//     let opts = commonListCreator(idLista, callback);
-//     opts.loader = (ui) => {
-//         ui.children().remove();
-//         ui.append('loading...').css('text-aligh', 'center');
-//     };
-//     $('#' + idLista).rup_list(opts);
-// }
+export function createShowHide(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.show = {
+        animation: 'fade',
+        delay: 1000
+    };
+    opts.hide = {
+        animation: 'fade',
+        delay: 1000
+    };
+    $('#' + idLista).rup_list(opts);
+}
 
 export function createListMultiorder(idLista, callback){
     let opts = commonListCreator(idLista, callback);
