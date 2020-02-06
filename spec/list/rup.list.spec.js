@@ -728,5 +728,26 @@ describe('Test rup_list', () => {
                 });
             });
         });
+        describe('> Impresión HTML', () => {
+            var spyAjax;
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createImpresionHTML('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+                spyAjax = spyOn($, 'rup_ajax').and.callThrough();
+            });
+            it('Tiene que aparecer el bóton "Imprimir"', () => {
+                expect($('#listPrint').length).toEqual(1);
+            });
+            it('Ajax con cantidad de los elementos 32', () => {
+                $('#listPrint').click();
+                expect(Number(JSON.parse(spyAjax.calls.argsFor(0)[0].data).rows)).toEqual(5);
+                expect(Number(JSON.parse(spyAjax.calls.argsFor(1)[0].data).rows)).toEqual(32);
+            });
+        });
     });
 });

@@ -232,6 +232,12 @@ export function createShowHide(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
+export function createImpresionHTML(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.print = './print.css';
+    $('#' + idLista).rup_list(opts);
+}
+
 export function createListMultiorder(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.isMultiSort = true;
