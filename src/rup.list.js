@@ -1698,7 +1698,7 @@ import Printd from 'printd';
          * @name _doFilter
          * @function
          */
-        _doFilter: function () {
+        _doFilter: function (tFilter) {
             const self = this;
             const opciones = this.options;
             const $itemTemplate = opciones._itemTemplate;
@@ -1728,6 +1728,10 @@ import Printd from 'printd';
                     pkToken: '~'
                 }
             };
+
+            if (tFilter) {
+                filter.filter = {};
+            }
 
             /**
             * SHOW, HIDE
@@ -1769,12 +1773,6 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
-                        $pagenavH.find('.page').remove();
-                        $pagenavF.find('.page').remove();
-
-                        $pagenavH.find('.page-separator').hide();
-                        $pagenavF.find('.page-separator').hide();
-
                         if (xhr === null || xhr.length === 0) {
                             opciones._header.obj.hide();
                             self.element.hide();
@@ -1786,6 +1784,11 @@ import Printd from 'printd';
                             self._unlock();
                         } else {
                             if (xhr.rows && xhr.rows.length > 0) {
+                                $pagenavH.find('.page').remove();
+                                $pagenavF.find('.page').remove();
+                                $pagenavH.find('.page-separator').hide();
+                                $pagenavF.find('.page-separator').hide();
+
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
@@ -1793,7 +1796,12 @@ import Printd from 'printd';
                                 var msgRecords =
                                     $.rup.i18nTemplate($.rup.i18n.base.rup_table.defaults, 'recordtext', initRecord, endRecord, records);
                                 opciones.feedback.rup_feedback({});
-                                opciones.feedback.rup_feedback('set', msgRecords, 'ok');
+
+                                if (tFilter) {
+                                    opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
+                                } else {
+                                    opciones.feedback.rup_feedback('set', msgRecords, 'ok');
+                                }
 
                                 self._pagenavManagement(Math.ceil(xhr.records / opciones.rowNum.value));
 
@@ -1850,10 +1858,14 @@ import Printd from 'printd';
                                     }
                                 }
                             } else {
+                                if(!xhr.rows) {
+                                    self._doFilter(true);
+                                    self.element.trigger('load');
+                                }
                                 // Si no se devuelven resultados
-                                opciones._header.obj.hide();
-                                self.element.hide();
-                                opciones._footer.obj.hide();
+                                // opciones._header.obj.hide();
+                                // self.element.hide();
+                                // opciones._footer.obj.hide();
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
                                 opciones._content.slideDown();
                             }
