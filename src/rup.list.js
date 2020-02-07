@@ -1858,16 +1858,13 @@ import Printd from 'printd';
                                     }
                                 }
                             } else {
-                                if(!xhr.rows) {
-                                    self._doFilter(true);
-                                    self.element.trigger('load');
-                                }
                                 // Si no se devuelven resultados
-                                // opciones._header.obj.hide();
-                                // self.element.hide();
-                                // opciones._footer.obj.hide();
+                                opciones._header.obj.hide();
+                                self.element.hide();
+                                opciones._footer.obj.hide();
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
                                 opciones._content.slideDown();
+                                self.element.trigger('load');
                             }
                         }
 
