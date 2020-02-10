@@ -953,7 +953,7 @@
       "caption": "Consultar registro"
     }
   },
-  "sProcessing":     "[FR]Procesando...",
+  "sProcessing":     "<span class='sProcessingText'>[FR]Procesando...</span>",
   "sLengthMenu":     "_MENU_",
   "sZeroRecords":    "[FR]No se encontraron resultados",
   "sEmptyTable":     "[FR]Ningún dato disponible en esta tabla",

@@ -958,7 +958,7 @@
       "caption": "Kontsultatu erregistroa"
     }
   },
-  "sProcessing":     "Prozesatzen...",
+  "sProcessing":     "<span class='sProcessingText'>Prozesatzen...</span>",
   "sLengthMenu":     "_MENU_",
   "sZeroRecords":    "Ez da emaitzarik aurkitu",
   "sEmptyTable":     "Taula hontan ez dago inongo datu erabilgarririk",

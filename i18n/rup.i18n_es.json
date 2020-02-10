@@ -868,7 +868,7 @@
       "caption": "Consultar registro"
     }
   },
-  "sProcessing":     "Procesando...",
+  "sProcessing":     "<span class='sProcessingText'>Procesando...</span>",
   "sLengthMenu":     "_MENU_",
   "sZeroRecords":    "No se encontraron resultados",
   "sEmptyTable":     "Ningún dato disponible en esta tabla",
