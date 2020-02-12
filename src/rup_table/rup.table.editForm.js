@@ -715,7 +715,7 @@
         try {
             feedback.rup_feedback('destroy');
         } catch (ex) {
-            console.error(ex);
+         
         }
 
         feedback.rup_feedback({

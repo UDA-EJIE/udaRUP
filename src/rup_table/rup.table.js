@@ -161,15 +161,16 @@
             //filter			
             // options.filterForm = $self.attr('data-filter-form');
             options.$filterForm = $(options.filterForm);
-
-            options.$filterButton = options.$filterForm.find('#' + sTableId + '_filter_filterButton');
-            options.$clearButton = options.$filterForm.find('#' + sTableId + '_filter_cleanButton');
-            options.$filterButton.on('click', function () {
-                $self._doFilter(options);
-            });
-            options.$clearButton.on('click', function () {
-                $self._clearFilter(options);
-            });
+            if(options.filter !== undefined){
+	            options.$filterButton = options.$filterForm.find('#' + sTableId + '_filter_filterButton');
+	            options.$clearButton = options.$filterForm.find('#' + sTableId + '_filter_cleanButton');
+	            options.$filterButton.on('click', function () {
+	                $self._doFilter(options);
+	            });
+	            options.$clearButton.on('click', function () {
+	                $self._clearFilter(options);
+	            });
+            }
 
             // Urls
             var baseUrl = options.urlBase;
@@ -506,7 +507,9 @@
 		  */
         _doFilter(options) {
             var $self = this;
-            $self._showSearchCriteria();
+            if(options.filter !== undefined){
+            	$self._showSearchCriteria();
+            }
             $self.DataTable().ajax.reload(() => {
                 $('#'+options.id).trigger('tableFilterSearch');
             });
@@ -1150,12 +1153,16 @@
         _init : function(args){			
             global.initRupI18nPromise.then(() => {
             var $self = this;
-            //Se añade filter por defecto
-            $.fn.rup_table.defaults.filter = {
+            if(args[0].filter !== 'noFilter'){
+            	//Se añade filter por defecto
+            	$.fn.rup_table.defaults.filter = {
                     id: $self[0].id + '_filter_form',
                     filterToolbar: $self[0].id + '_filter_toolbar',
-                    collapsableLayerId: $self[0].id + '_filter_fieldset'
-		       						};
+                    collapsableLayerId: $self[0].id + '_filter_fieldset'};
+            }else{
+            	args[0].filter = undefined;
+            }
+            
             var	settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 			
             $self.triggerHandler('tableBeforeInit');
@@ -1185,6 +1192,10 @@
             if(settings.formEdit !== undefined){
                 settings.inlineEdit = undefined;
             }
+            
+            if(settings.filter === undefined){
+            	settings.multiFilter = undefined;
+             }
 
             // getDefault multifilter
             if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined){
@@ -1408,7 +1419,9 @@
             if(settings.multiSelect !== undefined || settings.select !== undefined){
                 $self._createEventSelect(tabla);				
             }
-            $self._ConfigureFiltern(settings);
+            if(settings.filter !== undefined){
+            	$self._ConfigureFiltern(settings);
+            }
 			
             // Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
             $self.data('settings'+$self[0].id, settings);
