@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
-    "@mdi/font": "^4.6.95",
+    "@mdi/font": "^4.9.95",
     "acorn": "^7.1.0",
     "autoprefixer": "^7.2.6",
     "babel": "^6.23.0",
