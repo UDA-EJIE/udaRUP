@@ -1626,7 +1626,7 @@ handler that will select the items using the API methods.
             	}
             }
 
-            eventTrigger(new DataTable.Api(ctx), 'selectStyle', [style]);
+            $('#'+ctx.sTableId).trigger('selectStyle', [style]);
         });
     });
 
