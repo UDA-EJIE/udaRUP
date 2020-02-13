@@ -856,9 +856,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
                         $('#' + colModelName + '_inline_child').wrap('<div class=\'form-groupMaterial\'></div>');
 				}
 
-				var columns = jQuery.grep(ctx.aoColumns, function( n) {
-					  return ( n.className !== 'select-checkbox' );
-				});
+
 				$elem.attr({
 					'title': $('#'+colModelName+'_inline').attr('oldtitle'),
 					'class': 'editable customelement form-control-customer'

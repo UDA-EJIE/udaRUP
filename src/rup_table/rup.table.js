@@ -100,8 +100,9 @@
                     custom:props.custom
                 });
             }else{
-                alert('Está función requiere el plugin de buttons y dos parámetros.');
+            	alert('Esta función requiere el plugin de buttons y 2 parámetros.');
             }
+            
         },
         removeButton: function(selector) {
             var dt = $('#' + this[0].id).DataTable();
@@ -438,7 +439,7 @@
             var $self = this;
             //Se crea la columna del select.
             if(options.columnDefs !== undefined && options.columnDefs.length > 0 &&
-					options.columnDefs[0].className !== undefined && options.columnDefs[0].className === 'select-checkbox' &&
+					options.columnDefs[0].className !== undefined && options.columnDefs[0].className.indexOf('select-checkbox') > -1 &&
 					(options.multiSelect !== undefined)){
                 //Se crea el th thead, se añade la columna.
 				
@@ -1176,9 +1177,13 @@
 			
             //Comprobar plugin dependientes
             if(settings.multiSelect !== undefined){
+            	let clase = 'select-checkbox';
+            	if(settings.multiSelect.hideMultiselect){
+            		clase = 'select-checkbox never';
+            	}
                 settings.columnDefs.unshift({
 			        orderable: false,
-			        className: 'select-checkbox',
+			        className: clase,
 			        targets: 0,
                         render: function () {
 			        	return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
