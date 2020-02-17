@@ -377,6 +377,13 @@ import Printd from 'printd';
                 self._pagenavInit.apply(self);
 
                 /**
+                 * MULTIFILTER
+                 */
+                if (opciones.isMultiFilter) {
+                    self._multiFilter.apply(self);
+                }
+
+                /**
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
@@ -766,6 +773,204 @@ import Printd from 'printd';
                     }
                 });
             }
+        },
+
+        /**
+         * Método interno que configura el boton de alternar el sord en la ordenación simple
+         * @name _multiFilter
+         * @function
+         */
+        _multiFilter: function () {
+            const self = this;
+            const opciones = self.options;
+
+            opciones.multiFilter = {};
+            opciones.multiFilter.action = '.';
+            opciones.multiFilter._filterSelector = 'generated';
+            opciones.multiFilter._filterUser = 'udaPruebas';
+            opciones.multiFilter._dialogId = 'dropdownDialog';
+
+            opciones.multiFilter.$btn = $('#listFilterAceptar');
+            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="'+ opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="'+ opciones.multiFilter._dialogId +'_combo">Filtros</label><input id="'+ opciones.multiFilter._dialogId +'_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
+            
+            opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
+
+            opciones.multiFilter.$combo = $('#'+ opciones.multiFilter._dialogId +'_combo');
+            opciones.multiFilter.$feedback = $('#'+ opciones.multiFilter._dialogId + '_feedback');
+
+            opciones.multiFilter.$feedback.rup_feedback({
+                block: false,
+                delay: 2000
+            });
+
+            // Dropdown dialog
+            opciones.multiFilter.$btn.rup_button({
+                dropdown:{
+                    dropdownDialog: opciones.multiFilter._dialogId,
+                    dropdownDialogConfig:{
+                        autoOpen: false,
+                        modal: true,
+                        resizable: true,
+                        title:'<i class=\'mdi mdi-filter\' aria-hidden=\'true\'></i>Administración de filtros',
+                        width:'380px',
+                        buttons: [{
+                            id: opciones.multiFilter._dialogId + '_btn_save',
+                            text: 'Guardar',
+                            click: function () {
+                                if ($('#' + opciones.filterForm).rup_form('formToJson').length != 0) {
+                                    var elem = {
+                                        filtro: {
+                                            filterSelector: opciones.multiFilter._filterSelector,
+                                            filterName: opciones.multiFilter.$label.val(),
+                                            filterValue: JSON.stringify($('#' + opciones.filterForm).rup_form('formToJson')),
+                                            filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
+                                            filterUser: opciones.multiFilter._filterUser}
+                                    };
+                                    $.rup_ajax({
+                                        url: opciones.multiFilter.action + '/multiFilter/add',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: JSON.stringify(elem),
+                                        contentType: 'application/json',
+                                        success: () => {
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
+                                        },
+                                        error: () => {
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                        }
+                                    });
+                                }
+                                
+                            }
+                        },
+                        {
+                            id: opciones.multiFilter._dialogId + '_btn_apply',
+                            text: 'Aplicar',
+                            click: function () {
+                                if (opciones.multiFilter.selected) {
+                                    opciones.multiFilter.$dialog.dialog('close'); 
+                                    self.element.rup_list('filter');
+                                }
+                            }
+                        },
+                        {
+                            id: opciones.multiFilter._dialogId + '_btn_delete',
+                            text: 'Eliminar',
+                            click: function () {
+                                if (opciones.multiFilter.selected) {
+                                    var elem = {
+                                        filtro: {
+                                            filterSelector: opciones.multiFilter.selected.filterSelector,
+                                            filterName: opciones.multiFilter.selected.filterName,
+                                            filterValue: JSON.stringify(opciones.multiFilter.selected.filterValue),
+                                            filterDefault: opciones.multiFilter.selected.filterDefault,
+                                            filterUser: opciones.multiFilter.selected.filterUser
+                                        }
+                                    };
+                                    $.rup_ajax({
+                                        url: opciones.multiFilter.action + '/multiFilter/delete',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: JSON.stringify(elem),
+                                        contentType: 'application/json',
+                                        success: () => {
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$combo.rup_autocomplete('set', '', '');
+                                            opciones.multiFilter.$label.data('tmp.loadObjects.term', null);
+                                            opciones.multiFilter.$label.data('loadObjects', {});
+                                            opciones.multiFilter.$label.data('tmp.data', {});
+                                        },
+                                        error: () => {
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        {
+                            id: opciones.multiFilter._dialogId + '_btn_cancel',
+                            text: 'Cancelar',
+                            click: function () { 
+                                opciones.multiFilter.$dialog.dialog('close'); 
+                            },
+                            btnType: $.rup.dialog.LINK
+                        }
+                        ]	
+                    }
+                }
+            });
+
+            opciones.multiFilter.$combo.rup_autocomplete({
+                source : opciones.multiFilter.action +
+                '/multiFilter/getAll?filterSelector=' +
+                opciones.multiFilter._filterSelector + '&user=' +
+                opciones.multiFilter._filterUser,
+                sourceParam: {
+                    label: 'filterName',
+                    value: 'filterDefault',
+                    data: 'filterValue',
+                    category: 'filter'
+                },
+                method: 'GET',
+                menuMaxHeight: 325,
+                minLength:3,
+                combobox: true,
+                contains:true,
+                select:function(){
+                    if (opciones.multiFilter.$combo.rup_autocomplete('getRupValue')) {
+                        opciones.multiFilter.selected = {
+                            filterSelector: opciones.multiFilter._filterSelector,
+                            filterName: opciones.multiFilter.$combo.rup_autocomplete('getRupValue'),
+                            filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
+                            filterUser: opciones.multiFilter._filterUser
+                        };
+                        $.rup_ajax({
+                            url: opciones.multiFilter.action +
+                            '/multiFilter/getAll?filterSelector=' +
+                            opciones.multiFilter._filterSelector + '&user=' +
+                            opciones.multiFilter._filterUser,
+                            type: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (opciones.multiFilter.selected.filterName) {
+                                    for (let i = 0; i < data.length; i++) {
+                                        if (opciones.multiFilter.selected.filterName == data[i].filterName) {
+                                            opciones.multiFilter.selected.filterValue = JSON.parse(data[i].filterValue);
+                                            opciones.multiFilter.selected.filterDefault = data[i].filterDefault;
+                                        }
+                                    }
+                                    if (opciones.multiFilter.selected.filterDefault) {
+                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = true;
+                                    } else {
+                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
+                                    }
+                                    
+                                    $('#' + opciones.filterForm).find('input').val('');
+                                    for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
+                                        if (opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
+                                            $('#' + opciones.filterForm).find('input').eq(i).val(opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                                        }
+                                    }
+                                }
+                            },
+                            error: () => {
+                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                            }
+                        });
+                    }
+                }
+            });
+
+            opciones.multiFilter.$label = $('#'+ opciones.multiFilter._dialogId +'_combo_label');
+
+            opciones.multiFilter.$label.data('uiAutocomplete')._renderItem = (ul, item) => {
+                return $('<li></li>').data(
+                    'item.autocomplete', item).append(
+                    '<a>' + item.label + '</a>')
+                    .appendTo(ul);
+            };
+            opciones.multiFilter.$label.off('blur click');
         },
 
         /**
@@ -1698,7 +1903,7 @@ import Printd from 'printd';
          * @name _doFilter
          * @function
          */
-        _doFilter: function (tFilter) {
+        _doFilter: function () {
             const self = this;
             const opciones = this.options;
             const $itemTemplate = opciones._itemTemplate;
@@ -1729,14 +1934,9 @@ import Printd from 'printd';
                 }
             };
 
-            if (tFilter) {
-                filter.filter = {};
-            }
-
             /**
             * SHOW, HIDE
             */
-
             if (opciones.show) {
                 if (opciones.show.constructor == Object) {
                     opciones.show = opciones.show;
@@ -1773,6 +1973,11 @@ import Printd from 'printd';
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
                     success: function (xhr) {
+                        $pagenavH.find('.page').remove();
+                        $pagenavF.find('.page').remove();
+                        $pagenavH.find('.page-separator').hide();
+                        $pagenavF.find('.page-separator').hide();
+
                         if (xhr === null || xhr.length === 0) {
                             opciones._header.obj.hide();
                             self.element.hide();
@@ -1784,11 +1989,6 @@ import Printd from 'printd';
                             self._unlock();
                         } else {
                             if (xhr.rows && xhr.rows.length > 0) {
-                                $pagenavH.find('.page').remove();
-                                $pagenavF.find('.page').remove();
-                                $pagenavH.find('.page-separator').hide();
-                                $pagenavF.find('.page-separator').hide();
-
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
@@ -1796,12 +1996,7 @@ import Printd from 'printd';
                                 var msgRecords =
                                     $.rup.i18nTemplate($.rup.i18n.base.rup_table.defaults, 'recordtext', initRecord, endRecord, records);
                                 opciones.feedback.rup_feedback({});
-
-                                if (tFilter) {
-                                    opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
-                                } else {
-                                    opciones.feedback.rup_feedback('set', msgRecords, 'ok');
-                                }
+                                opciones.feedback.rup_feedback('set', msgRecords, 'ok');
 
                                 self._pagenavManagement(Math.ceil(xhr.records / opciones.rowNum.value));
 

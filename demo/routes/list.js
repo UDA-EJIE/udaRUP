@@ -286,12 +286,32 @@ const card32 = {
     condition: 'vip',
     credito: 100
 };
+const filter1 = {
+    filterSelector: 'generated',
+    filterName: 'Filter 1',
+    filterValue: {
+        usuario: 'user12'
+    },
+    filterDefault: false,
+    filterUser: 'udaPruebas'
+};
+const filter2 = {
+    filterSelector: 'generated',
+    filterName: 'Filter 2',
+    filterValue: {
+        edad: 20,
+    },
+    filterDefault: true,
+    filterUser: 'udaPruebas'
+};
 
 const allregs = JSON.parse(JSON.stringify(
     [card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12,
         card13, card14, card15, card16, card17, card18, card19, card20, card21, card22,
         card23, card24, card25, card26, card27, card28, card29, card30, card31, card32
     ]));
+
+var allregsFilter = JSON.parse(JSON.stringify([filter1, filter2]));
 
 function getResult(req) {
     var filtered;
@@ -404,11 +424,61 @@ function getResult(req) {
     //Devolvemos los datos a la lista
     return estructura;
 }
+function getAllResultFilter () {
+    var result = [];
+    for (let i = 0; i < allregsFilter.length; i++) {
+        result[i] = {
+            filterSelector: allregsFilter[i].filterSelector,
+            filterName: allregsFilter[i].filterName,
+            filterValue: JSON.stringify(allregsFilter[i].filterValue),
+            filterDefault: allregsFilter[i].filterDefault,
+            filterUser: allregsFilter[i].filterUser
+        };
+    }
+    return result;
+}
+function addResultFilter (req) {
+    var result = req.body.filtro;
+
+    result.filterValue = JSON.parse(result.filterValue);
+
+    if (result.filterDefault) {
+        for (let i = 0; i < allregsFilter.length; i++) {
+            allregsFilter[i].filterDefault = false;
+        }
+    }
+    allregsFilter.push(result);
+    return allregsFilter;
+}
+function deleteResultFilter (req) {
+    var result = req.body.filtro;
+
+    result.filterValue = JSON.parse(result.filterValue);
+    
+    for (let i = 0; i < allregsFilter.length; i++) {
+        if (allregsFilter[i].filterName == result.filterName) {
+            allregsFilter.splice(i, 1);
+        }
+    }
+    return allregsFilter;
+}
 exports.filter = (req, res) => {
     if (req.body.filter.usuario == 'user20') {
         res.status(406).send('Error de prueba');
         return;
     }
     var resultado = getResult(req);
+    res.status(200).json(resultado);
+};
+exports.multiFilterAll = (req, res) => {
+    var resultado = getAllResultFilter(req);
+    res.status(200).json(resultado);
+};
+exports.multiFilterAdd = (req, res) => {
+    var resultado = addResultFilter(req);
+    res.status(200).json(resultado);
+};
+exports.multiFilterDelete = (req, res) => {
+    var resultado = deleteResultFilter(req);
     res.status(200).json(resultado);
 };
