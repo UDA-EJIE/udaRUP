@@ -76,7 +76,7 @@ let plugins = [
 module.exports = [{
     mode: mode,
     entry: __dirname + '/src/index.js',
-    devtool: 'source-map',
+    devtool: 'eval',
     output: {
         filename: 'js/' + outputFileJS,
         library: libraryName,
