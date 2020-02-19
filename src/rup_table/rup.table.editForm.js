@@ -120,7 +120,7 @@
                             DataTable.Api().select.selectRowIndex(dt, idRow, true);
                         }
                         _getRowSelected(dt, 'PUT');
-                        DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow);
+                        DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow, null);
                         $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
                     }
                 });
@@ -305,9 +305,10 @@
      * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
      * @param {object} dt - Es el objeto table.
      * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+     * @param {string} customTitle - Título personalizado.
      *
      */
-    DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType, dt, idRow) {
+    DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType, dt, idRow, customTitle) {
         var loadPromise = $.Deferred();
         var ctx = dt.settings()[0];
         var idForm = ctx.oInit.formEdit.idForm;
@@ -337,7 +338,8 @@
         $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData');
         var row = ctx.json.rows[idRow];
         var rowArray = $.rup_utils.jsontoarray(row);
-        var title;
+        
+        let title = customTitle != (undefined && null) ? customTitle : "";
 
         if (actionType === 'PUT') {
             if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
@@ -414,15 +416,19 @@
             ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
             // Se muestra el dialog.
             ctx.oInit.formEdit.$navigationBar.show();
-            // Asignamos un valor a la variable del título del formulario
-            title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
+            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
+            if(customTitle === undefined) {
+            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
+            }
             // Comprobamos si se desea bloquear la edicion de las claves primarias
             DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
         } else if (actionType === 'POST') {
             $.rup_utils.populateForm(rowArray, idForm);
             ctx.oInit.formEdit.$navigationBar.hide();
-            // Asignamos un valor a la variable del título del formulario
-            title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
+            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
+            if(customTitle === undefined) {
+            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
+            }
             // Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
             DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
         }
@@ -884,7 +890,7 @@
                     //Se añaden los parametros para luego ejecutar, la funcion del dialog.
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
                 } else { //Si nose pagina se abre directamente la funcion.
-                    DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line).then(() => {
+                    DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, null).then(() => {
                         _showOnNav(dt, linkType);
                     });
                 }
@@ -986,7 +992,7 @@
                 ctx.select.selectedRowsPerPage.page = futurePage;
                 table.page(futurePage - 1).draw('page');
             } else { //Si no se pagina se abre directamente la funcion.
-                DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line);
+                DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line, null);
                 var rowSelectAux = ctx.json.rows[ctx.multiselection.selectedRowsPerPage[0].line];
                 ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit);
                 DataTable.Api().select.deselect(ctx);
@@ -1508,8 +1514,8 @@
     // Local variables to improve compression
     var apiRegister = DataTable.Api.register;
 
-    apiRegister('editForm.openSaveDialog()', function (actionType, dt, idRow) { //Se declara la variable del editForm para que puede ser invocada desde cualquier sitio.
-        DataTable.editForm.fnOpenSaveDialog(actionType, dt, idRow);
+    apiRegister('editForm.openSaveDialog()', function (actionType, dt, idRow, customTitle) { //Se declara la variable del editForm para que puede ser invocada desde cualquier sitio.
+        DataTable.editForm.fnOpenSaveDialog(actionType, dt, idRow, customTitle);
     });
 
     apiRegister('editForm.updateDetailPagination()', function (ctx, currentRowNum, totalRowNum) {

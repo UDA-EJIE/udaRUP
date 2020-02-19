@@ -2098,29 +2098,36 @@
         switch (config.type) {
         case 'add':
             if (ctx.oInit.formEdit !== undefined) {
-                var idTableDetail = ctx.oInit.formEdit.detailForm;
+                let idTableDetail = ctx.oInit.formEdit.detailForm;
                 // Limpiamos el formulario
-                $(idTableDetail).find('form')[0].reset();
-                if (ctx.multiselection.numSelected > 0) {
-                    $.rup_messages('msgConfirm', {
-                        message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-                        title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
-                        OKFunction: function () {
-                            // Abrimos el formulario
-                            if (ctx.oInit.seeker !== undefined) {
-                                DataTable.Api().seeker.limpiarSeeker(dt, ctx); // Y deselecionamos los checks y seekers
-                            } else {
-                                if (ctx.oInit.multiSelect !== undefined) {
-                                    DataTable.Api().multiSelect.deselectAll(dt); // Y deselecionamos los checks y seekers
-                                } else if (ctx.oInit.select !== undefined) {
-                                    DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
+                if($(idTableDetail).find('form')[0] !== undefined) {
+                	$(idTableDetail).find('form')[0].reset();
+                    if (ctx.multiselection.numSelected > 0) {
+                        $.rup_messages('msgConfirm', {
+                            message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
+                            title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+                            OKFunction: function () {
+                                // Abrimos el formulario
+                                if (ctx.oInit.seeker !== undefined) {
+                                    DataTable.Api().seeker.limpiarSeeker(dt, ctx); // Y deselecionamos los checks y seekers
+                                } else {
+                                    if (ctx.oInit.multiSelect !== undefined) {
+                                        DataTable.Api().multiSelect.deselectAll(dt); // Y deselecionamos los checks y seekers
+                                    } else if (ctx.oInit.select !== undefined) {
+                                        DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
+                                    }
                                 }
+                                DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
                             }
-                            DataTable.Api().editForm.openSaveDialog('POST', dt, null);
-                        }
-                    });
+                        });
+                    } else {
+                        DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
+                    }
                 } else {
-                    DataTable.Api().editForm.openSaveDialog('POST', dt, null);
+                	$.rup_messages('msgError', {
+                        title: 'Error grave',
+                        message: '<p>Falta definir "detailForm" en la inicialización de la tabla.</p>'
+                    });
                 }
             } else { //edicion en linea
                 ctx.oInit.inlineEdit.currentPos = undefined;
@@ -2136,7 +2143,7 @@
                 if (ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
                         ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
                         dt.page() + 1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])) {
-                    DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow);
+                    DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow, null);
                 }
             } else { //edicion en linea
                 //Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
@@ -2149,7 +2156,7 @@
             // Abrimos el formulario
             if (ctx.oInit.formEdit !== undefined) {
                 var idRow = DataTable.Api().editForm.getRowSelected(dt, 'CLONE').line;
-                DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow);
+                DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow, null);
             } else { //edicion en linea
                 ctx.oInit.inlineEdit.alta = true;
                 ctx.oInit.inlineEdit.currentPos = undefined;
