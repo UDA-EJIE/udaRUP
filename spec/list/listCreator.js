@@ -102,7 +102,7 @@ function getHtml(idLista) {
                 '</div>' +
             '</div>' +
             '<div id="' + idLista +'"></div>' +
-            '<div id="' + idLista +'-itemTemplate" class="row" style="border: 1px solid gray; display:flex;margin:3px;padding:3px;">' +
+            '<div id="' + idLista +'-itemTemplate" class="row list-item" style="border: 1px solid gray; display:flex;margin:3px;padding:3px;">' +
                 '<div class="col-md-1" style="border-right: 1px solid gray;display:flex;justify-content:center;align-items:center;">' +
                     '<span class="mdi mdi-account-circle" style="transform:scale(2);"/>' +
                 '</div>' +
@@ -235,6 +235,12 @@ export function createShowHide(idLista, callback){
 export function createImpresionHTML(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.print = './print.css';
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createMultiFilter(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isMultiFilter = true;
     $('#' + idLista).rup_list(opts);
 }
 
