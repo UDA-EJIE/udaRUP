@@ -1027,19 +1027,106 @@ describe('Test rup_list', () => {
             });
         });
         
-        // describe('> MultiSelección', () => {
-        //     beforeAll((done) => {
-        //         testutils.loadCss(done);
-        //     });
-        //     beforeEach((done) => {
-        //         listGen.createMultiFilter('rup-list', () => {
-        //             $('#rup-list').on('load', done);
-        //             $('#rup-list').rup_list('filter');
-        //         });
-        //     });
-        //     it('Tiene que aparecer el class .list-item', () => {
-        //         expect($('#rup-list').children().hasClass('list-item')).toBeTruthy();
-        //     });
-        // });
+        describe('> MultiFilter', () => {
+            var childrenCount;
+            var keyPress = (key, callback) => {
+                var event = document.createEvent('Event');
+                event.keyCode = key;
+                event.key = key;
+                event.initEvent('keydown');
+                document.dispatchEvent(event);
+                if (callback) {
+                    callback();
+                }
+            };
+            var keyUp = (key, callback) => {
+                var event = document.createEvent('Event');
+                event.keyCode = key;
+                event.key = key;
+                event.initEvent('keyup');
+                document.dispatchEvent(event);
+                if (callback) {
+                    callback();
+                }
+            };
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createMultiFilter('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+            });
+            it('Tiene que aparecer el botón dropdown', () => {
+                expect($('#listFilterAceptar_dropdown').length).toEqual(1);
+            });
+            describe('> Click al botón dropdown', () => {
+                var spyAjax;
+                beforeEach((done) => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                    $('#listFilterAceptar_dropdown').click();
+                });
+                it ('Tiene que aparecer el dialog', () => {
+                    expect($('#dropdownDialog').is(':visible')).toBeTruthy();
+                });
+                describe('> Cancelar', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('load', done);
+                        $('#rup-list').rup_list('filter');
+                        $('#rup_dialogCancelar').click();
+                    });
+                    it('Tiene que desaparecer el dialgo', () => {
+                        expect($('#dropdownDialog').is(':visible')).toBeFalsy();
+                    });
+                });
+                describe('> Aplicar', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('load', done);
+                        $('#rup-list').rup_list('filter');
+                        spyAjax = spyOn($, 'rup_ajax').and.callThrough();
+                        $('#dropdownDialog').find('a.rup-combobox-toggle').click();
+                    });
+                    it('Tiene que hacer un ajax', () => {
+                        expect(spyAjax.calls.count()).toEqual(2);
+                    });
+                    it('Tienen que aparecer los resultados de ajax', () => {
+                        childrenCount = $('#dropdownDialog_combo_menu').children().length;
+                        expect($('#dropdownDialog_combo_menu').children()).toExist();
+                    });
+                    describe('Eligir un filtro', () => {
+                        beforeEach((done) => {
+                            $('#rup-list').on('load', done);
+                            $('#rup-list').rup_list('filter');
+                            $('#dropdownDialog_combo_menu').focus();
+                            keyPress(40, () => {
+                                keyUp(40);
+                            });
+                            $('#dropdownDialog_combo_menu').children().eq(0).click();
+                        });
+                        it('El filtro elegido tiene que aparecer en autocomlete', () => {
+                            expect($('#dropdownDialog_combo_label').val()).toEqual('Filter 1');
+                        });
+                        it('El input de usuario no debe estar vacío', () => {
+                            expect($('#listFilterForm').find('input').eq(0).val()).toEqual('user12');
+                        });            
+                    });
+                });
+                describe('> Guardar', () => {
+                    beforeEach((done) => {
+                        $('#rup-list').on('load', done);
+                        $('#rup-list').rup_list('filter');
+                        $('#listFilterForm').find('input').eq(0).val('userTest');
+                        $('#dropdownDialog_combo_label').val('TestFilter');
+                        $('#dropdownDialog_btn_save').click();
+                        childrenCount++;
+                    });
+                    it('Tiene que aparecer el feedback', () => {
+                        expect($('#dropdownDialog_feedback').is(':visible')).toBeTruthy();
+                    });
+                });
+            });
+        });
     });
 });
