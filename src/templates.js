@@ -182,7 +182,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
 
   return "<div id=\"pagination_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":31}}}) : helper)))
-    + "\" class=\"col-sm-5 text-center text-sm-left\">\r\n  	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
+    + "\" class=\"col-sm-4 text-center text-sm-left\">\r\n  	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":2,"column":58},"end":{"line":2,"column":75}}}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_jqtable_selectedElements_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":3,"column":42},"end":{"line":3,"column":53}}}) : helper)))
@@ -190,7 +190,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":4,"column":5},"end":{"line":4,"column":22}}}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":7,"column":13},"end":{"line":7,"column":24}}}) : helper)))
-    + "\" class=\"col-sm-7 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
+    + "\" class=\"col-sm-8 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":8,"column":36},"end":{"line":8,"column":47}}}) : helper)))
     + "\" class=\"btn-sm btn-outline-dark\" alt=\""
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data,"loc":{"start":{"line":8,"column":86},"end":{"line":8,"column":100}}}) : helper)))
@@ -221,7 +221,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["material"] = H
 
   return "<div id=\"pagination_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":31}}}) : helper)))
-    + "\" class=\"col-sm-5 text-center text-sm-left\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
+    + "\" class=\"col-sm-4 text-center text-sm-left\">\r\n	<i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":2,"column":56},"end":{"line":2,"column":73}}}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_jqtable_selectedElements_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":3,"column":42},"end":{"line":3,"column":53}}}) : helper)))
@@ -229,7 +229,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["material"] = H
     + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":4,"column":5},"end":{"line":4,"column":22}}}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":7,"column":13},"end":{"line":7,"column":24}}}) : helper)))
-    + "\" class=\"col-sm-7 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
+    + "\" class=\"col-sm-8 text-center text-sm-right mt-3 mt-sm-0\">\r\n    <button type=\"button\" id=\"first_"
     + alias4(((helper = (helper = helpers.tableId || (depth0 != null ? depth0.tableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":8,"column":36},"end":{"line":8,"column":47}}}) : helper)))
     + "\" class=\"btn-material btn-material-sm btn-material-secondary-low-emphasis\" alt=\""
     + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data,"loc":{"start":{"line":8,"column":127},"end":{"line":8,"column":141}}}) : helper)))

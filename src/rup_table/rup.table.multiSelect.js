@@ -881,7 +881,7 @@ handler that will select the items using the API methods.
      */
     function _paintCheckboxSelect(ctx) {
         var columnDefs = ctx.oInit.aoColumnDefs;
-        if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
+        if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className.indexOf('select-checkbox') > -1) {
             //Se rellena todo, la columna select.
         	//si metes esta propiedad se oculta el div:
         	if(ctx.oInit.multiSelect === undefined || !ctx.oInit.multiSelect.hideMultiselect){
@@ -1626,7 +1626,7 @@ handler that will select the items using the API methods.
             	}
             }
 
-            eventTrigger(new DataTable.Api(ctx), 'selectStyle', [style]);
+            $('#'+ctx.sTableId).trigger('selectStyle', [style]);
         });
     });
 
