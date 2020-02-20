@@ -76,11 +76,10 @@ module.exports = {
                 use: 'imports-loader?define=>false',
             }, {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['@babel/preset-env']
                     }
                 }
             },
