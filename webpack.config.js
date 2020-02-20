@@ -75,8 +75,8 @@ let plugins = [
 
 module.exports = [{
     mode: mode,
-    entry: __dirname + '/src/index.js',
-    devtool: 'source-map',
+    entry: ['@babel/polyfill', __dirname + '/src/index.js'],
+    devtool: 'eval',
     output: {
         filename: 'js/' + outputFileJS,
         library: libraryName,
@@ -90,12 +90,12 @@ module.exports = [{
             use: 'imports-loader?define=>false',
         }, {
             test: /\.js$/,
-            exclude: '/node_modules/',
-            include: '/src/',
+            // exclude: '/node_modules/',
+            // include: '/src/',
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env']
+                    presets: ['@babel/preset-env']
                 }
             }
         },
