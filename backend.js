@@ -127,9 +127,9 @@ module.exports = (PORT) => {
 
     //List
     app.post('/demo/list/filter', routesList.filter);
-    app.get('/demo/multiFilter/getAll', routesList.multiFilterAll);
-    app.post('/demo/multiFilter/add', routesList.multiFilterAdd);
-    app.post('/demo/multiFilter/delete', routesList.multiFilterDelete);
+    app.get('/demo/list/filter/multiFilter/getAll', routesList.multiFilterAll);
+    app.post('/demo/list/filter/multiFilter/add', routesList.multiFilterAdd);
+    app.post('/demo/list/filter/multiFilter/delete', routesList.multiFilterDelete);
 
     //Dialog
     app.get('/demo/dialog/dialogAjax', routesDialog.getHTML);

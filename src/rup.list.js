@@ -72,7 +72,7 @@ import Printd from 'printd';
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', 'rup.base', 'rup.button'], factory);
+        define(['jquery', 'rup.base', 'rup.button', 'rup.autocomplete', 'rup.dialog'], factory);
     } else {
 
         // Browser globals
@@ -377,13 +377,6 @@ import Printd from 'printd';
                 self._pagenavInit.apply(self);
 
                 /**
-                 * MULTIFILTER
-                 */
-                if (opciones.isMultiFilter) {
-                    self._multiFilter.apply(self);
-                }
-
-                /**
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
@@ -577,6 +570,13 @@ import Printd from 'printd';
                  */
                 if (opciones.isScrollList) {
                     self._scrollListInit.apply(self);
+                }
+
+                /**
+                 * MULTIFILTER
+                 */
+                if (opciones.isMultiFilter) {
+                    self._multiFilter.apply(self);
                 }
 
                 $('#' + opciones._idItemTemplate).hide();
@@ -785,7 +785,6 @@ import Printd from 'printd';
             const opciones = self.options;
 
             opciones.multiFilter = {};
-            opciones.multiFilter.action = '.';
             opciones.multiFilter._filterSelector = 'generated';
             opciones.multiFilter._filterUser = 'udaPruebas';
             opciones.multiFilter._dialogId = 'dropdownDialog';
@@ -827,7 +826,7 @@ import Printd from 'printd';
                                             filterUser: opciones.multiFilter._filterUser}
                                     };
                                     $.rup_ajax({
-                                        url: opciones.multiFilter.action + '/multiFilter/add',
+                                        url: opciones.action + '/./multiFilter/add',
                                         type: 'POST',
                                         dataType: 'json',
                                         data: JSON.stringify(elem),
@@ -868,7 +867,7 @@ import Printd from 'printd';
                                         }
                                     };
                                     $.rup_ajax({
-                                        url: opciones.multiFilter.action + '/multiFilter/delete',
+                                        url: opciones.action + '/./multiFilter/delete',
                                         type: 'POST',
                                         dataType: 'json',
                                         data: JSON.stringify(elem),
@@ -901,8 +900,8 @@ import Printd from 'printd';
             });
 
             opciones.multiFilter.$combo.rup_autocomplete({
-                source : opciones.multiFilter.action +
-                '/multiFilter/getAll?filterSelector=' +
+                source : opciones.action +
+                '/./multiFilter/getAll?filterSelector=' +
                 opciones.multiFilter._filterSelector + '&user=' +
                 opciones.multiFilter._filterUser,
                 sourceParam: {
@@ -925,8 +924,8 @@ import Printd from 'printd';
                             filterUser: opciones.multiFilter._filterUser
                         };
                         $.rup_ajax({
-                            url: opciones.multiFilter.action +
-                            '/multiFilter/getAll?filterSelector=' +
+                            url: opciones.action +
+                            '/./multiFilter/getAll?filterSelector=' +
                             opciones.multiFilter._filterSelector + '&user=' +
                             opciones.multiFilter._filterUser,
                             type: 'GET',
