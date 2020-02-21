@@ -5,6 +5,9 @@ import 'rup.feedback';
 import 'rup.combo';
 import 'rup.form';
 import 'rup.list';
+import 'rup.dialog';
+import 'rup.button';
+import 'rup.autocomplete';
 import 'bootstrap';
 import * as testutils from '../common/specCommonUtils.js';
 import * as listGen from './listCreator';
@@ -753,7 +756,7 @@ describe('Test rup_list', () => {
             });
         });
 
-        describe('> MultiSelección', () => {
+        describe('> SuperSelect', () => {
             var keyPress = (key, callback) => {
                 var event = document.createEvent('Event');
                 event.keyCode = key;
@@ -778,7 +781,7 @@ describe('Test rup_list', () => {
                 testutils.loadCss(done);
             });
             beforeEach((done) => {
-                listGen.createList('rup-list', () => {
+                listGen.createSuperSelect('rup-list', () => {
                     $('#rup-list').on('load', done);
                     $('#rup-list').rup_list('filter');
                 });
