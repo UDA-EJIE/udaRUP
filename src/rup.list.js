@@ -393,21 +393,23 @@ import Printd from 'printd';
                         isShift = false,
                         modeAll;
 
-                    $(document).on('keydown', (e) => {
-                        if (e.keyCode == '17') {
-                            isControl = true;
-                        } else if (e.keyCode == '16') {
-                            isShift = true;
-                        }
-                    });
-
-                    $(document).on('keyup', (e) => {
-                        if (e.keyCode == '17') {
-                            isControl = false;
-                        } else if (e.keyCode == '16') {
-                            isShift = false;
-                        }
-                    });
+                    if (opciones.isSuperSelect) {
+                        $(document).on('keydown', (e) => {
+                            if (e.keyCode == '17') {
+                                isControl = true;
+                            } else if (e.keyCode == '16') {
+                                isShift = true;
+                            }
+                        });
+    
+                        $(document).on('keyup', (e) => {
+                            if (e.keyCode == '17') {
+                                isControl = false;
+                            } else if (e.keyCode == '16') {
+                                isShift = false;
+                            }
+                        });
+                    }
 
                     $('[rup-list-selector="enabled"]').on('click', (e) => {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
@@ -427,40 +429,48 @@ import Printd from 'printd';
                             modeAll = false;
                         }
 
-                        if (isShift && isControl) {
-                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
-                                let newRangeClickedPK = clickedPK;
-                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
-                                if (posicionClicked[0] > posicionClicked[1]) {
-                                    deselect(newRangeLastClickedPK, modeAll);
+                        if (opciones.isSuperSelect) {
+                            if (isShift && isControl) {
+                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                    let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
+                                    let newRangeClickedPK = clickedPK;
+                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                                    if (posicionClicked[0] > posicionClicked[1]) {
+                                        deselect(newRangeLastClickedPK, modeAll);
+                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    } else {
+                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    }
+                                } else {
+                                    select(clickedPK, modeAll);
+                                }
+                            } else if (!isShift && isControl) {
+                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                    deselect(clickedPK, modeAll);
+                                } else {
+                                    select(clickedPK, modeAll);
+                                }
+                            } else if (isShift && !isControl) {
+                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                    let newRangeClickedPK = clickedPK;
+                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
+                                    deselectRest(modeAll);
                                     selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
                                 } else {
-                                    selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    select(clickedPK, modeAll);
                                 }
-                            } else {
-                                select(clickedPK, modeAll);
+                            } else if (!isShift && !isControl) {
+                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                    deselect(clickedPK, modeAll);
+                                } else {
+                                    deselectRest(modeAll);
+                                    select(clickedPK, modeAll);
+                                }
                             }
-                        } else if (!isShift && isControl) {
+                        } else {
                             if (opciones.multiselection.selectedIds.includes(clickedPK)) {
                                 deselect(clickedPK, modeAll);
                             } else {
-                                select(clickedPK, modeAll);
-                            }
-                        } else if (isShift && !isControl) {
-                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                let newRangeClickedPK = clickedPK;
-                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
-                                deselectRest(modeAll);
-                                selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
-                            } else {
-                                select(clickedPK, modeAll);
-                            }
-                        } else if (!isShift && !isControl) {
-                            if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                                deselect(clickedPK, modeAll);
-                            } else {
-                                deselectRest(modeAll);
                                 select(clickedPK, modeAll);
                             }
                         }
