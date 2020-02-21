@@ -649,13 +649,13 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            if ($('.rup-navbar').length != 0) {
-                window.scrollHeight = $('.rup-navbar').height();
-            } else {
-                window.scrollHeight = 0;
-            }
-
             $(window).on('scroll', function () {
+                if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
+                    window.scrollHeight = $('.rup-navbar').height();
+                } else {
+                    window.scrollHeight = 0;
+                }
+
                 var targetOpciones = opciones._header.obj[0].getBoundingClientRect(),
                     targetTopPoint = targetOpciones.top;
 
