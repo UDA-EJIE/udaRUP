@@ -394,6 +394,13 @@
          * $("#idCombo").rup_combo("disableChild");
          */
         disableChild: function () {
+            if($(this).hasClass('rup_combo')){
+                if($(this).attr('multiple')==='multiple'){
+                    $(this).rup_combo('setRupValue', []);
+                } else {
+                    $(this).rup_combo('setRupValue', '');
+                }
+            }
             //Vaciar combo, deshabilitarlo
             $(this).empty().append('<option></option>').rup_combo('disable');
             //Eliminar texto que se muestra
@@ -1065,6 +1072,8 @@
                 $('#' + settings.id).selectmenu(settings);
                 if (settings.selected !== undefined && settings.selected !== '') {
                     $('#' + settings.id).rup_combo('setRupValue', settings.selected);
+                } else {
+                    $('#' + settings.id).rup_combo('setRupValue', '');
                 }
 
             } else {
