@@ -5,6 +5,9 @@ import 'rup.feedback';
 import 'rup.combo';
 import 'rup.form';
 import 'rup.list';
+import 'rup.dialog';
+import 'rup.button';
+import 'rup.autocomplete';
 import 'bootstrap';
 import * as testutils from '../common/specCommonUtils.js';
 import * as listGen from './listCreator';
@@ -753,7 +756,7 @@ describe('Test rup_list', () => {
             });
         });
 
-        describe('> MultiSelección', () => {
+        describe('> SuperSelect', () => {
             var keyPress = (key, callback) => {
                 var event = document.createEvent('Event');
                 event.keyCode = key;
@@ -778,7 +781,7 @@ describe('Test rup_list', () => {
                 testutils.loadCss(done);
             });
             beforeEach((done) => {
-                listGen.createList('rup-list', () => {
+                listGen.createSuperSelect('rup-list', () => {
                     $('#rup-list').on('load', done);
                     $('#rup-list').rup_list('filter');
                 });
@@ -1028,7 +1031,7 @@ describe('Test rup_list', () => {
         });
         
         describe('> MultiFilter', () => {
-            var childrenCount;
+            var childrenCount = 0;
             var keyPress = (key, callback) => {
                 var event = document.createEvent('Event');
                 event.keyCode = key;
@@ -1095,6 +1098,13 @@ describe('Test rup_list', () => {
                         childrenCount = $('#dropdownDialog_combo_menu').children().length;
                         expect($('#dropdownDialog_combo_menu').children()).toExist();
                     });
+                    it ('Filter por dereco', () => {
+                        if (childrenCount <= 2) {
+                            expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
+                        } else {
+                            expect($('#listFilterForm').find('input').eq(0).val()).toEqual('userTest');
+                        }
+                    });
                     describe('Eligir un filtro', () => {
                         beforeEach((done) => {
                             $('#rup-list').on('load', done);
@@ -1125,6 +1135,34 @@ describe('Test rup_list', () => {
                     it('Tiene que aparecer el feedback', () => {
                         expect($('#dropdownDialog_feedback').is(':visible')).toBeTruthy();
                     });
+                });
+            });
+        });
+
+        describe ('> Loader configurable', () => {
+            var spyLoader;
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createLoader('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+            });
+            describe('> Pasamos a la pagina siguiente para que aparezca el loader', () => {
+                beforeEach((done) => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                    spyLoader = spyOn($.fn, 'prepend').and.callThrough();
+                    $('#rup-list-header-page-next').click();
+                });
+                it ('Loader debe tener el contenido diferente', () => {
+                    for (let i = 0; i < spyLoader.calls.count(); i++) {
+                        if ($(spyLoader.calls.argsFor(i)[0]).hasClass('rup_list-overlay')) {
+                            expect($(spyLoader.calls.argsFor(i)[0])[0].innerText).toEqual('loading...');
+                        }
+                    }
                 });
             });
         });

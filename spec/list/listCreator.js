@@ -238,9 +238,24 @@ export function createImpresionHTML(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
+export function createSuperSelect(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.isSuperSelect = true;
+    $('#' + idLista).rup_list(opts);
+}
+
 export function createMultiFilter(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.isMultiFilter = true;
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createLoader(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.loader = (ui) => {
+        ui.children().remove();
+        ui.append('loading...').css('text-align', 'center');
+    };
     $('#' + idLista).rup_list(opts);
 }
 

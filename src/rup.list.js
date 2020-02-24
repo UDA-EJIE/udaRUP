@@ -393,21 +393,23 @@ import Printd from 'printd';
                         isShift = false,
                         modeAll;
 
-                    $(document).on('keydown', (e) => {
-                        if (e.keyCode == '17') {
-                            isControl = true;
-                        } else if (e.keyCode == '16') {
-                            isShift = true;
-                        }
-                    });
-
-                    $(document).on('keyup', (e) => {
-                        if (e.keyCode == '17') {
-                            isControl = false;
-                        } else if (e.keyCode == '16') {
-                            isShift = false;
-                        }
-                    });
+                    if (opciones.isSuperSelect) {
+                        $(document).on('keydown', (e) => {
+                            if (e.keyCode == '17') {
+                                isControl = true;
+                            } else if (e.keyCode == '16') {
+                                isShift = true;
+                            }
+                        });
+    
+                        $(document).on('keyup', (e) => {
+                            if (e.keyCode == '17') {
+                                isControl = false;
+                            } else if (e.keyCode == '16') {
+                                isShift = false;
+                            }
+                        });
+                    }
 
                     $('[rup-list-selector="enabled"]').on('click', (e) => {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
@@ -427,40 +429,48 @@ import Printd from 'printd';
                             modeAll = false;
                         }
 
-                        if (isShift && isControl) {
-                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
-                                let newRangeClickedPK = clickedPK;
-                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
-                                if (posicionClicked[0] > posicionClicked[1]) {
-                                    deselect(newRangeLastClickedPK, modeAll);
+                        if (opciones.isSuperSelect) {
+                            if (isShift && isControl) {
+                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                    let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
+                                    let newRangeClickedPK = clickedPK;
+                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                                    if (posicionClicked[0] > posicionClicked[1]) {
+                                        deselect(newRangeLastClickedPK, modeAll);
+                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    } else {
+                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    }
+                                } else {
+                                    select(clickedPK, modeAll);
+                                }
+                            } else if (!isShift && isControl) {
+                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                    deselect(clickedPK, modeAll);
+                                } else {
+                                    select(clickedPK, modeAll);
+                                }
+                            } else if (isShift && !isControl) {
+                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                                    let newRangeClickedPK = clickedPK;
+                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
+                                    deselectRest(modeAll);
                                     selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
                                 } else {
-                                    selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                                    select(clickedPK, modeAll);
                                 }
-                            } else {
-                                select(clickedPK, modeAll);
+                            } else if (!isShift && !isControl) {
+                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                                    deselect(clickedPK, modeAll);
+                                } else {
+                                    deselectRest(modeAll);
+                                    select(clickedPK, modeAll);
+                                }
                             }
-                        } else if (!isShift && isControl) {
+                        } else {
                             if (opciones.multiselection.selectedIds.includes(clickedPK)) {
                                 deselect(clickedPK, modeAll);
                             } else {
-                                select(clickedPK, modeAll);
-                            }
-                        } else if (isShift && !isControl) {
-                            if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                let newRangeClickedPK = clickedPK;
-                                let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
-                                deselectRest(modeAll);
-                                selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
-                            } else {
-                                select(clickedPK, modeAll);
-                            }
-                        } else if (!isShift && !isControl) {
-                            if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                                deselect(clickedPK, modeAll);
-                            } else {
-                                deselectRest(modeAll);
                                 select(clickedPK, modeAll);
                             }
                         }
@@ -649,13 +659,13 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            if ($('.rup-navbar').length != 0) {
-                window.scrollHeight = $('.rup-navbar').height();
-            } else {
-                window.scrollHeight = 0;
-            }
-
             $(window).on('scroll', function () {
+                if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
+                    window.scrollHeight = $('.rup-navbar').height();
+                } else {
+                    window.scrollHeight = 0;
+                }
+
                 var targetOpciones = opciones._header.obj[0].getBoundingClientRect(),
                     targetTopPoint = targetOpciones.top;
 
@@ -962,6 +972,31 @@ import Printd from 'printd';
             });
 
             opciones.multiFilter.$label = $('#'+ opciones.multiFilter._dialogId +'_combo_label');
+
+            //filtro por derecho
+            $.rup_ajax({
+                url: opciones.action +
+                '/./multiFilter/getDefault?filterSelector=' +
+                opciones.multiFilter._filterSelector + '&user=' +
+                opciones.multiFilter._filterUser,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    opciones.multiFilter.$label.val(data.filterName);
+                    data.filterValue = JSON.parse(data.filterValue);
+                    if (data.filterDefault) {
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = true;
+                    } else {
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
+                    }
+                    for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
+                        if (data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
+                            $('#' + opciones.filterForm).find('input').eq(i).val(data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                        }
+                    }
+                }
+            });
 
             opciones.multiFilter.$label.data('uiAutocomplete')._renderItem = (ul, item) => {
                 return $('<li></li>').data(

@@ -70,6 +70,7 @@ define(['jquery', 'marionette',
             isMultiSort: true,
             // isScrollList: true,
             // isHeaderSticky: true,
+            // isSuperSelect: true,
             // isMultiFilter: true,
             // show: {
             //     animation: 'fade',
