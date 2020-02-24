@@ -250,6 +250,15 @@ export function createMultiFilter(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
+export function createLoader(idLista, callback){
+    let opts = commonListCreator(idLista, callback);
+    opts.loader = (ui) => {
+        ui.children().remove();
+        ui.append('loading...').css('text-align', 'center');
+    };
+    $('#' + idLista).rup_list(opts);
+}
+
 export function createListMultiorder(idLista, callback){
     let opts = commonListCreator(idLista, callback);
     opts.isMultiSort = true;

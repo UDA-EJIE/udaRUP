@@ -1138,5 +1138,33 @@ describe('Test rup_list', () => {
                 });
             });
         });
+
+        describe ('> Loader configurable', () => {
+            var spyLoader;
+            beforeAll((done) => {
+                testutils.loadCss(done);
+            });
+            beforeEach((done) => {
+                listGen.createLoader('rup-list', () => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                });
+            });
+            describe('> Pasamos a la pagina siguiente para que aparezca el loader', () => {
+                beforeEach((done) => {
+                    $('#rup-list').on('load', done);
+                    $('#rup-list').rup_list('filter');
+                    spyLoader = spyOn($.fn, 'prepend').and.callThrough();
+                    $('#rup-list-header-page-next').click();
+                });
+                it ('Loader debe tener el contenido diferente', () => {
+                    for (let i = 0; i < spyLoader.calls.count(); i++) {
+                        if ($(spyLoader.calls.argsFor(i)[0]).hasClass('rup_list-overlay')) {
+                            expect($(spyLoader.calls.argsFor(i)[0])[0].innerText).toEqual('loading...');
+                        }
+                    }
+                });
+            });
+        });
     });
 });
