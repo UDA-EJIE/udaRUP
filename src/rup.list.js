@@ -538,9 +538,9 @@ import Printd from 'printd';
                         opciones.multiselection.selectedRowsPerPage = [];
                         for (let i = 0; i < opciones.content.length; i++) {
                             if (!modeAll) {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).removeClass('list-item-selected');
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
                             } else {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).addClass('list-item-selected');
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
                             }
                         }
                     };
@@ -549,14 +549,14 @@ import Printd from 'printd';
                         var posicionClicked = getPosicion(lastClickedPK, clickedPK);
                         if (posicionClicked[0] > posicionClicked[1]) {
                             for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         } else {
                             for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         }
@@ -565,9 +565,9 @@ import Printd from 'printd';
                     let getPosicion = (lastClickedPK, clickedPK) => {
                         var posicionClicked = {};
                         for (let i = 0; i < opciones.content.length; i++) {
-                            if (opciones.content[i].codigoPK == clickedPK) {
+                            if (opciones.content[i][opciones.key] == clickedPK) {
                                 posicionClicked[0] = i;
-                            } else if (opciones.content[i].codigoPK == lastClickedPK) {
+                            } else if (opciones.content[i][opciones.key] == lastClickedPK) {
                                 posicionClicked[1] = i;
                             }
                         }
@@ -597,6 +597,9 @@ import Printd from 'printd';
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
+
+                //Se audita el componente
+                $.rup.auditComponent('rup_list', 'init');
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
