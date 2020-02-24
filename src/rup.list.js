@@ -973,6 +973,31 @@ import Printd from 'printd';
 
             opciones.multiFilter.$label = $('#'+ opciones.multiFilter._dialogId +'_combo_label');
 
+            //filtro por derecho
+            $.rup_ajax({
+                url: opciones.action +
+                '/./multiFilter/getDefault?filterSelector=' +
+                opciones.multiFilter._filterSelector + '&user=' +
+                opciones.multiFilter._filterUser,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    opciones.multiFilter.$label.val(data.filterName);
+                    data.filterValue = JSON.parse(data.filterValue);
+                    if (data.filterDefault) {
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = true;
+                    } else {
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
+                    }
+                    for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
+                        if (data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
+                            $('#' + opciones.filterForm).find('input').eq(i).val(data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                        }
+                    }
+                }
+            });
+
             opciones.multiFilter.$label.data('uiAutocomplete')._renderItem = (ul, item) => {
                 return $('<li></li>').data(
                     'item.autocomplete', item).append(

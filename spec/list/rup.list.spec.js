@@ -1031,7 +1031,7 @@ describe('Test rup_list', () => {
         });
         
         describe('> MultiFilter', () => {
-            var childrenCount;
+            var childrenCount = 0;
             var keyPress = (key, callback) => {
                 var event = document.createEvent('Event');
                 event.keyCode = key;
@@ -1097,6 +1097,13 @@ describe('Test rup_list', () => {
                     it('Tienen que aparecer los resultados de ajax', () => {
                         childrenCount = $('#dropdownDialog_combo_menu').children().length;
                         expect($('#dropdownDialog_combo_menu').children()).toExist();
+                    });
+                    it ('Filter por dereco', () => {
+                        if (childrenCount <= 2) {
+                            expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
+                        } else {
+                            expect($('#listFilterForm').find('input').eq(0).val()).toEqual('userTest');
+                        }
                     });
                     describe('Eligir un filtro', () => {
                         beforeEach((done) => {

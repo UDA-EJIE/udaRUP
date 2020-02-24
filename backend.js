@@ -128,6 +128,7 @@ module.exports = (PORT) => {
     //List
     app.post('/demo/list/filter', routesList.filter);
     app.get('/demo/list/filter/multiFilter/getAll', routesList.multiFilterAll);
+    app.get('/demo/list/filter/multiFilter/getDefault', routesList.multiFilterDefault);
     app.post('/demo/list/filter/multiFilter/add', routesList.multiFilterAdd);
     app.post('/demo/list/filter/multiFilter/delete', routesList.multiFilterDelete);
 

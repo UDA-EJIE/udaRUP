@@ -437,6 +437,21 @@ function getAllResultFilter () {
     }
     return result;
 }
+function getDefaultResultFilter () {
+    var result;
+    for (let i = 0; i < allregsFilter.length; i++) {
+        if (allregsFilter[i].filterDefault) {
+            result = {
+                filterSelector: allregsFilter[i].filterSelector,
+                filterName: allregsFilter[i].filterName,
+                filterValue: JSON.stringify(allregsFilter[i].filterValue),
+                filterDefault: allregsFilter[i].filterDefault,
+                filterUser: allregsFilter[i].filterUser
+            };
+            return result;
+        }
+    }
+}
 function addResultFilter (req) {
     var result = req.body.filtro;
 
@@ -472,6 +487,10 @@ exports.filter = (req, res) => {
 };
 exports.multiFilterAll = (req, res) => {
     var resultado = getAllResultFilter(req);
+    res.status(200).json(resultado);
+};
+exports.multiFilterDefault = (req, res) => {
+    var resultado = getDefaultResultFilter(req);
     res.status(200).json(resultado);
 };
 exports.multiFilterAdd = (req, res) => {
