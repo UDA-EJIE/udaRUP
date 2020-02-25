@@ -662,6 +662,10 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
+            $(window).on('resize', function () {
+                opciones._header.obj.css('width', self.element.css('width'));
+            });
+
             $(window).on('scroll', function () {
                 if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
                     window.scrollHeight = $('.rup-navbar').height();
@@ -676,6 +680,8 @@ import Printd from 'printd';
                     targetOpciones = self.element[0].getBoundingClientRect();
                     targetTopPoint = targetOpciones.top;
                 }
+
+                opciones._header.obj.css('width', self.element.css('width'));
 
                 if (targetTopPoint < window.scrollHeight) {
                     opciones._header.obj.addClass('rup_list-sticky');
