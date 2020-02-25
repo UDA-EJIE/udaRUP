@@ -1072,7 +1072,7 @@ describe('Test rup_list', () => {
                     $('#listFilterAceptar_dropdown').click();
                 });
                 it ('Tiene que aparecer el dialog', () => {
-                    expect($('#dropdownDialog').is(':visible')).toBeTruthy();
+                    expect($('#rup-list_dropdownDialog').is(':visible')).toBeTruthy();
                 });
                 describe('> Cancelar', () => {
                     beforeEach((done) => {
@@ -1081,7 +1081,7 @@ describe('Test rup_list', () => {
                         $('#rup_dialogCancelar').click();
                     });
                     it('Tiene que desaparecer el dialgo', () => {
-                        expect($('#dropdownDialog').is(':visible')).toBeFalsy();
+                        expect($('#rup-list_dropdownDialog').is(':visible')).toBeFalsy();
                     });
                 });
                 describe('> Aplicar', () => {
@@ -1089,14 +1089,14 @@ describe('Test rup_list', () => {
                         $('#rup-list').on('load', done);
                         $('#rup-list').rup_list('filter');
                         spyAjax = spyOn($, 'rup_ajax').and.callThrough();
-                        $('#dropdownDialog').find('a.rup-combobox-toggle').click();
+                        $('#rup-list_dropdownDialog').find('a.rup-combobox-toggle').click();
                     });
                     it('Tiene que hacer un ajax', () => {
                         expect(spyAjax.calls.count()).toEqual(2);
                     });
                     it('Tienen que aparecer los resultados de ajax', () => {
-                        childrenCount = $('#dropdownDialog_combo_menu').children().length;
-                        expect($('#dropdownDialog_combo_menu').children()).toExist();
+                        childrenCount = $('#rup-list_dropdownDialog_combo_menu').children().length;
+                        expect($('#rup-list_dropdownDialog_combo_menu').children()).toExist();
                     });
                     it ('Filter por dereco', () => {
                         if (childrenCount <= 2) {
@@ -1109,14 +1109,14 @@ describe('Test rup_list', () => {
                         beforeEach((done) => {
                             $('#rup-list').on('load', done);
                             $('#rup-list').rup_list('filter');
-                            $('#dropdownDialog_combo_menu').focus();
+                            $('#rup-list_dropdownDialog_combo_menu').focus();
                             keyPress(40, () => {
                                 keyUp(40);
                             });
-                            $('#dropdownDialog_combo_menu').children().eq(0).click();
+                            $('#rup-list_dropdownDialog_combo_menu').children().eq(0).click();
                         });
                         it('El filtro elegido tiene que aparecer en autocomlete', () => {
-                            expect($('#dropdownDialog_combo_label').val()).toEqual('Filter 1');
+                            expect($('#rup-list_dropdownDialog_combo_label').val()).toEqual('Filter 1');
                         });
                         it('El input de usuario no debe estar vacío', () => {
                             expect($('#listFilterForm').find('input').eq(0).val()).toEqual('user12');
@@ -1128,12 +1128,12 @@ describe('Test rup_list', () => {
                         $('#rup-list').on('load', done);
                         $('#rup-list').rup_list('filter');
                         $('#listFilterForm').find('input').eq(0).val('userTest');
-                        $('#dropdownDialog_combo_label').val('TestFilter');
-                        $('#dropdownDialog_btn_save').click();
+                        $('#rup-list_dropdownDialog_combo_label').val('TestFilter');
+                        $('#rup-list_dropdownDialog_btn_save').click();
                         childrenCount++;
                     });
                     it('Tiene que aparecer el feedback', () => {
-                        expect($('#dropdownDialog_feedback').is(':visible')).toBeTruthy();
+                        expect($('#rup-list_dropdownDialog_feedback').is(':visible')).toBeTruthy();
                     });
                 });
             });
