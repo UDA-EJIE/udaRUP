@@ -262,15 +262,6 @@
                         autoOpen: false,
                         modal: true,
                         resizable: false,
-                        close: function () {
-                            if ($.rup.browser.isIE) {
-                                //IE
-                                document.execCommand('Stop');
-                            } else {
-                                //Netscape/Mozilla/Firefox
-                                window.stop();
-                            }
-                        }
                     });
                     if (standarDialog) {
                         //Titulo

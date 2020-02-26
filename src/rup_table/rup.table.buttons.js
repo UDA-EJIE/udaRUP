@@ -2801,15 +2801,6 @@
             autoOpen: false,
             modal: true,
             resizable: false,
-            close: function (event, ui) {
-                if ($.rup.browser.isIE) {
-                    //IE
-                    document.execCommand('Stop');
-                } else {
-                    //Netscape/Mozilla/Firefox
-                    window.stop();
-                }
-            }
         });
         if (standarDialog) {
             //Titulo
