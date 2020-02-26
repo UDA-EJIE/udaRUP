@@ -509,9 +509,9 @@ import Printd from 'printd';
                         });
                         opciones.multiselection.selectedIds.push(clickedPK);
                         if (!modeAll) {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         } else {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         }
                     };
 
@@ -522,9 +522,9 @@ import Printd from 'printd';
                             elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
                         );
                         if (!modeAll) {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         } else {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         }
                     };
 
@@ -538,9 +538,9 @@ import Printd from 'printd';
                         opciones.multiselection.selectedRowsPerPage = [];
                         for (let i = 0; i < opciones.content.length; i++) {
                             if (!modeAll) {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
+                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
                             } else {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
+                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
                             }
                         }
                     };
@@ -580,6 +580,13 @@ import Printd from 'printd';
                  */
                 if (opciones.isScrollList) {
                     self._scrollListInit.apply(self);
+                }
+
+                /**
+                 * PRINT
+                 */
+                if (opciones.print) {
+                    self._print.apply(self);
                 }
 
                 /**
@@ -726,9 +733,10 @@ import Printd from 'printd';
             const opciones = self.options;
 
             if ($('#listPrint').length == 0) {
-                var newBtnPrint = $('<button id="listPrint">Imprimir</button>');
-                newBtnPrint.appendTo($('#listFilterForm'));
-                newBtnPrint.on('click', btnPrintMain);
+                opciones.btnPrint = $('<button id="listPrint">Imprimir</button>');
+                opciones.btnPrint.appendTo($('#listFilterForm'));
+                opciones.btnPrint[0].disabled = true;
+                opciones.btnPrint.on('click', btnPrintMain);
             }
 
             function btnPrintMain (e) {
@@ -777,13 +785,13 @@ import Printd from 'printd';
                     success: function (xhr) {
                         if (!opciones.multiselection.selectedIds || opciones.multiselection.selectedIds.length == 0) {
                             for (var i = 0; i < xhr.rows.length; i++) {
-                                printDoc.append($('<p>' + xhr.rows[i].usuario + '</p>'));
+                                printDoc.append($('<p>' + xhr.rows[i][opciones.key] + '</p>'));
                             }
                         } else {
                             for (var x = 0; x < xhr.rows.length; x++) {
                                 for (var y = 0; y < xhr.reorderedSelection.length; y++) {
-                                    if (xhr.rows[x].codigoPK == xhr.reorderedSelection[y].pk.codigoPK) {
-                                        printDoc.append($('<p>' + xhr.rows[x].usuario + '</p>'));
+                                    if (xhr.rows[x][opciones.key] == xhr.reorderedSelection[y].pk[opciones.key]) {
+                                        printDoc.append($('<p>' + xhr.rows[x][opciones.key] + '</p>'));
                                     }
                                 }
                             }
@@ -2006,6 +2014,10 @@ import Printd from 'printd';
                 opciones.hide.delay = 200;
             }
 
+            if (opciones.btnPrint[0].disabled) {
+                opciones.btnPrint[0].disabled = false;
+            }
+
             // opciones.feedback.rup_feedback('hide');
 
             if ($('#' + opciones.filterForm).rup_form('valid')) {
@@ -2113,10 +2125,6 @@ import Printd from 'printd';
 
                         if (opciones.isHeaderSticky) {
                             self._headerSticky.apply(self);
-                        }
-
-                        if (opciones.print) {
-                            self._print.apply(self);
                         }
 
                         self.element
