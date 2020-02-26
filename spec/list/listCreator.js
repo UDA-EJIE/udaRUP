@@ -3,9 +3,9 @@
 
 import 'jquery';
 
-function getHtml(idLista) {
+function getHtml(idLista, idForm) {
     return '' +
-            '<form id="listFilterForm">' +
+            '<form id="' + idForm + '">' +
             '<fieldset>' +
                 '<div class="row pb-2">' +
                     '<div class="col-md-1"/>' +
@@ -135,10 +135,10 @@ function getHtml(idLista) {
         '</div>';
 }
 
-function commonListOptions(idLista) {
+function commonListOptions(idLista, idForm) {
     return {
         action: '/demo/list/filter',
-        filterForm: 'listFilterForm',
+        filterForm: idForm,
         feedback: idLista + '-feedback',
         key: 'codigoPK',
         selectable: {
@@ -176,51 +176,51 @@ function commonListOptions(idLista) {
     };
 }
 
-function commonListCreator(idLista, callback) {
-    $('#content').append(getHtml(idLista));
-    $('#listFilterLimpiar').on('click', (e) => {
+function commonListCreator(idLista, idForm, callback) {
+    $('#content').append(getHtml(idLista, idForm));
+    $('#' + idForm).find('#listFilterLimpiar').on('click', (e) => {
         e.stopImmediatePropagation();
         e.preventDefault();
         $('#listFilterForm').find('input').val('');
         $('#rup-list').rup_list('filter');
     });
-    $('#listFilterAceptar').on('click', (e) => {
+    $('#' + idForm).find('#listFilterAceptar').on('click', (e) => {
         e.stopImmediatePropagation();
         e.preventDefault();
         $('#rup-list').rup_list('filter');
     });
     $('#' + idLista).on('initComplete', callback);
-    let opts = commonListOptions(idLista);
+    let opts = commonListOptions(idLista, idForm);
     return opts;
 }
 
-export function createList(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createList(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     $('#' + idLista).rup_list(opts);
 } 
 
-export function createListScrollx5(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createListScrollx5(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isScrollList = true;
     opts.rowNum.value = 5;
     $('#' + idLista).rup_list(opts);
 }
 
-export function createListScrollx10(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createListScrollx10(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isScrollList = true;
     opts.rowNum.value = 10;
     $('#' + idLista).rup_list(opts);
 }
 
-export function createHeaderSticky(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createHeaderSticky(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isHeaderSticky = true;
     $('#' + idLista).rup_list(opts);
 }
 
-export function createShowHide(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createShowHide(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.show = {
         animation: 'fade',
         delay: 1000
@@ -232,26 +232,26 @@ export function createShowHide(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
-export function createImpresionHTML(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createImpresionHTML(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.print = './print.css';
     $('#' + idLista).rup_list(opts);
 }
 
-export function createSuperSelect(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createSuperSelect(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isSuperSelect = true;
     $('#' + idLista).rup_list(opts);
 }
 
-export function createMultiFilter(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createMultiFilter(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isMultiFilter = true;
     $('#' + idLista).rup_list(opts);
 }
 
-export function createLoader(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createLoader(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.loader = (ui) => {
         ui.children().remove();
         ui.append('loading...').css('text-align', 'center');
@@ -259,8 +259,8 @@ export function createLoader(idLista, callback){
     $('#' + idLista).rup_list(opts);
 }
 
-export function createListMultiorder(idLista, callback){
-    let opts = commonListCreator(idLista, callback);
+export function createListMultiorder(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
     opts.isMultiSort = true;
     opts.sidx.value = 'EDAD,USUARIO';
     opts.sord = 'asc, desc';
