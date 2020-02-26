@@ -2014,8 +2014,10 @@ import Printd from 'printd';
                 opciones.hide.delay = 200;
             }
 
-            if (opciones.btnPrint[0].disabled) {
-                opciones.btnPrint[0].disabled = false;
+            if (opciones.btnPrint) {
+                if (opciones.btnPrint[0].disabled) {
+                    opciones.btnPrint[0].disabled = false;
+                }
             }
 
             // opciones.feedback.rup_feedback('hide');
