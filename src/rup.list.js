@@ -538,9 +538,9 @@ import Printd from 'printd';
                         opciones.multiselection.selectedRowsPerPage = [];
                         for (let i = 0; i < opciones.content.length; i++) {
                             if (!modeAll) {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).removeClass('list-item-selected');
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
                             } else {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).addClass('list-item-selected');
+                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
                             }
                         }
                     };
@@ -549,14 +549,14 @@ import Printd from 'printd';
                         var posicionClicked = getPosicion(lastClickedPK, clickedPK);
                         if (posicionClicked[0] > posicionClicked[1]) {
                             for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         } else {
                             for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         }
@@ -565,9 +565,9 @@ import Printd from 'printd';
                     let getPosicion = (lastClickedPK, clickedPK) => {
                         var posicionClicked = {};
                         for (let i = 0; i < opciones.content.length; i++) {
-                            if (opciones.content[i].codigoPK == clickedPK) {
+                            if (opciones.content[i][opciones.key] == clickedPK) {
                                 posicionClicked[0] = i;
-                            } else if (opciones.content[i].codigoPK == lastClickedPK) {
+                            } else if (opciones.content[i][opciones.key] == lastClickedPK) {
                                 posicionClicked[1] = i;
                             }
                         }
@@ -597,6 +597,9 @@ import Printd from 'printd';
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
+
+                //Se audita el componente
+                $.rup.auditComponent('rup_list', 'init');
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
@@ -659,6 +662,10 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
+            $(window).on('resize', function () {
+                opciones._header.obj.css('width', self.element.css('width'));
+            });
+
             $(window).on('scroll', function () {
                 if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
                     window.scrollHeight = $('.rup-navbar').height();
@@ -673,6 +680,8 @@ import Printd from 'printd';
                     targetOpciones = self.element[0].getBoundingClientRect();
                     targetTopPoint = targetOpciones.top;
                 }
+
+                opciones._header.obj.css('width', self.element.css('width'));
 
                 if (targetTopPoint < window.scrollHeight) {
                     opciones._header.obj.addClass('rup_list-sticky');
@@ -797,9 +806,9 @@ import Printd from 'printd';
             opciones.multiFilter = {};
             opciones.multiFilter._filterSelector = 'generated';
             opciones.multiFilter._filterUser = 'udaPruebas';
-            opciones.multiFilter._dialogId = 'dropdownDialog';
+            opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
-            opciones.multiFilter.$btn = $('#listFilterAceptar');
+            opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
             opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="'+ opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="'+ opciones.multiFilter._dialogId +'_combo">Filtros</label><input id="'+ opciones.multiFilter._dialogId +'_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
             
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
