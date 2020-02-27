@@ -380,7 +380,7 @@ import Printd from 'printd';
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
-                    $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
+                    $('#' + self.element[0].id + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
 
                     opciones.multiselection = {
                         selectedIds: null,
@@ -411,7 +411,7 @@ import Printd from 'printd';
                         });
                     }
 
-                    $('[rup-list-selector="enabled"]').on('click', (e) => {
+                    $('#' + self.element[0].id + '-content').find('[rup-list-selector="enabled"]').on('click', (e) => {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
 
