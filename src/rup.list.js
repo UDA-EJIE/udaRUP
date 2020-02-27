@@ -732,9 +732,9 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            if ($('#listPrint').length == 0) {
+            if ($('#' + opciones.filterForm).find('#listPrint').length == 0) {
                 opciones.btnPrint = $('<button id="listPrint">Imprimir</button>');
-                opciones.btnPrint.appendTo($('#listFilterForm'));
+                opciones.btnPrint.appendTo($('#' + opciones.filterForm));
                 opciones.btnPrint[0].disabled = true;
                 opciones.btnPrint.on('click', btnPrintMain);
             }
