@@ -53,8 +53,8 @@ function getHtml(idLista, idForm) {
         '</form>' +
         '<div id="' + idLista +'-feedback" />' +
         '<div id="' + idLista +'-content">' +
-            '<div id="rup-list-header" class="row">' +
-                '<div id="rup-list-header-selectables" class="col-md-3">' +
+            '<div id="'+ idLista +'-header" class="row">' +
+                '<div id="' + idLista + '-header-selectables" class="col-md-3">' +
                     'Opciones de seleccion:' +
                 '</div>' +
                 '<div class="col-md-2">' +
@@ -182,12 +182,12 @@ function commonListCreator(idLista, idForm, callback) {
         e.stopImmediatePropagation();
         e.preventDefault();
         $('#listFilterForm').find('input').val('');
-        $('#rup-list').rup_list('filter');
+        $('#' + idLista).rup_list('filter');
     });
     $('#' + idForm).find('#listFilterAceptar').on('click', (e) => {
         e.stopImmediatePropagation();
         e.preventDefault();
-        $('#rup-list').rup_list('filter');
+        $('#' + idLista).rup_list('filter');
     });
     $('#' + idLista).on('initComplete', callback);
     let opts = commonListOptions(idLista, idForm);
