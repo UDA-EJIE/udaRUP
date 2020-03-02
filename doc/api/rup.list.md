@@ -19,6 +19,10 @@ $('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'li
     * [~_validateSkeleton()](#module_rup_list.._validateSkeleton)
     * [~_create()](#module_rup_list.._create)
     * [~_scrollListInit()](#module_rup_list.._scrollListInit)
+    * [~_headerSticky()](#module_rup_list.._headerSticky)
+    * [~_loader()](#module_rup_list.._loader)
+    * [~_print()](#module_rup_list.._print)
+    * [~_multiFilter()](#module_rup_list.._multiFilter)
     * [~_sordButtonInit()](#module_rup_list.._sordButtonInit)
     * [~_sidxComboInit()](#module_rup_list.._sidxComboInit)
     * [~_multisortInit()](#module_rup_list.._multisortInit)
@@ -151,6 +155,30 @@ Método interno que configura el componente
 
 ### rup_list~\_scrollListInit()
 Método interno que crea el scrollList
+
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
+<a name="module_rup_list.._headerSticky"></a>
+
+### rup_list~\_headerSticky()
+Método que aplica el modo 'sticky' al header
+
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
+<a name="module_rup_list.._loader"></a>
+
+### rup_list~\_loader()
+Método que crea el loader
+
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
+<a name="module_rup_list.._print"></a>
+
+### rup_list~\_print()
+Método para iniciar los estilos
+
+**Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
+<a name="module_rup_list.._multiFilter"></a>
+
+### rup_list~\_multiFilter()
+Método interno que configura el boton de alternar el sord en la ordenación simple
 
 **Kind**: inner method of [<code>rup\_list</code>](#module_rup_list)  
 <a name="module_rup_list.._sordButtonInit"></a>
