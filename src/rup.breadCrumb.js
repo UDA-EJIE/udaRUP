@@ -116,7 +116,7 @@
                     breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
                     breadCrumbElems = breadCrumbEntry.split('/'),
                     breadCrumbSpan = $('<div>').addClass('d-inline-flex col-auto p-0 mr-3'),
-                    ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main'),
+                    ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main d-inline-flex'),
                     breadCrumbStruct = null,
                     lastCrum = null,
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
