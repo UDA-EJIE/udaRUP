@@ -417,7 +417,7 @@
             // Se muestra el dialog.
             ctx.oInit.formEdit.$navigationBar.show();
             // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
-            if(customTitle === undefined) {
+            if(customTitle === (undefined || null)) {
             	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
             }
             // Comprobamos si se desea bloquear la edicion de las claves primarias
@@ -426,7 +426,7 @@
             $.rup_utils.populateForm(rowArray, idForm);
             ctx.oInit.formEdit.$navigationBar.hide();
             // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
-            if(customTitle === undefined) {
+            if(customTitle === (undefined || null)) {
             	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
             }
             // Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
