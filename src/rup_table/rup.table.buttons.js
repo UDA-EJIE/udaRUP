@@ -108,7 +108,7 @@
             id: idTable + 'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'copyButton',
             init: function (dt, node, config) {
                 ctx.ext.buttons.copyButton.eventDT = dt;
@@ -133,7 +133,7 @@
             id: idTable + 'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'excelButton',
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -156,7 +156,7 @@
             id: idTable + 'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'pdfButton',
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -179,7 +179,7 @@
             id: idTable + 'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'odsButton',
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -202,7 +202,7 @@
             id: idTable + 'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'csvButton',
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -225,7 +225,7 @@
             id: idTable + 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd',
             displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
             init: function (dt, node, config) {
                 ctx.ext.buttons.addButton.eventDT = dt;
@@ -244,7 +244,7 @@
             id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
             init: function (dt, node, config) {
                 ctx.ext.buttons.editButton.eventDT = dt;
@@ -263,7 +263,7 @@
             id: idTable + 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnClone',
             displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
             init: function (dt, node, config) {
                 ctx.ext.buttons.cloneButton.eventDT = dt;
@@ -282,7 +282,7 @@
             id: idTable + 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-            insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+            insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
             init: function (dt, node, config) {
                 ctx.ext.buttons.deleteButton.eventDT = dt;
