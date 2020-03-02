@@ -115,13 +115,15 @@
                 var pathname = window.location.pathname,
                     breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
                     breadCrumbElems = breadCrumbEntry.split('/'),
-                    breadCrumbSpan,
-                    //breadCrumbSpan = $("<span>").addClass("rup-breadCrumbs_span").text($.rup.i18nParse($.rup.i18n.base,"rup_breadCrumb.youAre")),
-                    ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main'),
+                    breadCrumbSpan = $('<div>').addClass('d-inline-flex col-auto p-0 mr-3'),
+                    ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main d-inline-flex'),
                     breadCrumbStruct = null,
                     lastCrum = null,
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
                     i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId;
+                
+                this.element.append("<div class='row'></div>");
+                    
                 //Obtenemos la estructura del fichero que se recibe como parametro o el de por defecto del patrón
                 if (this.options.breadCrumb instanceof Object) {
                     breadCrumbStruct = this.options.breadCrumb;
@@ -143,7 +145,7 @@
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
                             //función encargada de poner el icono y el literal de salida
-                            this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
+                        	$(this.element.children()[0]).append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
                                 .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
@@ -157,8 +159,8 @@
                         } else {
 
                             //función encargada de poner el icono y el literal de desconexion
-                            this.element.append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+                        	$(this.element.children()[0]).append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
+                                .append($('<a>').addClass('rup-breadCrumb_link ml-auto').attr('logOutHref', this.options.logOutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
@@ -177,22 +179,20 @@
                                     .html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.disconnect'))
                                     .attr('id', 'logOutLink')
                                     .prepend(
-                                        $('<i class="mdi mdi-lock-open" aria-hidden="true"></i>')
+                                        $('<i class="mdi mdi-lock-open align-baseline" aria-hidden="true"></i>')
                                     )
                                 )
                             );
                         }
                     }
-                    //se añade el span con el texto de "xxx esta aqui"
-                    breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text(LOGGED_USER + $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.userAre'));
-                    this.element.append(breadCrumbSpan);
+                    // Se añade el span con el texto de "xxx esta aqui"
+                    breadCrumbSpan.append($('<span>').addClass('rup-breadCrumbs_span').text(LOGGED_USER + $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.userAre')));
                 } else {
-                    breadCrumbSpan = $('<span>').addClass('rup-breadCrumbs_span').text($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.youAre'));
-                    //se añade el span con el texto de "Usted esta aqui"
-                    this.element.append(breadCrumbSpan);
+                	// Se añade el span con el texto de "Usted esta aqui"
+                    breadCrumbSpan.append($('<span>').addClass('rup-breadCrumbs_span').text($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.youAre')));
                 }
 
-                //se le añade el link de Incio
+                //se le añade el link de Inicio
                 ulBreadCrumb.append(this._createLI($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.start'), initURL));
                 //nos recorremos los elementos del path y los buscamos en el fichero json de migas para crear los enlaces
                 for (var i = 0; i < breadCrumbElems.length; i++) {
@@ -202,6 +202,7 @@
                         breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
                     }
                 }
+                
                 //se le añade al ultimo elemento el estilo current
                 //$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
                 //$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
@@ -215,10 +216,14 @@
                     'color': '#333333'
                 }));
                 // delete lastCrum;
-                //y por ultimo se añade todo el ul a div que lo contiene
-                this.element.append(ulBreadCrumb);
+                //y por ultimo se añade el span, todo el ul a un nuevo div que lo contenga
+                $(this.element.children()[0]).append("<div id='breadCrumb_where_is' class='col-12 col-sm-9 order-first'></div>");
+                $("#breadCrumb_where_is").append([breadCrumbSpan, ulBreadCrumb]);
+                
+                $(ulBreadCrumb).wrap($('<div>').addClass('d-inline-flex col-auto px-0 pb-1'));
+                
                 ulBreadCrumb.xBreadcrumbs();
-				
+                
                 $(this.element).trigger('afterInit');
 
                 //Se audita el componente
