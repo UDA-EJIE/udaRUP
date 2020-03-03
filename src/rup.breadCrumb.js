@@ -160,7 +160,7 @@
 
                             //función encargada de poner el icono y el literal de desconexion
                         	$(this.element.children()[0]).append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link ml-auto').attr('logOutHref', this.options.logOutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
