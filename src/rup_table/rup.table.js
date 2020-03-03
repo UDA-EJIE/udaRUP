@@ -1164,6 +1164,10 @@
             	args[0].filter = undefined;
             }
             
+            if(args[0].buttons != undefined && args[0].buttons.contextMenu === undefined) {
+            	args[0].buttons.contextMenu = true;
+            }
+            
             var	settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 			
             $self.triggerHandler('tableBeforeInit');
