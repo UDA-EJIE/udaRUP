@@ -21,7 +21,6 @@ function clearList(idLista) {
     $('#content').nextAll().remove();
 }
 
-
 describe('Test rup_list', () => {
 
     beforeAll((done) => {
@@ -1031,27 +1030,6 @@ describe('Test rup_list', () => {
         });
         
         describe('> MultiFilter', () => {
-            var childrenCount = 0;
-            var keyPress = (key, callback) => {
-                var event = document.createEvent('Event');
-                event.keyCode = key;
-                event.key = key;
-                event.initEvent('keydown');
-                document.dispatchEvent(event);
-                if (callback) {
-                    callback();
-                }
-            };
-            var keyUp = (key, callback) => {
-                var event = document.createEvent('Event');
-                event.keyCode = key;
-                event.key = key;
-                event.initEvent('keyup');
-                document.dispatchEvent(event);
-                if (callback) {
-                    callback();
-                }
-            };
             beforeAll((done) => {
                 testutils.loadCss(done);
             });
@@ -1092,45 +1070,35 @@ describe('Test rup_list', () => {
                         $('#rup-list_dropdownDialog').find('a.rup-combobox-toggle').click();
                     });
                     it('Tiene que hacer un ajax', () => {
-                        expect(spyAjax.calls.count()).toEqual(2);
-                    });
-                    it('Tienen que aparecer los resultados de ajax', () => {
-                        childrenCount = $('#rup-list_dropdownDialog_combo_menu').children().length;
-                        expect($('#rup-list_dropdownDialog_combo_menu').children()).toExist();
+                        for (let i = 0; i < spyAjax.calls.count(); i++) {
+                            if (spyAjax.calls.argsFor(i)[0].url != '/demo/list/filter') {
+                                expect(spyAjax.calls.argsFor(i)).toExist();
+                            }
+                        }
                     });
                     it ('Filter por dereco', () => {
-                        if (childrenCount <= 2) {
-                            expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
-                        } else {
-                            expect($('#listFilterForm').find('input').eq(0).val()).toEqual('userTest');
-                        }
+                        expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
                     });
                     describe('Eligir un filtro', () => {
                         beforeEach((done) => {
                             $('#rup-list').on('load', done);
                             $('#rup-list').rup_list('filter');
-                            $('#rup-list_dropdownDialog_combo_menu').focus();
-                            keyPress(40, () => {
-                                keyUp(40);
-                            });
-                            $('#rup-list_dropdownDialog_combo_menu').children().eq(0).click();
+                            $('#rup-list_dropdownDialog_combo_label').rup_autocomplete('set', 'Filter 1', 'Filter 1');
+                            $('#rup-list_dropdownDialog_btn_apply').click();
                         });
                         it('El filtro elegido tiene que aparecer en autocomlete', () => {
                             expect($('#rup-list_dropdownDialog_combo_label').val()).toEqual('Filter 1');
-                        });
-                        it('El input de usuario no debe estar vacío', () => {
-                            expect($('#listFilterForm').find('input').eq(0).val()).toEqual('user12');
-                        });            
+                        });      
                     });
                 });
                 describe('> Guardar', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('load', done);
                         $('#rup-list').rup_list('filter');
-                        $('#listFilterForm').find('input').eq(0).val('userTest');
+                        $('#listFilterForm').find('input').val('');
+                        $('#listFilterForm').find('input').eq(2).val('20');
                         $('#rup-list_dropdownDialog_combo_label').val('TestFilter');
                         $('#rup-list_dropdownDialog_btn_save').click();
-                        childrenCount++;
                     });
                     it('Tiene que aparecer el feedback', () => {
                         expect($('#rup-list_dropdownDialog_feedback').is(':visible')).toBeTruthy();
