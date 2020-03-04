@@ -182,6 +182,7 @@ import Printd from 'printd';
          * Método interno para cambiar el valor de algunas opciones
          *
          * @name _changeOption
+         * @private
          * @function
          * @param {String} key
          * @param {*} value
@@ -214,6 +215,7 @@ import Printd from 'printd';
         /**
          * Método interno que valida que el esqueleto html es válido para el componente
          * @name _validateSkeleton
+         * @private
          * @function
          */
         _validateSkeleton: function () {
@@ -241,6 +243,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el componente
          * @name _create
+         * @private
          * @function
          */
         _create: function () {
@@ -615,6 +618,7 @@ import Printd from 'printd';
         /**
          * Método interno que crea el scrollList
          * @name _scrollListInit
+         * @private
          * @function
          */
         _scrollListInit: function () {
@@ -663,6 +667,7 @@ import Printd from 'printd';
         /**
          * Método que aplica el modo 'sticky' al header
          * @name _headerSticky
+         * @private
          * @function
          */
         _headerSticky: function () {
@@ -707,6 +712,7 @@ import Printd from 'printd';
         /**
          * Método que crea el loader
          * @name _loader
+         * @private
          * @function
          */
         _loader: function () {
@@ -726,6 +732,7 @@ import Printd from 'printd';
         /**
          * Método que lanza la imprisión HTML
          * @name _print
+         * @private
          * @function
          */
         _print: function () {
@@ -805,6 +812,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura MultiFilter
          * @name _multiFilter
+         * @private
          * @function
          */
         _multiFilter: function () {
@@ -1027,6 +1035,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el boton de alternar el sord en la ordenación simple
          * @name _sordButtonInit
+         * @private
          * @function
          */
         _sordButtonInit: function () {
@@ -1059,6 +1068,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el combo de seleccion de sidx en la ordenación simple
          * @name _sidxComboInit
+         * @private
          * @function
          */
         _sidxComboInit: function () {
@@ -1092,6 +1102,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura los elementos de la multiordenación.
          * @name _multisortInit
+         * @private
          * @function
          */
         _multisortInit: function () {
@@ -1275,6 +1286,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el combo de elementos de lista por página
          * @name _rownumInit
+         * @private
          * @function
          */
         _rownumInit: function () {
@@ -1312,6 +1324,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el nav de la paginación
          * @name _pagenavInit
+         * @private
          * @function
          */
         _pagenavInit: function () {
@@ -1374,6 +1387,7 @@ import Printd from 'printd';
          * Método interno que crea la estructura de las líneas en la multiordenación
          *
          * @name _actualizarOrdenMulti
+         * @private
          * @function
          * @param {Event} e
          * @param {JQueryObj} self  Objeto JQuery del botón
@@ -1422,6 +1436,7 @@ import Printd from 'printd';
          * Método interno que da funcionalidad a cada línea en la multiordenación
          *
          * @name _fnOrderOfOrderFields
+         * @private
          * @function
          * @param {JQuery} ctx La instancia de rup_list
          * @param {JQuery} line Objeto JQuery de la línea a la que se va a dar funcionalidad
@@ -1547,6 +1562,7 @@ import Printd from 'printd';
          * Método interno para seleccionar todos los elementos de la lista.
          *
          * @name _selectAll
+         * @private
          * @function
          */
         _selectAll: function () {
@@ -1567,6 +1583,7 @@ import Printd from 'printd';
          * Método interno para deseleccionar todos los elementos de la lista
          *
          * @name _deselectAll
+         * @private
          * @function
          */
         _deselectAll: function () {
@@ -1586,6 +1603,7 @@ import Printd from 'printd';
          * Método interno para seleccionar todos los elementos en la página actual
          *
          * @name _selectPage
+         * @private
          * @function
          */
         _selectPage: function () {
@@ -1646,6 +1664,7 @@ import Printd from 'printd';
          * Método interno para deseleccionar todos los elementos en la página actual
          *
          * @name _deselectPage
+         * @private
          * @function
          */
         _deselectPage: function () {
@@ -1706,6 +1725,7 @@ import Printd from 'printd';
          * Método interno que genera el desplegable de multiseleccion
          *
          * @name _generateSelectablesBtnGroup
+         * @private
          * @function
          */
         _generateSelectablesBtnGroup: function () {
@@ -1764,6 +1784,7 @@ import Printd from 'printd';
          * Método interno para obtener los Ids de la página actual
          *
          * @name _getPageIds
+         * @private
          * @function
          */
         _getPageIds: function () {
@@ -1779,6 +1800,7 @@ import Printd from 'printd';
          * Método interno que otorga funcionalidad a la paginación
          *
          * @name _pagenavManagement
+         * @private
          * @function
          * @param {Number} numPages Número total de páginas
          */
@@ -1887,6 +1909,7 @@ import Printd from 'printd';
          * Método interno que se encarga del bloqueo del componente
          *
          * @name _lock
+         * @private
          * @function
          */
         _lock: function () {
@@ -1918,6 +1941,7 @@ import Printd from 'printd';
          * Método interno que se encarga del desbloqueo del componente
          *
          * @name _unlock
+         * @private
          * @function
          */
         _unlock: function () {
@@ -1934,6 +1958,7 @@ import Printd from 'printd';
          * Método para destruir el componente
          *
          * @name destroy
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('destroy');
@@ -1952,6 +1977,7 @@ import Printd from 'printd';
          * Método interno que se encarga de realizar el filtrado y construir la lista desde los datos recibidos
          *
          * @name _doFilter
+         * @private
          * @function
          */
         _doFilter: function () {
@@ -2188,6 +2214,7 @@ import Printd from 'printd';
          * Método que se encarga de realizar una recarga de la lista
          *
          * @name reload
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('reload');
@@ -2223,6 +2250,7 @@ import Printd from 'printd';
          * Método que se encarga de realizar el filtrado de la lista
          *
          * @name filter
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('filter');
@@ -2261,6 +2289,7 @@ import Printd from 'printd';
          * Método para cambiar la página actual.
          *
          * @name page
+         * @public
          * @function
          * @param {Number} page La página a la que navegar
          * @example
@@ -2275,6 +2304,7 @@ import Printd from 'printd';
          * Método que obtiene la información de la selección actual
          *
          * @name getSelectedIds
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('getSelectedIds');
