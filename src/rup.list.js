@@ -1033,26 +1033,26 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            var sordH = opciones._header.sord.find('i');
-            var sordF = opciones._footer.sord.find('i');
+            var sordH = opciones._header.sord;
+            var sordF = opciones._footer.sord;
             if (opciones.sord === 'asc') {
-                sordH.addClass('fa-sort-amount-asc');
-                sordF.addClass('fa-sort-amount-asc');
-                sordH.removeClass('fa-sort-amount-desc');
-                sordF.removeClass('fa-sort-amount-desc');
+                sordH.addClass('asc');
+                sordF.addClass('asc');
+                sordH.removeClass('desc');
+                sordF.removeClass('desc');
             } else {
-                sordH.addClass('fa-sort-amount-desc');
-                sordF.addClass('fa-sort-amount-desc');
-                sordH.removeClass('fa-sort-amount-asc');
-                sordF.removeClass('fa-sort-amount-asc');
+                sordH.addClass('desc');
+                sordF.addClass('desc');
+                sordH.removeClass('asc');
+                sordF.removeClass('asc');
             }
             // Funcionamiento botón sord
             $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                sordH.toggleClass('fa-sort-amount-asc');
-                sordH.toggleClass('fa-sort-amount-desc');
-                sordF.toggleClass('fa-sort-amount-asc');
-                sordF.toggleClass('fa-sort-amount-desc');
-                self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                sordH.toggleClass('asc');
+                sordH.toggleClass('desc');
+                sordF.toggleClass('asc');
+                sordF.toggleClass('desc');
+                self._changeOption('sord', sordH.hasClass('asc') ? 'asc' : 'desc');
             });
         },
 
