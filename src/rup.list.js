@@ -724,7 +724,7 @@ import Printd from 'printd';
         },
 
         /**
-         * Método para iniciar los estilos
+         * Método que lanza la imprisión HTML
          * @name _print
          * @function
          */
@@ -803,7 +803,7 @@ import Printd from 'printd';
         },
 
         /**
-         * Método interno que configura el boton de alternar el sord en la ordenación simple
+         * Método interno que configura MultiFilter
          * @name _multiFilter
          * @function
          */
