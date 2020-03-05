@@ -11,7 +11,7 @@ Módulo que habilita la edicción mediante un formulario.
 * [rup.table.editForm](#module_rup.table.editForm)
     * [~init(dt)](#module_rup.table.editForm..init)
     * [~init(ctx)](#module_rup.table.editForm..init)
-    * [~openSaveDialog(actionType, dt, idRow)](#module_rup.table.editForm..openSaveDialog)
+    * [~openSaveDialog(actionType, dt, idRow, customTitle)](#module_rup.table.editForm..openSaveDialog)
     * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url)](#module_rup.table.editForm.._callSaveAjax)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
     * [~returnCheckEmpty(idForm, values)](#module_rup.table.editForm..returnCheckEmpty)
@@ -55,7 +55,7 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 
 <a name="module_rup.table.editForm..openSaveDialog"></a>
 
-### rup.table.editForm~openSaveDialog(actionType, dt, idRow)
+### rup.table.editForm~openSaveDialog(actionType, dt, idRow, customTitle)
 Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
@@ -66,6 +66,7 @@ Función que lleva todo el comportamiento para abrir el dialog y editar un regis
 | actionType | <code>string</code> | Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest. |
 | dt | <code>object</code> | Es el objeto table. |
 | idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
+| customTitle | <code>string</code> | Título personalizado. |
 
 <a name="module_rup.table.editForm.._callSaveAjax"></a>
 

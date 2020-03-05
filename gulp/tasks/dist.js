@@ -14,6 +14,26 @@ gulp.task('dist:x21a:copy', function () {
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/4x/rup/'));
 });
 
+gulp.task('dist:x21a', gulp.series(
+    'dist:x21a:clean',
+    'dist:x21a:copy'
+));
+
+gulp.task('dist:templates:clean', function () {
+    return gulp.src('../udaTemplates/templates/statics/rup/', {allowEmpty: true})
+        .pipe(clean({force: true}));
+});
+
+gulp.task('dist:templates:copy', function () {
+    return gulp.src('./dist/**/*.*')
+        .pipe(gulp.dest('../udaTemplates/templates/statics/rup/'));
+});
+
+gulp.task('dist:templates', gulp.series(
+    'dist:templates:clean',
+    'dist:templates:copy'
+));
+
 gulp.task('dist:portal', function (callback) {
     gulp.src('./dist/css/rup.css')
         .pipe(cssWrap({
@@ -27,8 +47,3 @@ gulp.task('dist:portal', function (callback) {
     gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
     callback();
 });
-
-gulp.task('dist:x21a', gulp.series(
-    'dist:x21a:clean',
-    'dist:x21a:copy'
-));

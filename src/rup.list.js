@@ -182,6 +182,7 @@ import Printd from 'printd';
          * Método interno para cambiar el valor de algunas opciones
          *
          * @name _changeOption
+         * @private
          * @function
          * @param {String} key
          * @param {*} value
@@ -214,6 +215,7 @@ import Printd from 'printd';
         /**
          * Método interno que valida que el esqueleto html es válido para el componente
          * @name _validateSkeleton
+         * @private
          * @function
          */
         _validateSkeleton: function () {
@@ -241,6 +243,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el componente
          * @name _create
+         * @private
          * @function
          */
         _create: function () {
@@ -380,7 +383,7 @@ import Printd from 'printd';
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
-                    $(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
+                    $('#' + self.element[0].id + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
 
                     opciones.multiselection = {
                         selectedIds: null,
@@ -411,7 +414,7 @@ import Printd from 'printd';
                         });
                     }
 
-                    $('[rup-list-selector="enabled"]').on('click', (e) => {
+                    $('#' + self.element[0].id + '-content').find('[rup-list-selector="enabled"]').on('click', (e) => {
                         let clickedElemIdArr = e.currentTarget.id.split('_');
                         let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
 
@@ -509,9 +512,9 @@ import Printd from 'printd';
                         });
                         opciones.multiselection.selectedIds.push(clickedPK);
                         if (!modeAll) {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         } else {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         }
                     };
 
@@ -522,9 +525,9 @@ import Printd from 'printd';
                             elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
                         );
                         if (!modeAll) {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
                         } else {
-                            $('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
                         }
                     };
 
@@ -538,9 +541,9 @@ import Printd from 'printd';
                         opciones.multiselection.selectedRowsPerPage = [];
                         for (let i = 0; i < opciones.content.length; i++) {
                             if (!modeAll) {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).removeClass('list-item-selected');
+                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
                             } else {
-                                $('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i].codigoPK).addClass('list-item-selected');
+                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
                             }
                         }
                     };
@@ -549,14 +552,14 @@ import Printd from 'printd';
                         var posicionClicked = getPosicion(lastClickedPK, clickedPK);
                         if (posicionClicked[0] > posicionClicked[1]) {
                             for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         } else {
                             for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i].codigoPK))) {
-                                    select(String(opciones.content[i].codigoPK), modeAll);
+                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                                    select(String(opciones.content[i][opciones.key]), modeAll);
                                 }
                             }
                         }
@@ -565,9 +568,9 @@ import Printd from 'printd';
                     let getPosicion = (lastClickedPK, clickedPK) => {
                         var posicionClicked = {};
                         for (let i = 0; i < opciones.content.length; i++) {
-                            if (opciones.content[i].codigoPK == clickedPK) {
+                            if (opciones.content[i][opciones.key] == clickedPK) {
                                 posicionClicked[0] = i;
-                            } else if (opciones.content[i].codigoPK == lastClickedPK) {
+                            } else if (opciones.content[i][opciones.key] == lastClickedPK) {
                                 posicionClicked[1] = i;
                             }
                         }
@@ -580,6 +583,13 @@ import Printd from 'printd';
                  */
                 if (opciones.isScrollList) {
                     self._scrollListInit.apply(self);
+                }
+
+                /**
+                 * PRINT
+                 */
+                if (opciones.print) {
+                    self._print.apply(self);
                 }
 
                 /**
@@ -597,6 +607,9 @@ import Printd from 'printd';
                 } else {
                     $('#' + self.element[0].id).trigger('initComplete');
                 }
+
+                //Se audita el componente
+                $.rup.auditComponent('rup_list', 'init');
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
@@ -605,6 +618,7 @@ import Printd from 'printd';
         /**
          * Método interno que crea el scrollList
          * @name _scrollListInit
+         * @private
          * @function
          */
         _scrollListInit: function () {
@@ -653,11 +667,16 @@ import Printd from 'printd';
         /**
          * Método que aplica el modo 'sticky' al header
          * @name _headerSticky
+         * @private
          * @function
          */
         _headerSticky: function () {
             const self = this;
             const opciones = self.options;
+
+            $(window).on('resize', function () {
+                opciones._header.obj.css('width', self.element.css('width'));
+            });
 
             $(window).on('scroll', function () {
                 if ($('.rup-navbar.navbar').hasClass('rup-navbar-sticky')) {
@@ -673,6 +692,8 @@ import Printd from 'printd';
                     targetOpciones = self.element[0].getBoundingClientRect();
                     targetTopPoint = targetOpciones.top;
                 }
+
+                opciones._header.obj.css('width', self.element.css('width'));
 
                 if (targetTopPoint < window.scrollHeight) {
                     opciones._header.obj.addClass('rup_list-sticky');
@@ -691,6 +712,7 @@ import Printd from 'printd';
         /**
          * Método que crea el loader
          * @name _loader
+         * @private
          * @function
          */
         _loader: function () {
@@ -708,18 +730,20 @@ import Printd from 'printd';
         },
 
         /**
-         * Método para iniciar los estilos
+         * Método que lanza la imprisión HTML
          * @name _print
+         * @private
          * @function
          */
         _print: function () {
             const self = this;
             const opciones = self.options;
 
-            if ($('#listPrint').length == 0) {
-                var newBtnPrint = $('<button id="listPrint">Imprimir</button>');
-                newBtnPrint.appendTo($('#listFilterForm'));
-                newBtnPrint.on('click', btnPrintMain);
+            if ($('#' + opciones.filterForm).find('#listPrint').length == 0) {
+                opciones.btnPrint = $('<button id="listPrint">Imprimir</button>');
+                opciones.btnPrint.appendTo($('#' + opciones.filterForm));
+                opciones.btnPrint[0].disabled = true;
+                opciones.btnPrint.on('click', btnPrintMain);
             }
 
             function btnPrintMain (e) {
@@ -768,13 +792,13 @@ import Printd from 'printd';
                     success: function (xhr) {
                         if (!opciones.multiselection.selectedIds || opciones.multiselection.selectedIds.length == 0) {
                             for (var i = 0; i < xhr.rows.length; i++) {
-                                printDoc.append($('<p>' + xhr.rows[i].usuario + '</p>'));
+                                printDoc.append($('<p>' + xhr.rows[i][opciones.key] + '</p>'));
                             }
                         } else {
                             for (var x = 0; x < xhr.rows.length; x++) {
                                 for (var y = 0; y < xhr.reorderedSelection.length; y++) {
-                                    if (xhr.rows[x].codigoPK == xhr.reorderedSelection[y].pk.codigoPK) {
-                                        printDoc.append($('<p>' + xhr.rows[x].usuario + '</p>'));
+                                    if (xhr.rows[x][opciones.key] == xhr.reorderedSelection[y].pk[opciones.key]) {
+                                        printDoc.append($('<p>' + xhr.rows[x][opciones.key] + '</p>'));
                                     }
                                 }
                             }
@@ -786,8 +810,9 @@ import Printd from 'printd';
         },
 
         /**
-         * Método interno que configura el boton de alternar el sord en la ordenación simple
+         * Método interno que configura MultiFilter
          * @name _multiFilter
+         * @private
          * @function
          */
         _multiFilter: function () {
@@ -797,9 +822,9 @@ import Printd from 'printd';
             opciones.multiFilter = {};
             opciones.multiFilter._filterSelector = 'generated';
             opciones.multiFilter._filterUser = 'udaPruebas';
-            opciones.multiFilter._dialogId = 'dropdownDialog';
+            opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
-            opciones.multiFilter.$btn = $('#listFilterAceptar');
+            opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
             opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="'+ opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="'+ opciones.multiFilter._dialogId +'_combo">Filtros</label><input id="'+ opciones.multiFilter._dialogId +'_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
             
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
@@ -1010,38 +1035,40 @@ import Printd from 'printd';
         /**
          * Método interno que configura el boton de alternar el sord en la ordenación simple
          * @name _sordButtonInit
+         * @private
          * @function
          */
         _sordButtonInit: function () {
             const self = this;
             const opciones = self.options;
 
-            var sordH = opciones._header.sord.find('i');
-            var sordF = opciones._footer.sord.find('i');
+            var sordH = opciones._header.sord;
+            var sordF = opciones._footer.sord;
             if (opciones.sord === 'asc') {
-                sordH.addClass('fa-sort-amount-asc');
-                sordF.addClass('fa-sort-amount-asc');
-                sordH.removeClass('fa-sort-amount-desc');
-                sordF.removeClass('fa-sort-amount-desc');
+                sordH.addClass('asc');
+                sordF.addClass('asc');
+                sordH.removeClass('desc');
+                sordF.removeClass('desc');
             } else {
-                sordH.addClass('fa-sort-amount-desc');
-                sordF.addClass('fa-sort-amount-desc');
-                sordH.removeClass('fa-sort-amount-asc');
-                sordF.removeClass('fa-sort-amount-asc');
+                sordH.addClass('desc');
+                sordF.addClass('desc');
+                sordH.removeClass('asc');
+                sordF.removeClass('asc');
             }
             // Funcionamiento botón sord
             $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
-                sordH.toggleClass('fa-sort-amount-asc');
-                sordH.toggleClass('fa-sort-amount-desc');
-                sordF.toggleClass('fa-sort-amount-asc');
-                sordF.toggleClass('fa-sort-amount-desc');
-                self._changeOption('sord', sordH.hasClass('fa-sort-amount-asc') ? 'asc' : 'desc');
+                sordH.toggleClass('asc');
+                sordH.toggleClass('desc');
+                sordF.toggleClass('asc');
+                sordF.toggleClass('desc');
+                self._changeOption('sord', sordH.hasClass('asc') ? 'asc' : 'desc');
             });
         },
 
         /**
          * Método interno que configura el combo de seleccion de sidx en la ordenación simple
          * @name _sidxComboInit
+         * @private
          * @function
          */
         _sidxComboInit: function () {
@@ -1075,6 +1102,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura los elementos de la multiordenación.
          * @name _multisortInit
+         * @private
          * @function
          */
         _multisortInit: function () {
@@ -1258,6 +1286,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el combo de elementos de lista por página
          * @name _rownumInit
+         * @private
          * @function
          */
         _rownumInit: function () {
@@ -1295,6 +1324,7 @@ import Printd from 'printd';
         /**
          * Método interno que configura el nav de la paginación
          * @name _pagenavInit
+         * @private
          * @function
          */
         _pagenavInit: function () {
@@ -1357,6 +1387,7 @@ import Printd from 'printd';
          * Método interno que crea la estructura de las líneas en la multiordenación
          *
          * @name _actualizarOrdenMulti
+         * @private
          * @function
          * @param {Event} e
          * @param {JQueryObj} self  Objeto JQuery del botón
@@ -1405,6 +1436,7 @@ import Printd from 'printd';
          * Método interno que da funcionalidad a cada línea en la multiordenación
          *
          * @name _fnOrderOfOrderFields
+         * @private
          * @function
          * @param {JQuery} ctx La instancia de rup_list
          * @param {JQuery} line Objeto JQuery de la línea a la que se va a dar funcionalidad
@@ -1530,6 +1562,7 @@ import Printd from 'printd';
          * Método interno para seleccionar todos los elementos de la lista.
          *
          * @name _selectAll
+         * @private
          * @function
          */
         _selectAll: function () {
@@ -1550,6 +1583,7 @@ import Printd from 'printd';
          * Método interno para deseleccionar todos los elementos de la lista
          *
          * @name _deselectAll
+         * @private
          * @function
          */
         _deselectAll: function () {
@@ -1569,6 +1603,7 @@ import Printd from 'printd';
          * Método interno para seleccionar todos los elementos en la página actual
          *
          * @name _selectPage
+         * @private
          * @function
          */
         _selectPage: function () {
@@ -1629,6 +1664,7 @@ import Printd from 'printd';
          * Método interno para deseleccionar todos los elementos en la página actual
          *
          * @name _deselectPage
+         * @private
          * @function
          */
         _deselectPage: function () {
@@ -1689,6 +1725,7 @@ import Printd from 'printd';
          * Método interno que genera el desplegable de multiseleccion
          *
          * @name _generateSelectablesBtnGroup
+         * @private
          * @function
          */
         _generateSelectablesBtnGroup: function () {
@@ -1747,6 +1784,7 @@ import Printd from 'printd';
          * Método interno para obtener los Ids de la página actual
          *
          * @name _getPageIds
+         * @private
          * @function
          */
         _getPageIds: function () {
@@ -1762,6 +1800,7 @@ import Printd from 'printd';
          * Método interno que otorga funcionalidad a la paginación
          *
          * @name _pagenavManagement
+         * @private
          * @function
          * @param {Number} numPages Número total de páginas
          */
@@ -1870,6 +1909,7 @@ import Printd from 'printd';
          * Método interno que se encarga del bloqueo del componente
          *
          * @name _lock
+         * @private
          * @function
          */
         _lock: function () {
@@ -1901,6 +1941,7 @@ import Printd from 'printd';
          * Método interno que se encarga del desbloqueo del componente
          *
          * @name _unlock
+         * @private
          * @function
          */
         _unlock: function () {
@@ -1917,6 +1958,7 @@ import Printd from 'printd';
          * Método para destruir el componente
          *
          * @name destroy
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('destroy');
@@ -1935,6 +1977,7 @@ import Printd from 'printd';
          * Método interno que se encarga de realizar el filtrado y construir la lista desde los datos recibidos
          *
          * @name _doFilter
+         * @private
          * @function
          */
         _doFilter: function () {
@@ -1995,6 +2038,12 @@ import Printd from 'printd';
                 opciones.hide = {};
                 opciones.hide.animation = 'drop';
                 opciones.hide.delay = 200;
+            }
+
+            if (opciones.btnPrint) {
+                if (opciones.btnPrint[0].disabled) {
+                    opciones.btnPrint[0].disabled = false;
+                }
             }
 
             // opciones.feedback.rup_feedback('hide');
@@ -2106,10 +2155,6 @@ import Printd from 'printd';
                             self._headerSticky.apply(self);
                         }
 
-                        if (opciones.print) {
-                            self._print.apply(self);
-                        }
-
                         self.element
                             .children().each(function (i, e) {
                                 setTimeout(function () {
@@ -2169,6 +2214,7 @@ import Printd from 'printd';
          * Método que se encarga de realizar una recarga de la lista
          *
          * @name reload
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('reload');
@@ -2204,6 +2250,7 @@ import Printd from 'printd';
          * Método que se encarga de realizar el filtrado de la lista
          *
          * @name filter
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('filter');
@@ -2242,6 +2289,7 @@ import Printd from 'printd';
          * Método para cambiar la página actual.
          *
          * @name page
+         * @public
          * @function
          * @param {Number} page La página a la que navegar
          * @example
@@ -2256,6 +2304,7 @@ import Printd from 'printd';
          * Método que obtiene la información de la selección actual
          *
          * @name getSelectedIds
+         * @public
          * @function
          * @example
          * $('#rup-list').rup_list('getSelectedIds');
