@@ -116,11 +116,12 @@
                     breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
                     breadCrumbElems = breadCrumbEntry.split('/'),
                     breadCrumbSpan = $('<div>').addClass('d-inline-flex col-auto p-0 mr-3'),
-                    ulBreadCrumb = $('<ul>').attr('id', 'rup_breadCrumbs_ul').addClass('rup-breadCrumb_main d-inline-flex'),
+                    ulBreadCrumb = $('<ul>').addClass('rup-breadCrumb_main d-inline-flex'),
                     breadCrumbStruct = null,
                     lastCrum = null,
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
-                    i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId;
+                    i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId,
+                    idBreadCrumb = this.element[0].id;
                 
                 this.element.append("<div class='row'></div>");
                     
@@ -139,34 +140,34 @@
                     window.DESTROY_XLNETS_SESSION = 'false';
                 }
                 if (LOGGED_USER !== '') {
-                    //Se añade el boton de desconexion si este fuera necesario
+                	//Se añade el boton de desconexion si este fuera necesario
                     if (this.options.logOutUrl !== undefined) {
 
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
                             //función encargada de poner el icono y el literal de salida
-                        	$(this.element.children()[0]).append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
+                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
                                 .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
                                             title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
                                             OKFunction: function () {
-                                                $(window).attr('location', $('#logOutLink').attr('logOutHref'));
+                                                $(window).attr('location', $('#' + idBreadCrumb + ' .rup-breadCrumb_link').attr('logOutHref'));
                                             }
                                         });
-                                    }).html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.exit')).attr('id', 'logOutLink').append($('<span>').addClass('ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg'))));
+                                    }).html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.exit')).append($('<span>').addClass('ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg'))));
                         } else {
 
                             //función encargada de poner el icono y el literal de desconexion
-                        	$(this.element.children()[0]).append($('<div id=\'logOutDiv\' class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
+                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
                                 .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
                                             title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
                                             OKFunction: function () {
-                                                $(window).attr('location', $('#logOutLink').attr('logOutHref'));
+                                                $(window).attr('location', $('#' + idBreadCrumb + ' .rup-breadCrumb_link').attr('logOutHref'));
                                             }
                                         });
                                     }).mouseover(
@@ -177,7 +178,6 @@
                                         $(this).find('i.mdi').removeClass('mdi-lock').addClass('mdi-lock-open');
                                     })
                                     .html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.disconnect'))
-                                    .attr('id', 'logOutLink')
                                     .prepend(
                                         $('<i class="mdi mdi-lock-open align-baseline" aria-hidden="true"></i>')
                                     )
@@ -217,8 +217,8 @@
                 }));
                 // delete lastCrum;
                 //y por ultimo se añade el span, todo el ul a un nuevo div que lo contenga
-                $(this.element.children()[0]).append("<div id='breadCrumb_where_is' class='col-12 col-sm-9 order-first'></div>");
-                $("#breadCrumb_where_is").append([breadCrumbSpan, ulBreadCrumb]);
+                $(this.element.children()[0]).append('<div class="breadCrumb_where_is col-12 col-sm-9 order-first"></div>');
+                $('#' + idBreadCrumb + ' .breadCrumb_where_is').append([breadCrumbSpan, ulBreadCrumb]);
                 
                 $(ulBreadCrumb).wrap($('<div>').addClass('d-inline-flex col-auto px-0 pb-1'));
                 
