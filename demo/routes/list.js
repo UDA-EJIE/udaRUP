@@ -397,7 +397,7 @@ function getResult(req) {
 
     var reorderedSelection = (() => {
         var rSelection = [];
-        if(req.body.multiselection.selectedRowsPerPage){
+        if(req.body.multiselection && req.body.multiselection.selectedRowsPerPage){
             req.body.multiselection.selectedRowsPerPage.forEach((arrElem) => {
                 let tmpObj = {
                     page: arrElem.page,
@@ -417,7 +417,7 @@ function getResult(req) {
         rows: paginated[req.body.page - 1],
         total: paginasTotales,
         records: ordered.length,
-        selectedAll: req.body.multiselection.selectedAll,
+        selectedAll: req.body.multiselection && req.body.multiselection.selectedAll,
         reorderedSelection: reorderedSelection
     };
 

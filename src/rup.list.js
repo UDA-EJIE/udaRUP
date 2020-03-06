@@ -383,199 +383,7 @@ import Printd from 'printd';
                  * SELECT/MULTISELECT
                  */
                 if (opciones.selectable) {
-                    $('#' + self.element[0].id + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
-
-                    opciones.multiselection = {
-                        selectedIds: null,
-                        selectedAll: false,
-                        selectedRowsPerPage: null
-                    };
-                    self._generateSelectablesBtnGroup();
-
-                    var isControl = false,
-                        isShift = false,
-                        modeAll;
-
-                    if (opciones.isSuperSelect) {
-                        $(document).on('keydown', (e) => {
-                            if (e.keyCode == '17') {
-                                isControl = true;
-                            } else if (e.keyCode == '16') {
-                                isShift = true;
-                            }
-                        });
-    
-                        $(document).on('keyup', (e) => {
-                            if (e.keyCode == '17') {
-                                isControl = false;
-                            } else if (e.keyCode == '16') {
-                                isShift = false;
-                            }
-                        });
-                    }
-
-                    $('#' + self.element[0].id + '-content').find('[rup-list-selector="enabled"]').on('click', (e) => {
-                        let clickedElemIdArr = e.currentTarget.id.split('_');
-                        let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
-
-                        if (opciones.multiselection.selectedIds == null) {
-                            opciones.multiselection.selectedIds = [];
-                        }
-
-                        if (opciones.multiselection.selectedRowsPerPage == null) {
-                            opciones.multiselection.selectedRowsPerPage = [];
-                        }
-
-                        if (opciones.multiselection.selectedAll) {
-                            modeAll = true;
-                        } else {
-                            modeAll = false;
-                        }
-
-                        if (opciones.isSuperSelect) {
-                            if (isShift && isControl) {
-                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                    let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
-                                    let newRangeClickedPK = clickedPK;
-                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
-                                    if (posicionClicked[0] > posicionClicked[1]) {
-                                        deselect(newRangeLastClickedPK, modeAll);
-                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
-                                    } else {
-                                        selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
-                                    }
-                                } else {
-                                    select(clickedPK, modeAll);
-                                }
-                            } else if (!isShift && isControl) {
-                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                                    deselect(clickedPK, modeAll);
-                                } else {
-                                    select(clickedPK, modeAll);
-                                }
-                            } else if (isShift && !isControl) {
-                                if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
-                                    let newRangeClickedPK = clickedPK;
-                                    let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
-                                    deselectRest(modeAll);
-                                    selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
-                                } else {
-                                    select(clickedPK, modeAll);
-                                }
-                            } else if (!isShift && !isControl) {
-                                if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                                    deselect(clickedPK, modeAll);
-                                } else {
-                                    deselectRest(modeAll);
-                                    select(clickedPK, modeAll);
-                                }
-                            }
-                        } else {
-                            if (opciones.multiselection.selectedIds.includes(clickedPK)) {
-                                deselect(clickedPK, modeAll);
-                            } else {
-                                select(clickedPK, modeAll);
-                            }
-                        }
-                    });
-
-                    let select = (clickedPK, modeAll) => {
-                        if (!opciones.selectable.multi) {
-                            if (!modeAll) {
-                                opciones.multiselection.selectedAll = false;
-                            } else {
-                                opciones.multiselection.selectedAll = true;
-                            }
-                            opciones.multiselection.selectedIds = [];
-                            opciones.multiselection.selectedRowsPerPage = [];
-                        }
-                        opciones.multiselection.selectedRowsPerPage.push({
-                            id: self.element[0].id + '-itemTemplate_' + clickedPK,
-                            line: (function () {
-                                let cont = 0;
-                                let final = 0;
-                                self.element.children().toArray().forEach(element => {
-                                    if (element.id == self.element.id + '-itemTemplate_' + clickedPK) {
-                                        final = cont;
-                                    }
-                                    cont++;
-                                });
-                                return final;
-                            })(),
-                            page: (function () {
-                                if (opciones.isScrollList) {
-                                    return 1;
-                                } else {
-                                    return opciones.page;
-                                }
-                            })()
-                        });
-                        opciones.multiselection.selectedIds.push(clickedPK);
-                        if (!modeAll) {
-                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
-                        } else {
-                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        }
-                    };
-
-                    let deselect = (clickedPK, modeAll) => {
-                        let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
-                        opciones.multiselection.selectedIds.splice(index, 1);
-                        opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
-                            elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
-                        );
-                        if (!modeAll) {
-                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
-                        } else {
-                            self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
-                        }
-                    };
-
-                    let deselectRest = (modeAll) => {
-                        if (!modeAll) {
-                            opciones.multiselection.selectedAll = false;
-                        } else {
-                            opciones.multiselection.selectedAll = true;
-                        }
-                        opciones.multiselection.selectedIds = [];
-                        opciones.multiselection.selectedRowsPerPage = [];
-                        for (let i = 0; i < opciones.content.length; i++) {
-                            if (!modeAll) {
-                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
-                            } else {
-                                self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
-                            }
-                        }
-                    };
-
-                    let selectRange = (lastClickedPK, clickedPK, modeAll) => {
-                        var posicionClicked = getPosicion(lastClickedPK, clickedPK);
-                        if (posicionClicked[0] > posicionClicked[1]) {
-                            for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
-                                    select(String(opciones.content[i][opciones.key]), modeAll);
-                                }
-                            }
-                        } else {
-                            for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
-                                if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
-                                    select(String(opciones.content[i][opciones.key]), modeAll);
-                                }
-                            }
-                        }
-                    };
-                    
-                    let getPosicion = (lastClickedPK, clickedPK) => {
-                        var posicionClicked = {};
-                        for (let i = 0; i < opciones.content.length; i++) {
-                            if (opciones.content[i][opciones.key] == clickedPK) {
-                                posicionClicked[0] = i;
-                            } else if (opciones.content[i][opciones.key] == lastClickedPK) {
-                                posicionClicked[1] = i;
-                            }
-                        }
-                        return posicionClicked;
-                    };
+                    self._selectablesInit.apply(self);
                 }
 
                 /**
@@ -613,6 +421,208 @@ import Printd from 'printd';
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });
+        },
+
+        /**
+         * Método interno que inicializa el listado con seleccionables
+         * @name _selectablesInit
+         * @private
+         * @function
+         */
+        _selectablesInit: function () {
+            var self = this;
+            var opciones = self.options;
+
+            $('#' + self.element[0].id + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
+
+            opciones.multiselection = {
+                selectedIds: null,
+                selectedAll: false,
+                selectedRowsPerPage: null
+            };
+            self._generateSelectablesBtnGroup();
+
+            var isControl = false,
+                isShift = false,
+                modeAll;
+
+            if (opciones.isSuperSelect) {
+                $(document).on('keydown', (e) => {
+                    if (e.keyCode == '17') {
+                        isControl = true;
+                    } else if (e.keyCode == '16') {
+                        isShift = true;
+                    }
+                });
+
+                $(document).on('keyup', (e) => {
+                    if (e.keyCode == '17') {
+                        isControl = false;
+                    } else if (e.keyCode == '16') {
+                        isShift = false;
+                    }
+                });
+            }
+
+            $('#' + self.element[0].id + '-content').find('[rup-list-selector="enabled"]').on('click', (e) => {
+                let clickedElemIdArr = e.currentTarget.id.split('_');
+                let clickedPK = clickedElemIdArr[clickedElemIdArr.length - 1];
+
+                if (opciones.multiselection.selectedIds == null) {
+                    opciones.multiselection.selectedIds = [];
+                }
+
+                if (opciones.multiselection.selectedRowsPerPage == null) {
+                    opciones.multiselection.selectedRowsPerPage = [];
+                }
+
+                if (opciones.multiselection.selectedAll) {
+                    modeAll = true;
+                } else {
+                    modeAll = false;
+                }
+
+                if (opciones.isSuperSelect) {
+                    if (isShift && isControl) {
+                        if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                            let posicionClicked = getPosicion(opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1], clickedPK);
+                            let newRangeClickedPK = clickedPK;
+                            let newRangeLastClickedPK = opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1];
+                            if (posicionClicked[0] > posicionClicked[1]) {
+                                deselect(newRangeLastClickedPK, modeAll);
+                                selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                            } else {
+                                selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                            }
+                        } else {
+                            select(clickedPK, modeAll);
+                        }
+                    } else if (!isShift && isControl) {
+                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                            deselect(clickedPK, modeAll);
+                        } else {
+                            select(clickedPK, modeAll);
+                        }
+                    } else if (isShift && !isControl) {
+                        if (opciones.multiselection.selectedIds[opciones.multiselection.selectedIds.length - 1]) {
+                            let newRangeClickedPK = clickedPK;
+                            let newRangeLastClickedPK = opciones.multiselection.selectedIds[0];
+                            deselectRest(modeAll);
+                            selectRange(newRangeLastClickedPK, newRangeClickedPK, modeAll);
+                        } else {
+                            select(clickedPK, modeAll);
+                        }
+                    } else if (!isShift && !isControl) {
+                        if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                            deselect(clickedPK, modeAll);
+                        } else {
+                            deselectRest(modeAll);
+                            select(clickedPK, modeAll);
+                        }
+                    }
+                } else {
+                    if (opciones.multiselection.selectedIds.includes(clickedPK)) {
+                        deselect(clickedPK, modeAll);
+                    } else {
+                        select(clickedPK, modeAll);
+                    }
+                }
+            });
+
+            let select = (clickedPK, modeAll) => {
+                if (!opciones.selectable.multi) {
+                    opciones.multiselection.selectedAll = false;
+                    opciones.multiselection.selectedIds = [];
+                    opciones.multiselection.selectedRowsPerPage = [];
+                    self.element.find('.list-item-selected').removeClass('list-item-selected');
+                }
+                opciones.multiselection.selectedRowsPerPage.push({
+                    id: self.element[0].id + '-itemTemplate_' + clickedPK,
+                    line: (function () {
+                        let cont = 0;
+                        let final = 0;
+                        self.element.children().toArray().forEach(element => {
+                            if (element.id == self.element.id + '-itemTemplate_' + clickedPK) {
+                                final = cont;
+                            }
+                            cont++;
+                        });
+                        return final;
+                    })(),
+                    page: (function () {
+                        if (opciones.isScrollList) {
+                            return 1;
+                        } else {
+                            return opciones.page;
+                        }
+                    })()
+                });
+                opciones.multiselection.selectedIds.push(clickedPK);
+                if (!modeAll) {
+                    self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                } else {
+                    self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                }
+            };
+
+            let deselect = (clickedPK, modeAll) => {
+                let index = opciones.multiselection.selectedIds.indexOf(clickedPK);
+                opciones.multiselection.selectedIds.splice(index, 1);
+                opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
+                    elem.id != self.element[0].id + '-itemTemplate_' + clickedPK
+                );
+                if (!modeAll) {
+                    self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).removeClass('list-item-selected');
+                } else {
+                    self.element.find('#' + self.element[0].id + '-itemTemplate_' + clickedPK).addClass('list-item-selected');
+                }
+            };
+
+            let deselectRest = (modeAll) => {
+                if (!modeAll) {
+                    opciones.multiselection.selectedAll = false;
+                } else {
+                    opciones.multiselection.selectedAll = true;
+                }
+                opciones.multiselection.selectedIds = [];
+                opciones.multiselection.selectedRowsPerPage = [];
+                for (let i = 0; i < opciones.content.length; i++) {
+                    if (!modeAll) {
+                        self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).removeClass('list-item-selected');
+                    } else {
+                        self.element.find('#' + self.element[0].id + '-itemTemplate_' + opciones.content[i][opciones.key]).addClass('list-item-selected');
+                    }
+                }
+            };
+
+            let selectRange = (lastClickedPK, clickedPK, modeAll) => {
+                var posicionClicked = getPosicion(lastClickedPK, clickedPK);
+                if (posicionClicked[0] > posicionClicked[1]) {
+                    for (let i = posicionClicked[1]; i <= posicionClicked[0]; i++) {
+                        if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                            select(String(opciones.content[i][opciones.key]), modeAll);
+                        }
+                    }
+                } else {
+                    for (let i = posicionClicked[1]; i >= posicionClicked[0]; i--) {
+                        if (!opciones.multiselection.selectedIds.includes(String(opciones.content[i][opciones.key]))) {
+                            select(String(opciones.content[i][opciones.key]), modeAll);
+                        }
+                    }
+                }
+            };
+
+            let getPosicion = (lastClickedPK, clickedPK) => {
+                var posicionClicked = {};
+                for (let i = 0; i < opciones.content.length; i++) {
+                    if (opciones.content[i][opciones.key] == clickedPK) {
+                        posicionClicked[0] = i;
+                    } else if (opciones.content[i][opciones.key] == lastClickedPK) {
+                        posicionClicked[1] = i;
+                    }
+                }
+                return posicionClicked;
+            };
         },
 
         /**
@@ -697,13 +707,21 @@ import Printd from 'printd';
 
                 if (targetTopPoint < window.scrollHeight) {
                     opciones._header.obj.addClass('rup_list-sticky');
-                    self.element.css({'padding-top': opciones._header.obj[0].offsetHeight});
-                    opciones._header.obj.css({'top': window.scrollHeight});
+                    self.element.css({
+                        'padding-top': opciones._header.obj[0].offsetHeight
+                    });
+                    opciones._header.obj.css({
+                        'top': window.scrollHeight
+                    });
                 } else if (targetTopPoint >= window.scrollHeight) {
                     if (opciones._header.obj.hasClass('rup_list-sticky')) {
                         opciones._header.obj.removeClass('rup_list-sticky');
-                        self.element.css({'padding-top': 0});
-                        opciones._header.obj.css({'top': 0});
+                        self.element.css({
+                            'padding-top': 0
+                        });
+                        opciones._header.obj.css({
+                            'top': 0
+                        });
                     }
                 }
             });
@@ -746,7 +764,7 @@ import Printd from 'printd';
                 opciones.btnPrint.on('click', btnPrintMain);
             }
 
-            function btnPrintMain (e) {
+            function btnPrintMain(e) {
                 e.preventDefault();
                 var doc = new Printd(),
                     printDoc = $('<div id="print-doc"></div>'),
@@ -825,12 +843,12 @@ import Printd from 'printd';
             opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
             opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
-            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="'+ opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="'+ opciones.multiFilter._dialogId +'_combo">Filtros</label><input id="'+ opciones.multiFilter._dialogId +'_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
-            
+            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="' + opciones.multiFilter._dialogId + '_combo">Filtros</label><input id="' + opciones.multiFilter._dialogId + '_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
+
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
 
-            opciones.multiFilter.$combo = $('#'+ opciones.multiFilter._dialogId +'_combo');
-            opciones.multiFilter.$feedback = $('#'+ opciones.multiFilter._dialogId + '_feedback');
+            opciones.multiFilter.$combo = $('#' + opciones.multiFilter._dialogId + '_combo');
+            opciones.multiFilter.$feedback = $('#' + opciones.multiFilter._dialogId + '_feedback');
 
             opciones.multiFilter.$feedback.rup_feedback({
                 block: false,
@@ -839,14 +857,14 @@ import Printd from 'printd';
 
             // Dropdown dialog
             opciones.multiFilter.$btn.rup_button({
-                dropdown:{
+                dropdown: {
                     dropdownDialog: opciones.multiFilter._dialogId,
-                    dropdownDialogConfig:{
+                    dropdownDialogConfig: {
                         autoOpen: false,
                         modal: true,
                         resizable: true,
-                        title:'<i class=\'mdi mdi-filter\' aria-hidden=\'true\'></i>Administración de filtros',
-                        width:'380px',
+                        title: '<i class=\'mdi mdi-filter\' aria-hidden=\'true\'></i>Administración de filtros',
+                        width: '380px',
                         buttons: [{
                             id: opciones.multiFilter._dialogId + '_btn_save',
                             text: 'Guardar',
@@ -858,7 +876,8 @@ import Printd from 'printd';
                                             filterName: opciones.multiFilter.$label.val(),
                                             filterValue: JSON.stringify($('#' + opciones.filterForm).rup_form('formToJson')),
                                             filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
-                                            filterUser: opciones.multiFilter._filterUser}
+                                            filterUser: opciones.multiFilter._filterUser
+                                        }
                                     };
                                     $.rup_ajax({
                                         url: opciones.action + '/./multiFilter/add',
@@ -874,7 +893,7 @@ import Printd from 'printd';
                                         }
                                     });
                                 }
-                                
+
                             }
                         },
                         {
@@ -882,7 +901,7 @@ import Printd from 'printd';
                             text: 'Aplicar',
                             click: function () {
                                 if (opciones.multiFilter.selected) {
-                                    opciones.multiFilter.$dialog.dialog('close'); 
+                                    opciones.multiFilter.$dialog.dialog('close');
                                     self.element.rup_list('filter');
                                 }
                             }
@@ -924,21 +943,21 @@ import Printd from 'printd';
                         {
                             id: opciones.multiFilter._dialogId + '_btn_cancel',
                             text: 'Cancelar',
-                            click: function () { 
-                                opciones.multiFilter.$dialog.dialog('close'); 
+                            click: function () {
+                                opciones.multiFilter.$dialog.dialog('close');
                             },
                             btnType: $.rup.dialog.LINK
                         }
-                        ]	
+                        ]
                     }
                 }
             });
 
             opciones.multiFilter.$combo.rup_autocomplete({
-                source : opciones.action +
-                '/./multiFilter/getAll?filterSelector=' +
-                opciones.multiFilter._filterSelector + '&user=' +
-                opciones.multiFilter._filterUser,
+                source: opciones.action +
+                    '/./multiFilter/getAll?filterSelector=' +
+                    opciones.multiFilter._filterSelector + '&user=' +
+                    opciones.multiFilter._filterUser,
                 sourceParam: {
                     label: 'filterName',
                     value: 'filterDefault',
@@ -947,10 +966,10 @@ import Printd from 'printd';
                 },
                 method: 'GET',
                 menuMaxHeight: 325,
-                minLength:3,
+                minLength: 3,
                 combobox: true,
-                contains:true,
-                select:function(){
+                contains: true,
+                select: function () {
                     if (opciones.multiFilter.$combo.rup_autocomplete('getRupValue')) {
                         opciones.multiFilter.selected = {
                             filterSelector: opciones.multiFilter._filterSelector,
@@ -960,9 +979,9 @@ import Printd from 'printd';
                         };
                         $.rup_ajax({
                             url: opciones.action +
-                            '/./multiFilter/getAll?filterSelector=' +
-                            opciones.multiFilter._filterSelector + '&user=' +
-                            opciones.multiFilter._filterUser,
+                                '/./multiFilter/getAll?filterSelector=' +
+                                opciones.multiFilter._filterSelector + '&user=' +
+                                opciones.multiFilter._filterUser,
                             type: 'GET',
                             dataType: 'json',
                             contentType: 'application/json',
@@ -979,7 +998,7 @@ import Printd from 'printd';
                                     } else {
                                         opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
                                     }
-                                    
+
                                     $('#' + opciones.filterForm).find('input').val('');
                                     for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
                                         if (opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
@@ -996,14 +1015,14 @@ import Printd from 'printd';
                 }
             });
 
-            opciones.multiFilter.$label = $('#'+ opciones.multiFilter._dialogId +'_combo_label');
+            opciones.multiFilter.$label = $('#' + opciones.multiFilter._dialogId + '_combo_label');
 
             //filtro por derecho
             $.rup_ajax({
                 url: opciones.action +
-                '/./multiFilter/getDefault?filterSelector=' +
-                opciones.multiFilter._filterSelector + '&user=' +
-                opciones.multiFilter._filterUser,
+                    '/./multiFilter/getDefault?filterSelector=' +
+                    opciones.multiFilter._filterSelector + '&user=' +
+                    opciones.multiFilter._filterUser,
                 type: 'GET',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -1163,7 +1182,7 @@ import Printd from 'printd';
                 opciones.multiorder.sidx.split(',').map((e) => {
                     return e.trim();
                 }).forEach((e, i) => {
-                    if(e!==''){
+                    if (e !== '') {
                         let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
                         let geti18n = (val) => {
                             let srcVal = opciones.sidx.source.filter(x => x.value == val);
@@ -2012,8 +2031,8 @@ import Printd from 'printd';
             };
 
             /**
-            * SHOW, HIDE
-            */
+             * SHOW, HIDE
+             */
             if (opciones.show) {
                 if (opciones.show.constructor == Object) {
                     opciones.show = opciones.show;
@@ -2123,7 +2142,7 @@ import Printd from 'printd';
                                     opciones.content = {};
                                 }
 
-                                if (opciones.content.length == 0 || opciones.content.length == undefined){
+                                if (opciones.content.length == 0 || opciones.content.length == undefined) {
                                     opciones.content = xhr.rows;
                                 } else {
                                     if (!opciones.isScrollList) {

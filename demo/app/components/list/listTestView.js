@@ -37,7 +37,7 @@ define(['jquery', 'marionette',
             visiblePages: 3,
             key: 'codigoPK',
             selectable: {
-                multi: true,
+                multi: false,
                 selector: '.list-item'
             },
             sidx: {
