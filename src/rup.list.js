@@ -440,7 +440,10 @@ import Printd from 'printd';
                 selectedAll: false,
                 selectedRowsPerPage: null
             };
-            self._generateSelectablesBtnGroup();
+            
+            if (opciones.selectable.multi) {
+                self._generateSelectablesBtnGroup();
+            }
 
             var isControl = false,
                 isShift = false,
