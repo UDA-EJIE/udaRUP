@@ -125,6 +125,31 @@
                     }
                 });
             }
+            //Opcion de usar el colModel
+            if(ctx.oInit.colModel !== undefined){
+            	$.each(ctx.oInit.colModel, function () {
+            		 var cellColModel = this;
+            	        if (cellColModel.editable === true) {
+            	            var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
+            	            var colModelName = cellColModel.index;
+            	            var $elem = $('#' + colModelName); // Se añade el title de los elementos de acuerdo al colname
+            	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
+
+            	            $elem.attr({'title': colModelName}).removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+
+            	            if (searchRupType !== undefined) {
+            	              var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions; // Invocación al componente RUP
+
+            	              $elem['rup_' + searchRupType](searchEditOptions);
+
+            	              if (searchRupType === 'combo') {
+            	                //asignar el valor
+            	              //  $('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont]);
+            	              }
+            	            } 
+            	          }
+            	 });
+            }
         }
 
         //Se captura evento de cierre
