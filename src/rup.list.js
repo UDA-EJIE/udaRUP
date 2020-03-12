@@ -2492,7 +2492,7 @@ import Printd from 'printd';
                                                 self.options.stepCounter = 0;
                                             }
                                         }
-                                        if (i === self.element.children.length - 1 && !opciones.stepOnLoad) {
+                                        if (i === self.element.children().length -1 && !opciones.stepOnLoad) {
                                             $('.rup_list-item').removeAttr('aria-hidden');
                                             self.isFiltering.resolve();
                                             self._unlock();
