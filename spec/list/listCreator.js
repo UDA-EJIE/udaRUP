@@ -265,3 +265,18 @@ export function createListMultiorder(idLista, idForm, callback){
 
     $('#' + idLista).rup_list(opts);
 }
+
+export function createListNoSelectable(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    delete opts.selectable;
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createListSelectableSimple(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    opts.selectable = {
+        multi: false,
+        selector: '.list-item'
+    };
+    $('#' + idLista).rup_list(opts);
+}

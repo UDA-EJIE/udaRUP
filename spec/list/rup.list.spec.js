@@ -11,7 +11,7 @@ import 'rup.autocomplete';
 import 'bootstrap';
 import * as testutils from '../common/specCommonUtils.js';
 import * as listGen from './listCreator';
-
+import * as a11y from './rup.list.a11y';
 
 function clearList(idLista) {
     $('.rup_list-multiorder-dialog').remove();
@@ -1133,20 +1133,6 @@ describe('Test rup_list', () => {
             });
         });
     });
-
-    describe('> Accesibilidad', () => {
-
-        describe('> Contexto de lista', () => {
-            beforeEach((done) => {
-                listGen.createList('rup-list', 'listFilterForm', () => {
-                    $('#rup-list').on('load', () => {
-                        $('#rup-list').off('load');
-                        $('#rup-list').on('load', done);
-                        $('#rup-list-header-sidx').rup_combo('setRupValue', 'EDAD');
-                    });
-                    $('#rup-list').rup_list('filter');
-                });
-            });
-        });
-    });
+    
+    a11y.describes();
 });
