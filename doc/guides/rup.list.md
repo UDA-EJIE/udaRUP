@@ -128,22 +128,22 @@ Este sería un ejemplo completo del código que se debería de incluir en la jsp
             <nav id="listID-header-nav">
                 <ul class="pagination">
                     <li id="listID-header-page-prev" class="page-item disabled">
-                        <a href="javascript:void(0)" class="page-link d-none d-lg-flex" tabindex="-1">Anterior</a>
-                        <a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">
+                        <div class="page-link d-none d-lg-flex" tabindex="-1">Anterior</div>
+                        <div class="page-link d-lg-none" tabindex="-1">
                             <span class="mdi mdi-arrow-right-bold-circle-outline mdi-rotate-180"/>
-                        </a>
+                        </div>
                     </li>
                     <li class="page-item page-separator disabled">
-                        <a class="page-link" tabindex="-1">...</a>
+                        <div class="page-link" tabindex="-1">...</div>
                     </li>
                     <li class="page-item page-separator disabled">
-                        <a class="page-link" tabindex="-1">...</a>
+                        <div class="page-link" tabindex="-1">...</div>
                     </li>
                     <li id="listID-header-page-next" class="page-item disabled">
-                        <a href="javascript:void(0)" class="page-link d-none d-lg-flex">Siguiente</a>
-                        <a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">
+                        <div class="page-link d-none d-lg-flex">Siguiente</div>
+                        <div class="page-link d-lg-none" tabindex="-1">
                             <span class="mdi mdi-arrow-right-bold-circle-outline"/>
-                        </a>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -259,22 +259,22 @@ Identificador único del objeto del DOM que contiene la lista de páginas que co
 <nav id="listID-header-nav">
       <ul class="pagination">
          <li id="listID-header-page-prev" class="page-item disabled">
-            <a href="javascript:void(0)" class="page-link d-none d-lg-flex" tabindex="-1">Anterior</a>
-            <a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">
+            <div class="page-link d-none d-lg-flex" tabindex="-1">Anterior</div>
+            <div class="page-link d-lg-none" tabindex="-1">
                   <span class="mdi mdi-arrow-right-bold-circle-outline mdi-rotate-180"/>
-            </a>
+            </div>
          </li>
          <li class="page-item page-separator disabled">
-            <a class="page-link" tabindex="-1">...</a>
+            <div class="page-link" tabindex="-1">...</div>
          </li>
          <li class="page-item page-separator disabled">
-            <a class="page-link" tabindex="-1">...</a>
+            <div class="page-link" tabindex="-1">...</div>
          </li>
          <li id="listID-header-page-next" class="page-item disabled">
-            <a href="javascript:void(0)" class="page-link d-none d-lg-flex">Siguiente</a>
-            <a href="javascript:void(0)" class="page-link d-lg-none" tabindex="-1">
+            <div class="page-link d-none d-lg-flex">Siguiente</div>
+            <div class="page-link d-lg-none" tabindex="-1">
                   <span class="mdi mdi-arrow-right-bold-circle-outline"/>
-            </a>
+            </div>
          </li>
       </ul>
 </nav>

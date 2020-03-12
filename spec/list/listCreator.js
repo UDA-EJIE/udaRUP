@@ -69,9 +69,7 @@ function getHtml(idLista, idForm) {
                             '<select id="' + idLista +'-header-sidx"/>' +
                         '</div>' +
                         '<div class="col-md-2">' +
-                            '<button id="' + idLista +'-header-sord">' +
-                                '<i class="mdi mdi-sort"/>' +
-                            '</button>' +
+                            '<button id="' + idLista +'-header-sord"></button>' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
