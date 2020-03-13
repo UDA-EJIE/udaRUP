@@ -280,3 +280,11 @@ export function createListSelectableSimple(idLista, idForm, callback){
     };
     $('#' + idLista).rup_list(opts);
 }
+
+
+export function createListNoSelectableNum(idLista, idForm, num, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    delete opts.selectable;
+    opts.visiblePages = num;
+    $('#' + idLista).rup_list(opts);
+}

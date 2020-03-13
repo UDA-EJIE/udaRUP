@@ -1520,6 +1520,8 @@ import Printd from 'printd';
                 .attr('aria-controls', self.element.attr('id'))
                 .attr('aria-label', $.rup.i18n.base.rup_list.paginaSiguiente);
             if(opciones.createFooter){
+                opciones._footer.pagenav.attr('aria-label', $.rup.i18n.base.rup_list.paginacion);
+                opciones._footer.pagenav.attr('aria-controls', self.element.attr('id'));
                 opciones._footer.pagePrev
                     .attr('role', 'button')
                     .attr('aria-controls', self.element.attr('id'))
@@ -1647,10 +1649,10 @@ import Printd from 'printd';
                 </div>
             `);
             $operateLine.find('button').rup_button();
+            $(e.target).remove();
             sortDiv.append($operateLine);
 
             self._fnOrderOfOrderFields.apply(self, [$('[data-ordValue="' + $(e.target).attr('data-ordValue') + '"]', sortDiv), isInit]);
-            $(e.target).remove();
         },
 
         /**
@@ -1712,7 +1714,11 @@ import Printd from 'printd';
 
                 // Función para dehabilitar los botones de reordenación correspondientes
                 opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').button('enable');
+                opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').attr('aria-disabled', 'false');
+                opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').attr('tabindex', '0');
                 opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').button('disable');
+                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('aria-disabled', 'true');
+                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('tabindex', '-1');
 
                 let ariaSummary = $('.rup_list-ord-line').toArray()
                     .map((e) => {
@@ -2095,7 +2101,9 @@ import Printd from 'printd';
                     if (opciones.page - opciones.visiblePages > 0) {
                         // Mostrar el separador de inicio
                         $pagenavH.find('.page-separator:first').show();
+                        $pagenavH.find('.page-separator:first').attr('aria-hidden', 'false');
                         $pagenavF.find('.page-separator:first').show();
+                        $pagenavF.find('.page-separator:first').attr('aria-hidden', 'false');
                     }
                 }
                 endPage = initPage + opciones.visiblePages < numPages ? initPage + opciones.visiblePages : numPages + 1;
@@ -2113,7 +2121,9 @@ import Printd from 'printd';
                 if (opciones.page + opciones.visiblePages - 1 < numPages) {
                     // Mostrar el separador de fin
                     $pagenavH.find('.page-separator:last').show();
+                    $pagenavH.find('.page-separator:last').attr('aria-hidden', 'false');
                     $pagenavF.find('.page-separator:last').show();
+                    $pagenavF.find('.page-separator:last').attr('aria-hidden', 'false');
                 }
 
                 if (endPage < numPages) {
@@ -2357,9 +2367,11 @@ import Printd from 'printd';
                     contentType: 'application/json',
                     success: function (xhr) {
                         $pagenavH.find('.page').remove();
-                        $pagenavF.find('.page').remove();
                         $pagenavH.find('.page-separator').hide();
+                        $pagenavH.find('.page-separator').attr('aria-hidden', 'true');
+                        $pagenavF.find('.page').remove();
                         $pagenavF.find('.page-separator').hide();
+                        $pagenavF.find('.page-separator').attr('aria-hidden', 'true');
 
                         if (xhr === null || xhr.length === 0) {
                             opciones._header.obj.hide();
@@ -2467,8 +2479,8 @@ import Printd from 'printd';
                         }
 
                         if (opciones.isScrollList) {
-                            $pagenavF.hide();
                             $pagenavH.hide();
+                            $pagenavF.hide();
                         }
 
                         if (opciones.isHeaderSticky) {

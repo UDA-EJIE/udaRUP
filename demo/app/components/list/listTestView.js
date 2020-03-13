@@ -37,10 +37,10 @@ define(['jquery', 'marionette',
             // createFooter: false,
             visiblePages: 3,
             key: 'codigoPK',
-            // selectable: {
-            //     multi: true,
-            //     selector: '.list-item'
-            // },
+            selectable: {
+                multi: true,
+                selector: '.list-item'
+            },
             sidx: {
                 source: [{
                     value: 'USUARIO',
@@ -68,8 +68,8 @@ define(['jquery', 'marionette',
                 }],
                 value: '5'
             },
-            // isMultiSort: true,
-            isScrollList: true,
+            isMultiSort: true,
+            // isScrollList: true,
             // isHeaderSticky: true,
             // isSuperSelect: true,
             // isMultiFilter: true,
