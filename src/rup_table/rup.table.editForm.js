@@ -664,11 +664,11 @@
                         if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
                             ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
                         }
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow');
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType);
                     }
 
                     dt.ajax.reload(function () {
-                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
+                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType);
                     }, false);
 
                 } else { // Eliminar
@@ -676,7 +676,7 @@
                     ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
                     var reloadDt = function () {
                         dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax');
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType);
                         }, false);
                     };
                     if (ctx.oInit.multiSelect !== undefined) {
@@ -694,7 +694,7 @@
                 }
             },
             complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType);
             },
             error: function (xhr) {
                 var divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
@@ -703,7 +703,7 @@
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
                 // debugger;
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType);
             },
             validate: validaciones,
             feedback: feed.rup_feedback({

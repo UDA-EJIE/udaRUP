@@ -81,6 +81,9 @@
             var timeformat, tmpDate, formattedTime;
             timeformat = $(this).data('datepicker').settings.timeFormat;
             tmpDate = $.datepicker.parseTime('hh:mm:ss', param);
+            if(!tmpDate){// se añade la mascara de seg por sino se ha metido.
+            	tmpDate = $.datepicker.parseTime('hh:mm:ss', param+":00");
+            }
             formattedTime = tmpDate ? $.timepicker._formatTime(tmpDate, timeformat) : '';
             $(this).val(formattedTime);
         },
