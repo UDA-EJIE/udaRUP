@@ -91,7 +91,7 @@ function testDatatable() {
                     expect($('#contextMenu2').is(':visible')).toBeTruthy();
                 });
 
-                it('Debe tener los items esperados y solo el add debe estar habilitado:', () => {
+                it('Debe tener los items esperados y solamente add e informes deben de estar habilitados:', () => {
                     expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
                         .toBe(1);
                     expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
@@ -100,7 +100,7 @@ function testDatatable() {
                         .toBe(1);
                     expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
                         .toBe(1);
-                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar.disabledButtonsTable').length)
+                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').length)
                         .toBe(1);
                 });
 
@@ -541,7 +541,7 @@ function testDatatable() {
                         expect($('.table_toolbar_btnEdit').is(':disabled')).toBeTruthy();
                         expect($('.table_toolbar_btnClone').is(':disabled')).toBeTruthy();
                         expect($('.table_toolbar_btnDelete').is(':disabled')).toBeTruthy();
-                        expect($('.buttons-collection').is(':disabled')).toBeTruthy();
+                        expect($('.buttons-collection').is(':disabled')).toBeFalsy();
                     });
                 });
                 describe('Añadido de nuevo botón > ', () => {
