@@ -153,26 +153,11 @@
          */
         _initOptions: function (options) {
             var $self = this;
-            var sTableId = $self[0].id;
-
+            
             options.processing = true;
             options.serverSide = true;
             options.columns = options.columns || $self._getColumns(options);
-
-            //filter			
-            // options.filterForm = $self.attr('data-filter-form');
-            options.$filterForm = $(options.filterForm);
-            if (options.filter !== undefined) {
-                options.$filterButton = options.$filterForm.find('#' + sTableId + '_filter_filterButton');
-                options.$clearButton = options.$filterForm.find('#' + sTableId + '_filter_cleanButton');
-                options.$filterButton.on('click', function () {
-                    $self._doFilter(options);
-                });
-                options.$clearButton.on('click', function () {
-                    $self._clearFilter(options);
-                });
-            }
-
+            
             // Urls
             var baseUrl = options.urlBase;
             options.urls = {
@@ -514,10 +499,10 @@
                 });
             };
 
-            if (options.filter !== undefined) {
+            if (options.filter && options.filter.$filterContainer) {
                 $self._showSearchCriteria();
 
-                if ($('#'+options.filter.id).valid()) {
+                if (options.filter.$filterContainer.valid()) {
                     reloadTable();
                 }
             } else {
@@ -535,16 +520,16 @@
          * @param {object} options Opciones del componente
          *
          */
-        _ajaxOptions(settings) {
+        _ajaxOptions(options) {
 
-            settings.id = this[0].id;
-            $('#' + settings.id).triggerHandler('tableFilterInitialize');
+            options.id = this[0].id;
+            $('#' + options.id).triggerHandler('tableFilterInitialize');
 
             let ajaxData = {
-                'url': settings.urls.filter,
+                'url': options.urls.filter,
                 'dataSrc': function (json) {
                     let ret = {};
-                    $('#' + settings.id).triggerHandler('tableFilterBeforeShow');
+                    $('#' + options.id).triggerHandler('tableFilterBeforeShow');
                     json.recordsTotal = json.records;
                     json.recordsFiltered = json.records;
 
@@ -552,10 +537,10 @@
                     ret.recordsFiltered = json.records;
                     ret.data = json.rows;
 
-                    let table = $('#' + settings.id).DataTable();
+                    let table = $('#' + options.id).DataTable();
                     let ctx = table.context[0];
 
-                    if (settings !== undefined && (settings.multiSelect !== undefined || settings.select !== undefined)) {
+                    if (options !== undefined && (options.multiSelect !== undefined || options.select !== undefined)) {
                         DataTable.Api().rupTable.reorderDataFromServer(json, ctx);
                     }
                     if (ctx.seeker !== undefined && ctx.seeker.search !== undefined &&
@@ -582,8 +567,8 @@
                 'dataType': 'json'
             };
 
-            if (settings.customError !== undefined) {
-                ajaxData.error = settings.customError;
+            if (options.customError !== undefined) {
+                ajaxData.error = options.customError;
             }
 
             return ajaxData;
@@ -603,8 +588,8 @@
             //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
             data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
-            if (ctx.oInit.$filterForm[0] !== undefined) {
-                data.filter = window.form2object(ctx.oInit.$filterForm[0]);
+            if (ctx.oInit.filter.$filterContainer[0] !== undefined) {
+                data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
             }
             data.multiselection = undefined;
             if (ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0) {
@@ -743,7 +728,7 @@
         _clearFilter(options) {
             var $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset');
-            options.$filterForm.resetForm();
+            options.filter.$filterContainer.resetForm();
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
 
@@ -751,9 +736,9 @@
             // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
             //jQuery('input,textarea').val('');
 
-            $('#' + options.id + '_filter_form .ui-selectmenu-status').text('--');
+            options.filter.$filterContainer.find('.ui-selectmenu-status').text('--');
 
-            $.rup_utils.populateForm([], options.$filterForm);
+            $.rup_utils.populateForm([], options.filter.$filterContainer);
 
         },
         /**
@@ -762,117 +747,126 @@
          * @name preConfigureFilter
          * @function
          *
-         * @param {object} settings - Parámetros de configuración del componente.
+         * @param {object} options - Parámetros de configuración del componente.
          *
          */
-        _ConfigureFiltern(settings) {
+        _initFilter(options) {
             var $self = this,
                 tableId = this[0].id,
-                filterSettings = settings.filter,
+                filterOpts = options.filter,
                 toggleIcon1Tmpl, toggleLabelTmpl, filterSummaryTmpl, toggleIcon2Tmpl, $toggleIcon1, $toggleLabel, $filterSummary, $toggleIcon2;
 
             /*
              * Inicialización de los identificadores y componentes por defecto de los componentes de filtrado
+             *
+             * Se almacena la referencia de los diferentes componentes:
+             *
+             * $filterContainer : Contenedor del formulario de filtrado
+             * $filterButton : Botón que realiza el filtrado
+             * $cleanLink : Enlace para limpiar el formulario
+             * $collapsableLayer : Capa que puede ser ocultada/mostrada
+             * $toggleIcon1Id : Control que oculta muestra el fomulario
+             * $filterSummary : Contenedor donde se especifican los criterios de filtrado
              */
-            filterSettings.id = (filterSettings.id !== undefined ? filterSettings.id : tableId + '_filter_form');
-            filterSettings.filterToolbarId = (filterSettings.filterToolbar !== undefined ? filterSettings.filterToolbar : tableId + '_filter_toolbar');
-
-            filterSettings.collapsableLayerId = (filterSettings.collapsableLayerId !== undefined ? filterSettings.collapsableLayerId : tableId + '_filter_fieldset');
-
-            filterSettings.toggleIcon1Id = (filterSettings.toggleIcon1 !== undefined ? filterSettings.toggleIcon1 : tableId + '_filter_toggle_icon1');
-            filterSettings.toggleLabelId = (filterSettings.toggleLabelId !== undefined ? filterSettings.toggleLabelId : tableId + '_filter_toggle_label');
-            filterSettings.filterSummaryId = (filterSettings.filterSummaryId !== undefined ? filterSettings.filterSummaryId : tableId + '_filter_summary');
-            filterSettings.toggleIcon2Id = (filterSettings.toggleIcon2 !== undefined ? filterSettings.toggleIcon2 : tableId + '_filter_toggle_icon2');
-
-            filterSettings.$filterContainer = jQuery('#' + filterSettings.id);
-            filterSettings.$filterToolbar = jQuery('#' + filterSettings.filterToolbarId);
-
-            settings.filter.showHidden = false;
-
-
-            if (filterSettings.$filterContainer.length === 0) {
-                if (settings.filterMessage === true) {
+            
+            // Se define el selector del formulario de filtrado por preferencia "JSP > JS > Default"
+            if(options.filterForm){
+                filterOpts.id = $(options.filterForm).attr('id');
+            } else if(!filterOpts.id) {
+                filterOpts.id = tableId + '_filter_form';
+            }
+            filterOpts.$filterContainer = jQuery('#' + filterOpts.id);
+            filterOpts.filterToolbarId = (filterOpts.filterToolbar !== undefined ? filterOpts.filterToolbar : tableId + '_filter_toolbar');
+            filterOpts.$filterToolbar = jQuery('#' + filterOpts.filterToolbarId);
+            
+            if (filterOpts.$filterContainer.length === 0) {
+                if (options.filterMessage === true) {
                     alert('El identificador especificado para el fomulario de búsqueda no existe.');
                 }
-            } else if (filterSettings.$filterToolbar.length === 0) {
+            } else if (filterOpts.$filterToolbar.length === 0) {
                 alert('El identificador especificado para la barra de controles del formulario de filtrado no existe.');
             } else {
-                /*
-                 * Se almacena la referencia de los diferentes componentes
-                 *
-                 * $filterContainer : Contenedor del formulario de filtrado
-                 * $filterButton : Botón que realiza el filtrado
-                 * $cleanLink : Enlace para limpiar el formulario
-                 * $collapsableLayer : Capa que puede ser ocultada/mostrada
-                 * $toggleIcon1Id : Control que oculta muestra el fomulario
-                 * $filterSummary : Contenedor donde se especifican los criterios de filtrado
-                 */
+                filterOpts.collapsableLayerId = (filterOpts.collapsableLayerId !== undefined ? filterOpts.collapsableLayerId : tableId + '_filter_fieldset');
+                filterOpts.toggleIcon1Id = (filterOpts.toggleIcon1 !== undefined ? filterOpts.toggleIcon1 : tableId + '_filter_toggle_icon1');
+                filterOpts.toggleLabelId = (filterOpts.toggleLabelId !== undefined ? filterOpts.toggleLabelId : tableId + '_filter_toggle_label');
+                filterOpts.filterSummaryId = (filterOpts.filterSummaryId !== undefined ? filterOpts.filterSummaryId : tableId + '_filter_summary');
+                filterOpts.toggleIcon2Id = (filterOpts.toggleIcon2 !== undefined ? filterOpts.toggleIcon2 : tableId + '_filter_toggle_icon2');
+                
+                filterOpts.$filterButton = filterOpts.$filterContainer.find('#' + tableId + '_filter_filterButton');
+                filterOpts.$filterButton.on('click', function () {
+                    $self._doFilter(options);
+                });
+                filterOpts.$clearButton = filterOpts.$filterContainer.find('#' + tableId + '_filter_cleanButton');
+                filterOpts.$clearButton.on('click', function () {
+                    $self._clearFilter(options);
+                });
+
+                options.filter.showHidden = false;
+
                 toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon1');
                 toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleLabel');
                 filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.filterSummary');
                 toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon2');
 
-                $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterSettings.toggleIcon1Id));
-                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterSettings.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
-                $filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterSettings.filterSummaryId));
-                $toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterSettings.toggleIcon2Id));
+                $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
+                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
+                $filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterOpts.filterSummaryId));
+                $toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterOpts.toggleIcon2Id));
 
-                filterSettings.$filterToolbar.append($toggleIcon1).append($toggleLabel).append($filterSummary).append($toggleIcon2);
+                filterOpts.$filterToolbar.append($toggleIcon1).append($toggleLabel).append($filterSummary).append($toggleIcon2);
 
-                filterSettings.$filterContainer = jQuery('#' + filterSettings.id);
+                filterOpts.$filterContainer = jQuery('#' + filterOpts.id);
 
-                filterSettings.$collapsableLayer = jQuery('#' + filterSettings.collapsableLayerId);
+                filterOpts.$collapsableLayer = jQuery('#' + filterOpts.collapsableLayerId);
 
-                filterSettings.$toggleIcon1 = $toggleIcon1;
-                filterSettings.$toggleLabel = $toggleLabel;
-                filterSettings.$filterSummary = $filterSummary;
-                filterSettings.$toggleIcon2 = $toggleIcon2;
-
-
+                filterOpts.$toggleIcon1 = $toggleIcon1;
+                filterOpts.$toggleLabel = $toggleLabel;
+                filterOpts.$filterSummary = $filterSummary;
+                filterOpts.$toggleIcon2 = $toggleIcon2;
 
                 // Se asigna a la tecla ENTER la funcion de busqueda.
-                filterSettings.$filterContainer.bind('keydown', function (evt) {
+                filterOpts.$filterContainer.bind('keydown', function (evt) {
                     if (evt.keyCode === 13) {
-                        $self._doFilter(settings);
+                        $self._doFilter(options);
                     }
                 });
 
-                filterSettings.$filterToolbar.addClass('cursor_pointer').on({
+                filterOpts.$filterToolbar.addClass('cursor_pointer').on({
                     'click': function () {
-                        if (settings.filter.showHidden === false) {
-                            filterSettings.$collapsableLayer.hide();
-                            filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                            filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                            filterSettings.$filterToolbar.removeClass('formulario_opened');
-                            settings.filter.showHidden = true;
+                        if (options.filter.showHidden === false) {
+                            filterOpts.$collapsableLayer.hide();
+                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+                            filterOpts.$filterToolbar.removeClass('formulario_opened');
+                            options.filter.showHidden = true;
                         } else {
-                            filterSettings.$collapsableLayer.show();
-                            filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
-                            filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
-                            filterSettings.$filterToolbar.addClass('formulario_opened');
-                            settings.filter.showHidden = false;
+                            filterOpts.$collapsableLayer.show();
+                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+                            filterOpts.$filterToolbar.addClass('formulario_opened');
+                            options.filter.showHidden = false;
                         }
                     }
                 });
 
-                if (settings.filter.showHidden === true) {
-                    filterSettings.$collapsableLayer.hide();
-                    filterSettings.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                    filterSettings.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                    filterSettings.$filterToolbar.removeClass('formulario_opened');
-                    settings.filter.showHidden = true;
+                if (options.filter.showHidden === true) {
+                    filterOpts.$collapsableLayer.hide();
+                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+                    filterOpts.$filterToolbar.removeClass('formulario_opened');
+                    options.filter.showHidden = true;
                 } else {
-                    filterSettings.$collapsableLayer.show();
-                    filterSettings.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
-                    filterSettings.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
-                    filterSettings.$filterToolbar.addClass('formulario_opened');
-                    settings.filter.showHidden = false;
+                    filterOpts.$collapsableLayer.show();
+                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
+                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
+                    filterOpts.$filterToolbar.addClass('formulario_opened');
+                    options.filter.showHidden = false;
                 }
 
                 // Validaciones 
-                if(filterSettings.rules){
-                    filterSettings.$filterContainer.rup_validate({
-                        rules: filterSettings.rules
+                if (filterOpts.rules) {
+                    filterOpts.$filterContainer.rup_validate({
+                        rules: filterOpts.rules
                     });
                 }
             }
@@ -1168,22 +1162,12 @@
         _init: function (args) {
             global.initRupI18nPromise.then(() => {
                 var $self = this;
-                if (args[0].filter !== 'noFilter') {
-                    //Se añade filter por defecto
-                    $.fn.rup_table.defaults.filter = {
-                        id: $self[0].id + '_filter_form',
-                        filterToolbar: $self[0].id + '_filter_toolbar',
-                        collapsableLayerId: $self[0].id + '_filter_fieldset'
-                    };
-                } else {
-                    args[0].filter = undefined;
-                }
 
                 if (args[0].buttons != undefined && args[0].buttons.contextMenu === undefined) {
                     args[0].buttons.contextMenu = true;
                 }
 
-                var settings = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
+                var options = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 
                 $self.triggerHandler('tableBeforeInit');
 
@@ -1191,16 +1175,16 @@
                 $self.attr('ruptype', 'table');
                 $self.triggerHandler('tableInit');
                 if (args[0].primaryKey !== undefined) {
-                    settings.primaryKey = args[0].primaryKey.split(';');
+                    options.primaryKey = args[0].primaryKey.split(';');
                 }
 
                 //Comprobar plugin dependientes
-                if (settings.multiSelect !== undefined) {
+                if (options.multiSelect !== undefined) {
                     let clase = 'select-checkbox';
-                    if (settings.multiSelect.hideMultiselect) {
+                    if (options.multiSelect.hideMultiselect) {
                         clase = 'select-checkbox never';
                     }
-                    settings.columnDefs.unshift({
+                    options.columnDefs.unshift({
                         orderable: false,
                         className: clase,
                         targets: 0,
@@ -1209,33 +1193,33 @@
                         }
                     });
                     //Modulo incompatible
-                    settings.select = undefined;
+                    options.select = undefined;
                 }
 
 
-                if (settings.formEdit !== undefined) {
-                    settings.inlineEdit = undefined;
+                if (options.formEdit !== undefined) {
+                    options.inlineEdit = undefined;
                 }
 
-                if (settings.filter === undefined) {
-                    settings.multiFilter = undefined;
+                if (options.filter === undefined) {
+                    options.multiFilter = undefined;
                 }
 
                 // getDefault multifilter
-                if (settings.multiFilter !== undefined && settings.multiFilter.getDefault === undefined) {
+                if (options.multiFilter !== undefined && options.multiFilter.getDefault === undefined) {
                     var usuario;
-                    if (settings.multiFilter.userFilter != null) {
-                        usuario = settings.multiFilter.userFilter;
+                    if (options.multiFilter.userFilter != null) {
+                        usuario = options.multiFilter.userFilter;
                     } else {
                         usuario = window.LOGGED_USER;
                     }
                     var ctx = {};
-                    ctx.oInit = settings;
+                    ctx.oInit = options;
                     ctx.sTableId = $self[0].id;
                     $.rup_ajax({
-                        url: settings.urlBase +
+                        url: options.urlBase +
                             '/multiFilter/getDefault?filterSelector=' +
-                            settings.multiFilter.idFilter + '&user=' +
+                            options.multiFilter.idFilter + '&user=' +
                             usuario,
                         type: 'GET',
                         dataType: 'json',
@@ -1253,8 +1237,8 @@
 
                                 DataTable.Api().multiFilter.fillForm(valorFiltro, ctx);
                                 $self._doFilter(data);
-                                $(settings.filter.$filterSummary, 'i').prepend(data.filterName + '{');
-                                $(settings.filter.$filterSummary, 'i').append('}');
+                                $(options.filter.$filterSummary, 'i').prepend(data.filterName + '{');
+                                $(options.filter.$filterSummary, 'i').append('}');
 
                             }
                             $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
@@ -1276,7 +1260,7 @@
                         selectorResponsive: 'td span.dtr-data'
                     };
 
-                    settings.responsive = responsive;
+                    options.responsive = responsive;
                 }
                 // Se añaden los CSS para las flechas.
                 $.each($('#' + $self[0].id + ' thead th'), function () {
@@ -1293,15 +1277,29 @@
 
                 });
 
-                $self._initOptions(settings);
+                // Se completan las opciones de configuración del componente
+                $self._initOptions(options);
 
-                if (settings.loadOnStartUp !== undefined && !settings.loadOnStartUp) {
-                    settings.deferLoading = 0;
+                // Se inicializa el filtro de la tabla
+                if (args[0].filter !== 'noFilter') {
+                    //Se añade filter por defecto
+                    $.fn.rup_table.defaults.filter = {
+                        id: $self[0].id + '_filter_form',
+                        filterToolbar: $self[0].id + '_filter_toolbar',
+                        collapsableLayerId: $self[0].id + '_filter_fieldset'
+                    };
+                    $self._initFilter(options);
+                } else {
+                    args[0].filter = undefined;
                 }
 
-                var tabla = $self.DataTable(settings);
+                if (options.loadOnStartUp !== undefined && !options.loadOnStartUp) {
+                    options.deferLoading = 0;
+                }
 
-                settings.sTableId = $self[0].id;
+                var tabla = $self.DataTable(options);
+
+                options.sTableId = $self[0].id;
                 $self._initializeMultiselectionProps(tabla.context[0]);
 
                 //Crear tooltips cabecera;
@@ -1310,7 +1308,7 @@
                 });
 
                 tabla.on('draw', function (e, settingsTable) {
-                    if (settings.searchPaginator) { //Mirar el crear paginador
+                    if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
                         // Deshabilitamos los botones de paginacion si es necesario
                         $.each($('ul.pagination li.recolocatedPagination_iconButton'), function () {
@@ -1331,8 +1329,8 @@
                         }
                     }
 
-                    if (settings.select !== undefined || settings.multiSelect !== undefined) { //AL repintar vigilar el select.
-                        if (settings.select !== undefined) { //AL repintar vigilar el select.
+                    if (options.select !== undefined || options.multiSelect !== undefined) { //AL repintar vigilar el select.
+                        if (options.select !== undefined) { //AL repintar vigilar el select.
                             if (settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined) {
                                 //viene de la navegacion buscar el id.
                                 var line = 0;
@@ -1409,7 +1407,7 @@
                         settingsTable.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
                         DataTable.Api().editForm.addchildIcons(settingsTable);
                     }
-                    if (settings.inlineEdit === undefined && settings.formEdit === undefined) {
+                    if (options.inlineEdit === undefined && options.formEdit === undefined) {
                         DataTable.Api().editForm.addchildIcons(settingsTable);
                     }
 
@@ -1423,38 +1421,36 @@
                         DataTable.Api().editForm.addchildIcons(ctx);
                     }
 
-                    if (settings.inlineEdit === undefined && settings.formEdit === undefined) {
+                    if (options.inlineEdit === undefined && options.formEdit === undefined) {
                         DataTable.Api().editForm.addchildIcons(ctx);
                     }
                 });
 
                 tabla.on('destroy', function (e, settingsTable) {
-
-                    $('#' + settingsTable.sTableId + '_filter_toolbar').empty();
+                    if(options.filter && options.filter.$filterToolbar){
+                        options.filter.$filterToolbar.empty();
+                    }
                     $('#' + settingsTable.sTableId + '_detail_navigation').empty();
 
                 });
 
-                if (settings.inlineEdit !== undefined) {
+                if (options.inlineEdit !== undefined) {
                     DataTable.Api().inlineEdit.onResponsiveResize(tabla);
                 }
 
 
-                if (settings.multiSelect !== undefined || settings.select !== undefined) {
+                if (options.multiSelect !== undefined || options.select !== undefined) {
                     $self._createEventSelect(tabla);
-                }
-                if (settings.filter !== undefined) {
-                    $self._ConfigureFiltern(settings);
                 }
 
                 // Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
-                $self.data('settings' + $self[0].id, settings);
+                $self.data('settings' + $self[0].id, options);
                 $('#' + tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 
                 $self.triggerHandler('tableAfterInit');
 
-                if (settings.inlineEdit === undefined && settings.formEdit === undefined &&
-                    settings.multiselect === undefined && settings.select === undefined) {
+                if (options.inlineEdit === undefined && options.formEdit === undefined &&
+                    options.multiselect === undefined && options.select === undefined) {
                     $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
                         DataTable.Api().editForm.addchildIcons(tabla.context[0]);
                     }));
