@@ -9,23 +9,23 @@
 	} else {
 
 		// Browser globals
-		root.TimeBootstrapAdapter = factory( jQuery );
+		root.TimeMaterialAdapter = factory( jQuery );
 	}
 } (this,  function( $ ) {
 
-	function TimeBootstrapAdapter(){
+	function TimeMaterialAdapter(){
 
 	}
 
-	TimeBootstrapAdapter.prototype.NAME = 'time_bootstrap';
+	TimeMaterialAdapter.prototype.NAME = 'time_material';
 
-	TimeBootstrapAdapter.prototype.initIconTrigger = function (settings) {
+	TimeMaterialAdapter.prototype.initIconTrigger = function (settings) {
 		var $self = this,
 			$div, $button, $icon;
 
 		if (!$self.is('div')){
 
-			$div = $('<div>').addClass('rup-time-input-group');
+			$div = $('<div>').addClass('rup-date-input-group-material');
 			$button = $('<button>').attr('type','button').addClass('ui-timepicker-trigger');
 			$icon = $('<i>').attr('aria-hidden', 'true').addClass('mdi mdi-clock');
 
@@ -41,28 +41,13 @@
 					$self.timepicker('hide');
 				}
 			});
-
-			// $("<img>").addClass("ui-timepicker-trigger")
-			//   .attr({
-			//     "src":settings.buttonImage,
-			//     "alt":$.rup.i18nParse($.rup.i18n.base,"rup_time.buttonText"),
-			//     "title":$.rup.i18nParse($.rup.i18n.base,"rup_time.buttonText")
-			//   })
-			// .click(function(){
-			//   if ( $("#ui-datepicker-div").css("display")==="none"){
-			//     $self.timepicker("show");
-			//   } else {
-			//     $self.timepicker("hide");
-			//   }
-			// })
-			// .insertAfter($self);
 		}
 	};
 
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[TimeBootstrapAdapter.prototype.NAME ] = new TimeBootstrapAdapter;
+	$.rup.adapter[TimeMaterialAdapter.prototype.NAME ] = new TimeMaterialAdapter;
 
 	return $;
 }));

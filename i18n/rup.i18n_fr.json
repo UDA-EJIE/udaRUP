@@ -50,15 +50,15 @@
     "closeText": "Cerrar",
     "currentText": "Hoy",
     "dateFormat": "dd/mm/yy",
-    "dayNames" :["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    "dayNamesMin" :["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-    "dayNamesShort" :["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    "dayNamesShort": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
     "firstDay": "1",
     "mask": "(dd/mm/aaaa)",
     "maskDateTime": "(dd/mm/aaaa hh:mm)",
     "maskDateTimeSec": "(dd/mm/aaaa hh:mm:ss)",
-    "monthNames" :["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-		"monthNamesShort" :["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "monthNamesShort": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
     "nextText": "Siguiente",
     "prevText": "Anterior",
     "weekHeader": "&nbsp;&nbsp;&nbsp;"
@@ -222,29 +222,29 @@
         "thousandsSeparator": "."
       },
       "date": {
-        "AmPm" :[
-                   "am",
-                   "pm",
-                   "AM",
-                   "PM"
+        "AmPm": [
+          "am",
+          "pm",
+          "AM",
+          "PM"
         ],
         "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames":[
-                    "Do",
-                    "Lu",
-                    "Ma",
-                    "Mi",
-                    "Ju",
-                    "Vi",
-                    "Sa",
-                    "Domingo",
-                    "Lunes",
-                    "Martes",
-                    "Miércoles",
-                    "Jueves",
-                    "Viernes",
-                    "Sábado"
-                ],
+        "dayNames": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa",
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado"
+        ],
         "masks": {
           "FullDateTime": "l, F d, Y g:i:s A",
           "ISO8601Long": "Y-m-d H:i:s",
@@ -263,32 +263,32 @@
           "UniversalSortableDateTime": "Y-m-d H:i:sO",
           "YearMonth": "F, Y"
         },
-        "monthNames":[
-                    "Ene",
-                    "Feb",
-                    "Mar",
-                    "Abr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Ago",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dic",
-                    "Enero",
-                    "Febrero",
-                    "Marzo",
-                    "Abril",
-                    "Mayo",
-                    "Junio",
-                    "Julio",
-                    "Agosto",
-                    "Septiembre",
-                    "Octubre",
-                    "Noviembre",
-                    "Diciembre"
-                ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
         "newformat": "d/m/Y",
         "reformatAfterEdit": "false",
         "srcformat": "d/m/y H:i:s"
@@ -353,7 +353,7 @@
       "jerarquia": {
         "deselectChild": "fr_Deseleccionar hijos",
         "deselectDescendent": "fr_Deseleccionar descendientes",
-		"filtered": "fr_El elemento cumple el filtro",
+        "filtered": "fr_El elemento cumple el filtro",
         "selectChild": "fr_Seleccionar hijos",
         "selectDescendent": "fr_Seleccionar descendientes"
       },
@@ -393,7 +393,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-            "groupOps": [{
+      "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -403,21 +403,21 @@
         }
       ],
       "matchText": " match",
-      "odata":[
-                "igual",
-                "no igual a",
-                "menor que",
-                "menor o igual que",
-                "mayor que",
-                "mayor o igual a",
-                "empiece por",
-                "no empiece por",
-                "está en",
-                "no está en",
-                "termina por",
-                "no termina por",
-                "contiene",
-                "no contiene"
+      "odata": [
+        "igual",
+        "no igual a",
+        "menor que",
+        "menor o igual que",
+        "mayor que",
+        "mayor o igual a",
+        "empiece por",
+        "no empiece por",
+        "está en",
+        "no está en",
+        "termina por",
+        "no termina por",
+        "contiene",
+        "no contiene"
       ],
       "rulesText": " reglas"
     },
@@ -555,7 +555,7 @@
       "url": "Veuillez entrer une URL valide."
     },
     "regexp": {
-      "decimal":"^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
+      "decimal": "^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
     }
   },
   "rup_wizard": {
@@ -563,8 +563,8 @@
     "prev": "Anterior_fr",
     "summary": "Resumen_fr"
   },
-  "rup_button":{
-      "new": "Nuevo_fr"
+  "rup_button": {
+    "new": "Nuevo_fr"
   },
   "rup_table": {
     "seleccionada": "[FR]seleccionada",
@@ -663,15 +663,15 @@
     "elements": "fr_Elementos",
     "emptyChanges": "fr_No se han realizado cambios.",
     "errors": {
-            "errcap": "fr_Error",
-            "errorOnGet": "fr_Se ha producido un error al tratar de recuperar los datos",
-            "model": "fr_Las columnas de nombres son diferentes de las columnas de modelo",
-            "norecords": "fr_No hay datos para procesar",
-            "nourl": "fr_No se ha especificado una URL",
-            "noMasterPKField": {
-                "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
-                "title": "fr_Error en la inicialización de la tabla"
-            }
+      "errcap": "fr_Error",
+      "errorOnGet": "fr_Se ha producido un error al tratar de recuperar los datos",
+      "model": "fr_Las columnas de nombres son diferentes de las columnas de modelo",
+      "norecords": "fr_No hay datos para procesar",
+      "nourl": "fr_No se ha especificado una URL",
+      "noMasterPKField": {
+        "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
+        "title": "fr_Error en la inicialización de la tabla"
+      }
     },
     "feedback": {
       "deletedOK": "fr_El elemento se ha borrado correctamente.",
@@ -696,29 +696,29 @@
         "thousandsSeparator": "."
       },
       "date": {
-        "AmPm" :[
-                   "am",
-                   "pm",
-                   "AM",
-                   "PM"
+        "AmPm": [
+          "am",
+          "pm",
+          "AM",
+          "PM"
         ],
         "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames":[
-                    "Do",
-                    "Lu",
-                    "Ma",
-                    "Mi",
-                    "Ju",
-                    "Vi",
-                    "Sa",
-                    "Domingo",
-                    "Lunes",
-                    "Martes",
-                    "Miércoles",
-                    "Jueves",
-                    "Viernes",
-                    "Sábado"
-                ],
+        "dayNames": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa",
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado"
+        ],
         "masks": {
           "FullDateTime": "l, F d, Y g:i:s A",
           "ISO8601Long": "Y-m-d H:i:s",
@@ -737,32 +737,32 @@
           "UniversalSortableDateTime": "Y-m-d H:i:sO",
           "YearMonth": "F, Y"
         },
-        "monthNames":[
-                    "Ene",
-                    "Feb",
-                    "Mar",
-                    "Abr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Ago",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dic",
-                    "Enero",
-                    "Febrero",
-                    "Marzo",
-                    "Abril",
-                    "Mayo",
-                    "Junio",
-                    "Julio",
-                    "Agosto",
-                    "Septiembre",
-                    "Octubre",
-                    "Noviembre",
-                    "Diciembre"
-                ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
         "newformat": "d/m/Y",
         "reformatAfterEdit": "false",
         "srcformat": "d/m/y H:i:s"
@@ -827,7 +827,7 @@
       "jerarquia": {
         "deselectChild": "fr_Deseleccionar hijos",
         "deselectDescendent": "fr_Deseleccionar descendientes",
-    "filtered": "fr_El elemento cumple el filtro",
+        "filtered": "fr_El elemento cumple el filtro",
         "selectChild": "fr_Seleccionar hijos",
         "selectDescendent": "fr_Seleccionar descendientes"
       },
@@ -867,7 +867,7 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-            "groupOps": [{
+      "groupOps": [{
           "op": "AND",
           "text": "todo"
         },
@@ -877,21 +877,21 @@
         }
       ],
       "matchText": " match",
-      "odata":[
-                "igual",
-                "no igual a",
-                "menor que",
-                "menor o igual que",
-                "mayor que",
-                "mayor o igual a",
-                "empiece por",
-                "no empiece por",
-                "está en",
-                "no está en",
-                "termina por",
-                "no termina por",
-                "contiene",
-                "no contiene"
+      "odata": [
+        "igual",
+        "no igual a",
+        "menor que",
+        "menor o igual que",
+        "mayor que",
+        "mayor o igual a",
+        "empiece por",
+        "no empiece por",
+        "está en",
+        "no está en",
+        "termina por",
+        "no termina por",
+        "contiene",
+        "no contiene"
       ],
       "rulesText": " reglas"
     },
@@ -953,27 +953,27 @@
       "caption": "Consultar registro"
     }
   },
-  "sProcessing":     "<span class='sProcessingText'>[FR]Procesando...</span>",
-  "sLengthMenu":     "_MENU_",
-  "sZeroRecords":    "[FR]No se encontraron resultados",
-  "sEmptyTable":     "[FR]Ningún dato disponible en esta tabla",
-  "sInfo":           "[FR]Mostrando _START_ - _END_ de _TOTAL_",
-  "sInfoEmpty":      "[FR]Mostrando 0 - 0 de 0",
-  "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-  "sInfoPostFix":    "",
-  "sSearch":         "[FR]Buscar:",
-  "sUrl":            "",
-  "sInfoThousands":  ",",
+  "sProcessing": "<span class='sProcessingText'>[FR]Procesando...</span>",
+  "sLengthMenu": "_MENU_",
+  "sZeroRecords": "[FR]No se encontraron resultados",
+  "sEmptyTable": "[FR]Ningún dato disponible en esta tabla",
+  "sInfo": "[FR]Mostrando _START_ - _END_ de _TOTAL_",
+  "sInfoEmpty": "[FR]Mostrando 0 - 0 de 0",
+  "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+  "sInfoPostFix": "",
+  "sSearch": "[FR]Buscar:",
+  "sUrl": "",
+  "sInfoThousands": ",",
   "sLoadingRecords": "[FR]Cargando...",
   "oPaginate": {
-      "sFirst":    "[FR]Primero",
-      "sLast":     "[FR]Último",
-      "sNext":     "[FR]Siguiente",
-      "sPrevious": "[FR]Anterior"
+    "sFirst": "[FR]Primero",
+    "sLast": "[FR]Último",
+    "sNext": "[FR]Siguiente",
+    "sPrevious": "[FR]Anterior"
   },
   "oAria": {
-      "sSortAscending":  ": [FR]Activar para ordenar la columna de manera ascendente",
-      "sSortDescending": ": [FR]Activar para ordenar la columna de manera descendente"
+    "sSortAscending": ": [FR]Activar para ordenar la columna de manera ascendente",
+    "sSortDescending": ": [FR]Activar para ordenar la columna de manera descendente"
   },
   "pagina": "[FR]Página ",
   "toPagina": " [FR]de {0}",
@@ -1053,27 +1053,41 @@
       "06-12": "Día de la Constitución",
       "08-12": "Inmaculada Concepción",
       "25-12": "Navidad"
-        }
-    },
-    "rup_list": {
-        "errors": {
-            "validateSkeletonDialog": {
-                "title": "fr_Esqueleto no válido",
-                "msg": "fr_El esqueleto HTML sobre el que montar el listado no es correcto."
-            }
-        },
-        "multiSortDialog": {
-            "title": "fr_Multi-ordenación",
-            "msg1": "fr_Seleccione alguna de las opciones disponibles para agregar a la multi-ordenación:",
-            "msg2": "fr_Si no se visualiza ninguno es porque ya han sido todos incluídos en la ordenación en la lista inferior.",
-            "msg3": "fr_Campos ya incluídos en la ordenación:",
-            "msg4": "fr_Puede reordenarlos, eliminarlos o cambiar el tipo de ordenación de cada uno."
-        },
-        "multiselection": {
-            "deselectAll": "fr_Desmarcar todos",
-            "deselectAllPage": "fr_Desmarcar visibles",
-            "selectAll": "fr_Marcar todos",
-            "selectAllPage": "fr_Marcar visibles"
     }
+  },
+  "rup_list": {
+    "errors": {
+      "validateSkeletonDialog": {
+        "title": "fr_Esqueleto no válido",
+        "msg": "fr_El esqueleto HTML sobre el que montar el listado no es correcto."
+      }
+    },
+    "multiSortDialog": {
+      "title": "fr_Multi-ordenación",
+      "msg1": "fr_Seleccione alguna de las opciones disponibles para agregar a la multi-ordenación:",
+      "msg2": "fr_Si no se visualiza ninguno es porque ya han sido todos incluídos en la ordenación en la lista inferior.",
+      "msg3": "fr_Campos ya incluídos en la ordenación:",
+      "msg4": "fr_Puede reordenarlos, eliminarlos o cambiar el tipo de ordenación de cada uno."
+    },
+    "multiselection": {
+      "deselectAll": "fr_Desmarcar todos",
+      "deselectAllPage": "fr_Desmarcar visibles",
+      "selectAll": "fr_Marcar todos",
+      "selectAllPage": "fr_Marcar visibles"
+    },
+    "paginacion": "fr_Paginación",
+    "paginaAnterior": "fr_Página anterior",
+    "paginaSiguiente": "fr_Página siguiente",
+    "paginaLabel": "fr_Página {0} de {1}",
+    "sort": {
+      "asc": "fr_Orden ascendente",
+      "desc": "fr_Orden descendente"
+    },
+    "openMordDialog": "fr_Abre el diálogo de opciones de ordenación del listado",
+    "mordSubir": "fr_Adelantar el campo",
+    "mordBajar": "fr_Atrasar el campo",
+    "quitarCampoOrden": "fr_Dejar de ordenar por este campo",
+    "ariaSummary": "fr_Las opciones de ordenación actuales son: ",
+    "ariaSummaryEmpty": "fr_No se han seleccionado opciones de ordenación"
   }
 }

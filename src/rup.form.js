@@ -151,7 +151,11 @@
          * jQuery("#form").rup_form("formToJson");
          */
         formToJson: function () {
-            return window.form2object(this[0]);
+            if(this[0]){
+                return window.form2object(this[0]);
+            } else {
+                return {};
+            }
         },
         /**
          * Realiza la serialización de campos del formulario en un query string
