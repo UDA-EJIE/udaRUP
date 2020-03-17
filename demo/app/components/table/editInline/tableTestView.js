@@ -10,7 +10,8 @@ define(['jquery', 'marionette',
     });
 
     function fncOnAttach() {
-        global.$=$;
+        global.$ = $;
+
         $('#example').rup_table({
             initComplete: () => {
                 $('#example_detail_div').remove();
@@ -65,16 +66,29 @@ define(['jquery', 'marionette',
             filter: {
                 id: 'example_filter_form',
                 filterToolbar: 'example_filter_toolbar',
-                collapsableLayerId: 'example_filter_fieldset'
+                collapsableLayerId: 'example_filter_fieldset',
+                rules: {
+                    'nombre': {
+                        required: true
+                    }
+                }
             },
-            seeker: { activate: true },
-            select: { activate: true },
+            seeker: {
+                activate: true
+            },
+            select: {
+                activate: true
+            },
             inlineEdit: {
                 deselect: true,
-                validate:{
+                validate: {
                     rules: {
-                        id: { required: true}
-                        , nombre: { required: true }
+                        id: {
+                            required: true
+                        },
+                        nombre: {
+                            required: true
+                        }
                     }
                 }
             }
