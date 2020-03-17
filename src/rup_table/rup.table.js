@@ -588,7 +588,7 @@
             //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
             data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
-            if (ctx.oInit.filter.$filterContainer[0] !== undefined) {
+            if (ctx.oInit.filter.$filterContainer) {
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
             }
             data.multiselection = undefined;
