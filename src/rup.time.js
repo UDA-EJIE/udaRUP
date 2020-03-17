@@ -307,7 +307,7 @@
 
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     $.fn.rup_time.defaults = {
-        adapter: 'time_bootstrap',
+        adapter: 'time_material',
         placeholderMask: false,
         stepHour: 1,
         stepMinute: 1,
