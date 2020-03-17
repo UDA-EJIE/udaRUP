@@ -25,7 +25,7 @@ $listColorDark: #204d71;
         }
     }
 
-    .list-item-selected {
+    .rup_list-item-selected {
         background-color: $primary-color;
         color: $rup-color-white;
 
@@ -69,7 +69,8 @@ $listColorDark: #204d71;
     nav {
         float: right;
 
-        a {
+        .page-link {
+            cursor: pointer;
             line-height: 3.5rem;
         }
     }
@@ -181,7 +182,7 @@ $listColorDark: #204d71;
                 border-radius: 0 4px 4px 0;
                 color: $rup-color-white;
                 font-size: 14px;
-                margin: 0 0 0 5px;
+                margin: 0 -2px 0 5px;
                 padding: 5px 1px;
             }
         }

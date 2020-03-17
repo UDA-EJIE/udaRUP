@@ -69,9 +69,7 @@ function getHtml(idLista, idForm) {
                             '<select id="' + idLista +'-header-sidx"/>' +
                         '</div>' +
                         '<div class="col-md-2">' +
-                            '<button id="' + idLista +'-header-sord">' +
-                                '<i class="mdi mdi-sort"/>' +
-                            '</button>' +
+                            '<button id="' + idLista +'-header-sord"></button>' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
@@ -265,5 +263,28 @@ export function createListMultiorder(idLista, idForm, callback){
     opts.sidx.value = 'EDAD,USUARIO';
     opts.sord = 'asc, desc';
 
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createListNoSelectable(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    delete opts.selectable;
+    $('#' + idLista).rup_list(opts);
+}
+
+export function createListSelectableSimple(idLista, idForm, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    opts.selectable = {
+        multi: false,
+        selector: '.list-item'
+    };
+    $('#' + idLista).rup_list(opts);
+}
+
+
+export function createListNoSelectableNum(idLista, idForm, num, callback){
+    let opts = commonListCreator(idLista, idForm, callback);
+    delete opts.selectable;
+    opts.visiblePages = num;
     $('#' + idLista).rup_list(opts);
 }

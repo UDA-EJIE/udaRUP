@@ -48,6 +48,7 @@
         if (typeof delimiter == 'undefined' || delimiter == null) delimiter = '.';
         rootNode = typeof rootNode == 'string' ? document.getElementById(rootNode) : rootNode;
 
+        if(rootNode){}
         var formValues = getFormValues(rootNode);
         var result = {};
         var arrays = {};
@@ -148,30 +149,33 @@
     function getFormValues(rootNode) {
         var result = [],
             name;
-        var currentNode = rootNode.firstChild;
 
-        while (currentNode) {
-            if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA|HIDDEN/i) || jQuery(currentNode).is('[ruptype=\'tree\']')) {
-                var fieldValue = getFieldValue(currentNode);
+        if(rootNode){
+            var currentNode = rootNode.firstChild;
 
-                if ((jQuery(currentNode).is('select') && currentNode.multiple) || jQuery(currentNode).is('[ruptype=\'tree\']')) {
-                    var nameParts = jQuery(currentNode).attr('name').split('.');
-                    name = nameParts.length > 1 ? nameParts.slice(0, nameParts.length - 1).join('.') : nameParts[0];
+            while (currentNode) {
+                if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA|HIDDEN/i) || jQuery(currentNode).is('[ruptype=\'tree\']')) {
+                    var fieldValue = getFieldValue(currentNode);
+
+                    if ((jQuery(currentNode).is('select') && currentNode.multiple) || jQuery(currentNode).is('[ruptype=\'tree\']')) {
+                        var nameParts = jQuery(currentNode).attr('name').split('.');
+                        name = nameParts.length > 1 ? nameParts.slice(0, nameParts.length - 1).join('.') : nameParts[0];
+                    } else {
+                        name = jQuery(currentNode).attr('name');
+                    }
+                    if (fieldValue !== null) {
+                        result.push({
+                            name: name,
+                            value: fieldValue
+                        });
+                    }
                 } else {
-                    name = jQuery(currentNode).attr('name');
+                    var subresult = getFormValues(currentNode);
+                    result = result.concat(subresult);
                 }
-                if (fieldValue !== null) {
-                    result.push({
-                        name: name,
-                        value: fieldValue
-                    });
-                }
-            } else {
-                var subresult = getFormValues(currentNode);
-                result = result.concat(subresult);
-            }
 
-            currentNode = currentNode.nextSibling;
+                currentNode = currentNode.nextSibling;
+            }
         }
 
         return result;

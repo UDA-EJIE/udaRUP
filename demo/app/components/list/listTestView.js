@@ -34,10 +34,11 @@ define(['jquery', 'marionette',
             action: '/demo/list/filter',
             filterForm: 'listFilterForm',
             feedback: 'rup-list-feedback',
+            // createFooter: false,
             visiblePages: 3,
             key: 'codigoPK',
             selectable: {
-                multi: false,
+                multi: true,
                 selector: '.list-item'
             },
             sidx: {
@@ -51,9 +52,9 @@ define(['jquery', 'marionette',
                     value: 'CODCLIENTE',
                     i18nCaption: 'Codigo cliente'
                 }],
-                value: 'EDAD,USUARIO'
+                value: 'EDAD'
             },
-            sord:'asc, desc',
+            sord: 'asc',
             rowNum: {
                 source: [{
                     value: '5',
@@ -90,6 +91,10 @@ define(['jquery', 'marionette',
                 userVal.text(userVal.text() + ' :D');
             },
             load: () => {},
+        });
+
+        $('#rup-list').on('initComplete', () => {
+            $('#rup-list').rup_list('filter');
         });
     }
 
