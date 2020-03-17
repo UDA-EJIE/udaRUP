@@ -19,7 +19,7 @@ function createTime() {
         showButtonPanel: true,
         ampm: false,
         onSelect: () => {
-            $('.rup-time-input-group').addClass('randomClass');
+            $('.rup-date-input-group-material').addClass('randomClass');
         }
     };
     $('#exampleTime').rup_time(props);
@@ -94,7 +94,7 @@ describe('TEST Time >', () => {
             });
             describe('Callback onSelect > ', () => {
                 it('Debe tener la clase especificada en el callback:', () => {
-                    expect($('.rup-time-input-group').hasClass('randomClass')).toBe(true);
+                    expect($('.rup-date-input-group-material').hasClass('randomClass')).toBe(true);
                 });
             });
         });
