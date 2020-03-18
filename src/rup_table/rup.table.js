@@ -891,7 +891,6 @@
             var obj;
 
             //añadir arbol
-
             var arboles = $('.jstree', settings.filter.$filterContainer);
             $.each(arboles, function (index, item) {
                 obj = {};
@@ -909,13 +908,10 @@
                 } else {
                     fieldValue = '';
                 }
-
-
             };
 
             for (var i = 0; i < aux.length; i++) {
                 if (aux[i].value !== '' && $.inArray(aux[i].name, settings.filter.excludeSummary) !== 0) {
-
                     //CAMPO a tratar
                     field = $('[name=\'' + aux[i].name + '\']', searchForm);
 
@@ -947,15 +943,11 @@
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
                     if (label.length > 0) {
-                        // <label for='xxx' />
                         fieldName = label.html();
                     } else {
-                        // <div />
-                        // <div />
                         if ($(field).attr('ruptype') !== 'combo') {
                             fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).prev('div').find('label').first().html();
                         } else {
-
                             // Buscamos el label asociado al combo
                             // Primero por id
                             var $auxField = $('[name=\'' + aux[i].name + '\']', searchForm),
@@ -1048,9 +1040,8 @@
             }
 
             settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
-
-
         },
+
         /**
          * Crea un evento para mantener la multiseleccion, el seeker y el select ya que accede a bbdd.
          *
@@ -1196,7 +1187,6 @@
                     options.select = undefined;
                 }
 
-
                 if (options.formEdit !== undefined) {
                     options.inlineEdit = undefined;
                 }
@@ -1247,8 +1237,6 @@
                             $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
                         }
                     });
-
-
                 }
 
                 if (args[0].responsive === undefined) { //si el usuario no cambia el selector
@@ -1262,6 +1250,7 @@
 
                     options.responsive = responsive;
                 }
+
                 // Se añaden los CSS para las flechas.
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     var titulo = $(this).text();
@@ -1274,7 +1263,6 @@
                     div1.append(span2);
                     div1.append(span3);
                     $(this).append(div1);
-
                 });
 
                 // Se completan las opciones de configuración del componente
@@ -1301,12 +1289,12 @@
 
                 options.sTableId = $self[0].id;
                 $self._initializeMultiselectionProps(tabla.context[0]);
-
+                
                 //Crear tooltips cabecera;
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     $self._createTooltip($(this));
                 });
-
+                
                 tabla.on('draw', function (e, settingsTable) {
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
