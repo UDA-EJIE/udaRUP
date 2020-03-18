@@ -2164,6 +2164,10 @@
             }
             break;
         case 'delete':
+        	let customEliminar = ctx.oInit.validarEliminar;
+        	if($.isFunction(customEliminar) && customEliminar(ctx)){
+        		return false;
+        	}
             // borramos todos los seleccionados.
             if (ctx.oInit.formEdit !== undefined) {
                 DataTable.Api().editForm.deleteAllSelects(dt);

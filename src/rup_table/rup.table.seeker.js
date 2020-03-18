@@ -182,6 +182,10 @@
                 $('input', $('#' + idTabla + ' tfoot')[0].rows[0].cells[colIdx]).on('keypress', function (ev) {
                     this.focus();
                     if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
+                    	let customBuscar = ctx.oInit.validarBuscar;
+                    	if($.isFunction(customBuscar) && customBuscar(ctx)){
+                    		return false;
+                    	}
                         ctx.seeker.ajaxOption.data = _getDatos(ctx);
                         var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
                         //Se pasa sin el internalFeedback ya que no es necesario.
@@ -297,6 +301,10 @@
         // Evento de búsqueda asociado al botón
         $navSearchButton.on('click', function () {
             $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+        	let customBuscar = ctx.oInit.validarBuscar;
+        	if($.isFunction(customBuscar) && customBuscar(ctx)){
+        		return false;
+        	}
             ctx.seeker.ajaxOption.data = _getDatos(ctx);
             var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
             //Se pasa sin el internalFeedback ya que no es necesario.
