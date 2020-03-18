@@ -195,13 +195,15 @@
             $('nav .dropdown>a').on('click tap', function () {
                 $('nav .dropdown>a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
+              //Al pinchar deben estar todos ocultos de primeras.
+                $('.navbar-toggleable-md div.dropdown-submenu.open').removeClass('open');
             });
 
             $('.dropdown-toggle', $self).dropdown($('.dropdown-toggle', $self));
 
             // Funcionamiento de apertura de sub-desplegables en el menú
             $('nav .dropdown-submenu a').on('click tap', function () {
-                $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
+              ///  $('nav .dropdown-submenu a').not($(this)).parent().removeClass('rup-open');
                 $(this).parent().toggleClass('rup-open');
 
                 var menuScrollPos = 0;
