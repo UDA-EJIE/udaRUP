@@ -747,10 +747,10 @@ function testDatatable() {
                     });
 
                     it('El feedback debe mostrarse:', () => {
-                        expect($('#example_detail_feedback_ok').height()).toBeGreaterThan(0);
+                        expect($('#rup_feedback_example').is(':visible')).toBeTruthy();
                     });
                     it('Debe contener el mensaje esperado:', () => {
-                        expect($('#example_detail_feedback_ok').text()).toBe('KABOOM!');
+                        expect($('#rup_feedback_example').text()).toBe('KABOOM!');
                     });
                 });
 
@@ -773,8 +773,8 @@ function testDatatable() {
             describe('Ordenación > ', () => {
                 describe('Ordenación por nombre ascendente > ', () => {
                     beforeEach((done) => {
-                        $('#example').on('draw.dt', done);
-                        $('th.sorting[data-col-prop="nombre"]').click();
+                        $('#example').on('draw.dt', ()=> {setTimeout(done, 300);});
+                        $('th[data-col-prop="nombre"]').click();
                     });
 
                     afterEach((done) => {
@@ -797,8 +797,12 @@ function testDatatable() {
 
                 describe('Ordenación por nombre descendente:', () => {
                     beforeEach((done) => {
-                        $('#example').on('draw.dt', done);
-                        $('th.sorting_asc[data-col-prop="nombre"]').click();
+                        $('#example').on('draw.dt', ()=> {
+                            $('#example').off('draw.dt');
+                            $('#example').on('draw.dt', ()=> {setTimeout(done, 300);});
+                            $('th[data-col-prop="nombre"]').click();
+                        });
+                        $('th[data-col-prop="nombre"]').click();
                     });
 
                     afterEach((done) => {

@@ -107,10 +107,6 @@ DataTable.inlineEdit.init = function ( dt ) {
 		dt.responsive.recalc();
 	} ) );
 	
-	//Crear feedback;
-	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
-	$('#'+ctx.sTableId+'_containerToolbar').before($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
-	
 	//se cambia el nombre de los validadores.
 	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
 		var rulesAux = ctx.oInit.inlineEdit.validate.rules;
@@ -725,9 +721,8 @@ function _restaurarFila(ctx,limpiar){
 		
 		DataTable.Api().seeker.disabledButtons(ctx);
 		
-		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
-			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
-		}
+		ctx.oInit.feedback.$feedbackContainer.rup_feedback('hide');
+		
             if ($fila !== undefined && $fila.hasClass('new')) { // se elimna el tr, porque no se guardo
 			$fila.next('.child').remove();
 			$fila.remove();
@@ -1199,7 +1194,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	
 	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
 	// add Filter
-	var feed = $('#'+ctx.inlineEdit.nameFeedback);
+	var feed = ctx.oInit.feedback.$feedbackContainer;
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
@@ -1296,10 +1291,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,
-            feedback: feed.rup_feedback({
-                type: 'ok',
-                block: false
-            })
+        feedback: feed
 	};
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');

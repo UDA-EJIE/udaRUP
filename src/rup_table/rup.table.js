@@ -1179,7 +1179,7 @@
                     args[0].buttons.contextMenu = true;
                 }
 
-                var options = $.extend({}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
+                var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 
                 $self.triggerHandler('tableBeforeInit');
 

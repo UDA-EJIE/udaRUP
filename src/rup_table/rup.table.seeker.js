@@ -94,13 +94,8 @@
                 _processData(dt, ctx, data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                if($('#rup_feedback_'+ctx.sTableId).children().length > 1){
-                    $('#rup_feedback_'+ctx.sTableId).rup_feedback('destroy');
-                }
-                $('#rup_feedback_'+ctx.sTableId).rup_feedback({
-                    message: thrownError + ': ' + xhr.responseText
-                    , type : 'error'
-                });
+                ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', thrownError + ': ' + xhr.responseText, 'error');
+                ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
                 $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchError');
 
             },
