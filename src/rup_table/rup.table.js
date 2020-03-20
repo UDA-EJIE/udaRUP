@@ -818,6 +818,10 @@
                 
                 filterOpts.$filterButton = filterOpts.$filterContainer.find('#' + tableId + '_filter_filterButton');
                 filterOpts.$filterButton.on('click', function () {
+                	let customFiltrar = options.validarFiltrar;
+                	if($.isFunction(customFiltrar) && customFiltrar(options)){
+                		return false;
+                	}
                     $self._doFilter(options);
                 });
                 filterOpts.$clearButton = filterOpts.$filterContainer.find('#' + tableId + '_filter_cleanButton');
@@ -851,6 +855,10 @@
                 // Se asigna a la tecla ENTER la funcion de busqueda.
                 filterOpts.$filterContainer.bind('keydown', function (evt) {
                     if (evt.keyCode === 13) {
+                    	let customFiltrar = options.validarFiltrar;
+                    	if($.isFunction(customFiltrar) && customFiltrar(options)){
+                    		return false;
+                    	}
                         $self._doFilter(options);
                     }
                 });

@@ -477,6 +477,19 @@
 
         button.unbind('click');
         button.bind('click', function () {
+        	//Funcion de validacion
+        	if (actionType === 'PUT') {
+	        	let customModificar = ctx.oInit.validarModificar;
+	        	if($.isFunction(customModificar) && customModificar(ctx)){
+	        		return false;
+	        	}
+        	}else if (actionType === 'POST') {
+        	
+	        	let customAlta = ctx.oInit.validarAlta;
+	        	if($.isFunction(customAlta) && customAlta(ctx)){
+	        		return false;
+	        	}
+        	}
             // Comprobar si row ha sido modificada
             // Se serializa el formulario con los cambios
             row = _editFormSerialize(idForm);
@@ -511,6 +524,20 @@
         ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = actionType;
         buttonContinue.unbind('click');
         buttonContinue.bind('click', function () {
+        	//Funcion de validacion
+        	if (actionType === 'PUT') {
+	        	let customModificar = ctx.oInit.validarModificarContinuar;
+	        	if($.isFunction(customModificar) && customModificar(ctx)){
+	        		return false;
+	        	}
+        	}else if (actionType === 'POST') {
+        	
+	        	let customAlta = ctx.oInit.validarAltaContinuar;
+	        	if($.isFunction(customAlta) && customAlta(ctx)){
+	        		return false;
+	        	}
+        	}
+        	
             var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
             // Comprobar si row ha sido modificada
             // Se serializa el formulario con los cambios

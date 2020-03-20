@@ -1171,6 +1171,20 @@ function _guardar(ctx,$fila,child){
 	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
             actionType = 'POST';
 	}
+	
+	if (actionType === 'PUT') {
+    	let customModificar = ctx.oInit.validarModificar;
+    	if($.isFunction(customModificar) && customModificar(ctx)){
+    		return false;
+    	}
+	}else if (actionType === 'POST') {
+	
+    	let customAlta = ctx.oInit.validarAlta;
+    	if($.isFunction(customAlta) && customAlta(ctx)){
+    		return false;
+    	}
+	}
+	
 	_callSaveAjax(actionType,ctx,$fila,row,'');
 	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
     }
