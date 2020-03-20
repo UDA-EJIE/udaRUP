@@ -594,7 +594,6 @@
             data.multiselection = undefined;
             if (ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0) {
                 data.multiselection = $.rup_utils.deepCopy(ctx.multiselection, 4);
-                data.multiselection.internalFeedback[0] = {};
             }
             if (ctx.seeker !== undefined && ctx.seeker.search !== undefined &&
                 ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
@@ -741,6 +740,31 @@
             $.rup_utils.populateForm([], options.filter.$filterContainer);
 
         },
+        
+        /**
+         * Metodo que realiza la configuración del plugin filter del componente RUP DataTable.
+         *
+         * @name preConfigureFilter
+         * @function
+         *
+         * @param {object} options - Parámetros de configuración del componente.
+         *
+         */
+        _initFeedback(options) {
+            var $self = this,
+                tableId = $self[0].id,
+                feedbackOpts = options.feedback;
+                
+            if (feedbackOpts && feedbackOpts.id && $('#' + feedbackOpts.id).length > 0) {
+                feedbackOpts.$feedbackContainer = $('#' + feedbackOpts.id);
+                feedbackOpts.$feedbackContainer.rup_feedback(feedbackOpts);
+            } else {
+                feedbackOpts.id = 'rup_feedback_' + tableId;
+                feedbackOpts.$feedbackContainer = $('<div/>').attr('id', feedbackOpts.id).insertBefore('#' + tableId);
+                feedbackOpts.$feedbackContainer.rup_feedback(options.feedback);
+            }
+        },
+
         /**
          * Metodo que realiza la configuración del plugin filter del componente RUP DataTable.
          *
@@ -1093,9 +1117,6 @@
             if (multi.multiselection === undefined) {
                 multi.multiselection = {};
             }
-            if (ctx.multiselection !== undefined) {
-                multi.multiselection.internalFeedback = ctx.multiselection.internalFeedback;
-            }
             // Flag indicador de selección de todos los registros
             multi.multiselection.selectedAll = false;
             // Numero de registros seleccionados
@@ -1267,6 +1288,9 @@
 
                 // Se completan las opciones de configuración del componente
                 $self._initOptions(options);
+
+                // Se inicializa el feedback del componente
+                $self._initFeedback(options);
 
                 // Se inicializa el filtro de la tabla
                 if (args[0].filter !== 'noFilter') {
@@ -1472,10 +1496,9 @@
             footer: true
         },
         feedback: {
-            okFeedbackConfig: {
-                closeLink: true,
-                delay: 2000
-            }
+            closeLink: true,
+            delay: 2000,
+            block: false
         },
         responsive: {
             details: {

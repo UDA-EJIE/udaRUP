@@ -184,10 +184,6 @@
                     if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
                         ctx.seeker.ajaxOption.data = _getDatos(ctx);
                         var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
-                        //Se pasa sin el internalFeedback ya que no es necesario.
-                        if (ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined) {
-                            ajaxOptions.data.multiselection.internalFeedback = [];
-                        }
                         $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
                         if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
                             $('#' + idTabla + '_search_searchForm').rup_form();
@@ -296,13 +292,8 @@
 
         // Evento de búsqueda asociado al botón
         $navSearchButton.on('click', function () {
-            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
             ctx.seeker.ajaxOption.data = _getDatos(ctx);
             var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
-            //Se pasa sin el internalFeedback ya que no es necesario.
-            if (ajaxOptions.data.multiselection !== undefined && ajaxOptions.data.multiselection.internalFeedback !== undefined) {
-                ajaxOptions.data.multiselection.internalFeedback = [];
-            }
             $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
             if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
                 $('#' + idTabla + '_search_searchForm').rup_form();
@@ -314,7 +305,6 @@
                 };
                 $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
             }
-            // $('#'+ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
         });
 
         // Evento asociado a limpiar el fomulario de búsqueda
