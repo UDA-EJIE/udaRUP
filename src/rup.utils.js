@@ -39,9 +39,7 @@
 	$.rup_utils.arr = [];
 	$.rup_utils.autoGenerateIdNum = 0;
 	$.rup_utils.swinging = false;
-
-
-
+	
 	$.extend($.rup_utils, {
 		/**
 		 * Retorna el idioma actual capitalizado.
@@ -88,6 +86,7 @@
 				aux[split[split.length - 1]] = value;
 			}
 		},
+		
 		/**
 		 * Transforma un objeto JSON en un array Javascript.
 		 *
@@ -148,6 +147,7 @@
 			return arr;
 
 		},
+		
 		/**
 		 * Realiza una desanidacion del json pasado (p.e.: {entidad:{propiedad:valor}}  --> {'entidad.propiedad':valor}.
 		 *
@@ -174,6 +174,7 @@
 			return json;
 
 		},
+		
 		/**
 		 * Devuelve el objeto del dom existente en la posición indicada.
 		 *
@@ -211,6 +212,7 @@
 
 			return document.elementFromPoint(x, y);
 		},
+		
 		/**
 		 * Convierte en mínusculas el primer caracter de la cadena de caracteres pasada como parámetro.
 		 *
@@ -225,6 +227,7 @@
 		firstCharToLowerCase: function (cadena) {
 			return cadena.substring(0, 1).toLowerCase() + cadena.substring(1);
 		},
+		
 		/**
 		 * Devuelve un string que puede ser utilizado como selector de jQuery mediante el id ('#'). El método permite también escapar los caracteres reservados en los selectores de jQuery
 		 *
@@ -249,6 +252,7 @@
 
 			return null;
 		},
+		
 		/**
 		 * Convierte una cadena querystring en un objeto json.
 		 *
@@ -321,6 +325,7 @@
 			}
 			return data;
 		},
+		
 		/**
 		 * Devuelve un string Con los caracteres sencillos
 		 *
@@ -364,9 +369,9 @@
 
             function populateRadioCheckbox() {
                 if ($(this).val() == aData[i]) {
-                    $(this).attr('checked', 'checked');
+                    $(this).prop('checked', true);
                 } else {
-                    $(this).removeAttr('checked');
+                	$(this).prop('checked', false);
                 }
             }
 
@@ -416,6 +421,7 @@
 		createTime: function (hour, minute, second) {
 			return new Date(null, null, null, hour, minute, second);
 		},
+		
 		/*!
 		 * jQuery CooQuery Plugin v2
 		 * http://cooquery.lenonmarcel.com.br/
