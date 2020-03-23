@@ -106,7 +106,7 @@
             if (multi.selectedIds.length === 0) {
                 _deselectMaster(dt, ctx, $hiddenPKMaster);
             } else {
-                $('#' + $hiddenPKMaster).val('' + multi.selectedIds[0]);
+                $hiddenPKMaster.val('' + multi.selectedIds[0]);
                 $('#' + ctx.sTableId + '_filter_filterButton').click();
             }
 
@@ -150,7 +150,7 @@
 	 */
     function _getMasterTablePkObject(ctx) {
 
-        var masterPkValue = $(ctx.oInit.masterDetail.master + '_selector_' + ctx.sTableId).val();
+        var masterPkValue = $('#' + ctx.sTableId+'_filter_masterPK').val();
         var masterPkName = ctx.oInit.masterDetail.masterPrimaryKey;
 
         function nestJSON(key, value) {
@@ -165,9 +165,9 @@
             }
         }
         //Inicio compatibilidad con masterPrimaryKey compuestas
-        if ($.isArray(masterPkName) && masterPkName.length > 0 && (masterPkValue.length === 1)) {
+        if ($.isArray(masterPkName) && masterPkName.length > 0 && (masterPkValue !== undefined)) {
             var multiplePkToken = ctx.oInit.masterDetail.multiplePkToken;
-            var splitedMasterPkValue = masterPkValue[0].split(multiplePkToken);
+            var splitedMasterPkValue = masterPkValue.split(multiplePkToken);
             var retPkObj = {};
             if (splitedMasterPkValue.length === masterPkName.length) {
                 $.each(masterPkName, function (index, value) {
@@ -177,9 +177,9 @@
             return retPkObj;
             //Fin compatibilidad con masterPrimaryKey compuestas
         } else {
-            if (masterPkValue.length === 1) {
-                return nestJSON(masterPkName, masterPkValue[0]);
-            } else if (masterPkValue.length === 0) {
+            if (masterPkValue !== undefined) {
+                return nestJSON(masterPkName, masterPkValue);
+            } else if (masterPkValue === undefined) {
                 return null;
             }
         }

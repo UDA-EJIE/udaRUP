@@ -131,8 +131,8 @@
             		 var cellColModel = this;
             	        if (cellColModel.editable === true) {
             	            var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-            	            var colModelName = cellColModel.index;
-            	            var $elem = $('#' + colModelName); // Se añade el title de los elementos de acuerdo al colname
+            	            var colModelName = cellColModel.name;
+            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name='+colModelName+']'); // Se añade el title de los elementos de acuerdo al colname
             	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
 
             	            $elem.attr({'title': colModelName}).removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
@@ -654,7 +654,8 @@
                                 return;
                             }
                         });
-                        if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data.search.value &&
+                        if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data !== undefined &&
+                        		ctx.seeker.ajaxOption.data.search !== undefined &&
                             ctx.seeker.search.funcionParams.length > 0) {
                             _comprobarSeeker(row, ctx, idRow);
                         }
