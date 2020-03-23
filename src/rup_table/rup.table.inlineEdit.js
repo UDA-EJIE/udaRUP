@@ -107,10 +107,6 @@ DataTable.inlineEdit.init = function ( dt ) {
 		dt.responsive.recalc();
 	} ) );
 	
-	//Crear feedback;
-	ctx.inlineEdit.nameFeedback = ctx.sTableId+'_inlineEditFeedback';
-	$('#'+ctx.sTableId+'_containerToolbar').before($('<div />').attr('id',ctx.inlineEdit.nameFeedback));
-	
 	//se cambia el nombre de los validadores.
 	if(ctx.oInit.inlineEdit.validate !== undefined && ctx.oInit.inlineEdit.validate.rules !== undefined){
 		var rulesAux = ctx.oInit.inlineEdit.validate.rules;
@@ -725,9 +721,8 @@ function _restaurarFila(ctx,limpiar){
 		
 		DataTable.Api().seeker.disabledButtons(ctx);
 		
-		if($('#'+ctx.inlineEdit.nameFeedback).find('#'+ctx.inlineEdit.nameFeedback+'_content').length){
-			$('#'+ctx.inlineEdit.nameFeedback).rup_feedback('close');
-		}
+		ctx.oInit.feedback.$feedbackContainer.rup_feedback('hide');
+		
             if ($fila !== undefined && $fila.hasClass('new')) { // se elimna el tr, porque no se guardo
 			$fila.next('.child').remove();
 			$fila.remove();
@@ -1169,17 +1164,27 @@ function _guardar(ctx,$fila,child){
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
 	if(!row) {
-    	let divErrorFeedback = $('#' + ctx.sTableId + 'feedback_error');
-		if(divErrorFeedback.length === 0){
-			divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_error').insertBefore('#'+ctx.sTableId);
-		}
-    	_callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
+    	_callFeedbackOk(ctx, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
 		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
     } else {
         var actionType = 'PUT';
 	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
             actionType = 'POST';
 	}
+	
+	if (actionType === 'PUT') {
+    	let customModificar = ctx.oInit.validarModificar;
+    	if($.isFunction(customModificar) && customModificar(ctx)){
+    		return false;
+    	}
+	}else if (actionType === 'POST') {
+	
+    	let customAlta = ctx.oInit.validarAlta;
+    	if($.isFunction(customAlta) && customAlta(ctx)){
+    		return false;
+    	}
+	}
+	
 	_callSaveAjax(actionType,ctx,$fila,row,'');
 	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
     }
@@ -1203,7 +1208,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	
 	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
 	// add Filter
-	var feed = $('#'+ctx.inlineEdit.nameFeedback);
+	var feed = ctx.oInit.feedback.$feedbackContainer;
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
 	if(url === '/deleteAll' || actionType === 'DELETE'){
 		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
@@ -1240,7 +1245,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			var dt = $('#'+ctx.sTableId).DataTable();
 			if(url !== '/deleteAll' && actionType !== 'DELETE'){
 
-				_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
+				_callFeedbackOk(ctx, msgFeedBack, 'ok');//Se informa feedback de la tabla
 				
 				if(actionType === 'PUT'){//Modificar
 					dt.row($fila.index()).data(row);// se actualiza al editar
@@ -1266,17 +1271,17 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 					ctx.multiselection.numSelected = 1;
 				}
 				ctx.inlineEdit.row = row;
-			}else{// Eliminar
-				ctx.multiselection.internalFeedback.type = 'eliminar';
-				ctx.multiselection.internalFeedback.msgFeedBack = msgFeedBack;
-				if(ctx.oInit.multiSelect !== undefined){
-					DataTable.Api().multiSelect.deselectAll(dt);
-				}else if(ctx.oInit.select !== undefined){
-					DataTable.Api().select.deselect(ctx);
-					_callFeedbackOk(ctx,ctx.multiselection.internalFeedback,msgFeedBack,'ok');//Se informa feedback de la tabla
-				}
-				$('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
-		
+			} else { // Eliminar
+			    ctx.oInit.feedback.type = 'eliminar';
+			    ctx.oInit.feedback.msgFeedBack = msgFeedBack;
+			    if (ctx.oInit.multiSelect !== undefined) {
+			        DataTable.Api().multiSelect.deselectAll(dt);
+			    } else if (ctx.oInit.select !== undefined) {
+			        DataTable.Api().select.deselect(ctx);
+			        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
+			    }
+			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
+
 			}
 			ctx.inlineEdit.lastRow = undefined;
 			ctx._buttons[0].inst.s.disableAllButttons = undefined;
@@ -1295,19 +1300,12 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		complete : function() {
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax');
 		},
-		error : function(xhr, ajaxOptions,thrownError) {
-			var divErrorFeedback = $('#'+ctx.inlineEdit.nameFeedback);
-			if(divErrorFeedback.length === 0){
-				divErrorFeedback = $('<div/>').attr('id', ctx.sTableId+'feedback_ok').insertBefore('#'+ctx.sTableId);
-			}
-			_callFeedbackOk(ctx,divErrorFeedback,xhr.responseText,'error');
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
+		error: function (xhr, ajaxOptions, thrownError) {
+		    _callFeedbackOk(ctx, xhr.responseText, 'error');
+		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,
-            feedback: feed.rup_feedback({
-                type: 'ok',
-                block: false
-            })
+        feedback: feed
 	};
 	
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
@@ -1327,38 +1325,22 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 
 
 /**
-* Llamada para crear el feedback dentro del dialog.
-*
-* @name callFeedbackOk
-* @function
-* @since UDA 3.7.0 // Table 1.0.0
-*
-* @param {object} ctx - Settings object to operate on.
-* @param {object} feedback - Div donde se va ejecutar el feedback.
-* @param {string} msgFeedBack - Mensaje para el feedback.
-* @param {string} type - Tipos del feedback, mirar en el rup.feedback..
-*
-*/
-function _callFeedbackOk(ctx,feedback,msgFeedBack,type){
-	$('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
-	var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-        feedback.rup_feedback({
-            message: msgFeedBack,
-            type: type,
-            block: false,
-            gotoTop: false
-        });
-	feedback.rup_feedback('set',msgFeedBack);
-	//Aseguramos que el estilo es correcto.
-	if(type === 'ok'){
-		setTimeout(function(){
-            if(feedback.find('div').length > 0){//asegurar que esta inicializado
-                feedback.rup_feedback('destroy');
-                feedback.css('width','100%');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormInternalFeedbackClose');
-            }
-        }, confDelay);
-	}
+ * Llamada para crear el feedback dentro del dialog.
+ *
+ * @name callFeedbackOk
+ * @function
+ * @since UDA 3.7.0 // Table 1.0.0
+ *
+ * @param {object} ctx - Settings object to operate on.
+ * @param {object} feedback - Div donde se va ejecutar el feedback.
+ * @param {string} msgFeedBack - Mensaje para el feedback.
+ * @param {string} type - Tipos del feedback, mirar en el rup.feedback..
+ *
+ */
+function _callFeedbackOk(ctx, msgFeedBack, type) {
+    $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
+    ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
+    ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
 }
 
 /**

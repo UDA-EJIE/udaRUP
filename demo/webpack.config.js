@@ -11,7 +11,7 @@ createBackendServer(8081);
 
 module.exports = {
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     entry: {
         main: path.resolve(__dirname, 'app/main.js')
     },

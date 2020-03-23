@@ -5,11 +5,13 @@ define(['marionette',
     './tableBody',
     './tableTestView',
     '../../../shared/component/componentExampleCodeView',
-    'rup_table/rup.table'], function(Marionette, TableLayoutTemplate, TableTemplate, TableJsTemplate, TableBody, TableTestView, ComponentExampleCodeView){
+    'rup_table/rup.table',
+    'rup.validate'
+], function (Marionette, TableLayoutTemplate, TableTemplate, TableJsTemplate, TableBody, TableTestView, ComponentExampleCodeView) {
 
     var TableView = Marionette.LayoutView.extend({
         template: TableLayoutTemplate,
-        regions:{
+        regions: {
             Main: '#tableMainBody',
             Example: '#tableCode',
             Test: '#tableTest'
