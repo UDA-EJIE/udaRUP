@@ -537,24 +537,25 @@
                 $(this).addClass('form-groupMaterial');
 
                 var cellColModel = colModel[i];
-                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined) ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-
-                var colModelName = cellColModel.name;
-                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
-                // Se añade el title de los elementos de acuerdo al colname
-                $elem.attr({
-                    'title': $('#' + cellColModel.name + '_seeker').attr('placeholder'),
-                    'class': 'editable customelement form-control-customer'
-                }).removeAttr('readOnly');
-
-                // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-                if (searchRupType !== undefined) {
-                    searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-
-                    // Invocación al componente RUP
-                    $elem['rup_' + searchRupType](searchEditOptions);
-                }
-
+                if(cellColModel !== undefined){
+	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined) ? cellColModel.searchoptions.rupType : cellColModel.rupType;
+	
+	                var colModelName = cellColModel.name;
+	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
+	                // Se añade el title de los elementos de acuerdo al colname
+	                $elem.attr({
+	                    'title': $('#' + cellColModel.name + '_seeker').attr('placeholder'),
+	                    'class': 'editable customelement form-control-customer'
+	                }).removeAttr('readOnly');
+	
+	                // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+	                if (searchRupType !== undefined) {
+	                    searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+	
+	                    // Invocación al componente RUP
+	                    $elem['rup_' + searchRupType](searchEditOptions);
+	                }
+            	}
             });
         }
 

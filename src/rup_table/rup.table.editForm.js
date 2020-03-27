@@ -495,10 +495,13 @@
             row = _editFormSerialize(idForm);
 
             // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, _editFormSerialize(idForm));
+            row = _returnCheckEmpty(idForm, row);
             
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
+            
+            //listas checkbox
+            row = _addListType(idForm,row);
             
         	let idTableDetail = ctx.oInit.formEdit.detailForm;
             
@@ -544,10 +547,13 @@
             row = _editFormSerialize(idForm);
 
             // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, _editFormSerialize(idForm));
+            row = _returnCheckEmpty(idForm, row);
 
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
+            
+            //listas checkbox
+            row = _addListType(idForm,row);
             
             let idTableDetail = ctx.oInit.formEdit.detailForm;
             
@@ -790,14 +796,58 @@
      * @since UDA 3.4.0 // Table 1.0.0
      *
      * @param {object} idForm - Identificador del formulario.
+     * @param {string} row - Values ya añadidos al formulario.
+     *
+     */
+    function _addListType(idForm,row) {
+    	$.each(idForm.find('[data-lista]'), function (index) {
+    		let name = this.dataset.lista;
+    		let prop = '';
+    		let propSplit = this.name.split(".");
+    		if(propSplit !== undefined && propSplit.length === 2){
+    			prop = propSplit[1];
+    		}
+    		
+    		if(row[name] === undefined || !$.isArray(row[name])){//si no existe se crea o // si no es de tipo array
+    			row[name] = [];
+    		}
+    		let array = {};
+    		if(prop !== undefined){
+    			
+    			let clave = this.dataset.clave;
+	    		if(clave !== undefined){//si tiene clave es porque es objeto
+	    			var label =$('label[for="' + $(this).attr('id') + '"]').text();
+	    			array[clave] = label;
+	    			array[prop] = $(this).is(':checked');
+	    		}else{//si no tiene clave es porque es string
+	    			array = $(this).is(':checked');
+	    		}
+	    		row[name].push(array);
+    		}
+    	});
+    	return row;
+    }
+    
+    /**
+     * Se verifican los check vacios dentro de un formulario.
+     *
+     * @name returnCheckEmpty
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     *
+     * @param {object} idForm - Identificador del formulario.
      * @param {string} values - Values ya añadidos al formulario.
      *
      */
     function _returnCheckEmpty(idForm, values) {
-        var maps = jQuery(idForm.selector + ' input[type=checkbox]:not(:checked)').map(
+        var maps = jQuery('#'+idForm.attr('id') + ' input[type=checkbox]:not(:checked)').map(
             function () {
-                return '&' + this.name + '=0';
+            	let texto = '';
+            	if($(this).data('lista') === undefined){
+            		return texto = '&' + this.name + '=0';
+            	}
             }).get().toString();
+        maps = maps.replace(/\&,/g, '&');
         return values + maps;
     }
 
@@ -1362,18 +1412,24 @@
      *
      */
     function _editFormSerialize(idForm) {
-        var serializedForm = '';
-        var idFormArray = idForm.formToArray();
-        var length = idFormArray.length;
+        let serializedForm = '';
+        let idFormArray = idForm.formToArray();
+        let length = idFormArray.length;
+        let ultimo = '';
 
         $.each(idFormArray, function (key, obj) {
-            serializedForm += (obj.name + '=' + obj.value);
-
-            if (key < length - 1) {
+        	if(obj.type !== 'hidden'){
+        		let valor = '';
+        		if(ultimo === obj.name){//Se mete como lista
+        			valor = '%5B0%5D';
+        		}
+	            serializedForm += (obj.name + valor+'=' + obj.value);
                 serializedForm += '&';
-            }
+                ultimo = obj.name;
+        	}
         });
-
+        //aseguramos que el ultimo caracter no es el &.
+        serializedForm = serializedForm.substring(0,serializedForm.length - 1);
         return serializedForm;
     }
 
