@@ -800,7 +800,8 @@
      *
      */
     function _addListType(idForm,row) {
-    	$.each(idForm.find('[data-lista]'), function (index) {
+    	//Listas de checkbox
+    	$.each(idForm.find('[data-lista]'), function () {
     		let name = this.dataset.lista;
     		let prop = '';
     		let propSplit = this.name.split(".");
@@ -823,6 +824,13 @@
 	    			array = $(this).is(':checked');
 	    		}
 	    		row[name].push(array);
+    		}
+    	});
+    	
+    	//Se buscan los array para que sean listas.combos con multiselect
+    	$.each(row, function (name) {
+    		if(this !== undefined && this.toString() === '[object Object]'){
+    			row[name] = Object.values(this);
     		}
     	});
     	return row;
@@ -1416,12 +1424,18 @@
         let idFormArray = idForm.formToArray();
         let length = idFormArray.length;
         let ultimo = '';
+        let count = 1;
 
         $.each(idFormArray, function (key, obj) {
         	if(obj.type !== 'hidden'){
         		let valor = '';
         		if(ultimo === obj.name){//Se mete como lista
-        			valor = '%5B0%5D';
+        			//se hace replace del primer valor
+        			serializedForm = serializedForm.replace(ultimo+'=',ultimo+'[0]=');
+        			valor = '['+count+']'; //y se mete el array
+        			count++;
+        		}else{
+        			count = 1;
         		}
 	            serializedForm += (obj.name + valor+'=' + obj.value);
                 serializedForm += '&';
