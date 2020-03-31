@@ -2906,7 +2906,7 @@
         
         // Solo se enviara el filtro si contiene algun valor. 
         // Esto facilita la labor de exportacion al servidor ya que no tiene que iterar el filtro para comprobar si todos los campos son nulos.
-        if (!jQuery.isEmptyObject(window.form2object(ctx.oInit.filter.$filterContainer[0]))) {
+        if (ctx.oInit.filter.$filterContainer != undefined && !jQuery.isEmptyObject(window.form2object(ctx.oInit.filter.$filterContainer[0]))) {
         	data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
         }
         
