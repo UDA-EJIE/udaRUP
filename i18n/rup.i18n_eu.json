@@ -1080,19 +1080,19 @@
       "selectAll": "Hautatu guztiak",
       "selectAllPage": "Hautatu ikusgaiak"
     },
-    "paginacion": "eu_Paginación",
-    "paginaAnterior": "eu_Página anterior",
-    "paginaSiguiente": "eu_Página siguiente",
-    "paginaLabel": "eu_Página {0} de {1}",
+    "paginacion": "Zenbakitzea",
+    "paginaAnterior": "Aurreko zenbakitzea",
+    "paginaSiguiente": "Hurrengo zenbakitzea",
+    "paginaLabel": "Orrialdea {0}tik {1}",
     "sort": {
-      "asc": "eu_Orden ascendente",
-      "desc": "eu_Orden descendente"
+      "asc": "Gorazko ordena",
+      "desc": "Beheranzko ordena"
     },
-    "openMordDialog": "eu_Abre el diálogo de opciones de ordenación del listado",
-    "mordSubir": "eu_Adelantar el campo",
-    "mordBajar": "eu_Atrasar el campo",
-    "quitarCampoOrden": "eu_Dejar de ordenar por este campo",
-    "ariaSummary": "eu_Las opciones de ordenación actuales son: ",
-    "ariaSummaryEmpty": "eu_No se han seleccionado opciones de ordenación"
+    "openMordDialog": "Zerrendaren ordenazio aukeren elkarrizketa ireki",
+    "mordSubir": "Eremua aurreratu",
+    "mordBajar": "Eremua atzeratu",
+    "quitarCampoOrden": "Eremu honen arabera bilatzeari utzi",
+    "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
+    "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu"
   }
 }

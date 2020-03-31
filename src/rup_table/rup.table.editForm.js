@@ -131,11 +131,11 @@
             		 var cellColModel = this;
             	        if (cellColModel.editable === true) {
             	            var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-            	            var colModelName = cellColModel.index;
-            	            var $elem = $('#' + colModelName); // Se añade el title de los elementos de acuerdo al colname
+            	            var colModelName = cellColModel.name;
+            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name='+colModelName+']'); // Se añade el title de los elementos de acuerdo al colname
             	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
 
-            	            $elem.attr({'title': colModelName}).removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+            	            $elem.removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 
             	            if (searchRupType !== undefined) {
             	              var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions; // Invocación al componente RUP
@@ -495,10 +495,13 @@
             row = _editFormSerialize(idForm);
 
             // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, _editFormSerialize(idForm));
+            row = _returnCheckEmpty(idForm, row);
             
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
+            
+            //listas checkbox
+            row = _addListType(idForm,row);
             
         	let idTableDetail = ctx.oInit.formEdit.detailForm;
             
@@ -544,10 +547,13 @@
             row = _editFormSerialize(idForm);
 
             // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, _editFormSerialize(idForm));
+            row = _returnCheckEmpty(idForm, row);
 
             // Se transforma
             row = $.rup_utils.queryStringToJson(row);
+            
+            //listas checkbox
+            row = _addListType(idForm,row);
             
             let idTableDetail = ctx.oInit.formEdit.detailForm;
             
@@ -654,7 +660,8 @@
                                 return;
                             }
                         });
-                        if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data.search.value &&
+                        if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data !== undefined &&
+                        		ctx.seeker.ajaxOption.data.search !== undefined && ctx.seeker.search.funcionParams !== undefined &&
                             ctx.seeker.search.funcionParams.length > 0) {
                             _comprobarSeeker(row, ctx, idRow);
                         }
@@ -789,14 +796,66 @@
      * @since UDA 3.4.0 // Table 1.0.0
      *
      * @param {object} idForm - Identificador del formulario.
+     * @param {string} row - Values ya añadidos al formulario.
+     *
+     */
+    function _addListType(idForm,row) {
+    	//Listas de checkbox
+    	$.each(idForm.find('[data-lista]'), function () {
+    		let name = this.dataset.lista;
+    		let prop = '';
+    		let propSplit = this.name.split(".");
+    		if(propSplit !== undefined && propSplit.length === 2){
+    			prop = propSplit[1];
+    		}
+    		
+    		if(row[name] === undefined || !$.isArray(row[name])){//si no existe se crea o // si no es de tipo array
+    			row[name] = [];
+    		}
+    		let array = {};
+    		if(prop !== undefined){
+    			
+    			let clave = this.dataset.clave;
+	    		if(clave !== undefined){//si tiene clave es porque es objeto
+	    			var label =$('label[for="' + $(this).attr('id') + '"]').text();
+	    			array[clave] = label;
+	    			array[prop] = $(this).is(':checked');
+	    		}else{//si no tiene clave es porque es string
+	    			array = $(this).is(':checked');
+	    		}
+	    		row[name].push(array);
+    		}
+    	});
+    	
+    	//Se buscan los array para que sean listas.combos con multiselect
+    	$.each(row, function (name) {
+    		if(this !== undefined && this.toString() === '[object Object]'){
+    			row[name] = Object.values(this);
+    		}
+    	});
+    	return row;
+    }
+    
+    /**
+     * Se verifican los check vacios dentro de un formulario.
+     *
+     * @name returnCheckEmpty
+     * @function
+     * @since UDA 3.4.0 // Table 1.0.0
+     *
+     * @param {object} idForm - Identificador del formulario.
      * @param {string} values - Values ya añadidos al formulario.
      *
      */
     function _returnCheckEmpty(idForm, values) {
-        var maps = jQuery(idForm.selector + ' input[type=checkbox]:not(:checked)').map(
+        var maps = jQuery('#'+idForm.attr('id') + ' input[type=checkbox]:not(:checked)').map(
             function () {
-                return '&' + this.name + '=0';
+            	let texto = '';
+            	if($(this).data('lista') === undefined){
+            		return texto = '&' + this.name + '=0';
+            	}
             }).get().toString();
+        maps = maps.replace(/\&,/g, '&');
         return values + maps;
     }
 
@@ -1361,18 +1420,30 @@
      *
      */
     function _editFormSerialize(idForm) {
-        var serializedForm = '';
-        var idFormArray = idForm.formToArray();
-        var length = idFormArray.length;
+        let serializedForm = '';
+        let idFormArray = idForm.formToArray();
+        let length = idFormArray.length;
+        let ultimo = '';
+        let count = 1;
 
         $.each(idFormArray, function (key, obj) {
-            serializedForm += (obj.name + '=' + obj.value);
-
-            if (key < length - 1) {
+        	if(obj.type !== 'hidden'){
+        		let valor = '';
+        		if(ultimo === obj.name){//Se mete como lista
+        			//se hace replace del primer valor
+        			serializedForm = serializedForm.replace(ultimo+'=',ultimo+'[0]=');
+        			valor = '['+count+']'; //y se mete el array
+        			count++;
+        		}else{
+        			count = 1;
+        		}
+	            serializedForm += (obj.name + valor+'=' + obj.value);
                 serializedForm += '&';
-            }
+                ultimo = obj.name;
+        	}
         });
-
+        //aseguramos que el ultimo caracter no es el &.
+        serializedForm = serializedForm.substring(0,serializedForm.length - 1);
         return serializedForm;
     }
 
