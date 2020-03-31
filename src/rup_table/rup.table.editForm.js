@@ -337,7 +337,7 @@
         var loadPromise = $.Deferred();
         var ctx = dt.settings()[0];
         var idForm = ctx.oInit.formEdit.idForm;
-
+        ctx.oInit.formEdit.actionType = actionType;
         //Se limpia los errores. Si hubiese
         var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
         var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id + '_ok');
@@ -735,16 +735,14 @@
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType);
             },
             error: function (xhr) {
-                if(continuar){
+
                     var divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                     if (divErrorFeedback.length === 0) {
                         divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                     }
                     _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-                } else {
-                    _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, xhr.responseText, 'error');
-                }
+
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType);
             },
             validate: validaciones,
