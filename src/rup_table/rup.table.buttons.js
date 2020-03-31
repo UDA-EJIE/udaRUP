@@ -114,7 +114,8 @@
 	        	url: '/clipboardReport',
 	            method: 'POST',
 	            contentType: 'application/json',
-        		dataType: 'json'
+        		dataType: 'json',
+        		reportsExportAllColumns: false
             },
             init: function (dt, node, config) {
                 ctx.ext.buttons.copyButton.eventDT = dt;
@@ -142,10 +143,13 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'excelButton',
             request: {
-	        	url: '/xlsReport',
+	        	url: '/xlsxReport',
 	            method: 'POST',
 	            contentType: 'application/json',
-        		dataType: 'octet-stream'
+        		dataType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        		reportsExportAllColumns: false,
+        		fileName: 'x21aExcel',
+        		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -173,7 +177,9 @@
 	        	url: '/pdfReport',
 	            method: 'POST',
 	            contentType: 'application/json',
-        		dataType: 'octet-stream'
+        		dataType: 'application/pdf',
+        		reportsExportAllColumns: false,
+        		fileName: 'x21aPDF'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -201,7 +207,10 @@
 	        	url: '/odsReport',
 	            method: 'POST',
 	            contentType: 'application/json',
-        		dataType: 'octet-stream'
+        		dataType: 'application/vnd.oasis.opendocument.spreadsheet',
+        		reportsExportAllColumns: false,
+        		fileName: 'x21aODS',
+        		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -222,14 +231,17 @@
             },
             id: idTable + 'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'csvButton',
             request: {
 	        	url: '/csvReport',
 	            method: 'POST',
 	            contentType: 'application/json',
-        		dataType: 'octet-stream'
+        		dataType: 'text/csv',
+        		reportsExportAllColumns: false,
+        		fileName: 'x21aCSV',
+        		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -332,6 +344,7 @@
                 displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
                 autoClose: true,
                 type: 'reports',
+                reportsExportAllColumns: false,
                 buttons: listadoExports
             };
 
@@ -2677,7 +2690,6 @@
         	if(exportData !== undefined) {
         		let exportDataRows = exportData.length;
         		let exportDataParsed = JSON.stringify(exportData);
-
         		let hiddenDiv = $('<div/>')
                     .css({
                         height: 1,
@@ -2687,13 +2699,18 @@
                         top: 0,
                         left: 0
                     });
+        		
+        		if (typeof ajaxOptions.data == 'string') {
+        			ajaxOptions.data = JSON.parse(ajaxOptions.data);
+        		}
 
-        		exportDataParsed = _convertToTabulador(exportDataParsed, true);
-                let textarea = $('<textarea readonly/>')
+        		exportDataParsed = _convertToTabulador(ajaxOptions.reportsExportAllColumns, ajaxOptions.data.columns, exportDataParsed, true);
+                
+        		let textarea = $('<textarea readonly/>')
                     .val(exportDataParsed)
                     .appendTo(hiddenDiv);
-
-                _reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
+                
+        		_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea);
         	} else {
         		// Descargara un fichero
         		_reportsRequestFile(ctx, ajaxOptions);
@@ -2708,47 +2725,68 @@
      * @function
      * @since UDA 3.4.0 // Table 1.0.0
      *
+     * @param {boolean} reportsExportAllColumns true en caso de querer mostrar todas las columnas (incluidas las ocultas)
+     * @param {object} columns Objeto que contiene las columnas a mostrar
      * @param {object} objArray Objeto que contiene los datos a exportar
      * @param {boolean} true en caso de querer que se mueste la cabecera
      *
      * @return {object}
      *
      */
-    var _convertToTabulador = function (objArray, showLabel) {
+    var _convertToTabulador = function (reportsExportAllColumns, columns, objArray, showLabel) {
         let array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+        let separator = ";";
         let str = '';
-
-        if (showLabel) {
-            let row = '';
-
-            // Se asignan los nombres de las columnas
-            $.each(array[0], function (key, value) {
-                // Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
-                if ($.isPlainObject(value)) {
-                	let objectName = key;
-                    $.each(this, function (key, value) {
-                    	let keyToCamelKeys = key.substring(0, 1).toLocaleUpperCase() + key.substring(1);
-                        row += objectName + keyToCamelKeys + ';';
-                    });
-                } else {
-                    row += key + ';';
-                }
-            });
-            row = row.slice(0, -1);
-            str += row + '\r\n';
+        let checkColumns = false;
+        
+        // Separador de campos dependiendo del idioma
+        if ($.rup.lang === 'en') {
+        	separator = ",";
+        }
+        
+        if (!reportsExportAllColumns && columns != undefined) {
+        	checkColumns = true;
         }
 
+        if (showLabel) {
+        	// Comprueba si solo se quieren mostrar las columnas definidas/visibles o todas
+            if (checkColumns) {
+            	str = '\"' + columns.toString().replace(/,/g, '\"' + separator + '\"') + '\"\r\n';
+            } else {
+            	let row = '';
+                // Se asignan los nombres de las columnas
+                $.each(array[0], function (key, value) {
+                    // Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+                    if ($.isPlainObject(value)) {
+                    	let objectName = key;
+                        $.each(this, function (key, value) {
+                        	let keyToCamelKeys = key.substring(0, 1).toLocaleUpperCase() + key.substring(1);
+                            row += '\"' + objectName + keyToCamelKeys + '\"' + separator;
+                        });
+                    } else {
+                        row += '\"' + key + '\"' + separator;
+                    }
+                });
+                row = row.slice(0, -1);
+                str += row + '\r\n';
+            }
+        }
+        
         // Se asignan los valores
         $.each(array, function () {
         	let line = '';
             $.each(this, function (key, value) {
-                // Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
+            	// Comprueba si solo se quieren mostrar los valores de las columnas definidas/visibles y evita la insercion de las no que no lo estan
+            	if (checkColumns && columns.indexOf(key) == -1) {
+            		return;
+            	}
+            	// Comprobar si es un objeto, en caso afirmativo lo recorremos y lo concatenamos
                 if ($.isPlainObject(value)) {
                     $.each(this, function (key, value) {
-                        line += value + ';';
+                        line += '\"' + value + '\"' + separator;
                     });
                 } else {
-                    line += value + ';';
+                    line += '\"' + value + '\"' + separator;
                 }
             });
             line = line.slice(0, -1);
@@ -2808,7 +2846,12 @@
                             }
                         });
                     });
-                    deferred.resolve(exportData);
+                    
+                    ajaxOptions.data = {};
+                    ajaxOptions.data.columns = _loadDefinedColums(dt, ctx, request);
+                    ajaxOptions.reportsExportAllColumns = request.reportsExportAllColumns;
+                    
+                    deferred.resolve(exportData, ajaxOptions);
                     return deferred.promise();
                 }
         	}
@@ -2821,7 +2864,7 @@
 
             $.when(_reportsRequestData(ajaxOptions, ctx)).then(function (data) {
                 exportData = data;
-                deferred.resolve(exportData);
+                deferred.resolve(exportData, ajaxOptions);
             });
         } else {
         	// Parametros necesarios para configurar la llamada AJAX
@@ -2853,38 +2896,20 @@
      */
     var _reportsPrepareRequestData = function (dt, ajaxOptions, request, ctx, selectedAll, deselectedIds, selectedIds) {
         let data = {};
-        let columns;
-        let columnsArray = [];
         
-        // Se obtienen las columnas a mostrar de las propiedades del boton
-        if (ctx.oInit.buttons.reportColumns !== undefined) {
-        	columns = ctx.oInit.buttons.reportColumns;
-        } else {
-        	// En caso contrario se obtienen las columnas de la tabla
-        	$.each(ctx.oInit.columns, function(position, name) {
-            	// Se comprueba que el name.data no este vacio para evitar añadir
-            	// la columna del checkbox de multiseleccion. Tambien se comprueba
-            	// que la columna sea visible
-            	if(name.data !== "" && dt.column(position).visible()) {
-            		columnsArray.push([name.data, name.data]);
-            	}
-            });
-        }
-        
-        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined) {
-        	let reportsParams = ctx.oInit.buttons.report.reportsParams;
-        	$.each(reportsParams, function (key, obj) {
-        		data[Object.keys(obj)] = obj[Object.keys(obj)];
-        	});
-        }
+        data.columns = _loadDefinedColums(dt, ctx, request);
         
         data.core = {
             'pkToken': ctx.oInit.multiplePkToken,
             'pkNames': ctx.oInit.primaryKey
         };
-        data.columns = columns;
-        data['columns'] = $.toJSON(columnsArray);
-        data.filter = window.form2object(ctx.oInit.$filterForm[0]);
+        
+        // Solo se enviara el filtro si contiene algun valor. 
+        // Esto facilita la labor de exportacion al servidor ya que no tiene que iterar el filtro para comprobar si todos los campos son nulos.
+        if (!jQuery.isEmptyObject(window.form2object(ctx.oInit.filter.$filterContainer[0]))) {
+        	data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
+        }
+        
         data.multiselection = {};
         data.multiselection.selectedAll = selectedAll;
         
@@ -2894,8 +2919,7 @@
         	data.multiselection.selectedIds = selectedIds;
         }
         
-        // Completa el objeto 'ajaxOptions' con los parametros necesarios para la
-        // llamada que se realizara al servidor
+        // Completa el objeto 'ajaxOptions' con los parametros necesarios para la llamada que se realizara al servidor
         ajaxOptions.contentType = request.contentType;
         ajaxOptions.dataType = request.dataType;
         
@@ -2905,13 +2929,62 @@
             ajaxOptions.url = ctx.oInit.urlBase;
         }
         
+        ajaxOptions.reportsExportAllColumns = request.reportsExportAllColumns;
+        
         ajaxOptions.type = request.method;
-       
-        if (request.method === 'POST') {
-            ajaxOptions.data = request.dataType === 'json' ? $.toJSON(data) : data;
+        
+        if (request.fileName !== undefined) {
+        	data.fileName = request.fileName;
         }
+        
+        if (request.sheetTitle !== undefined) {
+        	data.sheetTitle = request.sheetTitle;
+        }
+        
+        ajaxOptions.data = $.toJSON(data);
 
         return ajaxOptions;
+    };
+    
+    /**
+     * Se encarga de devolver las columnas
+     *
+     * @name _loadDefinedColums
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     *
+     * @param {object} dt Instancia del table
+     * @param {object} ctx Contexto
+     * @param {object} request Contiene todos los parametros de la petición AJAX
+     *
+     * @return {object}
+     *
+     */
+    var _loadDefinedColums = function (dt, ctx, request) {
+    	let columns = [];
+    	
+    	if (request.reportsExportAllColumns == undefined) {
+    		request.reportsExportAllColumns = ctx.ext.buttons.reportsButton.reportsExportAllColumns;
+        }
+        
+        if (!request.reportsExportAllColumns) {
+        	// Se obtienen las columnas a mostrar de las propiedades del boton
+            if (ctx.oInit.buttons.reportColumns !== undefined) {
+            	columns = ctx.oInit.buttons.reportColumns;
+            } else {
+            	// En caso contrario se obtienen las columnas de la tabla
+            	$.each(ctx.oInit.columns, function(position, name) {
+                	// Se comprueba que el name.data no este vacio para evitar añadir
+                	// la columna del checkbox de multiseleccion. Tambien se comprueba
+                	// que la columna sea visible
+                	if(name.data !== "" && dt.column(position).visible()) {
+                		columns.push(name.data);
+                	}
+                });
+            }
+        }
+        	
+        return columns;
     };
 
     /**
@@ -2995,25 +3068,55 @@
         
         let url = ajaxOptions.url;
 
-        // Lanzar peticion
-        // FIXME: cuando termina no entra ni por el callback de success ni por el de fail
-        $.fileDownload(url, {
-            httpMethod: ajaxOptions.type,
-            data: jQuery.rup_utils.unnestjson(ajaxOptions.data),
-            successCallback: function (url) {
-                $reportFileWait.rup_dialog('close');
-            },
-            failCallback: function (responseHtml, url) {
-                try {
-                    if ($('#' + $reportFileWait.attr('id')).length > 0) {
-                        $reportFileWait.rup_dialog('close');
-                        console.info('ERROR-----------' + responseHtml);
-                    }
-                } catch (e) {
-                    console.info('ERROR-----------');
+        // Lanzar peticion 
+        let request = new XMLHttpRequest();
+        request.open(ajaxOptions.type, url, true);
+        request.responseType = "blob";
+        request.send(ajaxOptions.data);
+
+        request.onload = function (event) {
+        	if (this.status == 200) {
+        		let blob = request.response;
+            	let fileName = null;
+            	let contentType = request.getResponseHeader("content-type");
+            	let element;
+
+            	// Parece que IE y EDGE no devuelven la misma cabecera en la respuesta
+            	if (request.getResponseHeader("content-disposition")) {
+            		let contentDisposition = request.getResponseHeader("content-disposition");
+            		fileName = contentDisposition.substring(contentDisposition.indexOf("=") + 1);
+            	} else {
+            		fileName = "report." + contentType.substring(contentType.indexOf("/") + 1);
+            	}
+
+            	if (window.navigator.msSaveOrOpenBlob) {
+            		// IE y EDGE
+            		window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
+            	} else {
+            		// Para los demas navegadores
+            		if (!$("a#rupTableButtonsReportsExport").length) {
+            			$("div.content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            		}
+            		element = $("a#rupTableButtonsReportsExport")[0];
+            		element.href = window.URL.createObjectURL(blob);
+            		element.download = fileName;
+            		element.click();
+                    // Eliminamos el ObjectURL y el elemento de DOM generado ya que han sido generados de manera temporal
+            		window.URL.revokeObjectURL(element.href);
+            		element.remove();
+            	}
+            	
+            	if ($('#' + $reportFileWait.attr('id')).length > 0) {
+                    $reportFileWait.rup_dialog('close');
+                }
+            } else {
+            	if ($('#' + $reportFileWait.attr('id')).length > 0) {
+                    $reportFileWait.rup_dialog('close');
+                    console.info('----------- ERROR -----------');
                 }
             }
-        });
+        };
+        request.send();
         
         return false;
     };
