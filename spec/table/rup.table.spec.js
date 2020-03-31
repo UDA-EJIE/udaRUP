@@ -203,7 +203,7 @@ function testDatatable() {
                             document.execCommand = document.exC;
                         });
                         it('Debe haber el contenido de la primera fila contenido la zona de copiado', () => {
-                            expect(document.copied).toBe('id;nombre;apellidos;edad\n1;Ana;García Vázquez;7\n');
+                            expect(document.copied).toBe('"id";"nombre";"apellidos";"edad"\n"1";"Ana";"García Vázquez";"7"\n');
                         });
                     });
                 });
