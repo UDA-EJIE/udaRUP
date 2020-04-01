@@ -2919,6 +2919,12 @@
         	data.multiselection.selectedIds = selectedIds;
         }
         
+        data.reportsParams = [];
+        // Se añaden los parametros definidos por el usuario (solo en caso de haber definido alguno)
+        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams.length > 0) {
+        	data.reportsParams = ctx.oInit.buttons.report.reportsParams;
+        }
+        
         // Completa el objeto 'ajaxOptions' con los parametros necesarios para la llamada que se realizara al servidor
         ajaxOptions.contentType = request.contentType;
         ajaxOptions.dataType = request.dataType;
