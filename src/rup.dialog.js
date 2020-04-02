@@ -489,13 +489,15 @@
                             if ($.fn.rup_dialog.defaults.adapter === 'dialog_material') {
                                 $self.data('uiDialog').uiDialogTitlebar.addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].titlebarColor());
                             }
-
-                            $self.prev('div')
-                                .append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
-                                .on('click', 'i.mdi', function () {
-                                    $self.dialog('close');
-                                    return false;
-                                });
+                            //Se comprueba que no existe el aspa.
+                            if($('#'+settings.id + '_close').length === 0){
+	                            $self.prev('div')
+	                                .append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
+	                                .on('click', 'i.mdi', function () {
+	                                    $self.dialog('close');
+	                                    return false;
+	                                });
+                            }
 
                             if (linkButtonsLength > 0) { //si tenemos enlaces los añadimos
                                 for (j = 0; j < linkButtonsLength; j++) {

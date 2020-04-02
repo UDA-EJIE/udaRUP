@@ -76,7 +76,7 @@
         //DetailForm se convierte en function
         //Se inicializan los botones
         ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
-        ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form');
+        ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form').first();//se aseguro un solo formulario.
         ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div', '');
         if (ctx.oInit.formEdit.detailForm !== undefined &&
             $('body').find('[aria-describedby=\'' + ctx.oInit.formEdit.detailForm[0].id + '\']').length > 0) {
@@ -828,7 +828,9 @@
     	//Se buscan los array para que sean listas.combos con multiselect
     	$.each(row, function (name) {
     		if(this !== undefined && this.toString() === '[object Object]'){
-    			row[name] = Object.values(this);
+    			if($.isNumeric( Object.keys(this)[0] )){//se asegura, que no es una lista de objetos.
+    				row[name] = Object.values(this);
+    			}
     		}
     	});
     	return row;
