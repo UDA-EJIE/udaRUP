@@ -72,13 +72,14 @@
             // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
             if (e.which == 1 || e.which == 32) {
                 if (e.target.className.indexOf('openResponsive') > -1 ||
-                    $(this).hasClass('editable')) {
-                    return false;
+                    $(this).hasClass('editable')) {// no hacer nada
+                   //no se devuelve nada para los checkbox funcionen.
+                }else{//selecionar
+	                $(this).triggerHandler('tableSelectBeforeSelectRow');
+	                var idRow = this._DT_RowIndex;
+	                _selectRowIndex(dt, idRow, $(this));
+	                $(this).triggerHandler('tableSelectAfterSelectRow');
                 }
-                $(this).triggerHandler('tableSelectBeforeSelectRow');
-                var idRow = this._DT_RowIndex;
-                _selectRowIndex(dt, idRow, $(this));
-                $(this).triggerHandler('tableSelectAfterSelectRow');
             }
         });
 

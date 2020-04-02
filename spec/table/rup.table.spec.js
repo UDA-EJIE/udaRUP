@@ -747,10 +747,10 @@ function testDatatable() {
                     });
 
                     it('El feedback debe mostrarse:', () => {
-                        expect($('#rup_feedback_example').is(':visible')).toBeTruthy();
+                        expect($('#example_detail_feedback_ok').is(':visible')).toBeTruthy();
                     });
                     it('Debe contener el mensaje esperado:', () => {
-                        expect($('#rup_feedback_example').text()).toBe('KABOOM!');
+                        expect($('#example_detail_feedback_ok').text()).toBe('KABOOM!');
                     });
                 });
 

@@ -406,7 +406,7 @@ handler that will select the items using the API methods.
                 } else {
                     if (event.target.type !== 'checkbox') {
                         rowSelection(dt, event);
-                    } else {
+                    } else if(!$(event.target).hasClass('editable')){
                         $(event.target).parent('').find('input').prop('checked', function () {
                             return !this.checked;
                         });

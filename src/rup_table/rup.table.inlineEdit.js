@@ -859,7 +859,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 				if(searchRupType!==undefined) {
 					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-	
+					if(searchRupType === 'combo'){//se marca el selected
+						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+					}
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 					if(searchRupType === 'combo'){//asignar el valor

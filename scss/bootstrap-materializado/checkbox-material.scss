@@ -41,6 +41,11 @@ $checkbox-material-label-padding: .75em;
 	position: relative;
 	margin: $checkbox-material-margin;
 	text-align: left;
+
+	&.checkbox-material-inline {
+		display: inline-block;
+		margin-right: 1rem;
+	}
   
   	label {
 	    cursor: pointer;
@@ -128,11 +133,6 @@ $checkbox-material-label-padding: .75em;
 			}
 		}
   	}
-}
-
-.checkbox-material-inline {
-    display: inline-block;
-    margin: initial;
 }
 
 table div.checkbox-material-inline {

@@ -1,4 +1,5 @@
 // ESTILOS
+$radio-material-margin: .5em 0;
 $radio-material-size: 18px;
 $radio-material-checked-size: 8px;
 $radio-material-ripple-size: 6px;
@@ -32,10 +33,11 @@ $radio-material-ripple-size: 6px;
 }
 
 .radio-material {
-    margin: .5em 0;
+    margin: $radio-material-margin;
 
     &.radio-material-inline {
         display: inline-block;
+        margin-right: 1rem;
     }
 
     input[type='radio'] {
