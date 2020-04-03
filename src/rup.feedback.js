@@ -57,7 +57,7 @@
          * @property {Number}  [delay=null] - Espera (ms) que va a aplicarse antes de ocultar el feedback.
          * @property {Number}  [fadeSpeed=null] - Tiempo (ms) que va a durar la animación de ocultación del feedback.
          * @property {boolean} [gotoTop=true] - Drmina si cuando se muestre el feedback se debe desplazar la
-página hasta la parte superior de la misma.
+         * @property {boolean} [customGoTo=null] - Drmina si cuando se muestre el feedback donde se debe desplazar la página.
          * @property {boolean}  [block=true] - Indica si la capa que contendrá el mensaje de feedback debe tener o
 no un espacio fijo en la pantalla.
          * @property {closeLink}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario
@@ -74,6 +74,7 @@ de la aplicación pueda cerrar la capa manualmente.
             //uso privado
             _idFeedback: null,
             _divClose: null,
+            customGoTo: null
         },
         /**
      * @function	_setOption
@@ -241,11 +242,19 @@ de la aplicación pueda cerrar la capa manualmente.
                 this._addCloseLink();
             }
             this.show();
+            let scrollTop = '0px';
+            if(opciones.customGoTo !== null && opciones.customGoTo !== undefined){
+            	if(typeof opciones.customGoTo === "function") {
+            		scrollTop = opciones.customGoTo();
+            	}else{
+            		scrollTop = opciones.customGoTo;
+            	}
+            }
 
             //Ir al inicio
             if (opciones.gotoTop) {
                 $('html, body').animate({
-                    scrollTop: '0px'
+                    scrollTop: scrollTop
                 }, 0);
             }
             //Ocultacion mensaje

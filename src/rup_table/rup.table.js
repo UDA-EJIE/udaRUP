@@ -1187,6 +1187,11 @@
                 if (args[0].buttons != undefined && args[0].buttons.contextMenu === undefined) {
                     args[0].buttons.contextMenu = true;
                 }
+                
+                //si es maestro detalle el feedback se queda por defecto con goToTop a false.
+                if(args[0].masterDetail !== undefined){
+                	$.fn.rup_table.defaults.feedback.gotoTop = false;
+                }
 
                 var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 
