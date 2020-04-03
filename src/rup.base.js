@@ -761,6 +761,16 @@
                     }
                 }
                 break;
+            case 32:
+                /* Se aplicara a todos los navegadores que no sean Firefox.
+                   Este evento permite que los checkboxes puedan ser seleccionados/deseleccionados con el teclado. */
+                if (typeof InstallTrigger == 'undefined' && $(event.target).is(':checkbox')) {
+                    event.preventDefault();
+                    $(event.target).prop('checked', function() {
+                        return !this.checked; 
+                    });
+                }
+                break;
             }
         }
     });
