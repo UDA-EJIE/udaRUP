@@ -217,7 +217,7 @@ $.extend( RowGroup.prototype, {
 			var group = groupedRows[i];
 			var firstRow = dt.row(group[0]);
 			var groupName = this.s.dataFn( firstRow.data() );
-			var span = $('<span/>').addClass('cursor_pointer ui-icon tree-wrap-ltr ui-icon-circlesmall-minus');
+			var span = $('<span/>').addClass('ui-icon tree-wrap-ltr ui-icon-circlesmall-minus');
 			span.attr('identificador',i);
 			
 			if ( this.c.startRender ) {
@@ -342,7 +342,7 @@ RowGroup.defaults = {
 	 * end grouping rows.
 	 * @type string
 	 */
-	className: 'group',
+	className: 'cursor_pointer group',
 
 	/**
 	 * Data property from which to read the grouping information
