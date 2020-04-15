@@ -427,11 +427,10 @@ public @ResponseBody List<String> removeMultiple(
 * Copia de registros inversa:
 ```java
 @RequestMapping(value = "/clipboardReport", method = RequestMethod.POST)
-	protected @ResponseBody List<Usuario> getClipboardReport(
-			@RequestJsonBody(param="filter") Usuario filterUsuario,
-			@RequestJsonBody JQGridRequestDto jqGridRequestDto){
-		JQGridUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
-	    JQGridUsuarioController.logger.info("All entities correctly copied!");
-	    return this.jqGridUsuarioService.getMultiple(filterUsuario, jqGridRequestDto, false);
-	}
+protected @ResponseBody List<Usuario> getClipboardReport(
+		@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario,
+		@RequestJsonBody TableRequestDto tableRequestDto) {
+	TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
+	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
+}
 ```
