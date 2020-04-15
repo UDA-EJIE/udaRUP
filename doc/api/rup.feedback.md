@@ -45,7 +45,8 @@ Opciones por defecto de configuración del widget.
 | [imgClass] | <code>Number</code> | <code></code> | Clase que determina el estilo que se va a aplicar en el icono del feedback. |
 | [delay] | <code>Number</code> | <code></code> | Espera (ms) que va a aplicarse antes de ocultar el feedback. |
 | [fadeSpeed] | <code>Number</code> | <code></code> | Tiempo (ms) que va a durar la animación de ocultación del feedback. |
-| [gotoTop] | <code>boolean</code> | <code>true</code> | Drmina si cuando se muestre el feedback se debe desplazar la página hasta la parte superior de la misma. |
+| [gotoTop] | <code>boolean</code> | <code>true</code> | Drmina si cuando se muestre el feedback se debe desplazar la |
+| [customGoTo] | <code>boolean</code> | <code></code> | Drmina si cuando se muestre el feedback donde se debe desplazar la página. |
 | [block] | <code>boolean</code> | <code>true</code> | Indica si la capa que contendrá el mensaje de feedback debe tener o no un espacio fijo en la pantalla. |
 | [closeLink] | <code>closeLink</code> | <code>true</code> | Indica si la capa de feedback tendrá un enlace para que el usuario de la aplicación pueda cerrar la capa manualmente. |
 

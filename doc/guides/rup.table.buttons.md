@@ -45,7 +45,7 @@ Buttons.defaults = {
 ```
 Propiedades del plugin de buttons:
 
-* myButtons -> Permite crear un array con los botones personalizados que el usuario quiera ejemplo:
+* myButtons -> Permite crear un array con los botones personalizados que el usuario quiera, por ejemplo:
 
 ``` js
 var optionButtonEdit = {
@@ -54,8 +54,7 @@ var optionButtonEdit = {
 	},
 	id: 'exampleeditMultiPart_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	className: 'table_toolbar_btnEdit',
-	displayRegex: /^[1-9][0-9]*$/, 
-	// Se muestra siempre que sea un numero mayor a 0, cualquier reggex para la multiseleción
+	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un número mayor a 0, cualquier regex para la multiselección
 	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	type: 'edit',
 	init: function (dt, node, config) {
@@ -75,37 +74,46 @@ $('#example').rup_table(plugins);
 ```
 
 Propiedades del propio botón:
-* __id:__ Campo obligatorio si se quiere usar desde el contextMenu
-* __icon:__ Campo para asignar algún icono. Ejemplo, "mdi-file-excel"
-* __displayRegex:__ Se muestra siempre que sea un numero positivo o neutro, es el regex para mostrar el botón 								tirando contra la popiedad de multiseleción
-* __insideContextMenu:__ Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el 							botón en el contextMenu
-* __custom:__ Todos los botones deben ir con está propiedad a true, a menos que se quiere usar el displayRegex con la 			propiedade multiseleción.
-* __report:__ Esta propiedad es para configurar los reports, a su vez tiene varios paraámetros de configuración:
-* __reportsParams:__ puedes personalizar cualquier parámetro para que le llegue a tu controller, ejemplo:
+* __id:__ Campo obligatorio si se quiere usar desde el contextMenu.
+* __icon:__ Campo para asignar algún icono. Por ejemplo, "mdi-file-excel".
+* __displayRegex:__ Se muestra siempre que sea un número positivo o neutro, es el regex para mostrar el botón tirando contra la popiedad de multiselección.
+* __insideContextMenu:__ Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el botón en el contextMenu.
+* __request:__ Define parametros de la petición, como por ejemplo:
+````
+request: {
+	url: '/xlsxReport',
+	method: 'POST',
+	contentType: 'application/json',
+	dataType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+	reportsExportAllColumns: false,
+	fileName: 'x21aExcel',
+	sheetTitle: 'Usuario'
+}
+````
+* __custom:__ Todos los botones deben ir con está propiedad a true, a menos que se quiere usar el displayRegex con la propiedad de multiselección.
+* __reportsParams:__ Permite personalizar cualquier parámetro para que le llegue al controller, por ejemplo:
 ````
 plugins.buttons.report.reportsParams.push({"isInline":false});
 ````
 En el controller:
 ````
-	@RequestMapping(value="pdfReport")
-		public ModelAndView generarPDFJasperReport(@ModelAttribute Usuario filterUsuario, 
-		@ModelAttribute TableRequestDto jqGridRequestDto,
-		ModelMap modelMap,
-		@RequestParam(value = "isInline", required = false) boolean isInline){		
-		//Acceso a BD para recuperar datos
-		List<Usuario> usuarios = this.jqGridUsuarioService.findAll(new Usuario(), null);		
-		//Generación del PDF
-		return new ModelAndView("pdfUsuario", modelMap);
-    	}
+	@RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	protected @ResponseBody void generateExcelReport(
+			@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, 
+			@RequestJsonBody(param = "columns", required = false) String[] columns, 
+			@RequestJsonBody(param = "fileName", required = false) String fileName, 
+			@RequestJsonBody(param = "sheetTitle", required = false) String sheetTitle,
+			@RequestJsonBody(param = "reportsParams", required = false) ArrayList<?> reportsParams,
+			@RequestJsonBody TableRequestDto tableRequestDto,
+			HttpServletRequest request,
+			HttpServletResponse response) throws ServletException{
+		TableUsuarioController.logger.info("[POST - generateExcelReport] : Devuelve un fichero excel");
+		//Idioma
+        Locale locale = LocaleContextHolder.getLocale();
+		this.tableUsuarioService.generateReport(filterUsuario, columns, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
+    }
 
 ````
-* __title:__ El título que lleva el popup al descargar.
-	message: El mensaje que lleva el popup al descargar.
-	Ejemplo:
-```
-plugins.buttons.report.title = "Descargar Informe Personalizado";
-
-```
 
 * __blackListButtons:__ Es la lista para que no salgan los botones predefinidos, los botones son:
 "addButton", "editButton", "cloneButton", "deleteButton", "reportsButton"

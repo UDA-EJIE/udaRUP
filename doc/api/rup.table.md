@@ -18,7 +18,8 @@ Genera un table
     * [~_ajaxRequestData(data, ctx)](#module_rup.table.._ajaxRequestData)
     * [~_createSearchPaginator(tabla, settingsT)](#module_rup.table.._createSearchPaginator)
     * [~_clearFilter(options)](#module_rup.table.._clearFilter)
-    * [~preConfigureFilter(settings)](#module_rup.table..preConfigureFilter)
+    * [~preConfigureFilter(options)](#module_rup.table..preConfigureFilter)
+    * [~preConfigureFilter(options)](#module_rup.table..preConfigureFilter)
     * [~showSearchCriteria()](#module_rup.table..showSearchCriteria)
     * [~createEventSelect(tabla)](#module_rup.table..createEventSelect)
     * [~initializeMultiselectionProps()](#module_rup.table..initializeMultiselectionProps)
@@ -137,14 +138,25 @@ Limpia el filtro
 
 <a name="module_rup.table..preConfigureFilter"></a>
 
-### rup.table~preConfigureFilter(settings)
+### rup.table~preConfigureFilter(options)
 Metodo que realiza la configuración del plugin filter del componente RUP DataTable.
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
+| options | <code>object</code> | Parámetros de configuración del componente. |
+
+<a name="module_rup.table..preConfigureFilter"></a>
+
+### rup.table~preConfigureFilter(options)
+Metodo que realiza la configuración del plugin filter del componente RUP DataTable.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>object</code> | Parámetros de configuración del componente. |
 
 <a name="module_rup.table..showSearchCriteria"></a>
 

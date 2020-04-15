@@ -42,14 +42,15 @@ Genera los botones del table
     * [~_enableButtonAndContextMenuOption(id)](#module_rup.table.buttons.._enableButtonAndContextMenuOption)
     * [~_disableButtonAndContextMenuOption(id)](#module_rup.table.buttons.._disableButtonAndContextMenuOption)
     * [~_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject)](#module_rup.table.buttons.._manageButtonsAndButtonsContextMenu)
-    * [~_reportsCopyData(dt, that, config)](#module_rup.table.buttons.._reportsCopyData)
-    * [~_reportsExcel(dt, that, config)](#module_rup.table.buttons.._reportsExcel)
-    * [~ConvertToTabulador(objArray, true)](#module_rup.table.buttons..ConvertToTabulador) ⇒ <code>object</code>
-    * [~_reportsTypeOfCopy(dt, type, multiselection, selectedAll, [deselectedIds])](#module_rup.table.buttons.._reportsTypeOfCopy) ⇒ <code>object</code>
-    * [~_reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, [deselectedIds], [selectedIds])](#module_rup.table.buttons.._reportsPrepareRequestData) ⇒ <code>object</code>
+    * [~_reports(dt, that, config)](#module_rup.table.buttons.._reports)
+    * [~ConvertToTabulador(reportsExportAllColumns, columns, objArray, true)](#module_rup.table.buttons..ConvertToTabulador) ⇒ <code>object</code>
+    * [~_reportsTypeOfCopy(dt, type, request, multiselection, selectedAll, [deselectedIds])](#module_rup.table.buttons.._reportsTypeOfCopy) ⇒ <code>object</code>
+    * [~_reportsPrepareRequestData(dt, ajaxOptions, request, ctx, selectedAll, [deselectedIds], [selectedIds])](#module_rup.table.buttons.._reportsPrepareRequestData) ⇒ <code>object</code>
+    * [~_loadDefinedColums(dt, ctx, request)](#module_rup.table.buttons.._loadDefinedColums) ⇒ <code>object</code>
     * [~_reportsRequestData(ajaxOptions, ctx)](#module_rup.table.buttons.._reportsRequestData) ⇒ <code>object</code>
+    * [~_reportsRequestFile(ctx, ajaxOptions)](#module_rup.table.buttons.._reportsRequestFile) ⇒ <code>object</code>
     * [~_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsOpenMessage)
-    * [~_reportsCopyDataToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsCopyDataToClipboard)
+    * [~_reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsToClipboard)
     * [~_initButtons(ctx, opts)](#module_rup.table.buttons.._initButtons)
 
 <a name="module_rup.table.buttons..Buttons"></a>
@@ -462,27 +463,13 @@ Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesd
 | numOfSelectedRows | <code>int</code> | Number of selected rows |
 | collectionObject | <code>null</code> \| <code>object</code> | Collection button properties |
 
-<a name="module_rup.table.buttons.._reportsCopyData"></a>
+<a name="module_rup.table.buttons.._reports"></a>
 
-### rup.table.buttons~\_reportsCopyData(dt, that, config)
+### rup.table.buttons~\_reports(dt, that, config)
 Establece el tipo de llamada necesario para obtener los datos según lo seleccionadoe inicia la gestión para finalmente obtenerlos
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| dt | <code>object</code> | Instancia del table |
-| that | <code>object</code> | Objeto del boton |
-| config | <code>object</code> | Configuracion del boton |
-
-<a name="module_rup.table.buttons.._reportsExcel"></a>
-
-### rup.table.buttons~\_reportsExcel(dt, that, config)
-Establece el tipo de llamada necesario para obtener los datos según lo seleccionadoe inicia la gestión para finalmente obtenerlos
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.7.1 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -492,7 +479,7 @@ Establece el tipo de llamada necesario para obtener los datos según lo seleccio
 
 <a name="module_rup.table.buttons..ConvertToTabulador"></a>
 
-### rup.table.buttons~ConvertToTabulador(objArray, true) ⇒ <code>object</code>
+### rup.table.buttons~ConvertToTabulador(reportsExportAllColumns, columns, objArray, true) ⇒ <code>object</code>
 Se encarga de mapear los datos de json a datos separados por el tabulador.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -500,12 +487,14 @@ Se encarga de mapear los datos de json a datos separados por el tabulador.
 
 | Param | Type | Description |
 | --- | --- | --- |
+| reportsExportAllColumns | <code>boolean</code> | true en caso de querer mostrar todas las columnas (incluidas las ocultas) |
+| columns | <code>object</code> | Objeto que contiene las columnas a mostrar |
 | objArray | <code>object</code> | Objeto que contiene los datos a exportar |
 | true | <code>boolean</code> | en caso de querer que se mueste la cabecera |
 
 <a name="module_rup.table.buttons.._reportsTypeOfCopy"></a>
 
-### rup.table.buttons~\_reportsTypeOfCopy(dt, type, multiselection, selectedAll, [deselectedIds]) ⇒ <code>object</code>
+### rup.table.buttons~\_reportsTypeOfCopy(dt, type, request, multiselection, selectedAll, [deselectedIds]) ⇒ <code>object</code>
 Según el tipo de función de copia solicitada, realiza unas u otras comprobacionesantes de solicitar los datos al servidor
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -515,13 +504,14 @@ Según el tipo de función de copia solicitada, realiza unas u otras comprobacio
 | --- | --- | --- |
 | dt | <code>object</code> | Instancia del table |
 | type | <code>string</code> | Tipo de funcion de copia a ejecutar |
+| request | <code>object</code> | Contiene todos los parametros de la petición AJAX |
 | multiselection | <code>object</code> | Propiedades de la multiseleccion |
 | selectedAll | <code>boolean</code> | Cuando es true significa que todas las filas estan marcadas |
 | [deselectedIds] | <code>array</code> | ID's de las filas deseleccionadas |
 
 <a name="module_rup.table.buttons.._reportsPrepareRequestData"></a>
 
-### rup.table.buttons~\_reportsPrepareRequestData(ajaxOptions, urlAjax, typeAjax, contentTypeAjax, dataTypeAjax, ctx, selectedAll, [deselectedIds], [selectedIds]) ⇒ <code>object</code>
+### rup.table.buttons~\_reportsPrepareRequestData(dt, ajaxOptions, request, ctx, selectedAll, [deselectedIds], [selectedIds]) ⇒ <code>object</code>
 Se encarga de generar las opciones de configuración con las que se llamara a la API
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -529,15 +519,27 @@ Se encarga de generar las opciones de configuración con las que se llamara a la
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ajaxOptions | <code>object</code> | Parametros de la llamada Ajax |
-| urlAjax | <code>string</code> | Parametro para la URL |
-| typeAjax | <code>string</code> | Tipo de llamada a la API |
-| contentTypeAjax | <code>string</code> | Formato de datos enviados |
-| dataTypeAjax | <code>string</code> | Formato de datos esperados |
+| dt | <code>object</code> | Instancia del table |
+| ajaxOptions | <code>object</code> | Parametros de la llamada AJAX |
+| request | <code>object</code> | Contiene todos los parametros de la petición ajax |
 | ctx | <code>object</code> | Contexto |
 | selectedAll | <code>boolean</code> | Cuando es true significa que todas las filas estan marcadas |
 | [deselectedIds] | <code>array</code> | ID's de las filas deseleccionadas |
 | [selectedIds] | <code>array</code> | ID's de las filas seleccionadas |
+
+<a name="module_rup.table.buttons.._loadDefinedColums"></a>
+
+### rup.table.buttons~\_loadDefinedColums(dt, ctx, request) ⇒ <code>object</code>
+Se encarga de devolver las columnas
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Since**: UDA 4.2.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | Instancia del table |
+| ctx | <code>object</code> | Contexto |
+| request | <code>object</code> | Contiene todos los parametros de la petición AJAX |
 
 <a name="module_rup.table.buttons.._reportsRequestData"></a>
 
@@ -549,8 +551,21 @@ Se encarga de llamar a la API y de devolver los datos recibidos
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ajaxOptions | <code>object</code> | Parametros de la llamada Ajax |
+| ajaxOptions | <code>object</code> | Parametros de la llamada AJAX |
 | ctx | <code>object</code> | Contexto |
+
+<a name="module_rup.table.buttons.._reportsRequestFile"></a>
+
+### rup.table.buttons~\_reportsRequestFile(ctx, ajaxOptions) ⇒ <code>object</code>
+Se encarga de llamar a la API y de devolver el fichero recibido
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Since**: UDA 4.2.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto |
+| ajaxOptions | <code>object</code> | Parametros de la llamada AJAX |
 
 <a name="module_rup.table.buttons.._reportsOpenMessage"></a>
 
@@ -569,9 +584,9 @@ Gestiona la apertura/cierre del mensaje de confirmación de copia
 | hiddenDiv | <code>object</code> | Elemento del DOM |
 | textarea | <code>object</code> | Elemento del DOM |
 
-<a name="module_rup.table.buttons.._reportsCopyDataToClipboard"></a>
+<a name="module_rup.table.buttons.._reportsToClipboard"></a>
 
-### rup.table.buttons~\_reportsCopyDataToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)
+### rup.table.buttons~\_reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)
 Copia los datos recibidos al portapapeles
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  

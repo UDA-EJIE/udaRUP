@@ -119,7 +119,7 @@ Trigger an event on a DataTable
 | api | <code>DataTable.Api</code> | DataTable to trigger events on |
 | selected | <code>boolean</code> | true if selected, false if deselected |
 | type | <code>string</code> | Item type acting on |
-| any | <code>boolean</code> | Require that there are values before     triggering |
+| any | <code>boolean</code> | Require that there are values before triggering |
 
 <a name="module_rup.table.multiSelect..info"></a>
 
