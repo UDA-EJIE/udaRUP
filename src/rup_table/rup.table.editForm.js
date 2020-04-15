@@ -1427,7 +1427,8 @@
         let count = 1;
 
         $.each(idFormArray, function (key, obj) {
-        	if(obj.type !== 'hidden'){
+        	let ruptype = $("[name='"+obj.name+"']").attr('ruptype');
+        	if(obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom'){
         		let valor = '';
         		if(ultimo === obj.name){//Se mete como lista
         			//se hace replace del primer valor
