@@ -2974,9 +2974,9 @@
         }
         
         if (!request.reportsExportAllColumns) {
-        	// Se obtienen las columnas a mostrar de las propiedades del boton
-            if (ctx.oInit.buttons.reportColumns !== undefined) {
-            	columns = ctx.oInit.buttons.reportColumns;
+        	// Se obtienen las columnas a mostrar definidas por el usuario
+            if (ctx.oInit.buttons.report.columns !== undefined) {
+            	columns = ctx.oInit.buttons.report.columns;
             } else {
             	// En caso contrario se obtienen las columnas de la tabla
             	$.each(ctx.oInit.columns, function(position, name) {
@@ -3046,17 +3046,17 @@
         });
         
         // Titulo
-        let titulo = $.rup.i18nParse($.rup.i18n.base, 'rup_report.waitTitle');
+        let title = $.rup.i18nParse($.rup.i18n.base, 'rup_report.waitTitle');
         let message = $.rup.i18nParse($.rup.i18n.base, 'rup_report.waitMsg');
         if (ctx.oInit.buttons.report !== undefined) {
             if (ctx.oInit.buttons.report.title !== undefined) {
-                titulo = ctx.oInit.buttons.report.title;
+                title = ctx.oInit.buttons.report.title;
             }
             if (ctx.oInit.buttons.report.message !== undefined) {
                 message = ctx.oInit.buttons.report.message;
             }
         }
-        $reportFileWait.rup_dialog('setOption', 'title', titulo);
+        $reportFileWait.rup_dialog('setOption', 'title', title);
         
         // Contenido
         let content = $reportFileWait.html().split($reportFileWait.text()),
