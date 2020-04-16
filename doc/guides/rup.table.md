@@ -434,3 +434,135 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
 }
 ```
+### 9.5. Propiedades adicionales
+
+```java
+Plugins.noEdit = true 
+```java
+
+Por defecto viene a false, y si se activa deja solo el boton de informes.
+
+```java
+//Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
+Plugins.customError =  function(qXHR, textStatus, errorThrown ){
+                             let ctx = $('#'+idTabla).rup_table("getContext"); 
+                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
+                        }
+```java
+
+Se puede cargar una función para que los errores que vienen de ajax.
+
+```java
+Plugins.filter = 'noFilter' 
+```java
+
+Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no hará la validación correspondiente.
+
+```java
+//Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
+Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
+                             let ctx = $('#'+idTabla).rup_table("getContext"); 
+                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
+                        }
+```java
+
+Se puede cargar una función para que los errores que vienen de ajax.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarEliminar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al eliminar.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarModificar  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al guardar en la edición de la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit.
+Plugins.validarModificarContinuar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al guardar y continuar en la edición de la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: todos siempre que exista el filtrado.
+Plugins.validarFiltrar  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al filtrar en la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: seeker.
+Plugins.validarBuscar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al buscar con el seeker.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarAlta  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al hacer un nuevo registro.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit.
+Plugins.validarAltaContinuar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```java
+
+Se puede cargar una función y hacer un validación externa al hacer un nuevo registro y continuar.
+
+```java
+plugins.feedback.customGoTo  = function miFuncion(){
+									return $('#example_containerToolbar').offset().top ;
+								} 
+```java
+
+Se puede personalizar el feedback para que cuando aparezca, suba la posición hasta donde el desarrollador quiera, hay que devolver un número.
