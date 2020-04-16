@@ -6,7 +6,7 @@ Genera una botonera asociada a la tabla con la finalidad de agrupar los controle
 
 Declaramos la botonera dentro del método de inicialización del *rup_table* en el fichero __rup.table.js__:
 
-```js
+``` js
   // Toolbar por defecto del table
   new $.fn.dataTable.Buttons(
   	tabla,
@@ -16,7 +16,7 @@ Declaramos la botonera dentro del método de inicialización del *rup_table* en 
 
 Una vez tenemos la botonera declarada le podemos añadir botones declarándolos en el siguiente objeto ubicado dentro del fichero __table.buttons.js__ o mediante la creación de uno personalizado:
 
-```js
+``` js
 Buttons.defaults = {
 	buttons: [ 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton' ],
 	name: 'main',
@@ -64,11 +64,13 @@ Propiedades del plugin de buttons:
 			dt.buttons.actions(dt, config);
 		}
 	};
+
 	var	buttons = {};
 	var plugins = {};
 	plugins.buttons = buttons;
 	plugins.buttons.myButtons = []; 
 	plugins.buttons.myButtons.push(optionButtonEdit);
+	
 	$('#example').rup_table(plugins);
 	```
 
@@ -78,7 +80,7 @@ Propiedades del propio botón:
 * __displayRegex:__ Se muestra siempre que sea un número positivo o neutro, es el regex para mostrar el botón tirando contra la popiedad de multiselección.
 * __insideContextMenu:__ Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el botón en el contextMenu.
 * __request:__ Define parametros de la petición, como por ejemplo:
-	````
+	```` js
 	request: {
 		url: '/xlsxReport',
 		method: 'POST',
@@ -92,11 +94,11 @@ Propiedades del propio botón:
 * __custom:__ Todos los botones deben ir con está propiedad a true, a menos que se quiere usar el displayRegex con la propiedad de multiselección.
 * __blackListButtons:__ Lista donde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton', 'copyButton', 'excelButton', 'pdfButton', 'odsButton', 'csvButton'
 	Por ejemplo:
-	````
+	```` js
 	plugins.buttons.blackListButtons = ['csvButton'];
 	````
 * __report:__ Alberga el título y mensaje del popup de descarga, el listado de columnas que se desee exportar y parámetros adicionales que llegarán al controller:
-	````
+	```` js
 	plugins.buttons.report = {
 		title: 'Exportación (título personalizado)',
 		message: 'Su archivo está siendo generado... (mensaje personalizado)',
@@ -107,7 +109,7 @@ Propiedades del propio botón:
 	};
 	````
 Ejemplo del controller:
-````
+```` java
 	@RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	protected @ResponseBody void generateExcelReport(
 			@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, 
