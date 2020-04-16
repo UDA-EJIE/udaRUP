@@ -674,7 +674,7 @@
                                     $('#' + settings.id).addClass('inited');
                                 }
                                 settings.ultimosValores = data;
-                                $('#' + settings.id).triggerHandler('comboAjaxSucess', [data]);
+                                $('#' + settings.id).triggerHandler('comboAjaxSuccess', [data]);
                             },
                             error: function (xhr, textStatus, errorThrown) {
                                 if (settings.onLoadError !== null) {
@@ -715,7 +715,7 @@
                             $('#' + settings.id).addClass('inited');
                         }
                         
-                        $('#' + settings.id).triggerHandler('comboAjaxSucess', [settings.ultimosValores]);
+                        $('#' + settings.id).triggerHandler('comboAjaxSuccess', [settings.ultimosValores]);
                     }
 
                     //delete rupCombo;
@@ -1785,7 +1785,7 @@
                             $('#' + settings.id).addClass('inited');
                             
                             // Evento que se ejecuta cuando la carga de datos ha sido satisfactoria.
-                            $('#' + settings.id).triggerHandler('comboAjaxLoadSucess', [data]);
+                            $('#' + settings.id).triggerHandler('comboAjaxLoadSuccess', [data]);
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             if (settings.onLoadError !== null) {
