@@ -86,7 +86,7 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 ##  5 Invocación
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente Combo. Por ejemplo:
 ```javascript
-$("#id_input").rup_combo (properties);
+$("#id_input").rup_combo(properties);
 ```
 Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
@@ -120,15 +120,23 @@ El método devuelve una lista de entidades en este caso *List<Patrones>* donde c
 
 
 + JSON:
-```javascript
-[
-{code="Autocomplete", descEs="Autocomplete_es",
-descdescEu="Autcomplete_eu", css="filter" },
-{code="Combo",  descEs="Combo_es",
-descEu="Combo_eu",  css="print" },
-...
-      ]
-      ```
+	```javascript
+	[
+		{
+			code="Autocomplete", 
+			descEs="Autocomplete_es",
+			descdescEu="Autcomplete_eu", 
+			css="filter"
+		},
+		{
+			code="Combo", 
+			descEs="Combo_es",
+			descEu="Combo_eu", 
+			css="print"
+		},
+		...
+	]
+	```
 Como se ha explicado en anteriormente en el atributo ***source*** en el apartado 8 (propiedades) el componente requiere de una estructura de terminada para cargar el combo:
 ```javascript
 [
@@ -155,21 +163,21 @@ NOTA: Al generar el código con el *plugin* de **UDA**, se añade este serializa
 El uso de *“option groups remotos”* requiere de un pequeño esfuerzo por parte del desarrollador ya que se deben recuperar los diferentes grupos a incluir en el combo invocando a sus respectivos servicios y agruparlos en la estructura que espera el componente Combo. Ejemplo:
 ```javascript
 [
-		{"Futbol" : [
-			{label: "Alaves", value:"alaves", style:"aaa"},
-			{label: "Athletic", value:"ath", style:"bbb"},
-			{label: "Real Sociedad", value:"real", style:"ccc"}
-		]},
-		{"Baloncesto" : [
-			{label: "Caja Laboral", value:"laboral", style:"ddd"},
-			{label: "BBB", value:"bilbao", style:"eee"},
-			{label: "Lagun aro", value:"lagun aro", style:"fff"}
-		]},
-		{"Formula 1" : [
-			{label: "Fernando Alonso", value:"falonso"},
-			{label: "Lewis Hamilton", value:"hamilton"},
-			{label: "Sebastián Vettel", value:"vettel"}
-		]}
+	{"Futbol" : [
+		{label: "Alaves", value:"alaves", style:"aaa"},
+		{label: "Athletic", value:"ath", style:"bbb"},
+		{label: "Real Sociedad", value:"real", style:"ccc"}
+	]},
+	{"Baloncesto" : [
+		{label: "Caja Laboral", value:"laboral", style:"ddd"},
+		{label: "BBB", value:"bilbao", style:"eee"},
+		{label: "Lagun aro", value:"lagun aro", style:"fff"}
+	]},
+	{"Formula 1" : [
+		{label: "Fernando Alonso", value:"falonso"},
+		{label: "Lewis Hamilton", value:"hamilton"},
+		{label: "Sebastián Vettel", value:"vettel"}
+	]}
 ]
 ```
 El método encargado de recuperar los datos devolverá una lista que contiene un mapa por cada uno de los grupos. Dicho mapa, tendrá como clave el literal a mostrar en la cabecera del grupo y como valor una lista de entidades. La lista de entidades se traducirá a la estructura que espera el componente mediante el serializador de UDA explicado en el apartado anterior.
@@ -177,22 +185,20 @@ A continuación se muestra un ejemplo de cómo debería ser el *controller* enca
 
 ```java
 @RequestMapping(value = "combo/remoteGroup", method=RequestMethod.GET)
-public @ResponseBody List<HashMap<String, List<?>>> getRemoteComboGrupos(){
+public @ResponseBody List<HashMap<String, List<?>>> getRemoteComboGrupos() {
 
 	//Idioma
 	Locale locale = LocaleContextHolder.getLocale();
 
 	//Retorno del método
 	List<HashMap<String, List<?>>> retorno = new
-ArrayList<HashMap<String, List<?>>>();
+	ArrayList<HashMap<String, List<?>>>();
 
 	//Nombres de los grupos según idioma
    	String provincia = null, comarca = null,
-localidad = null, patrones = null;
+	localidad = null, patrones = null;
 
-if (com.ejie.x38.util.Constants.EUSKARA.equals(
-locale.getLanguage()))
-{
+	if (com.ejie.x38.util.Constants.EUSKARA.equals(locale.getLanguage())) {
 		provincia = "Provincia_eu";
 		comarca = "Comarca_eu";
 		localidad = "Localidad_eu";
@@ -203,7 +209,6 @@ locale.getLanguage()))
 		localidad = "Localidad";
 		patrones = "Patrones";
 	}
-
 
 	//Provincia
 	HashMap<String, List<?>> group = new HashMap<String, List<?>>();
@@ -238,37 +243,38 @@ Un ejemplo de la respuesta devuelta por este método del controlador sería la s
 	]},
 	{"Comarca_eu":[
 		{"style":"","value":"3","label":"A-Zona3"},
-{"style":"","value":"2","label":"A-Zona2"},
-{"style":"","value":"1","label":"A-Zona1"},
-{"style":"","value":"9","label":"Ezkerraldea"},
-{"style":"","value":"8","label":"Eskumaldea"},
-{"style":"","value":"7","label":"Bilbo Haundia"},
-{"style":"","value":"6","label":"G-Zona3"},
-{"style":"","value":"5","label":"G-Zona2"},
-{"style":"","value":"4","label":"G-Zona1"}
+		{"style":"","value":"2","label":"A-Zona2"},
+		{"style":"","value":"1","label":"A-Zona1"},
+		{"style":"","value":"9","label":"Ezkerraldea"},
+		{"style":"","value":"8","label":"Eskumaldea"},
+		{"style":"","value":"7","label":"Bilbo Haundia"},
+		{"style":"","value":"6","label":"G-Zona3"},
+		{"style":"","value":"5","label":"G-Zona2"},
+		{"style":"","value":"4","label":"G-Zona1"}
 	]},
 	{"Localidad_eu":[
-{"style":"","value":"3","label":"Galdakao"},
-{"style":"","value":"2","label":"Basauri"},
-{"style":"","value":"1","label":"Bilbo"},
-{"style":"","value":"6","label":"Getxo"},
-{"style":"","value":"5","label":"Areeta"},
-{"style":"","value":"4","label":"Leioa"},
-{"style":"","value":"9","label":"Barakaldo"},
-{"style":"","value":"8","label":"Portugalete"},
-{"style":"","value":"7","label":"Sestao"}]},
+		{"style":"","value":"3","label":"Galdakao"},
+		{"style":"","value":"2","label":"Basauri"},
+		{"style":"","value":"1","label":"Bilbo"},
+		{"style":"","value":"6","label":"Getxo"},
+		{"style":"","value":"5","label":"Areeta"},
+		{"style":"","value":"4","label":"Leioa"},
+		{"style":"","value":"9","label":"Barakaldo"},
+		{"style":"","value":"8","label":"Portugalete"},
+		{"style":"","value":"7","label":"Sestao"}
+	]},
 	{"Patrones_eu":[
-{"style":"filter","value":"Autocomplete","label":"Autocomplete_eu"},
-{"style":"print","value":"Combo","label":"Combo_eu"},
-{"style":"delete","value":"Dialog","label":"Dialog_eu"},
-{"style":"filter","value":"Feedback","label":"Feedback_eu"},
-{"style":"print","value":"Grid","label":"Grid_eu"},
-{"style":"delete","value":"Maint","label":"Maint_eu"},
-{"style":"filter","value":"Menu","label":"Menu_eu"},
-{"style":"print","value":"Message","label":"Message_eu"},
-{"style":"delete","value":"Tabs","label":"Tabs_eu"},
-{"style":"filter","value":"Toolbar","label":"Toolbar_eu"},
-{"style":"print","value":"Tooltip","label":"Tooltip_eu"}
+		{"style":"filter","value":"Autocomplete","label":"Autocomplete_eu"},
+		{"style":"print","value":"Combo","label":"Combo_eu"},
+		{"style":"delete","value":"Dialog","label":"Dialog_eu"},
+		{"style":"filter","value":"Feedback","label":"Feedback_eu"},
+		{"style":"print","value":"Grid","label":"Grid_eu"},
+		{"style":"delete","value":"Maint","label":"Maint_eu"},
+		{"style":"filter","value":"Menu","label":"Menu_eu"},
+		{"style":"print","value":"Message","label":"Message_eu"},
+		{"style":"delete","value":"Tabs","label":"Tabs_eu"},
+		{"style":"filter","value":"Toolbar","label":"Toolbar_eu"},
+		{"style":"print","value":"Tooltip","label":"Tooltip_eu"}
 	]}
 ]
 ```
@@ -289,16 +295,16 @@ A continuación veremos como se configuran/utilizan los combos enlazados locales
 ### 8.1 Local
 Cuando se desea utilizar el componente Combo enlazando datos locales se deben realizar una serie de configuraciones que se detallan a continuación:
 1.	La propiedad ***source*** del combo hijo, debe tener la siguiente estructura:
- ```javascript
- source: {"v1":[xxx], "v2":[yyy], "v3":[zzz] }
-```
+	```javascript
+	source: {"v1":[xxx], "v2":[yyy], "v3":[zzz] }
+	```
 	+ v1, v2, v3 : posible valor seleccionable en el combo padre
 	+ [xxx], [yyy], [zzz] : estructura que posee un combo no dependiente (ver atributo o).
 
 2.	El combo hijo debe indicar en su configuración que depende del combo padre mediante la propiedad parent:
-```javascript
-parent: [ "comboPadre" ]
-```
+	```javascript
+	parent: [ "comboPadre" ]
+	```
 
 ### 8.2	Remoto
 Cuando se desea utilizar el componente Combo enlazando datos remotos, se deben realizar una serie de configuraciones que se detallan a continuación:
@@ -309,71 +315,69 @@ Cuando se desea utilizar el componente Combo enlazando datos remotos, se deben r
 
 +	Código HTML:
 	+	El **combo padre** debe definir el nombre del parámetro en la petición de carga del combo hijo:
-```xml
-<select id="comboPadreRemoto" name="provincia" class="rup-combo"></select>
-```
+		```xml
+		<select id="comboPadreRemoto" name="provincia" class="rup-combo"></select>
+		```
 	+	El **combo hijo**:
-```xml
-<select id="comboHijoRemoto" class="rup-combo"></select>
-```
+		```xml
+		<select id="comboHijoRemoto" class="rup-combo"></select>
+		```
 +	Configuración js:
 	+	El **combo padre**:
-```javascript
-$('#comboPadreRemoto').rup_combo({
-source : "comboEnlazado/remoteEnlazadoProvincia",
-			...
+		```javascript
+		$('#comboPadreRemoto').rup_combo({
+			source : "comboEnlazado/remoteEnlazadoProvincia",
+				...
 		});
-```
+		```
 
 	+	El **combo hijo** debe indicar cual/cuales son sus padre/s:
-```javascript
-$('#comboHijoRemoto').rup_combo({
-parent: [ "comboPadreRemoto" ],
-source : "comboEnlazado/remoteEnlazadoComarca",
-...
-})
-```
+		```javascript
+		$('#comboHijoRemoto').rup_combo({
+			parent: [ "comboPadreRemoto" ],
+			source : "comboEnlazado/remoteEnlazadoComarca",
+			...
+		})
+		```
 
 +	Controller:
 	+	El método para la petición del **combo padre**:
-```java
-@RequestMapping(value = "comboEnlazado/remoteEnlazadoProvincia",
-method=RequestMethod.GET)
-	public @ResponseBody List<Provincia> getEnlazadoProvincia() {
-		return provinciaService.findAll(null, null);
-	}
-```
+		```java
+		@RequestMapping(value = "comboEnlazado/remoteEnlazadoProvincia", method=RequestMethod.GET)
+		public @ResponseBody List<Provincia> getEnlazadoProvincia() {
+			return provinciaService.findAll(null, null);
+		}
+		```
 
 	+	El método para la petición del **combo hijo** debe declarar el parámetro donde se recibe el elemento seleccionado en el padre:
 
-```java
-@RequestMapping(value = "comboEnlazado/remoteEnlazadoComarca", method=RequestMethod.GET)
-public @ResponseBody List<Comarca> getEnlazadoComarca(
-@RequestParam(value = "provincia", required = false) BigDecimal provincia_code) {
+		```java
+		@RequestMapping(value = "comboEnlazado/remoteEnlazadoComarca", method=RequestMethod.GET)
+		public @ResponseBody List<Comarca> getEnlazadoComarca(
+		@RequestParam(value = "provincia", required = false) BigDecimal provincia_code) {
 
-	//Convertir parámetros en entidad para búsqueda
-	Provincia provincia = new Provincia();
-	provincia.setCode(provincia_code);
-	Comarca comarca = new Comarca();
-	comarca.setProvincia(provincia);
+			//Convertir parámetros en entidad para búsqueda
+			Provincia provincia = new Provincia();
+			provincia.setCode(provincia_code);
+			Comarca comarca = new Comarca();
+			comarca.setProvincia(provincia);
 
-	return comarcaService.findAll(comarca, null);
-}
-```
+			return comarcaService.findAll(comarca, null);
+		}
+		```
 +	Serializador:
-Se indica que las entidades utilizadas se serialicen en el retorno del controller a la ***JSP***:
-```xml
-<bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
-   <property name="serializers">
-     <map>
-      <entry key="com.ejie.x21a.model.Provincia" value-ref="customSerializer" />
-<entry key="com.ejie.x21a.model.Comarca" value-ref="customSerializer" />
-
-        ...
-     </map>
-   </property>
-</bean>
-```
+	Se indica que las entidades utilizadas se serialicen en el retorno del controller a la ***JSP***:
+	```xml
+	<bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
+	<property name="serializers">
+		<map>
+			<entry key="com.ejie.x21a.model.Provincia" value-ref="customSerializer" />
+			<entry key="com.ejie.x21a.model.Comarca" value-ref="customSerializer" />
+			...
+		</map>
+	</property>
+	</bean>
+	```
 
 ##  9	Precarga de datos
 La recuperación los datos proporcionados por el servidor de aplicaciones, se realiza mediante una petición AJAX. Con el objeto de minimizar el número de peticiones realizadas por el componente combo, se posibilita el realizar una precarga de los datos que va a presentar el combo sin necesidad de realizar la primera petición AJAX.
@@ -389,7 +393,6 @@ Suponemos que se desea cargar en un componente RUP combo, los datos de provincia
 ```java
 @RequestMapping(value = "maint", method = RequestMethod.GET)
 public String getMaint(Model model) {
-
 	List<Provincia> listaProvincias = provinciaService.findAll(null, null);
 	model.addAttribute("provincias",listaProvincias);
 
@@ -400,18 +403,24 @@ public String getMaint(Model model) {
 La ejecución de este método del controller añadirá al atributo provincia del model la lista de provincias obtenidas a partir de la consulta a base de datos. Esto nos permitirá realizar la carga de datos del combo en la jsp.
 El siguiente paso es implementar en la jsp el combo HTML en el que se van a cargar los datos. Estos datos serán los utilizados para inicializar el componente RUP combo.
 
-<form:select path="provincia.id" class="formulario_linea_input" id="provincia" >
-	<form:options items="${provincias}" itemLabel="dsO" itemValue="id"/>
-</form:select>
+```html
+<div class="form-groupMaterial">
+	<label for="provincia">Provincia</label>
+	<form:select path="provincia.id" class="formulario_linea_input" id="provincia">
+		<form:options items="${provincias}" itemLabel="dsO" itemValue="id"/>
+	</form:select>
+</div>
+```
 
 Por último se deberá de realizar la invocación del componente RUP combo en el fichero js correspondiente a la página.
 ```javascript
 jQuery("#provincia").rup_combo({
-	source : "../provincia",
-	sourceParam : {label:"dsO", value:"id"},
-	width : 400,
-	blank : "",
-	loadFromSelect:true
+	source: "../provincia",
+	sourceParam: {label:"dsO", value:"id"},
+	width: '100%',
+    customClasses: ['select-material'],
+	blank: "",
+	loadFromSelect: true
 });
 ```
 La invocación del componente se realizará de modo normal, indicando mediante el parámetro source una URL mediante la cual se podrá realizar una recarga de los datos. Entre los parámetros de configuración se debe de indicar mediante loadFromSelect:true que se utilice el contenido del combo HTML para la inicialización del componente.
@@ -429,55 +438,43 @@ Los estilos del componente se basan en los estilos básicos de los widgets de jQ
 Ejemplo base de la estructura generada por el componente para selección simple:
 
 ```xml
-<a aria-owns=" id-menu" aria-haspopup="true" tabindex="0" href="#" role="button" id=" id-button" class="ui-selectmenu ui-widget ui-state-default ui-selectmenu-dropdown ui-corner-all" style="width: 300px;"
-aria-disabled="false">
-<span class="ui-selectmenu-status">item1</span>
-<span class="ui-selectmenu-icon ui-icon ui-icon-triangle-1-s"></span>
+<a aria-owns=" id-menu" aria-haspopup="true" tabindex="0" href="#" role="button" id=" id-button" class="ui-selectmenu ui-widget ui-state-default ui-selectmenu-dropdown ui-corner-all" style="width: 300px;" aria-disabled="false">
+	<span class="ui-selectmenu-status">item1</span>
+	<span class="ui-selectmenu-icon ui-icon ui-icon-triangle-1-s"></span>
 </a>
 
 <!-- at end of body-->
 <ul id="speedA_menu_318" role="menu" aria-labelledby="speedA_button_318" class="ui-selectmenu-menu ui-widget ui-widget-content ui-corner-all ui-selectmenu-menu-popup ui-selectmenu-open" style="width: 147px; left: 184.017px; top: 136.95px;">
     <li class="whoo ui-corner-top ui-selectmenu-item-selected ui-state-active">
-<a aria-selected="true" role="option" tabindex="-1" href="#">item1</a>
+		<a aria-selected="true" role="option" tabindex="-1" href="#">item1</a>
     </li>
     <li>
-<a aria-selected="false" role="option" tabindex="-1" href="#">item2</a>
+		<a aria-selected="false" role="option" tabindex="-1" href="#">item2</a>
     </li>
     <li>
-<a aria-selected="false" role="option" tabindex="-1" href="#">item3</a>
+		<a aria-selected="false" role="option" tabindex="-1" href="#">item3</a>
     </li>
 </ul>
 ```
 
 Ejemplo base de la estructura generada por el componente para selección simple:
 ```xml
-<button type="button"
-		class="ui-multiselect ui-widget ui-state-default ui-corner-all ui-state-active"
-		aria-haspopup="true" style="width: 406px;"
-		aria-disabled="false">
+<button type="button" class="ui-multiselect ui-widget ui-state-default ui-corner-all ui-state-active" aria-haspopup="true" style="width: 406px;" aria-disabled="false">
 	<span class="ui-icon ui-icon-triangle-1-s"></span>
 	<span>2 seleccionado(s)</span>
-    </button>
+</button>
 <!-- at end of body-->
-<div id="rup-multiCombo_multicombo"
-class="ui-multiselect-menu ui-widget ui-widget-content ui-corner-all" style="width: 398px; top: 291.9px; left: 63.15px; display: block;">
-
-<div class="ui-widget-header ui-corner-all ui-multiselect-header
-ui-helper-clearfix">
-
-<ul class="ui-helper-reset">
+<div id="rup-multiCombo_multicombo" class="ui-multiselect-menu ui-widget ui-widget-content ui-corner-all" style="width: 398px; top: 291.9px; left: 63.15px; display: block;">
+	<div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
+		<ul class="ui-helper-reset">
 			<li>
-				<a href="#" class="ui-multiselect-all"
-oldtitle="Seleccionar todos los elementos" aria-
-describedby="ui-tooltip-4">
+				<a href="#" class="ui-multiselect-all" oldtitle="Seleccionar todos los elementos" aria-describedby="ui-tooltip-4">
 					<span class="ui-icon ui-icon-check"></span>
 					<span>Seleccionar todo</span>
 				</a>
 			</li>
 			<li>
-<a href="#" class="ui-multiselect-none"
-oldtitle="Deseleccionar todos los elementos" aria-
-describedby="ui-tooltip-5">
+				<a href="#" class="ui-multiselect-none" oldtitle="Deseleccionar todos los elementos" aria-describedby="ui-tooltip-5">
 					<span class="ui-icon ui-icon-closethick"></span>
 					<span>Deseleccionar todo</span>
 				</a>
@@ -489,14 +486,10 @@ describedby="ui-tooltip-5">
 			</li>
 		</ul>
 	</div>
-	<ul class="ui-multiselect-checkboxes ui-helper-reset"
-style="height: 175px;">
-		<li class=" ">
-			<label class="ui-corner-all" title=""
-for="ui-multiselect-multicombo-option-0">
-			<input type="checkbox" checked="checked" title="ruby"
-value="ruby_value" name="multiselect_multicombo"
-id="ui-multiselect-multicombo-option-0">
+	<ul class="ui-multiselect-checkboxes ui-helper-reset" style="height: 175px;">
+		<li class="">
+			<label class="ui-corner-all" title="" for="ui-multiselect-multicombo-option-0">
+				<input type="checkbox" checked="checked" title="ruby" value="ruby_value" name="multiselect_multicombo" id="ui-multiselect-multicombo-option-0"/>
 				<span>ruby</span>
 			</label>
 		</li>
@@ -518,10 +511,9 @@ En el caso de que el componente combo utilice datos obtenidos de una fuente remo
 El componente Combo necesita que los datos remotos que le son servidos sigan la siguiente estructura:
 ```javascript
 [
-{"style":"print","value":"1","label":"Alava"},
-{"style":"print","value":"2","label":"Vizcaya"},
-{"style":"print","value":"3","label":"Gipuzcoa"}]
-	...
+	{"style":"print","value":"1","label":"Alava"},
+	{"style":"print","value":"2","label":"Vizcaya"},
+	{"style":"print","value":"3","label":"Gipuzcoa"}
 ]
 ```
 Para este fin, el componente envía en la petición una cabecera de **RUP** con la información necesaria para realizar la serialización.
@@ -532,9 +524,9 @@ Para realizar la serialización de los datos enviados como respuesta desde el se
 ```xml
 <bean id="jacksonJsonCustomSerializerFactory" class="com.ejie.x38.serialization.CustomSerializerFactoryRegistry">
    <property name="serializers">
-     <map>
-      <entry key="com.ejie.x21a.model.Provincia" value-ref="customSerializer" />
-     </map>
+    	<map>
+      		<entry key="com.ejie.x21a.model.Provincia" value-ref="customSerializer" />
+    	</map>
    </property>
 </bean>
 ```
