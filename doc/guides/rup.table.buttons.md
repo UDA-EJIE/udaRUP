@@ -79,6 +79,10 @@ Propiedades del propio bot√≥n:
 * __icon:__ Campo para asignar alg√∫n icono. Por ejemplo, "mdi-file-excel".
 * __displayRegex:__ Se muestra siempre que sea un n√∫mero positivo o neutro, es el regex para mostrar el bot√≥n tirando contra la popiedad de multiselecci√≥n.
 * __insideContextMenu:__ Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el bot√≥n en el contextMenu.
+* __size:__ Permite aumentar el tamaÒo o disminuirlo. El valor de la propiedad ëlgí los hace m·s grandes y ësmí m·s pequeÒos. Por ejemplo:
+	```` js
+	plugins.buttons.size = 'lg'
+	````
 * __request:__ Define parametros de la petici√≥n, como por ejemplo:
 	```` js
 	request: {
