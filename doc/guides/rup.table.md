@@ -433,12 +433,12 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 	TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
 	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
 }
-
+```
 ### 9.5. Propiedades adicionales
 
 ```java
 Plugins.noEdit = true 
-```java
+```
 
 Por defecto viene a false, y si se activa deja solo el boton de informes.
 
@@ -448,13 +448,13 @@ Plugins.customError =  function(qXHR, textStatus, errorThrown ){
                              let ctx = $('#'+idTabla).rup_table("getContext"); 
                              cargarFeedback(ctx, qXHR.responseText, textStatus); 
                         }
-```java
+```
 
 Se puede cargar una función para que los errores que vienen de ajax.
 
 ```java
 Plugins.filter = 'noFilter' 
-```java
+```
 
 Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no hará la validación correspondiente.
 
@@ -464,7 +464,7 @@ Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
                              let ctx = $('#'+idTabla).rup_table("getContext"); 
                              cargarFeedback(ctx, qXHR.responseText, textStatus); 
                         }
-```java
+```
 
 Se puede cargar una función para que los errores que vienen de ajax.
 
@@ -477,7 +477,7 @@ Plugins.validarEliminar =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al eliminar.
 
@@ -490,7 +490,7 @@ Plugins.validarModificar  =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al guardar en la edición de la tabla.
 
@@ -503,7 +503,7 @@ Plugins.validarModificarContinuar =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al guardar y continuar en la edición de la tabla.
 
@@ -516,7 +516,7 @@ Plugins.validarFiltrar  =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al filtrar en la tabla.
 
@@ -529,7 +529,7 @@ Plugins.validarBuscar =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al buscar con el seeker.
 
@@ -542,7 +542,7 @@ Plugins.validarAlta  =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro.
 
@@ -555,7 +555,7 @@ Plugins.validarAltaContinuar =  function miFuncion(ctx){
                              } 
                              	return false;//paso la validación
                         };
-```java
+```
 
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro y continuar.
 
@@ -563,6 +563,57 @@ Se puede cargar una función y hacer un validación externa al hacer un nuevo re
 plugins.feedback.customGoTo  = function miFuncion(){
 									return $('#example_containerToolbar').offset().top ;
 								} 
-```java
+```
 
 Se puede personalizar el feedback para que cuando aparezca, suba la posición hasta donde el desarrollador quiera, hay que devolver un número.
+
+```java
+        let miColModel = [{
+                name: 'id',
+                editable: true,
+                formoptions: {
+                    rowpos: 1,
+                    colpos: 1
+                }
+            },
+            {
+                name: 'ejie',
+                editable: true,
+                edittype: 'checkbox',
+                rupType: 'checkbox',
+                editoptions: {
+                    value: '1:0'
+                },
+                searchoptions : {
+                    rowpos: 5,
+                    colpos: 1
+                }
+            },
+            {
+                name: 'fechaAlta',
+                editable: true,
+                rupType: 'date',
+                editoptions: {
+                    labelMaskId: 'fecha-mask',
+                    showButtonPanel: true,
+                    showOtherMonths: true,
+                    noWeekend: true
+                },
+                formoptions: {
+                    rowpos: 2,
+                    colpos: 2
+                }
+            }
+            ];
+
+
+plugins.colModel  = miColModel; 
+```
+
+El colModel se usa para modelar, los campos de la tabla.
+Destacadaos:
+
+name -> Identificador del campo.
+editable -> true o false, si se quiere editar o no este campo.
+editoptions y formoptions -> Para configurar todas las opciones de los campos rup.
+rupType -> Tipo rup para ese campo.

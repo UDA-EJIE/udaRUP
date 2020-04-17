@@ -26,7 +26,7 @@ $("#idComponente").rup_table({
 Plugins.formEdit.cancelDeleteFunction   = function () {
                    							 console.log('Ha cancelado eliminar.');
                								 } 
-```java
+```
 
 Permite personalizar una función a la hora de cancelar, cuando se va a borrar los registros de la tabla.
 
@@ -43,7 +43,7 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y d
                			 </div>
        				 </div>
 				</c:forEach>
-```java		
+```		
 
 Donde destacan 3 elementos:
 
