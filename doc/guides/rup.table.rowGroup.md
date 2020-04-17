@@ -14,3 +14,18 @@ $("#idComponente").rup_table({
   // Propiedades de configuración del plugin colReorder
   }
 });
+
+# 2. Métodos Públicos
+
+rowGroup().dataSrc() -> Obtiene / configura los datos.
+
+rowGroup().disable() -> Deshabilita los rowGroup.
+
+rowGroup().enable() -> Habilita los rowGroup.
+
+rowGroup().enabled() -> Determina si un grupo está habilitado.
+
+rowGroup().expand () -> Expande el grupo.
+
+rowGroup().collapse() -> Colapsa el grupo.
+

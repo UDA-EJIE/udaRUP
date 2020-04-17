@@ -433,7 +433,7 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 	TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
 	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
 }
-```
+
 ### 9.5. Propiedades adicionales
 
 ```java
