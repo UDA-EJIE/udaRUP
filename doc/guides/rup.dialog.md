@@ -72,13 +72,13 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 ##	5 Invocación
 Este componente se invocará mediante un selector que indicará el elemento capa (div) que envuelve el contenido  a mostrar o bien directamente sobre jQuery invocando la función del componente. Por ejemplo:
 +	Usando una capa
-```javascript
-			$("#selector").rup_dialog(properties);
-```
-+	+	Obteniendo el contenido directamente (texto) o vía AJAX:
-```javascript
-			$(document).rup_dialog(properties);
-```
+      ```javascript
+      $("#selector").rup_dialog(properties);
+      ```
++	Obteniendo el contenido directamente (texto) o vía AJAX:
+      ```javascript
+      $(document).rup_dialog(properties);
+      ```
 Donde el parámetro “properties” es un objeto *(var properties = {};)* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
 La estructura de una ventana modal debe consistir en una capa semitransparente que deje ver ligeramente el proceso principal que se está llevando a cabo para dejar claro al  usuario que sigue trabajando en ese proceso. Sobre la capa semitransparente se debe añadir la capa con el contenido del subproceso. Debe constar, además del contenido en si mismo, un aspa de cierre, un enlace para cancelar la acción y un botón destacado para la ejecución de la acción.
@@ -103,6 +103,8 @@ Los estilos principales a tener en cuenta son los siguientes:
 
 Adicionalmente se aplican una serie de estilos para mejorar la experiencia del usuario como puede ser el redondeo de las esquinas (sólo aplicable en FireFox) o la inclusión de estilos que modifiquen el cursor en caso de que la ventana sea redimensionable.
 
+Cabe decir, que el color de la barra del título puede ser cambiada fácilmente sobrescribiendo la propiedad **background-color** dentro de la clase **.app-primary-color**.
+
 ##	8	Internacionalización i18n
 La gestion de los literales de lo diálogos se realiza a través de ficheros json lo que flexibiliza el desarrollo. Para acceder a los literales se hara uso del objeto base rup, por el cual se accedera al objeto json correspondiente según el idioma para obtener tanto los literales como los propios mensajes.
 
@@ -112,22 +114,21 @@ Los literales definidos para el contenido del diálogo pueden ser simple texto o
 	"rup_message":{
 		"aceptar":"Aceptar",
 		"tituloError":"Se ha producido un error",
-...
+      ...
 	},
 	"rup_global":{
 		"cerrar":"cerrar",
 		"rupCheckStyleError":"NO SE CUMPLEN LAS NOMRAS DE LA GUIA DE ESTILOS DE RUP. DEBE EXISTIR UNA ACCIÓN SECUNDARIA."
 	},
 	"rup_blockUI":{
-"cargando":"Procesando, espere por favor"
+      "cargando":"Procesando, espere por favor"
 	},
 	"rup_dialog":{
-"errorLoadingData":"<b>Error recuperando los datos peticionados para crear el diálogo.</b>"
-}
+      "errorLoadingData":"<b>Error recuperando los datos peticionados para crear el diálogo.</b>"
+   }
 }
 ```
 El acceso a cualquier tipo de literal se debe realizar de la siguiente forma (teniendo en cuenta que es un objeto JSON):
 ```javascript
-$.rup.i18n.rup_global.cerrar
-}
+$.rup.i18n.base.rup_global.cerrar
 ```
