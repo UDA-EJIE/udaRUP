@@ -29,3 +29,24 @@ Plugins.formEdit.cancelDeleteFunction   = function () {
 ```java
 
 Permite personalizar una función a la hora de cancelar, cuando se va a borrar los registros de la tabla.
+
+
+Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deben tener la siguiente estructura:
+
+```java
+			    <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
+        			<div class="form-row">      
+               			 <div class="checkbox-material col-sm">
+							<form:checkbox path="lugares[${status.index}].checkeado" id="checkeado${status.index}_lugares"
+							 value="1" data-lista="lugares" data-clave="buzones" />
+                			<label for="checkeado${status.index}_lugares">${lugarapli.email}</label>
+               			 </div>
+       				 </div>
+				</c:forEach>
+```java		
+
+Donde destacan 3 elementos:
+
+PATH ->	Es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+DATA-LISTA-> Es el nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
+DATA-CLAVE-> Es la clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
