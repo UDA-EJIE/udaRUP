@@ -129,5 +129,13 @@ Ejemplo del controller:
         Locale locale = LocaleContextHolder.getLocale();
 		this.tableUsuarioService.generateReport(filterUsuario, columns, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
     }
-
 ````
+
+## 2. API
+
+Es posible que en algún momento sea necesario eliminar registros de manera programática. Para ello se puede hacer de la siguiente manera:
+```js
+var dt = $('#example').DataTable();
+
+$.fn.DataTable.Api().buttons.deleteNotForm(dt);
+```
