@@ -20,3 +20,12 @@ $("#idComponente").rup_table({
   }
 });
 ```
+### Propiedades adicionales
+
+```java
+Plugins.formEdit.cancelDeleteFunction   = function () {
+                   							 console.log('Ha cancelado eliminar.');
+               								 } 
+```java
+
+Permite personalizar una función a la hora de cancelar, cuando se va a borrar los registros de la tabla.
