@@ -2975,7 +2975,7 @@
         
         if (!request.reportsExportAllColumns) {
         	// Se obtienen las columnas a mostrar definidas por el usuario
-            if (ctx.oInit.buttons.report.columns !== undefined) {
+            if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.columns !== undefined) {
             	columns = ctx.oInit.buttons.report.columns;
             } else {
             	// En caso contrario se obtienen las columnas de la tabla
