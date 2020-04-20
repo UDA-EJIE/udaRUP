@@ -5,6 +5,15 @@ En este documento se tratará de explicar lo mejor posible como aplicar los esti
 
 Para facilitar la búsqueda de ejemplos, se dividirá en secciones, formando cada sección con un componente o elemento.
 
+### Tipografía
+El tema por defecto de UDA define una serie de estilos predeterminados para las aplicaciones.
+
+Así pues, se consideran los siguientes valores:
++ **font-family**: El tipo de letra utilizado por defecto es "Roboto".
++ **font-size**: Se establece un valor de 12px para el tamaño de letra.
+
+![Typography](img/materialGuidelines/typography.png)
+
 ### Botones
 Los botones de bootstrap materializados **.btn-material** pueden ser presentados con diferentes énfasis y estados.
 
@@ -90,7 +99,7 @@ Además, añadiendo la clase **.material-rounded** las esquinas serán redondead
 </div>
 ```
 
-En caso de querer añadir iconos a los botones, sería tan sencillo como insertarle un elemento <i> con su clase correspondiente.
+En caso de querer añadir iconos a los botones, sería tan sencillo como insertarle un elemento **i** con su clase correspondiente.
 
 UDA usa los iconos material del proyecto [Material Design Icons](https://materialdesignicons.com) donde además, pueden obtenerse ejemplos.
 
