@@ -10,7 +10,6 @@ El tema por defecto de UDA define una serie de estilos predeterminados para las 
 
 Así pues, se consideran los siguientes valores:
 + **font-family**: El tipo de letra utilizado por defecto es "Roboto".
-+ **font-size**: Se establece un valor de 12px para el tamaño de letra.
 
 ![Typography](img/materialGuidelines/typography.png)
 
