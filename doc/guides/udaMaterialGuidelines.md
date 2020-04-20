@@ -3,9 +3,9 @@
 ## 1. Introducción
 En este documento se tratará de explicar lo mejor posible como aplicar los estilos material a los componentes y elementos en general. También es posible visitar la [guía de estilos](https://www.ejie.eus/x21aAppWar/styleGuide) que está dentro de la aplicación de ejemplo de UDA.
 
-Para facilitar la búsqueda de ejemplos, se dividirá en secciones, formando cada sección con un componente o elemento.
+Para facilitar la búsqueda de ejemplos, se dividirá en secciones, formando cada sección con un componente, elemento o grupo.
 
-### Tipografía
+## 2. Tipografía
 El tema por defecto de UDA define una serie de estilos predeterminados para las aplicaciones.
 
 Así pues, se consideran los siguientes valores:
@@ -13,7 +13,7 @@ Así pues, se consideran los siguientes valores:
 
 ![Typography](img/materialGuidelines/typography.png)
 
-### Botones
+## 3. Botones
 Los botones de bootstrap materializados **.btn-material** pueden ser presentados con diferentes énfasis y estados.
 
 Además, añadiendo la clase **.material-rounded** las esquinas serán redondeadas.
@@ -263,10 +263,10 @@ Mediante la clase **.btn-material-sm** el botón será mas pequeño, en cambio s
 </div>
 ```
 
-### Formulario
+## 4. Formulario
 El tema de UDA proporciona una apariencia unificada de los diferentes elementos que pueden estar presentes en un formulario.
 
-#### Campos de texto
+### Campos de texto
 
 Se busca normalizar la apariencia de los campos de texto por defecto así como de los que hacen uso de los estilos de bootstrap.
 Un campo de texto por defecto hace uso de las siguientes propiedades de css:
@@ -330,7 +330,7 @@ En cambio, si usamos los estilos de bootstrap materializados a la hora de diseñ
 </div>
 ```
 
-#### Autocomplete
+### Autocomplete
 ![Autocomplete](img/materialGuidelines/autocomplete.png)
 ```html
 <div class="form-group">
@@ -344,7 +344,7 @@ En cambio, si usamos los estilos de bootstrap materializados a la hora de diseñ
 </div>
 ```
 
-#### Select
+### Select
 Del mismo modo se trata de obtener una apariencia similar en el uso de los controles **select**.
 
 Las propiedades aplicadas a los estilos son:
@@ -371,7 +371,7 @@ Combo UDA Materializado:
 
 ![Combo UDA Material](img/materialGuidelines/combo-uda-material.png)
 
-#### Radio y Checkbox
+### Radio y Checkbox
 Los elementos input que sean tanto de tipo checkbox como radio pueden ser estilizados de manera 'block' o 'inline'.
 
 + Ejemplos block:
@@ -475,7 +475,7 @@ Los elementos input que sean tanto de tipo checkbox como radio pueden ser estili
   </div>
   ```
 
-#### Fecha
+### Fecha
 ![Date](img/materialGuidelines/date.png)
 ```html
 <div class="example">
@@ -492,7 +492,7 @@ Los elementos input que sean tanto de tipo checkbox como radio pueden ser estili
 </div>
 ```
 
-#### Textarea
+### Textarea
 Textarea básico:
 
 ![Textarea Default](img/materialGuidelines/textarea-default.png)
