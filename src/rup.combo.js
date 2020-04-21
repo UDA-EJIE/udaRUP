@@ -690,7 +690,7 @@
                             var isOptgroup = false;
 
                             // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-                            $.each(data[0], function (key, value) {
+                            $.each(settings.ultimosValores[0], function (key, value) {
                                 if (typeof value === 'object' && value !== null) {
                                     isOptgroup = true;
                                     return false;
