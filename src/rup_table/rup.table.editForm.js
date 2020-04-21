@@ -121,7 +121,7 @@
                         }
                         _getRowSelected(dt, 'PUT');
                         DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow, null);
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow');
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow',ctx);
                     }
                 });
             }
@@ -360,7 +360,7 @@
         if (idRow < 0) {
             idRow = 1;
         }
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData');
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
         var row = ctx.json.rows[idRow];
         var rowArray = $.rup_utils.jsontoarray(row);
         
@@ -402,7 +402,7 @@
                             divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
                     },
                     complete: () => {
                         if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
@@ -435,7 +435,7 @@
                 indexInArray = (Number(ctx.json.page) - 1) * 10;
                 indexInArray = indexInArray + idRow;
             }
-            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData');
+            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
             _updateDetailPagination(ctx, indexInArray + 1, numTotal);
             DataTable.Api().rupTable.selectPencil(ctx, idRow);
             // Se guarda el ultimo id editado.
@@ -459,7 +459,7 @@
             DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
         }
 
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm');
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
         // Establecemos el título del formulario
 
         ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
@@ -515,7 +515,7 @@
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
             } else {
             	ctx.oInit.formEdit.okCallBack = true;
             	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
@@ -567,14 +567,14 @@
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax');
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
             } else {
             	ctx.oInit.formEdit.okCallBack = true;
             	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, '');
             }
         });
 
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm');
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm',ctx);
 
         return loadPromise;
     };
@@ -598,7 +598,7 @@
      */
     function _callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url) {
         var ctx = dt.settings()[0];
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax');
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax',ctx);
         // add Filter
         var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
         var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
@@ -702,11 +702,11 @@
                         if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
                             ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
                         }
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType);
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
                     }
 
                     dt.ajax.reload(function () {
-                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType);
+                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
                     }, false);
 
                 } else { // Eliminar
@@ -714,7 +714,7 @@
                     ctx.oInit.feedback.msgFeedBack = msgFeedBack;
                     var reloadDt = function () {
                         dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType);
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
                         }, false);
                     };
                     if (ctx.oInit.multiSelect !== undefined) {
@@ -732,7 +732,7 @@
                 }
             },
             complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
             },
             error: function (xhr) {
 
@@ -743,7 +743,7 @@
                     }
                     _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
 
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType,ctx);
             },
             validate: validaciones,
             feedback: feed.rup_feedback({
@@ -779,7 +779,7 @@
      *
      */
     function _callFeedbackOk(ctx, feedback, msgFeedBack, type) {
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow');
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow',ctx);
         feedback.rup_feedback('set', msgFeedBack, type);
         feedback.rup_feedback('show');
     }
@@ -1621,7 +1621,7 @@
                 }
             }
 
-            $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons');
+            $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons',ctx);
         } catch (error) {}
     }
 
