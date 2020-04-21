@@ -1315,14 +1315,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		ctx.inlineEdit.lastRow.submit = 1;
 	}
 	
-	if(url !== '/deleteAll' && actionType !== 'DELETE'){
-		idForm.rup_form();
-		idForm.rup_form('ajaxSubmit', ajaxOptions);
-	}else{
-		//Se cambia el data
-		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-		$.rup_ajax(ajaxOptions);
-	}
+	//Se cambia el data
+	ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+	$.rup_ajax(ajaxOptions);
+
 }
 
 
