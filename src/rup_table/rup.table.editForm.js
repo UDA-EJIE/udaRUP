@@ -753,10 +753,7 @@
         };
 
         if (url !== '/deleteAll' && actionType !== 'DELETE') {
-           // ctx.oInit.formEdit.idForm.rup_form();
-           // ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
-            ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-            $.rup_ajax(ajaxOptions);
+            ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
         } else {
             //Se cambia el data
             if (ajaxOptions.data == '') {
