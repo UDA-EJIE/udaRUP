@@ -95,7 +95,7 @@
         //se añade el boton de cancelar
         ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_cancel');
         ctx.oInit.formEdit.buttoCancel.bind('click', function () {
-            cancelPopup(ctx);
+            _cancelPopup(ctx);
             //Se cierra el dialog
             ctx.oInit.formEdit.detailForm.rup_dialog('close');
         });
@@ -160,7 +160,7 @@
             // si es igual no hacer nada.
             var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
             if (ctx.oInit.formEdit.dataOrigin === formSerializado) {
-                cancelPopup(ctx);
+                _cancelPopup(ctx);
                 return true;
             }
             if (ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack) {
@@ -169,7 +169,7 @@
                     message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
                     title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
                     OKFunction: function () {
-                        cancelPopup(ctx);
+                        _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
                         ctx.oInit.formEdit.detailForm.rup_dialog('close');
                     },
@@ -303,7 +303,7 @@
         $(api.table().node()).trigger(type, args);
     }
 
-    function cancelPopup(ctx) {
+    function _cancelPopup(ctx) {
         ctx.oInit.formEdit.okCallBack = false;
         var feedback = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
 
@@ -340,9 +340,13 @@
         ctx.oInit.formEdit.actionType = actionType;
         //Se limpia los errores. Si hubiese
         var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
-        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id + '_ok');
+        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id);
         if (divErrorFeedback.length > 0) {
             divErrorFeedback.hide();
+        }
+        //Se limpia los elementos.
+        if (idForm.find('.error').length > 0) {
+        	idForm.rup_validate('resetElements');
         }
 
         //se añade el boton de guardar
@@ -517,7 +521,7 @@
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
             } else {
-            	ctx.oInit.formEdit.okCallBack = true;
+            	
             	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
             }
         });
@@ -569,7 +573,7 @@
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
             } else {
-            	ctx.oInit.formEdit.okCallBack = true;
+            	
             	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, '');
             }
         });
@@ -635,7 +639,7 @@
             contentType: 'application/json',
             async: true,
             success: function () {
-
+            	ctx.oInit.formEdit.okCallBack = true;
                 if (url !== '/deleteAll' && actionType !== 'DELETE') {
                     if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                         var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
