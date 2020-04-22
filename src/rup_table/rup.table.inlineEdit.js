@@ -1302,8 +1302,42 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 		complete : function() {
 			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax');
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
-		    _callFeedbackOk(ctx, xhr.responseText, 'error');
+		error: function (xhr) {
+			if (xhr.status === 406 && xhr.responseText !== '') {
+				try {
+					let responseJSON = jQuery.parseJSON(xhr.responseText);
+					if (responseJSON.rupErrorFields) {
+						if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
+							//se transforma a inline
+							var rulesAux = responseJSON.rupErrorFields;
+						     $.each(rulesAux, function (name, rule) {
+						    	 if($('#'+name+'_inline').length === 1){
+						    		 responseJSON.rupErrorFields[name + '_inline'] = rule;
+						    	 }
+						    	 if($('#'+name+'_inline_child').length === 1){
+						    		 responseJSON.rupErrorFields[name + '_inline_child'] = rule;
+						    	 }
+						    	 delete responseJSON.rupErrorFields[name];
+						     });
+							let $form = $('#' + ctx.sTableId + '_search_searchForm');
+							$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
+							$form.validate().invalid = responseJSON.rupErrorFields;
+							$form.validate().showErrors(responseJSON.rupErrorFields);
+						} else if (errors.rupFeedback !== undefined) {
+							let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
+							_callFeedbackOk(ctx, mensajeJSON, 'error');
+						}
+
+					}
+				} catch (e) {
+					// El mensaje NO es JSON
+					_callFeedbackOk(ctx, xhr.responseText, 'error');
+				}
+
+			}else{//cualquier error se devuelve el texto
+                _callFeedbackOk(ctx, xhr.responseText, 'error');
+			}
+
 		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
 		},
 		validate:ctx.oInit.inlineEdit.validate,

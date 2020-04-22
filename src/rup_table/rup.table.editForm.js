@@ -311,6 +311,9 @@
         //Se limpia los elementos.
         if (ctx.oInit.formEdit.idForm.find('.error').length > 0) {
             ctx.oInit.formEdit.idForm.rup_validate('resetElements');
+            //nos aseguramos de borrar todo
+            ctx.oInit.formEdit.idForm.find('.error').not('input').remove();
+            ctx.oInit.formEdit.idForm.find('.rup-validate-field-error').removeClass('rup-validate-field-error');
         }
 
 
@@ -739,13 +742,34 @@
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
             },
             error: function (xhr) {
+                let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                if (divErrorFeedback.length === 0) {
+                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
+                }
+				if (xhr.status === 406 && xhr.responseText !== '') {
+					try {
+						let responseJSON = jQuery.parseJSON(xhr.responseText);
+						if (responseJSON.rupErrorFields) {
+							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
+								let $form = ctx.oInit.formEdit.idForm;
+								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
+								$form.validate().invalid = responseJSON.rupErrorFields;
+								$form.validate().showErrors(responseJSON.rupErrorFields);
+							} else if (errors.rupFeedback !== undefined) {
+								let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
+								_callFeedbackOk(ctx, divErrorFeedback, mensajeJSON, 'error');
+							}
 
-                    var divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                    if (divErrorFeedback.length === 0) {
-                        divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                        divErrorFeedback.rup_feedback(ctx.oInit.feedback);
-                    }
+						}
+					} catch (e) {
+						// El mensaje NO es JSON
+						_callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
+					}
+
+				}else{//cualquier error se devuelve el texto
                     _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
+				}
 
                 $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType,ctx);
             },
