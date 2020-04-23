@@ -1456,7 +1456,7 @@
         $.each(idFormArray, function (key, obj) {
         	let ruptype = idForm.find('[name="'+obj.name+'"]').attr('ruptype');
         	if(ruptype === undefined){
-        		ruptype = idForm.find('"[name='+obj.name+'"]').data('ruptype');
+        		ruptype = idForm.find('[name="'+obj.name+'"]').data('ruptype');
         	}
         	if(obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom'){
         		let valor = '';
