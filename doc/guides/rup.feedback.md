@@ -101,12 +101,14 @@ A continuación se muestran unas capturas del componente con los estilos asociad
 +	**.rup-feedback**: estilo asociado a la capa del feedback
 +	**.feedbackImgPruebas**: estilo personal para mostrar la imagen personalizada. Se define en la hoja de estilos propia de la aplicación en este caso en x21a.css.
 
-##  7	Objeto de transferencia
+##  8	Objeto de transferencia
 
 En los casos en el que el componente entre en una tabla en modo edición, al producirse un error 406 (rupErrorFields) y reciba como respuesta esta estructura:
+
 ![ejemplo](img/rup.feedback_4.png)
 
 El componente automáticamente mostrara las validaciones, identificando los campos con los nombres recibidos, ejemplo:
+
 ![ejemplo](img/rup.feedback_5.png)
 
 También se puede enviar el error como texto plano, en ese caso solo aparecerá el mensaje en el feedback.
