@@ -427,11 +427,193 @@ public @ResponseBody List<String> removeMultiple(
 * Copia de registros inversa:
 ```java
 @RequestMapping(value = "/clipboardReport", method = RequestMethod.POST)
-	protected @ResponseBody List<Usuario> getClipboardReport(
-			@RequestJsonBody(param="filter") Usuario filterUsuario,
-			@RequestJsonBody JQGridRequestDto jqGridRequestDto){
-		JQGridUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
-	    JQGridUsuarioController.logger.info("All entities correctly copied!");
-	    return this.jqGridUsuarioService.getMultiple(filterUsuario, jqGridRequestDto, false);
-	}
+protected @ResponseBody List<Usuario> getClipboardReport(
+		@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario,
+		@RequestJsonBody TableRequestDto tableRequestDto) {
+	TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
+	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
+}
 ```
+### 9.5. Propiedades adicionales
+
+```java
+Plugins.noEdit = true 
+```
+
+Por defecto viene a false, y si se activa deja solo el boton de informes.
+
+```java
+//Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
+Plugins.customError =  function(qXHR, textStatus, errorThrown ){
+                             let ctx = $('#'+idTabla).rup_table("getContext"); 
+                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
+                        }
+```
+
+Se puede cargar una función para que los errores que vienen de ajax.
+
+```java
+Plugins.filter = 'noFilter' 
+```
+
+Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no hará la validación correspondiente.
+
+```java
+//Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
+Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
+                             let ctx = $('#'+idTabla).rup_table("getContext"); 
+                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
+                        }
+```
+
+Se puede cargar una función para que los errores que vienen de ajax.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarEliminar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al eliminar.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarModificar  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al guardar en la edición de la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit.
+Plugins.validarModificarContinuar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al guardar y continuar en la edición de la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: todos siempre que exista el filtrado.
+Plugins.validarFiltrar  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al filtrar en la tabla.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: seeker.
+Plugins.validarBuscar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al buscar con el seeker.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarAlta  =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al hacer un nuevo registro.
+
+```java
+//Parámetros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit.
+Plugins.validarAltaContinuar =  function miFuncion(ctx){
+                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+                             	return true;//no paso la validación;
+                             } 
+                             	return false;//paso la validación
+                        };
+```
+
+Se puede cargar una función y hacer un validación externa al hacer un nuevo registro y continuar.
+
+```java
+plugins.feedback.customGoTo  = function miFuncion(){
+									return $('#example_containerToolbar').offset().top ;
+								} 
+```
+
+Se puede personalizar el feedback para que cuando aparezca, suba la posición hasta donde el desarrollador quiera, hay que devolver un número.
+
+```java
+        let miColModel = [{
+                name: 'id',
+                editable: true,
+                formoptions: {
+                    rowpos: 1,
+                    colpos: 1
+                }
+            },
+            {
+                name: 'ejie',
+                editable: true,
+                edittype: 'checkbox',
+                rupType: 'checkbox',
+                editoptions: {
+                    value: '1:0'
+                },
+                searchoptions : {
+                    rowpos: 5,
+                    colpos: 1
+                }
+            },
+            {
+                name: 'fechaAlta',
+                editable: true,
+                rupType: 'date',
+                editoptions: {
+                    labelMaskId: 'fecha-mask',
+                    showButtonPanel: true,
+                    showOtherMonths: true,
+                    noWeekend: true
+                },
+                formoptions: {
+                    rowpos: 2,
+                    colpos: 2
+                }
+            }
+            ];
+
+
+plugins.colModel  = miColModel; 
+```
+
+El colModel se usa para modelar, los campos de la tabla.
+Destacadaos:
+
+name -> Identificador del campo.
+editable -> true o false, si se quiere editar o no este campo.
+editoptions y formoptions -> Para configurar todas las opciones de los campos rup.
+rupType -> Tipo rup para ese campo.

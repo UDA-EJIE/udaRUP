@@ -75,13 +75,24 @@
         // Set defaults
         var items = 'row';
         var style = 'api';
-        var blurable = false;
         var info = true;
         var selector = 'td';
         var className = 'selected tr-highlight';
         var setStyle = false;
 
         ctx._multiSelect = {};
+
+        if (init.hideMultiselect === undefined) {
+            init.hideMultiselect = false;
+        }
+
+        if (init.enableMouseSelection === undefined) {
+            init.enableMouseSelection = true;
+        }
+
+        if (init.enableKeyboardSelection === undefined) {
+            init.enableKeyboardSelection = true;
+        }
 
         //se Inicializa las propiedades de los select.
         //ctx.multiselection = $self._initializeMultiselectionProps();
@@ -96,10 +107,6 @@
             style = opts;
             setStyle = true;
         } else if ($.isPlainObject(opts)) {
-            if (opts.blurable !== undefined) {
-                blurable = opts.blurable;
-            }
-
             if (opts.info !== undefined) {
                 info = opts.info;
             }
@@ -125,7 +132,6 @@
         dt.multiSelect.selector(selector);
         dt.multiSelect.items(items);
         dt.multiSelect.style(style);
-        dt.multiSelect.blurable(blurable);
         dt.multiSelect.info(info);
         ctx._multiSelect.className = className;
 
@@ -149,6 +155,56 @@
             dt.smultiSelect.style('os');
         }
     };
+
+    function _selectRowIndex(dt, index, tr) {
+        var ctx = dt.settings()[0];
+        ctx.multiselection.selectedRowsPerPage = [];
+        ctx.oInit.multiSelect.funcionParams = '';
+        var rowsBody = $(ctx.nTBody);
+
+        if (tr.hasClass('tr-highlight')) {
+            tr.removeClass('selected tr-highlight');
+            if (tr.next('.child').length >= 1) {
+                tr.next('.child').removeClass('selected tr-highlight');
+            }
+            ctx.multiselection.numSelected = 0;
+            ctx.multiselection.selectedIds = [];
+            ctx.multiselection.lastSelectedId = '';
+            // Si es en edicion en linea, no hacer nada
+            if (ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
+                // Seleccionar la fila otra vez.
+                _selectRowIndex(dt, index, tr);
+            }
+        } else {
+            $('tr', rowsBody).removeClass('selected tr-highlight');
+            tr.addClass('selected tr-highlight');
+            if (tr.next('.child').length >= 1) {
+                tr.next('.child').addClass('selected tr-highlight');
+            }
+            tr.triggerHandler('tableHighlightRowAsSelected');
+            var row = ctx.json.rows[index];
+            if (row !== undefined) {
+                var arra = {
+                    id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
+                    page: dt.page() + 1,
+                    line: index
+                };
+                ctx.multiselection.selectedRowsPerPage.splice(0, 0, arra);
+                ctx.multiselection.numSelected = 1;
+                ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row, ctx.oInit)];
+                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+            }
+            // Si es en edicion en linea
+            if (ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
+                ctx.inlineEdit.lastRow.idx !== index) {
+                DataTable.Api().inlineEdit.restaurarFila(ctx, true);
+            }
+        }
+
+        if (ctx.oInit.buttons !== undefined) {
+            DataTable.Api().buttons.displayRegex(ctx);
+        }
+    }
 
     /*
 
@@ -193,8 +249,6 @@ The `_select` object contains the following properties:
 	                   selection using the mouse.
 	style:string     - Can be `none`, `single`, `multi` or `os`. Defines the
 	                   interaction style when selecting items
-	blurable:boolean - If row selection can be cleared by clicking outside of
-	                   the table
 	info:boolean     - If the selection summary should be shown in the table
 	                   information elements
 }
@@ -314,139 +368,234 @@ handler that will select the items using the API methods.
     }
 
     /**
-     * Disable mouse selection by removing the selectors
-     *
-     * @name disabledMouseSelection
-     * @function
-     * @since UDA 3.4.0 // Table 1.0.0
-     * 
-     * @param {DataTable.Api} dt DataTable to remove events from
-     * e
-     */
-    function disableMouseSelection(dt) {
-        var ctx = dt.settings()[0];
-        var selector = ctx._multiSelect.selector;
-
-        $(dt.table().container())
-            .off('mousedown.dtSelect', selector)
-            .off('mouseup.dtSelect', selector)
-            .off('click.dtSelect', selector);
-
-        $('body').off('click.dtSelect' + dt.table().node().id);
-    }
-
-    /**
      * Attach mouse listeners to the table to allow mouse selection of items
      *
      * @name enableMouseSelection
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 4.2.0 // Table 1.0.0
      * 
-     * @param {DataTable.Api} dt DataTable to remove events from
+     * @param {DataTable.Api} dt DataTable
      * 
      */
     function enableMouseSelection(dt) {
-        var container = $(dt.table().container());
         var ctx = dt.settings()[0];
-        var selector = ctx._multiSelect.selector;
+        var container = $(ctx.nTBody);
 
         container
-            .on('mousedown.dtSelect', selector, function (e) {
-                // Disallow text selection for shift clicking on the table so multi
-                // element selection doesn't look terrible!
-                if (e.shiftKey || e.metaKey || e.ctrlKey) {
-                    container
-                        .css('-moz-user-select', 'none')
-                        .one('selectstart.dtSelect', selector, function () {
-                            return false;
-                        });
-                }
-            })
-            .on('mouseup.dtSelect', selector, function () {
-                // Allow text selection to occur again, Mozilla style (tested in FF
-                // 35.0.1 - still required)
-                container.css('-moz-user-select', '');
-            })
-            .on('click.dtSelect', selector, function (e) {
-                if (e.target !== undefined && e.target.className.indexOf('openResponsive') > -1) {
+            .on('click.dtSelect', function (event) {
+                if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
-                }
-                var items = dt.multiSelect.items();
-                var idx;
-
-                // If text was selected (click and drag), then we shouldn't change
-                // the row's selected state
-                if (window.getSelection) {
-                    var selection = window.getSelection();
-
-                    // If the element that contains the selection is not in the table, we can ignore it
-                    // This can happen if the developer selects text from the click event
-                    if (!selection.anchorNode || $(selection.anchorNode).closest('table')[0] === dt.table().node()) {
-                        if ($.trim(selection.toString()) !== '') {
-                            return;
-                        }
-                    }
                 }
 
                 var ctx = dt.settings()[0];
+                var row = $(event.target);
 
-                // Ignore clicks inside a sub-table
-                if ($(e.target).closest('div.dataTables_wrapper')[0] != dt.table().container()) {
-                    return;
+                row.triggerHandler('tableSelectBeforeSelectRow');
+
+                if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
+                    rangeSelection(dt, event);
+                } else if (ctx.multiselection.lastSelectedIsRange) {
+                    if (event.target.type !== 'checkbox') {
+                        deselectAllPage(dt);
+                        dt.row($(event.target).closest('tr').index()).multiSelect();
+                    } else {
+                        $(event.target).parent('').find('input').prop('checked', function () {
+                            return !this.checked;
+                        });
+                    }
+                } else {
+                    if (event.target.type !== 'checkbox') {
+                        rowSelection(dt, event);
+                    } else if(!$(event.target).hasClass('editable')){
+                        $(event.target).parent('').find('input').prop('checked', function () {
+                            return !this.checked;
+                        });
+                    }
                 }
 
-                var cell = dt.cell($(e.target).closest('td, th'));
-
-                // Check the cell actually belongs to the host DataTable (so child
-                // rows, etc, are ignored)
-                if (!cell.any()) {
-                    return;
-                }
-
-                var event = $.Event('user-select.dt');
-                eventTrigger(dt, event, [items, cell, e]);
-
-                if (event.isDefaultPrevented()) {
-                    return;
-                }
-
-                var cellIndex = cell.index();
-                if (items === 'row') {
-                    idx = cellIndex.row;
-                    typeSelect(e, dt, ctx, 'row', idx);
-                } else if (items === 'column') {
-                    idx = cell.index().column;
-                    typeSelect(e, dt, ctx, 'column', idx);
-                } else if (items === 'cell') {
-                    idx = cell.index();
-                    typeSelect(e, dt, ctx, 'cell', idx);
-                }
-
-                ctx._multiSelect_lastCell = cellIndex;
+                row.triggerHandler('tableSelectAfterSelectRow');
             });
+    }
 
-        // Blurable
-        $('body').on('click.dtSelect' + dt.table().node().id, function (e) {
-            if (ctx._multiSelect.blurable) {
-                // If the click was inside the DataTables container, don't blur
-                if ($(e.target).parents().filter(dt.table().container()).length) {
-                    return;
+    /**
+     * Attach keyboard listeners to the table to allow keyboard selection of items
+     *
+     * @name enableKeyboardSelection
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     * 
+     * @param {DataTable.Api} dt DataTable
+     * 
+     */
+    function enableKeyboardSelection(dt) {
+        var ctx = dt.settings()[0];
+        var container = $(ctx.nTBody);
+
+        container
+            .on('keydown.dtSelect', function (event) {
+                if (event.which === 32) {
+                    if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
+                        return false;
+                    }
+
+                    var ctx = dt.settings()[0];
+                    var row = $(event.target);
+
+                    row.triggerHandler('tableSelectBeforeSelectRow');
+
+                    if (event.shiftKey && event.which === 32 || event.ctrlKey && event.which === 32) {
+                        rangeSelection(dt, event);
+                    } else if (ctx.multiselection.lastSelectedIsRange) {
+                        deselectAllPage(dt);
+                        dt.row($(event.target).closest('tr').index()).multiSelect();
+                    } else {
+                        // Se selecciona una fila si la propiedad 'hideMultiselect' es true
+                        if (ctx.oInit.multiSelect.hideMultiselect) {
+                            // Solo selecciona si se pulsa sobre la barra espaciadora
+                            if (event.which === 32) {
+                                if (event.target.className.indexOf('openResponsive') > -1 ||
+                                    row.hasClass('editable')) {
+                                    return false;
+                                }
+                                var idRow = row.index();
+
+                                // Se deselecciona
+                                if (row.hasClass('tr-highlight')) {
+                                    ctx.multiselection.accion = 'uncheck';
+                                    dt.row(idRow).deselect();
+                                }
+                                // Se selecciona
+                                else {
+                                    dt.row(idRow).multiSelect();
+                                }
+                            }
+                        }
+                        rowSelection(dt, event);
+                    }
+
+                    row.triggerHandler('tableSelectAfterSelectRow');
                 }
+            });
+    }
 
-                // Ignore elements which have been removed from the DOM (i.e. paging
-                // buttons)
-                if ($(e.target).parents('html').length === 0) {
-                    return;
-                }
+    /**
+     * Select a range of rows in a DataTable
+     *
+     * @name rangeSelection
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     * 
+     * @param  {DataTable.Api} dt   DataTable
+     * 
+     */
+    function rangeSelection(dt, event) {
+        var ctx = dt.settings()[0];
 
-                // Don't blur in Editor form
-                if ($(e.target).parents('div.DTE').length) {
-                    return;
-                }
+        if (event.ctrlKey) {
+            let cell = dt.cell($(event.target).closest('td, th'));
+            let idx = cell.index().row;
 
-                clear(ctx, true);
+            let isSelected = dt.row(idx, {
+                selected: true
+            }).any();
+
+            dt.row(idx).multiSelect(!isSelected);
+        } else {
+            // Desde / Hasta
+            let fromIndex;
+            if (dt.rows({
+                selected: true
+            }).any()) {
+                fromIndex = ctx.multiselection.selectedRowsPerPage[$.inArray(ctx.multiselection.lastSelectedId, ctx.multiselection.selectedIds)].line;
+            } else {
+                fromIndex = $(event.target).closest('tr').index();
             }
-        });
+            let toIndex = $(event.target).closest('tr').index();
+
+            // Guardar id desde
+            let idBase = ctx.multiselection.lastSelectedId;
+
+            deselectAllPage(dt);
+
+            if (fromIndex < toIndex) {
+                toIndex++;
+                for (let i = fromIndex; i < toIndex; i++) {
+                    dt.row(i).multiSelect();
+                }
+            } else if (fromIndex > toIndex) {
+                toIndex--;
+                for (let i = fromIndex; i > toIndex; i--) {
+                    dt.row(i).multiSelect();
+                }
+            } else {
+                dt.row(fromIndex).multiSelect();
+                idBase = ctx.multiselection.lastSelectedId;
+            }
+
+            ctx.multiselection.lastSelectedId = idBase;
+            ctx.multiselection.lastSelectedIsRange = true;
+        }
+    }
+
+    /**
+     * Select a row in a DataTable
+     *
+     * @name rowSelection
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     * 
+     * @param  {DataTable.Api} dt   DataTable
+     * @param  {object}        event  Event information
+     * 
+     */
+    function rowSelection(dt, event) {
+        var ctx = dt.settings()[0];
+        var items = dt.multiSelect.items();
+
+        // If text was selected (click and drag), then we shouldn't change
+        // the row's selected state
+        if (window.getSelection) {
+            var selection = window.getSelection();
+
+            // If the element that contains the selection is not in the table, we can ignore it
+            // This can happen if the developer selects text from the click event
+            if (!selection.anchorNode || $(selection.anchorNode).closest('table')[0] === dt.table().node()) {
+                if ($.trim(selection.toString()) !== '') {
+                    return;
+                }
+            }
+        }
+
+        // Ignore clicks inside a sub-table
+        if ($(event.target).closest('div.dataTables_wrapper')[0] != dt.table().container()) {
+            return;
+        }
+
+        var cell = dt.cell($(event.target).closest('td, th'));
+
+        // Check the cell actually belongs to the host DataTable (so child
+        // rows, etc, are ignored)
+        if (!cell.any()) {
+            return;
+        }
+
+        var newEvent = $.Event('user-select.dt');
+        eventTrigger(dt, newEvent, [items, cell, newEvent]);
+
+        if (event.isDefaultPrevented()) {
+            return;
+        }
+
+        var cellIndex = cell.index();
+        var idx = cellIndex.row;
+
+        var isSelected = dt.row(idx, {
+            selected: true
+        }).any();
+
+        dt.row(idx).multiSelect(!isSelected);
+
+        ctx._multiSelect_lastCell = cellIndex;
     }
 
     /**
@@ -459,8 +608,7 @@ handler that will select the items using the API methods.
      * @param {DataTable.Api} api      DataTable to trigger events on
      * @param  {boolean}      selected true if selected, false if deselected
      * @param  {string}       type     Item type acting on
-     * @param  {boolean}      any      Require that there are values before
-     *     triggering
+     * @param  {boolean}      any      Require that there are values before triggering
      * 
      */
     function eventTrigger(api, type, args, any) {
@@ -498,19 +646,10 @@ handler that will select the items using the API methods.
         if (api.multiSelect.style() === 'api') {
             return;
         }
-        var DataTable = $.fn.dataTable;
 
         var rows = api.rows({
             selected: true
         }).flatten().length;
-        var columns = api.columns({
-            selected: true
-        }).flatten().length;
-        var cells = api.cells({
-            selected: true
-        }).flatten().length;
-
-
 
         var add = function (el, name, num) {
             name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
@@ -541,12 +680,10 @@ handler that will select the items using the API methods.
 
         // Internal knowledge of DataTables to loop over all information elements
         $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('div.paginationContainer > div > div:first-child');
+            el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
 
             var output = $('<span class="select-info"/>');
             add(output, 'row', rows);
-            //add( output, 'column', columns );
-            //add( output, 'cell', cells  );
 
             var existing = el.children('span.select-info');
             if (existing.length) {
@@ -577,6 +714,11 @@ handler that will select the items using the API methods.
      */
     function init(ctx) {
         var api = new DataTable.Api(ctx);
+
+        //Se añade el context, al pagination container
+        if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
+            $('#' + ctx.sTableId).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
+        }
 
         // Row callback so that classes can be added to rows and cells if the item
         // was selected before the element was created. This will happen with the
@@ -651,31 +793,11 @@ handler that will select the items using the API methods.
             info(api);
             _drawSelectId(api, ctx);
             //Comprobar si hay algun feedback activado
-            var feedback = ctx.multiselection.internalFeedback;
+            var feedback = ctx.oInit.feedback.$feedbackContainer;
             if (feedback.type !== undefined && feedback.type === 'eliminar') {
-                var confDelay = ctx.oInit.feedback.okFeedbackConfig.delay;
-                feedback.rup_feedback({
-                    message: feedback.msgFeedBack,
-                    type: 'ok',
-                    block: false
-                });
-                //Aseguramos que el estilo es correcto.
-                setTimeout(function () {
-                    if (feedback.hasClass('rup-feedback')) {
-                        feedback.rup_feedback('destroy');
-                        feedback.css('width', '100%');
-                    }
-                    $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
-                }, confDelay);
-                feedback.type = '';
-                feedback.msgFeedBack = '';
+                feedback.rup_feedback('set', feedback.msgFeedBack, 'ok');
+                feedback.rup_feedback('show');
             }
-        });
-
-        // Clean up and release
-        api.on('destroy.dtSelect', function () {
-            disableMouseSelection(api);
-            api.off('.dtSelect');
         });
 
         if (ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined) {
@@ -706,7 +828,7 @@ handler that will select the items using the API methods.
         $.each(ctx.multiselection.selectedIds, function (index, value) {
             var idx = -1;
             $.each(api.context[0].json.rows, function (indexData, valueData) {
-                if (value === DataTable.Api().rupTable.getIdPk(valueData)) {
+                if (value === DataTable.Api().rupTable.getIdPk(valueData, ctx.oInit)) {
                     idx = indexData;
                     return false;
                 }
@@ -749,107 +871,107 @@ handler that will select the items using the API methods.
      */
     function _paintCheckboxSelect(ctx) {
         var columnDefs = ctx.oInit.aoColumnDefs;
-        if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className === 'select-checkbox') {
+        if (columnDefs !== undefined && columnDefs[0].className !== undefined && columnDefs[0].className.indexOf('select-checkbox') > -1) {
             //Se rellena todo, la columna select.
+            //si metes esta propiedad se oculta el div:
+            if (ctx.oInit.multiSelect === undefined || !ctx.oInit.multiSelect.hideMultiselect) {
+                var input = $('<div>')
+                    .attr('id', 'divSelectTableHead_' + ctx.sTableId)
+                    .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
+                    .append(
+                        $('<input/>')
+                            .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
+                            .attr('type', 'checkbox')
+                    ).append(
+                        $('<label/>')
+                    );
 
-            var input = $('<div>')
-                .attr('id', 'divSelectTableHead_' + ctx.sTableId)
-                .attr('class', 'divSelectTableHead checkbox-material checkbox-material-inline')
-                .append(
-                    $('<input/>')
-                        .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
-                        .attr('type', 'checkbox')
-                ).append(
-                    $('<label/>')
-                );
+
+                var link = $('<a/>')
+                    .addClass('ui-icon rup-table_checkmenu_arrow')
+                    .attr('id', 'linkSelectTableHead' + ctx.sTableId);
+
+                input.click(function () {
+                    var dt = new DataTable.Api(ctx);
+                    if ($(this).find('input').is(':checked')) {
+                        deselectAllPage(dt);
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                    } else {
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                        selectAllPage(dt);
+                    }
+                });
 
 
-            var link = $('<a/>')
-                .addClass('ui-icon rup-table_checkmenu_arrow')
-                .attr('id', 'linkSelectTableHead' + ctx.sTableId);
+                link.click(function () {
+                    var dt = new DataTable.Api(ctx);
+                    //Marcar todos
+                    if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
+                        $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+                        // Marcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                    }
+                    //Desmarcar todos
+                    if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
+                        $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
+                        // Desmarcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                    }
+                    if (ctx.multiselection.selectedIds.length > 0) {
+                        $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+                    }
+                    if (ctx.multiselection.deselectedIds.length > 0) {
+                        $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+                    }
+                    //Si la pagina esta completamente seleccionada
+                    if (checkPageSelectedAll(dt, true)) {
+                        $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
+                        // Marcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                    } else {
+                        $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+                        // Desmarcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                    }
 
-            input.click(function () {
-                var dt = new DataTable.Api(ctx);
-                if ($(this).find('input').is(':checked')) {
-                    deselectAllPage(dt);
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                    selectAllPage(dt);
+                    //Si la pagina esta completamente deseleccionada
+                    if (checkPageSelectedAll(dt, false)) {
+                        $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
+                        // Desmarcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                    } else {
+                        $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
+                        $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
+                        // Marcamos el check del tHead
+                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                    }
+
+                });
+
+                if (ctx.nTable.tHead !== null) {
+                    var th = $(ctx.nTable.tHead.rows[0].cells[0]);
+                    th.append(input, link);
                 }
-            });
 
-            link.click(function () {
-                var dt = new DataTable.Api(ctx);
-                //Marcar todos
-                if (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-                //Desmarcar todos
-                if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                }
-                if (ctx.multiselection.selectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                }
-                if (ctx.multiselection.deselectedIds.length > 0) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                }
-                //Si la pagina esta completamente seleccionada
-                if (checkPageSelectedAll(dt, true)) {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
+                    _createContexMenuSelect($('#' + link[0].id), ctx);
                 }
 
-                //Si la pagina esta completamente deseleccionada
-                if (checkPageSelectedAll(dt, false)) {
-                    $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
-                    // Desmarcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
-                } else {
-                    $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
-                    $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
-                    // Marcamos el check del tHead
-                    $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
-                }
-
-            });
-
-            if (ctx.nTable.tHead !== null) {
-                var th = $(ctx.nTable.tHead.rows[0].cells[0]);
-                th.append(input, link);
-            }
-
-            if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
-                _createContexMenuSelect($('#' + link[0].id), ctx);
             }
 
             //Se aseguro que no sea orderable
             columnDefs[0].orderable = false;
-
-            //Se genera el div para el feedback del table.
-            var divFeedback = $('<div/>').attr('id', 'rup_feedback_' + ctx.sTableId).insertBefore('#' + ctx.sTableId).css('width', '100%');
-            ctx.multiselection.internalFeedback = divFeedback;
         }
     }
 
@@ -902,10 +1024,8 @@ handler that will select the items using the API methods.
                 'selectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
                     icon: 'check',
-                    disabled: function (key, opt) {
-                        //
-                    },
-                    callback: function (key, options) {
+                    disabled: function () {},
+                    callback: function () {
                         selectAllPage(dt);
                     }
                 }
@@ -917,10 +1037,8 @@ handler that will select the items using the API methods.
                 'deselectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
                     icon: 'uncheck',
-                    disabled: function (key, opt) {
-                        //
-                    },
-                    callback: function (key, options) {
+                    disabled: function () {},
+                    callback: function () {
                         deselectAllPage(dt);
                     }
                 }
@@ -936,10 +1054,8 @@ handler that will select the items using the API methods.
                 'selectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
                     icon: 'check_all',
-                    disabled: function (key, opt) {
-                        //
-                    },
-                    callback: function (key, options) {
+                    disabled: function () {},
+                    callback: function () {
                         selectAll(dt);
                     }
                 }
@@ -950,10 +1066,8 @@ handler that will select the items using the API methods.
                 'deselectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
                     icon: 'uncheck_all',
-                    disabled: function (key, opt) {
-                        //
-                    },
-                    callback: function (key, options) {
+                    disabled: function () {},
+                    callback: function () {
                         deselectAll(dt);
                     }
                 }
@@ -964,7 +1078,7 @@ handler that will select the items using the API methods.
             selector: '#' + id.attr('id'),
             trigger: 'left',
             items: items,
-            position: function (contextMenu, x, y) {
+            position: function (contextMenu) {
                 contextMenu.$menu.css({
                     top: this.parent().offset().top + this.parent().height(),
                     left: this.parent().parent().offset().left
@@ -986,7 +1100,7 @@ handler that will select the items using the API methods.
     function selectAllPage(dt) {
         var ctx = dt.settings()[0];
         ctx.multiselection.accion = 'checkAll';
-        dt['rows']().multiSelect();
+        dt.rows().multiSelect();
 
         $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
         // Marcamos el check del tHead
@@ -1000,21 +1114,12 @@ handler that will select the items using the API methods.
         var remainingSelectButton = '<button id=\'rup_table_' + dt.context[0].sTableId + '_selectAll\' class=\'btn-material btn-material-secondary-low-emphasis\'><span>' + selectRestMsg + '</span></button>';
         if (countRegister > 0 && !ctx.multiselection.selectedAll ||
             (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length > 0)) {
-            ctx.multiselection.internalFeedback.rup_feedback({
-                message: selectMsg + remainingSelectButton,
-                type: 'alert'
-            });
-            ctx.multiselection.internalFeedback.type = 'fijo';
+            ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', selectMsg + remainingSelectButton, 'alert');
+            ctx.oInit.feedback.type = 'fijo';
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
         }
-        $('#' + $(remainingSelectButton)[0].id).on('click', function (event) {
+        $('#' + $(remainingSelectButton)[0].id).on('click', function () {
             selectAll(dt);
-        });
-
-        $('#' + ctx.multiselection.internalFeedback[0].id + '_closeDiv').on('click', function (event) {
-            ctx.multiselection.internalFeedback.rup_feedback('destroy');
-            ctx.multiselection.internalFeedback.css('width', '100%');
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
         });
 
         //Se deja marcado el primero de la pagina.
@@ -1035,7 +1140,7 @@ handler that will select the items using the API methods.
     function deselectAllPage(dt) {
         var ctx = dt.settings()[0];
         ctx.multiselection.accion = 'uncheck';
-        dt['rows']().deselect();
+        dt.rows().deselect();
 
         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
         // Desmarcamos el check del tHead
@@ -1047,18 +1152,17 @@ handler that will select the items using the API methods.
         var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', ctx.multiselection.numSelected);
         var remainingDeselectButton = '<button id=\'rup_table_' + dt.context[0].sTableId + '_deselectAll\' class=\'btn-material btn-material-secondary-low-emphasis\'><span>' + selectRestMsg + '</span></button>';
         if (ctx.multiselection.numSelected > 0) {
-            ctx.multiselection.internalFeedback.rup_feedback({
-                message: deselectMsg + remainingDeselectButton,
-                type: 'alert'
-            });
-            ctx.multiselection.internalFeedback.type = 'fijo';
+            ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', deselectMsg + remainingDeselectButton, 'alert');
+            ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
+            ctx.oInit.feedback.$feedbackContainer.type = 'fijo';
             $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
         }
-        $('#' + $(remainingDeselectButton)[0].id).on('click', function (event) {
+        $('#' + $(remainingDeselectButton)[0].id).on('click', function () {
             deselectAll(dt);
         });
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
 
+        ctx.multiselection.lastSelectedIsRange = false;
     }
 
     /**
@@ -1083,10 +1187,10 @@ handler that will select the items using the API methods.
         // Marcamos el check del tHead
         $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
 
-        dt['rows']().multiSelect();
+        dt.rows().multiSelect();
         if (dt.page() === 0) {
             DataTable.Api().rupTable.selectPencil(ctx, 0);
-            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0]);
+            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(dt.data()[0], ctx.oInit);
         } else {
             DataTable.Api().rupTable.selectPencil(ctx, -1);
             ctx.multiselection.lastSelectedId = '';
@@ -1111,7 +1215,7 @@ handler that will select the items using the API methods.
         ctx.multiselection = _initializeMultiselectionProps(ctx);
         ctx.multiselection.accion = 'uncheckAll';
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
-        dt['rows']().deselect();
+        dt.rows().deselect();
         $('#' + ctx.sTableId).trigger('rupTable_deselectAll');
     }
 
@@ -1197,71 +1301,6 @@ handler that will select the items using the API methods.
     }
 
     /**
-     * Select items based on the current configuration for style and items.
-     *
-     * @name typeSelect
-     * @function
-     * @since UDA 3.4.0 // Table 1.0.0
-     *
-     * @param  {object}             e    Mouse event object
-     * @param  {DataTables.Api}     dt   DataTable
-     * @param  {DataTable.settings} ctx  Settings object of the host DataTable
-     * @param  {string}             type Items to select
-     * @param  {int|object}         idx  Index of the item to select
-     * 
-     */
-    function typeSelect(e, dt, ctx, type, idx) {
-        var style = dt.multiSelect.style();
-        var isSelected = dt[type](idx, {
-            selected: true
-        }).any();
-
-        if (style === 'os') {
-            if (e.ctrlKey || e.metaKey) {
-                // Add or remove from the selection
-                dt[type](idx).multiSelect(!isSelected);
-            } else if (e.shiftKey) {
-                if (type === 'cell') {
-                    cellRange(dt, idx, ctx._multiSelect_lastCell || null);
-                } else {
-                    rowColumnRange(dt, type, idx, ctx._multiSelect_lastCell ?
-                        ctx._multiSelect_lastCell[type] :
-                        null
-                    );
-                }
-            } else {
-                // No cmd or shift click - deselect if selected, or select
-                // this row only
-                var selected = dt[type + 's']({
-                    selected: true
-                });
-
-                if (isSelected && selected.flatten().length === 1) {
-                    dt[type](idx).deselect();
-                } else {
-                    selected.deselect();
-                    dt[type](idx).select();
-                }
-            }
-        } else if (style == 'multi+shift') {
-            if (e.shiftKey) {
-                if (type === 'cell') {
-                    cellRange(dt, idx, ctx._multiSelect_lastCell || null);
-                } else {
-                    rowColumnRange(dt, type, idx, ctx._multiSelect_lastCell ?
-                        ctx._multiSelect_lastCell[type] :
-                        null
-                    );
-                }
-            } else {
-                dt[type](idx).multiSelect(!isSelected);
-            }
-        } else {
-            dt[type](idx).multiSelect(!isSelected);
-        }
-    }
-
-    /**
      * Metodo que inicializa las propiedades para el multiselect.
      *
      * @name initializeMultiselectionProps
@@ -1276,27 +1315,17 @@ handler that will select the items using the API methods.
         if ($self.multiselection === undefined) {
             $self.multiselection = {};
         }
-        if (ctx.multiselection !== undefined) {
-            $self.multiselection.internalFeedback = ctx.multiselection.internalFeedback;
-        }
         // Flag indicador de selección de todos los registros
         $self.multiselection.selectedAll = false;
         // Numero de registros seleccionados
         $self.multiselection.numSelected = 0;
         // Propiedades de selección de registros
         $self.multiselection.selectedRowsPerPage = [];
-        //$self.multiselection.selectedLinesPerPage = [];
-        //$self.multiselection.selectedRows = [];
         $self.multiselection.selectedIds = [];
         $self.multiselection.lastSelectedId = '';
-        //$self.multiselection.selectedPages = [];
-        // Propiedades de deselección de registros
         $self.multiselection.deselectedRowsPerPage = [];
-        //$self.multiselection.deselectedLinesPerPage = [];
-        //$self.multiselection.deselectedRows = [];
         $self.multiselection.deselectedIds = [];
         $self.multiselection.accion = ''; //uncheckAll,uncheck
-        //$self.multiselection.deselectedPages = [];
         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
         $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
         // Desmarcamos el check del tHead
@@ -1384,7 +1413,7 @@ handler that will select the items using the API methods.
             if (id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0) {
                 if (line === undefined) {
                     $.each(ctx.json.rows, function (index, value) {
-                        if (DataTable.Api().rupTable.getIdPk(value) === id) {
+                        if (DataTable.Api().rupTable.getIdPk(value, ctx.oInit) === id) {
                             line = index;
                             return false;
                         }
@@ -1508,16 +1537,6 @@ handler that will select the items using the API methods.
         });
     });
 
-    apiRegister('multiSelect.blurable()', function (flag) {
-        if (flag === undefined) {
-            return this.context[0]._multiSelect.blurable;
-        }
-
-        return this.iterator('table', function (ctx) {
-            ctx._multiSelect.blurable = flag;
-        });
-    });
-
     apiRegister('multiSelect.info()', function (flag) {
         if (info === undefined) {
             return this.context[0]._multiSelect.info;
@@ -1554,16 +1573,21 @@ handler that will select the items using the API methods.
                 init(ctx);
             }
 
-            // Add / remove mouse event handlers. They aren't required when only
+            // Add mouse event handlers. They aren't required when only
             // API selection is available
             var dt = new DataTable.Api(ctx);
-            disableMouseSelection(dt);
 
             if (style !== 'api') {
-                enableMouseSelection(dt);
+                if (ctx.oInit.multiSelect.enableMouseSelection) {
+                    enableMouseSelection(dt);
+                }
+
+                if (ctx.oInit.multiSelect.enableKeyboardSelection) {
+                    enableKeyboardSelection(dt);
+                }
             }
 
-            eventTrigger(new DataTable.Api(ctx), 'selectStyle', [style]);
+            $('#' + ctx.sTableId).trigger('selectStyle', [style]);
         });
     });
 
@@ -1573,13 +1597,7 @@ handler that will select the items using the API methods.
         }
 
         return this.iterator('table', function (ctx) {
-            disableMouseSelection(new DataTable.Api(ctx));
-
             ctx._multiSelect.selector = selector;
-
-            if (ctx._multiSelect.style !== 'api') {
-                enableMouseSelection(new DataTable.Api(ctx));
-            }
         });
     });
 
@@ -1599,15 +1617,13 @@ handler that will select the items using the API methods.
         //Al pagina comprobar el checkGeneral.
 
         //Se mira si hay feedback y en ese caso se elimina.
-        var feedBack = ctx.multiselection.internalFeedback;
-        if ($('#rup_feedback_' + ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo') {
-            $('#rup_feedback_' + ctx.sTableId).rup_feedback('destroy');
-            ctx.multiselection.internalFeedback.css('width', '100%');
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
+        var feedBack = ctx.oInit.feedback;
+        if (feedBack.$feedbackContainer.children().length > 1 && feedBack.type && feedBack.type === 'fijo') {
+            feedBack.$feedbackContainer.rup_feedback('hide');
         }
 
         if (multiSelect === false) {
-            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data()), 0, pagina, 0, ctx);
+            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(), ctx.oInit), 0, pagina, 0, ctx);
             //Cuando se resta de 1 en 1 la accion es empty
             ctx.multiselection.accion = '';
             var deselectes = this.deselect();
@@ -1635,7 +1651,7 @@ handler that will select the items using the API methods.
             // Marcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData, ctx.oInit);
 
             //Se mira el contador para sumar seleccionados
             if (ctx.multiselection.numSelected < ctx.json.recordsTotal &&
@@ -1652,9 +1668,9 @@ handler that will select the items using the API methods.
         });
         if (pagina) { //Cuando se pagina, se filtra, o se reordena.
             if (ctx.multiselection.selectedAll) { //Si pagina y están todos sleccionados se pintan.
-                var ctx = api.settings()[0];
+                let ctx = api.settings()[0];
                 $.each(api.context[0].aoData, function (idx) {
-                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+                    var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData, ctx.oInit);
                     //Si esta en la lista de deselecionados, significa que no debería marcarse.
                     if (jQuery.inArray(id, ctx.multiselection.deselectedIds) === -1) {
                         ctx.aoData[idx]._multiSelect_selected = true;
@@ -1682,7 +1698,6 @@ handler that will select the items using the API methods.
 
         //al paginar
         var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
-        var link = $(ctx.nTable.tHead.rows[0].cells[0]).find('a');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);
@@ -1756,11 +1771,9 @@ handler that will select the items using the API methods.
         var DataTable = $.fn.dataTable;
         var ctx = api.context[0];
         //Se mira si hay feedback y en ese caso se elimina.
-        var feedBack = ctx.multiselection.internalFeedback;
-        if ($('#rup_feedback_' + ctx.sTableId).children().length > 1 && feedBack.type !== undefined && feedBack.type === 'fijo') {
-            ctx.multiselection.internalFeedback.rup_feedback('destroy');
-            ctx.multiselection.internalFeedback.css('width', '100%');
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDestroy');
+        var feedback = ctx.oInit.feedback;
+        if (feedback.$feedbackContainer.children().length > 1 && feedback.type && feedback.type === 'fijo') {
+            feedback.$feedbackContainer.rup_feedback('hide');
         }
 
         this.iterator('row', function (ctx, idx) {
@@ -1771,10 +1784,13 @@ handler that will select the items using the API methods.
             if (api.row(idx).child() !== undefined) {
                 api.row(idx).child().removeClass(ctx._multiSelect.className);
             }
-            // Desmarcamos el checkbox
-            $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', false);
 
-            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData);
+            // Desmarcamos el checkbox (salvo cuando ha sido definido que esten ocultos)
+            if (!ctx.oInit.multiSelect.hideMultiselect) {
+                $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', false);
+            }
+
+            var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData, ctx.oInit);
 
             //Se mira el contador para restar deselecionados.
             if (ctx.multiselection.numSelected > 0 &&
@@ -1803,7 +1819,6 @@ handler that will select the items using the API methods.
 
         //al paginar
         var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
-        var link = $(ctx.nTable.tHead.rows[0].cells[0]).find('a');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);

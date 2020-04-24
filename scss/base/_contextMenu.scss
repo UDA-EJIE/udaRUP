@@ -172,10 +172,14 @@ li[id$='_contextMenuToolbar'] {
 }
 
 .context-menu-cursor{
-	cursor: url(cursors/context-menu.cur),default;
+	cursor: url('cursors/context-menu.cur'),default;
 }
 
  .context-menu-item.context-menu-visible{
   background-color:#bababa;
   cursor: pointer;
+}
+
+.context-menu-item.context-menu-visible > .context-menu-list {
+    display:block;
 }

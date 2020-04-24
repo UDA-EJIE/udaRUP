@@ -77,75 +77,23 @@ table.dataTable thead {
 			color: $grey-color-ultra-light;
 		}
 	}
+	
+	.sorting_disabled > div:not(.divSelectTableHead) {
+		display: none !important;
+	}
 }
-/*table.dataTable thead {
-	.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled,.sorting_desc_disabled {
-		background-image: none;
-		
-		&:before, &:after {
-			font: normal normal normal 1.5rem/1 "Material Design Icons";
-			float: right;
-		}
-		
-		&:before {
-			content: "\f05d";
-		}
-		
-		&:after {
-			content: "\f045";
-		}
+
+/* SE HACE TRANSPARENTE LA SELECCION DE TEXTO PARA EVITAR
+   UN BUG VISUAL CUANDO SE SELECCIONA POR RANGOS */
+table.dataTable tbody {
+	td::-moz-selection {
+	  background-color: $no-color;
 	}
 	
-	.sorting {	
-		&:before {
-			color: $grey-color-very-light;
-		}
-		
-		&:after {
-			color: $grey-color-very-light;
-		}
+	td::selection {
+    	background-color: $no-color;
 	}
-	
-	.sorting_asc {	
-		&:before {
-			color: $primary-color;
-		}
-		
-		&:after {
-			color: $grey-color-very-light;
-		}
-	}
-	
-	.sorting_desc {	
-		&:before {
-			color: $grey-color-very-light;
-		}
-		
-		&:after {
-			color: $primary-color;
-		}
-	}
-	
-	.sorting_asc_disabled {	
-		&:before {
-			color: $grey-color-ultra-light;
-		}
-		
-		&:after {
-			color: $grey-color-very-light;
-		}
-	}
-	
-	.sorting_desc_disabled {	
-		&:before {
-			color: $grey-color-very-light;
-		}
-		
-		&:after {
-			color: $grey-color-ultra-light;
-		}
-	}
-}*/
+}
 
 form + div.paginationContainer {
 	border-bottom-left-radius: 7px;

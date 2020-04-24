@@ -429,22 +429,16 @@ table.dataTable td {
 
 .dataTables_wrapper .dataTables_processing {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
     width: 100%;
-    height: 40px;
+    height: 99.5%;
+    margin-top: 10px;
     margin-left: -50%;
-    margin-top: -25px;
-    padding-top: 20px;
     text-align: center;
     font-size: 1.2em;
-    background-color: white;
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), color-stop(100%, rgba(255, 255, 255, 0)));
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
-    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
-    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
-    background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%)
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
 .dataTables_wrapper .dataTables_length,
@@ -596,23 +590,15 @@ table.dataTable tbody>tr:hover {
 }
 
 .openResponsive:hover {
-    background-color: #197019;
+    background-color: #0c4462;
 }
 
 .openResponsive {
-    background-color: #31b131;
+    background-color: #1472a4;
 }
 
 .closeResponsive:before {
     content: '-'
-}
-
-.closeResponsive {
-    background-color: #d33333;
-}
-
-.closeResponsive:hover {
-    background-color: #fc081f;
 }
 
 .select-checkbox {
@@ -651,4 +637,10 @@ table.tableFit {
     		border-top-right-radius: 0
 	    }
 	}
+}
+
+/* SE USA PARA QUE EL MENSAJE DE 'PROCESANDO' SEA SIEMPRE VISIBLE INDEPENDIENTEMENTE DE LA PARTE DE LA TABLA QUE SE ESTE VISUALIZANDO */
+.sProcessingText {
+	position: sticky;
+	top: 50%;
 }

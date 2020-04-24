@@ -23,10 +23,6 @@
 	margin: 0;
 	padding: 0;
 }
-.rup-breadCrumb_main { /*clear: both;*/ }
-.rup-breadCrumb_main, .rup-breadCrumb_main LI {
-	float: left;
-}
 .rup-breadCrumb_main UL {
 	display: none;
 }
@@ -34,8 +30,7 @@
 /*  Base style of rup-breadCrumb_main  */
 /*  Top Level  */
 .rup-breadCrumb_main {
-	 background: none;
-	/*width: 90%;*/
+	background: none;
 	padding-right: 65em;
 	position: relative;
 }
@@ -107,30 +102,19 @@
 	outline: none; /* evitar borde TAB */
 }
 
-.rup-breadCrumbs {width: 100%; position: relative; padding-bottom: 2.5em; clear: both;}
-
-.rup-breadCrumbs_span {float: left; padding-top: 0.5em;}
-
-.rup-breadCrumb_root {
-    width: 100%;
-		float: left;
-		margin-bottom: 0.5em;
+.rup-breadCrumbs {
+	width: 100%;
+	position: relative;
+	padding-bottom: 2.5em;
+	clear: both;
 }
 
 .rup-breadCrumb_main{
-	padding-top: 0.1em;
-	padding-right: 0em;
-}
-
-
-.rup-breadCrumb_logoutDiv{
-	float: right;
-	padding-top: 0.5em;
+	padding-right: 0;
 }
 
 .rup-breadCrumb_link{
 	cursor: pointer;
-	padding-left: 0.3em;
 }
 
 .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg{

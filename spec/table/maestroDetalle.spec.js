@@ -20,6 +20,10 @@ function clearDatatable(done) {
         $.contextMenu('destroy');
     }
 
+    $('.rup-dialog').each((i,e)=>{
+        $('#'+$(e).attr('aria-describedby')).rup_dialog('destroy');
+    });
+
     $('.dataTable').on('destroy.dt', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
@@ -98,7 +102,7 @@ function testForm2Form(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window', 
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -493,7 +497,7 @@ function testForm2Form(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #example2:', () => {
-                            expect($('#rup_feedback_example2').height()).toBe(0);
+                            expect($('#rup_feedback_example2').is('visible')).toBeFalsy();
                             expect($('#rup_feedback_example2').text()).toBe('');
                         });
                     });
@@ -525,7 +529,7 @@ function testForm2Form(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #example1:', () => {
-                            expect($('#rup_feedback_example1').height()).toBe(0);
+                            expect($('#rup_feedback_example1').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_example1').text()).toBe('');
                         });
                     });
@@ -552,7 +556,7 @@ function testForm2Form(defer) {
                         expect($('#example1_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #example2:', () => {
-                        expect($('#example2_detail_feedback').height()).toBe(0);
+                        expect($('#example2_detail_feedback').is(':visible')).toBeFalsy();
                         expect($('#example2_detail_feedback').text()).toBe('');
                     });
                 });
@@ -572,7 +576,7 @@ function testForm2Form(defer) {
                         expect($('#example2_detail_feedback').text()).toBe('Se han producido los siguientes errores:Nombre:Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #example1:', () => {
-                        expect($('#example1_detail_feedback').height()).toBe(0);
+                        expect($('#example1_detail_feedback').is(':visible')).toBeFalsy();
                         expect($('#example1_detail_feedback').text()).toBe('');
                     });
                 });
@@ -606,7 +610,7 @@ function testForm2Form(defer) {
                             $('#example1_detail_button_save').click();
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#example1_detail_feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example1_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -620,7 +624,7 @@ function testForm2Form(defer) {
                             $('#example1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_example1').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_example1').text()).toBe('Not Acceptable: KABOOM');
@@ -649,7 +653,7 @@ function testForm2Form(defer) {
                             $('#example2_detail_button_save').click();
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#example2_detail_feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example2_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -663,7 +667,7 @@ function testForm2Form(defer) {
                             $('#example2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_example2').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_example2').text()).toBe('Not Acceptable: KABOOM');
@@ -681,7 +685,7 @@ function testForm2Inline(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window', 
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -1065,7 +1069,7 @@ function testForm2Inline(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #example2:', () => {
-                            expect($('#rup_feedback_inline2').height()).toBe(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_inline2').text()).toBe('');
                         });
                     });
@@ -1098,7 +1102,7 @@ function testForm2Inline(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #example1:', () => {
-                            expect($('#rup_feedback_example1').height()).toBe(0);
+                            expect($('#rup_feedback_example1').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_example1').text()).toBe('');
                         });
                     });
@@ -1143,7 +1147,7 @@ function testForm2Inline(defer) {
                         expect($('.error[for="nombre_inline"]').text()).toBe('Nombre');
                     });
                     it('No debe mostrar el feedback del formulario de #example1:', () => {
-                        expect($('#example1_detail_feedback').height()).toBe(0);
+                        expect($('#example1_detail_feedback').is(':visible')).toBeFalsy();
                         expect($('#example1_detail_feedback').text()).toBe('');
                     });
                 });
@@ -1179,7 +1183,7 @@ function testForm2Inline(defer) {
                             $('#example1_detail_button_save').click();
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#example1_detail_feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example1_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -1193,7 +1197,7 @@ function testForm2Inline(defer) {
                             $('#example1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_example1').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_example1').text()).toBe('Not Acceptable: KABOOM');
@@ -1227,10 +1231,10 @@ function testForm2Inline(defer) {
                         });
 
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#inline2feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#inline2feedback_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_inline2').text()).toBe('KABOOM!');
                         });
                     });
                     describe('Errores en búsqueda > ', () => {
@@ -1241,7 +1245,7 @@ function testForm2Inline(defer) {
                             $('#inline2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_inline2').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_inline2').text()).toBe('Not Acceptable: KABOOM');
@@ -1260,7 +1264,7 @@ function testInline2Form(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window',
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -1645,7 +1649,7 @@ function testInline2Form(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #example2:', () => {
-                            expect($('#rup_feedback_example2').height()).toBe(0);
+                            expect($('#rup_feedback_example2').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_example2').text()).toBe('');
                         });
                     });
@@ -1677,7 +1681,7 @@ function testInline2Form(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #inline1:', () => {
-                            expect($('#rup_feedback_inline1').height()).toBe(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_inline1').text()).toBe('');
                         });
                     });
@@ -1706,7 +1710,7 @@ function testInline2Form(defer) {
                         expect($('.error[for="nombre_inline"]').text()).toBe('Nombre');
                     });
                     it('No debe mostrar el feedback del formulario de #example2:', () => {
-                        expect($('#example2_detail_feedback').height()).toBe(0);
+                        expect($('#example2_detail_feedback').is(':visible')).toBeFalsy();
                         expect($('#example2_detail_feedback').text()).toBe('');
                     });
                 });
@@ -1761,10 +1765,10 @@ function testInline2Form(defer) {
                         });
 
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#inline1feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#inline1feedback_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_inline1').text()).toBe('KABOOM!');
                         });
                     });
                     describe('Errores en búsqueda > ', () => {
@@ -1775,7 +1779,7 @@ function testInline2Form(defer) {
                             $('#inline1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_inline1').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_inline1').text()).toBe('Not Acceptable: KABOOM');
@@ -1806,7 +1810,7 @@ function testInline2Form(defer) {
                             $('#example2_detail_button_save').click();
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#example2_detail_feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#example2_detail_feedback_ok').text()).toBe('KABOOM!');
@@ -1820,7 +1824,7 @@ function testInline2Form(defer) {
                             $('#example2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_example2').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_example2').text()).toBe('Not Acceptable: KABOOM');
@@ -1839,7 +1843,7 @@ function testInline2Inline(defer) {
         beforeAll((done) => {
             testutils.loadCss(done);
             window.onerror = (event) => {
-                console.info('Evento de error detectado en el window...\n' +
+                testutils.testTrace('Evento de error detectado en el window',
                     'namespace: ' + event.namespace +
                     'target: ' + event.target.id);
             };
@@ -2218,7 +2222,7 @@ function testInline2Inline(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #inline2:', () => {
-                            expect($('#rup_feedback_inline2').height()).toBe(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_inline2').text()).toBe('');
                         });
                     });
@@ -2251,7 +2255,7 @@ function testInline2Inline(defer) {
                                 .is(':contains(El elemento se ha modificado correctamente.)')).toBeTruthy();
                         });
                         it('No debe aparecer el feedback de #inline1:', () => {
-                            expect($('#rup_feedback_inline1').height()).toBe(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeFalsy();
                             expect($('#rup_feedback_inline1').text()).toBe('');
                         });
                     });
@@ -2337,10 +2341,10 @@ function testInline2Inline(defer) {
                         });
 
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#inline1feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#inline1feedback_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_inline1').text()).toBe('KABOOM!');
                         });
                     });
                     describe('Errores en búsqueda > ', () => {
@@ -2351,7 +2355,7 @@ function testInline2Inline(defer) {
                             $('#inline1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_inline1').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_inline1').text()).toBe('Not Acceptable: KABOOM');
@@ -2385,10 +2389,10 @@ function testInline2Inline(defer) {
                         });
 
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#inline2feedback_ok').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
-                            expect($('#inline2feedback_ok').text()).toBe('KABOOM!');
+                            expect($('#rup_feedback_inline2').text()).toBe('KABOOM!');
                         });
                     });
                     describe('Errores en búsqueda > ', () => {
@@ -2399,7 +2403,7 @@ function testInline2Inline(defer) {
                             $('#inline2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
-                            expect($('#rup_feedback_inline2').height()).toBeGreaterThan(0);
+                            expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
                         });
                         it('Debe contener el mensaje esperado:', () => {
                             expect($('#rup_feedback_inline2').text()).toBe('Not Acceptable: KABOOM');

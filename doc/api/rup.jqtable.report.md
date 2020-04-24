@@ -45,7 +45,7 @@ Metodo que realiza la pre-configuración del plugin report del componente RUP Ta
 Metodo que realiza la post-configuración del plugin report del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
 **Kind**: inner method of [<code>rup\_jqtable/report</code>](#module_rup_jqtable/report)  
-**Emits**: [<code>rupTable\_serializeReportData</code>](#module_rup_jqtable+event_rupTable_serializeReportData)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_serializeReportData</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

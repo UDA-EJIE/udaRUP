@@ -31,9 +31,6 @@
  * $("#id_capa").rup_feedback (properties);
  */
 
-/*global define */
-/*global jQuery */
- 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
 
@@ -60,7 +57,7 @@
          * @property {Number}  [delay=null] - Espera (ms) que va a aplicarse antes de ocultar el feedback.
          * @property {Number}  [fadeSpeed=null] - Tiempo (ms) que va a durar la animación de ocultación del feedback.
          * @property {boolean} [gotoTop=true] - Drmina si cuando se muestre el feedback se debe desplazar la
-página hasta la parte superior de la misma.
+         * @property {boolean} [customGoTo=null] - Drmina si cuando se muestre el feedback donde se debe desplazar la página.
          * @property {boolean}  [block=true] - Indica si la capa que contendrá el mensaje de feedback debe tener o
 no un espacio fijo en la pantalla.
          * @property {closeLink}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario
@@ -77,6 +74,7 @@ de la aplicación pueda cerrar la capa manualmente.
             //uso privado
             _idFeedback: null,
             _divClose: null,
+            customGoTo: null
         },
         /**
      * @function	_setOption
@@ -124,16 +122,16 @@ de la aplicación pueda cerrar la capa manualmente.
         _create: function () {
             var opciones = this.options;
             opciones._idFeedback =
-				this.element
-				    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
-				    .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
-				    .attr({
-				        role: 'alert'
-				    })
-				    .css('display', opciones.block ? 'block' : 'none')
-				    .css('visibility', 'hidden')
-				    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
-				    .attr('id');
+                this.element
+                    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
+                    .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
+                    .attr({
+                        role: 'alert'
+                    })
+                    .css('display', opciones.block ? 'block' : 'none')
+                    .css('visibility', 'hidden')
+                    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
+                    .attr('id');
 
             //Crear capa cierre
             opciones._divClose = $('<div />')
@@ -173,7 +171,6 @@ de la aplicación pueda cerrar la capa manualmente.
      * jQuery("#feedback").rup_feedback("destroy");
      */
         destroy: function () {
-            var opciones = this.options;
             this.element
                 .removeClass()
                 .removeAttr('role')
@@ -218,6 +215,8 @@ de la aplicación pueda cerrar la capa manualmente.
                 } else {
                     element.addClass('rup-feedback_image');
                 }
+                element.find('i').not('.mdi.mdi-close').eq(0).remove();
+                element.prepend($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(type));
                 element.addClass('rup-feedback_image_' + type);
                 opciones.type = type;
             } else if (type === null) {
@@ -243,17 +242,27 @@ de la aplicación pueda cerrar la capa manualmente.
                 this._addCloseLink();
             }
             this.show();
+            let scrollTop = '0px';
+            if(opciones.customGoTo !== null && opciones.customGoTo !== undefined){
+            	if(typeof opciones.customGoTo === "function") {
+            		scrollTop = opciones.customGoTo();
+            	}else{
+            		scrollTop = opciones.customGoTo;
+            	}
+            }
 
             //Ir al inicio
             if (opciones.gotoTop) {
                 $('html, body').animate({
-                    scrollTop: '0px'
+                    scrollTop: scrollTop
                 }, 0);
             }
             //Ocultacion mensaje
             if (opciones.delay != null) {
                 this.hide();
             }
+
+            $('#' + this.options._idFeedback).trigger('rupFeedback_afterSet');
         },
         /**
      * Oculta la capa del feedback con una animación. <br/><br/>

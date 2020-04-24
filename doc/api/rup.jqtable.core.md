@@ -11,152 +11,41 @@ var properties = {		url: "../tableUrl",		colNames: [			"id","nombre","..."]	
 ```
 
 * [rup_jqtable](#module_rup_jqtable)
-    * _instance_
-        * ["rupTable_checkOutOfGrid"](#module_rup_jqtable+event_rupTable_checkOutOfGrid)
-        * ["rupTable_serializeGridData"](#module_rup_jqtable+event_rupTable_serializeGridData)
-        * ["rupTable_beforeProcessing"](#module_rup_jqtable+event_rupTable_beforeProcessing)
-        * ["rupTableClearHighlightedRowAsSelected"](#module_rup_jqtable+event_rupTableClearHighlightedRowAsSelected)
-        * ["rupTableHighlightRowAsSelected"](#module_rup_jqtable+event_rupTableHighlightRowAsSelected)
-        * ["rupTable_coreConfigFinished"](#module_rup_jqtable+event_rupTable_coreConfigFinished)
-    * _inner_
-        * [~options](#module_rup_jqtable..options)
-        * [~preConfigureCore(settings)](#module_rup_jqtable..preConfigureCore)
-        * [~postConfigureCore(settings)](#module_rup_jqtable..postConfigureCore)
-        * [~getColModel()](#module_rup_jqtable..getColModel) ⇒ <code>object</code>
-        * [~getGridParam(pName)](#module_rup_jqtable..getGridParam) ⇒ <code>object</code>
-        * [~getGridParam(options)](#module_rup_jqtable..getGridParam) ⇒ <code>jQuery</code>
-        * [~getSelectedRows()](#module_rup_jqtable..getSelectedRows) ⇒ <code>Array.&lt;string&gt;</code>
-        * [~getSelectedLines()](#module_rup_jqtable..getSelectedLines) ⇒ <code>Array.&lt;number&gt;</code>
-        * [~getPkUrl(rowId)](#module_rup_jqtable..getPkUrl) ⇒ <code>string</code>
-        * [~reloadGrid(async, notSelect)](#module_rup_jqtable..reloadGrid)
-        * [~resetForm($form)](#module_rup_jqtable..resetForm) ⇒ <code>jQuery</code>
-        * [~setGridParam(newParams)](#module_rup_jqtable..setGridParam) ⇒ <code>jQuery</code>
-        * [~setSelection(selectedRows, status)](#module_rup_jqtable..setSelection)
-        * [~showServerValidationFieldErrors($form, errors)](#module_rup_jqtable..showServerValidationFieldErrors)
-        * [~rupTableClearHighlightedRowAsSelected($row)](#module_rup_jqtable..rupTableClearHighlightedRowAsSelected)
-        * [~highlightRowAsSelected($row)](#module_rup_jqtable..highlightRowAsSelected)
-        * [~updateDetailPagination(currentRowNumArg, totalRowNumArg)](#module_rup_jqtable..updateDetailPagination)
-        * [~updateSavedData(arg)](#module_rup_jqtable..updateSavedData)
-        * [~configurePager(settings)](#module_rup_jqtable..configurePager)
-        * [~addRowData(rowid, data, position, srcrowid)](#module_rup_jqtable..addRowData) ⇒ <code>jQuery</code>
-        * [~delRowData(rowid)](#module_rup_jqtable..delRowData) ⇒ <code>jQuery</code>
-        * [~getActiveRowId()](#module_rup_jqtable..getActiveRowId) ⇒ <code>string</code>
-        * [~getActiveLineId()](#module_rup_jqtable..getActiveLineId) ⇒ <code>string</code>
-        * [~setRowData(rowid, data, cssp)](#module_rup_jqtable..setRowData)
-        * [~getRowData(rowid)](#module_rup_jqtable..getRowData) ⇒ <code>object</code>
-        * [~getDataIDs()](#module_rup_jqtable..getDataIDs) ⇒ <code>Array.&lt;string&gt;</code>
-        * [~clearGridData(clearfooter)](#module_rup_jqtable..clearGridData)
-        * [~getColModel()](#module_rup_jqtable..getColModel) ⇒ <code>object</code>
-        * [~getCol(rowid, colName)](#module_rup_jqtable..getCol)
-        * [~getSerializedForm(form, skipEmpty)](#module_rup_jqtable..getSerializedForm)
-        * [~onOperation](#module_rup_jqtable..onOperation) : <code>function</code>
-        * [~isEnabled](#module_rup_jqtable..isEnabled) ⇒ <code>boolean</code>
-        * [~Operations](#module_rup_jqtable..Operations) : <code>Object</code>
-        * [~ShowOperations](#module_rup_jqtable..ShowOperations)
+    * [~options](#module_rup_jqtable..options)
+    * [~preConfigureCore(settings)](#module_rup_jqtable..preConfigureCore)
+    * [~postConfigureCore(settings)](#module_rup_jqtable..postConfigureCore)
+    * [~getColModel()](#module_rup_jqtable..getColModel) ⇒ <code>object</code>
+    * [~getGridParam(pName)](#module_rup_jqtable..getGridParam) ⇒ <code>object</code>
+    * [~getGridParam(options)](#module_rup_jqtable..getGridParam) ⇒ <code>jQuery</code>
+    * [~getSelectedRows()](#module_rup_jqtable..getSelectedRows) ⇒ <code>Array.&lt;string&gt;</code>
+    * [~getSelectedLines()](#module_rup_jqtable..getSelectedLines) ⇒ <code>Array.&lt;number&gt;</code>
+    * [~getPkUrl(rowId)](#module_rup_jqtable..getPkUrl) ⇒ <code>string</code>
+    * [~reloadGrid(async, notSelect)](#module_rup_jqtable..reloadGrid)
+    * [~resetForm($form)](#module_rup_jqtable..resetForm) ⇒ <code>jQuery</code>
+    * [~setGridParam(newParams)](#module_rup_jqtable..setGridParam) ⇒ <code>jQuery</code>
+    * [~setSelection(selectedRows, status)](#module_rup_jqtable..setSelection)
+    * [~showServerValidationFieldErrors($form, errors)](#module_rup_jqtable..showServerValidationFieldErrors)
+    * [~rupTableClearHighlightedRowAsSelected($row)](#module_rup_jqtable..rupTableClearHighlightedRowAsSelected)
+    * [~highlightRowAsSelected($row)](#module_rup_jqtable..highlightRowAsSelected)
+    * [~updateDetailPagination(currentRowNumArg, totalRowNumArg)](#module_rup_jqtable..updateDetailPagination)
+    * [~updateSavedData(arg)](#module_rup_jqtable..updateSavedData)
+    * [~configurePager(settings)](#module_rup_jqtable..configurePager)
+    * [~addRowData(rowid, data, position, srcrowid)](#module_rup_jqtable..addRowData) ⇒ <code>jQuery</code>
+    * [~delRowData(rowid)](#module_rup_jqtable..delRowData) ⇒ <code>jQuery</code>
+    * [~getActiveRowId()](#module_rup_jqtable..getActiveRowId) ⇒ <code>string</code>
+    * [~getActiveLineId()](#module_rup_jqtable..getActiveLineId) ⇒ <code>string</code>
+    * [~setRowData(rowid, data, cssp)](#module_rup_jqtable..setRowData)
+    * [~getRowData(rowid)](#module_rup_jqtable..getRowData) ⇒ <code>object</code>
+    * [~getDataIDs()](#module_rup_jqtable..getDataIDs) ⇒ <code>Array.&lt;string&gt;</code>
+    * [~clearGridData(clearfooter)](#module_rup_jqtable..clearGridData)
+    * [~getColModel()](#module_rup_jqtable..getColModel) ⇒ <code>object</code>
+    * [~getCol(rowid, colName)](#module_rup_jqtable..getCol)
+    * [~getSerializedForm(form, skipEmpty)](#module_rup_jqtable..getSerializedForm)
+    * [~onOperation](#module_rup_jqtable..onOperation) : <code>function</code>
+    * [~isEnabled](#module_rup_jqtable..isEnabled) ⇒ <code>boolean</code>
+    * [~Operations](#module_rup_jqtable..Operations) : <code>Object</code>
+    * [~ShowOperations](#module_rup_jqtable..ShowOperations)
 
-<a name="module_rup_jqtable+event_rupTable_checkOutOfGrid"></a>
-
-### "rupTable_checkOutOfGrid"
-Evento que se produce al detectarse que el usuario interactua con un elemento externo a la tabla.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-| $originalTarget | <code>jQuery</code> | Objeto jQuery que referencia el elemento del dom con el que ha interactuado el usuario. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTable_checkOutOfGrid", function(event,$originalTarget){ });
-```
-<a name="module_rup_jqtable+event_rupTable_serializeGridData"></a>
-
-### "rupTable_serializeGridData"
-Este evento se lanza durante el proceso de serialización de la información que va a ser enviada para obtener los registros que se van a mostrar en la tabla.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-| data | <code>object</code> | Información serializada que va a ser enviada. Se puede modificar o agregar nuevos campos para completarla. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTable_serializeGridData", function(event, data){});
-```
-<a name="module_rup_jqtable+event_rupTable_beforeProcessing"></a>
-
-### "rupTable_beforeProcessing"
-Evento que se lanza antes de que se procese la información recibida del servidor.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-| data | <code>object</code> | Información recibida del servidor. |
-| st | <code>string</code> | Mensaje de status de la petición. |
-| xhr | <code>object</code> | Objeto xhr recibido. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTable_beforeProcessing", function(event, data, st,xhr){ });
-```
-<a name="module_rup_jqtable+event_rupTableClearHighlightedRowAsSelected"></a>
-
-### "rupTableClearHighlightedRowAsSelected"
-Se produce cuando se elimina el resaltado de un registro de la tabla.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-| $row | <code>jQuery</code> | Objeto jQuery que identifica la línea que se ha procesado. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTableClearHighlightedRowAsSelected", function(event, $row){ });
-```
-<a name="module_rup_jqtable+event_rupTableHighlightRowAsSelected"></a>
-
-### "rupTableHighlightRowAsSelected"
-Se produce cuando se añade el resaltado a un registro de la tabla.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-| $row | <code>jQuery</code> | Objeto jQuery que identifica la línea que se ha procesado. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTableHighlightedRowAsSelected", function(event, $row){ });
-```
-<a name="module_rup_jqtable+event_rupTable_coreConfigFinished"></a>
-
-### "rupTable_coreConfigFinished"
-Evento que se lanza después de que el componente haya finalizado con el proceso de configuración e inicialización.
-
-**Kind**: event emitted by [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$("#idComponente").on("rupTable_coreConfigFinished", function(event, $row){ });
-```
 <a name="module_rup_jqtable..options"></a>
 
 ### rup_jqtable~options
@@ -190,7 +79,7 @@ Propiedades de configuración del componente.
 Metodo que realiza la pre-configuración del core del componente RUP Table.Este método se ejecuta antes de la pre-configuración de los plugins y de la invocación al componente jqGrid.
 
 **Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Emits**: [<code>rupTable\_checkOutOfGrid</code>](#module_rup_jqtable+event_rupTable_checkOutOfGrid), [<code>rupTable\_serializeGridData</code>](#module_rup_jqtable+event_rupTable_serializeGridData), [<code>rupTable\_beforeProcessing</code>](#module_rup_jqtable+event_rupTable_beforeProcessing)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_checkOutOfGrid</code>, <code>module:rup\_jqtable#event:rupTable\_serializeGridData</code>, <code>module:rup\_jqtable#event:rupTable\_beforeProcessing</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -374,7 +263,7 @@ $("#idComponente").rup_jqtable("showServerValidationFieldErrors ", $("#idFormula
 Elimina el resaltado de la línea especificada de la tabla.
 
 **Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Emits**: [<code>rupTableClearHighlightedRowAsSelected</code>](#module_rup_jqtable+event_rupTableClearHighlightedRowAsSelected)  
+**Emits**: <code>module:rup\_jqtable#event:rupTableClearHighlightedRowAsSelected</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -390,7 +279,7 @@ $("#idComponente").rup_jqtable("clearHighlightedRowAsSelected", $("#idFila"));
 Resalta la línea especificada de la tabla.
 
 **Kind**: inner method of [<code>rup\_jqtable</code>](#module_rup_jqtable)  
-**Emits**: [<code>rupTableHighlightRowAsSelected</code>](#module_rup_jqtable+event_rupTableHighlightRowAsSelected)  
+**Emits**: <code>module:rup\_jqtable#event:rupTableHighlightRowAsSelected</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -4,94 +4,164 @@
 
 var path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const env = require('yargs').argv.env; // use --env with webpack 2
 
 let libraryName = 'rup';
 
-let plugins = [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
-    ],
-    outputFile, optimization;
+let mode, outputFileJS, outputFileCSS, optimization;
 
 if (env === 'build') {
-    outputFile = libraryName + '.min.js';
+    mode = 'production';
+    outputFileJS = libraryName + '.min.js';
+    outputFileCSS = libraryName + '.min.css';
     optimization = {
         minimizer: [
-            // we specify a custom UglifyJsPlugin here to get source maps in production
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                uglifyOptions: {
-                    compress: false,
+            new TerserPlugin({
+                // https://github.com/terser/terser#minify-options
+                terserOptions: {
                     ecma: 6,
-                    mangle: true
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true,
+                    warnings: false,
+                    parse: {},
+                    compress: {},
+                    mangle: true, // Note `mangle.properties` is `false` by default.
+                    module: false,
+                    output: null,
+                    toplevel: false,
+                    nameCache: null,
+                    ie8: false,
+                    keep_classnames: undefined,
+                    keep_fnames: false,
+                    safari10: false,
                 },
-                sourceMap: true
+            }),
+            new OptimizeCssAssetsPlugin({
+                assetNameRegExp: /\.css$/,
+                cssProcessor: require('cssnano'),
+                cssProcessorOptions: {
+                    discardComments: {
+                        removeAll: true
+                    }
+                },
+                canPrint: true
+            }, {
+                copyUnmodified: true
             })
         ]
     };
 } else {
-    outputFile = libraryName + '.js';
+    mode = 'development';
+    outputFileJS = libraryName + '.js';
+    outputFileCSS = libraryName + '.css';
     optimization = {};
 }
 
+let plugins = [
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+    }),
+    new MiniCssExtractPlugin({
+        filename: '/css/' + outputFileCSS,
+        chunkFilename: '/css/' + outputFileCSS
+    }),
+];
+
 module.exports = [{
-    mode: 'development',
-    entry: __dirname + '/src/index.js',
-    devtool: 'source-map',
+    mode: mode,
+    entry: ['@babel/polyfill', __dirname + '/src/index.js'],
+    devtool: 'eval',
     output: {
-        filename: outputFile,
+        filename: 'js/' + outputFileJS,
         library: libraryName,
         libraryTarget: 'umd',
-        path: path.resolve(__dirname, 'dist/js')
+        path: path.resolve(__dirname, 'dist/')
     },
     optimization: optimization,
     module: {
-        rules: [
-            {
-                test: require.resolve('jquery-migrate'),
-                use: 'imports-loader?define=>false',
-            }, {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env']
-                    }
+        rules: [{
+            test: require.resolve('jquery-migrate'),
+            use: 'imports-loader?define=>false',
+        }, {
+            test: /\.js$/,
+            // exclude: '/node_modules/',
+            // include: '/src/',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env']
                 }
-            },
-            {
-                test: /\.hbs$/,
-                use: {
-                    loader: 'handlebars-loader',
-                    query: {
-                        // knownHelpers: ['i18n'],
-                        helperDirs: [
-                            __dirname + '/src/helper'
-
-                        ]
-                    }
-                }
-            },
-            {
-                test: require.resolve('tether'),
-                use: [{
-                    loader: 'expose-loader',
-                    options: 'Tether'
-                }]
-            }, {
-                test: require.resolve('popper.js'),
-                use: [{
-                    loader: 'expose-loader',
-                    options: 'Popper'
-                }]
             }
+        },
+        {
+            test: /\.hbs$/,
+            use: {
+                loader: 'handlebars-loader',
+                query: {
+                    helperDirs: [
+                        __dirname + '/src/helper'
+                    ]
+                }
+            }
+        },
+        {
+            test: /(\.css|\.scss|\.sass)$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        },
+        {
+            test: /\.(cur)\??.*$/,
+            use: {
+                loader: 'url-loader',
+                options: {
+                    name: '[name].[ext]',
+                    publicPath: 'cursors/',
+                    outputPath: 'css/cursors/'
+                }
+            }
+        },
+        {
+            test: /\.(gif|jpg|png|ico|svg)\??.*$/,
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 1024,
+                    name: '[name].[ext]',
+                    publicPath: 'images/',
+                    outputPath: 'css/images/'
+                }
+            }
+        },
+        {
+            test: /\.(woff|otf|ttf|eot)\??.*$/,
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 1024,
+                    name: '[name].[ext]',
+                    publicPath: 'fonts/',
+                    outputPath: 'css/fonts/'
+                }
+            }
+        },
+        {
+            test: require.resolve('tether'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'Tether'
+            }]
+        }, {
+            test: require.resolve('popper.js'),
+            use: [{
+                loader: 'expose-loader',
+                options: 'Popper'
+            }]
+        }
         ]
     },
     stats: {
@@ -101,7 +171,6 @@ module.exports = [{
         fs: 'empty'
     },
     devServer: {
-        // contentBase: path.join(__dirname, './'),
         compress: true,
         port: 9000
     },
@@ -109,32 +178,20 @@ module.exports = [{
     resolve: {
         modules: ['node_modules', path.resolve(__dirname, 'src')],
         alias: {
-
-            'handlebars': 'handlebars/dist/handlebars.js',
-            'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
-            'jquery-ui': 'jquery-ui/ui/',
             'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-
-            'jquery.fileupload': 'blueimp-file-upload/js/jquery.fileupload.js',
-            'jquery.fileupload-ui': 'blueimp-file-upload/js/jquery.fileupload-ui.js',
-            'jquery.fileupload-jquery-ui': 'blueimp-file-upload/js/jquery.fileupload-jquery-ui.js',
-            'jquery.fileupload-process': 'blueimp-file-upload/js/jquery.fileupload-process.js',
-            'jquery.fileupload-image': 'blueimp-file-upload/js/jquery.fileupload-image.js',
-            'jquery.fileupload-audio': 'blueimp-file-upload/js/jquery.fileupload-audio.js',
-            'jquery.fileupload-video': 'blueimp-file-upload/js/jquery.fileupload-video.js',
-            'jquery.fileupload-validate': 'blueimp-file-upload/js/jquery.fileupload-validate.js',
+            
             'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
             'load-image-meta': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-meta.js',
             'load-image-exif': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-exif.js',
             'load-image-scale': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-scale.js',
             'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
 
-            'jquery-form': 'jquery-form/jquery.form.js',
-            'jquery.validate.additional': 'jquery-validation/dist/additional-methods.js',
-
-            'jquery.ui.widget': 'jquery-ui/widget.js',
-            'tmpl': 'blueimp-tmpl/js/tmpl.js',
-            'calendar-tmpls': 'bootstrap-calendar/tmpls'
+            // CSS ROUTES
+            './images': path.join(__dirname, '/assets/images'),
+            './cursors': path.join(__dirname, '/assets/cursors'),
+            '../css/images/table': path.join(__dirname, '/assets/images/datatable'),
+            './fonts': path.join(__dirname, '/assets/fonts'),
+            '../fonts': '@mdi/font/fonts/',
         }
 
     }

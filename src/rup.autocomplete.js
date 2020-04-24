@@ -137,7 +137,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 
 				// Comprobamos si tiene la referencia al campo hidden
 				if (data.$hiddenField) {
-					data.$hiddenField.attr('rup_autocomplete_label', value);
+					data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
 
 					loadObjects = $self.data('loadObjects');
 					newObject[value] = data.$hiddenField.val();
@@ -309,7 +309,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 				if (value === true) {
 					if (!spanParent.hasClass('rup-combobox')) {
 						self.addClass('rup-combobox-input ui-corner-left');
-						wasOpen = false;
+						var wasOpen = false;
 						self.wrap(jQuery('<span>').addClass('rup-combobox'));
 						var $wrapper = self.parent();
 						var $button = $('<a>').attr('tabIndex', -1).attr('title', $.rup.i18n.base.rup_autocomplete.showAllItems)
@@ -417,11 +417,12 @@ input.
          * $("#idAutocomplete").rup_autocomplete("set", "48", "Bizkaia");
          */
 		set: function (value, label) {
+            var $self;
 				if ($(this).attr('id').indexOf('_label') >= 0 ) {
 					var array = $(this).attr('id').split('_label');
-					$self = $('#'+array[0]);
+                $self = $('#'+array[0]);
 				} else {
-					$self = $(this);
+                $self = $(this);
 				}
 				var $selfLabel = jQuery('[id=\'' + $self.attr('id') + '_label\']'),
 				loadObjects, newObject = {};
@@ -545,7 +546,7 @@ input.
 						//parte trasera
 						//var nAtras = literal.indexOf(labelLimpio.substr(termLimpio.length));
 						
-						var nAtras = literal.indexOf("</strong>")+9;
+                        var nAtras = literal.indexOf('</strong>')+9;
 						literal = returnValue.label;
 						returnValue.label = literal.substr(0,nAtras)+label.substr(n+termLimpio.length);
 					}
@@ -667,7 +668,7 @@ input.
 								var n = labelLimpio.indexOf(termLimpio);
 								returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
 								//parte trasera
-								var nAtras = literal.indexOf("</strong>")+9;
+                                var nAtras = literal.indexOf('</strong>')+9;
 								literal = returnValue.label;
 								returnValue.label = literal.substr(0,nAtras)+item.label.substr(n+termLimpio.length);
 							}
@@ -797,8 +798,8 @@ input.
 					}
 					$('#' + settings.id).attr('rup_autocomplete_label', selected_value);
 					$('#' + settings.id).data('selected', true);
-					$self.triggerHandler('rupAutocomplete_select', [ui]);
 					$('#' + settings.id).val(ui.item.value);
+					$self.triggerHandler('rupAutocomplete_select', [ui]);
 					return false;
 				};
 				settings.focus = function (event, ui) {
@@ -856,7 +857,7 @@ input.
 				}
 
 				// Evita en IE que el input pierda el foco al hacer click en el scroll de la capa de resultados
-				settings.$menu.on('scroll', (e) => {
+                settings.$menu.on('scroll', () => {
 					jQuery('#' + settings.id + '_label').focus();
 					settings.$menu.show();
 				});

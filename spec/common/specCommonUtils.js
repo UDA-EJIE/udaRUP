@@ -17,32 +17,18 @@ export function testTrace(title, toTrace) {
 export function loadCss(callback) {
     $('head > style').remove();
     $('head').append('<style></style>');
-    return $.when($.ajax(DIST + '/css/externals/tether/tether.min.css'))
-        .then((data) => {
+    return $.when($.ajax(DIST + '/css/rup.min.css'))
+        .always((data) => {
             $('head > style').append(data);
-            $.when($.ajax(DIST + '/css/externals/bootstrap/bootstrap.min.css'))
-                .then((data) => {
-                    $('head > style').append(data);
-                    $.when($.ajax(DIST + '/css/rup-base.css'))
-                        .then((data) => {
-                            $('head > style').append(data);
-                            $.when($.ajax(DIST + '/css/rup-theme.css'))
-                                .then((data) => {
-                                    $('head > style').append(data);
-                                    $.when($.ajax(DIST + '/css/rup-jqueryui-theme.css'))
-                                        .then((data) => {
-                                            $('head > style').append(data);
-                                            $.when($.ajax(DIST + '/css/main.css'))
-                                                .then((data) => {
-                                                    $('head > style').append(data);
-                                                    if($('#content').length === 0) {
-                                                        $('body').append('<div id="content" class="container"></div>');
-                                                    }
-                                                    callback();
-                                                });
-                                        });
-                                });
-                        });
-                });
+            // $.when($.ajax(DIST + '/css/rup-theme.css'))
+            //     .always((data) => {
+            //         $('head > style').append(data);
+            if($('#content').length === 0) {
+                $('body').append('<div id="content" class="container mt-4"></div>');
+                $('.jasmine_html-reporter').css('margin','0px');
+                $('body').css('overflow-x','hidden');
+            }
+            callback();
+            // });
         });
 }

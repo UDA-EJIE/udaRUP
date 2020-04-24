@@ -93,7 +93,7 @@ $("#idComponente").rup_jqtable("configureMultifilter", settings);
 Función que añade un filtro al multifiltro
 
 **Kind**: inner method of [<code>rup\_jqtable/multifilter</code>](#module_rup_jqtable/multifilter)  
-**Emits**: [<code>rupTable\_multifilter\_beforeAdd</code>](#module_rup_jqtable+event_rupTable_multifilter_beforeAdd)  
+**Emits**: <code>module:rup\_jqtable#event:rupTable\_multifilter\_beforeAdd</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |

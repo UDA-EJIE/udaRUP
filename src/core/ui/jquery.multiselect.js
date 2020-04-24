@@ -422,11 +422,17 @@
 
 		// set button width
 		_setButtonWidth: function(){
-			var width = this.element.outerWidth(),
-				o = this.options;
+			var o = this.options;
+			var width;
 
-			if( /\d/.test(o.minWidth) && width < o.minWidth){
-				width = o.minWidth;
+			if (typeof o.width === 'string' && o.width.indexOf('%') > -1) {
+				width = o.width;
+			} else {
+				width = this.element.outerWidth();
+
+				if( /\d/.test(o.minWidth) && width < o.minWidth){
+					width = o.minWidth;
+				}
 			}
 
 			// set widths

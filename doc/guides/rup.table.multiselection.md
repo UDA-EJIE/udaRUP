@@ -140,3 +140,24 @@ Después de realizar las multiselección sobre los registros el estado de la est
   selectedRowsPerPage: []
 }
 ```
+### Propiedades adicionales
+
+```java
+Plugins.multiSelect.DeleteDoubleClick  = true 
+```
+Por defecto viene a false, y si se activa deja de funcionar la selección con doble click.
+
+```java
+Plugins.multiSelect.hideMultiselect  = true 
+```
+Por defecto viene a false, y si se activa se ocultan los checks para marcar la multiselección, aunque la multiselección sigue funcionando.
+
+```java
+Plugins.multiSelect.enableMouseSelection  = false 
+```
+Por defecto viene a true, y si se activa no se permite seleccionar con el ratón.
+
+```java
+Plugins.multiSelect.enableKeyboardSelection  = false 
+```
+Por defecto viene a true, y si se activa no se permite seleccionar con el teclado.

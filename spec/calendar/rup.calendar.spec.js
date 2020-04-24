@@ -783,7 +783,7 @@ describe('Test rup_calendar (default)', () => {
                     'end': '1541890800000',
                     'url': 'javascript:actions(48506)'
                 });
-                cal.on('afterRender', done);
+                cal.on('afterRefresh', done);
                 cal.rup_calendar('refresh');
             });
             afterEach(() => {
@@ -816,9 +816,9 @@ describe('Test rup_calendar (default)', () => {
                     cal.on('afterShowCell', () => {
                         done();
                     });
-                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
+                    cal.rup_calendar('showCell', new Date(1543618800000));
                 });
-                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
+                cal.rup_calendar('navigate', new Date(1543618800000));
             });
             it(' > Deben mostrarse los eventos de la celda seleccionada', () => {
                 expect($('#cal-slide-box').css('display')).toBe('block');
@@ -831,9 +831,9 @@ describe('Test rup_calendar (default)', () => {
                         cal.on('afterHideCell', done);
                         cal.rup_calendar('hideCells');
                     });
-                    cal.rup_calendar('showCell', new Date(2018, 11, 1, 0, 0, 0));
+                    cal.rup_calendar('showCell', new Date(1543618800000));
                 });
-                cal.rup_calendar('navigate', new Date(2018, 11, 1, 0, 0, 0));
+                cal.rup_calendar('navigate', new Date(1543618800000));
             });
             it(' > Deben ocultarse los eventos desplegados', () => {
                 expect($('#cal-slide-box').css('display')).toBe('none');
@@ -1269,7 +1269,7 @@ describe('Test rup_calendar (alternative)', () => {
                 cal2.on('afterViewLoad', () => {
                     done();
                 });
-                cal2.rup_calendar('navigate', new Date(2018, 5, 2, 0, 0, 0));
+                cal2.rup_calendar('navigate', 'next');
             });
             it(' > El titulo devuelto debe ser igual al del DOM', () => {
                 expect(cal2.rup_calendar('getTitle')).toBe($('.page-header > h3').text());
@@ -1372,13 +1372,11 @@ describe('Test rup_calendar (alternative)', () => {
         });
         describe(' > Método refresh', () => {
             beforeEach((done) => {
-                cal2.on('afterViewLoad', () => {
-                    $.post('/demo/calendar/events/add')
-                        .done(() => {
-                            cal2.on('afterRefresh', done);
-                            cal2.rup_calendar('refresh');
-                        });
-                });
+                $.post('/demo/calendar/events/add')
+                    .done(() => {
+                        cal2.on('afterRefresh', done);
+                        cal2.rup_calendar('refresh');
+                    });
                 cal2.rup_calendar('navigate', new Date(2019, 5, 2, 0, 0, 0));
             });
             afterEach((done) => {
@@ -1535,7 +1533,7 @@ var opts2 = {
         }
     },
     date_range_start: new Date(2019, 0, 1, 0, 0, 0),
-    date_range_end: new Date(2020, 1, 1, 0, 0, 0),
+    date_range_end: new Date(2021, 1, 1, 0, 0, 0),
     rupAfterEventsLoad: function (events) {
         if (!events) {
             return;

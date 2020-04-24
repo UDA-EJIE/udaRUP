@@ -16,7 +16,8 @@ var express = require('express'),
     dashboardTable = require('./demo/routes/dashboard'),
     routesAudit = require('./demo/routes/audit'),
     routesCalendar = require('./demo/routes/calendar'),
-    routesDialog = require('./demo/routes/dialog');
+    routesDialog = require('./demo/routes/dialog'),
+    routesList = require('./demo/routes/list');
 
 // db
 //var db = new lokijs('uda');
@@ -124,11 +125,18 @@ module.exports = (PORT) => {
     app.post('/demo/calendar/events/add', routesCalendar.addEvent);
     app.post('/demo/calendar/events/restore', routesCalendar.restore);
 
+    //List
+    app.post('/demo/list/filter', routesList.filter);
+    app.get('/demo/list/filter/multiFilter/getAll', routesList.multiFilterAll);
+    app.get('/demo/list/filter/multiFilter/getDefault', routesList.multiFilterDefault);
+    app.post('/demo/list/filter/multiFilter/add', routesList.multiFilterAdd);
+    app.post('/demo/list/filter/multiFilter/delete', routesList.multiFilterDelete);
+
     //Dialog
     app.get('/demo/dialog/dialogAjax', routesDialog.getHTML);
 
-    app.listen(PORT);
+    var server = app.listen(PORT);
 
     console.log(`Listening on port ${PORT}...`);
-    return;
+    return server;
 };

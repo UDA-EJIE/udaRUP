@@ -15,7 +15,7 @@ describe('Test Toolbar > ', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
+    beforeEach((done) => {
         var handler = () => {
             alert('XXX');
         };
@@ -52,6 +52,7 @@ describe('Test Toolbar > ', () => {
         $('#content').append(html);
         $('#exampleToolbar').rup_toolbar(options);
         $toolbar = $('#exampleToolbar');
+        setTimeout(done, 200);
     });
     afterEach(() => {
         $('#content').html('');
@@ -69,7 +70,9 @@ describe('Test Toolbar > ', () => {
             let buttonObj;
             beforeEach(() => {
                 buttonObj = {
-                    click: () => { alert('ASD');},
+                    click: () => {
+                        alert('ASD');
+                    },
                     id: 'addedButton',
                     text: 'Added Button'
                 };
@@ -106,9 +109,9 @@ describe('Test Toolbar > ', () => {
                     }
                     ]
                 };
-                var idMBtn = mButton.idParent+'##'+mButton.id;
+                var idMBtn = mButton.idParent + '##' + mButton.id;
                 $toolbar.rup_toolbar('addMButton', mButton);
-                $toolbar.rup_toolbar('addButtonsToMButton', mButton.buttons,$('[id="'+idMBtn+'-mbutton-group"]'));
+                $toolbar.rup_toolbar('addButtonsToMButton', mButton.buttons, $('[id="' + idMBtn + '-mbutton-group"]'));
             });
 
             it('Debe existir el mButton', () => {
@@ -128,7 +131,7 @@ describe('Test Toolbar > ', () => {
                     click: () => {}
                 };
 
-                $toolbar.rup_toolbar('addButtonsToMButton',[button], $('[id="exampleToolbar##mbutton1-mbutton-group"]'));
+                $toolbar.rup_toolbar('addButtonsToMButton', [button], $('[id="exampleToolbar##mbutton1-mbutton-group"]'));
             });
 
             it('Debe existir el botón añadido', () => {
@@ -140,8 +143,8 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('disableButton', 'searchBtn');
             });
             it('Debe tener las clases que lo deshabilitan', () => {
-                expect($('[id="exampleToolbar##searchBtn"]').hasClass('ui-button-disabled ui-state-disabled'))
-                    .toBe(true);
+                expect($('[id="exampleToolbar##searchBtn"]').is(':disabled'))
+                    .toBeTruthy();
             });
         });
         describe('Método enableButton > ', () => {
@@ -150,8 +153,8 @@ describe('Test Toolbar > ', () => {
                 $toolbar.rup_toolbar('enableButton', 'searchBtn');
             });
             it('No debe tener las clases que lo deshabilitan', () => {
-                expect($('[id="exampleToolbar##searchBtn"]').hasClass('ui-button-disabled ui-state-disabled'))
-                    .toBe(false);
+                expect($('[id="exampleToolbar##searchBtn"]').is(':enabled'))
+                    .toBeTruthy();
             });
         });
         describe('Método pressButton > ', () => {
@@ -182,12 +185,12 @@ describe('Test Toolbar > ', () => {
         });
         describe('Método refreshButton > ', () => {
             beforeEach(() => {
-                $('[id = "exampleToolbar##searchBtn"]').attr('disabled','disabled');
+                $('[id = "exampleToolbar##searchBtn"]').attr('disabled', 'disabled');
                 $toolbar.rup_toolbar('refreshButton', 'searchBtn');
             });
 
             it('Debe actualizar el botón:', () => {
-                expect($('[id = "exampleToolbar##searchBtn"]').is('.ui-button-disabled.ui-state-disabled'))
+                expect($('[id = "exampleToolbar##searchBtn"]').is(':disabled'))
                     .toBeTruthy();
             });
         });

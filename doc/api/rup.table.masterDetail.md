@@ -1,56 +1,38 @@
-<a name="module_rup_table/masterDetail"></a>
+<a name="module_rup.table.masterDetail"></a>
 
-## rup_table/masterDetail
-Permite relacionar dos tablas de modo que tengan una relación maestro-detalle. De este modo, los resultados de la tabla detalle se muestran a partir del seleccionado en la tabla maestro.
+## rup.table.masterDetail
+Módulo que permite toda la seleción simple
 
-**Summary**: Plugin de edición en línea del componente RUP Table.  
-**Example**  
-```js
-$("#idComponenteMaestro").rup_table({	url: "../jqGridUsuarioMaestro",});$("#idComponente").rup_table({	url: "../jqGridUsuarioDetalle",	usePlugins:["masterDetail"],	inlineEdit:{		master: "#idComponenteMaestro"		// Propiedades de configuración del plugin inlineEdit	}});
-```
+**Summary**: Extensión del componente RUP Datatable  
+**Version**: 1.0.0  
+**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
+**Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
-* [rup_table/masterDetail](#module_rup_table/masterDetail)
-    * [~options](#module_rup_table/masterDetail..options)
-    * [~preConfigureMasterDetail(settings)](#module_rup_table/masterDetail..preConfigureMasterDetail)
-    * [~getMasterTablePkObject(options)](#module_rup_table/masterDetail..getMasterTablePkObject) ⇒ <code>object</code>
+* [rup.table.masterDetail](#module_rup.table.masterDetail)
+    * [~init(dt)](#module_rup.table.masterDetail..init)
+    * [~getMasterTablePkObject(options)](#module_rup.table.masterDetail..getMasterTablePkObject) ⇒ <code>object</code>
 
-<a name="module_rup_table/masterDetail..options"></a>
+<a name="module_rup.table.masterDetail..init"></a>
 
-### rup_table/masterDetail~options
-Propiedades de configuración del plugin masterDetail del componente RUP Table.
+### rup.table.masterDetail~init(dt)
+Se inicializa el componente select
 
-**Kind**: inner property of [<code>rup_table/masterDetail</code>](#module_rup_table/masterDetail)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| master | <code>string</code> | Selector jQuery que referencia al componente maestro. |
-| masterPrimaryKey | <code>string</code> | Clave primaria del componente maestro. |
-
-<a name="module_rup_table/masterDetail..preConfigureMasterDetail"></a>
-
-### rup_table/masterDetail~preConfigureMasterDetail(settings)
-Metodo que realiza la pre-configuración del plugin masterDetail del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
-
-**Kind**: inner method of [<code>rup_table/masterDetail</code>](#module_rup_table/masterDetail)  
+**Kind**: inner method of [<code>rup.table.masterDetail</code>](#module_rup.table.masterDetail)  
+**Since**: UDA 3.4.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
+| dt | <code>object</code> | Es el objeto table. |
 
-<a name="module_rup_table/masterDetail..getMasterTablePkObject"></a>
+<a name="module_rup.table.masterDetail..getMasterTablePkObject"></a>
 
-### rup_table/masterDetail~getMasterTablePkObject(options) ⇒ <code>object</code>
+### rup.table.masterDetail~getMasterTablePkObject(options) ⇒ <code>object</code>
 Devuelve un objeto json con la clave primaria del registro correspondiente de la tabla maestra.
 
-**Kind**: inner method of [<code>rup_table/masterDetail</code>](#module_rup_table/masterDetail)  
+**Kind**: inner method of [<code>rup.table.masterDetail</code>](#module_rup.table.masterDetail)  
 **Returns**: <code>object</code> - - Objeto json con la clave primaria del registro correspondiente de la tabla maestra  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>object</code> | Opciones de configuración de la acción de inserción. |
 
-**Example**  
-```js
-$("#idTable").rup_table("getMasterTablePkObject");
-```

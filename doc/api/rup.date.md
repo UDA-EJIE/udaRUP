@@ -1,87 +1,30 @@
 <a name="module_rup_date"></a>
 
 ## rup\_date
-Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
+Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
 
 **Summary**: Componente RUP Date.  
-**See**: El componente está basado en el plugin [jQuery UI DatePicker](http://jqueryui.com/datepicker/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/datepicker/).  
+**See**: El componente está basado en el plugin [jQuery UI DatePicker](http://jqueryui.com/datepicker/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/datepicker/).  
 **Example**  
 ```js
 // Ejemplo de selector de fecha simple.$("#fecha").rup_date({	labelMaskId : "fecha-mask",	showButtonPanel : true,	showOtherMonths : true,	noWeekend : true});// Ejemplo de selector de fecha simple que permite seleccionar tres fechas.$("#fecha_multi").rup_date({	multiSelect: 3,	labelMaskId : "fecha_multi-mask",	buttonImage : "/rup/css/images/exclamation.png"});// Ejemplo de selectores de fecha desde y hasta$.rup_date({	from: "desde",	to: "hasta",	//Resto igual que en date	labelMaskId : "intervalo-mask",	numberOfMonths: 3});
 ```
 
 * [rup_date](#module_rup_date)
-    * _instance_
-        * ["create"](#module_rup_date+event_create)
-        * ["beforeShow"](#module_rup_date+event_beforeShow)
-        * ["onChangeMonthYear"](#module_rup_date+event_onChangeMonthYear)
-        * ["onSelect"](#module_rup_date+event_onSelect)
-        * ["onClose"](#module_rup_date+event_onClose)
-    * _inner_
-        * [~options](#module_rup_date..options)
-        * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> \| <code>array</code>
-        * [~setRupValue(param)](#module_rup_date..setRupValue)
-        * [~destroy()](#module_rup_date..destroy)
-        * [~disable()](#module_rup_date..disable)
-        * [~enable()](#module_rup_date..enable)
-        * [~isDisabled()](#module_rup_date..isDisabled) ⇒ <code>boolean</code>
-        * [~hide()](#module_rup_date..hide)
-        * [~show()](#module_rup_date..show)
-        * [~getDate()](#module_rup_date..getDate) ⇒ <code>date</code>
-        * [~setDate()](#module_rup_date..setDate)
-        * [~refresh()](#module_rup_date..refresh)
-        * [~option(optionName, [value])](#module_rup_date..option)
+    * [~options](#module_rup_date..options)
+    * [~getRupValue()](#module_rup_date..getRupValue) ⇒ <code>string</code> \| <code>array</code>
+    * [~setRupValue(param)](#module_rup_date..setRupValue)
+    * [~destroy()](#module_rup_date..destroy)
+    * [~disable()](#module_rup_date..disable)
+    * [~enable()](#module_rup_date..enable)
+    * [~isDisabled()](#module_rup_date..isDisabled) ⇒ <code>boolean</code>
+    * [~hide()](#module_rup_date..hide)
+    * [~show()](#module_rup_date..show)
+    * [~getDate()](#module_rup_date..getDate) ⇒ <code>date</code>
+    * [~setDate()](#module_rup_date..setDate)
+    * [~refresh()](#module_rup_date..refresh)
+    * [~option(optionName, [value])](#module_rup_date..option)
 
-<a name="module_rup_date+event_create"></a>
-
-### "create"
-Función que se lanza cuando se crea el calendario. La invocación es automática por parte del componente
-
-**Kind**: event emitted by [<code>rup\_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ create: function(){...} });
-```
-<a name="module_rup_date+event_beforeShow"></a>
-
-### "beforeShow"
-Permite asociar una función que se ejecutará antes de que se muestre el calendario. Los parámetros recibidos son el campo del calendario y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup\_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ beforeShow: function(input, inst){...} });
-```
-<a name="module_rup_date+event_onChangeMonthYear"></a>
-
-### "onChangeMonthYear"
-Permite asociar una función que se ejecutará cuando se cambie de mes o de año en el calendario. Los parámetros recibidos son el año y mes seleccionados así como la instancia del componente
-
-**Kind**: event emitted by [<code>rup\_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({onChangeMonthYear: function(y,m,inst){...} });
-```
-<a name="module_rup_date+event_onSelect"></a>
-
-### "onSelect"
-Permite asociar una función que se ejecutará cuando se seleccione un valor del calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup\_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ onSelect: function(dateText, inst){...} });
-```
-<a name="module_rup_date+event_onClose"></a>
-
-### "onClose"
-Permite asociar una función que se ejecutará cuando se oculte el calendario. Los parámetros recibidos son la fecha seleccionada (texto) y la instancia del componente.
-
-**Kind**: event emitted by [<code>rup\_date</code>](#module_rup_date)  
-**Example**  
-```js
-$(selector).rup_date({ onClose: function(dateText, inst){...} });
-```
 <a name="module_rup_date..options"></a>
 
 ### rup_date~options
@@ -142,7 +85,7 @@ A continuación se muestran los posibles parámetros de configuración que recib
 <a name="module_rup_date..getRupValue"></a>
 
 ### rup_date~getRupValue() ⇒ <code>string</code> \| <code>array</code>
-Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
+Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Returns**: <code>string</code> \| <code>array</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
@@ -153,14 +96,13 @@ $("#idDate").rup_date("getRupValue");
 <a name="module_rup_date..setRupValue"></a>
 
 ### rup_date~setRupValue(param)
-Método utilizado para asignar el valor al componente. Este método es el utilizado por
-    el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
+Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| param | <code>string</code> \| <code>array</code> | Valor que se va a asignar al componente. En caso de tratarse de uan configuración en la que se permite seleccionar varias fechas se indicará mediante un array. |
+| param | <code>string</code> \| <code>array</code> | Valor que se va a asignar al componente. En caso de tratarse  de uan configuración en la que se permite seleccionar varias fechas se indicará mediante un array. |
 
 **Example**  
 ```js
@@ -169,7 +111,7 @@ Método utilizado para asignar el valor al componente. Este método es el utiliz
 <a name="module_rup_date..destroy"></a>
 
 ### rup_date~destroy()
-Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
+Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -179,7 +121,7 @@ $("#idDate").rup_date("destroy");
 <a name="module_rup_date..disable"></a>
 
 ### rup_date~disable()
-Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
+Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -189,7 +131,7 @@ $("#idDate").rup_date("disable");
 <a name="module_rup_date..enable"></a>
 
 ### rup_date~enable()
-Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
+Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -272,8 +214,8 @@ Permite consultar y modificar la configuración del componente.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionName | <code>string</code> \| <code>object</code> | Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades. |
-| [value] |  | Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro. |
+| optionName | <code>string</code> \| <code>object</code> | Nombre de la propiedad que se desea gestionar o objeto de  compuesto de varias propiedades. |
+| [value] |  | Corresponde al valor de la propiedad en caso de haberse especificado el nombre  de la misma en el primér parámetro. |
 
 **Example**  
 ```js

@@ -130,7 +130,7 @@ table.dataTable tfoot th:hover {
 }
 
 .selectTableHead:before {
-    content: ' ';
+    content: '\a0';
     border: 1px solid black;
     border-radius: 3px;
     display: block;

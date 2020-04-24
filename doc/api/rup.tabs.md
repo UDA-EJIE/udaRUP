@@ -11,154 +11,16 @@ $("#ejemploArbolDiv").rup_tabs(properties);
 ```
 
 * [rup_tabs](#module_rup_tabs)
-    * _instance_
-        * ["create"](#module_rup_tabs+event_create)
-        * ["select"](#module_rup_tabs+event_select)
-        * ["load"](#module_rup_tabs+event_load)
-        * ["activate"](#module_rup_tabs+event_activate)
-        * ["add"](#module_rup_tabs+event_add)
-        * ["remove"](#module_rup_tabs+event_remove)
-        * ["enable"](#module_rup_tabs+event_enable)
-        * ["disable"](#module_rup_tabs+event_disable)
-    * _inner_
-        * [~options](#module_rup_tabs..options)
-        * [~disableTabs()](#module_rup_tabs..disableTabs)
-        * [~enableTabs()](#module_rup_tabs..enableTabs)
-        * [~loadTab()](#module_rup_tabs..loadTab)
-        * [~changeUrlTab()](#module_rup_tabs..changeUrlTab)
-        * [~changeLayerTab()](#module_rup_tabs..changeLayerTab)
-        * [~selectTab()](#module_rup_tabs..selectTab)
-        * [~addTab()](#module_rup_tabs..addTab)
-        * [~removeTab()](#module_rup_tabs..removeTab)
+    * [~options](#module_rup_tabs..options)
+    * [~disableTabs()](#module_rup_tabs..disableTabs)
+    * [~enableTabs()](#module_rup_tabs..enableTabs)
+    * [~loadTab()](#module_rup_tabs..loadTab)
+    * [~changeUrlTab()](#module_rup_tabs..changeUrlTab)
+    * [~changeLayerTab()](#module_rup_tabs..changeLayerTab)
+    * [~selectTab()](#module_rup_tabs..selectTab)
+    * [~addTab()](#module_rup_tabs..addTab)
+    * [~removeTab()](#module_rup_tabs..removeTab)
 
-<a name="module_rup_tabs+event_create"></a>
-
-### "create"
-Se lanza cada vez que se crea una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ create: function(){...} });
-```
-<a name="module_rup_tabs+event_select"></a>
-
-### "select"
-Se lanza el evento cada vez que se hace click sobre una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ select: function(){...} });
-```
-<a name="module_rup_tabs+event_load"></a>
-
-### "load"
-Este evento se desencadena después de que el contenido de una pestaña se ha cargado.
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ load: function(){...} });
-```
-<a name="module_rup_tabs+event_activate"></a>
-
-### "activate"
-Este evento ocurre cuando una pestaña está preparada para ser mostrada.
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ activate: function(){...} });
-```
-<a name="module_rup_tabs+event_add"></a>
-
-### "add"
-Este evento se desencadena cuando se añade una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ add: function(){...} });
-```
-<a name="module_rup_tabs+event_remove"></a>
-
-### "remove"
-Este evento se desencadena cuando se elimina una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ remove: function(){...} });
-```
-<a name="module_rup_tabs+event_enable"></a>
-
-### "enable"
-Este evento se desencadena cuando se habilita una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ enable: function(){...} });
-```
-<a name="module_rup_tabs+event_disable"></a>
-
-### "disable"
-Este evento se desencadena cuando se deshabilita una pestaña
-
-**Kind**: event emitted by [<code>rup\_tabs</code>](#module_rup_tabs)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | Objeto Event correspondiente al evento disparado. |
-
-**Example**  
-```js
-$(selector).rup_tabs ({ disable: function(){...} });
-```
 <a name="module_rup_tabs..options"></a>
 
 ### rup_tabs~options
@@ -293,7 +155,7 @@ Función encargada de añadir una nueva pestaña cuando el componente ya está c
 
 **Example**  
 ```js
-$("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  label: "nuevaPestaña",  url: "fragmento3" });
+$("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  url: "fragmento3" });
 ```
 <a name="module_rup_tabs..removeTab"></a>
 
