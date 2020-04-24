@@ -444,7 +444,7 @@ DataTable.Api.register( 'rowGroup().expand()', function (ctx, position, span, di
 		
 		$(span).addClass('ui-icon-circlesmall-minus');
 		$(span).removeClass('ui-icon-circlesmall-plus');
-		$(span).triggerHandler('tablaGroupingClickGroup');
+		$(span).triggerHandler('tablaGroupingClickGroupExpand',ctx);
 	}
 } );
 
@@ -469,7 +469,7 @@ DataTable.Api.register( 'rowGroup().collapse()', function (ctx, position, span, 
 		
 		$(span).addClass('ui-icon-circlesmall-plus');
 		$(span).removeClass('ui-icon-circlesmall-minus');
-		$(span).triggerHandler('tablaGroupingClickGroup');
+		$(span).triggerHandler('tablaGroupingClickGroup',ctx);
 	}
 } );
 
