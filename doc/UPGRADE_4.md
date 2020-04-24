@@ -10,7 +10,7 @@ Si lo que buscas es información sobre como mantener tu entorno de desarrollo ac
   
 ***
 
-### v4.2.0 (XX-Abril-2020)
+### v4.2.0 (24-Abril-2020)
 
 Para actualizar una aplicación UDA a la versión v4.2.0 se deben realizar las siguientes modificaciones.
 
