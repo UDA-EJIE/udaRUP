@@ -75,10 +75,10 @@
                     $(this).hasClass('editable')) {// no hacer nada
                    //no se devuelve nada para los checkbox funcionen.
                 }else{//selecionar
-	                $(this).triggerHandler('tableSelectBeforeSelectRow');
+	                $(this).triggerHandler('tableSelectBeforeSelectRow',ctx);
 	                var idRow = this._DT_RowIndex;
 	                _selectRowIndex(dt, idRow, $(this));
-	                $(this).triggerHandler('tableSelectAfterSelectRow');
+	                $(this).triggerHandler('tableSelectAfterSelectRow',ctx);
                 }
             }
         });
@@ -159,7 +159,7 @@
             if (tr.next('.child').length >= 1) {
                 tr.next('.child').addClass('selected tr-highlight');
             }
-            tr.triggerHandler('tableHighlightRowAsSelected');
+            tr.triggerHandler('tableHighlightRowAsSelected',ctx);
             var row = ctx.json.rows[index];
             if (row !== undefined) {
                 var arra = {
@@ -216,7 +216,7 @@
         ctx.multiselection.numSelected = 0;
         ctx.multiselection.selectedIds = [];
         DataTable.Api().buttons.displayRegex(ctx);
-        $('#' + ctx.sTableId).trigger('rupTable_deselect');
+        $('#' + ctx.sTableId).trigger('rupTable_deselect',ctx);
     });
 
     apiRegister('select.selectRowIndex()', function (dt, index, isDoubleClick) {

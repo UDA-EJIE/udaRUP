@@ -208,7 +208,7 @@
                     ctx._buttons[0].inst.s.disableAllButttons = undefined;
                     DataTable.Api().buttons.displayRegex(ctx);
                 }
-                $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData');
+                $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);
             });
 
             apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
@@ -495,7 +495,7 @@
             var $self = this;
             let reloadTable = () => {
                 $self.DataTable().ajax.reload(() => {
-                    $('#' + options.id).trigger('tableFilterSearch');
+                    $('#' + options.id).trigger('tableFilterSearch',options);
                 });
             };
 
@@ -523,13 +523,13 @@
         _ajaxOptions(options) {
 
             options.id = this[0].id;
-            $('#' + options.id).triggerHandler('tableFilterInitialize');
+            $('#' + options.id).triggerHandler('tableFilterInitialize',options);
 
             let ajaxData = {
                 'url': options.urls.filter,
                 'dataSrc': function (json) {
                     let ret = {};
-                    $('#' + options.id).triggerHandler('tableFilterBeforeShow');
+                    $('#' + options.id).triggerHandler('tableFilterBeforeShow',options);
                     json.recordsTotal = json.records;
                     json.recordsFiltered = json.records;
 
@@ -726,7 +726,7 @@
          */
         _clearFilter(options) {
             var $self = this;
-            $('#' + options.id).triggerHandler('tableFilterReset');
+            $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
@@ -1195,11 +1195,11 @@
 
                 var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 
-                $self.triggerHandler('tableBeforeInit');
+                $self.triggerHandler('tableBeforeInit',options);
 
                 // Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
                 $self.attr('ruptype', 'table');
-                $self.triggerHandler('tableInit');
+                $self.triggerHandler('tableInit',options);
                 if (args[0].primaryKey !== undefined) {
                     options.primaryKey = args[0].primaryKey.split(';');
                 }
@@ -1252,7 +1252,7 @@
                         contentType: 'application/json',
                         //async : false,
                         complete: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter',ctx);
                         },
                         success: function (data) {
                             if (data != null) {
@@ -1266,10 +1266,10 @@
                                 $(options.filter.$filterSummary, 'i').append('}');
 
                             }
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter',ctx);
                         },
                         error: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter',ctx);
                         }
                     });
                 }
@@ -1471,9 +1471,8 @@
 
                 // Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
                 $self.data('settings' + $self[0].id, options);
-                $('#' + tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 
-                $self.triggerHandler('tableAfterInit');
+                $self.triggerHandler('tableAfterInit',tabla.context[0]);
 
                 if (options.inlineEdit === undefined && options.formEdit === undefined &&
                     options.multiselect === undefined && options.select === undefined) {

@@ -390,7 +390,7 @@ handler that will select the items using the API methods.
                 var ctx = dt.settings()[0];
                 var row = $(event.target);
 
-                row.triggerHandler('tableSelectBeforeSelectRow');
+                row.triggerHandler('tableSelectBeforeSelectRow',ctx);
 
                 if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
                     rangeSelection(dt, event);
@@ -413,7 +413,7 @@ handler that will select the items using the API methods.
                     }
                 }
 
-                row.triggerHandler('tableSelectAfterSelectRow');
+                row.triggerHandler('tableSelectAfterSelectRow',ctx);
             });
     }
 
@@ -441,7 +441,7 @@ handler that will select the items using the API methods.
                     var ctx = dt.settings()[0];
                     var row = $(event.target);
 
-                    row.triggerHandler('tableSelectBeforeSelectRow');
+                    row.triggerHandler('tableSelectBeforeSelectRow',ctx);
 
                     if (event.shiftKey && event.which === 32 || event.ctrlKey && event.which === 32) {
                         rangeSelection(dt, event);
@@ -473,7 +473,7 @@ handler that will select the items using the API methods.
                         rowSelection(dt, event);
                     }
 
-                    row.triggerHandler('tableSelectAfterSelectRow');
+                    row.triggerHandler('tableSelectAfterSelectRow',ctx);
                 }
             });
     }
@@ -695,7 +695,7 @@ handler that will select the items using the API methods.
             }
         });
 
-        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate');
+        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate',ctx);
     }
 
     /**
@@ -841,7 +841,7 @@ handler that will select the items using the API methods.
                 }
                 // Marcamos el checkbox
                 $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
-                $(api.context[0].aoData[idx].nTr).triggerHandler('tableHighlightRowAsSelected');
+                $(api.context[0].aoData[idx].nTr).triggerHandler('tableHighlightRowAsSelected',ctx);
                 if (ctx.multiselection.lastSelectedId === value) {
                     pos = idx;
                 }
@@ -1116,7 +1116,7 @@ handler that will select the items using the API methods.
             (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length > 0)) {
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', selectMsg + remainingSelectButton, 'alert');
             ctx.oInit.feedback.type = 'fijo';
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll');
+            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll',ctx);
         }
         $('#' + $(remainingSelectButton)[0].id).on('click', function () {
             selectAll(dt);
@@ -1155,7 +1155,7 @@ handler that will select the items using the API methods.
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', deselectMsg + remainingDeselectButton, 'alert');
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
             ctx.oInit.feedback.$feedbackContainer.type = 'fijo';
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll');
+            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll',ctx);
         }
         $('#' + $(remainingDeselectButton)[0].id).on('click', function () {
             deselectAll(dt);
@@ -1196,7 +1196,7 @@ handler that will select the items using the API methods.
             ctx.multiselection.lastSelectedId = '';
         }
 
-        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectSelectAll');
+        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectSelectAll',ctx);
     }
 
 
@@ -1216,7 +1216,7 @@ handler that will select the items using the API methods.
         ctx.multiselection.accion = 'uncheckAll';
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
         dt.rows().deselect();
-        $('#' + ctx.sTableId).trigger('rupTable_deselectAll');
+        $('#' + ctx.sTableId).trigger('rupTable_deselectAll',ctx);
     }
 
 
@@ -1587,7 +1587,7 @@ handler that will select the items using the API methods.
                 }
             }
 
-            $('#' + ctx.sTableId).trigger('selectStyle', [style]);
+            $('#' + ctx.sTableId).trigger('selectStyle', [style,ctx]);
         });
     });
 
@@ -1638,7 +1638,7 @@ handler that will select the items using the API methods.
 
                 DataTable.Api().inlineEdit.restaurarFila(ctx, true);
             }
-            $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectBeforeSelectRow');
+            $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectBeforeSelectRow',ctx);
             clear(ctx);
             pagina = false;
             ctx.aoData[idx]._multiSelect_selected = true;
@@ -1663,7 +1663,7 @@ handler that will select the items using the API methods.
             maintIdsRows(DataTable, id, 1, pagina, idx, ctx);
             //Se marca el ultimo.
             ctx.multiselection.lastSelectedId = id;
-            $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectAfterSelectRow');
+            $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectAfterSelectRow',ctx);
 
         });
         if (pagina) { //Cuando se pagina, se filtra, o se reordena.

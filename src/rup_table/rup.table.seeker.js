@@ -88,7 +88,7 @@
             contentType: 'application/json',
             async: true,
             success: function (data, status, xhr) {
-                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchSuccess');
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchSuccess',ctx);
                 ctx.seeker.search.funcionParams = data;
                 ctx.seeker.search.pos = 0; // se inicializa por cada busqueda.
                 _processData(dt, ctx, data);
@@ -96,11 +96,11 @@
             error: function (xhr, ajaxOptions, thrownError) {
                 ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', thrownError + ': ' + xhr.responseText, 'error');
                 ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
-                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchError');
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchError',ctx);
 
             },
             complete: function (xhr, status) {
-                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchComplete');
+                $('#' + ctx.sTableId).triggerHandler('tableSeekerSearchComplete',ctx);
             }
         };
 
@@ -113,7 +113,7 @@
             ctx.seeker.search.$searchRow.show();
         }
 
-        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar');
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterCreateToolbar',ctx);
     };
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -183,12 +183,12 @@
                     	}
                         ctx.seeker.ajaxOption.data = _getDatos(ctx);
                         var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
-                        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+                        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
                         if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
                             $('#' + idTabla + '_search_searchForm').rup_form();
                             $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
                         }
-                        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
+                        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
 
                     }
                 });
@@ -291,21 +291,21 @@
 
         // Evento de búsqueda asociado al botón
         $navSearchButton.on('click', function () {
-            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
         	let customBuscar = ctx.oInit.validarBuscar;
         	if($.isFunction(customBuscar) && customBuscar(ctx)){
         		return false;
         	}
             ctx.seeker.ajaxOption.data = _getDatos(ctx);
             var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
-            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch');
+            $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
             if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
                 $('#' + idTabla + '_search_searchForm').rup_form();
                 var tmp = ajaxOptions.success;
                 ajaxOptions.success = function () {
                     tmp(arguments[0], arguments[1], arguments[2]);
                     ajaxOptions.success = tmp;
-                    $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch');
+                    $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
                 };
                 $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
             }
@@ -409,7 +409,7 @@
             }
             ctx.seeker.search.accion = '';
         }
-        $('#' + ctx.sTableId).trigger('selected.rup.dt');
+        $('#' + ctx.sTableId).trigger('selected.rup.dt',ctx);
     }
 
     /**
@@ -562,14 +562,14 @@
     }
 
     function _limpiarSeeker(dt, ctx) {
-        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear');
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
         jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
         jQuery('tfoot [ruptype=\'combo\']', 'table tfoot').rup_combo('clear');
         jQuery('.ui-selectmenu-status', 'table tfoot').text('--');
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
         _processData(dt, ctx, []);
-        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterClear');
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterClear',ctx);
     }
 
     function _enabledButtons(ctx) {
