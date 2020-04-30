@@ -193,6 +193,22 @@
         $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
             _addChildIcons(ctx);
         }));
+        
+        //Se añaden las validaciones
+        let idTableDetail = ctx.oInit.formEdit.detailForm;
+        let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+        let validaciones = ctx.oInit.formEdit.validate.rules;
+        ctx.oInit.formEdit.idForm.rup_validate({
+            feedback: feed,
+            liveCheckingErrors: false,
+            showFieldErrorAsDefault: true,
+            showErrorsInFeedback: true,
+            showFieldErrorsInFeedback:true,
+            rules:validaciones,
+            submitHandler: function(form) {
+                return false;  // block the default submit action
+            }
+        });
 
     };
 
@@ -781,7 +797,7 @@
         };
 
         if (url !== '/deleteAll' && actionType !== 'DELETE') {
-            ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+            ctx.oInit.formEdit.idForm.rup_form('ajaxNotSubmit', ajaxOptions);
         } else {
             //Se cambia el data
             if (ajaxOptions.data == '') {

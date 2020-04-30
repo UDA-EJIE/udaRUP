@@ -101,6 +101,31 @@
             }
         },
         /**
+         * Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
+         *
+         * @function  ajaxNotSubmit
+         * @param {object} argOptions - Opciones de configuración.
+         * @example
+         * var options = {};
+         * jQuery("#form").rup_form("ajaxSubmit", options);
+         */
+        ajaxNotSubmit: function (argOptions) {
+            var $self = this,
+                options = $.extend(true, {}, $.fn.rup_form.defaults, argOptions);
+            // Actiavamos la gestión de las peticiones AJAX mediante la función $.rup_ajax.
+            $.set_uda_ajax_mode_on();
+            $self.rup_form('configureOptions', options);
+            if (options.formValidationRequired) {
+            	$self.submit();
+                if ($self.valid()) {
+                    $(this).ajaxSubmit(options);
+                }
+            } else {
+                // Necesario utilizar $(this) para invocar al ajaxSubmit del plugin subyacente
+                $(this).ajaxSubmit(options);
+            }
+        },
+        /**
          * Elimina la configuración realizada por el componente sobre el formulario html.
          *
          * @function  destroy
