@@ -71,21 +71,21 @@
 						.attr({ 'title':el.attr('title'), 'aria-haspopup':true, 'tabIndex':el.attr('tabIndex') })
 						.insertAfter( el ),
 
-				buttonlabel = (this.buttonlabel = $('<span />'))
+				buttonlabel = (this.buttonlabel = $('<span></span>'))
 					.html( o.noneSelectedText )
 					.appendTo( button ),
 
-				menu = (this.menu = $('<div />'))
+				menu = (this.menu = $('<div></div>'))
 					.attr('id', 'rup-multiCombo_'+ $(this.element).attr('id'))
 					.addClass('ui-multiselect-menu ui-widget ui-widget-content ui-corner-all')
 					.addClass( o.classes )
 					.appendTo( document.body ),
 
-				header = (this.header = $('<div />'))
+				header = (this.header = $('<div></div>'))
 					.addClass('ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix')
 					.appendTo( menu ),
 
-				headerLinkContainer = (this.headerLinkContainer = $('<ul />'))
+				headerLinkContainer = (this.headerLinkContainer = $('<ul></ul>'))
 					.addClass('ui-helper-reset')
 					.html(function(){
 						if( o.header === true ){
@@ -99,7 +99,7 @@
 					.append('<li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>')
 					.appendTo( header ),
 
-				checkboxContainer = (this.checkboxContainer = $('<ul />'))
+				checkboxContainer = (this.checkboxContainer = $('<ul></ul>'))
 					.addClass('ui-multiselect-checkboxes ui-helper-reset')
 					.appendTo( menu );
 

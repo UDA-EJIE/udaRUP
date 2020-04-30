@@ -179,7 +179,7 @@
                 $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
                 //se añade el span con el lapicero
                 if (idRow >= 0) {
-                    var spanPencil = $('<i/>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
+                    var spanPencil = $('<i></i>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
                     $($('#' + ctx.sTableId + ' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
                 }
             });
@@ -293,13 +293,13 @@
                                         input.after(`
                                             <i id="${id}_bloqueado" 
                                                 class="mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral" 
-                                                valor="1" aria-hidden="true"/>
+                                                valor="1" aria-hidden="true"></i>
                                         `);
                                     } else {
                                         input.after(`
                                             <i id="${id}_bloqueado" 
                                                 class="mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross" 
-                                                valor="0" aria-hidden="true"/>
+                                                valor="0" aria-hidden="true"></i>
                                         `);
                                     }
                                 }
@@ -356,7 +356,7 @@
                         return colShow;
                     }).join('');
 
-                    var value = data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"/>').append(data) : false;
+                    var value = data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"></ul>').append(data) : false;
                     var ctx = api.context[0];
                     var $row = $('#' + ctx.sTableId + ' tbody tr:not(.child):eq(' + rowIdx + ')');
                     if ($row.hasClass('editable')) {
@@ -428,7 +428,7 @@
                 (options.multiSelect !== undefined)) {
                 //Se crea el th thead, se añade la columna.
 
-                var th = $('<th/>').attr('data-col-prop', '');
+                var th = $('<th></th>').attr('data-col-prop', '');
 
                 if ($self[0].tHead !== null) {
                     $(th).insertBefore($self[0].tHead.rows[0].cells[0]);
@@ -642,7 +642,7 @@
         _createSearchPaginator(tabla, settingsT) {
             //buscar la paginación.
             if ($('#' + tabla[0].id + '_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0') {
-                var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
+                var liSearch = $('<li></li>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
                 var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina', settingsT.json.total);
                 var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina', settingsT.json.total);
                 var input = $('<input/>').attr({
@@ -678,7 +678,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-chevron-left d-sm-none"></i>')
@@ -687,7 +687,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-chevron-right d-sm-none"></i>')
@@ -696,7 +696,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-page-last d-sm-none"></i>')
@@ -705,7 +705,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
 
@@ -760,7 +760,7 @@
                 feedbackOpts.$feedbackContainer.rup_feedback(feedbackOpts);
             } else {
                 feedbackOpts.id = 'rup_feedback_' + tableId;
-                feedbackOpts.$feedbackContainer = $('<div/>').attr('id', feedbackOpts.id).insertBefore('#' + tableId);
+                feedbackOpts.$feedbackContainer = $('<div></div>').attr('id', feedbackOpts.id).insertBefore('#' + tableId);
                 feedbackOpts.$feedbackContainer.rup_feedback(options.feedback);
             }
         },
@@ -1215,7 +1215,7 @@
                         className: clase,
                         targets: 0,
                         render: function () {
-                            return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
+                            return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label></label></div>';
                         }
                     });
                     //Modulo incompatible
@@ -1290,11 +1290,11 @@
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     var titulo = $(this).text();
                     $(this).text('');
-                    var span1 = $('<span/>').addClass('d-block d-xl-inline').text(titulo);
-                    var span2 = $('<span/>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
-                    var span3 = $('<span/>').addClass('mdi mdi-arrow-up');
+                    var span1 = $('<span></span>').addClass('d-block d-xl-inline').text(titulo);
+                    var span2 = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+                    var span3 = $('<span></span>').addClass('mdi mdi-arrow-up');
                     $(this).append(span1);
-                    var div1 = $('<div/>').addClass('d-flex d-xl-inline');
+                    var div1 = $('<div></div>').addClass('d-flex d-xl-inline');
                     div1.append(span2);
                     div1.append(span3);
                     $(this).append(div1);

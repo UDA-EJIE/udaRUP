@@ -656,7 +656,7 @@ handler that will select the items using the API methods.
             var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionadas');
             var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionada');
             if (ctx.oInit.showMultiSelectedZero) { //se muestra el mensaje
-                el.append($('<span class="select-item"/>').append(api.i18n(
+                el.append($('<span class="select-item"></span>').append(api.i18n(
                     'select.' + name + 's', {
                         _: '%d ' + name + 's ' + sels + '',
                         1: '1 ' + name + ' ' + sel + ''
@@ -664,7 +664,7 @@ handler that will select the items using the API methods.
                     num
                 )));
             } else { // nose muestra.
-                el.append($('<span class="select-item"/>').append(api.i18n(
+                el.append($('<span class="select-item"></span>').append(api.i18n(
                     'select.' + name + 's', {
                         _: '%d ' + name + 's ' + sels + '',
                         0: '',
@@ -682,7 +682,7 @@ handler that will select the items using the API methods.
         $.each(ctx.aanFeatures.i, function (i, el) {
             el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
 
-            var output = $('<span class="select-info"/>');
+            var output = $('<span class="select-info"></span>');
             add(output, 'row', rows);
 
             var existing = el.children('span.select-info');
@@ -883,11 +883,11 @@ handler that will select the items using the API methods.
                             .attr('id', 'inputSelectTableHead_' + ctx.sTableId)
                             .attr('type', 'checkbox')
                     ).append(
-                        $('<label/>')
+                        $('<label></label>')
                     );
 
 
-                var link = $('<a/>')
+                var link = $('<a></a>')
                     .addClass('ui-icon rup-table_checkmenu_arrow')
                     .attr('id', 'linkSelectTableHead' + ctx.sTableId);
 

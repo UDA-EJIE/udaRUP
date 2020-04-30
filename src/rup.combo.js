@@ -1414,17 +1414,17 @@
          */
         _generateOptGroupLabel: function (object, multiOptgroupIconText) {
             //Texto A > SPAN
-            $(object).append($('<span />')
+            $(object).append($('<span></span>')
                 .text($(object).children('a').text())
                 .addClass('rup-combo_multiOptgroupLabel')
             );
             $(object).children('a').remove();
 
 
-            $(object).append($('<span />').text(' ['));
-            $(object).append($('<a />')
+            $(object).append($('<span></span>').text(' ['));
+            $(object).append($('<a></a>')
                 .text(multiOptgroupIconText ? $.rup.i18n.base.rup_combo.multiselect.optGroupSelect : '')
-                .prepend($('<span />').addClass('ui-icon ui-icon-check rup-combo_multiOptgroupIcon'))
+                .prepend($('<span></span>').addClass('ui-icon ui-icon-check rup-combo_multiOptgroupIcon'))
                 .attr('title', $.rup.i18n.base.rup_combo.multiselect.optGroupSelectTitle).rup_tooltip({
                     applyToPortal: true
                 })
@@ -1437,10 +1437,10 @@
                     }
                 })
             );
-            $(object).append($('<span />').text(' | '));
-            $(object).append($('<a />')
+            $(object).append($('<span></span>').text(' | '));
+            $(object).append($('<a></a>')
                 .text(multiOptgroupIconText ? $.rup.i18n.base.rup_combo.multiselect.optGroupDeselect : '')
-                .prepend($('<span />').addClass('ui-icon ui-icon-closethick rup-combo_multiOptgroupIcon'))
+                .prepend($('<span></span>').addClass('ui-icon ui-icon-closethick rup-combo_multiOptgroupIcon'))
                 .attr('title', $.rup.i18n.base.rup_combo.multiselect.optGroupDeselectTitle).rup_tooltip({
                     applyToPortal: true
                 })
@@ -1453,7 +1453,7 @@
                     }
                 })
             );
-            $(object).append($('<span />').text(' ]'));
+            $(object).append($('<span></span>').text(' ]'));
         },
         /**
          * Devuelve los li de los elementos seleccionados en un combo multiselección.

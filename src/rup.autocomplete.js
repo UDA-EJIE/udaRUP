@@ -84,10 +84,10 @@
 				cls = 'matched-text',
 				template = '<span class=\'' + cls + '\'>$1</span>',
 				label = item.label.replace(re, template),
-				$li = $('<li/>').appendTo(ul);
+				$li = $('<li></li>').appendTo(ul);
 
 			// Create and return the custom menu item content.
-			$('<a/>').attr('href', '#')
+			$('<a></a>').attr('href', '#')
 				.html(label)
 				.appendTo($li);
 			var settings = this.options;

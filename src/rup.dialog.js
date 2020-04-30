@@ -400,7 +400,7 @@
                             settings.id = $self.attr('id');
                         } else {
                             settings.id = 'rup_' + settings.type + 'DIV';
-                            msgDiv = $('<div/>').attr('id', settings.id);
+                            msgDiv = $('<div></div>').attr('id', settings.id);
                             msgDiv.appendTo('body');
                         }
 

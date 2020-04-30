@@ -155,7 +155,7 @@
                     buttonId = $(this).attr('id') + '##' + obj.id;
                 }
 
-                boton = $('<a/>').attr('id', buttonId).text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_button');
+                boton = $('<a></a>').attr('id', buttonId).text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_button');
                 //Si no se define un estilo especial se aplica por defecto
                 if (obj.css === undefined) {
                     obj.css = 'rup-toolbar_menuButtonIcon';

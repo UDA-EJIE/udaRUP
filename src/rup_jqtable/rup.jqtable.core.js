@@ -248,7 +248,7 @@
 			// p: parámetros de configuración del diálogo
 			// insertSelector: selector que corresponde al elemento despues del que se va a insertar la modal
 			// posSelector: elemento base sobre el que se calcula la posición
-			var $divModal = jQuery('<div/>').attr('id', aIDs.themodal).append($(content));
+			var $divModal = jQuery('<div></div>').attr('id', aIDs.themodal).append($(content));
 			var $scrollelm = $divModal.find('#' + aIDs.scrollelm);
 
 			$divModal.insertBefore($(insertSelector));
@@ -1655,7 +1655,7 @@
 			classes: 'rupInfoCol',
 			search: false,
 			formatter: function () {
-				return '<span class=\'ui-icon ui-icon-rupInfoCol\'/>';
+				return '<span class=\'ui-icon ui-icon-rupInfoCol\'></span>';
 			}
 		},
 		defaultGridMultiplePkCol: {

@@ -370,7 +370,7 @@ function _addChildIcons(ctx){
             $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
             if (hasHidden) { //añadir span ala primera fila
                 $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-				var $span = $('<span/>');
+				var $span = $('<span></span>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
 				}else{//si ya existe se asigna el valor.

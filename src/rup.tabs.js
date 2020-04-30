@@ -568,7 +568,7 @@
                 idPrefix: 'rup-tabs-',
                 panelTemplate: settings.panelTemplate,
                 active: settings.selected, //deprecado en jquery ui 1.10, ahora es active
-                spinner: '<span class=\'rup-tabs_loading_img\' />',
+                spinner: '<span class=\'rup-tabs_loading_img\'></span>',
                 //eventos
                 create: settings.create,
                 beforeActivate: select, //deprecado en jquery ui 1.10, ahora es beforeActivate
@@ -942,9 +942,9 @@
             });
 
             //wrapper del contenido
-            $tabs.wrap('<div id="stTabswrapper" class="stTabsMainWrapper" style="position:relative"/>')
+            $tabs.wrap('<div id="stTabswrapper" class="stTabsMainWrapper" style="position:relative"></div>')
                 .find('.ui-tabs-nav').css('overflow', 'hidden')
-                .wrapInner('<div class="stTabsInnerWrapper" style="width:30000px"><span class="stWidthChecker"/></div>');
+                .wrapInner('<div class="stTabsInnerWrapper" style="width:30000px"><span class="stWidthChecker"></span></div>');
 
             var $tabsWrapper = $tabs.parents('#stTabswrapper').width($tabs.outerWidth(true));
             //correción de bug en safari
@@ -987,7 +987,7 @@
                     'height': $tabsNav.outerHeight() - ($.browser.safari ? 2 : 1)
                 };
             $tabsWrapper.prepend(
-                $nav = $('<div/>')
+                $nav = $('<div></div>')
                     .disableSelection()
                     .css({
                         'position': 'relative',
@@ -995,7 +995,7 @@
                         'display': 'block'
                     })
                     .append(
-                        $('<span/>')
+                        $('<span></span>')
                             .disableSelection()
                             .attr('title', 'Previous tab')
                             .css(arrowsCommonCss)
@@ -1011,7 +1011,7 @@
                                 $tabsNav.find('li').eq(prevIndex).find('a').trigger('click');
                                 return false;
                             }),
-                        $('<span/>')
+                        $('<span></span>')
                             .disableSelection()
                             .attr('title', 'Next tab')
                             .css(arrowsCommonCss)
@@ -1019,7 +1019,7 @@
                             .css({
                                 'right': 3
                             })
-                            .append($('<span/>').addClass('ui-icon ui-icon-carat-1-e').html('Next tab').css('margin-top', arrowsTopMargin))
+                            .append($('<span></span>').addClass('ui-icon ui-icon-carat-1-e').html('Next tab').css('margin-top', arrowsTopMargin))
                             .click(function () {
                             //selecciona el tab anterior y lanza el evento scrollToTab
                                 var nextIndex = $tabsNav.find('li.ui-tabs-active').prevAll().length + 1;

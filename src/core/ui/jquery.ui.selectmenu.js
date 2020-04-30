@@ -53,7 +53,7 @@
 			this.isOpen = false;
 
 			// create menu button wrapper
-			this.newelement = $( '<a />', {
+			this.newelement = $( '<a></a>', {
 				'class': 'ui-selectmenu ui-widget ui-state-default ui-corner-all',
 				'id' : this.ids[ 1 ],
 				'role': 'button',
@@ -62,7 +62,7 @@
 				'aria-haspopup': true,
 				'aria-owns': this.ids[ 2 ]
 			});
-			this.newelementWrap = $( '<span />' )
+			this.newelementWrap = $( '<span></span>' )
 				.append( this.newelement )
 				.insertAfter( this.element );
 
@@ -80,7 +80,7 @@
 				.prependTo( this.newelement );
 
 			// append status span to button
-			this.newelement.prepend( '<span class="ui-selectmenu-status" />' );
+			this.newelement.prepend( '<span class="ui-selectmenu-status"></span>' );
 
 			// make associated form label trigger focus
 			this.element.bind({
@@ -201,14 +201,14 @@
 			this.element.hide();
 
 			// create menu portion, append to body
-			this.list = $( '<ul />', {
+			this.list = $( '<ul></ul>', {
 				'class': 'ui-widget ui-widget-content',
 				'aria-hidden': true,
 				'role': 'listbox',
 				'aria-labelledby': this.ids[ 1 ],
 				'id': this.ids[ 2 ]
 			});
-			this.listWrap = $( '<div />', {
+			this.listWrap = $( '<div></div>', {
 				'class': 'ui-selectmenu-menu'
 			}).append( this.list ).appendTo( o.appendTo );
 
@@ -325,14 +325,14 @@
 					if ( selectOptionData[ i ].typeahead ) {
 						thisAAttr[ 'typeahead' ] = selectOptionData[ i ].typeahead;
 					}
-					var thisA = $( '<a/>', thisAAttr )
+					var thisA = $( '<a></a>', thisAAttr )
 						.bind( 'focus.selectmenu', function() {
 							$( this ).parent().mouseover();
 						})
 						.bind( 'blur.selectmenu', function() {
 							$( this ).parent().mouseout();
 						});
-					var thisLi = $( '<li/>', thisLiAttr )
+					var thisLi = $( '<li></li>', thisLiAttr )
 						.append( thisA )
 						.data( 'index', i )
 						.addClass( selectOptionData[ i ].classes )
@@ -634,7 +634,7 @@
 			if ( this.options.format ) {
 				text = this.options.format( text, opt );
 			} else if ( this.options.escapeHtml ) {
-				text = $( '<div />' ).text( text ).html();
+				text = $( '<div></div>' ).text( text ).html();
 			}
 			return text;
 		},

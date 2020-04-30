@@ -186,7 +186,7 @@
 					//ICONOS: filtrado (filter) y tooltip (parentNodes)
 					var rows = $self.rup_jqtable('getGridParam', 'data'),
 						rows_length = rows.length,
-						$filterIcon = jQuery('<div />')
+						$filterIcon = jQuery('<div></div>')
 							.addClass('rup-jerarquia_filter ui-icon')
 							.addClass(jerarquiaSettings['icons']['filter'])
 							.text(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.filtered'));

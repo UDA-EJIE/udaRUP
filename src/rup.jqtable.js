@@ -2571,7 +2571,7 @@ var rp_ge = {};
 			}
 			if(hg) {$(grid.bDiv).hide();}
 			grid.cDiv = document.createElement('div');
-			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'/>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
+			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'></a>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
 				function(){ arf.addClass('ui-state-hover');},
 				function() {arf.removeClass('ui-state-hover');})
 				.append('<span class=\'ui-icon ui-icon-circle-triangle-n\'></span>').css((dir=='rtl'?'left':'right'),'0px') : '';
@@ -13663,7 +13663,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// p: parámetros de configuración del diálogo
 			// insertSelector: selector que corresponde al elemento despues del que se va a insertar la modal
 			// posSelector: elemento base sobre el que se calcula la posición
-			var $divModal = jQuery('<div/>').attr('id', aIDs.themodal).append($(content));
+			var $divModal = jQuery('<div></div>').attr('id', aIDs.themodal).append($(content));
 			var $scrollelm = $divModal.find('#' + aIDs.scrollelm);
 
 			$divModal.insertBefore($(insertSelector));
@@ -15070,7 +15070,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			classes: 'rupInfoCol',
 			search: false,
 			formatter: function () {
-				return '<span class=\'ui-icon ui-icon-rupInfoCol\'/>';
+				return '<span class=\'ui-icon ui-icon-rupInfoCol\'></span>';
 			}
 		},
 		defaultGridMultiplePkCol: {
@@ -16006,11 +16006,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					//NAME
 					label = $('label[for^=\'' + fieldId + '\']',searchForm);
 					if (label.length>0){
-						// <label for='xxx' />
+						// <label for='xxx'></label>
 						fieldName = label.html();
 					} else {
-						// <div />
-						// <div />
+						// <div></div>
+						// <div></div>
 						if ($(field).attr('ruptype') !== 'combo'){
 							//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 							fieldName= $('[name=\'' + aux[i].name + '\']',searchForm).prev('div').find('label').first().html();
@@ -16188,11 +16188,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 			if ($label.length>0){
-				// <label for='xxx' />
+				// <label for='xxx'></label>
 				formFieldLabel = $label.html();
 			} else {
-				// <div />
-				// <div />
+				// <div></div>
+				// <div></div>
 				if ($field.attr('ruptype') !== 'combo'){
 					//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 					formFieldLabel= $('[name=\'' + name + '\']', $form).prev('div').find('label').first().html();
@@ -17552,7 +17552,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				// FIXME: Contemplar la posibilidad de no generar una toolbar por defecto
 				toolbarSettings = {};
 				toolbarSettings.id = 'rup-maint_toolbar-' + settings.id;
-				toolbarSettings.self = $('<div/>').attr('id', toolbarSettings.id);
+				toolbarSettings.self = $('<div></div>').attr('id', toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
 					 width: toolbarSettings.width
@@ -17857,7 +17857,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 */
 		postConfigureFeedback: function(settings){
 			// Definición del feedback interno
-			settings.$internalFeedback = $('<div/>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
+			settings.$internalFeedback = $('<div></div>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
 			settings.$internalFeedback.rup_feedback(settings.feedback.internalFeedbackConfig);
 		}
 	});
@@ -22871,7 +22871,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		//Añade flecha contextMenu
 		_addArrow: function (object) {
 			jQuery(object).after(
-				jQuery('<a />')
+				jQuery('<a></a>')
 					.attr('href', 'javascript:void(0)')
 					.addClass('ui-icon rup-jerarquia_checkmenu_arrow')
 					.on('click', function (e) {
@@ -23593,7 +23593,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					//ICONOS: filtrado (filter) y tooltip (parentNodes)
 					var rows = $self.rup_jqtable('getGridParam', 'data'),
 						rows_length = rows.length,
-						$filterIcon = jQuery('<div />')
+						$filterIcon = jQuery('<div></div>')
 							.addClass('rup-jerarquia_filter ui-icon')
 							.addClass(jerarquiaSettings['icons']['filter'])
 							.text(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.filtered'));

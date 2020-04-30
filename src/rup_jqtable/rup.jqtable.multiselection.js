@@ -1104,7 +1104,7 @@
 		//Añade flecha contextMenu
 		_addArrow: function (object) {
 			jQuery(object).after(
-				jQuery('<a />')
+				jQuery('<a></a>')
 					.attr('href', 'javascript:void(0)')
 					.addClass('ui-icon rup-jerarquia_checkmenu_arrow')
 					.on('click', function (e) {

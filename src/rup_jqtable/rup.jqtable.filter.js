@@ -582,11 +582,11 @@
 					//NAME
 					label = $('label[for^=\'' + fieldId + '\']',searchForm);
 					if (label.length>0){
-						// <label for='xxx' />
+						// <label for='xxx'></label>
 						fieldName = label.html();
 					} else {
-						// <div />
-						// <div />
+						// <div></div>
+						// <div></div>
 						if ($(field).attr('ruptype') !== 'combo'){
 							//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 							fieldName= $('[name=\'' + aux[i].name + '\']',searchForm).prev('div').find('label').first().html();
@@ -764,11 +764,11 @@
 			}
 
 			if ($label.length>0){
-				// <label for='xxx' />
+				// <label for='xxx'></label>
 				formFieldLabel = $label.html();
 			} else {
-				// <div />
-				// <div />
+				// <div></div>
+				// <div></div>
 				if ($field.attr('ruptype') !== 'combo'){
 					//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 					formFieldLabel= $('[name=\'' + name + '\']', $form).prev('div').find('label').first().html();

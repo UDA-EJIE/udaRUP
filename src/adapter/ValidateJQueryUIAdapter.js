@@ -76,7 +76,7 @@
 		} else {
 			// create label
 			if (settings.showFieldErrorAsDefault) {
-				label = $('<' + this.settings.errorElement + '/>')
+				label = $('<' + this.settings.errorElement + '></label>')
 					.attr({
 						'for': this.idOrName(element),
 						generated: true
@@ -84,7 +84,7 @@
 					.addClass(this.settings.errorClass)
 					.attr('title', message || '');
 			} else {
-				label = $('<' + this.settings.errorElement + '/>')
+				label = $('<' + this.settings.errorElement + '></label>')
 					.attr({
 						'for': this.idOrName(element),
 						generated: true
@@ -95,7 +95,7 @@
 			if (this.settings.wrapper) {
 				// make sure the element is visible, even in IE
 				// actually showing the wrapped element is handled elsewhere
-				label = label.hide().show().wrap('<' + this.settings.wrapper + '/>').parent();
+				label = label.hide().show().wrap('<' + this.settings.wrapper + '></label>').parent();
 			}
 			if (!this.labelContainer.append(label).length)
 				this.settings.errorPlacement ?
