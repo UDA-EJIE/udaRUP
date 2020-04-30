@@ -125,6 +125,22 @@ DataTable.inlineEdit.init = function ( dt ) {
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
 	
+    //Se añaden las validaciones
+
+    let feed = ctx.oInit.feedback.$feedbackContainer;
+    let validaciones = ctx.oInit.inlineEdit.validate.rules;
+    $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
+        feedback: feed,
+        liveCheckingErrors: false,
+        showFieldErrorAsDefault: true,
+        showErrorsInFeedback: true,
+        showFieldErrorsInFeedback:true,
+        rules:validaciones,
+        submitHandler: function(form) {
+            return false;  // block the default submit action
+        }
+    });
+	
     // Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
     // Boton Guardar
@@ -1350,7 +1366,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	}
 	
 	if(url !== '/deleteAll' && actionType !== 'DELETE'){
-		idForm.rup_form('ajaxSubmit', ajaxOptions);
+		idForm.rup_form('ajaxNotSubmit', ajaxOptions);
 	}else{
 		//Se cambia el data
 		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
