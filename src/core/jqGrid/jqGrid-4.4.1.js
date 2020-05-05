@@ -8390,7 +8390,7 @@ $.jgrid.extend({
 			dtbl = "DelTbl_"+$.jgrid.jqID(gID),postd, idname, opers, oper,
 			dtbl_id = "DelTbl_" + gID,
 			IDs = {themodal:'delmod'+gID,modalhead:'delhd'+gID,modalcontent:'delcnt'+gID, scrollelm: dtbl};
-			if (jQuery.isArray(rowids)) {rowids = rowids.join();}
+			if (Array.isArray(rowids)) {rowids = rowids.join();}
 			if ( $("#"+$.jgrid.jqID(IDs.themodal))[0] !== undefined ) {
 				if(onBeforeInit) {
 					showFrm = onBeforeInit.call($t,$("#"+dtbl));

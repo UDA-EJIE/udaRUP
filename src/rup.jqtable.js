@@ -14285,7 +14285,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this,
 				settings = $self.data('settings'),
 				tmpRowId;
-			if (jQuery.isArray(rowId)) {
+			if (Array.isArray(rowId)) {
 				tmpRowId = rowId[0] !== undefined ? rowId[0] : '';
 			} else {
 				tmpRowId = rowId;
@@ -14604,7 +14604,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				/* *************************
          * CONFIGURACION
          * *************************/
-				var defaultPugins = (jQuery.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
+				var defaultPugins = (Array.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
 					userPlugins = jQuery.merge([], args[0].usePlugins),
 					configuredPlugins = jQuery.merge(jQuery.merge([], defaultPugins), userPlugins);
 
@@ -15274,7 +15274,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var tbodyTr = '[id=\'' + $self.attr('id') + '\'] tbody:first tr[role=\'row\'].jqgrow',
 						$tbodyTr = jQuery(tbodyTr),
 						contextRowItems = {},
-						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
+						cellLevelContextMenu=false, globalCellLevelContextMenu = Array.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
 					//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
@@ -15295,7 +15295,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 									},
 									className:operationCfg.className
 								};
-								if (jQuery.isArray(value)===true){
+								if (Array.isArray(value)===true){
 									cellLevelContextMenu=true;
 									contextRowItems[buttonId].colNames=value;
 								}
@@ -15304,7 +15304,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					});
 
 					jQuery.each(settings.contextMenu.items,function(index, oper){
-						if (jQuery.isArray(oper.colNames)){
+						if (Array.isArray(oper.colNames)){
 							cellLevelContextMenu=true;
 						}
 					});
@@ -15331,7 +15331,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}else if (cellLevelContextMenu){
 
 						//						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
-						if (!jQuery.isArray(contextMenuSettings.colNames)){
+						if (!Array.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
 							    if (elem.hidden!==true){
 							        return elem.name;
@@ -15342,7 +15342,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						jQuery.each(contextRowItems, function(index, item){
 							var colNamesAux;
-							if (jQuery.isArray(item.colNames)){
+							if (Array.isArray(item.colNames)){
 								colNamesAux = item.colNames;
 							}else{
 								colNamesAux = contextMenuSettings.colNames;
@@ -21935,7 +21935,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				'rupTable_setSelection.multiselection': function (events, selectedRows, status, reorderSelection) {
 					var page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
-					if (jQuery.isArray(selectedRows)) {
+					if (Array.isArray(selectedRows)) {
 						for (var i = 0; i < selectedRows.length; i++) {
 							$self._processSelectedRow(settings, selectedRows[i], status);
 						}
@@ -22204,7 +22204,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					props = rp_ge[$self.attr('id')],
 					linkType, execute, changePage, index, npos, newPage, newPageIndex, fncAfterclickPgButtons;
 
-				if (jQuery.isArray(arrParams)) {
+				if (Array.isArray(arrParams)) {
 					linkType = arrParams[0];
 					execute = arrParams[1];
 					changePage = arrParams[2];
@@ -23560,7 +23560,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						}
 					});
 
-					if (jQuery.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
+					if (Array.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
 						postData.jerarquia.tree = '';
 					}
 				},
@@ -23763,7 +23763,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					filter: $self.rup_jqtable('getFilterParams')
 				};
 			jQuery.extend(true, ajaxData, $self.rup_jqtable('getGridParam', 'postData'));
-			var primaryKey = jQuery.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
+			var primaryKey = Array.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
 			jQuery.rup_ajax({
 				url: settings.filter.childrenUrl,
 				dataType: 'json',

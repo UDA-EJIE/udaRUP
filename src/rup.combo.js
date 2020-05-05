@@ -1135,7 +1135,7 @@
             } else {
                 if (settings.multiselect) {
                     //Convertir inputValue en array
-                    if (jQuery.isArray(settings.inputValue) === false) {
+                    if (Array.isArray(settings.inputValue) === false) {
                         settings.inputValue = settings.inputValue.split('##');
                     }
 

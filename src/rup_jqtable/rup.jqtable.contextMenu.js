@@ -112,7 +112,7 @@
 					var tbodyTr = '[id=\'' + $self.attr('id') + '\'] tbody:first tr[role=\'row\'].jqgrow',
 						$tbodyTr = jQuery(tbodyTr),
 						contextRowItems = {},
-						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
+						cellLevelContextMenu=false, globalCellLevelContextMenu = Array.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
 					//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
@@ -133,7 +133,7 @@
 									},
 									className:operationCfg.className
 								};
-								if (jQuery.isArray(value)===true){
+								if (Array.isArray(value)===true){
 									cellLevelContextMenu=true;
 									contextRowItems[buttonId].colNames=value;
 								}
@@ -142,7 +142,7 @@
 					});
 
 					jQuery.each(settings.contextMenu.items,function(index, oper){
-						if (jQuery.isArray(oper.colNames)){
+						if (Array.isArray(oper.colNames)){
 							cellLevelContextMenu=true;
 						}
 					});
@@ -169,7 +169,7 @@
 					}else if (cellLevelContextMenu){
 
 						//						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
-						if (!jQuery.isArray(contextMenuSettings.colNames)){
+						if (!Array.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
 							    if (elem.hidden!==true){
 							        return elem.name;
@@ -180,7 +180,7 @@
 
 						jQuery.each(contextRowItems, function(index, item){
 							var colNamesAux;
-							if (jQuery.isArray(item.colNames)){
+							if (Array.isArray(item.colNames)){
 								colNamesAux = item.colNames;
 							}else{
 								colNamesAux = contextMenuSettings.colNames;

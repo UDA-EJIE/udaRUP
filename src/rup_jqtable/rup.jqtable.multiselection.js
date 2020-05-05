@@ -168,7 +168,7 @@
 				'rupTable_setSelection.multiselection': function (events, selectedRows, status, reorderSelection) {
 					var page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
-					if (jQuery.isArray(selectedRows)) {
+					if (Array.isArray(selectedRows)) {
 						for (var i = 0; i < selectedRows.length; i++) {
 							$self._processSelectedRow(settings, selectedRows[i], status);
 						}
@@ -437,7 +437,7 @@
 					props = rp_ge[$self.attr('id')],
 					linkType, execute, changePage, index, npos, newPage, newPageIndex, fncAfterclickPgButtons;
 
-				if (jQuery.isArray(arrParams)) {
+				if (Array.isArray(arrParams)) {
 					linkType = arrParams[0];
 					execute = arrParams[1];
 					changePage = arrParams[2];

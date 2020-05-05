@@ -648,7 +648,7 @@
 			if (typeof msg === 'string') {
 				return msg + '<br/>';
 			} else if (typeof msg === 'object') {
-				if (jQuery.isArray(msg)) {
+				if (Array.isArray(msg)) {
 					for (var i = 0; i < msg.length; i++) {
 						ret += $.rup_utils.printMsgAux(msg[i], 1);
 					}
@@ -664,10 +664,10 @@
 			if (typeof msg === 'string') {
 				return $('<span>').append(msg)[0].outerHTML + '<br/>';
 			} else if (typeof msg === 'object') {
-				if (jQuery.isArray(msg)) {
+				if (Array.isArray(msg)) {
 					var ul = $('<ul>').addClass('rup-maint_feedbackUL');
 					for (var i = 0; i < msg.length; i++) {
-						//						if (typeof msg[i]==="string" || (typeof msg[i]==="object" && !jQuery.isArray(msg))){
+						//						if (typeof msg[i]==="string" || (typeof msg[i]==="object" && !Array.isArray(msg))){
 						if (nivel === 1) {
 							ul.append($('<li>').append($.rup_utils.printMsgAux(msg[i], nivel + 1)));
 						} else {
@@ -774,7 +774,7 @@
 					dotProperty = arrTmp[0];
 				}
 
-				if (jQuery.isArray(value)) {
+				if (Array.isArray(value)) {
 
 					//issue [utils] getRupValueAsJson provoca error con los arrays vacíos #24
 					//https://github.com/UDA-EJIE/udaRUP/issues/24
@@ -918,7 +918,7 @@
 				}
 				return val === null || val === '' ?
 					null :
-					jQuery.isArray(val) ?
+					Array.isArray(val) ?
                         jQuery.map(val, function (val) {
 						return {
 							name: elem.name,
@@ -966,7 +966,7 @@
 				}
 				return val === null ?
 					null :
-					jQuery.isArray(val) ?
+					Array.isArray(val) ?
                         jQuery.map(val, function (val) {
 						return {
 							name: elem.name,

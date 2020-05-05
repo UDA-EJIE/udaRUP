@@ -153,7 +153,7 @@
 						}
 					});
 
-					if (jQuery.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
+					if (Array.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
 						postData.jerarquia.tree = '';
 					}
 				},
@@ -356,7 +356,7 @@
 					filter: $self.rup_jqtable('getFilterParams')
 				};
 			jQuery.extend(true, ajaxData, $self.rup_jqtable('getGridParam', 'postData'));
-			var primaryKey = jQuery.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
+			var primaryKey = Array.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
 			jQuery.rup_ajax({
 				url: settings.filter.childrenUrl,
 				dataType: 'json',

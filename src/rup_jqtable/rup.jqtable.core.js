@@ -870,7 +870,7 @@
 			var $self = this,
 				settings = $self.data('settings'),
 				tmpRowId;
-			if (jQuery.isArray(rowId)) {
+			if (Array.isArray(rowId)) {
 				tmpRowId = rowId[0] !== undefined ? rowId[0] : '';
 			} else {
 				tmpRowId = rowId;
@@ -1189,7 +1189,7 @@
 				/* *************************
          * CONFIGURACION
          * *************************/
-				var defaultPugins = (jQuery.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
+				var defaultPugins = (Array.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
 					userPlugins = jQuery.merge([], args[0].usePlugins),
 					configuredPlugins = jQuery.merge(jQuery.merge([], defaultPugins), userPlugins);
 
