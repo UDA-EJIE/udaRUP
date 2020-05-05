@@ -3101,7 +3101,7 @@
             	} else {
             		// Para los demas navegadores
             		if (!$("a#rupTableButtonsReportsExport").length) {
-            			$("div.content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            			$("div#" + $.rup.WAR_NAME + "War_content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
             		}
             		element = $("a#rupTableButtonsReportsExport")[0];
             		element.href = window.URL.createObjectURL(blob);
