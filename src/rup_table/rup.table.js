@@ -28,6 +28,7 @@
         // AMD. Register as an anonymous module.
         define(['jquery',
             './rup.table.request',
+            'datatables.net',
             'datatables.net-bs4',
             './rup.table.responsive',
             './rup.table.multiSelect',
