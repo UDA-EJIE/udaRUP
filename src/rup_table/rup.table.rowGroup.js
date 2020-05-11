@@ -217,7 +217,7 @@ $.extend( RowGroup.prototype, {
 			var group = groupedRows[i];
 			var firstRow = dt.row(group[0]);
 			var groupName = this.s.dataFn( firstRow.data() );
-			var span = $('<span/>').addClass('ui-icon tree-wrap-ltr ui-icon-circlesmall-minus');
+			var span = $('<span></span>').addClass('ui-icon tree-wrap-ltr ui-icon-circlesmall-minus');
 			span.attr('identificador',i);
 			
 			if ( this.c.startRender ) {
@@ -284,9 +284,9 @@ $.extend( RowGroup.prototype, {
 			row = display;
 		}
 		else {
-			row = $('<tr/>')
+			row = $('<tr></tr>')
 				.append(
-					$('<td/>')
+					$('<td></td>')
 						.attr( 'colspan', this._colspan() )
 						.append( display  )
 				);

@@ -349,7 +349,7 @@
          * @private
          */
         _createDiv: function () {
-            return $('<div/>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true').addClass('row py-4');
+            return $('<div></div>').attr('id', 'rup_msgDIV_' + new Date().getTime()).attr('rup_message', 'true').addClass('row py-4');
         },
         /**
          * Crea los el enlace de cerrar en el título del mensaje de acuerdo a los estándares de accesibilidad.

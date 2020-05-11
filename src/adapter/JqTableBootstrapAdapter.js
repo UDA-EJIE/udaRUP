@@ -79,7 +79,7 @@
 
 			//Contador de seleccionados
 			if (settings.multiselect === true) {
-				$pagerLeft.append($('<div/>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected')));
+				$pagerLeft.append($('<div></div>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected')));
 			}
 
 			// Pager center

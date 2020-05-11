@@ -726,7 +726,7 @@
 			create_node	: function (obj, position, js, callback, is_loaded) {
 				obj = this._get_node(obj);
 				position = typeof position === "undefined" ? "last" : position;
-				var d = $("<li />"),
+				var d = $("<li></li>"),
 					s = this._get_settings().core,
 					tmp;
 
@@ -743,7 +743,7 @@
 				if(!js.data) { js.data = this._get_string("new_node"); }
 				if(!$.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
 				$.each(js.data, function (i, m) {
-					tmp = $("<a />");
+					tmp = $("<a></a>");
 					if($.isFunction(m)) { m = m.call(this, js); }
 					if(typeof m == "string") { tmp.attr('href','#')[ s.html_titles ? "html" : "text" ](m); }
 					else {
@@ -771,17 +771,17 @@
 					case "after" : obj.after(d);  tmp = this._get_parent(obj); break;
 					case "inside":
 					case "first" :
-						if(!obj.children("ul").length) { obj.append("<ul />"); }
+						if(!obj.children("ul").length) { obj.append("<ul></ul>"); }
 						obj.children("ul").prepend(d);
 						tmp = obj;
 						break;
 					case "last":
-						if(!obj.children("ul").length) { obj.append("<ul />"); }
+						if(!obj.children("ul").length) { obj.append("<ul></ul>"); }
 						obj.children("ul").append(d);
 						tmp = obj;
 						break;
 					default:
-						if(!obj.children("ul").length) { obj.append("<ul />"); }
+						if(!obj.children("ul").length) { obj.append("<ul></ul>"); }
 						if(!position) { position = 0; }
 						tmp = obj.children("ul").children("li").eq(position);
 						if(tmp.length) { tmp.before(d); }
@@ -953,7 +953,7 @@
 
 				if(obj.or.length) { obj.or.before(o); }
 				else { 
-					if(!obj.np.children("ul").length) { $("<ul />").appendTo(obj.np); }
+					if(!obj.np.children("ul").length) { $("<ul></ul>").appendTo(obj.np); }
 					obj.np.children("ul:eq(0)").append(o); 
 				}
 
@@ -992,8 +992,8 @@
 			e1.add(e2).remove();
 		} 
 		else {
-			e1 = $('<div />').css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: 0 })
-					.prependTo('body').append('<div />').find('div').css({ width: '100%', height: 200 });
+			e1 = $('<div></div>').css({ width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: 0 })
+					.prependTo('body').append('<div></div>').find('div').css({ width: '100%', height: 200 });
 			scrollbar_width = 100 - e1.width();
 			e1.parent().remove();
 		}
@@ -1269,7 +1269,7 @@
 					w1 = obj.children("ins").width(),
 					w2 = obj.find("> a:visible > ins").width() * obj.find("> a:visible > ins").length,
 					t = this.get_text(obj),
-					h1 = $("<div />", { css : { "position" : "absolute", "top" : "-200px", "left" : (rtl ? "0px" : "-1000px"), "visibility" : "hidden" } }).appendTo("body"),
+					h1 = $("<div></div>", { css : { "position" : "absolute", "top" : "-200px", "left" : (rtl ? "0px" : "-1000px"), "visibility" : "hidden" } }).appendTo("body"),
 					h2 = obj.css("position","relative").append(
 					$("<input />", { 
 						"value" : t,
@@ -1801,13 +1801,13 @@
 				else {
 					if(typeof js == "string") { js = { data : js }; }
 					if(!js.data && js.data !== "") { return d; }
-					d = $("<li />");
+					d = $("<li></li>");
 					if(js.attr) { d.attr(js.attr); }
 					if(js.metadata) { d.data(js.metadata); }
 					if(js.state) { d.addClass("jstree-" + js.state); }
 					if(!$.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
 					$.each(js.data, function (i, m) {
-						tmp = $("<a />");
+						tmp = $("<a></a>");
 						if($.isFunction(m)) { m = m.call(this, js); }
 						if(typeof m == "string") { tmp.attr('href','#')[ t ? "html" : "text" ](m); }
 						else {
@@ -1834,7 +1834,7 @@
 							if($.isArray(js.children) && js.children.length) {
 								tmp = this._parse_json(js.children, obj, true);
 								if(tmp.length) {
-									ul2 = $("<ul />");
+									ul2 = $("<ul></ul>");
 									ul2.append(tmp);
 									d.append(ul2);
 								}
@@ -1843,7 +1843,7 @@
 					}
 				}
 				if(!is_callback) {
-					ul1 = $("<ul />");
+					ul1 = $("<ul></ul>");
 					ul1.append(d);
 					d = ul1;
 				}
@@ -2205,7 +2205,7 @@
 			$.vakata.dnd.init_y = e.pageY;
 			$.vakata.dnd.user_data = data;
 			$.vakata.dnd.is_down = true;
-			$.vakata.dnd.helper = $("<div id='vakata-dragged' />").html(html); //.fadeTo(10,0.25);
+			$.vakata.dnd.helper = $("<div id='vakata-dragged'></div>").html(html); //.fadeTo(10,0.25);
 			$(document).bind("mousemove", $.vakata.dnd.drag);
 			$(document).bind("mouseup", $.vakata.dnd.drag_stop);
 			return false;
@@ -2701,7 +2701,7 @@
 			'}' + 
 			'';
 		$.vakata.css.add_sheet({ str : css_string, title : "jstree" });
-		m = $("<div />").attr({ id : "jstree-marker" }).hide().html("&raquo;")
+		m = $("<div></div>").attr({ id : "jstree-marker" }).hide().html("&raquo;")
 			.bind("mouseleave mouseenter", function (e) { 
 				m.hide();
 				ml.hide();
@@ -2710,7 +2710,7 @@
 				return false; 
 			})
 			.appendTo("body");
-		ml = $("<div />").attr({ id : "jstree-marker-line" }).hide()
+		ml = $("<div></div>").attr({ id : "jstree-marker-line" }).hide()
 			.bind("mouseup", function (e) { 
 				if(r && r.length) { 
 					r.children("a").trigger(e); 
@@ -3016,7 +3016,7 @@
 			p = new XSLTProcessor();
 			p.importStylesheet(xsl);
 			r = p.transformToFragment(xml, document);
-			r = $('<div />').append(r).html();
+			r = $('<div></div>').append(r).html();
 		}
 		// OLD IE
 		if(r === false && typeof (xml.transformNode) !== "undefined") {
@@ -3512,7 +3512,7 @@
 	$.vakata.context = {
 		hide_on_mouseleave : false,
 
-		cnt		: $("<div id='vakata-contextmenu' />"),
+		cnt		: $("<div id='vakata-contextmenu'></div>"),
 		vis		: false,
 		tgt		: false,
 		par		: false,
@@ -4040,7 +4040,7 @@
 						s.data.call(this, obj, $.proxy(function (d) {
 							if(d && d !== "" && d.toString && d.toString().replace(/^[\s\n]+$/,"") !== "") {
 								d = $(d);
-								if(!d.is("ul")) { d = $("<ul />").append(d); }
+								if(!d.is("ul")) { d = $("<ul></ul>").append(d); }
 								if(obj == -1 || !obj) { this.get_container().children("ul").empty().append(d.children()).find("li, a").filter(function () { return !this.firstChild || !this.firstChild.tagName || this.firstChild.tagName !== "INS"; }).prepend("<ins class='jstree-icon'>&#160;</ins>").end().filter("a").children("ins:first-child").not(".jstree-icon").addClass("jstree-icon"); }
 								else { obj.children("a.jstree-loading").removeClass("jstree-loading"); obj.append(d).children("ul").find("li, a").filter(function () { return !this.firstChild || !this.firstChild.tagName || this.firstChild.tagName !== "INS"; }).prepend("<ins class='jstree-icon'>&#160;</ins>").end().filter("a").children("ins:first-child").not(".jstree-icon").addClass("jstree-icon"); obj.removeData("jstree_is_loading"); }
 								this.clean_node(obj);
@@ -4078,7 +4078,7 @@
 					case (!!s.data && !s.ajax) || (!!s.data && !!s.ajax && (!obj || obj === -1)):
 						if(!obj || obj == -1) {
 							d = $(s.data);
-							if(!d.is("ul")) { d = $("<ul />").append(d); }
+							if(!d.is("ul")) { d = $("<ul></ul>").append(d); }
 							this.get_container()
 								.children("ul").empty().append(d.children())
 								.find("li, a").filter(function () { return !this.firstChild || !this.firstChild.tagName || this.firstChild.tagName !== "INS"; }).prepend("<ins class='jstree-icon'>&#160;</ins>").end()
@@ -4110,7 +4110,7 @@
 							}
 							if(d) {
 								d = $(d);
-								if(!d.is("ul")) { d = $("<ul />").append(d); }
+								if(!d.is("ul")) { d = $("<ul></ul>").append(d); }
 								if(obj == -1 || !obj) { this.get_container().children("ul").empty().append(d.children()).find("li, a").filter(function () { return !this.firstChild || !this.firstChild.tagName || this.firstChild.tagName !== "INS"; }).prepend("<ins class='jstree-icon'>&#160;</ins>").end().filter("a").children("ins:first-child").not(".jstree-icon").addClass("jstree-icon"); }
 								else { obj.children("a.jstree-loading").removeClass("jstree-loading"); obj.append(d).children("ul").find("li, a").filter(function () { return !this.firstChild || !this.firstChild.tagName || this.firstChild.tagName !== "INS"; }).prepend("<ins class='jstree-icon'>&#160;</ins>").end().filter("a").children("ins:first-child").not(".jstree-icon").addClass("jstree-icon"); obj.removeData("jstree_is_loading"); }
 								this.clean_node(obj);
@@ -4458,7 +4458,7 @@
 					this.get_container().children(".jstree-wholerow").remove();
 					this.get_container().append(
 						o.clone().removeClass("jstree-wholerow-real")
-							.wrapAll("<div class='jstree-wholerow' />").parent()
+							.wrapAll("<div class='jstree-wholerow'></div>").parent()
 							.width(o.parent()[0].scrollWidth)
 							.css("top", (o.height() + ( is_ie7 ? 5 : 0)) * -1 )
 							.find("li[id]").each(function () { this.removeAttribute("id"); }).end()

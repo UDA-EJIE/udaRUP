@@ -390,7 +390,7 @@
                     return DataTable.Api().rupTable.getIdPk(v.pk) === DataTable.Api().rupTable.getIdPk(value);
                 });
                 if (result.length === 1) {
-                    var searchIcon = $('<i/>').addClass('mdi mdi-magnify ui-icon-rupInfoCol filtered-row');
+                    var searchIcon = $('<i></i>').addClass('mdi mdi-magnify ui-icon-rupInfoCol filtered-row');
 
                     $($('#' + ctx.sTableId + ' tbody tr td:nth-child(1)')[idx]).append(searchIcon);
 

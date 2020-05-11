@@ -35,7 +35,7 @@
             buttonId = $(this).attr('id') + '##' + buttonId;
         }
 
-        var boton = $('<button type=\'button\'/>').text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_button').attr({
+        var boton = $('<button type=\'button\'></button>').text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_button').attr({
             'id': buttonId
         });
 
@@ -53,7 +53,7 @@
             //Añadir botón a la derecha
             var $div_rightObjects = this.children('div:not(.rup-dropdown-btn-group)');
             if ($div_rightObjects.length === 0) {
-                $div_rightObjects = $('<div />').attr('id', this.attr('id') + '-rightButtons').css('float', 'right');
+                $div_rightObjects = $('<div></div>').attr('id', this.attr('id') + '-rightButtons').css('float', 'right');
                 this.append($div_rightObjects);
             }
             //				if (boton.parent().is(".rup-dropdown-btn-group")){
@@ -94,7 +94,7 @@
                 buttonId = $(this).attr('id') + '##' + obj.id;
             }
 
-            boton = $('<a/>').attr('id', buttonId).text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_menuButton');
+            boton = $('<a></a>').attr('id', buttonId).text($.rup.i18nParse(json_i18n, obj.i18nCaption)).addClass('rup-toolbar_menuButton');
             //Si no se define un estilo especial se aplica por defecto
             if (obj.css === undefined) {
                 obj.css = 'rup-toolbar_menuButtonIcon';
@@ -110,7 +110,7 @@
             //Añadir botón a la derecha
             var $div_rightObjects = this.children('div:not(.rup-dropdown-btn-group)');
             if ($div_rightObjects.length === 0) {
-                $div_rightObjects = $('<div />').attr('id', this.attr('id') + '-rightButtons').css('float', 'right');
+                $div_rightObjects = $('<div></div>').attr('id', this.attr('id') + '-rightButtons').css('float', 'right');
                 this.append($div_rightObjects);
             }
             boton.prependTo($div_rightObjects);

@@ -189,11 +189,11 @@
                                     if (itemCfg.icon != undefined) {
                                         // Para cuando son iconos de la liberia @mdi/font
                                         if (itemCfg.icon.indexOf('mdi') >= 0) {
-                                            $item.prepend('<i class="mdi ' + itemCfg.icon + ' mr-2" />');
+                                            $item.prepend('<i class="mdi ' + itemCfg.icon + ' mr-2"></i>');
                                         }
                                         // Para cuando se usan otras librerias de iconos
                                         else {
-                                            $item.prepend('<i class="' + itemCfg.icon + ' mr-2" />');
+                                            $item.prepend('<i class="' + itemCfg.icon + ' mr-2"></i>');
                                         }
                                     }
                                 }

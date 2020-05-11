@@ -297,7 +297,7 @@
 
                     //Capa
                     if (stepNumber > 1) {
-                        $('div[id=\'step' + (stepNumber - 1) + '\']').after('<div id=\'step' + stepNumber + '\' style=\'display: none;\'/>');
+                        $('div[id=\'step' + (stepNumber - 1) + '\']').after('<div id=\'step' + stepNumber + '\' style=\'display: none;\'></div>');
 
                         //Añadir botón siguiente anteúltimo paso
                         var nextButton = $('<a>')
@@ -425,7 +425,7 @@
 
             //Reiniciar capa (si hacemos .empty() no funciona accordion la segunda vez)
             $('#step' + stepNumber).remove();
-            $('div[id=\'step' + (stepNumber - 1) + '\']').after('<div id=\'step' + stepNumber + '\' style=\'display: none;\'/>');
+            $('div[id=\'step' + (stepNumber - 1) + '\']').after('<div id=\'step' + stepNumber + '\' style=\'display: none;\'></div>');
 
 
             //Copiar capas anteriores
@@ -464,7 +464,7 @@
                     if (seleccionados.length > 0) { //Existen elementos seleccionados?
                         if (selectObj.data('settings').summaryInline == undefined) {
                             //Tratamiento por defecto
-                            var contenedor = $('<div />').addClass('rup-wizard_summaryMultivalue').insertAfter(this);
+                            var contenedor = $('<div></div>').addClass('rup-wizard_summaryMultivalue').insertAfter(this);
                             for (var i = 0; i < seleccionados.length; i++) {
                                 $(settings.labelElement, {
                                     text: '- ' + seleccionados[i],
@@ -598,7 +598,7 @@
             //rup_tabs
             var maxLevel = 0; //Control de estilos cuando las pestañas pasan a accordion
             if (settings.summaryTabs2Accordion) {
-                settings.rupTabsElement = '<a />';
+                settings.rupTabsElement = '<a></a>';
             }
             $('#step' + stepNumber + ' > fieldset').children('.rup-tabs_container').each(function () {
 
@@ -690,14 +690,14 @@
                 //Convertir estructura
                 $('#step' + stepNumber).find('legend').each(function (index, element) {
                     //legend -> h1 a /h1
-                    $('<a />')
+                    $('<a></a>')
                         .text(element.innerHTML)
                         .insertBefore($(element).parent())
-                        .wrap('<h1 />');
+                        .wrap('<h1></h1>');
 
                     //fieldset -> div
                     $(element).parent().replaceWith(
-                        $('<div />')
+                        $('<div></div>')
                             .attr('accordionable', $(element).parent().attr('accordionable') === undefined ? false : true)
                             .append($(element).parent().children())
                     );
@@ -714,7 +714,7 @@
                 }
 
                 //Botón anterior (sacar de accordion)
-                $('<fieldset />')
+                $('<fieldset></fieldset>')
                     .attr('id', 'commands_fieldset').addClass('commands-fieldset')
                     .append($('#step' + stepNumber).find('p[id=\'step' + (stepNumber) + 'commands\']'))
                     .appendTo($('#step' + stepNumber));
@@ -741,7 +741,7 @@
                     if (element.nodeName === 'FIELDSET') {
                         var legend = $(element).find('legend')[0],
                             buttons = $(element).find('p[id=\'step' + (stepNumber) + 'commands\']'),
-                            object = $('<div />')
+                            object = $('<div></div>')
                                 .attr('accordionable', $(element).attr('accordionable') === undefined ? false : true)
                                 .append($(element).children());
 
@@ -761,7 +761,7 @@
 
                         //Restablecer extras (LEGEND y BOTONES)
                         $(object).prepend(legend);
-                        $(object).append($('<fieldset />').append(buttons));
+                        $(object).append($('<fieldset></fieldset>').append(buttons));
                     } else {
                         if ($.isEmptyObject(settings.tabAccordion)) {
                             $(element).rup_accordion(settings.accordion);
@@ -909,11 +909,11 @@
 
         }, //accordion (config) para generar resumen
         tabAccordion: {}, //accorion (config) para pestañas del resumen
-        rupTabsElement: '<h4 />',
-        labelElement: '<span />',
-        labelSeparatorElement: '<span />',
+        rupTabsElement: '<h4></h4>',
+        labelElement: '<span></span>',
+        labelSeparatorElement: '<span></span>',
         labelSeparatorText: '&nbsp;&nbsp;&nbsp;',
-        textareaElement: '<p />'
+        textareaElement: '<p></p>'
     };
 
     /**
@@ -983,11 +983,11 @@
      * @property {object} [rupAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen (de los objetos rup_accordion existentes en los pasos anteriores). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
      * @property {object} [summaryAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen para cada uno de los pasos que lo componen (si configura la generación de resumen y conversión de pasos en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
      * @property {object} [tabAccordion] - Define el funcionamiento del patrón rup_accordion en el resumen, para cada los objetos rup_tab existentes en los pasos anteriores (si configura la generación de resumen y conversión de pestañas en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
-     * @property {string} [rupTabsElement=<h4/>] - Define el funcionamiento del patrón rup_accordion en el resumen, para cada los objetos rup_tab existentes en los pasos anteriores (si configura la generación de resumen y conversión de pestañas en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
-     * @property {string} [labelElement=<span/>] - Indica el tipo de objeto HTML en el que se convierten los objetos label en el paso de resumen.
-     * @property {string} [labelSeparatorElement=<span/>] - Indica el tipo de objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
+     * @property {string} [rupTabsElement=<h4></h4>] - Define el funcionamiento del patrón rup_accordion en el resumen, para cada los objetos rup_tab existentes en los pasos anteriores (si configura la generación de resumen y conversión de pestañas en accordion). No tiene valor por defecto, por lo que en caso de no definirse se toma el valor del parámetro accordion.
+     * @property {string} [labelElement=<span></span>] - Indica el tipo de objeto HTML en el que se convierten los objetos label en el paso de resumen.
+     * @property {string} [labelSeparatorElement=<span></span>] - Indica el tipo de objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
      * @property {string} [labelSeparatorText=&nbsp;&nbsp;&nbsp;] - Indica el contenido del objeto HTML que se utilizará para separar los valores de sus correspondientes labels en el paso de resumen.
-     * @property {string} [textareaElement=<p/>] - Indica el tipo de objeto HTML en el que se convierten los objetos textarea en el paso de resumen.
+     * @property {string} [textareaElement=<p></p>] - Indica el tipo de objeto HTML en el que se convierten los objetos textarea en el paso de resumen.
      */
 
 }));

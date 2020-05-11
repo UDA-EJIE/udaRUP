@@ -294,194 +294,196 @@
     $.fn.rup_date('extend', {
 
         _init: function (args) {
-            if (args.length > 1) {
-                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
-            } else {
-                //Se recogen y cruzan las paremetrizaciones del objeto
-                var settings = $.extend({}, $.fn.rup_date.defaults, args[0]);
-
-                // Se carga el adapter
-                this._ADAPTER = $.rup.adapter[settings.adapter];
-
-                //Eventos
-                //Guardar referencia
-                settings._onClose = settings.onClose;
-                settings.onClose = function (event, ui) {
-                    if (settings._onClose !== undefined) {
-                        settings._onClose(event, ui);
-                    }
-                    if (!$.rup.browser.isIE) {
-                        $(this).focus();
-                    }
-                };
-
-                if (settings.multiSelect) {
-                    settings._beforeShow = settings.beforeShow;
-                    settings.beforeShow = function (ui, obj) {
-                        if (settings._beforeShow !== undefined) {
-                            settings._beforeShow(ui, obj);
-                        }
-
-                        var $dateInput = $(ui),
-                            dateValue = $dateInput.attr('value'),
-                            dates;
-
-                        if (dateValue !== undefined && dateValue !== '') {
-                            dates = dateValue.split(',');
-                            if (dates.length > 1) {
-                                $dateInput.multiDatesPicker('addDates', dates);
-                            }
-                        }
-                    };
-                }
-
-
-                //Se carga el identificador del padre del patron
-                settings.id = $(this).attr('id');
-
-                $(this).attr('ruptype', 'date');
-
-                //Carga de propiedades/literales
-                //var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);
-                var literales = $.rup.i18n.base.rup_date;
-                for (var key in literales) {
-                    if (settings[key] === undefined) {
-                        settings[key] = literales[key];
-                    }
-                }
-
-                //Mostrar máscara
-                if (settings.labelMaskId) {
-                    if (settings.datetimepicker) {
-                        if (settings.showSecond) {
-                            $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTimeSec') + ' ');
-                        } else {
-                            $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTime') + ' ');
-                        }
-                    } else {
-                        $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.mask') + ' ');
-                    }
-                }
-
-                //Mostrar placeholder
-                if (settings.placeholderMask) {
-                    if (settings.datetimepicker) {
-                        if (settings.showSecond) {
-                            $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTimeSec') + ' ');
-                        } else {
-                            $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTime') + ' ');
-                        }
-                    } else {
-                        $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.mask') + ' ');
-                    }
-                }
-
-                //Fix: Arregla problema tamaño capa cuando selector es DIV y meses es array [X,1]
-                if ($('#' + settings.id).is('div') && settings.numberOfMonths[1] === 1) {
-                    if (!settings.showWeek) {
-                        $('#' + settings.id).css('width', '15.4em');
-                    } else {
-                        $('#' + settings.id).css('width', '17.1em');
-                    }
-                }
-
-
-
-                //Sab-Dom deshabilitados
-                if (settings.noWeekend) {
-                    settings.beforeShowDay = $.datepicker.noWeekends;
-                }
-
-                this._ADAPTER.initIconTrigger(settings);
-
-
-                //Datepicker
-                if (!settings.multiSelect) {
-                    if (settings.datetimepicker) {
-                        if (settings.showSecond) {
-                            (this).attr('maxlength', '19');
-                        } else {
-                            (this).attr('maxlength', '16');
-                        }
-                        //i18n datetimepicker
-                        settings.timeText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.timeText');
-                        settings.hourText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.hourText');
-                        settings.minuteText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.minuteText');
-                        settings.secondText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.secondText');
-                        $('#' + settings.id).datetimepicker(settings);
-                    } else {
-                        (this).attr('maxlength', '10');
-                        $('#' + settings.id).datepicker(settings);
-                    }
-                } else {
-                    var maxlength = 0;
-                    if (typeof settings.multiSelect === 'number') {
-                        settings.mode = {
-                            modeName: 'normal',
-                            options: {
-                                maxPicks: settings.multiSelect
-                            }
-                        };
-                        maxlength = (10 * settings.multiSelect) + (settings.multiSelect - 1);
-                    } else if (typeof settings.multiSelect === 'object') {
-                        settings.mode = {
-                            modeName: 'daysRange',
-                            options: {
-                                autoselectRange: settings.multiSelect
-                            }
-                        };
-                        maxlength = settings.multiSelect[1] - settings.multiSelect[0];
-                        maxlength = (10 * maxlength) + (maxlength - 1);
-                    }
-                    (this).attr('maxlength', maxlength);
-
-                    //Sobreescribir valores por defecto para multiselección
-                    $.datepicker._defaults.dateFormat = settings.dateFormat;
-                    $('#' + settings.id).multiDatesPicker(settings);
-
-                    //Permitir separador de intervalos (coma)
-                    $(this).keypress(function (event) {
-                        if (event.charCode === 44) {
-                            var value = $(event.currentTarget).val(),
-                                cursorPosStart = event.originalEvent.originalTarget.selectionStart,
-                                cursorPosEnd = event.originalEvent.originalTarget.selectionEnd,
-                                begin = value.substring(0, cursorPosStart),
-                                end = value.substring(cursorPosEnd);
-                            //Si no tiene tamaño máximo o tiene selección de caracteres
-                            if (value.length < $(event.currentTarget).attr('maxlength') || cursorPosStart !== cursorPosEnd) {
-                                $(event.currentTarget).val(begin + ',' + end);
-                                event.originalEvent.originalTarget.selectionStart = cursorPosStart + 1;
-                                event.originalEvent.originalTarget.selectionEnd = cursorPosStart + 1;
-                            }
-                        }
-                    });
-                }
-
-                $.proxy(this._ADAPTER.postConfigure, $(this))(settings);
-
-                //Ajuste para el comportamiento de portales
-                if ($.rup_utils.aplicatioInPortal() && !$('#' + settings.id).is('div')) {
-                    $('.r01gContainer').append($('.ui-datepicker:not(.r01gContainer .ui-datepicker)'));
-                }
-
-                // Se aplica el tooltip
-                $(this).parent().find('[title]').rup_tooltip({
-                    'applyToPortal': true
-                });
-
-                //Deshabilitar
-                if (settings.disabled) {
-                    $('#' + settings.id).rup_date('disable');
-                }
-
-                //Callback create
-                if (settings.create) {
-                    settings.create();
-                }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_date', 'init');
-            }
+        	initRupI18nPromise.then(() => {
+	            if (args.length > 1) {
+	                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+	            } else {
+	                //Se recogen y cruzan las paremetrizaciones del objeto
+	                var settings = $.extend({}, $.fn.rup_date.defaults, args[0]);
+	
+	                // Se carga el adapter
+	                this._ADAPTER = $.rup.adapter[settings.adapter];
+	
+	                //Eventos
+	                //Guardar referencia
+	                settings._onClose = settings.onClose;
+	                settings.onClose = function (event, ui) {
+	                    if (settings._onClose !== undefined) {
+	                        settings._onClose(event, ui);
+	                    }
+	                    if (!$.rup.browser.isIE) {
+	                        $(this).focus();
+	                    }
+	                };
+	
+	                if (settings.multiSelect) {
+	                    settings._beforeShow = settings.beforeShow;
+	                    settings.beforeShow = function (ui, obj) {
+	                        if (settings._beforeShow !== undefined) {
+	                            settings._beforeShow(ui, obj);
+	                        }
+	
+	                        var $dateInput = $(ui),
+	                            dateValue = $dateInput.attr('value'),
+	                            dates;
+	
+	                        if (dateValue !== undefined && dateValue !== '') {
+	                            dates = dateValue.split(',');
+	                            if (dates.length > 1) {
+	                                $dateInput.multiDatesPicker('addDates', dates);
+	                            }
+	                        }
+	                    };
+	                }
+	
+	
+	                //Se carga el identificador del padre del patron
+	                settings.id = $(this).attr('id');
+	
+	                $(this).attr('ruptype', 'date');
+	
+	                //Carga de propiedades/literales
+	                //var literales = $.extend($.rup.i18n.base.rup_time,$.rup.i18n.base.rup_date);
+	                var literales = $.rup.i18n.base.rup_date;
+	                for (var key in literales) {
+	                    if (settings[key] === undefined) {
+	                        settings[key] = literales[key];
+	                    }
+	                }
+	
+	                //Mostrar máscara
+	                if (settings.labelMaskId) {
+	                    if (settings.datetimepicker) {
+	                        if (settings.showSecond) {
+	                            $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTimeSec') + ' ');
+	                        } else {
+	                            $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTime') + ' ');
+	                        }
+	                    } else {
+	                        $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_date.mask') + ' ');
+	                    }
+	                }
+	
+	                //Mostrar placeholder
+	                if (settings.placeholderMask) {
+	                    if (settings.datetimepicker) {
+	                        if (settings.showSecond) {
+	                            $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTimeSec') + ' ');
+	                        } else {
+	                            $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.maskDateTime') + ' ');
+	                        }
+	                    } else {
+	                        $(this).attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_date.mask') + ' ');
+	                    }
+	                }
+	
+	                //Fix: Arregla problema tamaño capa cuando selector es DIV y meses es array [X,1]
+	                if ($('#' + settings.id).is('div') && settings.numberOfMonths[1] === 1) {
+	                    if (!settings.showWeek) {
+	                        $('#' + settings.id).css('width', '15.4em');
+	                    } else {
+	                        $('#' + settings.id).css('width', '17.1em');
+	                    }
+	                }
+	
+	
+	
+	                //Sab-Dom deshabilitados
+	                if (settings.noWeekend) {
+	                    settings.beforeShowDay = $.datepicker.noWeekends;
+	                }
+	
+	                this._ADAPTER.initIconTrigger(settings);
+	
+	
+	                //Datepicker
+	                if (!settings.multiSelect) {
+	                    if (settings.datetimepicker) {
+	                        if (settings.showSecond) {
+	                            (this).attr('maxlength', '19');
+	                        } else {
+	                            (this).attr('maxlength', '16');
+	                        }
+	                        //i18n datetimepicker
+	                        settings.timeText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.timeText');
+	                        settings.hourText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.hourText');
+	                        settings.minuteText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.minuteText');
+	                        settings.secondText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.secondText');
+	                        $('#' + settings.id).datetimepicker(settings);
+	                    } else {
+	                        (this).attr('maxlength', '10');
+	                        $('#' + settings.id).datepicker(settings);
+	                    }
+	                } else {
+	                    var maxlength = 0;
+	                    if (typeof settings.multiSelect === 'number') {
+	                        settings.mode = {
+	                            modeName: 'normal',
+	                            options: {
+	                                maxPicks: settings.multiSelect
+	                            }
+	                        };
+	                        maxlength = (10 * settings.multiSelect) + (settings.multiSelect - 1);
+	                    } else if (typeof settings.multiSelect === 'object') {
+	                        settings.mode = {
+	                            modeName: 'daysRange',
+	                            options: {
+	                                autoselectRange: settings.multiSelect
+	                            }
+	                        };
+	                        maxlength = settings.multiSelect[1] - settings.multiSelect[0];
+	                        maxlength = (10 * maxlength) + (maxlength - 1);
+	                    }
+	                    (this).attr('maxlength', maxlength);
+	
+	                    //Sobreescribir valores por defecto para multiselección
+	                    $.datepicker._defaults.dateFormat = settings.dateFormat;
+	                    $('#' + settings.id).multiDatesPicker(settings);
+	
+	                    //Permitir separador de intervalos (coma)
+	                    $(this).keypress(function (event) {
+	                        if (event.charCode === 44) {
+	                            var value = $(event.currentTarget).val(),
+	                                cursorPosStart = event.originalEvent.originalTarget.selectionStart,
+	                                cursorPosEnd = event.originalEvent.originalTarget.selectionEnd,
+	                                begin = value.substring(0, cursorPosStart),
+	                                end = value.substring(cursorPosEnd);
+	                            //Si no tiene tamaño máximo o tiene selección de caracteres
+	                            if (value.length < $(event.currentTarget).attr('maxlength') || cursorPosStart !== cursorPosEnd) {
+	                                $(event.currentTarget).val(begin + ',' + end);
+	                                event.originalEvent.originalTarget.selectionStart = cursorPosStart + 1;
+	                                event.originalEvent.originalTarget.selectionEnd = cursorPosStart + 1;
+	                            }
+	                        }
+	                    });
+	                }
+	
+	                $.proxy(this._ADAPTER.postConfigure, $(this))(settings);
+	
+	                //Ajuste para el comportamiento de portales
+	                if ($.rup_utils.aplicatioInPortal() && !$('#' + settings.id).is('div')) {
+	                    $('.r01gContainer').append($('.ui-datepicker:not(.r01gContainer .ui-datepicker)'));
+	                }
+	
+	                // Se aplica el tooltip
+	                $(this).parent().find('[title]').rup_tooltip({
+	                    'applyToPortal': true
+	                });
+	
+	                //Deshabilitar
+	                if (settings.disabled) {
+	                    $('#' + settings.id).rup_date('disable');
+	                }
+	
+	                //Callback create
+	                if (settings.create) {
+	                    settings.create();
+	                }
+	
+	                //Se audita el componente
+	                $.rup.auditComponent('rup_date', 'init');
+	            }
+        	});
         }
     });
     $.rup_date('extend', {

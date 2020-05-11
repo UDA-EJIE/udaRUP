@@ -34,7 +34,7 @@
             buttonId = $(this).attr('id')+'##'+buttonId;
         }
 
-        // var boton = $("<button type='button'/>").text($.rup.i18nParse(json_i18n,obj.i18nCaption)).addClass("rup-toolbar_button").attr({
+        // var boton = $("<button type='button'></button>").text($.rup.i18nParse(json_i18n,obj.i18nCaption)).addClass("rup-toolbar_button").attr({
         //   "id":buttonId
         // });
         var boton = $(Rup.Templates.rup.toolbar.button.material({
@@ -55,7 +55,7 @@
             //Añadir botón a la derecha
             var $div_rightObjects = this.children('div:not(.rup-dropdown-btn-group):not(.rup-mbutton )');
             if ($div_rightObjects.length===0){
-                $div_rightObjects = $('<div />').attr('id',this.attr('id')+'-rightButtons').css('float', 'right');
+                $div_rightObjects = $('<div></div>').attr('id',this.attr('id')+'-rightButtons').css('float', 'right');
                 this.append($div_rightObjects);
             }
             //				if (boton.parent().is(".rup-dropdown-btn-group")){
@@ -118,7 +118,7 @@
             //Añadir botón a la derecha
             var $div_rightObjects = this.children('div:not(.rup-dropdown-btn-group):not(.rup-mbutton )');
             if ($div_rightObjects.length===0){
-                $div_rightObjects = $('<div />').attr('id',this.attr('id')+'-rightButtons').css('float', 'right');
+                $div_rightObjects = $('<div></div>').attr('id',this.attr('id')+'-rightButtons').css('float', 'right');
                 this.append($div_rightObjects);
             }
             botonGrp.prependTo($div_rightObjects);

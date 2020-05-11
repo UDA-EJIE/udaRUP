@@ -263,7 +263,7 @@ $.extend({
 
             if (isOtherMobileBrowser) {
 
-                $form = $("<form>").appendTo("body");
+                $form = $("<form></form>").appendTo("body");
                 $form.hide()
                     .attr('method', settings.httpMethod)
                     .attr('action', fileUrl)

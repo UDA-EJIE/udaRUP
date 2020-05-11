@@ -421,7 +421,7 @@
                     error: function (xhr) {
                         var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
                         if (divErrorFeedback.length === 0) {
-                            divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                            divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                             divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
@@ -534,7 +534,7 @@
             	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
             	let divErrorFeedback = feed;
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
@@ -586,7 +586,7 @@
             	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
             	let divErrorFeedback = feed;
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
@@ -663,7 +663,7 @@
                     if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                         var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                         if (divOkFeedback.length === 0) {
-                            divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                            divOkFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                             divOkFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divOkFeedback, msgFeedBack, 'ok'); //Se informa, feedback del formulario
@@ -756,7 +756,7 @@
             error: function (xhr) {
                 let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
 				if (xhr.status === 406 && xhr.responseText !== '') {
@@ -1062,7 +1062,7 @@
         $dialogContent.hide('slide', {
             direction: direction
         }, 100, () => {
-            $dialogContent.after('<span id="' + ctx.sTableId + '_detail_div_loading" style="font-size: 5rem;"><i class="mdi mdi-spin mdi-loading" aria-hidden="true"/></span>');
+            $dialogContent.after('<span id="' + ctx.sTableId + '_detail_div_loading" style="font-size: 5rem;"><i class="mdi mdi-spin mdi-loading" aria-hidden="true"></i></span>');
             callback();
         });
     }
@@ -1565,9 +1565,9 @@
                             }
 
                             if (valorCheck === 1) {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'/>');
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'></i>');
                             } else {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'/>');
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'></i>');
                             }
                         }
                     } else {
@@ -1636,7 +1636,7 @@
                 $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
                 if (hasHidden) { //añadir span ala primera fila
                     $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-                        var $span = $('<span/>');
+                        var $span = $('<span></span>');
                         if ($(this).find('span.openResponsive').length === 0) {
                             $(this).prepend($span.addClass('openResponsive'));
                         } else { //si ya existe se asigna el valor.
