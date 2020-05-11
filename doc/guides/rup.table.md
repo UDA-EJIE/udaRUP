@@ -95,7 +95,7 @@ Este sería un ejemplo del código que se debería de incluir en la jsp:
 <jsp:include page="includes/filterForm.jsp"></jsp:include>
 
 <table id="example" class="tableFit table-striped table-bordered table-material"
-	data-url-base="./jqGridUsuario"
+	data-url-base="./tableUsuario"
 	data-filter-form="#table_filter_form">
         <thead>
             <tr>
@@ -359,9 +359,9 @@ La comunicación entre el componente y la capa servidor se realiza principalment
 
 Para facilitar los procesos de serialización y deserialización entre los objetos JSON y Java se proporcionan las siguientes clases Java:
 
-* **com.ejie.x38.dto.JQGridRequestDto**: Clase encargada de almacenar la información del JSON enviado por el componente. Después del proceso de deserialización este será el objeto resultante que se obtendrá a partir del objeto JSON enviado.
+* **com.ejie.x38.dto.TableRequestDto**: Clase encargada de almacenar la información del JSON enviado por el componente. Después del proceso de deserialización este será el objeto resultante que se obtendrá a partir del objeto JSON enviado.
 
-* **com.ejie.x38.dto.JQGridResponseDto**: Clase encargada de almacenar las propiedades que después del proceso de serialización, se convertirán en propiedades del objeto JSON que deberá de ser enviado al componente.
+* **com.ejie.x38.dto.TableResponseDto**: Clase encargada de almacenar las propiedades que después del proceso de serialización, se convertirán en propiedades del objeto JSON que deberá de ser enviado al componente.
 
 ### 9.2. Configuración de Spring
 
@@ -390,11 +390,11 @@ Estos son los métodos generados en el Controller para gestionar las peticiones 
 * Filtrado:
 ```java
 @RequestMapping(value = "/filter", method = RequestMethod.POST)
-public @ResponseBody JQGridResponseDto<Usuario> filter(
+public @ResponseBody TableResponseDto<Usuario> filter(
 @RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody JQGridRequestDto jqGridRequestDto) {
-  JQGridUsuarioController.logger.info("[POST - jqGrid] : Obtener Usuarios");
-  return jqGridUsuarioService.filter(filterUsuario, jqGridRequestDto, false);
+@RequestJsonBody TableRequestDto tableRequestDto) {
+  TableUsuarioController.logger.info("[POST - table] : Obtener Usuarios");
+  return tableUsuarioService.filter(filterUsuario, tableRequestDto, false);
 }
 ```
 
@@ -404,9 +404,9 @@ public @ResponseBody JQGridResponseDto<Usuario> filter(
 public @ResponseBody List<TableRowDto<Usuario>> search(
 @RequestJsonBody(param="filter") Usuario filterUsuario,
 @RequestJsonBody(param="search") Usuario searchUsuario,
-@RequestJsonBody JQGridRequestDto jqGridRequestDto){
-  JQGridUsuarioController.logger.info("[POST - search] : Buscar Usuarios");
-  return jqGridUsuarioService.search(filterUsuario, searchUsuario, jqGridRequestDto, false);
+@RequestJsonBody TableRequestDto tableRequestDto){
+  TableUsuarioController.logger.info("[POST - search] : Buscar Usuarios");
+  return tableUsuarioService.search(filterUsuario, searchUsuario, tableRequestDto, false);
 }
 ```
 
@@ -416,15 +416,15 @@ public @ResponseBody List<TableRowDto<Usuario>> search(
 @ResponseStatus(value=HttpStatus.OK)
 public @ResponseBody List<String> removeMultiple(
 @RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody JQGridRequestDto jqGridRequestDto) {
-  JQGridUsuarioController.logger.info("[POST - removeMultiple] : Eliminar multiples usuarios");
-  this.jqGridUsuarioService.removeMultiple(filterUsuario, jqGridRequestDto, false);
-  JQGridUsuarioController.logger.info("All entities correctly deleted!");
-  return jqGridRequestDto.getMultiselection().getSelectedIds();
+@RequestJsonBody TableRequestDto tableRequestDto) {
+  TableUsuarioController.logger.info("[POST - removeMultiple] : Eliminar multiples usuarios");
+  this.tableUsuarioService.removeMultiple(tableRequestDto);
+  TableUsuarioController.logger.info("All entities correctly deleted!");
+  return tableRequestDto.getMultiselection().getSelectedIds();
 }
 ```
 
-* Copia de registros inversa:
+* Copia de registros:
 ```java
 @RequestMapping(value = "/clipboardReport", method = RequestMethod.POST)
 protected @ResponseBody List<Usuario> getClipboardReport(
