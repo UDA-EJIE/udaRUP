@@ -735,7 +735,9 @@
             // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
             //jQuery('input,textarea').val('');
 
-            options.filter.$filterContainer.find('.ui-selectmenu-status').text('--');
+            jQuery.each($('select.rup_combo',options.filter.$filterContainer), function (index, elem) {
+				jQuery(elem).rup_combo('refresh');
+            });
 
             $.rup_utils.populateForm([], options.filter.$filterContainer);
 

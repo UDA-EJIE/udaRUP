@@ -735,21 +735,17 @@
                 } else { // Eliminar
                     ctx.oInit.feedback.type = 'eliminar';
                     ctx.oInit.feedback.msgFeedBack = msgFeedBack;
-                    var reloadDt = function () {
+
+                    if (ctx.oInit.multiSelect !== undefined) {
                         dt.ajax.reload(function () {
                             $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                        }, false);
-                    };
-                    if (ctx.oInit.multiSelect !== undefined) {
-                        $('#' + ctx.sTableId).on('rupTable_deselectAll', function () {
-                            reloadDt();
-                        });
-                        DataTable.Api().multiSelect.deselectAll(dt);
+                            DataTable.Api().multiSelect.deselectAll(dt);
+                        }, false);                        
                     } else if (ctx.oInit.select !== undefined) {
-                        $('#' + ctx.sTableId).on('rupTable_deselect', function () {
-                            reloadDt();
-                        });
-                        DataTable.Api().select.deselect(ctx);
+                        dt.ajax.reload(function () {
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                            DataTable.Api().select.deselect(ctx);
+                        }, false);                        
                     }
                     _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                 }

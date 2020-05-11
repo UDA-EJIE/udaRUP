@@ -564,8 +564,11 @@
     function _limpiarSeeker(dt, ctx) {
         $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
         jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
-        jQuery('tfoot [ruptype=\'combo\']', 'table tfoot').rup_combo('clear');
-        jQuery('.ui-selectmenu-status', 'table tfoot').text('--');
+        let $form = $('#' + ctx.sTableId + '_search_searchForm');
+        $form.resetForm()
+        jQuery.each($('select.rup_combo',$form), function (index, elem) {
+			jQuery(elem).rup_combo('refresh');
+        });
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
         _processData(dt, ctx, []);
