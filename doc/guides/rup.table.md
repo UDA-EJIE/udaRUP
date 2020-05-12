@@ -614,6 +614,9 @@ El colModel se usa para modelar, los campos de la tabla.
 Destacadaos:
 
 name -> Identificador del campo.
+
 editable -> true o false, si se quiere editar o no este campo.
+
 editoptions y formoptions -> Para configurar todas las opciones de los campos rup.
+
 rupType -> Tipo rup para ese campo.
