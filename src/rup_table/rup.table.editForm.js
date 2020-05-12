@@ -384,8 +384,11 @@
             idRow = 1;
         }
         $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
-        var row = ctx.json.rows[idRow];
-        var rowArray = $.rup_utils.jsontoarray(row);
+        let row;
+        if(ctx.json !== undefined){
+        	row = ctx.json.rows[idRow];
+        }
+        let rowArray = $.rup_utils.jsontoarray(row);
         
         let title = customTitle != (undefined && null) ? customTitle : "";
 
@@ -697,13 +700,20 @@
                             DataTable.Api().select.deselect(ctx);
                         }
                         var rowAux = row;
-                        $.each(ctx.json.rows, function (index, r) {
-                            var rowNext = r;
-                            dt.row(index).data(rowAux);
-                            rowAux = rowNext;
-                        });
-                        ctx.json.rows.pop();
-                        ctx.json.rows.splice(0, 0, row);
+                        if (ctx.json !== undefined) {
+	                        $.each(ctx.json.rows, function (index, r) {
+	                            var rowNext = r;
+	                            dt.row(index).data(rowAux);
+	                            rowAux = rowNext;
+	                        });
+	                        ctx.json.rows.pop();
+	                        ctx.json.rows.splice(0, 0, row);
+                        }else{//es el primer registro
+                        	dt.row.add(rowAux).draw( false );
+                        	ctx.json = {};
+                          	ctx.json.rows = [];
+                        	ctx.json.rows.push(rowAux);
+                        }
 
                         //Se guardan los datos para pasar de nuevo a editable.
                         if (ctx.oInit.formEdit.saveContinueEdit) {

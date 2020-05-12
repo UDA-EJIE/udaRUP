@@ -1654,9 +1654,11 @@ handler that will select the items using the API methods.
             var id = DataTable.Api().rupTable.getIdPk(ctx.aoData[idx]._aData, ctx.oInit);
 
             //Se mira el contador para sumar seleccionados
-            if (ctx.multiselection.numSelected < ctx.json.recordsTotal &&
-                id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0) {
-                ctx.multiselection.numSelected++;
+            if (ctx.multiselection !== undefined && ctx.json !== undefined) {
+	            if (ctx.multiselection.numSelected < ctx.json.recordsTotal &&
+	                id !== undefined && ctx.multiselection.selectedIds.indexOf(id) < 0) {
+	                ctx.multiselection.numSelected++;
+	            }
             }
 
             //para seleccionar todos los de la pagina actual.
