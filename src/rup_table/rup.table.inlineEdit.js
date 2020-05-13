@@ -128,7 +128,10 @@ DataTable.inlineEdit.init = function ( dt ) {
     //Se añaden las validaciones
 
     let feed = ctx.oInit.feedback.$feedbackContainer;
-    let validaciones = ctx.oInit.inlineEdit.validate.rules;
+    let validaciones;
+    if(ctx.oInit.formEdit.validate !== undefined){
+    	validaciones = ctx.oInit.inlineEdit.validate.rules;
+    }
     $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
         feedback: feed,
         liveCheckingErrors: false,

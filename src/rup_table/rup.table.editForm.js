@@ -197,7 +197,10 @@
         //Se añaden las validaciones
         let idTableDetail = ctx.oInit.formEdit.detailForm;
         let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
-        let validaciones = ctx.oInit.formEdit.validate.rules;
+        let validaciones;
+        if(ctx.oInit.formEdit.validate !== undefined){
+        	validaciones = ctx.oInit.formEdit.validate.rules;
+        }
         ctx.oInit.formEdit.idForm.rup_validate({
             feedback: feed,
             liveCheckingErrors: false,
