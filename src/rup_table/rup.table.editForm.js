@@ -864,7 +864,7 @@
     			
     			let clave = this.dataset.clave;
 	    		if(clave !== undefined){//si tiene clave es porque es objeto
-	    			var label =$('label[for="' + $(this).attr('id') + '"]').text();
+	    			var label = this.dataset.valor;//se manda el valor id.
 	    			array[clave] = label;
 	    			array[prop] = $(this).is(':checked');
 	    		}else{//si no tiene clave es porque es string
