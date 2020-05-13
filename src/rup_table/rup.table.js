@@ -502,6 +502,9 @@
 
             if (options.filter && options.filter.$filterContainer) {
                 $self._showSearchCriteria();
+                if(options.filter.collapsableLayerHide){//se oculta el collapsable al filtrar.
+                	options.filter.hideLayer();
+                }
 
                 if (options.filter.$filterContainer.valid()) {
                     reloadTable();
@@ -865,37 +868,37 @@
                         $self._doFilter(options);
                     }
                 });
-
-                filterOpts.$filterToolbar.addClass('cursor_pointer').on({
-                    'click': function () {
-                        if (options.filter.showHidden === false) {
-                            filterOpts.$collapsableLayer.hide();
-                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                            filterOpts.$filterToolbar.removeClass('formulario_opened');
-                            options.filter.showHidden = true;
-                        } else {
-                            filterOpts.$collapsableLayer.show();
-                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
-                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
-                            filterOpts.$filterToolbar.addClass('formulario_opened');
-                            options.filter.showHidden = false;
-                        }
-                    }
-                });
-
-                if (options.filter.showHidden === true) {
-                    filterOpts.$collapsableLayer.hide();
-                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                    filterOpts.$filterToolbar.removeClass('formulario_opened');
-                    options.filter.showHidden = true;
-                } else {
+                
+                filterOpts.showLayer = function(){
                     filterOpts.$collapsableLayer.show();
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
                     filterOpts.$filterToolbar.addClass('formulario_opened');
                     options.filter.showHidden = false;
+                };
+                
+                filterOpts.hideLayer = function(){
+                    filterOpts.$collapsableLayer.hide();
+                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+                    filterOpts.$filterToolbar.removeClass('formulario_opened');
+                    options.filter.showHidden = true;
+                };
+
+                filterOpts.$filterToolbar.addClass('cursor_pointer').on({
+                    'click': function () {
+                        if (options.filter.showHidden === false) {
+                        	filterOpts.hideLayer();
+                        } else {
+                        	filterOpts.showLayer();
+                        }
+                    }
+                });
+
+                if (options.filter.showHidden === true) {
+                	filterOpts.hideLayer();
+                } else {
+                	filterOpts.showLayer();
                 }
 
                 // Validaciones 
