@@ -13,7 +13,9 @@ En el presente documento se van a detallar los pasos a seguir para realizar la a
     Para generar código correspondiente a la versión v4.0.0 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.0.0/templates-v4.0.0.zip).
     
 3. #### Aplicar estilos material
-	La construcción de formularios será realizada de la siguiente manera:
+	Los componentes han recibido un lavado de cara, mejorando así su visibilidad y usabilidad. Puede encontrarse más información en la [guía de estilos](https://github.com/UDA-EJIE/udaRUP/blob/master/doc/guides/udaMaterialGuidelines.md).
+    
+    La construcción de formularios será realizada de la siguiente manera:
 	
 	1. En primer lugar se ha de usar un contenedor (un div por ejemplo) que contenga la clase “form-row” o “row”. También se le pueden añadir ciertas clases de Bootstrap cómo la de maquetación por columnas “col-sm-12”.
 	2. Dentro del anterior contenedor insertaremos otro contenedor con la clase “form-groupMaterial” que a su vez puede contener clases de maquetación por columnas. Esta clase no ha de introducirse cuando los elementos hijos vayan a ser del tipo “checkbox” o “radio”.
