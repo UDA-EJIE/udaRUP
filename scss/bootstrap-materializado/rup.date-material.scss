@@ -37,6 +37,10 @@ div.rup-date-input-group-material {
 			background-color: $disabled-background-color;
 			border-color: $grey-color-light;
 			
+			&:hover {
+				cursor: initial;
+			}
+			
 			&:focus {
 				background-color: $disabled-background-color;
 			}
