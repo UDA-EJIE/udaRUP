@@ -22,7 +22,8 @@
 		}
 	
 		&:focus:enabled {
-		  	border-color: $primary-color;
+			outline: none;  
+			border-color: $primary-color;
 		  	caret-color: $primary-color;
 		  	border-width: 2px;
 		  	box-shadow: none;
