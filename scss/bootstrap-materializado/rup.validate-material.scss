@@ -45,14 +45,6 @@ i.mdi.error {
 				border: 2px solid $validation-error-color;
 				caret-color: $validation-error-color;
 				outline: none;
-			
-				&:read-only {
-					caret-color: $no-color;
-				}
-				
-				&:-moz-read-only {
-					caret-color: $no-color;
-				}
 				
 				&:invalid ~ label {
 					color: $validation-error-color-light;
@@ -146,14 +138,6 @@ i.mdi.error {
 				~ button {
 					border: 2px solid $validation-error-color;
 					border-left-style: hidden;
-				}
-			
-				&:read-only {
-					caret-color: $no-color;
-				}
-				
-				&:-moz-read-only {
-					caret-color: $no-color;
 				}
 			}
 			

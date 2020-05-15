@@ -45,48 +45,22 @@
 			background-image: none;
 		}
 		
-		&:read-only {
-			background-color: $readonly-background-color;
-			
-			&:hover {
-				border-color: $grey-color-light;
-			}
-		
-			&:focus {
-				border-color: $grey-color-light;
-				caret-color: $no-color;
-				padding-left: 18px;
-			}
-			
-			&:focus ~ label, ~ label {
-				top: -10px;
-				font-size: .9rem;
-				color: $black-color;
-				padding: 0 5px;
-				background: linear-gradient(to top, $readonly-background-color 0%, $readonly-background-color 40%, $no-color 40%, $no-color 100%);
-			}
+		&:read-only ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
 		}
 		
-		&:-moz-read-only {
-			background-color: $readonly-background-color;
-			
-			&:hover {
-				border-color: $grey-color-light;
-			}
-		
-			&:focus {
-				border-color: $grey-color-light;
-				caret-color: $no-color;
-				padding-left: 18px;
-			}
-			
-			&:focus ~ label, ~ label {
-				top: -10px;
-				font-size: .9rem;
-				color: $black-color;
-				padding: 0 5px;
-				background: linear-gradient(to top, $readonly-background-color 0%, $readonly-background-color 40%, $no-color 40%, $no-color 100%);
-			}
+		&:-moz-read-only ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
 		}
 	}	
 }
