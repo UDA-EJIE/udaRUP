@@ -435,8 +435,7 @@
                             self.errorList[i].message = newMessage;
                         }
                     }
-                    // Se eliminan los estilos de error previos
-                    $('.' + self.settings.errorClass + ':not(.rup-maint_validateIcon)', self.currentForm).removeClass(self.settings.errorClass);
+                   
                     //Se eliminan los iconos duplicados
                     var elements = self.currentForm.getElementsByClassName('rup-validate-error-icon');
                     while (elements !== undefined && elements.length > 0) {
