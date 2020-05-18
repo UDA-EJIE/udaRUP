@@ -282,6 +282,12 @@ El componente table se ha implementado siguiendo una arquitectura modular. De es
 * Simplificar la extensión y sobreescritura de los métodos de determinados plugins.
 * Permitir la creación de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
 
+Todas las tablas , tienen estas opciones:
+
+$("#idTable").rup_table("getSelectedIds")        -> Devuelve todos los ids seleccionados.
+$("#idTable").rup_table("getSelectedRows")       -> Devuelve todos los datos seleccionados, previamente cargados en el ajax.
+$("#idTable").rup_table("getSelectedRowPerPage") -> Devuelve todos los ids seleccionadas, en la línea y pagina en la que están.
+
 Todos los plugins están montados sobre el contexto de la tabla para obtener dicho contexto :
 
 ```

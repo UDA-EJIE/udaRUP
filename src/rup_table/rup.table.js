@@ -131,8 +131,41 @@
         },
         //$("#idTable").rup_table("getContext");
         getContext: function () {
-            var dt = $('#' + this[0].id).DataTable();
+            let dt = $('#' + this[0].id).DataTable();
             return dt.context[0];
+        },
+        //$("#idTable").rup_table("getSelectedIds");
+        getSelectedIds: function () {
+            let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            return ctx.multiselection.selectedIds;
+        },
+        //$("#idTable").rup_table("getSelectedRows");
+        getSelectedRows: function () {
+        	let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            let page = dt.page() + 1;
+            let rows = '';
+            if(ctx.json !== undefined && ctx.json.rows !== undefined && ctx.json.rows.length > 0){
+            	let selecteds = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+                    return v.page === page;
+                });
+            	if(selecteds.length === 1){
+            		rows = ctx.json.rows[selecteds[0].line];
+            	}else if(selecteds.length > 1){
+            		rows = [];
+                    $.each(selecteds, function (index) {
+                    	rows.push(ctx.json.rows[selecteds[index].line]);
+                    });
+            	}
+            }
+            return rows;
+        },
+        //$("#idTable").rup_table("getSelectedRowPerPage");
+        getSelectedRowPerPage: function () {
+        	let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            return ctx.multiselection.selectedRowsPerPage;
         }
     });
 
