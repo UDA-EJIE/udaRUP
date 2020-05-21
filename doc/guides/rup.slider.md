@@ -81,16 +81,16 @@ La primera noción que se ha de tener en cuenta para el correcto manejo e inclus
 
 Para poder relacionar el componente Accordion con el `<div>` sobre el que se aplica, debe ir, como marcan las especificaciones de *html*, identificado por un id (identificador) único. Dicho id (identificador) representa al elemento dentro de la infraestructura de la página y facilita la localización y manejo del mismo. Un ejemplo de `<div>` identificado tiene el siguiente aspecto:
 ```xml
-	<div id="slider"></div>
+<div id="slider"></div>
 ```
 El componente permite ser estilizado con material design, para ello será tan sencillo como añadir al `div` la clase `.rup-slider-material`. En caso de ser un slider con rangos, deberá usarse la clase `rup-slider-range-material`. Por ejemplo:
 ```html
-	<div id="slider" class="rup-slider-material"></div> <!-- Slider -->
-	<div id="sliderRange" class="rup-slider-range-material"></div> <!-- Slider con rango -->
+<div id="slider" class="rup-slider-material"></div> <!-- Slider -->
+<div id="sliderRange" class="rup-slider-range-material"></div> <!-- Slider con rango -->
 ```
 Mediante el selector del *tag* ```div``` invocaremos al componente deslizador:
 ```javascript
-    $(selector).rup_slider({ properties });
+$(selector).rup_slider({ properties });
 ```
 
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.
