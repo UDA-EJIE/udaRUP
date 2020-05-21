@@ -4,33 +4,8 @@ $radio-material-size: 18px;
 $radio-material-checked-size: 8px;
 $radio-material-ripple-size: 6px;
 
-@keyframes ripple-hover {
-    0% {
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
-    }
-
-    50% {
-        box-shadow: 0 0 0 $radio-material-ripple-size rgba(20, 114, 164, .05);
-    }
-
-    100% {
-        box-shadow: 0 0 0 $radio-material-ripple-size rgba(20, 114, 164, .1);
-    }
-}
-
-@keyframes ripple-active {
-    0% {
-        box-shadow: 0 0 0 $radio-material-ripple-size rgba(20, 114, 164, .1);
-    }
-
-    50% {
-        box-shadow: 0 0 0 $radio-material-ripple-size rgba(20, 114, 164, .4);
-    }
-
-    100% {
-        box-shadow: 0 0 0 $radio-material-ripple-size rgba(20, 114, 164, .6);
-    }
-}
+@include ripple-animation-mixin(ripple-radio-hover, 1px, $radio-material-ripple-size, $radio-material-ripple-size, $ripple-hover0-color, $ripple-hover50-primary-color, $ripple-hover100-primary-color);
+@include ripple-animation-mixin(ripple-radio-active, $radio-material-ripple-size, $radio-material-ripple-size, $radio-material-ripple-size, $ripple-active0-primary-color, $ripple-active50-primary-color, $ripple-active100-primary-color);
 
 .radio-material {
     margin: $radio-material-margin;
@@ -48,12 +23,12 @@ $radio-material-ripple-size: 6px;
         /* CUANDO PASA EL RATON POR ENCIMA */
         &:hover:enabled~label::before,
         &:checked:hover:enabled~label::before {
-            animation: ripple-hover .2s linear forwards;
+            animation: ripple-radio-hover .2s linear forwards;
         }
 
         /* CUANDO TIENE EL FOCO */
         &:focus~label::before {
-            animation: ripple-active .2s linear forwards;
+            animation: ripple-radio-active .2s linear forwards;
         }
 
         /* CUANDO ESTA SELECCIONADO */
@@ -66,7 +41,7 @@ $radio-material-ripple-size: 6px;
         }
 
         &:active:enabled~label::before {
-            animation: ripple-active .2s linear forwards;
+            animation: ripple-radio-active .2s linear forwards;
         }
 
         /* CUANDO ESTA DISABLED */

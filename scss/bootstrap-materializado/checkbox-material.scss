@@ -9,33 +9,8 @@ $md-checkmark-width: .125em;
 $md-checkmark-color: $white-color;
 $checkbox-material-label-padding: .75em;
 
-@keyframes ripple-hover {
-    0% {
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
-    }
-
-    50% {
-        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .05);
-    }
-
-    100% {
-        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
-    }
-}
-
-@keyframes ripple-active {
-    0% {
-        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .1);
-    }
-
-    50% {
-        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .4);
-    }
-
-    100% {
-        box-shadow: 0 0 0 $checkbox-material-ripple-size rgba(20, 114, 164, .6);
-    }
-}
+@include ripple-animation-mixin(ripple-checkbox-hover, 1px, $checkbox-material-ripple-size, $checkbox-material-ripple-size, $ripple-hover0-color, $ripple-hover50-primary-color, $ripple-hover100-primary-color);
+@include ripple-animation-mixin(ripple-checkbox-active, $checkbox-material-ripple-size, $checkbox-material-ripple-size, $checkbox-material-ripple-size, $ripple-active0-primary-color, $ripple-active50-primary-color, $ripple-active100-primary-color);
 
 .checkbox-material {
 	position: relative;
@@ -91,12 +66,12 @@ $checkbox-material-label-padding: .75em;
       
 		/* CUANDO PASA EL RATON POR ENCIMA */  
 		&:hover:enabled ~ label:before, &:checked:hover:enabled ~ label:before {
-			animation: ripple-hover 0.2s linear forwards;
+			animation: ripple-checkbox-hover 0.2s linear forwards;
 		}
 		
 		/* CUANDO TIENE EL FOCO */
 		&:focus ~ label:before {
-			animation: ripple-active 0.2s linear forwards;
+			animation: ripple-checkbox-active 0.2s linear forwards;
 		}
       
 		&:checked {
@@ -115,7 +90,7 @@ $checkbox-material-label-padding: .75em;
 		   	} 
 	    }
 		&:active:enabled ~ label:before {
-		  	animation: ripple-active 0.2s linear forwards;
+		  	animation: ripple-checkbox-active 0.2s linear forwards;
 		}
       
       	/* CUANDO ESTA DISABLED */
