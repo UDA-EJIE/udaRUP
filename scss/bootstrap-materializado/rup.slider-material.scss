@@ -1,0 +1,59 @@
+div.rup-slider-material.ui-slider-horizontal {
+	height: 0;
+	margin-top: 0.8em;
+	margin-bottom: 0.8em;
+	border: 1px solid $primary-color;
+
+	span {
+		top: -.5em;
+		width: 1em;
+		height: 1em;
+		cursor: e-resize;
+		border: 2.5px solid $primary-color;
+		background: $white-color;
+		color: $primary-color;
+		border-radius: 100%;
+
+		&:hover {
+			transform: scale(1.25);
+		}
+
+		&:focus {
+			outline: none;
+			transform: scale(1.25);
+			animation: ripple-slider .2s linear forwards;
+		}					  
+	}
+}
+
+div.rup-slider-range-material.ui-slider-horizontal {
+	height: 0;
+	margin-top: 0.8em;
+	margin-bottom: 0.8em;
+
+	div.ui-slider-range {
+		top: -1px;
+		border: 1px solid $primary-color;
+	}
+
+	span {
+		top: -.5em;
+		width: 1em;
+		height: 1em;
+		cursor: e-resize;
+		border: 2.5px solid $primary-color;
+		background: $white-color;
+		color: $primary-color;
+		border-radius: 100%;
+
+		&:hover {
+			transform: scale(1.25);
+		}
+
+		&:focus {
+			outline: none;
+			transform: scale(1.25);
+			animation: ripple-slider .2s linear forwards;
+		}					  
+	}
+}
