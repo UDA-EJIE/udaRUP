@@ -56,6 +56,9 @@
 					$(label).insertAfter($trigger);
 				}
 			});
+			
+			// Estiliza el dialogo
+			$(".ui-datepicker, .ui-datepicker-inline").addClass("material-datepicker");
 		}
 	};
 

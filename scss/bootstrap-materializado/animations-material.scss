@@ -21,3 +21,19 @@
     from { opacity: 0; }
     to   { opacity: 1; }
 }
+
+@mixin ripple-animation-mixin($name, $size0, $size50, $size100, $color0, $color50, $color100) {
+    @keyframes #{$name} {
+        0% {
+            box-shadow: 0 0 0 $size0 $color0;
+        }
+    
+        50% {
+            box-shadow: 0 0 0 $size50 $color50;
+        }
+    
+        100% {
+            box-shadow: 0 0 0 $size100 $color100;
+        }
+    }
+}

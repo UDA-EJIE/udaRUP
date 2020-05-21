@@ -25,7 +25,7 @@
 
 		if (!$self.is('div')){
 
-			$div = $('<div>').addClass('rup-date-input-group-material');
+			$div = $('<div>').addClass('rup-time-input-group-material');
 			$button = $('<button>').attr('type','button').addClass('ui-timepicker-trigger');
 			$icon = $('<i>').attr('aria-hidden', 'true').addClass('mdi mdi-clock');
 
@@ -57,6 +57,9 @@
 				}
 			});
 		}
+		
+		// Estiliza el dialogo
+		$(".ui-datepicker, .ui-datepicker-inline").addClass("material-datepicker");
 	};
 
 	$.rup = $.rup || {};

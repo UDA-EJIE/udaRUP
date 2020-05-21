@@ -1,0 +1,308 @@
+@include ripple-animation-mixin(ripple-slider, 1px, 5px, 5px, $ripple-hover0-color, $ripple-hover50-primary-color, $ripple-hover100-primary-color);
+
+/* CORRIGE EL ALINEAMIENTO DEL BOTON RESPECTO AL INPUT */
+div.rup-date-input-group-material,
+div.rup-time-input-group-material { 
+	input:not([type="checkbox"]):not([type="radio"]) {
+		display: inline-block;
+		width: calc(100% - 26px);
+		padding-left: 13px;
+		border-right-style: hidden;
+		color: $grey-color;
+		
+		&:hover:enabled ~ button {
+			border-color: $black-color;
+		}
+		
+		&:focus:enabled {
+			padding-left: 13px;
+			
+			~ button {
+				border-color: $primary-color;
+				border-width: 2px;
+				outline: none;
+			}
+		}
+		
+		&:enabled {			
+			~ button {
+				&:focus {
+					background-color: $primary-color;
+					
+					i.mdi {
+						color: $white-color;
+					}
+				}
+			}
+		}
+		
+		&:disabled ~ button {
+			background-color: $disabled-background-color;
+			border-color: $grey-color-light;
+			
+			&:hover {
+				cursor: initial;
+			}
+			
+			&:focus {
+				background-color: $disabled-background-color;
+			}
+			
+			i.mdi {
+				color: $grey-color-light;
+			}
+		}
+	}
+
+ 	button {
+ 		width: 30px;
+ 		height: 2rem;
+ 		margin-left: -4px;
+ 		padding: 3px;
+ 		vertical-align: bottom;
+ 		border: 1px solid $grey-color-light;
+ 		border-left-style: hidden;
+ 		border-bottom-left-radius: 0;
+ 		border-top-left-radius: 0;
+ 		box-sizing: border-box;
+ 		outline: none;
+ 		position: absolute;
+
+ 		i.mdi {
+ 			vertical-align: initial;
+ 			line-height: 1;
+ 		}
+ 	}
+	
+	+ label {
+		top: -10px;
+		left: 15px;
+		margin: 0;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+		background-color: $white-color;
+		position: absolute;
+		z-index: 1;
+	}
+}
+
+div.material-datepicker.ui-datepicker {
+	padding: initial;
+	border-radius: 3px;
+
+	div.ui-datepicker-header {
+		padding: initial;
+	}
+
+	div.ui-datepicker-row-break ~ div.ui-datepicker-group > div.ui-datepicker-header {
+		border-top-left-radius: initial;
+		border-top-right-radius: initial;
+	}
+
+	div.ui-widget-header {
+		height: 25px;
+		border: initial;
+		border-bottom-left-radius: initial;
+		border-bottom-right-radius: initial;
+		background-color: $primary-color;
+		color: $white-color;
+
+		a {
+			top: 1px;
+
+			&.ui-datepicker-prev-hover.ui-state-hover {
+				left: 2px;
+			}
+
+			&.ui-datepicker-next-hover.ui-state-hover {
+				right: 2px;
+			}
+
+			&.ui-datepicker-prev-hover.ui-state-hover,
+			&.ui-datepicker-next-hover.ui-state-hover {
+				background: initial;
+				border: initial;
+
+				> span.ui-icon {
+					transform: scale(1.1);
+				}
+			}
+
+			> span.ui-icon {
+				background-image: url(images/ui-icons_ffffff_256x240.png);
+			}
+		}
+
+		div.ui-datepicker-title > select {
+			height: 23px;
+			font-weight: bold;
+			cursor: pointer;
+			background-color: $no-color;
+			border: none;
+			color: $white-color;
+			padding: 0 0 0 18px;
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+			/* Icono dropdown */
+			background-image: linear-gradient(45deg, $no-color 50%, $white-color 50%), linear-gradient(135deg, $white-color 50%, $no-color 50%);
+			background-repeat: no-repeat;
+			background-position: calc(100% - 13px) calc(0.75em), calc(100% - 8px) calc(0.75em);
+			background-size: 5px 4px, 5px 4px;
+			
+			&:hover, &:focus {
+				color: $primary-color;
+				background-color: $white-color;
+			}	
+
+			/* For IE <= 11 */
+			&:-ms-expand {
+				display: none;
+			}
+			
+			&:first-child {
+				margin-right: 5%;
+			}
+		}
+	}
+
+	dl {
+		margin: 0.5em;
+
+		dd {
+			margin-bottom: 1.35em;
+
+			.ui-slider-horizontal {
+				height: 0;
+				margin-top: 0.8em;
+				margin-bottom: 0.8em;
+				border: 1px solid $primary-color;
+
+				span {
+					top: -.5em;
+					width: 1em;
+					height: 1em;
+					cursor: e-resize;
+					border: 2.5px solid $primary-color;
+					background: $white-color;
+					color: $primary-color;
+					border-radius: 100%;
+
+					&:hover {
+						transform: scale(1.25);
+					}
+
+					&:focus {
+						outline: none;
+						transform: scale(1.25);
+						animation: ripple-slider .2s linear forwards;
+					}					  
+				}
+			}
+		}
+	}
+
+	table.ui-datepicker-calendar td {
+		&.ui-datepicker-today > a {
+			background-color: $primary-color;
+			border: .1em solid $primary-color;
+			color: $white-color;
+		}
+
+		&.ui-datepicker-current-day > a {
+			background-color: $success-color;
+			border: .1em solid $success-color;
+			color: $white-color;
+		}
+
+		> a:hover {
+			background-color: $primary-color-very-light;
+			border: .1em solid $primary-color-very-light;
+			color: $white-color;
+		}
+	}
+
+	.ui-datepicker-buttonpane button {
+		min-width: 64px;
+		height: 26px;
+		padding: 6px 8px;
+		border: 2px solid $no-color;
+		border-radius: 4px;
+		font-size: .85rem;
+		font-weight: 400;
+		letter-spacing: initial;
+		line-height: .7;
+		text-decoration: none;
+		text-transform: uppercase;
+		box-sizing: border-box;
+
+		&:focus {
+			outline: none;
+		}
+		
+		&:disabled {
+			color: rgba(0, 0, 0, 0.37);
+			background-color: rgba(0, 0, 0, 0.12);
+			border-color: $no-color;
+			box-shadow: none;
+			cursor: default;
+			pointer-events: none;
+		}
+		
+		&.ui-priority-primary {
+			color: $white-color;
+			box-shadow: $btn-material-box-shadow;			
+			background-color: $primary-color;
+	
+			&:hover {
+				color: $white-color;
+				opacity: $opacity-hover;
+				box-shadow: $btn-material-box-shadow-hover;	
+				background-color: $primary-color;
+				border-color: $primary-color;
+			}
+			
+			&:active {
+				color: $white-color;
+				opacity: $opacity-active;
+				box-shadow: $btn-material-box-shadow-active;
+				border-color: $primary-color;
+			}	
+			
+			&:focus {
+				background-color: $primary-color;
+				background-color: $primary-color-very-dark;
+			}
+		}
+
+		&.ui-priority-secondary {
+			color: $primary-color;
+			background-color: initial;
+			border-color: $no-color;	
+	
+			&:hover {
+				background-color: $primary-color-very-light;
+				border-color: $primary-color-very-light;
+				color: $white-color;
+			}
+			
+			&:active {
+				background-color: $primary-color-light;
+				
+				&:focus {
+					color: $white-color;
+				}
+			}
+			
+			&:focus {
+				border: 2px solid $primary-color-light;
+			}
+
+			&:disabled {
+				background-color: $no-color;
+			}
+		}
+	}
+}
