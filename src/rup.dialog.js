@@ -489,13 +489,23 @@
                                 settings.zIndex = 9999;
                             }
                         }
-
+                        
                         if (!created) { //si ha sido creado no hace falta volver a añadir el enlace de cierre
                             $self.dialog(settings);
 
                             // Estilos RUP
 
                             $self.data('uiDialog').uiDialog.addClass('rup-dialog');
+                            
+                            // Se setea el valor del maxWidth definido en caso de haber sido configurado.
+                            if (settings.maxWidth != undefined && settings.maxWidth != false && settings.maxWidth != "") {
+                            	// Si tiene porcentaje
+                                if ((typeof settings.maxWidth === 'string' || settings.maxWidth instanceof String) && settings.maxWidth.includes('%')) {
+                                    $self.parent().css('max-width','' + settings.maxWidth + '');
+                                } else {
+                                	$self.parent().css('max-width','' + settings.maxWidth + 'px');
+                                }
+                            }
 
                             if ($.fn.rup_dialog.defaults.adapter === 'dialog_material') {
                                 $self.data('uiDialog').uiDialogTitlebar.addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].titlebarColor());
@@ -682,7 +692,7 @@
      * @property {string | number} [height=auto] - Establece el alto del diálogo en pixeles.
      * @property {string} [hide=null] - Efecto utilizado cuando se cierra el diálogo.
      * @property {boolean | number} [maxHeight=false] - Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo.
-     * @property {boolean | number} [maxWidth=false] - Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo.
+     * @property {boolean | number | percentage} [maxWidth=false] - Ancho máximo en pixeles o en porcentaje al que se puede llegar a redimensionar el diálogo.
      * @property {boolean | number} [minHeight=100] - Alto mínimo en pixeles al que se puede llegar a redimensionar el diálogo.
      * @property {boolean | number} [minWidth=150] - Ancho mínimo en pixeles al que se puede llegar a redimensionar el diálogo.
      * @property {boolean} [modal=false] - Si se establece esta propiedad a true el diálogo se abrirá de forma modal, por encima del resto de elementos.
@@ -701,6 +711,7 @@
         type: null,
         url: null,
         minHeight: 100,
+        maxWidth: false,
         ajaxCache: true,
         specificLocation: '',
         clone: undefined,
