@@ -431,7 +431,7 @@
                             divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
                     },
                     complete: () => {
                         if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
@@ -544,7 +544,7 @@
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
             } else {
             	
             	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
@@ -596,7 +596,7 @@
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
             } else {
             	
             	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, '');

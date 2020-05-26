@@ -2134,6 +2134,7 @@
         // Añade aquí las funciones de tus botones
         switch (config.type) {
         case 'add':
+        	ctx.oInit.buttons.myLastAction = 'add';
             if (ctx.oInit.formEdit !== undefined) {
                 let idTableDetail = ctx.oInit.formEdit.detailForm;
                 // Limpiamos el formulario
@@ -2176,7 +2177,7 @@
             break;
         case 'edit':
             // Abrimos el formulario
-
+        	ctx.oInit.buttons.myLastAction = 'edit'
             if (ctx.oInit.formEdit !== undefined) {
                 //Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
                 var idRow = DataTable.Api().editForm.getRowSelected(dt, 'PUT').line;
@@ -2193,6 +2194,7 @@
             }
             break;
         case 'clone':
+        	ctx.oInit.buttons.myLastAction = 'clone'
             // Abrimos el formulario
             if (ctx.oInit.formEdit !== undefined) {
                 var idRow = DataTable.Api().editForm.getRowSelected(dt, 'CLONE').line;
@@ -2208,6 +2210,7 @@
         	if($.isFunction(customEliminar) && customEliminar(ctx)){
         		return false;
         	}
+        	ctx.oInit.buttons.myLastAction = 'delete'
             // borramos todos los seleccionados.
             if (ctx.oInit.formEdit !== undefined) {
                 DataTable.Api().editForm.deleteAllSelects(dt);
