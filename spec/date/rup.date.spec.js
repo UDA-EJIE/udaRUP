@@ -31,11 +31,21 @@ function testDate(lang) {
         });
 
         beforeEach((done) => {
-            var html = '<input id="exampleDate"></input>\
-                        <input id="altDate"></input>\
-                        <input id="multiDate"></input>\
-                        <input id="desde"></input>\
-                        <input id="hasta"></input>';
+            var html = '<div class="form-groupMaterial col-sm">\
+            				<input id="exampleDate"></input>\
+    					</div>\
+            			<div class="form-groupMaterial col-sm">\
+                        	<input id="altDate"></input>\
+            			</div>\
+            			<div class="form-groupMaterial col-sm">\
+            				<input id="multiDate"></input>\
+            			</div>\
+            			<div class="form-groupMaterial col-sm">\
+            				<input id="desde"></input>\
+            			</div>\
+            			<div class="form-groupMaterial col-sm">\
+            				<input id="hasta"></input>\
+            			</div>';
             $('#content').append(html);
             let props = {
                 create: () => {
@@ -94,8 +104,9 @@ function testDate(lang) {
 
         describe('Creación > ', () => {
             describe('Date normal > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
                     $date.rup_date('show');
+                    done();
                 });
                 it(langStr(lang) + 'Debe tener la clase del datepicker', () => {
                     expect($date.hasClass('hasDatepicker')).toBeTruthy();
@@ -111,8 +122,9 @@ function testDate(lang) {
                 });
             });
             describe('Date alternativo > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
                     $altDate.rup_date('show');
+                    done();
                 });
                 it(langStr(lang) + 'Debe tener la clase del datepicker', () => {
                     expect($altDate.hasClass('hasDatepicker')).toBeTruthy();
@@ -125,8 +137,9 @@ function testDate(lang) {
                 });
             });
             describe('Date múltiple > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
                     $multiDate.rup_date('show');
+                    done();
                 });
                 it(langStr(lang) + 'Debe tener la clase del datepicker', () => {
                     expect($multiDate.hasClass('hasDatepicker')).toBe(true);
@@ -139,8 +152,15 @@ function testDate(lang) {
                 });
             });
             describe('Date desde-hasta', () => {
-                it(langStr(lang) + 'Deben tener la clase del datepicker', () => {
-                    expect($('#desde').hasClass('hasDatepicker')).toBeTruthy();
+            	beforeEach((done) => {
+                    $('#desde').rup_date('show');
+                    $('#hasta').rup_date('show');
+                    setTimeout(() => {
+                        done();
+                    }, 1000);
+                });
+            	it(langStr(lang) + 'Deben tener la clase del datepicker', () => {
+            		expect($('#desde').hasClass('hasDatepicker')).toBeTruthy();
                     expect($('#hasta').hasClass('hasDatepicker')).toBeTruthy();
                 });
             });
@@ -148,8 +168,8 @@ function testDate(lang) {
         describe('Métodos públicos > ', () => {
             describe('Métodos setRupValue y getRupValue > ', () => {
                 describe('Date normal > ', () => {
-                    beforeEach(() => {
-                        if (lang === 'es') {
+                	beforeEach(() => {
+                    	if (lang === 'es') {
                             $date.rup_date('setRupValue', '08/10/2018 00:00');
                         }
                         if (lang === 'eu') {
@@ -310,8 +330,8 @@ function testDate(lang) {
                         },1000);
                     });
                     it(langStr(lang) + 'No debe mostrarse el datepicker:', () => {
-                        //Se hacen 2 comprobaciones poruq en ejie.eus se establece 
-                        //visibility = false y aquie es opacity = 0
+                        //Se hacen 2 comprobaciones porque en ejie.eus se establece 
+                        //visibility = false y aqui es opacity = 0
                         let test1 = $('#ui-datepicker-div').css('opacity') != 0;
                         let test2 = $('#ui-datepicker-div').is(':visible');
                         expect(test1 && test2).toBe(false);
