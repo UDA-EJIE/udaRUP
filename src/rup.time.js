@@ -239,71 +239,69 @@
      * @private
      */
         _init: function (args) {
-        	initRupI18nPromise.then(() => {
-	            if (args.length > 1) {
-	                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
-	            } else {
-	                //Se recogen y cruzan las paremetrizaciones del objeto
-	                var $self = $(this),
-	                    self = $self[0],
-	                    settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
-	
-	                self._ADAPTER = $.rup.adapter[settings.adapter];
-	
-	                //Se carga el identificador del padre del patron
-	                settings.id = $self.attr('id');
-	
-	                $self.attr('ruptype', 'time');
-	
-	                //Carga de propiedades/literales
-	                var literales = $.rup.i18n.base.rup_time;
-	                for (var key in literales) {
-	                    $.timepicker._defaults[key] = literales[key];
-	                }
-	
-	                //Mostrar máscara
-	                if (settings.labelMaskId) {
-	                    $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_time.mask') + ' ');
-	                }
-	
-	                //Mostrar placeholder
-	                if (settings.placeholderMask) {
-	                    $self.attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_time.mask'));
-	                }
-	
-	                //Imagen del reloj
-	                settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : '/rup/css/images/clock.png');
-	
-	                //Atributos NO MODIFICABLES
-	
-	                //Timepicker
-	                $self.timepicker(settings);
-	
-	                //Max-Length
-	                //$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
-	
-	                //Añadir imagen
-	                $.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
-	
-	                //Ajuste para el comportamiento de portales
-	                if ($.rup_utils.aplicatioInPortal() && !$self.is('div')) {
-	                    $('.r01gContainer').append($('.ui-datepicker:not(.r01gContainer .ui-datepicker)'));
-	                }
-	
-	                //Deshabilitar
-	                if (settings.disabled) {
-	                    $self.rup_time('disable');
-	                }
-	
-	                // Se aplica el tooltip
-	                $self.parent().find('[title]').rup_tooltip({
-	                    'applyToPortal': true
-	                });
-	
-	                //Se audita el componente
-	                $.rup.auditComponent('rup_time', 'init');
-	            }
-        	});
+            if (args.length > 1) {
+                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+            } else {
+                //Se recogen y cruzan las paremetrizaciones del objeto
+                var $self = $(this),
+                    self = $self[0],
+                    settings = $.extend({}, $.fn.rup_time.defaults, args[0]);
+
+                self._ADAPTER = $.rup.adapter[settings.adapter];
+
+                //Se carga el identificador del padre del patron
+                settings.id = $self.attr('id');
+
+                $self.attr('ruptype', 'time');
+
+                //Carga de propiedades/literales
+                var literales = $.rup.i18n.base.rup_time;
+                for (var key in literales) {
+                    $.timepicker._defaults[key] = literales[key];
+                }
+
+                //Mostrar máscara
+                if (settings.labelMaskId) {
+                    $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_time.mask') + ' ');
+                }
+
+                //Mostrar placeholder
+                if (settings.placeholderMask) {
+                    $self.attr('placeholder', $.rup.i18nParse($.rup.i18n.base, 'rup_time.mask'));
+                }
+
+                //Imagen del reloj
+                settings.buttonImage = $.rup.STATICS + (settings.buttonImage ? settings.buttonImage : '/rup/css/images/clock.png');
+
+                //Atributos NO MODIFICABLES
+
+                //Timepicker
+                $self.timepicker(settings);
+
+                //Max-Length
+                //$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
+
+                //Añadir imagen
+                $.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
+
+                //Ajuste para el comportamiento de portales
+                if ($.rup_utils.aplicatioInPortal() && !$self.is('div')) {
+                    $('.r01gContainer').append($('.ui-datepicker:not(.r01gContainer .ui-datepicker)'));
+                }
+
+                //Deshabilitar
+                if (settings.disabled) {
+                    $self.rup_time('disable');
+                }
+
+                // Se aplica el tooltip
+                $self.parent().find('[title]').rup_tooltip({
+                    'applyToPortal': true
+                });
+
+                //Se audita el componente
+                $.rup.auditComponent('rup_time', 'init');
+            }
         }
     });
 
