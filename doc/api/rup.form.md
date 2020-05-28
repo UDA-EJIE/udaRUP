@@ -13,6 +13,7 @@ var properties={  // Propiedades de configuración};$("#formulario").rup_for
     * [~defaults](#module_rup_form..defaults)
     * [~ajaxFormSubmit(options)](#module_rup_form..ajaxFormSubmit)
     * [~ajaxSubmit(argOptions)](#module_rup_form..ajaxSubmit)
+    * [~ajaxNotSubmit(argOptions)](#module_rup_form..ajaxNotSubmit)
     * [~destroy()](#module_rup_form..destroy)
     * [~formSerialize()](#module_rup_form..formSerialize) ⇒ <code>string</code>
     * [~formToJson()](#module_rup_form..formToJson) ⇒ <code>string</code>
@@ -72,6 +73,21 @@ var options = {};jQuery("#form").rup_form("ajaxFormSubmit", options);
 <a name="module_rup_form..ajaxSubmit"></a>
 
 ### rup_form~ajaxSubmit(argOptions)
+Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
+
+**Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| argOptions | <code>object</code> | Opciones de configuración. |
+
+**Example**  
+```js
+var options = {};jQuery("#form").rup_form("ajaxSubmit", options);
+```
+<a name="module_rup_form..ajaxNotSubmit"></a>
+
+### rup_form~ajaxNotSubmit(argOptions)
 Realiza el envío del formulario. La configuración de este método es la misma que la de ajaxForm.
 
 **Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  

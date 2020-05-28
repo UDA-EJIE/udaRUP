@@ -55,7 +55,7 @@ Opciones por defecto de configuración del componente.
 | [height] | <code>string</code> \| <code>number</code> | <code>&quot;auto&quot;</code> | Establece el alto del diálogo en pixeles. |
 | [hide] | <code>string</code> | <code>null</code> | Efecto utilizado cuando se cierra el diálogo. |
 | [maxHeight] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Alto máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
-| [maxWidth] | <code>boolean</code> \| <code>number</code> | <code>false</code> | Ancho máximo en pixeles al que se puede llegar a redimensionar el diálogo. |
+| [maxWidth] | <code>boolean</code> \| <code>number</code> \| <code>percentage</code> | <code>false</code> | Ancho máximo en pixeles o en porcentaje al que se puede llegar a redimensionar el diálogo. |
 | [minHeight] | <code>boolean</code> \| <code>number</code> | <code>100</code> | Alto mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
 | [minWidth] | <code>boolean</code> \| <code>number</code> | <code>150</code> | Ancho mínimo en pixeles al que se puede llegar a redimensionar el diálogo. |
 | [modal] | <code>boolean</code> | <code>false</code> | Si se establece esta propiedad a true el diálogo se abrirá de forma modal, por encima del resto de elementos. |
