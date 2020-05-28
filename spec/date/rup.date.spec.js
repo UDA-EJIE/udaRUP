@@ -31,11 +31,26 @@ function testDate(lang) {
         });
 
         beforeEach((done) => {
-            var html = '<input id="exampleDate"></input>\
-                        <input id="altDate"></input>\
-                        <input id="multiDate"></input>\
-                        <input id="desde"></input>\
-                        <input id="hasta"></input>';
+        	var html = '<div class="form-groupMaterial col-sm">\
+							<input id="exampleDate"></input>\
+							<label for="exampleDate">Fecha</label>\
+						</div>\
+						<div class="form-groupMaterial col-sm">\
+			            	<input id="altDate"></input>\
+							<label for="exampleDate">Fecha</label>\
+						</div>\
+						<div class="form-groupMaterial col-sm">\
+							<input id="multiDate"></input>\
+							<label for="exampleDate">Fecha</label>\
+						</div>\
+						<div class="form-groupMaterial col-sm">\
+							<input id="desde"></input>\
+							<label for="exampleDate">Fecha</label>\
+						</div>\
+						<div class="form-groupMaterial col-sm">\
+							<input id="hasta"></input>\
+							<label for="exampleDate">Fecha</label>\
+						</div>';
             $('#content').append(html);
             let props = {
                 create: () => {
