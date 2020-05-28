@@ -129,7 +129,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 
     let feed = ctx.oInit.feedback.$feedbackContainer;
     let validaciones;
-    if(ctx.oInit.formEdit.validate !== undefined){
+    if(ctx.oInit.inlineEdit.validate !== undefined){
     	validaciones = ctx.oInit.inlineEdit.validate.rules;
     }
     $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
