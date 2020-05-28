@@ -22,7 +22,7 @@ function createTime() {
         showButtonPanel: true,
         ampm: false,
         onSelect: () => {
-            $('.rup-date-input-group-material').addClass('randomClass');
+            $('.rup-time-input-group-material').addClass('randomClass');
         }
     };
     $('#exampleTime').rup_time(props);
