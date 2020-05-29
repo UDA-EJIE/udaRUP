@@ -216,6 +216,13 @@ div.material-datepicker.ui-datepicker {
 			border: .1em solid $success-color;
 			color: $white-color;
 		}
+		
+		&.ui-state-highlight,
+		&.ui-state-highlight > a {
+			background-color: $success-color;
+			border: 0;
+			color: $white-color;
+		}
 
 		> a:hover {
 			background-color: $primary-color-very-light;
