@@ -193,6 +193,25 @@
         $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
             _addChildIcons(ctx);
         }));
+        
+        //Se añaden las validaciones
+        let idTableDetail = ctx.oInit.formEdit.detailForm;
+        let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+        let validaciones;
+        if(ctx.oInit.formEdit.validate !== undefined){
+        	validaciones = ctx.oInit.formEdit.validate.rules;
+        }
+        ctx.oInit.formEdit.idForm.rup_validate({
+            feedback: feed,
+            liveCheckingErrors: false,
+            showFieldErrorAsDefault: true,
+            showErrorsInFeedback: true,
+            showFieldErrorsInFeedback:true,
+            rules:validaciones,
+            submitHandler: function(form) {
+                return false;  // block the default submit action
+            }
+        });
 
     };
 
@@ -368,8 +387,11 @@
             idRow = 1;
         }
         $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
-        var row = ctx.json.rows[idRow];
-        var rowArray = $.rup_utils.jsontoarray(row);
+        let row;
+        if(ctx.json !== undefined){
+        	row = ctx.json.rows[idRow];
+        }
+        let rowArray = $.rup_utils.jsontoarray(row);
         
         let title = customTitle != (undefined && null) ? customTitle : "";
 
@@ -405,11 +427,11 @@
                     error: function (xhr) {
                         var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
                         if (divErrorFeedback.length === 0) {
-                            divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                            divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                             divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
                     },
                     complete: () => {
                         if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
@@ -518,11 +540,11 @@
             	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
             	let divErrorFeedback = feed;
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
             } else {
             	
             	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
@@ -570,11 +592,11 @@
             	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
             	let divErrorFeedback = feed;
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
                 _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',ctx);
+                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
             } else {
             	
             	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, '');
@@ -647,7 +669,7 @@
                     if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                         var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                         if (divOkFeedback.length === 0) {
-                            divOkFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                            divOkFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                             divOkFeedback.rup_feedback(ctx.oInit.feedback);
                         }
                         _callFeedbackOk(ctx, divOkFeedback, msgFeedBack, 'ok'); //Se informa, feedback del formulario
@@ -681,13 +703,20 @@
                             DataTable.Api().select.deselect(ctx);
                         }
                         var rowAux = row;
-                        $.each(ctx.json.rows, function (index, r) {
-                            var rowNext = r;
-                            dt.row(index).data(rowAux);
-                            rowAux = rowNext;
-                        });
-                        ctx.json.rows.pop();
-                        ctx.json.rows.splice(0, 0, row);
+                        if (ctx.json !== undefined) {
+	                        $.each(ctx.json.rows, function (index, r) {
+	                            var rowNext = r;
+	                            dt.row(index).data(rowAux);
+	                            rowAux = rowNext;
+	                        });
+	                        ctx.json.rows.pop();
+	                        ctx.json.rows.splice(0, 0, row);
+                        }else{//es el primer registro
+                        	dt.row.add(rowAux).draw( false );
+                        	ctx.json = {};
+                          	ctx.json.rows = [];
+                        	ctx.json.rows.push(rowAux);
+                        }
 
                         //Se guardan los datos para pasar de nuevo a editable.
                         if (ctx.oInit.formEdit.saveContinueEdit) {
@@ -719,21 +748,17 @@
                 } else { // Eliminar
                     ctx.oInit.feedback.type = 'eliminar';
                     ctx.oInit.feedback.msgFeedBack = msgFeedBack;
-                    var reloadDt = function () {
+
+                    if (ctx.oInit.multiSelect !== undefined) {
                         dt.ajax.reload(function () {
                             $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                        }, false);
-                    };
-                    if (ctx.oInit.multiSelect !== undefined) {
-                        $('#' + ctx.sTableId).on('rupTable_deselectAll', function () {
-                            reloadDt();
-                        });
-                        DataTable.Api().multiSelect.deselectAll(dt);
+                            DataTable.Api().multiSelect.deselectAll(dt);
+                        }, false);                        
                     } else if (ctx.oInit.select !== undefined) {
-                        $('#' + ctx.sTableId).on('rupTable_deselect', function () {
-                            reloadDt();
-                        });
-                        DataTable.Api().select.deselect(ctx);
+                        dt.ajax.reload(function () {
+                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                            DataTable.Api().select.deselect(ctx);
+                        }, false);                        
                     }
                     _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                 }
@@ -744,7 +769,7 @@
             error: function (xhr) {
                 let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                 if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div/>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                     divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                 }
 				if (xhr.status === 406 && xhr.responseText !== '') {
@@ -781,7 +806,7 @@
         };
 
         if (url !== '/deleteAll' && actionType !== 'DELETE') {
-            ctx.oInit.formEdit.idForm.rup_form('ajaxSubmit', ajaxOptions);
+            ctx.oInit.formEdit.idForm.rup_form('ajaxNotSubmit', ajaxOptions);
         } else {
             //Se cambia el data
             if (ajaxOptions.data == '') {
@@ -842,7 +867,7 @@
     			
     			let clave = this.dataset.clave;
 	    		if(clave !== undefined){//si tiene clave es porque es objeto
-	    			var label =$('label[for="' + $(this).attr('id') + '"]').text();
+	    			var label = this.dataset.valor;//se manda el valor id.
 	    			array[clave] = label;
 	    			array[prop] = $(this).is(':checked');
 	    		}else{//si no tiene clave es porque es string
@@ -1050,7 +1075,7 @@
         $dialogContent.hide('slide', {
             direction: direction
         }, 100, () => {
-            $dialogContent.after('<span id="' + ctx.sTableId + '_detail_div_loading" style="font-size: 5rem;"><i class="mdi mdi-spin mdi-loading" aria-hidden="true"/></span>');
+            $dialogContent.after('<span id="' + ctx.sTableId + '_detail_div_loading" style="font-size: 5rem;"><i class="mdi mdi-spin mdi-loading" aria-hidden="true"></i></span>');
             callback();
         });
     }
@@ -1553,9 +1578,9 @@
                             }
 
                             if (valorCheck === 1) {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'/>');
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'></i>');
                             } else {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'/>');
+                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'></i>');
                             }
                         }
                     } else {
@@ -1624,7 +1649,7 @@
                 $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
                 if (hasHidden) { //añadir span ala primera fila
                     $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-                        var $span = $('<span/>');
+                        var $span = $('<span></span>');
                         if ($(this).find('span.openResponsive').length === 0) {
                             $(this).prepend($span.addClass('openResponsive'));
                         } else { //si ya existe se asigna el valor.

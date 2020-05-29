@@ -77,7 +77,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 			}
 			idRow = this._DT_RowIndex;
 			_editInline(dt,ctx,idRow);
-			$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow');
+			$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow',ctx);
 		}
 	} );
 	
@@ -124,6 +124,25 @@ DataTable.inlineEdit.init = function ( dt ) {
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
+	
+    //Se añaden las validaciones
+
+    let feed = ctx.oInit.feedback.$feedbackContainer;
+    let validaciones;
+    if(ctx.oInit.inlineEdit.validate !== undefined){
+    	validaciones = ctx.oInit.inlineEdit.validate.rules;
+    }
+    $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
+        feedback: feed,
+        liveCheckingErrors: false,
+        showFieldErrorAsDefault: true,
+        showErrorsInFeedback: true,
+        showFieldErrorsInFeedback:true,
+        rules:validaciones,
+        submitHandler: function(form) {
+            return false;  // block the default submit action
+        }
+    });
 	
     // Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
@@ -342,7 +361,7 @@ function _add(dt,ctx){
 		} );
 
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineAddRow');
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineAddRow',ctx);
 }
 
 /**
@@ -370,7 +389,7 @@ function _addChildIcons(ctx){
             $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
             if (hasHidden) { //añadir span ala primera fila
                 $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
-				var $span = $('<span/>');
+				var $span = $('<span></span>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
 				}else{//si ya existe se asigna el valor.
@@ -409,7 +428,7 @@ function _addChildIcons(ctx){
 			_asignarInputsValues(ctx,$row);
 		}
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineAddChildIcons');
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineAddChildIcons',ctx);
 }
 
 /**
@@ -448,7 +467,7 @@ function _editInline ( dt,ctx, idRow ){
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
-	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit');
+	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit',ctx);
 	var selectores = {};
 	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
 	selectores[0] = $selectorTr;
@@ -581,7 +600,7 @@ function _getRowSelected(dt,actionType){
 *
 */
 function _cloneLine(dt,ctx,line){
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone');
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone',ctx);
 	dt.row(0).data(dt.row(line+1).data());
 	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
@@ -697,7 +716,7 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 */
 function _restaurarFila(ctx,limpiar){
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineRestaurarFilaInit');
+	$('#'+ctx.sTableId).triggerHandler('tableEditInlineRestaurarFilaInit',ctx);
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
@@ -735,7 +754,7 @@ function _restaurarFila(ctx,limpiar){
 		ctx._buttons[0].inst.s.disableAllButttons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd');
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
 }
 
 /**
@@ -1040,7 +1059,7 @@ function _crearEventos(ctx,$selector){
 		    }
 		});
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineCrearEventos');
+	$('#'+ctx.sTableId).triggerHandler('tableEditLineCrearEventos',ctx);
 }
 
 /**
@@ -1167,7 +1186,7 @@ function _guardar(ctx,$fila,child){
 	
 	if(!row) {
     	_callFeedbackOk(ctx, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
+		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
     } else {
         var actionType = 'PUT';
 	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
@@ -1188,7 +1207,7 @@ function _guardar(ctx,$fila,child){
 	}
 	
 	_callSaveAjax(actionType,ctx,$fila,row,'');
-	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar');
+	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
 }
 
@@ -1208,7 +1227,7 @@ function _guardar(ctx,$fila,child){
 */
 function _callSaveAjax(actionType,ctx,$fila,row,url){
 	
-	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax');
+	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax',ctx);
 	// add Filter
 	var feed = ctx.oInit.feedback.$feedbackContainer;
 	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
@@ -1282,7 +1301,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 			        DataTable.Api().select.deselect(ctx);
 			        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
 			    }
-			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete');
+			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete',ctx);
 
 			}
 			ctx.inlineEdit.lastRow = undefined;
@@ -1297,10 +1316,10 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 				},false );
 		
 			
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax',ctx);
 		},
 		complete : function() {
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax');
+			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax',ctx);
 		},
 		error: function (xhr) {
 			if (xhr.status === 406 && xhr.responseText !== '') {
@@ -1338,7 +1357,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
                 _callFeedbackOk(ctx, xhr.responseText, 'error');
 			}
 
-		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax');
+		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
 		},
 		validate:ctx.oInit.inlineEdit.validate,
         feedback: feed
@@ -1350,7 +1369,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
 	}
 	
 	if(url !== '/deleteAll' && actionType !== 'DELETE'){
-		idForm.rup_form('ajaxSubmit', ajaxOptions);
+		idForm.rup_form('ajaxNotSubmit', ajaxOptions);
 	}else{
 		//Se cambia el data
 		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
@@ -1373,7 +1392,7 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
  *
  */
 function _callFeedbackOk(ctx, msgFeedBack, type) {
-    $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow');
+    $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow',ctx);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
 }

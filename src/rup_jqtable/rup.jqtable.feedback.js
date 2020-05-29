@@ -130,7 +130,7 @@
 		 */
 		postConfigureFeedback: function(settings){
 			// Definición del feedback interno
-			settings.$internalFeedback = $('<div/>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
+			settings.$internalFeedback = $('<div></div>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
 			settings.$internalFeedback.rup_feedback(settings.feedback.internalFeedbackConfig);
 		}
 	});

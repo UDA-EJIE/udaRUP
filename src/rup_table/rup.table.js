@@ -28,6 +28,7 @@
         // AMD. Register as an anonymous module.
         define(['jquery',
             './rup.table.request',
+            'datatables.net',
             'datatables.net-bs4',
             './rup.table.responsive',
             './rup.table.multiSelect',
@@ -130,8 +131,41 @@
         },
         //$("#idTable").rup_table("getContext");
         getContext: function () {
-            var dt = $('#' + this[0].id).DataTable();
+            let dt = $('#' + this[0].id).DataTable();
             return dt.context[0];
+        },
+        //$("#idTable").rup_table("getSelectedIds");
+        getSelectedIds: function () {
+            let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            return ctx.multiselection.selectedIds;
+        },
+        //$("#idTable").rup_table("getSelectedRows");
+        getSelectedRows: function () {
+        	let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            let page = dt.page() + 1;
+            let rows = '';
+            if(ctx.json !== undefined && ctx.json.rows !== undefined && ctx.json.rows.length > 0){
+            	let selecteds = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+                    return v.page === page;
+                });
+            	if(selecteds.length === 1){
+            		rows = ctx.json.rows[selecteds[0].line];
+            	}else if(selecteds.length > 1){
+            		rows = [];
+                    $.each(selecteds, function (index) {
+                    	rows.push(ctx.json.rows[selecteds[index].line]);
+                    });
+            	}
+            }
+            return rows;
+        },
+        //$("#idTable").rup_table("getSelectedRowPerPage");
+        getSelectedRowPerPage: function () {
+        	let dt = $('#' + this[0].id).DataTable();
+            let ctx = dt.context[0];
+            return ctx.multiselection.selectedRowsPerPage;
         }
     });
 
@@ -179,7 +213,7 @@
                 $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
                 //se añade el span con el lapicero
                 if (idRow >= 0) {
-                    var spanPencil = $('<i/>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
+                    var spanPencil = $('<i></i>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
                     $($('#' + ctx.sTableId + ' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
                 }
             });
@@ -208,7 +242,7 @@
                     ctx._buttons[0].inst.s.disableAllButttons = undefined;
                     DataTable.Api().buttons.displayRegex(ctx);
                 }
-                $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData');
+                $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);
             });
 
             apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
@@ -293,13 +327,13 @@
                                         input.after(`
                                             <i id="${id}_bloqueado" 
                                                 class="mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral" 
-                                                valor="1" aria-hidden="true"/>
+                                                valor="1" aria-hidden="true"></i>
                                         `);
                                     } else {
                                         input.after(`
                                             <i id="${id}_bloqueado" 
                                                 class="mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross" 
-                                                valor="0" aria-hidden="true"/>
+                                                valor="0" aria-hidden="true"></i>
                                         `);
                                     }
                                 }
@@ -356,7 +390,7 @@
                         return colShow;
                     }).join('');
 
-                    var value = data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"/>').append(data) : false;
+                    var value = data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"></ul>').append(data) : false;
                     var ctx = api.context[0];
                     var $row = $('#' + ctx.sTableId + ' tbody tr:not(.child):eq(' + rowIdx + ')');
                     if ($row.hasClass('editable')) {
@@ -428,7 +462,7 @@
                 (options.multiSelect !== undefined)) {
                 //Se crea el th thead, se añade la columna.
 
-                var th = $('<th/>').attr('data-col-prop', '');
+                var th = $('<th></th>').attr('data-col-prop', '');
 
                 if ($self[0].tHead !== null) {
                     $(th).insertBefore($self[0].tHead.rows[0].cells[0]);
@@ -495,12 +529,15 @@
             var $self = this;
             let reloadTable = () => {
                 $self.DataTable().ajax.reload(() => {
-                    $('#' + options.id).trigger('tableFilterSearch');
+                    $('#' + options.id).trigger('tableFilterSearch',options);
                 });
             };
 
             if (options.filter && options.filter.$filterContainer) {
                 $self._showSearchCriteria();
+                if(options.filter.collapsableLayerHide){//se oculta el collapsable al filtrar.
+                	options.filter.hideLayer();
+                }
 
                 if (options.filter.$filterContainer.valid()) {
                     reloadTable();
@@ -523,13 +560,13 @@
         _ajaxOptions(options) {
 
             options.id = this[0].id;
-            $('#' + options.id).triggerHandler('tableFilterInitialize');
+            $('#' + options.id).triggerHandler('tableFilterInitialize',options);
 
             let ajaxData = {
                 'url': options.urls.filter,
                 'dataSrc': function (json) {
                     let ret = {};
-                    $('#' + options.id).triggerHandler('tableFilterBeforeShow');
+                    $('#' + options.id).triggerHandler('tableFilterBeforeShow',options);
                     json.recordsTotal = json.records;
                     json.recordsFiltered = json.records;
 
@@ -642,7 +679,7 @@
         _createSearchPaginator(tabla, settingsT) {
             //buscar la paginación.
             if ($('#' + tabla[0].id + '_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0') {
-                var liSearch = $('<li/>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
+                var liSearch = $('<li></li>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
                 var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina', settingsT.json.total);
                 var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina', settingsT.json.total);
                 var input = $('<input/>').attr({
@@ -678,7 +715,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-chevron-left d-sm-none"></i>')
@@ -687,7 +724,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-chevron-right d-sm-none"></i>')
@@ -696,7 +733,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
             $('<i class="mdi mdi-page-last d-sm-none"></i>')
@@ -705,7 +742,7 @@
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
                     .wrapInner(function () {
-                        return '<span/>';
+                        return '<span></span>';
                     })
                 );
 
@@ -726,7 +763,7 @@
          */
         _clearFilter(options) {
             var $self = this;
-            $('#' + options.id).triggerHandler('tableFilterReset');
+            $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
@@ -735,7 +772,9 @@
             // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
             //jQuery('input,textarea').val('');
 
-            options.filter.$filterContainer.find('.ui-selectmenu-status').text('--');
+            jQuery.each($('select.rup_combo',options.filter.$filterContainer), function (index, elem) {
+				jQuery(elem).rup_combo('refresh');
+            });
 
             $.rup_utils.populateForm([], options.filter.$filterContainer);
 
@@ -760,7 +799,7 @@
                 feedbackOpts.$feedbackContainer.rup_feedback(feedbackOpts);
             } else {
                 feedbackOpts.id = 'rup_feedback_' + tableId;
-                feedbackOpts.$feedbackContainer = $('<div/>').attr('id', feedbackOpts.id).insertBefore('#' + tableId);
+                feedbackOpts.$feedbackContainer = $('<div></div>').attr('id', feedbackOpts.id).insertBefore('#' + tableId);
                 feedbackOpts.$feedbackContainer.rup_feedback(options.feedback);
             }
         },
@@ -862,37 +901,37 @@
                         $self._doFilter(options);
                     }
                 });
-
-                filterOpts.$filterToolbar.addClass('cursor_pointer').on({
-                    'click': function () {
-                        if (options.filter.showHidden === false) {
-                            filterOpts.$collapsableLayer.hide();
-                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                            filterOpts.$filterToolbar.removeClass('formulario_opened');
-                            options.filter.showHidden = true;
-                        } else {
-                            filterOpts.$collapsableLayer.show();
-                            filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
-                            filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
-                            filterOpts.$filterToolbar.addClass('formulario_opened');
-                            options.filter.showHidden = false;
-                        }
-                    }
-                });
-
-                if (options.filter.showHidden === true) {
-                    filterOpts.$collapsableLayer.hide();
-                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
-                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
-                    filterOpts.$filterToolbar.removeClass('formulario_opened');
-                    options.filter.showHidden = true;
-                } else {
+                
+                filterOpts.showLayer = function(){
                     filterOpts.$collapsableLayer.show();
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
                     filterOpts.$filterToolbar.addClass('formulario_opened');
                     options.filter.showHidden = false;
+                };
+                
+                filterOpts.hideLayer = function(){
+                    filterOpts.$collapsableLayer.hide();
+                    filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
+                    filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
+                    filterOpts.$filterToolbar.removeClass('formulario_opened');
+                    options.filter.showHidden = true;
+                };
+
+                filterOpts.$filterToolbar.addClass('cursor_pointer').on({
+                    'click': function () {
+                        if (options.filter.showHidden === false) {
+                        	filterOpts.hideLayer();
+                        } else {
+                        	filterOpts.showLayer();
+                        }
+                    }
+                });
+
+                if (options.filter.showHidden === true) {
+                	filterOpts.hideLayer();
+                } else {
+                	filterOpts.showLayer();
                 }
 
                 // Validaciones 
@@ -1195,11 +1234,11 @@
 
                 var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
 
-                $self.triggerHandler('tableBeforeInit');
+                $self.triggerHandler('tableBeforeInit',options);
 
                 // Se identifica el tipo de componente RUP mediante el valor en el atributo ruptype
                 $self.attr('ruptype', 'table');
-                $self.triggerHandler('tableInit');
+                $self.triggerHandler('tableInit',options);
                 if (args[0].primaryKey !== undefined) {
                     options.primaryKey = args[0].primaryKey.split(';');
                 }
@@ -1215,7 +1254,7 @@
                         className: clase,
                         targets: 0,
                         render: function () {
-                            return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label/></div>';
+                            return '<div class="checkbox-material checkbox-material-inline"><input type="checkbox"><label></label></div>';
                         }
                     });
                     //Modulo incompatible
@@ -1252,7 +1291,7 @@
                         contentType: 'application/json',
                         //async : false,
                         complete: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter',ctx);
                         },
                         success: function (data) {
                             if (data != null) {
@@ -1266,10 +1305,10 @@
                                 $(options.filter.$filterSummary, 'i').append('}');
 
                             }
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter',ctx);
                         },
                         error: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter');
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter',ctx);
                         }
                     });
                 }
@@ -1290,11 +1329,11 @@
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     var titulo = $(this).text();
                     $(this).text('');
-                    var span1 = $('<span/>').addClass('d-block d-xl-inline').text(titulo);
-                    var span2 = $('<span/>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
-                    var span3 = $('<span/>').addClass('mdi mdi-arrow-up');
+                    var span1 = $('<span></span>').addClass('d-block d-xl-inline').text(titulo);
+                    var span2 = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+                    var span3 = $('<span></span>').addClass('mdi mdi-arrow-up');
                     $(this).append(span1);
-                    var div1 = $('<div/>').addClass('d-flex d-xl-inline');
+                    var div1 = $('<div></div>').addClass('d-flex d-xl-inline');
                     div1.append(span2);
                     div1.append(span3);
                     $(this).append(div1);
@@ -1471,9 +1510,8 @@
 
                 // Se almacena el objeto settings para facilitar su acceso desde los métodos del componente.
                 $self.data('settings' + $self[0].id, options);
-                $('#' + tabla.context[0].sTableId).triggerHandler('tableAfterComplete');
 
-                $self.triggerHandler('tableAfterInit');
+                $self.triggerHandler('tableAfterInit',tabla.context[0]);
 
                 if (options.inlineEdit === undefined && options.formEdit === undefined &&
                     options.multiselect === undefined && options.select === undefined) {

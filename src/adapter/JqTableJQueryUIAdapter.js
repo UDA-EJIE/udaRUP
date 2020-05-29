@@ -76,7 +76,7 @@
 
 			//Contador de seleccionados
 			if (settings.multiselect === true) {
-				$pagerLeft.append($('<div/>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected')));
+				$pagerLeft.append($('<div></div>').addClass('ui-paging-selected').html('0 ' + jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.selected')));
 			}
 
 			// Pager center
@@ -99,16 +99,16 @@
 
 			//Cambiar flechas paginación por literales
 			jQuery('#first_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.primPag')).addClass('linkPaginacion'))
+				.html($('<a></a>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.primPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#prev_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.anterior')).addClass('linkPaginacion'))
+				.html($('<a></a>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.anterior')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#next_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.siguiente')).addClass('linkPaginacion'))
+				.html($('<a></a>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.siguiente')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 			jQuery('#last_' + pagerName, $pagerCenter)
-				.html($('<a/>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.ultiPag')).addClass('linkPaginacion'))
+				.html($('<a></a>').attr('href', 'javascript:void(0)').html(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.pager.ultiPag')).addClass('linkPaginacion'))
 				.removeClass('ui-pg-button');
 		}
 	};

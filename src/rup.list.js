@@ -804,8 +804,8 @@ import Printd from 'printd';
 
             if (!opciones._overlay) {
                 opciones._idOverlay = selfId + '-overlay';
-                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '" class="rup_list-overlay"/>');
-                opciones._overlay.append('<div class="rup_list-overlay-layer"/>').append('<div class="rup_list-overlay-loader"/>');
+                opciones._overlay = jQuery('<div id="' + opciones._idOverlay + '" class="rup_list-overlay"></div>');
+                opciones._overlay.append('<div class="rup_list-overlay-layer"></div>').append('<div class="rup_list-overlay-loader"></div>');
             }
 
             opciones.loader(opciones._overlay);
@@ -1272,7 +1272,7 @@ import Printd from 'printd';
                 opciones[idObj].multiSort.edit = selfId + label + 'mord-edit';
 
                 // Generamos un span para el resumen
-                let $spanResumen = $('<ul id="' + opciones[idObj].multiSort.summary + '" class="rup_list-mord-summary p-0"/>');
+                let $spanResumen = $('<ul id="' + opciones[idObj].multiSort.summary + '" class="rup_list-mord-summary p-0"></ul>');
                 let $tmpWrapSummary = $('<div class="tmp-orderchange"/>');
                 opciones[obj].sidx.wrap($tmpWrapSummary);
                 $tmpWrapSummary = opciones[obj].sidx.parent();
@@ -1286,12 +1286,12 @@ import Printd from 'printd';
                     return e.trim();
                 }).forEach((e, i) => {
                     if (e !== '') {
-                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>');
+                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>');
                         let geti18n = (val) => {
                             let srcVal = opciones.sidx.source.filter(x => x.value == val);
                             return srcVal[0].i18nCaption;
                         };
-                        let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"/>');
+                        let sordBadge = $('<span class="rup_list-mord-summary-badge-sord"></span>');
                         sordBadge.text(' ');
                         let arrSord = opciones.multiorder.sord.split(',').map((e) => {
                             return e.trim();
@@ -1309,12 +1309,12 @@ import Printd from 'printd';
                 });
 
                 // Creamos el botón para el dialogo
-                var $btnOrderDialog = $(`<button id="${opciones[idObj].multiSort.edit}" class="rup_list-mord-dialogbtn mdi mdi-pencil"/>`);
+                var $btnOrderDialog = $(`<button id="${opciones[idObj].multiSort.edit}" class="rup_list-mord-dialogbtn mdi mdi-pencil"></button>`);
                 $btnOrderDialog.attr('aria-haspopup', 'true');
                 $btnOrderDialog.attr('aria-expanded', 'false');
                 $btnOrderDialog.attr('aria-label', $.rup.i18n.base.rup_list.openMordDialog);
 
-                let $tmpWrapEditMord = $('<div class="tmp-orderchange"/>');
+                let $tmpWrapEditMord = $('<div class="tmp-orderchange"></div>');
                 opciones[obj].sord.wrap($tmpWrapEditMord);
                 $tmpWrapEditMord = opciones[obj].sord.parent();
                 $tmpWrapEditMord.children().remove();
@@ -1350,20 +1350,20 @@ import Printd from 'printd';
             };
 
             //Creamos el dialogo
-            $('<div id="' + opciones._idMultiSortDialog + '" class="rup_list-mord-dialog" style="display:none"/>')
+            $('<div id="' + opciones._idMultiSortDialog + '" class="rup_list-mord-dialog" style="display:none"></div>')
                 .append(`
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">${$.rup.i18n.base.rup_list.multiSortDialog.msg1}</h5>
                             <h5 class="card-subtitle mb-4 text-muted">${$.rup.i18n.base.rup_list.multiSortDialog.msg2}</h5>
-                            <div id="${opciones._idMultiSortDialog}-orderfields" class="rup_list-mord-orderfields" aria-live="polite"/>
+                            <div id="${opciones._idMultiSortDialog}-orderfields" class="rup_list-mord-orderfields" aria-live="polite"></div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">${$.rup.i18n.base.rup_list.multiSortDialog.msg3}</h4>
                             <h5 class="card-subtitle mb-4 text-muted">${$.rup.i18n.base.rup_list.multiSortDialog.msg4}</h5>
-                            <div id="${opciones._idMultiSortDialog}-ordersort" class="rup_list-mord-ordersort" aria-live="polite"/>
+                            <div id="${opciones._idMultiSortDialog}-ordersort" class="rup_list-mord-ordersort" aria-live="polite"></div>
                         </div>
                     </div>
                 `)
@@ -1375,7 +1375,7 @@ import Printd from 'printd';
                 let $btn = $(`
                     <button class="rup_list-mord-field" data-ordValue="${el.value}">
                         ${el.i18nCaption}
-                        <i class="mdi mdi-plus"/>
+                        <i class="mdi mdi-plus"></i>
                     </button>
                 `);
                 $btn.attr('aria-controls', `${opciones._idMultiSortDialog}-orderfields ${opciones._idMultiSortDialog}-ordersort`);
@@ -1631,7 +1631,7 @@ import Printd from 'printd';
                     role="toolbar" 
                     aria-controls="${self.element[0].id}"
                     aria-label="${$(e.target).text().trim()}, ${$.rup.i18n.base.rup_list.sort[ord]}">
-                    <div class="rup_list-apord input-group-text"/>
+                    <div class="rup_list-apord input-group-text"></div>
                     <button class="rup_list-mord-up btn btn-secondary p-1 mdi mdi-arrow-up"
                         aria-label="${$.rup.i18n.base.rup_list.mordSubir}"
                         aria-controls="${self.element[0].id} ${opciones._idMultiSortDialog}-ord-line-${$(e.target).attr('data-ordValue')}"></button>
@@ -1696,7 +1696,7 @@ import Printd from 'printd';
                             let srcVal = opciones.sidx.source.filter(x => x.value == val);
                             return srcVal[0].i18nCaption;
                         };
-                        let sordBadge = $('<span/>')
+                        let sordBadge = $('<span></span>')
                             .text(' ');
                         let arrSord = opciones.multiorder.sord.split(',').map((e) => {
                             return e.trim();
@@ -1706,7 +1706,7 @@ import Printd from 'printd';
                         } else {
                             sordBadge.addClass('mdi mdi-chevron-down');
                         }
-                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"/>')
+                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>')
                             .append(geti18n(e)).append(sordBadge.clone())
                             .appendTo(opciones._content.find('.rup_list-mord-summary'));
                     });
@@ -1798,7 +1798,7 @@ import Printd from 'printd';
                     <button class="rup_list-mord-field btn btn-material btn-material-sm btn-material-primary-low-emphasis"
                         data-ordValue="${$(line).attr('data-ordValue')}">
                         ${opciones.sidx.source.filter(x => x.value == $(line).attr('data-ordValue'))[0].i18nCaption}
-                        <i class="mdi mdi-plus"/>
+                        <i class="mdi mdi-plus"></i>
                     </button>
                 `);
                 $('.rup_list-mord-orderfields').append($btn.clone());

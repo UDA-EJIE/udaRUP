@@ -101,7 +101,7 @@
 				// FIXME: Contemplar la posibilidad de no generar una toolbar por defecto
 				toolbarSettings = {};
 				toolbarSettings.id = 'rup-maint_toolbar-' + settings.id;
-				toolbarSettings.self = $('<div/>').attr('id', toolbarSettings.id);
+				toolbarSettings.self = $('<div></div>').attr('id', toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
 					 width: toolbarSettings.width

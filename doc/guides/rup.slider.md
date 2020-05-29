@@ -5,8 +5,8 @@
 
    - [1 Introducción](#1-introducción)   
    - [2 Ejemplo](#2-ejemplo)   
-   - [3  Casos de uso](#3-casos-de-uso)   
-   - [4    Infraestructura](#4-infraestructura)   
+   - [3 Casos de uso](#3-casos-de-uso)   
+   - [4 Infraestructura](#4-infraestructura)   
       - [4.1 Ficheros](#4.1-ficheros)   
       - [4.2 Dependencias](#4.2-dependencias)   
       - [4.3 Versión minimizada](#4.3-versión-minimizada)   
@@ -77,16 +77,20 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 
 ## 5 Invocación
 
-La primera noción que se ha de tener en cuenta para el correcto manejo e inclusión del componente slider dentro de un pagina *jsp* es la asociación del componente a un elemento estructural `<div>` de *html*. La determinación del elemento `<div>` es determinará la ubicación y el contenido del componente dentro de la página.
+La primera noción que se ha de tener en cuenta para el correcto manejo e inclusión del componente slider dentro de un pagina *jsp* es la asociación del componente a un elemento estructural `<div>` de *html*. La determinación del elemento `<div>` determinará la ubicación y el contenido del componente dentro de la página.
 
 Para poder relacionar el componente Accordion con el `<div>` sobre el que se aplica, debe ir, como marcan las especificaciones de *html*, identificado por un id (identificador) único. Dicho id (identificador) representa al elemento dentro de la infraestructura de la página y facilita la localización y manejo del mismo. Un ejemplo de `<div>` identificado tiene el siguiente aspecto:
 ```xml
-	<div id="slider"></div>
+<div id="slider"></div>
+```
+El componente permite ser estilizado con material design, para ello será tan sencillo como añadir al `div` la clase `.rup-slider-material`. En caso de ser un slider con rangos, deberá usarse la clase `rup-slider-range-material`. Por ejemplo:
+```html
+<div id="slider" class="rup-slider-material"></div> <!-- Slider -->
+<div id="sliderRange" class="rup-slider-range-material"></div> <!-- Slider con rango -->
 ```
 Mediante el selector del *tag* ```div``` invocaremos al componente deslizador:
-
 ```javascript
-	$(selector).rup_slider({ properties });
+$(selector).rup_slider({ properties });
 ```
 
 Donde el parámetro *“properties”* es un objeto *(var properties = {};)* o bien directamente la declaración de los valores, detallados en el siguiente apartado.

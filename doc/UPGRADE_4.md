@@ -10,6 +10,41 @@ Si lo que buscas es información sobre como mantener tu entorno de desarrollo ac
   
 ***
 
+### v4.2.1 (29-Mayo-2020)
+
+Para actualizar una aplicación UDA a la versión v4.2.1 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup](https://github.com/UDA-EJIE/udaRUP/releases/download/v4.2.1/rup-v4.2.1.zip).
+
+#### Templates
+
+Para generar código correspondiente a la versión v4.2.1 de UDA mediante el plugin de generación de código de UDA se deberán actualizar las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.2.1/templates-v4.2.1.zip).
+
+#### Estáticos
+
+En esta versión de UDA se ha de editar el ```div``` que alberga el contenido de la aplicación y que se encuentra en las JSP cuyo nombre comienza por **template**. Dichos archivos pueden ser encontrados dentro de la carpeta ```xxxYYYWar\WebContent\WEB-INF\layouts```, por ejemplo:
+* template.jsp
+* templateError.jsp
+* templateLogin.jsp
+
+El ```div``` de contenido tendrá el siguiente aspecto:
+```html
+<!-- Contenidos -->
+<div class="content" >
+	<tiles:insertAttribute name="content"/>
+</div>
+```
+
+Habrá que sustituirlo por el siguiente, teniendo en cuenta que 'xxxYYYWar' hay que cambiarlo por el nombre del War correspondiente:
+```html
+<!-- Contenidos -->
+<div id="xxxYYYWar_content" class="m-0 m-md-3 p-4 clear" >
+	<tiles:insertAttribute name="content"/>
+</div>
+```
+
 ### v4.2.0 (24-Abril-2020)
 
 Para actualizar una aplicación UDA a la versión v4.2.0 se deben realizar las siguientes modificaciones.

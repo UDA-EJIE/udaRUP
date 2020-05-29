@@ -10,7 +10,10 @@ import 'rup.time';
 var $time;
 
 function createTime() {
-    var html = '<input id="exampleTime"></input>';
+    var html = '<div class="form-groupMaterial col-sm">\
+    	        	<input id="exampleTime"></input>\
+    				<label for="exampleTime">Hora</label>\
+    			</div>';
     $('#content').append(html);
     var props = {
         placeholderMask: true,
@@ -19,7 +22,7 @@ function createTime() {
         showButtonPanel: true,
         ampm: false,
         onSelect: () => {
-            $('.rup-date-input-group-material').addClass('randomClass');
+            $('.rup-time-input-group-material').addClass('randomClass');
         }
     };
     $('#exampleTime').rup_time(props);
@@ -94,7 +97,7 @@ describe('TEST Time >', () => {
             });
             describe('Callback onSelect > ', () => {
                 it('Debe tener la clase especificada en el callback:', () => {
-                    expect($('.rup-date-input-group-material').hasClass('randomClass')).toBe(true);
+                    expect($('.rup-time-input-group-material').hasClass('randomClass')).toBe(true);
                 });
             });
         });

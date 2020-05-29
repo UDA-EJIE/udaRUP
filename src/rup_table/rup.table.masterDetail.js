@@ -126,10 +126,10 @@
         var numberVisibles = dt.columns().responsiveHidden().reduce(function (a, b) {
             return b === true ? a + 1 : a;
         }, 0);
-        var $tr = $('<tr/>', {
+        var $tr = $('<tr></tr>', {
             'class': iStripes ? asStripeClasses[0] : ''
         })
-            .append($('<td />', {
+            .append($('<td></td>', {
                 'valign': 'top',
                 'colSpan': numberVisibles,
                 'class': ctx.oClasses.sRowEmpty

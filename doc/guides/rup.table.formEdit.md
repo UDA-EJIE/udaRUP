@@ -38,7 +38,7 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y d
         			<div class="form-row">      
                			 <div class="checkbox-material col-sm">
 							<form:checkbox path="lugares[${status.index}].checkeado" id="checkeado${status.index}_lugares"
-							 value="1" data-lista="lugares" data-clave="buzones" />
+							 value="1" data-lista="lugares" data-clave="buzones" data-valor="${lugarapli.id}" />
                 			<label for="checkeado${status.index}_lugares">${lugarapli.email}</label>
                			 </div>
        				 </div>
@@ -48,5 +48,10 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y d
 Donde destacan 3 elementos:
 
 PATH ->	Es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+
 DATA-LISTA-> Es el nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
-DATA-CLAVE-> Es la clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
+
+DATA-CLAVE-> Es la clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se 
+admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
+
+DATA-VALOR-> Es donde se recoge el valor del identificador, la clave primaria.

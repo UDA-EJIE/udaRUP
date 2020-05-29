@@ -429,7 +429,7 @@
         };
 
         this.dom = {
-            container: $('<' + this.c.dom.container.tag + '/>')
+            container: $('<' + this.c.dom.container.tag + '></' + this.c.dom.container.tag + '>')
                 .addClass(this.c.dom.container.className).attr('id', ctx.sTableId + '_containerToolbar')
         };
 
@@ -930,7 +930,7 @@
 
                 if (built.conf.buttons) {
                     var collectionDom = this.c.dom.collection;
-                    built.collection = $('<' + collectionDom.tag + '/>')
+                    built.collection = $('<' + collectionDom.tag + '></' + collectionDom.tag + '>')
                         .addClass(collectionDom.className)
                         .attr('role', 'menu');
                     built.conf._collection = built.collection;
@@ -994,7 +994,7 @@
                 ]);
             };
 
-            var button = $('<' + buttonDom.tag + '/>')
+            var button = $('<' + buttonDom.tag + '></' + buttonDom.tag + '>')
                 .addClass(buttonDom.className)
                 .attr('tabindex', this.s.dt.settings()[0].iTabIndex)
                 .attr('aria-controls', this.s.dt.table().node().id)
@@ -1014,7 +1014,7 @@
             }
 
             if (linerDom.tag) {
-                var liner = $('<' + linerDom.tag + '/>')
+                var liner = $('<' + linerDom.tag + '></' + linerDom.tag + '>')
                     .html(text(config.text))
                     .addClass(linerDom.className);
 
@@ -1094,7 +1094,7 @@
             var buttonContainer = this.c.dom.buttonContainer;
             var inserter;
             if (buttonContainer && buttonContainer.tag) {
-                inserter = $('<' + buttonContainer.tag + '/>')
+                inserter = $('<' + buttonContainer.tag + '></' + buttonContainer.tag + '>')
                     .addClass(buttonContainer.className)
                     .append(button);
             } else {
@@ -1418,7 +1418,7 @@
         }
 
         if (show) {
-            $('<div/>')
+            $('<div></div>')
                 .addClass(className)
                 .css('display', 'none')
                 .appendTo('body')
@@ -1723,7 +1723,7 @@
                 if (config.background) {
                     // Si la tabla se encuentra en un dialogo insertamos el background dentro del dialogo
                     if ($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
-                        $('div.rup-dialog #' + dt.context[0].sTableId + '_wrapper').append('<div class="dt-button-background"/>');
+                        $('div.rup-dialog #' + dt.context[0].sTableId + '_wrapper').append('<div class="dt-button-background"></div>');
                     }
                     // Si no usamos el funcionamiento por defecto
                     else {
@@ -2089,9 +2089,9 @@
 
         title = title ? '<h2>' + title + '</h2>' : '';
 
-        $('<div id="table_buttons_info" class="dt-button-info"/>')
+        $('<div id="table_buttons_info" class="dt-button-info"></div>')
             .html(title)
-            .append($('<div/>')[typeof message === 'string' ? 'html' : 'append'](message))
+            .append($('<div></div>')[typeof message === 'string' ? 'html' : 'append'](message))
             .css('display', 'none')
             .appendTo('body')
             .fadeIn();
@@ -2134,11 +2134,15 @@
         // Añade aquí las funciones de tus botones
         switch (config.type) {
         case 'add':
+        	ctx.oInit.buttons.myLastAction = 'add';
             if (ctx.oInit.formEdit !== undefined) {
                 let idTableDetail = ctx.oInit.formEdit.detailForm;
                 // Limpiamos el formulario
                 if($(idTableDetail).find('form')[0] !== undefined) {
                 	$(idTableDetail).find('form')[0].reset();
+                    jQuery.each($('select.rup_combo',$(idTableDetail)), function (index, elem) {
+        				jQuery(elem).rup_combo('refresh');
+                    });
                     if (ctx.multiselection.numSelected > 0) {
                         $.rup_messages('msgConfirm', {
                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
@@ -2173,7 +2177,7 @@
             break;
         case 'edit':
             // Abrimos el formulario
-
+        	ctx.oInit.buttons.myLastAction = 'edit'
             if (ctx.oInit.formEdit !== undefined) {
                 //Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
                 var idRow = DataTable.Api().editForm.getRowSelected(dt, 'PUT').line;
@@ -2190,6 +2194,7 @@
             }
             break;
         case 'clone':
+        	ctx.oInit.buttons.myLastAction = 'clone'
             // Abrimos el formulario
             if (ctx.oInit.formEdit !== undefined) {
                 var idRow = DataTable.Api().editForm.getRowSelected(dt, 'CLONE').line;
@@ -2205,6 +2210,7 @@
         	if($.isFunction(customEliminar) && customEliminar(ctx)){
         		return false;
         	}
+        	ctx.oInit.buttons.myLastAction = 'delete'
             // borramos todos los seleccionados.
             if (ctx.oInit.formEdit !== undefined) {
                 DataTable.Api().editForm.deleteAllSelects(dt);
@@ -2372,7 +2378,7 @@
 
 
 
-    var _exportTextarea = $('<textarea/>')[0];
+    var _exportTextarea = $('<textarea></textarea>')[0];
     var _exportData = function (dt, inOpts) {
         var config = $.extend(true, {}, {
             rows: null,
@@ -2690,7 +2696,7 @@
         	if(exportData !== undefined) {
         		let exportDataRows = exportData.length;
         		let exportDataParsed = JSON.stringify(exportData);
-        		let hiddenDiv = $('<div/>')
+        		let hiddenDiv = $('<div></div>')
                     .css({
                         height: 1,
                         width: 1,
@@ -2706,7 +2712,7 @@
 
         		exportDataParsed = _convertToTabulador(ajaxOptions.reportsExportAllColumns, ajaxOptions.data.columns, exportDataParsed, true);
                 
-        		let textarea = $('<textarea readonly/>')
+        		let textarea = $('<textarea readonly></textarea>')
                     .val(exportDataParsed)
                     .appendTo(hiddenDiv);
                 
@@ -3101,7 +3107,7 @@
             	} else {
             		// Para los demas navegadores
             		if (!$("a#rupTableButtonsReportsExport").length) {
-            			$("div.content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            			$("div#" + $.rup.WAR_NAME + "War_content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
             		}
             		element = $("a#rupTableButtonsReportsExport")[0];
             		element.href = window.URL.createObjectURL(blob);
@@ -3506,21 +3512,21 @@
         });
 
         //Añadir dialogo por defecto
-        var $defaultDialog_wait = $('<div />')
+        var $defaultDialog_wait = $('<div></div>')
                 .attr('id', ctx.sTableId + 'reportFileWait')
                 .attr('title', 'Tittle Prueba')
                 .text('prueba')
                 .addClass('rup_report')
                 .hide()
             //progressbar
-                .append($('<div />').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
-            $defaultDialog_error = $('<div />')
+                .append($('<div></div>').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
+            $defaultDialog_error = $('<div></div>')
                 .attr('id', ctx.sTableId + 'reportFileError')
                 .attr('title', 'Error')
                 .text('error')
                 .addClass('rup_report')
                 .hide(),
-            $defaultDialog = $('<div />')
+            $defaultDialog = $('<div></div>')
                 .attr('id', ctx.sTableId + 'rup_report_dialogsContainer')
                 .append($defaultDialog_wait)
                 .append($defaultDialog_error);

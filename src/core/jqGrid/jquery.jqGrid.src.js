@@ -2557,7 +2557,7 @@ var rp_ge = {};
 			}
 			if(hg) {$(grid.bDiv).hide();}
 			grid.cDiv = document.createElement('div');
-			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'/>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
+			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'></a>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
 				function(){ arf.addClass('ui-state-hover');},
 				function() {arf.removeClass('ui-state-hover');})
 				.append('<span class=\'ui-icon ui-icon-circle-triangle-n\'></span>').css((dir=='rtl'?'left':'right'),'0px') : '';

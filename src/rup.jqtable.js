@@ -2571,7 +2571,7 @@ var rp_ge = {};
 			}
 			if(hg) {$(grid.bDiv).hide();}
 			grid.cDiv = document.createElement('div');
-			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'/>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
+			var arf = ts.p.hidegrid===true ? $('<a role=\'link\' href=\'javascript:void(0)\'></a>').addClass('ui-jqgrid-titlebar-close HeaderButton').hover(
 				function(){ arf.addClass('ui-state-hover');},
 				function() {arf.removeClass('ui-state-hover');})
 				.append('<span class=\'ui-icon ui-icon-circle-triangle-n\'></span>').css((dir=='rtl'?'left':'right'),'0px') : '';
@@ -13663,7 +13663,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			// p: parámetros de configuración del diálogo
 			// insertSelector: selector que corresponde al elemento despues del que se va a insertar la modal
 			// posSelector: elemento base sobre el que se calcula la posición
-			var $divModal = jQuery('<div/>').attr('id', aIDs.themodal).append($(content));
+			var $divModal = jQuery('<div></div>').attr('id', aIDs.themodal).append($(content));
 			var $scrollelm = $divModal.find('#' + aIDs.scrollelm);
 
 			$divModal.insertBefore($(insertSelector));
@@ -14285,7 +14285,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			var $self = this,
 				settings = $self.data('settings'),
 				tmpRowId;
-			if (jQuery.isArray(rowId)) {
+			if (Array.isArray(rowId)) {
 				tmpRowId = rowId[0] !== undefined ? rowId[0] : '';
 			} else {
 				tmpRowId = rowId;
@@ -14604,7 +14604,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				/* *************************
          * CONFIGURACION
          * *************************/
-				var defaultPugins = (jQuery.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
+				var defaultPugins = (Array.isArray(args[0].defaultPlugins) ? args[0].defaultPlugins : jQuery.fn.rup_jqtable.defaults.defaultPlugins),
 					userPlugins = jQuery.merge([], args[0].usePlugins),
 					configuredPlugins = jQuery.merge(jQuery.merge([], defaultPugins), userPlugins);
 
@@ -15070,7 +15070,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			classes: 'rupInfoCol',
 			search: false,
 			formatter: function () {
-				return '<span class=\'ui-icon ui-icon-rupInfoCol\'/>';
+				return '<span class=\'ui-icon ui-icon-rupInfoCol\'></span>';
 			}
 		},
 		defaultGridMultiplePkCol: {
@@ -15274,7 +15274,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					var tbodyTr = '[id=\'' + $self.attr('id') + '\'] tbody:first tr[role=\'row\'].jqgrow',
 						$tbodyTr = jQuery(tbodyTr),
 						contextRowItems = {},
-						cellLevelContextMenu=false, globalCellLevelContextMenu = jQuery.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
+						cellLevelContextMenu=false, globalCellLevelContextMenu = Array.isArray(settings.contextMenu.colNames), itemsPerColumn={}, colItem,
 						thArray, $contextMenuSelector;
 
 					//					jQuery.each(settings.contextMenu.defaultRowOperations, function(buttonId, value){
@@ -15295,7 +15295,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 									},
 									className:operationCfg.className
 								};
-								if (jQuery.isArray(value)===true){
+								if (Array.isArray(value)===true){
 									cellLevelContextMenu=true;
 									contextRowItems[buttonId].colNames=value;
 								}
@@ -15304,7 +15304,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					});
 
 					jQuery.each(settings.contextMenu.items,function(index, oper){
-						if (jQuery.isArray(oper.colNames)){
+						if (Array.isArray(oper.colNames)){
 							cellLevelContextMenu=true;
 						}
 					});
@@ -15331,7 +15331,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					}else if (cellLevelContextMenu){
 
 						//						// En caso de no especificarse un valor de colnames para indicar sobre cuales se debe de mostrar el menú contextual, se toman todas las visibles.
-						if (!jQuery.isArray(contextMenuSettings.colNames)){
+						if (!Array.isArray(contextMenuSettings.colNames)){
 							contextMenuSettings.colNames = jQuery.map(settings.colModel, function(elem, index){
 							    if (elem.hidden!==true){
 							        return elem.name;
@@ -15342,7 +15342,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 
 						jQuery.each(contextRowItems, function(index, item){
 							var colNamesAux;
-							if (jQuery.isArray(item.colNames)){
+							if (Array.isArray(item.colNames)){
 								colNamesAux = item.colNames;
 							}else{
 								colNamesAux = contextMenuSettings.colNames;
@@ -16006,11 +16006,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					//NAME
 					label = $('label[for^=\'' + fieldId + '\']',searchForm);
 					if (label.length>0){
-						// <label for='xxx' />
+						// <label for='xxx'></label>
 						fieldName = label.html();
 					} else {
-						// <div />
-						// <div />
+						// <div></div>
+						// <div></div>
 						if ($(field).attr('ruptype') !== 'combo'){
 							//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 							fieldName= $('[name=\'' + aux[i].name + '\']',searchForm).prev('div').find('label').first().html();
@@ -16188,11 +16188,11 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 			}
 
 			if ($label.length>0){
-				// <label for='xxx' />
+				// <label for='xxx'></label>
 				formFieldLabel = $label.html();
 			} else {
-				// <div />
-				// <div />
+				// <div></div>
+				// <div></div>
 				if ($field.attr('ruptype') !== 'combo'){
 					//fieldName= $("[name='" + aux[i].name + "']",searchForm).prev('div').html();
 					formFieldLabel= $('[name=\'' + name + '\']', $form).prev('div').find('label').first().html();
@@ -17552,7 +17552,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				// FIXME: Contemplar la posibilidad de no generar una toolbar por defecto
 				toolbarSettings = {};
 				toolbarSettings.id = 'rup-maint_toolbar-' + settings.id;
-				toolbarSettings.self = $('<div/>').attr('id', toolbarSettings.id);
+				toolbarSettings.self = $('<div></div>').attr('id', toolbarSettings.id);
 				$self.prepend(toolbarSettings.self);
 				toolbarSettings.self.rup_toolbar({
 					 width: toolbarSettings.width
@@ -17857,7 +17857,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		 */
 		postConfigureFeedback: function(settings){
 			// Definición del feedback interno
-			settings.$internalFeedback = $('<div/>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
+			settings.$internalFeedback = $('<div></div>').attr('id', 'rup_feedback_' + settings.id).insertBefore('#gbox_' + settings.id);
 			settings.$internalFeedback.rup_feedback(settings.feedback.internalFeedbackConfig);
 		}
 	});
@@ -21935,7 +21935,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 				'rupTable_setSelection.multiselection': function (events, selectedRows, status, reorderSelection) {
 					var page = parseInt($self.rup_jqtable('getGridParam', 'page'), 10);
 
-					if (jQuery.isArray(selectedRows)) {
+					if (Array.isArray(selectedRows)) {
 						for (var i = 0; i < selectedRows.length; i++) {
 							$self._processSelectedRow(settings, selectedRows[i], status);
 						}
@@ -22204,7 +22204,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					props = rp_ge[$self.attr('id')],
 					linkType, execute, changePage, index, npos, newPage, newPageIndex, fncAfterclickPgButtons;
 
-				if (jQuery.isArray(arrParams)) {
+				if (Array.isArray(arrParams)) {
 					linkType = arrParams[0];
 					execute = arrParams[1];
 					changePage = arrParams[2];
@@ -22871,7 +22871,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 		//Añade flecha contextMenu
 		_addArrow: function (object) {
 			jQuery(object).after(
-				jQuery('<a />')
+				jQuery('<a></a>')
 					.attr('href', 'javascript:void(0)')
 					.addClass('ui-icon rup-jerarquia_checkmenu_arrow')
 					.on('click', function (e) {
@@ -23560,7 +23560,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 						}
 					});
 
-					if (jQuery.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
+					if (Array.isArray(postData.jerarquia.tree) && postData.jerarquia.tree.length === 0) {
 						postData.jerarquia.tree = '';
 					}
 				},
@@ -23593,7 +23593,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					//ICONOS: filtrado (filter) y tooltip (parentNodes)
 					var rows = $self.rup_jqtable('getGridParam', 'data'),
 						rows_length = rows.length,
-						$filterIcon = jQuery('<div />')
+						$filterIcon = jQuery('<div></div>')
 							.addClass('rup-jerarquia_filter ui-icon')
 							.addClass(jerarquiaSettings['icons']['filter'])
 							.text(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_jqtable.plugins.jerarquia.filtered'));
@@ -23763,7 +23763,7 @@ jQuery.fn.extend({ fluidWidth : jQuery.jgrid.fluid.fluidWidth });
 					filter: $self.rup_jqtable('getFilterParams')
 				};
 			jQuery.extend(true, ajaxData, $self.rup_jqtable('getGridParam', 'postData'));
-			var primaryKey = jQuery.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
+			var primaryKey = Array.isArray(settings.primaryKey) ? settings.primaryKey[0] : settings.primaryKey;
 			jQuery.rup_ajax({
 				url: settings.filter.childrenUrl,
 				dataType: 'json',

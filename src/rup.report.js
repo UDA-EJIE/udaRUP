@@ -97,21 +97,21 @@
                 $container.data('report', settings);
 
                 //Añadir dialogo por defecto
-                var $defaultDialog_wait = $('<div />')
+                var $defaultDialog_wait = $('<div></div>')
                         .attr('id', 'reportFileWait')
                         .attr('title', defaultDialog.wait.title)
                         .text(defaultDialog.wait.msg)
                         .addClass('rup_report')
                         .hide()
                         //progressbar
-                        .append($('<div />').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
-                    $defaultDialog_error = $('<div />')
+                        .append($('<div></div>').addClass('ui-progressbar ui-progressbar-value ui-corner-left ui-corner-right')),
+                    $defaultDialog_error = $('<div></div>')
                         .attr('id', 'reportFileError')
                         .attr('title', defaultDialog.error.title)
                         .text(defaultDialog.error.msg)
                         .addClass('rup_report')
                         .hide(),
-                    $defaultDialog = $('<div />')
+                    $defaultDialog = $('<div></div>')
                         .attr('id', 'rup_report_dialogsContainer')
                         .append($defaultDialog_wait)
                         .append($defaultDialog_error);

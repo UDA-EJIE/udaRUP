@@ -134,7 +134,7 @@ de la aplicación pueda cerrar la capa manualmente.
                     .attr('id');
 
             //Crear capa cierre
-            opciones._divClose = $('<div />')
+            opciones._divClose = $('<div></div>')
                 .html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeIcon())
                 .attr('id', opciones._idFeedback + '_closeDiv')
                 .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
@@ -236,7 +236,7 @@ de la aplicación pueda cerrar la capa manualmente.
 
             //Sacar mensaje
             $('#' + opciones._idFeedback + '_content').remove();
-            element.append($('<div/>').attr('id', opciones._idFeedback + '_content').html(message));
+            element.append($('<div></div>').attr('id', opciones._idFeedback + '_content').html(message));
             //Añadir cierre (evento y capa)
             if (opciones.closeLink) {
                 this._addCloseLink();

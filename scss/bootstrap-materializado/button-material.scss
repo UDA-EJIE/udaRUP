@@ -425,7 +425,7 @@ $btn-material-box-shadow-active:
 		outline: none;
 	}
 	
-	/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A ENFASIS ALTO Y MEDIO) */
+	/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS */
 	&:disabled {
 		color: rgba(0, 0, 0, 0.37);
 		background-color: rgba(0, 0, 0, 0.12);
@@ -435,7 +435,7 @@ $btn-material-box-shadow-active:
 		pointer-events: none;
 	}
 
-	/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SE APLICA A BAJO) */
+	/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS (SOLO SE APLICA A ENFASIS BAJO) */
 	&[class*="low"]:disabled {
 	  background-color: $no-color;
 	}

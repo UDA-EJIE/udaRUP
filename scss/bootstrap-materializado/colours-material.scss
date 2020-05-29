@@ -76,4 +76,14 @@ $radio-material-border-color: rgba(0, 0, 0, 0.54);
 $validation-error-color: #d43f3a;
 $validation-error-color-light: #d9534f;
 
-$readonly-background-color: #e9ecef;
+$disabled-background-color: #e9ecef;
+
+/* Ripples */
+$ripple-hover0-color: rgba(0, 0, 0, 0);
+
+$ripple-hover50-primary-color: rgba(20, 114, 164, .05);
+$ripple-hover100-primary-color: rgba(20, 114, 164, .1);
+
+$ripple-active0-primary-color: rgba(20, 114, 164, .1);
+$ripple-active50-primary-color: rgba(20, 114, 164, .4);
+$ripple-active100-primary-color: rgba(20, 114, 164, .6);
