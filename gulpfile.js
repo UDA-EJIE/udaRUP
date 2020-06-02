@@ -23,6 +23,10 @@ gulp.task('run-npm-all-x21a', function() {
     return run('npm run all:x21a').exec();
 });
 
+gulp.task('run-npm-build-fast', function() {
+    return run('npm run build:fast').exec();
+});
+
 // WATCHES
 gulp.task('watch', function(){
     return gulp.watch(
@@ -31,5 +35,15 @@ gulp.task('watch', function(){
             '!./src/rup.jqtable.js', 
             './scss/**/*.*'], 
         gulp.series('run-npm-all-x21a')
+    );
+});
+
+gulp.task('watch:fast', function(){
+    return gulp.watch(
+        ['./src/**/*.*', 
+            '!./src/templates.js', 
+            '!./src/rup.jqtable.js', 
+            './scss/**/*.*'], 
+        gulp.series('run-npm-build-fast')
     );
 });
