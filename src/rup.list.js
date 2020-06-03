@@ -812,7 +812,7 @@ import Printd from 'printd';
         },
 
         /**
-         * Método que lanza la imprisión HTML
+         * Método que lanza la impresión HTML
          * @name _print
          * @private
          * @function
