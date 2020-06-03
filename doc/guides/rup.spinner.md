@@ -16,7 +16,7 @@
 
 
 ## 1 Introducción
-La descripción del Componente Accordion, visto desde el punto de vista de RUP, es la siguiente:
+La descripción del Componente Spinner, visto desde el punto de vista de RUP, es la siguiente:
 
 *El objetivo principal del componente Spinner es facilitar al usuario la insercción de valores numéricos.
 *
