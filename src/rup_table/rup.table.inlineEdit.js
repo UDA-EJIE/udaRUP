@@ -132,18 +132,20 @@ DataTable.inlineEdit.init = function ( dt ) {
     if(ctx.oInit.inlineEdit.validate !== undefined){
     	validaciones = ctx.oInit.inlineEdit.validate.rules;
     }
-    $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
-        feedback: feed,
-        liveCheckingErrors: false,
-        showFieldErrorAsDefault: true,
-        showErrorsInFeedback: true,
-        showFieldErrorsInFeedback:true,
-        rules:validaciones,
-        submitHandler: function(form) {
-            return false;  // block the default submit action
-        }
-    });
+    
+    let propertiesDefault = {
+            liveCheckingErrors: false,
+            showFieldErrorAsDefault: true,
+            showErrorsInFeedback: true,
+            showFieldErrorsInFeedback:true
+        };
+    let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.inlineEdit.propertiesValidate);
+    propertiesValidate.feedback = feed;
+    propertiesValidate.rules = validaciones;
+    propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
 	
+    $('#' + ctx.sTableId + '_search_searchForm').rup_validate(propertiesValidate);
+    
     // Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
     // Boton Guardar
@@ -872,7 +874,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 
 
 				$elem.attr({
-					'title': $('#'+colModelName+'_inline').attr('oldtitle'),
+					'title': '',
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel

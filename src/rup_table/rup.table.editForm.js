@@ -201,17 +201,25 @@
         if(ctx.oInit.formEdit.validate !== undefined){
         	validaciones = ctx.oInit.formEdit.validate.rules;
         }
-        ctx.oInit.formEdit.idForm.rup_validate({
-            feedback: feed,
-            liveCheckingErrors: false,
-            showFieldErrorAsDefault: true,
-            showErrorsInFeedback: true,
-            showFieldErrorsInFeedback:true,
-            rules:validaciones,
-            submitHandler: function(form) {
-                return false;  // block the default submit action
-            }
-        });
+        
+        if (feed.length === 0) {
+        	feed = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+        }
+        
+    	feed.rup_feedback(ctx.oInit.feedback);
+          
+        let propertiesDefault = {
+                liveCheckingErrors: false,
+                showFieldErrorAsDefault: true,
+                showErrorsInFeedback: true,
+                showFieldErrorsInFeedback:true
+            };
+        let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.formEdit.propertiesValidate);
+        propertiesValidate.feedback = feed;
+        propertiesValidate.rules = validaciones;
+        propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
+        
+        ctx.oInit.formEdit.idForm.rup_validate(propertiesValidate);
 
     };
 
