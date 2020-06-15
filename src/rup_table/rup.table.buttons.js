@@ -3083,22 +3083,22 @@
         // Lanzar peticion 
         let request = new XMLHttpRequest();
         request.open(ajaxOptions.type, url, true);
-        request.responseType = "blob";
+        request.responseType = 'blob';
         request.send(ajaxOptions.data);
 
         request.onload = function (event) {
         	if (this.status == 200) {
         		let blob = request.response;
             	let fileName = null;
-            	let contentType = request.getResponseHeader("content-type");
+            	let contentType = request.getResponseHeader('content-type');
             	let element;
 
             	// Parece que IE y EDGE no devuelven la misma cabecera en la respuesta
-            	if (request.getResponseHeader("content-disposition")) {
-            		let contentDisposition = request.getResponseHeader("content-disposition");
-            		fileName = contentDisposition.substring(contentDisposition.indexOf("=") + 1);
+            	if (request.getResponseHeader('content-disposition')) {
+            		let contentDisposition = request.getResponseHeader('content-disposition');
+            		fileName = contentDisposition.substring(contentDisposition.indexOf('=') + 1);
             	} else {
-            		fileName = "report." + contentType.substring(contentType.indexOf("/") + 1);
+            		fileName = 'report.' + contentType.substring(contentType.indexOf('/') + 1);
             	}
 
             	if (window.navigator.msSaveOrOpenBlob) {
@@ -3106,10 +3106,10 @@
             		window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
             	} else {
             		// Para los demas navegadores
-            		if (!$("a#rupTableButtonsReportsExport").length) {
-            			$("div#" + $.rup.WAR_NAME + "War_content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            		if (!$('a#rupTableButtonsReportsExport').length) {
+            			$('#' + ctx.sTableId + 'rup_report_dialogsContainer').append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
             		}
-            		element = $("a#rupTableButtonsReportsExport")[0];
+            		element = $('a#rupTableButtonsReportsExport')[0];
             		element.href = window.URL.createObjectURL(blob);
             		element.download = fileName;
             		element.click();
