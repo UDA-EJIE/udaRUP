@@ -86,7 +86,7 @@
 		content: " *";
 	}
 
-	input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+	input:not([type="checkbox"]):not([type="radio"]):read-only ~ label, input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
 		top: -10px;
 		font-size: .9rem;
 		color: $primary-color;
