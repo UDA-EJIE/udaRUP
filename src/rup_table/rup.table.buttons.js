@@ -3103,7 +3103,7 @@
 
             	if (window.navigator.msSaveOrOpenBlob) {
             		// IE y EDGE
-            		window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
+            		window.navigator.msSaveOrOpenBlob(blob, fileName);
             	} else {
             		// Para los demas navegadores
             		if (!$('a#rupTableButtonsReportsExport').length) {
