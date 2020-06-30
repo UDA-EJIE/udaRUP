@@ -826,7 +826,22 @@
                 // delete options;
                 // delete arrVals;
             }
-        }
+        },
+        /**
+         * Cambia el source del combo y recarga el componente para que este comience a usarlo.
+         *
+         * @function setSource
+         * @param {string} source - Source desde el cual se obtendran los datos a mostrar.
+         * @example
+         * $("#idCombo").rup_combo("setSource", source);
+         */
+        setSource: function (source) {
+        	if (source != undefined && source != '') {
+            	let combo = $(this);
+            	combo.data().settings.source = source;
+            	combo.rup_combo('reload');
+        	}
+    	}
     });
 
     //*******************************
