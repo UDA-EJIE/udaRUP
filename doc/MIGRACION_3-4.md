@@ -126,6 +126,15 @@ En el presente documento se van a detallar los pasos a seguir para realizar la a
         customClasses: ["select-material"]
     };
 	```
+
+    __NOTA:__ si por algún motivo no se desean usar los estilos Material Design, hay que definir el adapter a usar en los componentes RUP ya que, por defecto, usan el de Material Design. El siguiente ejemplo muestra cómo realizar el cambio de adapter:
+    
+    ```js
+	$("#idDate").rup_date({
+        adapter: 'date_bootstrap'
+    });
+	```
+
 4. #### Sustituir iconos Font-Awesome por los de Material Design Icons
     Se ha migrado a esta nueva librería de iconos por dos motivos:
     * Font-Awesome ofrece a día de hoy (11/05/2020) en su versión gratuita alrededor de 1.500 iconos cuando Material Design Icons ofrece más de 5.000 (y en aumento).
