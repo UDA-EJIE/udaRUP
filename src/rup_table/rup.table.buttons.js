@@ -3285,8 +3285,8 @@
     		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
     		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
     		OKFunction: function () {
+    			let row = {};
     			if (ctx.multiselection.selectedIds.length > 1){
-    				let row = {};
     				row.core =  {'pkToken': ctx.oInit.multiplePkToken, 'pkNames': ctx.oInit.primaryKey};
     				row.multiselection = {};
     				row.multiselection.selectedAll = ctx.multiselection.selectedAll;

@@ -376,6 +376,10 @@
                 }
 
             });
+            
+            apiRegister('rupTable.getDescendantProperty()', function (json, key) {
+            	$self._getDescendantProperty(json, key);
+            });
 
             if (options.inlineEdit !== undefined) {
                 //RESPONSIVO CON EDITLINE
