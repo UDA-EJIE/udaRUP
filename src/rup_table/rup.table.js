@@ -1371,11 +1371,12 @@
                 options.sTableId = $self[0].id;
                 $self._initializeMultiselectionProps(tabla.context[0]);
                 
-                //Crear tooltips cabecera;
-                $.each($('#' + $self[0].id + ' thead th'), function () {
-                    $self._createTooltip($(this));
-                });
-                
+               if(options.createTooltipHead !== false){
+	                //Crear tooltips cabecera;
+	                $.each($('#' + $self[0].id + ' thead th'), function () {
+	                    $self._createTooltip($(this));
+	                });
+               }
                 tabla.on('draw', function (e, settingsTable) {
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
@@ -1439,11 +1440,13 @@
                             }
                         }
                     }
-
-                    //Crear tooltips tds;
-                    $.each($('#' + settingsTable.sTableId + ' tbody td'), function () {
-                        $self._createTooltip($(this));
-                    });
+                    
+                    if(options.createTooltipBody !== false){
+	                    //Crear tooltips tds;
+	                    $.each($('#' + settingsTable.sTableId + ' tbody td'), function () {
+	                        $self._createTooltip($(this));
+	                    });
+                    }
 
                     if (settingsTable.inlineEdit !== undefined) {
                         let ctx = $('#' + settingsTable.sTableId).rup_table('getContext');
