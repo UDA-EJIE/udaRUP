@@ -51,6 +51,14 @@ a.select-material {
 		left: 12px;
 		top: 1px;
 		padding-left: 5px;
+		width: calc(100% - 60px);
+		height: 22.8px;
+		overflow: hidden;
+	}
+
+	/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
+	span:last-child {
+		display: none;
 	}
 	
 	/* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */
@@ -92,19 +100,11 @@ a.select-material {
 	
 	/* ESTABLECE LOS ESTILOS ESPECIFICOS DE LAS VALIDACIONES CON ERROR */
 	&.rup-validate-field-error {
-		a.select-material {
-			span:last-child {
-				right: 30px;
-			}
-		}
-		
 		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
 		&[class*="col-"] {		
-			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
-			&.rup-validate-field-error {			
-				select ~ i.mdi.error {
-					right: 15px;
-				}
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */		
+			select ~ i.mdi.error {
+				right: 30px;
 			}
 		}
 	}
@@ -132,7 +132,7 @@ a.select-material {
 			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
 			&.rup-validate-field-error {
 				select ~ i.mdi.error {
-					right: 25px;
+					right: 40px;
 				}
 			}
 		}
