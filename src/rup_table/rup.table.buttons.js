@@ -2929,7 +2929,8 @@
         
         data.reportsParams = [];
         // Se añaden los parametros definidos por el usuario (solo en caso de haber definido alguno)
-        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams.length > 0) {
+        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined 
+        		&& ctx.oInit.buttons.report.reportsParams.length > 0) {
         	data.reportsParams = ctx.oInit.buttons.report.reportsParams;
         }
         
