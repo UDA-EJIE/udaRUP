@@ -2855,6 +2855,7 @@
                     
                     ajaxOptions.data = {};
                     ajaxOptions.data.columns = _loadDefinedColums(dt, ctx, request);
+                    ajaxOptions.data.columnsName = ctx.oInit.buttons.report.columnsName;
                     ajaxOptions.reportsExportAllColumns = request.reportsExportAllColumns;
                     
                     deferred.resolve(exportData, ajaxOptions);
@@ -2904,6 +2905,7 @@
         let data = {};
         
         data.columns = _loadDefinedColums(dt, ctx, request);
+        data.columnsName = ctx.oInit.buttons.report.columnsName;
         
         data.core = {
             'pkToken': ctx.oInit.multiplePkToken,
@@ -2927,7 +2929,8 @@
         
         data.reportsParams = [];
         // Se añaden los parametros definidos por el usuario (solo en caso de haber definido alguno)
-        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams.length > 0) {
+        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined 
+        		&& ctx.oInit.buttons.report.reportsParams.length > 0) {
         	data.reportsParams = ctx.oInit.buttons.report.reportsParams;
         }
         
