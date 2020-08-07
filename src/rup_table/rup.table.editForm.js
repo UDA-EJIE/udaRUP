@@ -431,20 +431,23 @@
                     async: false,
                     success: function (data) {
                     	row = data;
-                        // Actualizar el nuevo id que viene de HDIV.
-                        if (pk === ctx.multiselection.lastSelectedId) {
-                            ctx.multiselection.lastSelectedId = data.id;
-                        }
-                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
-                        if (pos >= 0) {
-                            ctx.multiselection.selectedIds[pos] = data.id;
-                        }
-                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-                                return v.id === pk;
-                            });
-                        if (result !== undefined && result.length > 0) {
-                            result[0].id = data.id;
-                        }
+                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
+	                        // Actualizar el nuevo id que viene de HDIV.
+                    		let idHdiv = data[ctx.oInit.primaryKey];
+	                        if (pk === ctx.multiselection.lastSelectedId) {
+	                            ctx.multiselection.lastSelectedId = idHdiv;
+	                        }
+	                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
+	                        if (pos >= 0) {
+	                            ctx.multiselection.selectedIds[pos] = idHdiv;
+	                        }
+	                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+	                                return v.id === pk;
+	                            });
+	                        if (result !== undefined && result.length > 0) {
+	                            result[0].id = idHdiv;
+	                        }
+                    	}
                     },
                     error: function (xhr) {
                         var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
