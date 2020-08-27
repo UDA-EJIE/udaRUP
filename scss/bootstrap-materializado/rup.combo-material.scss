@@ -179,4 +179,9 @@ select.rup_combo ~ button.select-material {
 		outline: none;
 		padding-left: 17px;
 	}
+
+	/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
+	span.ui-icon {
+		display: none;
+	}
 }
