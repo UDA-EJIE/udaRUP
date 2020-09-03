@@ -14,31 +14,31 @@
  * que establece la Licencia.
  */
  
-.rup-combo {}
+/*.rup-combo {}*/
 .rup-combo_loading { background-image: url('images/rup.ajaxLoader.gif') !important; color: black; font-weight: bold;}
 .rup-combo_loadingText { color: black; font-weight: bold;}
 
 /* Selectmenu
 ----------------------------------*/
 .ui-selectmenu { display: inline-block; position:relative; height:2em; text-decoration: none; overflow:hidden;}
-.ui-selectmenu-focus { }
+/*.ui-selectmenu-focus { }*/
 .ui-selectmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }
 .ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
 .ui-selectmenu-open { visibility: visible; }
 .ui-selectmenu-menu-popup { margin-top: -1px; }
-.ui-selectmenu-menu-dropdown {}
+/*.ui-selectmenu-menu-dropdown {}*/
 .ui-selectmenu-menu li { padding:0; margin:0; display: block; /*border-top: 1px dotted transparent; border-bottom: 1px dotted transparent;*/ border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
 .ui-selectmenu-menu li a,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }
 /*.ui-selectmenu-menu li a:hover,.ui-selectmenu-status {line-height: 1.4em; display:block; padding:0em 1em; outline:none; text-decoration:none; }*/
 .ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
 .ui-selectmenu-hasIcon .ui-selectmenu-status { height:2em;padding-left: 20px; position: relative; margin-left: 5px; }
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -12px; left: 0; }
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1.2em; left: 0; width: 12px; height: 12px; background-size: contain; }
 .ui-selectmenu-status { line-height: 1.4em; }
-.ui-selectmenu-open li.ui-selectmenu-item-focus a {  }
-.ui-selectmenu-open li.ui-selectmenu-item-selected { }
+/*.ui-selectmenu-open li.ui-selectmenu-item-focus a {  }
+.ui-selectmenu-open li.ui-selectmenu-item-selected { }*/
 .ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
-.ui-selectmenu-menu li .ui-selectmenu-item-content {  }
+/*.ui-selectmenu-menu li .ui-selectmenu-item-content {  }*/
 /*.ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }*/
 /*for optgroups*/
 .ui-selectmenu-menu .ui-selectmenu-group { font-size: 1em; }
@@ -58,7 +58,6 @@ ul.ui-selectmenu-menu-popup { margin-top: -1px; }
 .ui-selectmenu-menu li.ui-state-disabled a, .ui-state-disabled { cursor: default; }
 .ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
 .ui-selectmenu-hasIcon .ui-selectmenu-status { padding-left: 20px; position: relative; margin-left: 5px; }
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -12px; left: 0; }
 .ui-selectmenu-status { line-height: 1.4em; }
 .ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold; }
@@ -107,27 +106,40 @@ ul.ui-selectmenu-menu-popup { margin-top: -1px; }
 }
 
 /*** ESTILOS PROPIOS ***/
-.ui-selectmenu,
+/*.ui-selectmenu,
 .ui-selectmenu-status {
-/* 	background: #d5d5d2 50% 50%; */
-
-}
+	background: #d5d5d2 50% 50%;
+}*/
 
 .ui-selectmenu-menu li.ui-selectmenu-group ul{
-	
 	overflow-y:hidden; 
 }
 
-.ui-selectmenu-menu-dropdown,
+/*.ui-selectmenu-menu-dropdown,
 .ui-selectmenu-menu-popup { 
-/* 	background: #eaeaea 50% 50%; */
-}
+	background: #eaeaea 50% 50%;
+}*/
 
 /*select with custom icons*/
 .ui-selectmenu-item-icon { height: 24px; width: 24px; background-repeat: no-repeat;}
-.delete .ui-selectmenu-item-icon { background-image: url(images/toolbar/borrar.png); }
-.filter .ui-selectmenu-item-icon { background-image: url(images/toolbar/filtrar.png); }
-.print .ui-selectmenu-item-icon { background-image: url(images/toolbar/imprimir.png); }
+
+a.delete, .delete {
+	span.ui-selectmenu-item-icon.ui-icon, .ui-selectmenu-item-icon.ui-icon {
+		background-image: url(images/toolbar/borrar.png);
+	}
+}
+
+a.filter, .filter {
+	span.ui-selectmenu-item-icon.ui-icon, .ui-selectmenu-item-icon.ui-icon {
+		background-image: url(images/toolbar/filtrar.png);
+	}
+}
+
+a.print, .print {
+	span.ui-selectmenu-item-icon.ui-icon, .ui-selectmenu-item-icon.ui-icon {
+		background-image: url(images/toolbar/imprimir.png);
+	}
+}
 
 /* PIJAMA */
 .rup-combo_odd { background-color: #EEE; }

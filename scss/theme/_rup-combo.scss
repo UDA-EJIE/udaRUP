@@ -62,7 +62,12 @@ select, select.form-control{
       padding-left: 1.5rem;
 
       .ui-icon{
-        margin-top: -0.8rem;
+			top: 0;
+		    left: 0;
+		    width: 14px;
+		    height: 14px;
+			margin-top: .43rem;
+		    background-size: contain;
       }
     }
 

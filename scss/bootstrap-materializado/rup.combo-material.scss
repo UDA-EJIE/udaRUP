@@ -42,7 +42,7 @@ a.select-material {
 		}
 	}
 	
-	span:first-child {
+	> span:first-child {
 		color: $grey-color; 
 		font-size: 1rem;
 		font-weight: 400;
@@ -57,8 +57,12 @@ a.select-material {
 	}
 
 	/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
-	span:last-child {
+	> span:not(.ui-selectmenu-status):not(.rup-combo_loading):last-child {
 		display: none;
+	}
+
+	> span.rup-combo_loading {
+		right: 2.5rem;
 	}
 	
 	/* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */
@@ -78,10 +82,6 @@ a.select-material {
 			box-shadow: none;
 			outline: none;
 		  	padding-left: 17px;
-		  	
-		  	span:first-child {
-				left: 11px;	  	
-			}
 		}
 	}
 }
