@@ -38,7 +38,7 @@ a.select-material {
 	  	padding-left: 17px;
 	  	
 	  	span:first-child {
-			left: 11px;	  	
+			left: 11px;
 		}
 	}
 	
@@ -81,7 +81,13 @@ a.select-material {
 			border-width: 2px;
 			box-shadow: none;
 			outline: none;
-		  	padding-left: 17px;
+			padding-left: 17px;
+			/* EVITA QUE EL ICONO DE DROPDOWN SE DESPLACE */
+			background-position: calc(100% - 13.5px) calc(0.71em), calc(100% - 8.5px) calc(0.71em);
+			/* EVITA QUE EL TEXTO SE DESPLACE */
+			span:not(.ui-icon):first-child {
+				top: -1px;
+		  	}
 		}
 	}
 }
@@ -180,8 +186,18 @@ select.rup_combo ~ button.select-material {
 		padding-left: 17px;
 	}
 
-	/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
-	span.ui-icon {
-		display: none;
+	span {
+		&.rup-combo_loading {
+			float: right;
+			margin-top: 0;
+			margin-right: 2.5rem;
+			width: 16px;
+			height: 16px;
+		}
+
+		/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
+		&.ui-icon {
+			display: none;
+		}
 	}
 }

@@ -1339,9 +1339,10 @@
             $('#' + settings.id).rup_combo('disable');
 
             //LOADING...
-            $('#' + settings.id + '-button span:first-child').addClass('rup-combo_loadingText').text($.rup.i18n.base.rup_combo.loadingText);
+            $('#' + settings.id + '-button span:first-child').removeClass("ui-icon ui-icon-triangle-1-s").addClass('rup-combo_loadingText').text($.rup.i18n.base.rup_combo.loadingText);
             var icon = $('#' + settings.id + '-button span:last-child');
             $(icon).removeClass('ui-icon-triangle-1-s');
+            $(icon).text(''); // Evita errores de visualización con el icono
             $(icon).addClass('rup-combo_loading');
 
             //Cabecera RUP
