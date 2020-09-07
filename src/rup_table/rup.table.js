@@ -1333,11 +1333,11 @@
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     var titulo = $(this).text();
                     $(this).text('');
-                    var span1 = $('<span></span>').addClass('d-block d-xl-inline').text(titulo);
+                    var span1 = $('<span></span>').addClass('d-block').text(titulo);
                     var span2 = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
                     var span3 = $('<span></span>').addClass('mdi mdi-arrow-up');
                     $(this).append(span1);
-                    var div1 = $('<div></div>').addClass('d-flex d-xl-inline');
+                    var div1 = $('<div></div>').addClass('d-block');
                     div1.append(span2);
                     div1.append(span3);
                     $(this).append(div1);
