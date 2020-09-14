@@ -476,3 +476,106 @@ $btn-material-box-shadow-active:
 		font-size: 1.6rem;
 	}
 }
+
+/* ESTILOS PARA UN GRUPO DE BOTONES */
+.btn-group .btn-material {
+	line-height: 1.5;
+	margin: 0 -2px;
+	text-align: center;
+	border-radius: initial;
+
+	&:first-child {
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
+	}
+
+	&:last-child {
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+	}
+
+	&:not(.active) {
+		cursor: pointer;
+	}
+
+	> i.mdi {
+		line-height: 0.9;
+	}
+
+	/* COLORES POR DEFECTO (SECONDARY) */
+	background-color: $secondary-color-ultra-light;
+
+	&:hover:not(.active) {
+		background-color: $secondary-color-very-light;
+		color: $white-color;
+	}
+
+	&.active {
+		background-color: $secondary-color-light;
+		color: $white-color;
+		cursor: default;
+	}
+
+	/* COLORES DEFINIDOS SEGUN LA CLASE */
+	&.btn-material-primary {
+		background-color: $primary-color-ultra-light;
+
+		&:hover:not(.active) {
+			background-color: $primary-color-very-light;
+		}
+
+		&.active {
+			background-color: $primary-color-light;
+		}
+	}
+
+	&.btn-material-success {
+		background-color: $success-color-ultra-light;
+
+		&:hover:not(.active) {
+			background-color: $success-color-very-light;
+		}
+
+		&.active {
+			background-color: $success-color-light;
+		}
+	}
+
+	&.btn-material-danger {
+		background-color: $danger-color-ultra-light;
+
+		&:hover:not(.active) {
+			background-color: $danger-color-very-light;
+		}
+
+		&.active {
+			background-color: $danger-color-light;
+		}
+	}
+
+	&.btn-material-warning {
+		background-color: $warning-color-ultra-light;
+		color: $black-color;
+
+		&:hover:not(.active) {
+			background-color: $warning-color-very-light;
+			color: $black-color;
+		}
+
+		&.active {
+			background-color: $warning-color-light;
+		}
+	}
+
+	&.btn-material-info {
+		background-color: $info-color-ultra-light;
+
+		&:hover:not(.active) {
+			background-color: $info-color-very-light;
+		}
+
+		&.active {
+			background-color: $info-color-light;
+		}
+	}
+}
