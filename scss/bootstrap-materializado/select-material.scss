@@ -40,11 +40,31 @@
 		}
 		
 		&:placeholder-shown:disabled {
-			color: $no-color;
+		  	color: $no-color;
+		}
+		
+		&:-ms-input-placeholder:disabled {
+		  	color: $no-color;
 		}
 
-		&:focus:enabled ~ label,
-		&:valid:enabled ~ label,
+		&:focus:enabled ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
+		&:valid:enabled ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
 		&:placeholder-shown:required ~ label {
 			top: -10px;
 			font-size: .9rem;
@@ -54,8 +74,40 @@
 			background-image: none;
 		}
 
-		&:disabled, 
+		&:-ms-input-placeholder:required ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
+		&:disabled {
+			background-color: $disabled-background-color;
+			
+			& ~ label {
+				top: -10px;
+				font-size: .9rem;
+				color: $grey-color-very-light;
+				padding: 0 5px;
+				background: linear-gradient(to top, $disabled-background-color 0%, $disabled-background-color 40%, $no-color 40%, $no-color 100%);
+			}
+		}
+
 		&:placeholder-shown:disabled {
+			background-color: $disabled-background-color;
+			
+			& ~ label {
+				top: -10px;
+				font-size: .9rem;
+				color: $grey-color-very-light;
+				padding: 0 5px;
+				background: linear-gradient(to top, $disabled-background-color 0%, $disabled-background-color 40%, $no-color 40%, $no-color 100%);
+			}
+		}
+
+		&:-ms-input-placeholder:disabled {
 			background-color: $disabled-background-color;
 			
 			& ~ label {
