@@ -26,6 +26,11 @@
 		background-position: calc(100% - 14.5px) calc(0.8em), calc(100% - 9.5px) calc(0.8em);
 		background-size: 5px 5px, 5px 5px;
 
+		/* ELIMINA EL ICONO DE DROPDOWN NATIVO EN IE 10/11 */
+		&::-ms-expand {
+			display: none;
+		}
+
 		&:hover:enabled {
 			border-color: $black-color;
 		}
