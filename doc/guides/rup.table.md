@@ -446,7 +446,7 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 Plugins.noEdit = true 
 ```
 
-Por defecto viene a false, y si se activa deja solo el boton de informes.
+Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edición de la tabla (formEdit) ni la edición en línea (inlineEdit).
 
 ```java
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
