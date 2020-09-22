@@ -769,6 +769,12 @@
             var $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
+            
+            // Reinicia por completo los autocomplete ya que sino siguen filtrando
+            jQuery.each($('input[ruptype=autocomplete][type=hidden]', options.filter.$filterContainer), function (index, elem) {
+            	$("#" + elem.id).rup_autocomplete("setRupValue", "");
+            });
+            
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
 
