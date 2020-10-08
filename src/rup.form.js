@@ -107,7 +107,7 @@
          * @param {object} argOptions - Opciones de configuración.
          * @example
          * var options = {};
-         * jQuery("#form").rup_form("ajaxSubmit", options);
+         * jQuery("#form").rup_form("ajaxNotSubmit", options);
          */
         ajaxNotSubmit: function (argOptions) {
             var $self = this,
@@ -387,7 +387,7 @@
 
             settings.formValidationRequired = (settings.validate !== undefined);
 
-            // Configruacion de las validaciones
+            // Configuracion de las validaciones
             if (settings.formValidationRequired) {
                 if (settings.error === undefined) {
                     settings.error = function (a) {
