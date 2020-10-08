@@ -644,6 +644,9 @@
                     data.seeker.selectedIds.splice(index, 0, DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit));
                 });
             }
+            
+            // Elimina los campos _label del filtro
+            $.fn.deleteAutocompleteLabelFromObject(data.filter);
 
             var tableRequest = new TableRequest(data);
             var json = $.extend({}, data, tableRequest.getData());
@@ -771,9 +774,7 @@
             options.filter.$filterContainer.resetForm();
             
             // Reinicia por completo los autocomplete ya que sino siguen filtrando
-            jQuery.each($('input[ruptype=autocomplete][type=hidden]', options.filter.$filterContainer), function (index, elem) {
-            	$("#" + elem.id).rup_autocomplete("setRupValue", "");
-            });
+            $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
             
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');

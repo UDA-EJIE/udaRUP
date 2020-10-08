@@ -978,6 +978,26 @@
 					};
 			}).get();
 	};
+	
+	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
+        let autocompleteLabelTester = Object.keys(obj).filter((keys) => /_label$/.test(keys));
+        if (autocompleteLabelTester.length > 0) {
+        	// Nos aseguramos que el _label proviene de un autocomplete
+        	$.each(autocompleteLabelTester, function (index, value) {
+        		if (obj.hasOwnProperty(value.substring(0, value.indexOf('_label')))) {
+                	// Eliminamos el _label
+        			delete obj[value];
+                }
+            });
+        }
+	};
+	
+	$.fn.resetAutocomplete = function (type, obj) {
+		// Reinicia por completo los autocomplete ya que sino siguen filtrando
+        jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
+        	$("#" + elem.id).rup_autocomplete("setRupValue", "");
+        });
+	};
 
 	jQuery.rup_utils.base64 = {
 		// private property
