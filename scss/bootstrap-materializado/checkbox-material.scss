@@ -135,11 +135,38 @@ table div.checkbox-material-inline {
 .dialog-content-material {
     .checkbox-material {
         label {
-
             &::before,
             &::after {
                 left: 6px;
             }
         }
     }
+}
+
+.form-checkboxGroupMaterial {
+	& > label {
+		position: absolute;
+		top: 2px;
+		left: 19px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+	}
+	
+	.checkbox-material {
+		& > span {
+			position: relative;
+			
+			&:not(:last-child) {
+				margin-right: 2rem;
+			}
+			
+			label:not(:empty) {
+				padding-left: 2em;
+			}
+		}
+		
+		padding: .5rem 1rem;
+		margin: .8rem 0;
+	}
 }

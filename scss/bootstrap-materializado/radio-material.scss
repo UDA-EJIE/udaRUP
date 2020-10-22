@@ -104,3 +104,23 @@ $radio-material-ripple-size: 6px;
 		color: $primary-color;
 	}
 }
+
+.form-radioGroupMaterial {
+	& > label {
+		position: absolute;
+		top: 2px;
+		left: 19px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+	}
+	
+	.radio-material {
+		& > span:not(:last-child) {
+			margin-right: 2rem;
+		}
+		
+		padding: .5rem 5rem;
+		margin: .8rem 0;
+	}
+}
