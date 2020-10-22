@@ -972,6 +972,9 @@
                 searchForm = settings.filter.$filterContainer,
                 filterMulticombo = [];
             var obj;
+            let fieldIteration = 0;
+            let isRadio;
+            let isCheckbox;
 
             //añadir arbol
             var arboles = $('.jstree', settings.filter.$filterContainer);
@@ -1006,6 +1009,14 @@
                     //Seleccionar radio
                     if (field.length > 1) {
                         field = $('[name=\'' + aux[i].name + '\']:checked', searchForm);
+                        switch (field.prop('type')) {
+                        	case 'radio':
+                                isRadio = true;
+                        		break;
+                        	case 'checkbox':
+                        		isCheckbox = true;
+                        		break;
+                        }
                     }
                     //Omitir campos hidden
                     if ($(field).attr('type') === 'hidden') {
@@ -1013,7 +1024,13 @@
                     }
 
                     //ID del campo
-                    fieldId = $(field).attr('id');
+                    fieldId = $(field[fieldIteration++]).attr('id');
+                    
+                    // Reinicia el contador porque ya se han iterado todos los campos
+                    if (fieldIteration === field.length) {
+                    	fieldIteration = 0;
+                    }
+                    
                     //ID para elementos tipo rup.combo
                     if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0) {
                         fieldId += '-button';
@@ -1025,7 +1042,17 @@
 
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
-                    if (label.length > 0) {
+                    if (isRadio && settings.adapter === 'table_material') {
+                    	fieldName = $('#' + fieldId).closest('.form-radioGroupMaterial').children('label').html();
+                    	isRadio = false;
+                    } else if (isCheckbox && settings.adapter === 'table_material') {
+                		fieldName = $('#' + fieldId).closest('.form-checkboxGroupMaterial').children('label').html();
+                    	if (searchString !== '' && searchString !== undefined && new RegExp(fieldName, 'i').test(searchString)) {
+                    		searchString = searchString.replace(/.{2}$/,","); 
+                    		fieldName = '';
+                    	}
+                    	isCheckbox = false;
+                    } else if (label.length > 0) {
                         fieldName = label.html();
                     } else {
                         if ($(field).attr('ruptype') !== 'combo') {
@@ -1055,38 +1082,39 @@
                     fieldValue = ' = ';
 
                     switch ($(field)[0].tagName) {
-                    case 'INPUT':
-                        fieldValue = fieldValue + $(field).val();
-                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-                            fieldValue = '';
-                        }
-                        break;
-                        //Rup-tree
-                    case 'DIV':
-                        $.each(aux, forEachDiv);
-                        if (fieldValue === '') {
-                            fieldName = '';
-                        }
-                        break;
-                    case 'SELECT':
-                        if (field.next('.ui-multiselect').length === 0) {
-                            fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
-                        } else {
-                            if ($.inArray($(field).attr('id'), filterMulticombo) === -1) {
-                                numSelected = field.rup_combo('value').length;
-                                if (numSelected !== 0) {
-                                    fieldValue += numSelected;
-                                } else {
-                                    fieldName = '';
-                                    fieldValue = '';
-                                }
-                                filterMulticombo.push($(field).attr('id'));
-                            } else {
-                                fieldName = '';
-                                fieldValue = '';
-                            }
-                        }
-                        break;
+	                    case 'INPUT':
+	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
+	                            fieldValue += label.html();
+	                        } else {
+	                            fieldValue += $(field).val();
+	                        }
+	                        break;
+	                        //Rup-tree
+	                    case 'DIV':
+	                        $.each(aux, forEachDiv);
+	                        if (fieldValue === '') {
+	                            fieldName = '';
+	                        }
+	                        break;
+	                    case 'SELECT':
+	                        if (field.next('.ui-multiselect').length === 0) {
+	                            fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
+	                        } else {
+	                            if ($.inArray($(field).attr('id'), filterMulticombo) === -1) {
+	                                numSelected = field.rup_combo('value').length;
+	                                if (numSelected !== 0) {
+	                                    fieldValue += numSelected;
+	                                } else {
+	                                    fieldName = '';
+	                                    fieldValue = '';
+	                                }
+	                                filterMulticombo.push($(field).attr('id'));
+	                            } else {
+	                                fieldName = '';
+	                                fieldValue = '';
+	                            }
+	                        }
+	                        break;
                     }
 
                     //Parsear NAME
@@ -1113,7 +1141,7 @@
                     if (fieldName === '' && $.trim(fieldValue) === '') {
                         continue;
                     }
-                    searchString = searchString + fieldName + fieldValue + ', ';
+                    searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
 
