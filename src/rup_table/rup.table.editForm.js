@@ -1520,26 +1520,28 @@
     function _editFormSerialize(idForm) {
         let serializedForm = '';
         let idFormArray = idForm.formToArray();
-        let length = idFormArray.length;
         let ultimo = '';
-        let count = 1;
+        let count = 0;
 
         $.each(idFormArray, function (key, obj) {
-        	let ruptype = idForm.find('[name="'+obj.name+'"]').attr('ruptype');
-        	if(ruptype === undefined){
-        		ruptype = idForm.find('[name="'+obj.name+'"]').data('ruptype');
+        	if (ultimo != obj.name) {
+        		count = 0;
+    		}	
+        	let ruptype = idForm.find('[name="' + obj.name + '"]').attr('ruptype');
+        	if (ruptype === undefined) {
+        		ruptype = idForm.find('[name="' + obj.name + '"]').data('ruptype');
         	}
-        	if(obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom'){
+        	if (obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
         		let valor = '';
-        		if(ultimo === obj.name){//Se mete como lista
-        			//se hace replace del primer valor
-        			serializedForm = serializedForm.replace(ultimo+'=',ultimo+'[0]=');
-        			valor = '['+count+']'; //y se mete el array
-        			count++;
-        		}else{
-        			count = 1;
+        		if ($(idForm).find('[name=' + obj.name + ']').prop('multiple')) {
+        			valor = '[' + count++ + ']';
         		}
-	            serializedForm += (obj.name + valor+'=' + obj.value);
+        		else if (ultimo === obj.name) {//Se mete como lista
+        			//se hace replace del primer valor
+        			serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
+        			valor = '[' + count++ + ']'; //y se mete el array
+        		}
+	            serializedForm += (obj.name + valor + '=' + obj.value);
                 serializedForm += '&';
                 ultimo = obj.name;
         	}

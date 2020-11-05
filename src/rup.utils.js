@@ -979,6 +979,15 @@
 			}).get();
 	};
 	
+	$.fn.deleteMulticomboLabelFromObject = function (obj, $filterContainer) {
+		Object.keys(obj).filter(function (keys) {
+			let element = $filterContainer.find("[name$=" + keys + "]");
+        	if (element.length > 1 && $(element[0]).prop('multiple')) {
+        		delete obj["_" + keys];
+			}
+        });
+	};
+	
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
         let autocompleteLabelTester = Object.keys(obj).filter((keys) => /_label$/.test(keys));
         if (autocompleteLabelTester.length > 0) {
