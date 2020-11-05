@@ -989,7 +989,9 @@
 	};
 	
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
-        let autocompleteLabelTester = Object.keys(obj).filter((keys) => /_label$/.test(keys));
+        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
+        	return /_label$/.test(keys);
+        });
         if (autocompleteLabelTester.length > 0) {
         	// Nos aseguramos que el _label proviene de un autocomplete
         	$.each(autocompleteLabelTester, function (index, value) {
