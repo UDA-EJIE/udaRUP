@@ -132,7 +132,7 @@
             	        if (cellColModel.editable === true) {
             	            var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
             	            var colModelName = cellColModel.name;
-            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name='+colModelName+']'); // Se añade el title de los elementos de acuerdo al colname
+            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name="' + colModelName + '"]'); // Se añade el title de los elementos de acuerdo al colname
             	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
 
             	            $elem.removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
@@ -1533,7 +1533,7 @@
         	}
         	if (obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
         		let valor = '';
-        		if ($(idForm).find('[name=' + obj.name + ']').prop('multiple')) {
+        		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
         			valor = '[' + count++ + ']';
         		}
         		else if (ultimo === obj.name) {//Se mete como lista
