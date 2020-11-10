@@ -980,27 +980,31 @@
 	};
 	
 	$.fn.deleteMulticomboLabelFromObject = function (obj, $filterContainer) {
-		Object.keys(obj).filter(function (keys) {
-			let element = $filterContainer.find("[name$=" + keys + "]");
-        	if (element.length > 1 && $(element[0]).prop('multiple')) {
-        		delete obj["_" + keys];
-			}
-        });
+		if (obj !== undefined && obj !== null && $filterContainer !== undefined && $filterContainer !== null) {
+			Object.keys(obj).filter(function (keys) {
+				let element = $filterContainer.find("[name$=" + keys + "]");
+	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
+	        		delete obj["_" + keys];
+				}
+	        });
+		}
 	};
 	
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
-        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
-        	return /_label$/.test(keys);
-        });
-        if (autocompleteLabelTester.length > 0) {
-        	// Nos aseguramos que el _label proviene de un autocomplete
-        	$.each(autocompleteLabelTester, function (index, value) {
-        		if (obj.hasOwnProperty(value.substring(0, value.indexOf('_label')))) {
-                	// Eliminamos el _label
-        			delete obj[value];
-                }
-            });
-        }
+		if (obj !== undefined && obj !== null) {
+	        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
+	        	return /_label$/.test(keys);
+	        });
+	        if (autocompleteLabelTester.length > 0) {
+	        	// Nos aseguramos que el _label proviene de un autocomplete
+	        	$.each(autocompleteLabelTester, function (index, value) {
+	        		if (obj.hasOwnProperty(value.substring(0, value.indexOf('_label')))) {
+	                	// Eliminamos el _label
+	        			delete obj[value];
+	                }
+	            });
+	        }
+		}
 	};
 	
 	$.fn.resetAutocomplete = function (type, obj) {
