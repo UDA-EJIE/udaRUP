@@ -2855,7 +2855,9 @@
                     
                     ajaxOptions.data = {};
                     ajaxOptions.data.columns = _loadDefinedColums(dt, ctx, request);
-                    ajaxOptions.data.columnsName = ctx.oInit.buttons.report.columnsName;
+                    if(ctx.oInit.buttons.report !== undefined){
+                    	ajaxOptions.data.columnsName = ctx.oInit.buttons.report.columnsName;
+                    }
                     ajaxOptions.reportsExportAllColumns = request.reportsExportAllColumns;
                     
                     deferred.resolve(exportData, ajaxOptions);
@@ -2905,7 +2907,9 @@
         let data = {};
         
         data.columns = _loadDefinedColums(dt, ctx, request);
-        data.columnsName = ctx.oInit.buttons.report.columnsName;
+        if(ctx.oInit.buttons.report !== undefined){
+        	data.columnsName = ctx.oInit.buttons.report.columnsName;
+        }
         
         data.core = {
             'pkToken': ctx.oInit.multiplePkToken,
