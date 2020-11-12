@@ -43,7 +43,7 @@
     }
 }(function (jQuery) {
 
-    window.initRupI18nPromise.then(() => {
+	global.initRupI18nPromise.then(() => {
 
         //*********************************************
         // ESPECIFICACÍON DE LOS TIPOS BASE DEL PATRÓN
@@ -643,24 +643,24 @@
 
 
         /**
-  * Función de callback que se ejecutará cuando el formulario sea válido.
-  *
-  * @callback module:rup_validate~onSubmitHandler
-  * @param {Element} form - Referencia al objeto DOM del formulario que está siendo validado.
-  * @example <caption>Envia el formulario cuando este es válido.</caption>
-  * $("#idFormulario").rup_tooltip({
-  *   onSubmitHandler: function(form){
-  *       $(form).ajaxSubmit();
-  *   }
-  * });
-  * @example <caption>Realizar otras operaciones cuando el formulario es válido.</caption>
-  * $("#idFormulario").rup_tooltip({
-  *   onSubmitHandler: function(form){
-          // Operaciones extra
-  *       $(form).ajaxSubmit();
-  *   }
-  * });
-  */
+		  * Función de callback que se ejecutará cuando el formulario sea válido.
+		  *
+		  * @callback module:rup_validate~onSubmitHandler
+		  * @param {Element} form - Referencia al objeto DOM del formulario que está siendo validado.
+		  * @example <caption>Envia el formulario cuando este es válido.</caption>
+		  * $("#idFormulario").rup_tooltip({
+		  *   onSubmitHandler: function(form){
+		  *       $(form).ajaxSubmit();
+		  *   }
+		  * });
+		  * @example <caption>Realizar otras operaciones cuando el formulario es válido.</caption>
+		  * $("#idFormulario").rup_tooltip({
+		  *   onSubmitHandler: function(form){
+		          // Operaciones extra
+		  *       $(form).ajaxSubmit();
+		  *   }
+		  * });
+		  */
 
         /**
          * Función que se ejecutará cuando el formulario presente errores de validación.
@@ -805,7 +805,8 @@
          * });
          */
 
-
+    }).catch((error) => {
+        console.error('Error al inicializar el componente:\n', error);
     });
 
 }));
