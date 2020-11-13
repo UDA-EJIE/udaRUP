@@ -1226,7 +1226,7 @@ import Printd from 'printd';
                         ordered: false,
                         change: changeF
                     };
-                //sidxRupConf.change = changeF;
+       
                 opciones._footer.sidx.rup_combo(sidxRupConfFoot);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
             }
@@ -1442,10 +1442,9 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            let doChange = function(obj, change){
+           let doChange = function(obj, change){
                 if(opciones.createFooter){
                 	let iden = opciones._header.rowNum[0].id;
-                    $('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     if (obj.id == 'rup-list-footer-rowNum') {
                     	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     }
@@ -1458,6 +1457,7 @@ import Printd from 'printd';
                     self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
                 }
             };
+
 
             let changeH = function(){
                 doChange(this, true);
@@ -1475,12 +1475,22 @@ import Printd from 'printd';
                 change: changeH
             };
 
-            opciones._header.rowNum.rup_combo(rowNumRupConf);
+            let iden = opciones._header.rowNum[0].id;
+            $('#'+iden).rup_combo(rowNumRupConf);
             opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
             
             if(opciones.createFooter){
-                rowNumRupConf.change = changeF;
-                opciones._footer.rowNum.rup_combo(rowNumRupConf);
+                var rowNumRupConfFoot = {
+                        source: opciones.rowNum.source,
+                        width: 'initial',
+                        selected: opciones.rowNum.value,
+                        rowStriping: true,
+                        ordered: false,
+                        change: changeF
+                    };
+               
+                let idenFoot = opciones._footer.rowNum[0].id;
+                $('#'+idenFoot).rup_combo(rowNumRupConfFoot);
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
             }
         },
