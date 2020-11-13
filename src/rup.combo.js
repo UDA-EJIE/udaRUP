@@ -125,7 +125,7 @@
                 settings = $self.data('settings');
 
             //Tipo de combo
-            if (this.length === 0 || !$(this).data('settings').multiselect) {
+            if (this.length === 0 || (settings !== undefined && !settings.multiselect)) {
                 //Simple > selectmenu
                 $.data(this[0], 'setRupValue', param.toString());
                 $(this).rup_combo('select', param.toString());
