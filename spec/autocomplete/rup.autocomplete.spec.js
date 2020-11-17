@@ -7,7 +7,7 @@ import 'jasmine-jquery';
 import 'rup.autocomplete';
 
 
-var $autocomplete, $autocomplete2, $autocompleteLabel, $autocompleteLabel2;
+var $autocomplete, $autocomplete2, $autocomplete3, $autocompleteLabel, $autocompleteLabel2, $autocompleteLabel3;
 
 function createAutocomplete(done) {
     let html = '<input type="text" id="exampleAutocomplete">\

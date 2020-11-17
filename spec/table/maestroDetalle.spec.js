@@ -1144,7 +1144,7 @@ function testForm2Inline(defer) {
                     });
                     it('Debe mostrar el feedback del formulario de #inline2:', () => {
                         expect($('#nombre_inline').hasClass('error')).toBeTruthy();
-                        expect($('.error[for="nombre_inline"]').text()).toBe('Nombre');
+                        expect($('.error[for="nombre_inline"]').text()).toBe('Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #example1:', () => {
                         expect($('#example1_detail_feedback').is(':visible')).toBeFalsy();
@@ -1707,7 +1707,7 @@ function testInline2Form(defer) {
                     });
                     it('Debe mostrar el feedback del formulario de #inline1:', () => {
                         expect($('#nombre_inline').hasClass('error')).toBeTruthy();
-                        expect($('.error[for="nombre_inline"]').text()).toBe('Nombre');
+                        expect($('.error[for="nombre_inline"]').text()).toBe('Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #example2:', () => {
                         expect($('#example2_detail_feedback').is(':visible')).toBeFalsy();
@@ -2281,7 +2281,7 @@ function testInline2Inline(defer) {
                     });
                     it('Debe mostrar el feedback del formulario de #inline1:', () => {
                         expect($('#nombre_inline', $('#inline1')).hasClass('error')).toBeTruthy();
-                        expect($('.error[for="nombre_inline"]', $('#inline1')).text()).toBe('Nombre');
+                        expect($('.error[for="nombre_inline"]', $('#inline1')).text()).toBe('Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #inline2:', () => {
                         expect($('#nombre_inline', $('#inline2')).hasClass('error')).toBeFalsy();
@@ -2300,7 +2300,7 @@ function testInline2Inline(defer) {
                     });
                     it('Debe mostrar el feedback del formulario de #inline2:', () => {
                         expect($('#nombre_inline', $('#inline2')).hasClass('error')).toBeTruthy();
-                        expect($('.error[for="nombre_inline"]', $('#inline2')).text()).toBe('Nombre');
+                        expect($('.error[for="nombre_inline"]', $('#inline2')).text()).toBe('Campo obligatorio.');
                     });
                     it('No debe mostrar el feedback del formulario de #inline1:', () => {
                         expect($('#nombre_inline', $('#inline1')).hasClass('error')).toBeFalsy();
