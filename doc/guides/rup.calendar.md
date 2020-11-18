@@ -40,11 +40,11 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 - Fichero de plugin: **rup.calendar.x.y.z.js**
 
 ### 4.2 Dependencias
-Por la naturaleza del desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript JQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 3.4.1
+Por la naturaleza del desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript JQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 3.4.1:
 
 * **jQuery 3.4.1**: <http://jquery.com/>
 
-Para la gestión del plantillado del que hace uso el componente para la creación del HTML, se requiere de la librería underscore.js. La versión usada de la librería es ^1.9.1
+Para la gestión del plantillado del que hace uso el componente para la creación del HTML, se requiere de la librería underscore.js. La versión usada de la librería es 1.9.1:
 
 * **underscore 1.9.1**: <https://underscorejs.org/>
 
@@ -52,10 +52,10 @@ Para la funcionalidad y representacion se utiliza una versión modificada (fork)
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-   jquery-3.4.1.js
-   external/bootstrap-calendar/js/calendar.js
-   rup.base-x.y.z.js
-   rup.calendar-x.y.z.js
+	jquery-3.4.1.js
+	external/bootstrap-calendar/js/calendar.js
+	rup.base-x.y.z.js
+	rup.calendar-x.y.z.js
 
 
 ### 4.3 Versión minimizada
@@ -91,4 +91,4 @@ Resultado:
 
 ## 6  API
 
-Para consultar los detalles de la API de este componente vea este [documento](../api/rup.calendar.md)
+Para consultar los detalles de la API de este componente vea este [documento](../api/rup.calendar.md).
