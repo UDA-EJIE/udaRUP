@@ -72,11 +72,11 @@ En este caso la selección de registros se realiza de manera normal. Cuando se s
 
 Supongamos el siguiente ejemplo: se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado se procede a seleccionar los siguientes registros:
 
-* Pagina 1, registro de la línea 3 con el id "47"
-* Pagina 1, registro de la línea 6 con el id "56"
-* Pagina 3, registro de la línea 1 con el id "89"
-* Pagina 4, registro de la línea 7 con el id "176"
-* Pagina 4, registro de la línea 8 con el id "201"
+* Página 1, registro de la línea 3 con el id "47"
+* Página 1, registro de la línea 6 con el id "56"
+* Página 3, registro de la línea 1 con el id "89"
+* Página 4, registro de la línea 7 con el id "176"
+* Página 4, registro de la línea 8 con el id "201"
 
 Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 
@@ -113,11 +113,11 @@ Se accede a la aplicación y sobre un componente RUP Table con el plugin de mult
 
 El número de registros totales es de 1500 elementos. Se seleccionan todos los registros mediante la opción **selectAll** y se procede a deseleccionar los siguientes registros:
 
-* Pagina 1, registro de la línea 3 con el id "47"
-* Pagina 1, registro de la línea 6 con el id "56"
-* Pagina 3, registro de la línea 1 con el id "89"
-* Pagina 4, registro de la línea 7 con el id "176"
-* Pagina 4, registro de la línea 8 con el id "201"
+* Página 1, registro de la línea 3 con el id "47"
+* Página 1, registro de la línea 6 con el id "56"
+* Página 3, registro de la línea 1 con el id "89"
+* Página 4, registro de la línea 7 con el id "176"
+* Página 4, registro de la línea 8 con el id "201"
 
 Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 
