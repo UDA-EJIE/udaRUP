@@ -71,7 +71,7 @@
 	ValidateMaterialAdapter.prototype.errorPlacement = function (error, element) {
 
 		var name = element.prop('name'),
-			$container = element.parent();
+			$container = element.parent(),
 			$icon = $('<i class="mdi mdi-close error" aria-hidden="true"></i>');
 			
 		// Si el elemento a validar es un checkbox/radio elegir otra posicion para su correcto visualizacion

@@ -28,7 +28,7 @@
 		
 		var methods = {
 			init : function( options ) {
-				$this = $(this);
+				var $this = $(this);
 				this.multiDatesPicker.changed = false;
 				
 				if(options) {
@@ -140,7 +140,7 @@
 				var o_dates = new Array();
 				var one_day = 1000*60*60*24;
 				
-				for(i in i_dates) o_dates.push(dateConvert(i_dates[i], 'object'));
+				for(let i in i_dates) o_dates.push(dateConvert(i_dates[i], 'object'));
 				
 				// return > 0 means date1 is later than date2 
 				// return == 0 means date1 is the same day as date2 
@@ -190,7 +190,7 @@
 						return this.multiDatesPicker[datesArraySwitch(type)];
 					default:
 						var o_dates = new Array();
-						for(i in this.multiDatesPicker[datesArraySwitch(type)]) o_dates.push(dateConvert(this.multiDatesPicker[datesArraySwitch(type)][i], 'string'));
+						for(let i in this.multiDatesPicker[datesArraySwitch(type)]) o_dates.push(dateConvert(this.multiDatesPicker[datesArraySwitch(type)][i], 'string'));
 						return o_dates;
 				}
 			},
@@ -199,7 +199,7 @@
 					case 'object':
 					case 'array':
 						if(dates.length) {
-							for(i in dates) addDate.call(this, dates[i], type);
+							for(let i in dates) addDate.call(this, dates[i], type);
 							break;
 						} // else does the same as 'string'
 					case 'string':
@@ -212,7 +212,7 @@
 			},
 			removeDates : function( indexes, type ) {
 				if(typeof index == 'array')
-					for(i in indexes) removeDate.call(this, i, type);
+					for(let i in indexes) removeDate.call(this, i, type);
 				else
 					removeDate.call(this, indexes, type);
 				$(this).datepicker('refresh');
@@ -249,7 +249,7 @@
 				this.multiDatesPicker.mode.modeName = mode.modeName;
 				switch(mode.modeName) {
 					case 'normal':
-						for (option in mode.options)
+						for (let option in mode.options)
 							switch(option) {
 								case 'maxPicks':
 								case 'minPicks':
@@ -264,7 +264,7 @@
 					case 'daysRange':
 					case 'weeksRange':
 						var mandatory = 1;
-						for (option in mode.options)
+						for (let option in mode.options)
 							switch(option) {
 								case 'autoselectRange':
 									mandatory--;
