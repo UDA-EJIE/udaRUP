@@ -1,6 +1,6 @@
 # RUP Table - Multiselection
 
-Permite realizar una selección móltiple de los registros que se muestran en la tabla.
+Permite realizar una selección múltiple de los registros que se muestran en la tabla.
 
 ![Imagen 1](img/rup.table.multiselection_1.png)
 
@@ -18,18 +18,20 @@ $("#idComponente").rup_table({
 
 ## Funcionamiento interno
 
-Para su funcionamiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiselection```.
+Para su funcionamiento el plugin de multiselección del componente RUP Table hace uso de una estructura de datos almacenada mediante ```multiselection```.
 
-Se puede acceder a esta estructura mediante la siguiente instrucción.
+Se puede acceder a esta estructura mediante la siguiente instrucción:
 
 ```js
 var table = $('#example').DataTable();
 var multiselectionObj = table.context[0].multiselection;
 ```
-Se puede acceder a los mótodos de la api del multiSelect
-``DataTable.Api().multiSelect.metodoEjemplo()`
+Se puede acceder a los métodos de la api del multiSelect:
+```js
+DataTable.Api().multiSelect.metodoEjemplo()
+```
 
-Ademós de las propiedades de configuración asociadas a la configuración del plugin de multiselección se pueden observar las siguientes propiedades.
+Además de las propiedades de configuración asociadas a la configuración del plugin de multiselección, se pueden observar las siguientes propiedades:
 
 
 ```js
@@ -47,16 +49,16 @@ Ademós de las propiedades de configuración asociadas a la configuración del p
 
 La función de cada propiedad es la siguiente:
 
-* **numSelected**: Nómero de registros seleccionados en la tabla.
-* **selectedAll**: Indica si se han seleccionado todos los elementos de la tabla.
-* **selectedIds**: Array que almacena los identificadores de los registros *seleccionados*.
-* **selectedRowsPerPage**: Array que almacena la información de los registros *seleccionados* por cada pógina.
-* **deselectedIds**: Array que almacena los identificadores de los registros *deseleccionados*.
-* **deselectedRowsPerPage**: Array que almacena la información de los registros *deseleccionados* por cada pógina.
-* **lastSelectedId**: -identificador con el óltimo registro seleccionado*.
-* **accion**: Variable para distingir la acción de checkAll, uncheckAll, checkAllPage y uncheckAllPage*.
+* **numSelected**: número de registros seleccionados en la tabla.
+* **selectedAll**: indica si se han seleccionado todos los elementos de la tabla.
+* **selectedIds**: array que almacena los identificadores de los registros *seleccionados*.
+* **selectedRowsPerPage**: array que almacena la información de los registros *seleccionados* por cada página.
+* **deselectedIds**: array que almacena los identificadores de los registros *deseleccionados*.
+* **deselectedRowsPerPage**: array que almacena la información de los registros *deseleccionados* por cada página.
+* **lastSelectedId**: identificador con el último registro seleccionado*.
+* **accion**: variable para distingir la acción de checkAll, uncheckAll, checkAllPage y uncheckAllPage*.
 
-Existen dos modos de selección de registros en la tabla.
+Existen dos modos de selección de registros en la tabla:
 
 * Selección de registros **ordinaria**.
 * Selección de registros **inversa**.
@@ -66,19 +68,17 @@ Existen dos modos de selección de registros en la tabla.
 En este caso la selección de registros se realiza de manera normal. Cuando se selecciona un registro de la tabla se:
 
 * Incrementa el contador de la propiedad ``numSelected``.
-* Se almacena el óltimo id seleccionado ``lastSelectedId``.
+* Se almacena el último id seleccionado ``lastSelectedId``.
 
-Supongamos el siguiente ejemplo.
+Supongamos el siguiente ejemplo: se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado se procede a seleccionar los siguientes registros:
 
-Se accede a la aplicación y sobre un componente RUP Table con el plugin de multiselección activado se procede a seleccionar los siguientes registros:
+* Página 1, registro de la línea 3 con el id "47"
+* Página 1, registro de la línea 6 con el id "56"
+* Página 3, registro de la línea 1 con el id "89"
+* Página 4, registro de la línea 7 con el id "176"
+* Página 4, registro de la línea 8 con el id "201"
 
-* Pagina 1, registro de la línea 3 con el id "47"
-* Pagina 1, registro de la línea 6 con el id "56"
-* Pagina 3, registro de la línea 1 con el id "89"
-* Pagina 4, registro de la línea 7 con el id "176"
-* Pagina 4, registro de la línea 8 con el id "201"
-
-Despuós de realizar las multiselección sobre los registros el estado de la estructura seró la siguiente:
+Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 
 ```js
 {
@@ -113,11 +113,11 @@ Se accede a la aplicación y sobre un componente RUP Table con el plugin de mult
 
 El número de registros totales es de 1500 elementos. Se seleccionan todos los registros mediante la opción **selectAll** y se procede a deseleccionar los siguientes registros:
 
-* Pagina 1, registro de la línea 3 con el id "47"
-* Pagina 1, registro de la línea 6 con el id "56"
-* Pagina 3, registro de la línea 1 con el id "89"
-* Pagina 4, registro de la línea 7 con el id "176"
-* Pagina 4, registro de la línea 8 con el id "201"
+* Página 1, registro de la línea 3 con el id "47"
+* Página 1, registro de la línea 6 con el id "56"
+* Página 3, registro de la línea 1 con el id "89"
+* Página 4, registro de la línea 7 con el id "176"
+* Página 4, registro de la línea 8 con el id "201"
 
 Después de realizar las multiselección sobre los registros el estado de la estructura será la siguiente:
 

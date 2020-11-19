@@ -132,58 +132,83 @@ DataTable.inlineEdit.init = function ( dt ) {
     if(ctx.oInit.inlineEdit.validate !== undefined){
     	validaciones = ctx.oInit.inlineEdit.validate.rules;
     }
-    $('#' + ctx.sTableId + '_search_searchForm').rup_validate({
-        feedback: feed,
-        liveCheckingErrors: false,
-        showFieldErrorAsDefault: true,
-        showErrorsInFeedback: true,
-        showFieldErrorsInFeedback:true,
-        rules:validaciones,
-        submitHandler: function(form) {
-            return false;  // block the default submit action
-        }
-    });
+    
+    let propertiesDefault = {
+            liveCheckingErrors: false,
+            showFieldErrorAsDefault: true,
+            showErrorsInFeedback: true,
+            showFieldErrorsInFeedback:true
+        };
+    let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.inlineEdit.propertiesValidate);
+    propertiesValidate.feedback = feed;
+    propertiesValidate.rules = validaciones;
+    propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
 	
+    $('#' + ctx.sTableId + '_search_searchForm').rup_validate(propertiesValidate);
+    
+    let borrarGuardar = false;
+    let borrarCancelar = false;
+	if (ctx.oInit.buttons !== undefined && ctx.oInit.buttons.blackListButtons !== undefined){
+		if (ctx.oInit.buttons.blackListButtons === 'all'){
+			 borrarGuardar = true;
+			 borrarCancelar = true;
+		}else if(ctx.oInit.buttons.blackListButtons && ctx.oInit.buttons.blackListButtons.length > 0){
+			$.each(ctx.oInit.buttons.blackListButtons, function () {
+				let name = this;
+				if(name === 'saveButton'){
+					borrarGuardar = true;
+				}
+				if(name === 'cancelButton'){
+					borrarCancelar = true;
+				}
+			});
+		}
+	}
+    
     // Crear botones Guardar y Cancelar
 	ctx.oInit.inlineEdit.myButtons = {};
     // Boton Guardar
-	ctx.oInit.inlineEdit.myButtons.guardar = {
-		 text: function (dt) {
-                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
-         },
-         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
-            icon: 'mdi-content-save',
-         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
-         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-         type: 'save',
-         action: function ( e, dt, button, config ) {
-        	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
-        	 _guardar(ctx,$selector,false);
-         }
-    };
+	if(!borrarGuardar){
+		ctx.oInit.inlineEdit.myButtons.guardar = {
+			 text: function (dt) {
+	                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
+	         },
+	         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
+	            icon: 'mdi-content-save',
+	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	         type: 'save',
+	         action: function ( e, dt, button, config ) {
+	        	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+	        	 _guardar(ctx,$selector,false);
+	         }
+	    };
+	}
   
-    // Boton Cancelar
-    ctx.oInit.inlineEdit.myButtons.cancelar = {
-         text: function (dt) {
-                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
-         },
-         id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
-            icon: 'mdi-cancel',
-         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
-         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-         type: 'cancel',
-         action: function ( ) {
-        	 	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
-        		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-        	 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
-        		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-	    		ctx.inlineEdit.lastRow = undefined;
-	    		ctx.oInit.inlineEdit.alta = undefined;
-                dt.ajax.reload(undefined, false);
-       }
-    };
+	if(!borrarCancelar){
+	    // Boton Cancelar
+	    ctx.oInit.inlineEdit.myButtons.cancelar = {
+	         text: function (dt) {
+	                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
+	         },
+	         id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+	         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
+	            icon: 'mdi-cancel',
+	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	         type: 'cancel',
+	         action: function ( ) {
+	        	 	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
+	        		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+	        	 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
+	        		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+		    		ctx.inlineEdit.lastRow = undefined;
+		    		ctx.oInit.inlineEdit.alta = undefined;
+	                dt.ajax.reload(undefined, false);
+	       }
+	    };
+	}
 
         $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
             _addChildIcons(ctx);
@@ -872,7 +897,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 
 
 				$elem.attr({
-					'title': $('#'+colModelName+'_inline').attr('oldtitle'),
+					'title': '',
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel

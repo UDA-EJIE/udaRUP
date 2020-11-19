@@ -1,5 +1,5 @@
 // ESTILOS
-$checkbox-material-margin: .5em 0;
+$checkbox-material-margin: 1.2em 0;
 $checkbox-material-size: 1.25em;
 $checkbox-material-padding: .25em;
 $checkbox-material-border-width: 2px;
@@ -112,7 +112,6 @@ $checkbox-material-label-padding: .75em;
 
 table div.checkbox-material-inline {
     label {
-
         &::before,
         &::after {
             top: 3px;
@@ -136,11 +135,38 @@ table div.checkbox-material-inline {
 .dialog-content-material {
     .checkbox-material {
         label {
-
             &::before,
             &::after {
                 left: 6px;
             }
         }
     }
+}
+
+.form-checkboxGroupMaterial {
+	& > label {
+		position: absolute;
+		top: 2px;
+		left: 19px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+	}
+	
+	.checkbox-material {
+		& > span {
+			position: relative;
+			
+			&:not(:last-child) {
+				margin-right: 2rem;
+			}
+			
+			label:not(:empty) {
+				padding-left: 2em;
+			}
+		}
+		
+		padding: .5rem 1rem;
+		margin: .8rem 0;
+	}
 }

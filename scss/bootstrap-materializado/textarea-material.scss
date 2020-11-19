@@ -34,10 +34,39 @@
 		  	color: $no-color;
 		}
 		
+		&:-ms-input-placeholder:disabled {
+		  	color: $no-color;
+		}
+		
 		/* ESTILOS DE LOS LABELS */
-		&:focus:enabled ~ label,
-		&:valid:enabled ~ label,
+		&:focus:enabled ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
+		&:valid:enabled ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
 		&:placeholder-shown:required ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+
+		&:-ms-input-placeholder:required ~ label {
 			top: -10px;
 			font-size: .9rem;
 			color: $primary-color;

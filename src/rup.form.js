@@ -107,7 +107,7 @@
          * @param {object} argOptions - Opciones de configuración.
          * @example
          * var options = {};
-         * jQuery("#form").rup_form("ajaxSubmit", options);
+         * jQuery("#form").rup_form("ajaxNotSubmit", options);
          */
         ajaxNotSubmit: function (argOptions) {
             var $self = this,
@@ -387,7 +387,7 @@
 
             settings.formValidationRequired = (settings.validate !== undefined);
 
-            // Configruacion de las validaciones
+            // Configuracion de las validaciones
             if (settings.formValidationRequired) {
                 if (settings.error === undefined) {
                     settings.error = function (a) {
@@ -429,26 +429,30 @@
          * @param {object} args - Propiedades de configuración.
          */
         _init: function (args) {
-            var $self = this,
-                settings;
+        	global.initRupI18nPromise.then(() => {
+	            var $self = this,
+	                settings;
+	
+	            // Determinamos si se ha introducido configuracion para el componente validacion.
+	            // Settings de configuracion
+	            settings = $.extend(true, {}, $.fn.rup_form.defaults, args[0]);
+	            // Anadimos al formulario el class rup_form para identificarlo como componente formulario.
+	            $self.addClass('rup_form');
+	            $self.attr('ruptype', 'form');
+	
+	            $self.rup_form('configureOptions', settings);
+	            // En caso de que no sehaya configurado el componente validacion se realiza la llamada al plugin jquery.form.
+	            if (settings.formValidationRequired) {
+	                $self.rup_validate(settings.validate);
+	            } else {
+	                $self.ajaxForm(settings);
+	            }
 
-            // Determinamos si se ha introducido configuracion para el componente validacion.
-            // Settings de configuracion
-            settings = $.extend(true, {}, $.fn.rup_form.defaults, args[0]);
-            // Anadimos al formulario el class rup_form para identificarlo como componente formulario.
-            $self.addClass('rup_form');
-            $self.attr('ruptype', 'form');
-
-            $self.rup_form('configureOptions', settings);
-            // En caso de que no sehaya configurado el componente validacion se realiza la llamada al plugin jquery.form.
-            if (settings.formValidationRequired) {
-                $self.rup_validate(settings.validate);
-            } else {
-                $self.ajaxForm(settings);
-            }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_form', 'init');
+	            //Se audita el componente
+	            $.rup.auditComponent('rup_form', 'init');
+	    	}).catch((error) => {
+	            console.error('Error al inicializar el componente:\n', error);
+	        });
         }
     });
 

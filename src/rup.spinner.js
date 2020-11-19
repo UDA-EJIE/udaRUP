@@ -40,9 +40,27 @@
     // DEFINICIÓN DE MÉTODOS PÚBLICOS
     //*******************************
     $.fn.rup_spinner('extend',{
-        getRupValue: function() {
+    	/**
+         * @description Método utilizado para obtener el valor del componente. Este método es el utilizado
+        	por el resto de componentes RUP para estandarizar la obtención del valor del Spinner.
+         *
+         * @function getRupValue
+         * @return {number} - Devuelve el valor actual del componente seleccionado por el usuario.
+         * @example
+         * $("#idSpinner").rup_spinner("getRupValue");
+         */
+    	getRupValue: function() {
             return this.spinner('value');
         },
+        /**
+         * @description Método utilizado para asignar el valor al componente. Este método es el utilizado por
+    		el resto de componentes RUP para estandarizar la asignación del valor al Spinner.
+         *
+         * @function setRupValue
+         * @param {string | number} param - Valor que se va a asignar al componente.
+         * @example
+         * $("#idSpinner").rup_spinner("setRupValue", 5);
+         */
         setRupValue: function(value){
             var $self = this;
 

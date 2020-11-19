@@ -44,8 +44,8 @@ Ruta theme: rup/css/
 Fichero CSS del theme: **theme.rup.report - x.y.z.css**
 
 ###	4.2	Dependencias
-Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
-•	**jQuery 1.12.4**: http://jquery.com/
+Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **3.4.1**.
+•	**jQuery 3.4.1**: http://jquery.com/
 
 La gestión de los diálogos se realiza mediante el ***jQuery File Download Plugin v1.3.3***,
 •	**jquery.fileDownload.js**
@@ -54,9 +54,7 @@ Adicionalmente se utiliza el componente **rup.toolbar** para la gestión de boto
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-    jquery-1.12.4.js
-	jquery-ui-1.12.0.custom.js
-	jquery-ui-1.12.0.custom.css
+    jquery-3.4.1.js
 	jqGrid-4.4.1.js
 	rup.base-x.y.z.js
 	rup.toolbar-x.y.z.js

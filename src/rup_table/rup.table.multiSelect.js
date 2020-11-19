@@ -1604,6 +1604,41 @@ handler that will select the items using the API methods.
     apiRegister('multiSelect.deselectAll()', function (dt) {
         deselectAll(dt);
     });
+    
+    apiRegister('multiSelect.defaultsIds()', function (ctx) {
+
+    	let defaultsIds = ctx.oInit.multiSelect.defaultsIds;
+    	//defaultsIds[0] Lista de IDS
+    	//defaultsIds[1] Lista si se filtra siempre o solo la primera vez(true/false)
+    	
+        if(defaultsIds !== undefined){
+        	if(defaultsIds[0] !== undefined){
+        		let listIds = defaultsIds[0];
+        		let always = defaultsIds[1];
+        		if(always === true){
+    		    	$.each(listIds, function () {
+    		    		let id = this;
+    			        let indexInArray = jQuery.inArray(id, ctx.multiselection.selectedIds);
+    			        if(indexInArray < 0){//no esta ya seleccioando
+    			        	ctx.multiselection.selectedIds.push(id);
+    			        }
+    		    	});
+        		} 
+        		if(always === false || always === undefined){
+    		    	$.each(listIds, function () {
+    		    		let id = this;
+    			        let indexInArray = jQuery.inArray(id, ctx.multiselection.selectedIds);
+    			        if(indexInArray < 0){//no esta ya seleccioando
+    			        	ctx.multiselection.selectedIds.push(id);
+    			        }
+    		    	});
+    		    	ctx.oInit.multiSelect.defaultsIds[1] = null;
+        		}
+
+        	}
+        }
+
+    });
 
     apiRegisterPlural('rows().multiSelect()', 'row().multiSelect()', function (multiSelect) {
         var api = this;

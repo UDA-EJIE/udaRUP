@@ -125,7 +125,7 @@
                 settings = $self.data('settings');
 
             //Tipo de combo
-            if (this.length === 0 || !$(this).data('settings').multiselect) {
+            if (this.length === 0 || (settings !== undefined && !settings.multiselect)) {
                 //Simple > selectmenu
                 $.data(this[0], 'setRupValue', param.toString());
                 $(this).rup_combo('select', param.toString());
@@ -826,7 +826,22 @@
                 // delete options;
                 // delete arrVals;
             }
-        }
+        },
+        /**
+         * Cambia el source del combo y recarga el componente para que este comience a usarlo.
+         *
+         * @function setSource
+         * @param {string} source - Source desde el cual se obtendran los datos a mostrar.
+         * @example
+         * $("#idCombo").rup_combo("setSource", source);
+         */
+        setSource: function (source) {
+        	if (source != undefined && source != '') {
+            	let combo = $(this);
+            	combo.data().settings.source = source;
+            	combo.rup_combo('reload');
+        	}
+    	}
     });
 
     //*******************************
@@ -1324,9 +1339,10 @@
             $('#' + settings.id).rup_combo('disable');
 
             //LOADING...
-            $('#' + settings.id + '-button span:first-child').addClass('rup-combo_loadingText').text($.rup.i18n.base.rup_combo.loadingText);
+            $('#' + settings.id + '-button span:first-child').removeClass("ui-icon ui-icon-triangle-1-s").addClass('rup-combo_loadingText').text($.rup.i18n.base.rup_combo.loadingText);
             var icon = $('#' + settings.id + '-button span:last-child');
             $(icon).removeClass('ui-icon-triangle-1-s');
+            $(icon).text(''); // Evita errores de visualización con el icono
             $(icon).addClass('rup-combo_loading');
 
             //Cabecera RUP
@@ -1579,267 +1595,271 @@
          * @param {object} args - Parámetros de inicialización del componente.
          */
         _init: function (args) {
-            if (args.length > 1) {
-                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
-            } else {
-                //Se recogen y cruzan las paremetrizaciones del objeto
-                var settings = $.extend({}, $.fn.rup_combo.defaults, args[0]),
-                    html, loadAsLocal = false,
-                    isValidableElem = false,
-                    attrsJson = {},
-                    attrs;
-
-                // Se sobreescribe el change:
-                if (settings.change) {
-                    settings.userChange = settings.change;
-                }
-                if (settings.userChange) {
-                    settings.change = function () {
-                        if ($('#' + settings.id).is('.inited')) {
-                            settings.userChange();
-                        }
-                    };
-                }
-
-                //Se recoge el tabindex indicado en el elemento
-                settings.tabindex = $(this).attr('tabindex');
-
-                //Sobreescribir literales por defecto para multicombo
-                $.extend($.ech.multiselect.prototype.options, $.rup.i18n.base.rup_combo.multiselect);
-
-                //Se carga el identificador del padre del patron
-                settings.id = $.rup_utils.escapeId($(this).attr('id'));
-                settings.name = $(this).attr('name');
-
-                //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
-                if (!settings.i18nId) {
-                    settings.i18nId = settings.id;
-                }
-
-                //Guardar valor del INPUT
-                settings.inputValue = $('#' + settings.id).val() === null ? $('#' + settings.id).prop('value') : $('#' + settings.id).val();
-
-                attrs = $(this).prop('attributes');
-
-                for (let i = 0; i < attrs.length; i++) {
-                    attrsJson[attrs[i].name] = attrs[i].value;
-                }
-
-                $.extend(attrsJson, {
-                    name: settings.name,
-                    ruptype: 'combo'
-                });
-
-                //Contenido combo
-                html = $('<select>').attr(attrsJson).addClass('rup_combo');
-
-                if ($(this).hasClass('validableElem')) {
-                    isValidableElem = true;
-                    html.addClass('validableElem');
-                }
-                if ($(this).hasClass('customelement')) {
-                    isValidableElem = true;
-                    html.addClass('customelement');
-                }
-
-                if (settings.firstLoad === null && ($(this).is('select') && settings.loadFromSelect)) {
-                    loadAsLocal = true;
-                }
-
-                if (settings.parent) {
-                    //DEPENDIENTE
-                    //Guardar referencia a hijos en cada uno de los padres (propagación de carga)
-                    $.map(settings.parent, function (item) {
-                        var childsArray = $('#' + item).data('childs') === undefined ? [] : $('#' + item).data('childs');
-                        childsArray[childsArray.length] = settings.id;
-                        $('#' + item).data('childs', childsArray);
-                    });
-
-                    if (settings.loadFromSelect === false) {
-                        if (settings.firstLoad !== null) {
-                            this._parseLOCAL(settings.firstLoad, settings, html);
-                        }
-                        //Crear combo y deshabilitarlo
-                        $('#' + settings.id).replaceWith(html);
-                    } else {
-                        $('#' + settings.id).attr('ruptype', 'combo').removeClass().addClass('rup_combo');
-                        if (isValidableElem) {
-                            $('#' + settings.id).removeClass().addClass('validableElem');
-                        }
-                    }
-
-                    this._makeCombo(settings);
-
-                    if (!($(this).is('select') && settings.loadFromSelect)) {
-                        $('#' + settings.id).rup_combo('disable');
-                    } else {
-                        var options = $(this).find('option');
-                        var vacio = true;
-                        for (let i = 0; i < options.length; i = i + 1) {
-                            if ($(options[i]).attr('value') !== '') {
-                                vacio = false;
-                                break;
-                            }
-                        }
-                        if (vacio) {
-                            $('#' + settings.id).rup_combo('disable');
-                        }
-                    }
-
-                    //Almacenar los settings
-                    $('#' + settings.id).data('settings', settings);
-
-                    //Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
-                    if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
-                        $('#' + settings.id).rup_combo('reload', settings.id);
-                    }
-                    multiChange(settings);
-                    $('#' + settings.id).addClass('inited');
-
-                } else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
-                    //LOCAL
-
-                    if (settings.blank != null) {
-                        var isOptgroup = false;
-
-                        // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-                        $.each(settings.sourceGroup, function (key, value) {
-                            if (typeof value === 'object' && value !== null) {
-                                isOptgroup = true;
-                                return false;
-                            }
-                        });
-
-                        // Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
-                        // en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
-                        if (isOptgroup) {
-                            settings.blankDone = false;
-                        }
-                    }
-
-                    //Parsear datos
-                    if (settings.loadFromSelect === false) {
-                        if (settings.source) {
-                            this._parseLOCAL((settings.firstLoad !== null ? settings.firstLoad : settings.source), settings, html);
-                        } else {
-                            settings.ordered = false;
-                            this._parseOptGroupLOCAL((settings.firstLoad !== null ? settings.firstLoad : settings.sourceGroup), settings, html);
-                        }
-                        $('#' + settings.id).replaceWith(html);
-                    } else {
-                        $('#' + settings.id).attr('ruptype', 'combo').removeClass().addClass('rup_combo');
-                        if (isValidableElem) {
-                            $('#' + settings.id).removeClass().addClass('validableElem');
-                        }
-                    }
-
-                    //Crear combo
-                    this._makeCombo(settings);
-
-                    if (settings.onLoadSuccess !== null) {
-                        jQuery(settings.onLoadSuccess($('#' + settings.id)));
-                    }
-
-                    //Almacenar los settings
-                    $('#' + settings.id).data('settings', settings);
-
-                    multiChange(settings);
-                    $('#' + settings.id).addClass('inited');
-
-                } else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
-                    //REMOTO
-                    var url = settings.source ? settings.source : settings.sourceGroup,
-                        rupCombo = this,
-                        self = this;
-                    $.rup_ajax({
-                        url: url,
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        beforeSend: function (xhr) {
-                            rupCombo._ajaxBeforeSend(xhr, settings, html);
-                        },
-                        success: function (data) {
-                            if (settings.blank != null) {
-                                var isOptgroup = false;
-
-                                // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
-                                $.each(data[0], function (key, value) {
-                                    if (typeof value === 'object' && value !== null) {
-                                        isOptgroup = true;
-                                        return false;
-                                    }
-                                });
-
-                                // Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
-                                // en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
-                                if (isOptgroup) {
-                                    settings.blankDone = false;
-                                }
-                            }
-                            rupCombo._ajaxSuccess(data, settings, html);
-                            if (settings.onLoadSuccess !== null) {
-                                jQuery(settings.onLoadSuccess($('#' + settings.id)));
-                            }
-
-                            multiChange(settings);
-                            $('#' + settings.id).addClass('inited');
-                            
-                            // Evento que se ejecuta cuando la carga de datos ha sido satisfactoria.
-                            $('#' + settings.id).triggerHandler('comboAjaxLoadSuccess', [data]);
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            if (settings.onLoadError !== null) {
-                                jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-                            } else {
-                                self._ajaxError(xhr, textStatus, errorThrown);
-                            }
-                        }
-                    });
-                    // delete rupCombo;
-
-                    //Almacenar los settings
-                    $('#' + settings.id).data('settings', settings);
-
-                } else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
-                    jQuery(settings.source);
-                    this._makeCombo(settings);
-
-                    //Almacenar los settings
-                    $('#' + settings.id).data('settings', settings);
-
-                    multiChange(settings);
-                    $('#' + settings.id).addClass('inited');
-                }
-
-                //Asociar evento CHANGE para propagar cambios a los hijos
-                $('#' + settings.id).bind('change', function () {
-                    // En caso de modificarse el valor del select, se actualiza el valor del rup.combo (con esta accion se recargan tambien los hijos)
-                    if (!settings.multiselect) {
-                        $('#' + settings.id).rup_combo('select', $('#' + settings.id).val());
-                    } else {
-                        $('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupvalue'));
-                    }
-
-                    //Lanzar cambio para que se recarguen hijos, si los tiene
-                    var hijos = $(this).data('childs');
-                    if (hijos !== undefined) {
-                        for (let i = 0; i < hijos.length; i = i + 1) {
-                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
-                        }
-                    }
-                });
-
-                //Borrar referencia
-                // delete html;
-
-                //Ocultar posibles elementos de fechas/horas
-                $('#' + settings.id).next('a').click(function () {
-                    $('#ui-datepicker-div').hide();
-                });
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_combo', 'init');
-            }
+        	global.initRupI18nPromise.then(() => {
+	            if (args.length > 1) {
+	                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+	            } else {
+	                //Se recogen y cruzan las paremetrizaciones del objeto
+	                var settings = $.extend({}, $.fn.rup_combo.defaults, args[0]),
+	                    html, loadAsLocal = false,
+	                    isValidableElem = false,
+	                    attrsJson = {},
+	                    attrs;
+	
+	                // Se sobreescribe el change:
+	                if (settings.change) {
+	                    settings.userChange = settings.change;
+	                }
+	                if (settings.userChange) {
+	                    settings.change = function () {
+	                        if ($('#' + settings.id).is('.inited')) {
+	                            settings.userChange();
+	                        }
+	                    };
+	                }
+	
+	                //Se recoge el tabindex indicado en el elemento
+	                settings.tabindex = $(this).attr('tabindex');
+	
+	                //Sobreescribir literales por defecto para multicombo
+	                $.extend($.ech.multiselect.prototype.options, $.rup.i18n.base.rup_combo.multiselect);
+	
+	                //Se carga el identificador del padre del patron
+	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
+	                settings.name = $(this).attr('name');
+	
+	                //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
+	                if (!settings.i18nId) {
+	                    settings.i18nId = settings.id;
+	                }
+	
+	                //Guardar valor del INPUT
+	                settings.inputValue = $('#' + settings.id).val() === null ? $('#' + settings.id).prop('value') : $('#' + settings.id).val();
+	
+	                attrs = $(this).prop('attributes');
+	
+	                for (let i = 0; i < attrs.length; i++) {
+	                    attrsJson[attrs[i].name] = attrs[i].value;
+	                }
+	
+	                $.extend(attrsJson, {
+	                    name: settings.name,
+	                    ruptype: 'combo'
+	                });
+	
+	                //Contenido combo
+	                html = $('<select>').attr(attrsJson).addClass('rup_combo');
+	
+	                if ($(this).hasClass('validableElem')) {
+	                    isValidableElem = true;
+	                    html.addClass('validableElem');
+	                }
+	                if ($(this).hasClass('customelement')) {
+	                    isValidableElem = true;
+	                    html.addClass('customelement');
+	                }
+	
+	                if (settings.firstLoad === null && ($(this).is('select') && settings.loadFromSelect)) {
+	                    loadAsLocal = true;
+	                }
+	
+	                if (settings.parent) {
+	                    //DEPENDIENTE
+	                    //Guardar referencia a hijos en cada uno de los padres (propagación de carga)
+	                    $.map(settings.parent, function (item) {
+	                        var childsArray = $('#' + item).data('childs') === undefined ? [] : $('#' + item).data('childs');
+	                        childsArray[childsArray.length] = settings.id;
+	                        $('#' + item).data('childs', childsArray);
+	                    });
+	
+	                    if (settings.loadFromSelect === false) {
+	                        if (settings.firstLoad !== null) {
+	                            this._parseLOCAL(settings.firstLoad, settings, html);
+	                        }
+	                        //Crear combo y deshabilitarlo
+	                        $('#' + settings.id).replaceWith(html);
+	                    } else {
+	                        $('#' + settings.id).attr('ruptype', 'combo').removeClass().addClass('rup_combo');
+	                        if (isValidableElem) {
+	                            $('#' + settings.id).removeClass().addClass('validableElem');
+	                        }
+	                    }
+	
+	                    this._makeCombo(settings);
+	
+	                    if (!($(this).is('select') && settings.loadFromSelect)) {
+	                        $('#' + settings.id).rup_combo('disable');
+	                    } else {
+	                        var options = $(this).find('option');
+	                        var vacio = true;
+	                        for (let i = 0; i < options.length; i = i + 1) {
+	                            if ($(options[i]).attr('value') !== '') {
+	                                vacio = false;
+	                                break;
+	                            }
+	                        }
+	                        if (vacio) {
+	                            $('#' + settings.id).rup_combo('disable');
+	                        }
+	                    }
+	
+	                    //Almacenar los settings
+	                    $('#' + settings.id).data('settings', settings);
+	
+	                    //Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
+	                    if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
+	                        $('#' + settings.id).rup_combo('reload', settings.id);
+	                    }
+	                    multiChange(settings);
+	                    $('#' + settings.id).addClass('inited');
+	
+	                } else if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object' || loadAsLocal) {
+	                    //LOCAL
+	
+	                    if (settings.blank != null) {
+	                        var isOptgroup = false;
+	
+	                        // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+	                        $.each(settings.sourceGroup, function (key, value) {
+	                            if (typeof value === 'object' && value !== null) {
+	                                isOptgroup = true;
+	                                return false;
+	                            }
+	                        });
+	
+	                        // Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+	                        // en el metodo '_parseOptGroupLOCAL' se gestione correctamente.
+	                        if (isOptgroup) {
+	                            settings.blankDone = false;
+	                        }
+	                    }
+	
+	                    //Parsear datos
+	                    if (settings.loadFromSelect === false) {
+	                        if (settings.source) {
+	                            this._parseLOCAL((settings.firstLoad !== null ? settings.firstLoad : settings.source), settings, html);
+	                        } else {
+	                            settings.ordered = false;
+	                            this._parseOptGroupLOCAL((settings.firstLoad !== null ? settings.firstLoad : settings.sourceGroup), settings, html);
+	                        }
+	                        $('#' + settings.id).replaceWith(html);
+	                    } else {
+	                        $('#' + settings.id).attr('ruptype', 'combo').removeClass().addClass('rup_combo');
+	                        if (isValidableElem) {
+	                            $('#' + settings.id).removeClass().addClass('validableElem');
+	                        }
+	                    }
+	
+	                    //Crear combo
+	                    this._makeCombo(settings);
+	
+	                    if (settings.onLoadSuccess !== null) {
+	                        jQuery(settings.onLoadSuccess($('#' + settings.id)));
+	                    }
+	
+	                    //Almacenar los settings
+	                    $('#' + settings.id).data('settings', settings);
+	
+	                    multiChange(settings);
+	                    $('#' + settings.id).addClass('inited');
+	
+	                } else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
+	                    //REMOTO
+	                    var url = settings.source ? settings.source : settings.sourceGroup,
+	                        rupCombo = this,
+	                        self = this;
+	                    $.rup_ajax({
+	                        url: url,
+	                        dataType: 'json',
+	                        contentType: 'application/json',
+	                        beforeSend: function (xhr) {
+	                            rupCombo._ajaxBeforeSend(xhr, settings, html);
+	                        },
+	                        success: function (data) {
+	                            if (settings.blank != null) {
+	                                var isOptgroup = false;
+	
+	                                // Comprobamos si el value es un objeto. En caso de serlo esto nos indicara que se trata de un combo tipo 'optgroup'.
+	                                $.each(data[0], function (key, value) {
+	                                    if (typeof value === 'object' && value !== null) {
+	                                        isOptgroup = true;
+	                                        return false;
+	                                    }
+	                                });
+	
+	                                // Si es un combo tipo 'optgroup' se establece una propiedad para que despues 
+	                                // en el metodo '_parseOptGroupREMOTE' se gestione correctamente.
+	                                if (isOptgroup) {
+	                                    settings.blankDone = false;
+	                                }
+	                            }
+	                            rupCombo._ajaxSuccess(data, settings, html);
+	                            if (settings.onLoadSuccess !== null) {
+	                                jQuery(settings.onLoadSuccess($('#' + settings.id)));
+	                            }
+	
+	                            multiChange(settings);
+	                            $('#' + settings.id).addClass('inited');
+	                            
+	                            // Evento que se ejecuta cuando la carga de datos ha sido satisfactoria.
+	                            $('#' + settings.id).triggerHandler('comboAjaxLoadSuccess', [data]);
+	                        },
+	                        error: function (xhr, textStatus, errorThrown) {
+	                            if (settings.onLoadError !== null) {
+	                                jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+	                            } else {
+	                                self._ajaxError(xhr, textStatus, errorThrown);
+	                            }
+	                        }
+	                    });
+	                    // delete rupCombo;
+	
+	                    //Almacenar los settings
+	                    $('#' + settings.id).data('settings', settings);
+	
+	                } else if (typeof settings.source === 'function' || typeof settings.sourceGroup === 'function') {
+	                    jQuery(settings.source);
+	                    this._makeCombo(settings);
+	
+	                    //Almacenar los settings
+	                    $('#' + settings.id).data('settings', settings);
+	
+	                    multiChange(settings);
+	                    $('#' + settings.id).addClass('inited');
+	                }
+	
+	                //Asociar evento CHANGE para propagar cambios a los hijos
+	                $('#' + settings.id).bind('change', function () {
+	                    // En caso de modificarse el valor del select, se actualiza el valor del rup.combo (con esta accion se recargan tambien los hijos)
+	                    if (!settings.multiselect) {
+	                        $('#' + settings.id).rup_combo('select', $('#' + settings.id).val());
+	                    } else {
+	                        $('#' + settings.id).rup_combo('select', $('#' + settings.id).rup_combo('getRupvalue'));
+	                    }
+	
+	                    //Lanzar cambio para que se recarguen hijos, si los tiene
+	                    var hijos = $(this).data('childs');
+	                    if (hijos !== undefined) {
+	                        for (let i = 0; i < hijos.length; i = i + 1) {
+	                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
+	                        }
+	                    }
+	                });
+	
+	                //Borrar referencia
+	                // delete html;
+	
+	                //Ocultar posibles elementos de fechas/horas
+	                $('#' + settings.id).next('a').click(function () {
+	                    $('#ui-datepicker-div').hide();
+	                });
+	
+	                //Se audita el componente
+	                $.rup.auditComponent('rup_combo', 'init');
+	            }
+        	}).catch((error) => {
+                console.error('Error al inicializar el componente:\n', error);
+            });
         }
     });
 

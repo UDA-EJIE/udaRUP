@@ -34,6 +34,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
     * [~refresh()](#module_rup_combo..refresh)
     * [~reload()](#module_rup_combo..reload)
     * [~order(orderedByValue, orderAsNumber, skipFirst)](#module_rup_combo..order)
+    * [~setSource(source)](#module_rup_combo..setSource)
 
 <a name="module_rup_combo..defaults"></a>
 
@@ -336,4 +337,19 @@ Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. 
 **Example**  
 ```js
 $("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
+```
+<a name="module_rup_combo..setSource"></a>
+
+### rup_combo~setSource(source)
+Cambia el source del combo y recarga el componente para que este comience a usarlo.
+
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>string</code> | Source desde el cual se obtendran los datos a mostrar. |
+
+**Example**  
+```js
+$("#idCombo").rup_combo("setSource", source);
 ```

@@ -98,7 +98,7 @@ Realiza el envío del formulario. La configuración de este método es la misma 
 
 **Example**  
 ```js
-var options = {};jQuery("#form").rup_form("ajaxSubmit", options);
+var options = {};jQuery("#form").rup_form("ajaxNotSubmit", options);
 ```
 <a name="module_rup_form..destroy"></a>
 

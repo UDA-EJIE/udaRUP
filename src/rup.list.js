@@ -812,7 +812,7 @@ import Printd from 'printd';
         },
 
         /**
-         * Método que lanza la imprisión HTML
+         * Método que lanza la impresión HTML
          * @name _print
          * @private
          * @function
@@ -1187,9 +1187,11 @@ import Printd from 'printd';
 
             let doChange = function(obj, change){
                 if (!$('#' + obj.id).rup_combo('isDisabled')) {
-                    opciones._header.sidx.rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                	let iden = opciones._header.sidx[0].id;
+                    $('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     if(opciones.createFooter){
-                        opciones._footer.sidx.rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    	iden = opciones._footer.sidx[0].id;
+                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     }
                     if(change){
                         self._changeOption('sidx', $('#' + obj.id).rup_combo('getRupValue'));
@@ -1215,8 +1217,16 @@ import Printd from 'printd';
             opciones._header.sidx.rup_combo(sidxRupConf);
             opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
             if(opciones.createFooter){
-                sidxRupConf.change = changeF;
-                opciones._footer.sidx.rup_combo(sidxRupConf);
+                var sidxRupConfFoot = {
+                        source: opciones.sidx.source,
+                        width: 'initial',
+                        selected: opciones.sidx.value,
+                        rowStriping: true,
+                        ordered: false,
+                        change: changeF
+                    };
+       
+                opciones._footer.sidx.rup_combo(sidxRupConfFoot);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
             }
         },
@@ -1431,19 +1441,22 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            let doChange = function(obj, change){
+           let doChange = function(obj, change){
                 if(opciones.createFooter){
+                	let iden = opciones._header.rowNum[0].id;
                     if (obj.id == 'rup-list-footer-rowNum') {
-                        opciones._header.rowNum.rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     }
                     if (obj.id == 'rup-list-header-rowNum') {
-                        opciones._footer.rowNum.rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    	iden = opciones._footer.rowNum[0].id;
+                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
                     }
                 }
                 if(change){
                     self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
                 }
             };
+
 
             let changeH = function(){
                 doChange(this, true);
@@ -1461,12 +1474,22 @@ import Printd from 'printd';
                 change: changeH
             };
 
-            opciones._header.rowNum.rup_combo(rowNumRupConf);
+            let iden = opciones._header.rowNum[0].id;
+            $('#'+iden).rup_combo(rowNumRupConf);
             opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
             
             if(opciones.createFooter){
-                rowNumRupConf.change = changeF;
-                opciones._footer.rowNum.rup_combo(rowNumRupConf);
+                var rowNumRupConfFoot = {
+                        source: opciones.rowNum.source,
+                        width: 'initial',
+                        selected: opciones.rowNum.value,
+                        rowStriping: true,
+                        ordered: false,
+                        change: changeF
+                    };
+               
+                let idenFoot = opciones._footer.rowNum[0].id;
+                $('#'+idenFoot).rup_combo(rowNumRupConfFoot);
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
             }
         },
@@ -2475,6 +2498,8 @@ import Printd from 'printd';
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
                                 opciones._content.slideDown();
                                 self.element.trigger('load');
+                                self.isFiltering.resolve();
+                                self._unlock();
                             }
                         }
 

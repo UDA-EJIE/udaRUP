@@ -38,11 +38,11 @@ a.select-material {
 	  	padding-left: 17px;
 	  	
 	  	span:first-child {
-			left: 11px;	  	
+			left: 11px;
 		}
 	}
 	
-	span:first-child {
+	> span:first-child {
 		color: $grey-color; 
 		font-size: 1rem;
 		font-weight: 400;
@@ -51,6 +51,18 @@ a.select-material {
 		left: 12px;
 		top: 1px;
 		padding-left: 5px;
+		width: calc(100% - 60px);
+		height: 22.8px;
+		overflow: hidden;
+	}
+
+	/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
+	> span:not(.ui-selectmenu-status):not(.rup-combo_loading):last-child {
+		display: none;
+	}
+
+	> span.rup-combo_loading {
+		right: 2.5rem;
 	}
 	
 	/* SE ENCARGA DE SOLAPAR LOS ESTILOS DE UNA DE LAS CLASES DE JQUERYUI */
@@ -69,11 +81,13 @@ a.select-material {
 			border-width: 2px;
 			box-shadow: none;
 			outline: none;
-		  	padding-left: 17px;
-		  	
-		  	span:first-child {
-				left: 11px;	  	
-			}
+			padding-left: 17px;
+			/* EVITA QUE EL ICONO DE DROPDOWN SE DESPLACE */
+			background-position: calc(100% - 13.5px) calc(0.71em), calc(100% - 8.5px) calc(0.71em);
+			/* EVITA QUE EL TEXTO SE DESPLACE */
+			span:not(.ui-icon):first-child {
+				top: -1px;
+		  	}
 		}
 	}
 }
@@ -92,19 +106,11 @@ a.select-material {
 	
 	/* ESTABLECE LOS ESTILOS ESPECIFICOS DE LAS VALIDACIONES CON ERROR */
 	&.rup-validate-field-error {
-		a.select-material {
-			span:last-child {
-				right: 30px;
-			}
-		}
-		
 		/* ESTE CASO ES PARA CUANDO SE USAN A LA VEZ LAS CLASES DE GRID DE BOOTSTRAP */
 		&[class*="col-"] {		
-			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
-			&.rup-validate-field-error {			
-				select ~ i.mdi.error {
-					right: 15px;
-				}
+			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */		
+			select ~ i.mdi.error {
+				right: 30px;
 			}
 		}
 	}
@@ -132,7 +138,7 @@ a.select-material {
 			/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR */
 			&.rup-validate-field-error {
 				select ~ i.mdi.error {
-					right: 25px;
+					right: 40px;
 				}
 			}
 		}
@@ -178,5 +184,20 @@ select.rup_combo ~ button.select-material {
 		box-shadow: none;
 		outline: none;
 		padding-left: 17px;
+	}
+
+	span {
+		&.rup-combo_loading {
+			float: right;
+			margin-top: 0;
+			margin-right: 2.5rem;
+			width: 16px;
+			height: 16px;
+		}
+
+		/* OCULTA EL ICONO DEL DROPDOWN EN FAVOR DEL GENERADO VIA CSS */
+		&.ui-icon {
+			display: none;
+		}
 	}
 }

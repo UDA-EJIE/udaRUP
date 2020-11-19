@@ -229,6 +229,19 @@
         var tr = $('tr:nth-child(' + countTr + ')', rowsBody);
         _selectRowIndex(dt, index, tr);
     });
+    
+    apiRegister('select.defaultId()', function (ctx) {
+
+    	let defaultId = ctx.oInit.select.defaultId;
+    	
+        if(defaultId !== undefined){
+	        let indexInArray = jQuery.inArray(defaultId, ctx.multiselection.selectedIds);
+ 	        if(indexInArray < 0){//no esta ya seleccioando
+	        	ctx.multiselection.selectedIds.push(defaultId);
+	        	ctx.oInit.select.defaultId = undefined;
+ 	        }
+        }
+    });
 
 
     // Common events with suitable namespaces

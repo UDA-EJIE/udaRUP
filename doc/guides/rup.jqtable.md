@@ -38,8 +38,8 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 ### 4.2. Dependencias
 
-Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
-* **jQuery 1.12.4**: http://jquery.com/
+Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **3.4.1**.
+* **jQuery 3.4.1**: http://jquery.com/
 
 La gestión de ciertas partes visuales de los componentes, se han realizado mediante el *plugin* **jQuery-UI** que se basa en *jQuery* y se utiliza para construir aplicaciones web altamente interactivas. Este *plugin*, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la **1.12.0**.
 
@@ -47,9 +47,7 @@ La gestión de ciertas partes visuales de los componentes, se han realizado medi
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-    jquery-1.12.4.js
-    jquery-ui-1.12.0.custom.js
-    jquery-ui-1.12.0.custom.css
+    jquery-3.4.1.js
     rup.base-x.y.z.js
     rup.jqtable-x.y.z.js
     jqgrid.js: http://www.trirand.com/blog/

@@ -2855,6 +2855,9 @@
                     
                     ajaxOptions.data = {};
                     ajaxOptions.data.columns = _loadDefinedColums(dt, ctx, request);
+                    if(ctx.oInit.buttons.report !== undefined){
+                    	ajaxOptions.data.columnsName = ctx.oInit.buttons.report.columnsName;
+                    }
                     ajaxOptions.reportsExportAllColumns = request.reportsExportAllColumns;
                     
                     deferred.resolve(exportData, ajaxOptions);
@@ -2904,6 +2907,9 @@
         let data = {};
         
         data.columns = _loadDefinedColums(dt, ctx, request);
+        if(ctx.oInit.buttons.report !== undefined){
+        	data.columnsName = ctx.oInit.buttons.report.columnsName;
+        }
         
         data.core = {
             'pkToken': ctx.oInit.multiplePkToken,
@@ -2927,7 +2933,8 @@
         
         data.reportsParams = [];
         // Se añaden los parametros definidos por el usuario (solo en caso de haber definido alguno)
-        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams.length > 0) {
+        if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined 
+        		&& ctx.oInit.buttons.report.reportsParams.length > 0) {
         	data.reportsParams = ctx.oInit.buttons.report.reportsParams;
         }
         
@@ -3083,33 +3090,33 @@
         // Lanzar peticion 
         let request = new XMLHttpRequest();
         request.open(ajaxOptions.type, url, true);
-        request.responseType = "blob";
+        request.responseType = 'blob';
         request.send(ajaxOptions.data);
 
         request.onload = function (event) {
         	if (this.status == 200) {
         		let blob = request.response;
             	let fileName = null;
-            	let contentType = request.getResponseHeader("content-type");
+            	let contentType = request.getResponseHeader('content-type');
             	let element;
 
             	// Parece que IE y EDGE no devuelven la misma cabecera en la respuesta
-            	if (request.getResponseHeader("content-disposition")) {
-            		let contentDisposition = request.getResponseHeader("content-disposition");
-            		fileName = contentDisposition.substring(contentDisposition.indexOf("=") + 1);
+            	if (request.getResponseHeader('content-disposition')) {
+            		let contentDisposition = request.getResponseHeader('content-disposition');
+            		fileName = contentDisposition.substring(contentDisposition.indexOf('=') + 1);
             	} else {
-            		fileName = "report." + contentType.substring(contentType.indexOf("/") + 1);
+            		fileName = 'report.' + contentType.substring(contentType.indexOf('/') + 1);
             	}
 
             	if (window.navigator.msSaveOrOpenBlob) {
             		// IE y EDGE
-            		window.navigator.msSaveOrOpenBlob(new Blob([blob], {type: contentType}), fileName);
+            		window.navigator.msSaveOrOpenBlob(blob, fileName);
             	} else {
             		// Para los demas navegadores
-            		if (!$("a#rupTableButtonsReportsExport").length) {
-            			$("div#" + $.rup.WAR_NAME + "War_content").append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            		if (!$('a#rupTableButtonsReportsExport').length) {
+            			$('#' + ctx.sTableId + 'rup_report_dialogsContainer').append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
             		}
-            		element = $("a#rupTableButtonsReportsExport")[0];
+            		element = $('a#rupTableButtonsReportsExport')[0];
             		element.href = window.URL.createObjectURL(blob);
             		element.download = fileName;
             		element.click();
@@ -3285,8 +3292,8 @@
     		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
     		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
     		OKFunction: function () {
+    			let row = {};
     			if (ctx.multiselection.selectedIds.length > 1){
-    				let row = {};
     				row.core =  {'pkToken': ctx.oInit.multiplePkToken, 'pkNames': ctx.oInit.primaryKey};
     				row.multiselection = {};
     				row.multiselection.selectedAll = ctx.multiselection.selectedAll;

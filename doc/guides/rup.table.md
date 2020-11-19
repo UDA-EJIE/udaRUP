@@ -38,12 +38,12 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 ### 4.2. Dependencias
 
-Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **1.12.4**.
-* **jQuery 1.12.4**: http://jquery.com/
+Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librería *JavaScript* **jQuery**, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la **3.4.1**.
+* **jQuery 3.4.1**: http://jquery.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-    jquery-1.12.4.js
+    jquery-3.4.1.js
     rup.base-x.y.z.js
     rup.table-x.y.z.js
     jquery.table.css
@@ -446,7 +446,7 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 Plugins.noEdit = true 
 ```
 
-Por defecto viene a false, y si se activa deja solo el boton de informes.
+Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edición de la tabla (formEdit) ni la edición en línea (inlineEdit).
 
 ```java
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown

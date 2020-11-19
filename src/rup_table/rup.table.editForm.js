@@ -132,7 +132,7 @@
             	        if (cellColModel.editable === true) {
             	            var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
             	            var colModelName = cellColModel.name;
-            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name='+colModelName+']'); // Se añade el title de los elementos de acuerdo al colname
+            	            var $elem = ctx.oInit.formEdit.detailForm.find('[name="' + colModelName + '"]'); // Se añade el title de los elementos de acuerdo al colname
             	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo.
 
             	            $elem.removeAttr('readOnly'); // En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
@@ -201,17 +201,25 @@
         if(ctx.oInit.formEdit.validate !== undefined){
         	validaciones = ctx.oInit.formEdit.validate.rules;
         }
-        ctx.oInit.formEdit.idForm.rup_validate({
-            feedback: feed,
-            liveCheckingErrors: false,
-            showFieldErrorAsDefault: true,
-            showErrorsInFeedback: true,
-            showFieldErrorsInFeedback:true,
-            rules:validaciones,
-            submitHandler: function(form) {
-                return false;  // block the default submit action
-            }
-        });
+        
+        if (feed.length === 0) {
+        	feed = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+        }
+        
+    	feed.rup_feedback(ctx.oInit.feedback);
+          
+        let propertiesDefault = {
+                liveCheckingErrors: false,
+                showFieldErrorAsDefault: true,
+                showErrorsInFeedback: true,
+                showFieldErrorsInFeedback:true
+            };
+        let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.formEdit.propertiesValidate);
+        propertiesValidate.feedback = feed;
+        propertiesValidate.rules = validaciones;
+        propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
+        
+        ctx.oInit.formEdit.idForm.rup_validate(propertiesValidate);
 
     };
 
@@ -422,7 +430,24 @@
                     contentType: 'application/json',
                     async: false,
                     success: function (data) {
-                        row = data;
+                    	row = data;
+                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
+	                        // Actualizar el nuevo id que viene de HDIV.
+                    		let idHdiv = data[ctx.oInit.primaryKey];
+	                        if (pk === ctx.multiselection.lastSelectedId) {
+	                            ctx.multiselection.lastSelectedId = idHdiv;
+	                        }
+	                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
+	                        if (pos >= 0) {
+	                            ctx.multiselection.selectedIds[pos] = idHdiv;
+	                        }
+	                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+	                                return v.id === pk;
+	                            });
+	                        if (result !== undefined && result.length > 0) {
+	                            result[0].id = idHdiv;
+	                        }
+                    	}
                     },
                     error: function (xhr) {
                         var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
@@ -663,8 +688,9 @@
             showLoading: false,
             contentType: 'application/json',
             async: true,
-            success: function () {
+            success: function (valor) {
             	ctx.oInit.formEdit.okCallBack = true;
+            	ctx.oInit.formEdit.lastValue = valor;
                 if (url !== '/deleteAll' && actionType !== 'DELETE') {
                     if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                         var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
@@ -698,6 +724,17 @@
                         ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
                         ctx.oInit.feedback.type = undefined; //se recarga el type no esta definido.
                     } else {
+                    	//Asegura a cargar los nuevos IDS.
+                    	
+                        $.each(ctx.oInit.primaryKey, function (index, key) {
+                            // Comprueba si la primaryKey es un subcampo
+                            if (key.indexOf('.') !== -1) {
+                                row[key] = DataTable.Api().rupTable.getDescendantProperty(valor, key);
+                            } else {
+                            	row[key] = valor[key];
+                            }
+
+                        });
                         // Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
                         if (ctx.oInit.select !== undefined) {
                             DataTable.Api().select.deselect(ctx);
@@ -734,10 +771,19 @@
                             ctx.oInit.feedback.type = 'noBorrar';
                             dt.row().multiSelect();
                         }
-                        // Se actualiza la linea
+                        
+                     // Se actualiza la linea
                         if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
-                            ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+	                        try
+	                        {
+	                          ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+	                          
+	                        }
+	                        catch(err) {
+	                          console.log(err.message);
+	                        }
                         }
+                        
                         $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
                     }
 
@@ -1474,26 +1520,28 @@
     function _editFormSerialize(idForm) {
         let serializedForm = '';
         let idFormArray = idForm.formToArray();
-        let length = idFormArray.length;
         let ultimo = '';
-        let count = 1;
+        let count = 0;
 
         $.each(idFormArray, function (key, obj) {
-        	let ruptype = idForm.find('[name="'+obj.name+'"]').attr('ruptype');
-        	if(ruptype === undefined){
-        		ruptype = idForm.find('[name="'+obj.name+'"]').data('ruptype');
+        	if (ultimo != obj.name) {
+        		count = 0;
+    		}	
+        	let ruptype = idForm.find('[name="' + obj.name + '"]').attr('ruptype');
+        	if (ruptype === undefined) {
+        		ruptype = idForm.find('[name="' + obj.name + '"]').data('ruptype');
         	}
-        	if(obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom'){
+        	if (obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
         		let valor = '';
-        		if(ultimo === obj.name){//Se mete como lista
-        			//se hace replace del primer valor
-        			serializedForm = serializedForm.replace(ultimo+'=',ultimo+'[0]=');
-        			valor = '['+count+']'; //y se mete el array
-        			count++;
-        		}else{
-        			count = 1;
+        		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
+        			valor = '[' + count++ + ']';
         		}
-	            serializedForm += (obj.name + valor+'=' + obj.value);
+        		else if (ultimo === obj.name) {//Se mete como lista
+        			//se hace replace del primer valor
+        			serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
+        			valor = '[' + count++ + ']'; //y se mete el array
+        		}
+	            serializedForm += (obj.name + valor + '=' + obj.value);
                 serializedForm += '&';
                 ultimo = obj.name;
         	}

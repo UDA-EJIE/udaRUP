@@ -70,7 +70,16 @@ i.mdi.error {
 			padding-top: 2px;
 			padding-left: 19px;
 		}
-		
+
+		/* SELECT */
+		select {
+			padding-right: 45px;
+			
+			~ i.mdi.error {
+				right: 25px;
+			}
+		}
+
 		/* TEXTAREA */
 		textarea {
 			padding-right: 35px;

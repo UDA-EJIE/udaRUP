@@ -34,6 +34,10 @@
 	input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:disabled {
 	  	color: $no-color;
 	}
+
+	input:not([type="checkbox"]):not([type="radio"]):-ms-input-placeholder:disabled {
+		color: $no-color;
+  	}
 	
 	input[type="file"] {
 		/* TODO: SON ESTILOS TEMPORALES PARA LOS INPUTS DE TIPO FILE */
@@ -57,8 +61,24 @@
 		-webkit-transition: 0.2s ease all;
 	}
 	
-	input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ label,
-	input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label,
+	input:not([type="checkbox"]):not([type="radio"]):focus:enabled ~ label {
+		top: -10px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+		background-color: $white-color;
+		background-image: none;
+	}
+	
+	input:not([type="checkbox"]):not([type="radio"]):valid:enabled ~ label {
+		top: -10px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+		background-color: $white-color;
+		background-image: none;
+	}
+	
 	input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:required ~ label {
 		top: -10px;
 		font-size: .9rem;
@@ -68,8 +88,40 @@
 		background-image: none;
 	}
 
-	input:not([type="checkbox"]):not([type="radio"]):disabled, 
+	input:not([type="checkbox"]):not([type="radio"]):-ms-input-placeholder:required ~ label {
+		top: -10px;
+		font-size: .9rem;
+		color: $primary-color;
+		padding: 0 5px;
+		background-color: $white-color;
+		background-image: none;
+	}
+
+	input:not([type="checkbox"]):not([type="radio"]):disabled {
+		background-color: $disabled-background-color;
+		
+		& ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $grey-color-very-light;
+			padding: 0 5px;
+			background: linear-gradient(to top, $disabled-background-color 0%, $disabled-background-color 40%, $no-color 40%, $no-color 100%);
+		}
+	}
+
 	input:not([type="checkbox"]):not([type="radio"]):placeholder-shown:disabled {
+		background-color: $disabled-background-color;
+		
+		& ~ label {
+			top: -10px;
+			font-size: .9rem;
+			color: $grey-color-very-light;
+			padding: 0 5px;
+			background: linear-gradient(to top, $disabled-background-color 0%, $disabled-background-color 40%, $no-color 40%, $no-color 100%);
+		}
+	}
+
+	input:not([type="checkbox"]):not([type="radio"]):-ms-input-placeholder:disabled {
 		background-color: $disabled-background-color;
 		
 		& ~ label {
@@ -86,7 +138,8 @@
 		content: " *";
 	}
 
-	input:not([type="checkbox"]):not([type="radio"]):read-only ~ label {
+	input:not([type="checkbox"]):not([type="radio"]):read-only ~ label,
+	input:not([type="checkbox"]):not([type="radio"])[type="hidden"] ~ label {
 		top: -10px;
 		font-size: .9rem;
 		color: $primary-color;

@@ -376,6 +376,10 @@
                 }
 
             });
+            
+            apiRegister('rupTable.getDescendantProperty()', function (json, key) {
+            	$self._getDescendantProperty(json, key);
+            });
 
             if (options.inlineEdit !== undefined) {
                 //RESPONSIVO CON EDITLINE
@@ -629,6 +633,12 @@
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
             }
             data.multiselection = undefined;
+            //Se pueden meter ids seleccionados por defecto
+            if(ctx.oInit.multiSelect !== undefined){
+            	DataTable.Api().multiSelect.defaultsIds(ctx);
+            }else if(ctx.oInit.select !== undefined){
+            	DataTable.Api().select.defaultId(ctx);
+            }
             if (ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0) {
                 data.multiselection = $.rup_utils.deepCopy(ctx.multiselection, 4);
             }
@@ -640,6 +650,12 @@
                     data.seeker.selectedIds.splice(index, 0, DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit));
                 });
             }
+            
+            // Elimina los campos _label generados en los autocompletes del filtro
+            $.fn.deleteAutocompleteLabelFromObject(data.filter);
+            
+            // Elimina del filtro los campos autogenerados por lo multicombos que no forman parte de la entidad
+            $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
 
             var tableRequest = new TableRequest(data);
             var json = $.extend({}, data, tableRequest.getData());
@@ -765,6 +781,10 @@
             var $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
+            
+            // Reinicia por completo los autocomplete ya que sino siguen filtrando
+            $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
+            
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
 
@@ -961,6 +981,9 @@
                 searchForm = settings.filter.$filterContainer,
                 filterMulticombo = [];
             var obj;
+            let fieldIteration = 0;
+            let isRadio;
+            let isCheckbox;
 
             //añadir arbol
             var arboles = $('.jstree', settings.filter.$filterContainer);
@@ -995,6 +1018,14 @@
                     //Seleccionar radio
                     if (field.length > 1) {
                         field = $('[name=\'' + aux[i].name + '\']:checked', searchForm);
+                        switch (field.prop('type')) {
+                        	case 'radio':
+                                isRadio = true;
+                        		break;
+                        	case 'checkbox':
+                        		isCheckbox = true;
+                        		break;
+                        }
                     }
                     //Omitir campos hidden
                     if ($(field).attr('type') === 'hidden') {
@@ -1002,7 +1033,13 @@
                     }
 
                     //ID del campo
-                    fieldId = $(field).attr('id');
+                    fieldId = $(field[fieldIteration++]).attr('id');
+                    
+                    // Reinicia el contador porque ya se han iterado todos los campos
+                    if (fieldIteration === field.length) {
+                    	fieldIteration = 0;
+                    }
+                    
                     //ID para elementos tipo rup.combo
                     if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0) {
                         fieldId += '-button';
@@ -1014,7 +1051,17 @@
 
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
-                    if (label.length > 0) {
+                    if (isRadio && settings.adapter === 'table_material') {
+                    	fieldName = $('#' + fieldId).closest('.form-radioGroupMaterial').children('label').html();
+                    	isRadio = false;
+                    } else if (isCheckbox && settings.adapter === 'table_material') {
+                		fieldName = $('#' + fieldId).closest('.form-checkboxGroupMaterial').children('label').html();
+                    	if (searchString !== '' && searchString !== undefined && new RegExp(fieldName, 'i').test(searchString)) {
+                    		searchString = searchString.replace(/.{2}$/,","); 
+                    		fieldName = '';
+                    	}
+                    	isCheckbox = false;
+                    } else if (label.length > 0) {
                         fieldName = label.html();
                     } else {
                         if ($(field).attr('ruptype') !== 'combo') {
@@ -1044,38 +1091,39 @@
                     fieldValue = ' = ';
 
                     switch ($(field)[0].tagName) {
-                    case 'INPUT':
-                        fieldValue = fieldValue + $(field).val();
-                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-                            fieldValue = '';
-                        }
-                        break;
-                        //Rup-tree
-                    case 'DIV':
-                        $.each(aux, forEachDiv);
-                        if (fieldValue === '') {
-                            fieldName = '';
-                        }
-                        break;
-                    case 'SELECT':
-                        if (field.next('.ui-multiselect').length === 0) {
-                            fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
-                        } else {
-                            if ($.inArray($(field).attr('id'), filterMulticombo) === -1) {
-                                numSelected = field.rup_combo('value').length;
-                                if (numSelected !== 0) {
-                                    fieldValue += numSelected;
-                                } else {
-                                    fieldName = '';
-                                    fieldValue = '';
-                                }
-                                filterMulticombo.push($(field).attr('id'));
-                            } else {
-                                fieldName = '';
-                                fieldValue = '';
-                            }
-                        }
-                        break;
+	                    case 'INPUT':
+	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
+	                            fieldValue += label.html();
+	                        } else {
+	                            fieldValue += $(field).val();
+	                        }
+	                        break;
+	                        //Rup-tree
+	                    case 'DIV':
+	                        $.each(aux, forEachDiv);
+	                        if (fieldValue === '') {
+	                            fieldName = '';
+	                        }
+	                        break;
+	                    case 'SELECT':
+	                        if (field.next('.ui-multiselect').length === 0) {
+	                            fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
+	                        } else {
+	                            if ($.inArray($(field).attr('id'), filterMulticombo) === -1) {
+	                                numSelected = field.rup_combo('value').length;
+	                                if (numSelected !== 0) {
+	                                    fieldValue += numSelected;
+	                                } else {
+	                                    fieldName = '';
+	                                    fieldValue = '';
+	                                }
+	                                filterMulticombo.push($(field).attr('id'));
+	                            } else {
+	                                fieldName = '';
+	                                fieldValue = '';
+	                            }
+	                        }
+	                        break;
                     }
 
                     //Parsear NAME
@@ -1102,7 +1150,7 @@
                     if (fieldName === '' && $.trim(fieldValue) === '') {
                         continue;
                     }
-                    searchString = searchString + fieldName + fieldValue + ', ';
+                    searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
 
@@ -1329,11 +1377,11 @@
                 $.each($('#' + $self[0].id + ' thead th'), function () {
                     var titulo = $(this).text();
                     $(this).text('');
-                    var span1 = $('<span></span>').addClass('d-block d-xl-inline').text(titulo);
+                    var span1 = $('<span></span>').addClass('d-block').text(titulo);
                     var span2 = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
                     var span3 = $('<span></span>').addClass('mdi mdi-arrow-up');
                     $(this).append(span1);
-                    var div1 = $('<div></div>').addClass('d-flex d-xl-inline');
+                    var div1 = $('<div></div>').addClass('d-block');
                     div1.append(span2);
                     div1.append(span3);
                     $(this).append(div1);
@@ -1367,11 +1415,12 @@
                 options.sTableId = $self[0].id;
                 $self._initializeMultiselectionProps(tabla.context[0]);
                 
-                //Crear tooltips cabecera;
-                $.each($('#' + $self[0].id + ' thead th'), function () {
-                    $self._createTooltip($(this));
-                });
-                
+               if(options.createTooltipHead !== false){
+	                //Crear tooltips cabecera;
+	                $.each($('#' + $self[0].id + ' thead th'), function () {
+	                    $self._createTooltip($(this));
+	                });
+               }
                 tabla.on('draw', function (e, settingsTable) {
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
@@ -1435,11 +1484,13 @@
                             }
                         }
                     }
-
-                    //Crear tooltips tds;
-                    $.each($('#' + settingsTable.sTableId + ' tbody td'), function () {
-                        $self._createTooltip($(this));
-                    });
+                    
+                    if(options.createTooltipBody !== false){
+	                    //Crear tooltips tds;
+	                    $.each($('#' + settingsTable.sTableId + ' tbody td'), function () {
+	                        $self._createTooltip($(this));
+	                    });
+                    }
 
                     if (settingsTable.inlineEdit !== undefined) {
                         let ctx = $('#' + settingsTable.sTableId).rup_table('getContext');
