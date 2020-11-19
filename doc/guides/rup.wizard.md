@@ -59,12 +59,12 @@ Ruta theme: rup/css/
 Fichero css del theme: **theme.rup.wizard-x.y.z.css**
 
 ###	4.2	Dependencias
-Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **1.12.4**.
-+	**jQuery 1.12.4**: http://jquery.com/
+Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería *JavaScript* ***jQuery***, es necesaria la inclusión del esta. La versión elegida para el desarrollo ha sido la versión **3.4.1**.
++	**jQuery 3.4.1**: http://jquery.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-    jquery-1.12.4.js
+    jquery-3.4.1.js
 	jquery.qtip.js
 	rup.base-x.y.z.js
 	rup.wizard-x.y.z.js

@@ -248,7 +248,6 @@ import Printd from 'printd';
          * @function
          */
         _create: function () {
-        	 var opciones2 = self.options;
             global.initRupI18nPromise.then(() => {
                 const self = this;
                 const selfId = self.element.attr('id');

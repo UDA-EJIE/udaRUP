@@ -1,4 +1,7 @@
+* Rama estable:
 [![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=master)](https://travis-ci.org/UDA-EJIE/udaRUP)
+* Rama de desarrollo:
+[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=develop)](https://travis-ci.org/UDA-EJIE/udaRUP)
 
 
 # UDA - Componentes RUP

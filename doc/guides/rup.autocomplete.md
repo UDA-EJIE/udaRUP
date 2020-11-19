@@ -59,9 +59,7 @@ La gestión de ciertas partes visuales de los componentes, se han realizado medi
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-*   jquery-1.8.0.js
-*   jquery-ui-1.8.23.custom.js
-*   jquery-ui-1.8.23.custom.css
+*   jquery-3.4.1.js
 *   rup.base-x.y.z.js
 *   rup.autocomplete-x.y.z.js
 *   theme.rup.autocomplete-x.y.z.css
