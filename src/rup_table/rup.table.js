@@ -633,6 +633,12 @@
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
             }
             data.multiselection = undefined;
+            //Se pueden meter ids seleccionados por defecto
+            if(ctx.oInit.multiSelect !== undefined){
+            	DataTable.Api().multiSelect.defaultsIds(ctx);
+            }else if(ctx.oInit.select !== undefined){
+            	DataTable.Api().select.defaultId(ctx);
+            }
             if (ctx.multiselection !== undefined && ctx.multiselection.selectedIds.length > 0) {
                 data.multiselection = $.rup_utils.deepCopy(ctx.multiselection, 4);
             }
