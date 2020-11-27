@@ -172,9 +172,16 @@
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
                         ctx.oInit.formEdit.detailForm.rup_dialog('close');
+                        $('#' + ctx.sTableId).triggerHandler('tableMessageOk',ctx);
                     },
                     CANCELFunction: function () {
                         ctx.oInit.formEdit.okCallBack = false;
+                        $('#' + ctx.sTableId).triggerHandler('tableMessageCancel',ctx);
+                    }
+                    ,
+                    CLOSEFunction: function () {
+                        ctx.oInit.formEdit.okCallBack = false;
+                        $('#' + ctx.sTableId).triggerHandler('tableMessageClose',ctx);
                     }
                 });
 
@@ -574,6 +581,7 @@
             	
             	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, '');
             }
+            $('#' + ctx.sTableId).triggerHandler('tableButtonSave',ctx);
         });
 
 
@@ -626,6 +634,7 @@
             	
             	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, '');
             }
+            $('#' + ctx.sTableId).triggerHandler('tableButtonSaveContinue',ctx);
         });
 
         $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm',ctx);
