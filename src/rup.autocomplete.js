@@ -742,8 +742,6 @@ input.
          * @private
          */
 		_init: function (args) {
-
-
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
 			} else {
@@ -1007,17 +1005,16 @@ input.
 
 
 				//Deshabilitar
-				if (settings.disabled === true) {
+				if (settings.disabled) {
 					$('#' + settings.id).rup_autocomplete('disable');
 
-				} else if (settings.disabled === false) { //habilitar
+				} else if (!settings.disabled) { //habilitar
 					$('#' + settings.id).rup_autocomplete('enable');
 				}
 
 				//Se audita el componente
 				$.rup.auditComponent('rup_autocomplete', 'init');
 			}
-
 		}
 	});
 
