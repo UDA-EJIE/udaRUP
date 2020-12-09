@@ -968,14 +968,9 @@ input.
 					var autoCompObject = $(event.currentTarget),
 						loadObjects = $('#' + settings.loadObjects).data('loadObjects');
 
-					if (settings.getText == true) {
-						if (loadObjects[autoCompObject.val()] !== undefined) {
-							$('#' + settings.id).val(autoCompObject.val());
-							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
-						} else {
-							$('#' + settings.id).val(autoCompObject.val());
-							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
-						}
+					if (settings.getText) {
+						$('#' + settings.id).val(autoCompObject.val());
+						$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
 					} else {
 						// Cuando la propiedad accentFolding = true
 						if (settings.accentFolding && loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
