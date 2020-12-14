@@ -256,10 +256,10 @@ Para que la serialización se realice correctamente, el componente envía en la 
 **NOTA**: Al generar el código con el *plugin* de **UDA**, se añade este serializador para todos los objetos del modelo creados.
 
 ## 10. Autocompletes enlazados
-Estos autocompletes enlazados, pueden ser tanto locales como remotos. Para indicar que un autocomplete depende directamente de otro se utilizarÃƒÂ¡ el atributo ***parent***, que serÃƒÂ¡ un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
+Estos autocompletes enlazados, pueden ser tanto locales como remotos. Para indicar que un autocomplete depende directamente de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
 ```javascript
-parent: [ "departamento", "provincia" ],
+parent: ["departamento", "provincia"],
 ```
-Las dependencias entre los autocompletes pueden encadenarse de tal manera que se tenga un autocomplete que depende de otro autocomplete que a su vez depende de otro autocomplete y asÃƒÂ­ sucesivamente (incluso se pueden combinar autocompletes locales con remotos indistintamente). AdemÃƒÂ¡s, es posible que un autocomplete dependa a su vez de dos autocompletes o mÃƒÂ¡s y no se cargarÃƒÂ¡ ni se activarÃƒÂ¡ hasta que todos sus padres hayan tomado un valor.
+Las dependencias entre los autocompletes pueden encadenarse de tal manera que se tenga un autocomplete que depende de otro autocomplete que a su vez depende de otro autocomplete y así sucesivamente (incluso se pueden combinar autocompletes locales con remotos indistintamente). Además, es posible que un autocomplete dependa a su vez de dos autocompletes o más y no se cargarán ni se activarán hasta que todos sus padres hayan tomado un valor.
 
-Al ser autocompletes enlazados, si un autocomplete elimina su selecciÃƒÂ³n todos sus autocompletes hijos se vaciarÃƒÂ¡n y se deshabilitarÃƒÂ¡n. AdemÃƒÂ¡s, si un autocomplete se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarÃƒÂ¡n pero se mostrarÃƒÂ¡n deshabilitados.
+Al ser autocompletes enlazados, si un autocomplete elimina su selección todos sus autocompletes hijos se vaciarán y se deshabilitarán. Además, si un autocomplete se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarán, pero se mostrarán deshabilitados.
