@@ -132,6 +132,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			var $self = this,
 				data = $self.data('rup.autocomplete'),
 				loadObjects, newObject = {};
+				
+			let id = $self[0].id;
 
 			if (data) {
 
@@ -152,6 +154,18 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			}
 
 			$(this).val(value);
+			
+			if (id.includes('_label')) {
+				if (value == "") {
+					$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
+				}
+				$self.triggerHandler('rupAutocomplete_change');
+			} else {
+				if (value == "") {
+					$('#' + id + '_label').val(value);
+				}
+				$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
+			}
 		},
 		/**
          * Elimina el autocomplete.
@@ -1068,9 +1082,8 @@ input.
 								}
 							} else {
 								$('#' + child).rup_autocomplete('disable');
-								$('#' + child + "_label").rup_autocomplete("setRupValue", "");
+								$('#' + child + "_label").val("");
 								$('#' + child).rup_autocomplete("setRupValue", "");
-								$('#' + child + "_label").trigger('rupAutocomplete_change');
 							}
 							
 							// Comprobar que hijo se usara la proxima vez
