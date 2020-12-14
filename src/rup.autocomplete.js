@@ -909,13 +909,13 @@ input.
 				//         $('span').has('#'+settings.id+'_label').find("a").removeAttr("style");
 				//     }
 				// }
-
-				//Valor por defecto
-				if (settings.defaultValue) {
+				
+				// Valor por defecto
+				if ((settings.defaultValue && settings.parent == undefined) || (settings.parent != undefined && settings.parent != '' && $("#" + settings.parent + "_label").rup_autocomplete("getRupValue") != '')) {
 					$('#' + settings.id).rup_autocomplete('search', settings.defaultValue);
 				}
 
-				//Valor pre-cargado
+				// Valor pre-cargado
 				if (settings.loadValue) {
 					$('#' + settings.id).val(settings.loadValue);
 					$('#' + settings.id + '_value').val(settings.loadValue);
@@ -1007,9 +1007,80 @@ input.
 				//Deshabilitar
 				if (settings.disabled) {
 					$('#' + settings.id).rup_autocomplete('disable');
-
 				} else if (!settings.disabled) { //habilitar
 					$('#' + settings.id).rup_autocomplete('enable');
+				}
+				
+				if (settings.parent) {
+					$.map(settings.parent, function (item) {
+                        var childsArray = $('#' + item).data('childs') === undefined ? [] : $('#' + item).data('childs');
+                        childsArray[childsArray.length] = settings.id;
+                        $('#' + item).data('childs', childsArray);
+                        $('#' + item).data('childSelector', 0);
+                    });
+
+					// Comprobar si tiene un padre o varios
+					if (settings.parent.length > 1) {
+						let allParentsHaveValues = true;
+						
+						// Se comprueba si todos los padres tienen valores asignados
+						$.each(settings.parent, function (position, parentId) {
+							if ($("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
+								allParentsHaveValues = !allParentsHaveValues;
+								return false;
+							}
+						});
+						
+						if (allParentsHaveValues) {
+							$('#' + settings.id).rup_autocomplete('enable');
+						} else {
+							$('#' + settings.id).rup_autocomplete('disable');
+							$('#' + settings.id).rup_autocomplete("setRupValue", "");
+						}
+					} else {
+						if ($("#" + settings.parent + "_label").rup_autocomplete("getRupValue") != '') {
+	                        $('#' + settings.id).rup_autocomplete('enable');
+	                    } else {
+							$('#' + settings.id).rup_autocomplete('disable');
+							$('#' + settings.id).rup_autocomplete("setRupValue", "");
+						}
+					}
+					
+					// Añadir evento para detectar los cambios en valores del padre o padres
+					$.each(settings.parent, function (position, parentId) {
+						$("#" + parentId + "_label").on("rupAutocomplete_change", function (event) {
+							let autocompleteId = event.target.id.substring(0, event.target.id.indexOf("_label"));
+							let childSelector = $("#" + autocompleteId).data('childSelector');
+							let child = $("#" + autocompleteId).data('childs')[childSelector];
+							let allParentsHaveValues = true;
+							
+							$.each(settings.parent, function (position, parentId) {
+								if ($("#" + parentId).rup_autocomplete("getRupValue") == '' || $("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
+									allParentsHaveValues = !allParentsHaveValues;
+									return false;
+								}
+							});
+							
+							if (allParentsHaveValues) {
+								$('#' + child).rup_autocomplete('enable');
+								if (settings.defaultValue != undefined) {
+									$('#' + child).rup_autocomplete('search', settings.defaultValue);
+								}
+							} else {
+								$('#' + child).rup_autocomplete('disable');
+								$('#' + child + "_label").rup_autocomplete("setRupValue", "");
+								$('#' + child).rup_autocomplete("setRupValue", "");
+								$('#' + child + "_label").trigger('rupAutocomplete_change');
+							}
+							
+							// Comprobar que hijo se usara la proxima vez
+							if ($("#" + autocompleteId).data('childs').length - 1 > childSelector) {
+								$('#' + autocompleteId).data('childSelector', childSelector + 1);
+							} else {
+								$('#' + autocompleteId).data('childSelector', 0);
+							}
+						});
+					});
 				}
 
 				//Se audita el componente
