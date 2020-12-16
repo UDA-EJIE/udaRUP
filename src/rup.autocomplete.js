@@ -521,7 +521,30 @@ input.
 				json_i18n = $.rup.i18n.app[settings.i18nId];
 
 			matcher = new RegExp(matcher, 'i');
-			data = $.map(settings.data, function (item) {
+			
+			// Detecta si es enlazado o no y lo gestiona
+			let dataSource = settings.data;
+			
+			if (settings.parent) {	
+				let selectedSource = '';
+							
+				if (settings.parent.length > 1) {
+					// Obtener los valores de los combos parent
+					$.each(settings.parent, function (index, parentValue) {
+						selectedSource += $("#" + parentValue).rup_autocomplete("getRupValue");
+						
+						if (index != settings.parent.length - 1) {
+							selectedSource += settings.multiValueToken;
+						}
+					});									
+				}
+				
+				if (selectedSource in settings.data) {
+					dataSource = settings.data[selectedSource];
+				}
+			}
+			
+			data = $.map(dataSource, function (item) {
 				var label = item,
 					value = item,
 					category;
@@ -568,10 +591,10 @@ input.
 				}
 			});
 
-			//Se almacenan los datos cargados
+			// Se almacenan los datos cargados
 			$('#' + stock).data('loadObjects', loadObjects);
 
-			//Eliminar elementos vacíos
+			// Eliminar elementos vacíos
 			data = $.grep(data, function (value) {
 				return value != undefined;
 			});
@@ -1075,13 +1098,17 @@ input.
 								}
 							});
 							
+							// Activar o desactivar dependiendo de si todos los parent tienen valores
 							if (allParentsHaveValues) {
 								$('#' + child).rup_autocomplete('enable');
-								if (settings.defaultValue != undefined) {
-									$('#' + child).rup_autocomplete('search', settings.defaultValue);
-								}
 							} else {
 								$('#' + child).rup_autocomplete('disable');
+							}
+							
+							// Definir valor por defecto o vaciarlo en caso contrario
+							if (allParentsHaveValues && settings.defaultValue != undefined) {
+								$('#' + child).rup_autocomplete('search', settings.defaultValue);
+							} else {
 								$('#' + child + "_label").val("");
 								$('#' + child).rup_autocomplete("setRupValue", "");
 							}
@@ -1129,7 +1156,8 @@ input.
      * @property {object} [menuAppendTo=null] - Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable.
      * @property {boolean} [disabled=false] - Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda.
      * @property {string} [defaultValue] - Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos
-     */
+     * @property {string} [multiValueToken="##"] - Define el separador a utilizar en combos enlazados locales. 
+	 */
 	$.fn.rup_autocomplete.defaults = {
 		onLoadError: null,
 		contains: true,
@@ -1140,7 +1168,8 @@ input.
 		menuMaxHeight: false,
 		menuAppendTo: null,
 		disabled: false,
-		accentFolding: true
+		accentFolding: true,
+        multiValueToken: '##'
 	};
 
 	/**
