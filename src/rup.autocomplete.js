@@ -627,12 +627,27 @@ input.
 			}
 
 			$stock = jQuery('#' + stock);
+			
+			// Si tiene parent, envia su valor como parametro extra
+			if (settings.parent) {
+				if (settings.extraParams === undefined) {
+					settings.extraParams = {};
+				}
+				
+				$.each(settings.parent, function (position, item) {
+					let entityName = $('#' + item).attr('name');
+					
+					if (entityName !== undefined && entityName !== '') {
+						settings.extraParams[entityName] = $('#' + item).rup_autocomplete('getRupValue');
+					}
+				});
+			}
 
 			term = request.term.replace(/%/g, '\\%').replace(/_/g, '\\_');
 			data = $.extend({
 				q: term,
-				c: this.options.contains
-			}, this.options.extraParams);
+				c: settings.contains
+			}, settings.extraParams);
 
 			// Comprobar si se puede cachear
 			lastTerm = $stock.data('tmp.loadObjects.term');
