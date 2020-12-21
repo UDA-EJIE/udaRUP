@@ -258,8 +258,13 @@ Para que la serialización se realice correctamente, el componente envía en la 
 ## 10 Autocompletes enlazados
 Estos autocompletes enlazados, pueden ser tanto locales como remotos. Para indicar que un autocomplete depende directamente de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
 ```javascript
-parent: ["departamento", "provincia"],
+parent: ["departamento", "provincia"]
 ```
 Las dependencias entre los autocompletes pueden encadenarse de tal manera que se tenga un autocomplete que depende de otro autocomplete que a su vez depende de otro autocomplete y así sucesivamente (incluso se pueden combinar autocompletes locales con remotos indistintamente). Además, es posible que un autocomplete dependa a su vez de dos autocompletes o más y no se cargarán ni se activarán hasta que todos sus padres hayan tomado un valor.
 
 Al ser autocompletes enlazados, si un autocomplete elimina su selección todos sus autocompletes hijos se vaciarán y se deshabilitarán. Además, si un autocomplete se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarán, pero se mostrarán deshabilitados.
+
+Cabe decir que en el atributo name de los campos definidos como parents, ha de definirse el nombre de la entidad, por ejemplo:
+```xml
+<input id="padre" name="provincia" />
+```
