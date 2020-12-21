@@ -264,7 +264,7 @@ Las dependencias entre los autocompletes pueden encadenarse de tal manera que se
 
 Al ser autocompletes enlazados, si un autocomplete elimina su selección todos sus autocompletes hijos se vaciarán y se deshabilitarán. Además, si un autocomplete se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarán, pero se mostrarán deshabilitados.
 
-Cabe decir que en el atributo name de los campos definidos como parents, ha de definirse el nombre de la entidad, por ejemplo:
+Cabe decir que en el atributo name de los campos definidos como parents de un autocomplete remoto, ha de definirse el nombre de la entidad, por ejemplo:
 ```xml
 <input id="padre" name="provincia" />
 ```
