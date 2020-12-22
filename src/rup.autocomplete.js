@@ -537,6 +537,8 @@ input.
 							selectedSource += settings.multiValueToken;
 						}
 					});									
+				} else {
+					selectedSource = $("#" + settings.parent).rup_autocomplete("getRupValue");
 				}
 				
 				if (selectedSource in settings.data) {
@@ -579,7 +581,7 @@ input.
 						var literal = returnValue.label;
 						var nDelante = literal.indexOf(termLimpio);
 						var n = labelLimpio.indexOf(termLimpio);
-						returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
+						returnValue.label = literal.substr(0, nDelante) + label.substr(n, termLimpio.length) + literal.substr(nDelante + termLimpio.length);
 						//parte trasera
 						//var nAtras = literal.indexOf(labelLimpio.substr(termLimpio.length));
 						
