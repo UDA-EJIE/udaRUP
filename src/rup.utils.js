@@ -1008,8 +1008,8 @@
 	};
 	
 	$.fn.isHDIV = function (paramToCheck) {
-		// Comprobar si el parametro ha sido cifrado por HDIV
-		return /^(?=.*-)[a-zA-Z0-9-]+$/.test(paramToCheck);
+		// Comprobar si el parámetro ha sido cifrado por HDIV
+		return /^([a-zA-Z0-9]*-){5}[a-zA-Z0-9]*$/.test(paramToCheck);
 	};
 	
 	$.fn.resetAutocomplete = function (type, obj) {
