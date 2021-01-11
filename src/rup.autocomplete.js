@@ -526,23 +526,10 @@ input.
 			let dataSource = settings.data;
 			
 			if (settings.parent) {	
-				let selectedSource = '';
-							
-				if (settings.parent.length > 1) {
-					// Obtener los valores de los combos parent
-					$.each(settings.parent, function (index, parentValue) {
-						selectedSource += $("#" + parentValue).rup_autocomplete("getRupValue");
-						
-						if (index != settings.parent.length - 1) {
-							selectedSource += settings.multiValueToken;
-						}
-					});									
-				} else {
-					selectedSource = $("#" + settings.parent).rup_autocomplete("getRupValue");
-				}
+				let parentsValues = settings.$self._getParentsValues(settings);
 				
-				if (selectedSource in settings.data) {
-					dataSource = settings.data[selectedSource];
+				if (parentsValues.selectedSource in settings.data) {
+					dataSource = settings.data[parentsValues.selectedSource];
 				}
 			}
 			
@@ -630,7 +617,7 @@ input.
 
 			$stock = jQuery('#' + stock);
 			
-			// Si tiene parent, envia su valor como parametro extra
+			// Si tiene parent, envía su valor como parámetro extra
 			if (settings.parent) {
 				if (settings.extraParams === undefined) {
 					settings.extraParams = {};
@@ -788,6 +775,71 @@ input.
 
 			$button.appendTo($wrapper);
 			settings.$comboboxToogle = $button;
+		},
+		/**
+         * Método que obtiene el valor del autocomplete padre (ya sea uno o varios).
+         *
+         * @function _getParentsValues
+         * @private
+	     * @since UDA 4.3.0
+		 *
+         * @param {object} settings - Configuración general del componente.
+		 *
+		 * @return {object}
+         */
+		_getParentsValues: function (settings) {
+			let parentsValues = {};
+			parentsValues.allParentsHaveValues = true;
+			parentsValues.selectedSource = '';
+			
+			$.each(settings.parent, function (position, parentId) {				
+				if ($("#" + parentId).rup_autocomplete("getRupValue") == '' || $("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
+					parentsValues.allParentsHaveValues = false;
+					return false;
+				}
+				
+				// Obtener valor del padre
+				parentsValues.selectedSource += settings.$self._processHDIV($('#' + parentId + '_label').data('settings'), $("#" + parentId).rup_autocomplete("getRupValue"));
+				
+				// Comprobar si se trata de un autocomplete enlazado múltiple
+				if (settings.parent.length > 1 && position != settings.parent.length - 1) {
+					parentsValues.selectedSource += settings.multiValueToken;
+				}
+			});
+				
+			return parentsValues;
+		},
+		/**
+         * Método que comprueba si el padre de un autocomplete local es remoto y usa HDIV. En caso afirmativo, se usará el NID en vez del ID, ya que este último, viene cifrado.
+         *
+         * @function _processHDIV
+         * @private
+	     * @since UDA 4.3.0
+		 *
+         * @param {object} parentSettings - Configuración general del componente padre.
+         * @param {string} selectedSource - Valor del padre.
+		 *
+		 * @return {string}
+         */
+		_processHDIV: function (parentSettings, selectedSource) {
+			if (parentSettings !== undefined && parentSettings.source.name === '_sourceREMOTE' && $.fn.isHDIV(selectedSource)) {
+				let parentData = $("#" + parentSettings.loadObjects).data('tmp.data');
+				let parentLabel = $("#" + parentSettings.loadObjects).rup_autocomplete("getRupValue");
+				
+				let search = $.grep(parentData, function (row) {
+					return row.value === selectedSource && row.label === parentLabel; 
+				});
+				
+				if (search[0] !== undefined && search[0] !== '') {
+					let nid = search[0].nid;
+				
+					if (nid) {
+						selectedSource = nid;
+					}
+				}
+			}
+			
+			return selectedSource;
 		},
 		/**
          * Método de inicialización del componente.
@@ -1100,47 +1152,94 @@ input.
 						}
 					}
 					
-					// Añadir evento para detectar los cambios en valores del padre o padres
+					// Añadir evento para detectar los cambios en valores del padre/s
 					$.each(settings.parent, function (position, parentId) {
 						$("#" + parentId + "_label").on("rupAutocomplete_change", function (event) {
 							let autocompleteId = event.target.id.substring(0, event.target.id.indexOf("_label"));
 							let childSelector = $("#" + autocompleteId).data('childSelector');
 							let child = $("#" + autocompleteId).data('childs')[childSelector];
-							let allParentsHaveValues = true;
+							let resourceIsCached = false;
+							let parentsValues = settings.$self._getParentsValues(settings);
+							let selectedSource = parentsValues.selectedSource;
+							let allParentsHaveValues = parentsValues.allParentsHaveValues;
+							let checkValueDeferred = $.Deferred();
 							
-							$.each(settings.parent, function (position, parentId) {
-								if ($("#" + parentId).rup_autocomplete("getRupValue") == '' || $("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
-									allParentsHaveValues = !allParentsHaveValues;
-									return false;
+							// Comprobar valor para saber si habilitar o no el hijo
+							if (allParentsHaveValues) {
+								// Si es remoto hay que obtener los datos para poder hacer la siguiente comprobación de valores válidos
+								if (settings.source.name === '_sourceREMOTE') {
+									let retrieveValueDeferred = $.Deferred();
+									
+									$('#' + child + '_label').on("autocompleteresponse", function() {
+										retrieveValueDeferred.resolve();
+										return retrieveValueDeferred.promise();
+									});
+									
+									$.when(retrieveValueDeferred).then(function () {
+										resourceIsCached = false;
+										allParentsHaveValues = false;
+										let childData = $('#' + child + '_label').data('tmp.data');
+										
+										if (childData !== undefined && childData.length > 0) {
+											allParentsHaveValues = true;
+										}
+										
+										checkValueDeferred.resolve();
+										return checkValueDeferred.promise();
+									});
+									
+									// Eliminar cache porque sino no realiza la búsquedas cuando se cambia el padre
+									if (settings.$self.data('tmp.loadObjects.term') !== undefined) {
+										settings.$self.removeData('tmp.loadObjects.term');
+									}
+									
+									// Realizar búsqueda
+									$('#' + child).rup_autocomplete('search', settings.defaultValue !== undefined ? settings.defaultValue : undefined);
+									// Quitar foco del elemento para evitar desplegar los resultados automáticamente
+									$('#' + child + '_label').trigger('blur');
+								} else if (settings.source.name === '_sourceLOCAL' && !(selectedSource in $('#' + child + '_label').data('settings').data)) {
+									allParentsHaveValues = false;
+										
+									checkValueDeferred.resolve();
+									checkValueDeferred.promise();
+								} else {
+									checkValueDeferred.resolve();
+									checkValueDeferred.promise();
+								}
+							} else {
+								checkValueDeferred.resolve();
+								checkValueDeferred.promise();	
+							}
+							
+							// Cuando es enlazado, hay que comprobar si el valor seleccionado en el padre permite seleccionar algún valor en el hijo
+							$.when(checkValueDeferred).then(function () {
+								// Activar o desactivar dependiendo de si todos los parent tienen valores
+								if (allParentsHaveValues) {
+									$('#' + child).rup_autocomplete('enable');
+								} else {
+									$('#' + child).rup_autocomplete('disable');
+								}
+								
+								// Definir valor por defecto o vaciarlo en caso contrario
+								if (allParentsHaveValues && !resourceIsCached && settings.defaultValue != undefined) {
+									$('#' + child).rup_autocomplete('search', settings.defaultValue);
+								} else {
+									$('#' + child + "_label").val("");
+									$('#' + child).rup_autocomplete("setRupValue", "");
+								}
+								
+								// Comprobar que hijo se usara la proxima vez
+								if ($("#" + autocompleteId).data('childs').length - 1 > childSelector) {
+									$('#' + autocompleteId).data('childSelector', childSelector + 1);
+								} else {
+									$('#' + autocompleteId).data('childSelector', 0);
 								}
 							});
-							
-							// Activar o desactivar dependiendo de si todos los parent tienen valores
-							if (allParentsHaveValues) {
-								$('#' + child).rup_autocomplete('enable');
-							} else {
-								$('#' + child).rup_autocomplete('disable');
-							}
-							
-							// Definir valor por defecto o vaciarlo en caso contrario
-							if (allParentsHaveValues && settings.defaultValue != undefined) {
-								$('#' + child).rup_autocomplete('search', settings.defaultValue);
-							} else {
-								$('#' + child + "_label").val("");
-								$('#' + child).rup_autocomplete("setRupValue", "");
-							}
-							
-							// Comprobar que hijo se usara la proxima vez
-							if ($("#" + autocompleteId).data('childs').length - 1 > childSelector) {
-								$('#' + autocompleteId).data('childSelector', childSelector + 1);
-							} else {
-								$('#' + autocompleteId).data('childSelector', 0);
-							}
 						});
 					});
 				}
 
-				//Se audita el componente
+				// Se audita el componente
 				$.rup.auditComponent('rup_autocomplete', 'init');
 			}
 		}
@@ -1197,7 +1296,7 @@ input.
      */
 
 	/**
-     * Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del comonente
+     * Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del componente
      * @event module:rup_autocomplete#rupAutocomplete_change
      * @example
      * $("#autocomplete").on("rupAutocomplete_change", function(event, data){});
