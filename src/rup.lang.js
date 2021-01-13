@@ -92,6 +92,16 @@
                             ${$.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')}
                         </a>
                     `);
+                
+
+                let searchParams = new URLSearchParams(window.location.search),
+            		hdivStateParam = searchParams.get('_HDIV_STATE_');
+                
+                if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
+                	hdivStateParam = '&_HDIV_STATE_=' + hdivStateParam;
+                } else {
+                	hdivStateParam = '';
+                }
 
                 //gestion de estilos de jquery-ui
                 $(self).addClass('ui-widget');
@@ -117,7 +127,7 @@
                         var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
 
                         $languagesDropdown.append($(`
-                            <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value}" class="dropdown-item">${txt}</a>
+                            <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value + hdivStateParam}" class="dropdown-item">${txt}</a>
                         `));
                     });
                     $parent.append($languagesDropdown);
@@ -135,7 +145,7 @@
                                 $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
                             $(`
                                 <li>
-                                    <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value}"
+                                    <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value + hdivStateParam}"
                                         class="rup-language_portal_list ui-corner-all"
                                         title="${title}">
                                         ${txt}
@@ -194,7 +204,7 @@
                         var liIdioma = $('<li>').attr('id', 'rup_language_lng_' + value),
                             txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
                         if (value !== active) {
-                            $('<a>').appendTo(liIdioma).attr('href', '?' + $.rup.LOCALE_PARAM_NAME + '=' + value).text(txt)
+                            $('<a>').appendTo(liIdioma).attr('href', '?' + $.rup.LOCALE_PARAM_NAME + '=' + value + hdivStateParam).text(txt)
                                 .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
                         } else {
                             //hacemos que sea el lenguage actual el activo
