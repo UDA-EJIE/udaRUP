@@ -887,8 +887,10 @@
                 filterOpts.$clearButton.on('click', function () {
                     $self._clearFilter(options);
                 });
-
-                options.filter.showHidden = false;
+                
+                if (filterOpts.showHidden === undefined || typeof filterOpts.showHidden !== "boolean") {
+                	filterOpts.showHidden = false;
+                }
 
                 toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon1');
                 toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleLabel');
@@ -927,7 +929,7 @@
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
                     filterOpts.$filterToolbar.addClass('formulario_opened');
-                    options.filter.showHidden = false;
+                    filterOpts.showHidden = false;
                 };
                 
                 filterOpts.hideLayer = function(){
@@ -935,12 +937,12 @@
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
                     filterOpts.$filterToolbar.removeClass('formulario_opened');
-                    options.filter.showHidden = true;
+                    filterOpts.showHidden = true;
                 };
 
                 filterOpts.$filterToolbar.addClass('cursor_pointer').on({
                     'click': function () {
-                        if (options.filter.showHidden === false) {
+                        if (filterOpts.showHidden === false) {
                         	filterOpts.hideLayer();
                         } else {
                         	filterOpts.showLayer();
@@ -948,7 +950,7 @@
                     }
                 });
 
-                if (options.filter.showHidden === true) {
+                if (filterOpts.showHidden === true) {
                 	filterOpts.hideLayer();
                 } else {
                 	filterOpts.showLayer();
