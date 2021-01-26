@@ -1009,7 +1009,7 @@
 	
 	$.fn.isHDIV = function (paramToCheck) {
 		// Comprobar si el parámetro ha sido cifrado por HDIV
-		return /^([a-zA-Z0-9]*-){5}[a-zA-Z0-9]*$/.test(paramToCheck);
+		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
 	$.fn.resetAutocomplete = function (type, obj) {
