@@ -3284,6 +3284,16 @@
         }
     };
     
+    /**
+     * Metodo que elimina todos los registros seleccionados.
+     *
+     * @name _deleteAllSelects
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     *
+     * @param {object} dt - Es el objeto table.
+     *
+     */
     var _deleteAllSelects = function (dt) {
     	var ctx = dt.settings()[0];
     	let idRow = 0;
@@ -3293,8 +3303,12 @@
     		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
     		OKFunction: function () {
     			let row = {};
+                row.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
     			if (ctx.multiselection.selectedIds.length > 1){
-    				row.core =  {'pkToken': ctx.oInit.multiplePkToken, 'pkNames': ctx.oInit.primaryKey};
+    				row.core = {
+    					'pkToken': ctx.oInit.multiplePkToken,
+    					'pkNames': ctx.oInit.primaryKey
+    				};
     				row.multiselection = {};
     				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
     				if (row.multiselection.selectedAll){

@@ -1648,18 +1648,19 @@ function _notExistOnPage(ctx){
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	var idRow = 0;
-	var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+	let idRow = 0;
+	let regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
 	$.rup_messages('msgConfirm', {
 		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
 		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
 		OKFunction: function () {
+			let row = {};
+            row.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
 			if(ctx.multiselection.selectedIds.length > 1){
-				var row = {};
-                    row.core = {
-                        'pkToken': ctx.oInit.multiplePkToken,
-                        'pkNames': ctx.oInit.primaryKey
-                    };
+                row.core = {
+                    'pkToken': ctx.oInit.multiplePkToken,
+                    'pkNames': ctx.oInit.primaryKey
+                };
 				row.multiselection = {};
 				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
 				if(row.multiselection.selectedAll){
