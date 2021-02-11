@@ -1,32 +1,32 @@
-#	Componentes RUP ‚Äì Table
+# Componentes RUP - Table
 
 
-## 1. Introducci√≥n
+## 1. IntroducciÛn
 
-La descripci√≥n del componente table, visto desde el punto de vista de RUP, es la siguiente:
+La descripciÛn del componente table, visto desde el punto de vista de RUP, es la siguiente:
 
-*Se les presenta a los usuarios los datos tabulados para que la informaci√≥n se visualice de manera √°gil y r√°pida, facilitando as√≠ su comprensi√≥n y manejo. Adem√°s, el componente implementa un nuevo patr√≥n definido para facilitar la l√≥gica necesaria en las acciones b√°sicas, denominadas CRUD (create, read,update y delete), sobre una tabla.*
+*Se les presenta a los usuarios los datos tabulados para que la informaciÛn se visualice de manera ·gil y r·pida, facilitando asÌ su comprensiÛn y manejo. Adem·s, el componente implementa un nuevo patrÛn definido para facilitar la lÛgica necesaria en las acciones b·sicas, denominadas CRUD (create, read,update y delete), sobre una tabla.*
 
 
 ## 2. Ejemplo
 
-Se muestra a continuaci√≥n una maquetaci√≥n t√≠pica del componente:
+Se muestra a continuaciÛn una maquetaciÛn tÌpica del componente:
 
 ![Imagen 1](img/rup.table_1.png)
 
 ## 3. Casos de uso
 
-Se aconseja la utilizaci√≥n de este componente:
+Se aconseja la utilizaciÛn de este componente:
 
-* Cuando se tenga que presentar a los usuarios filas de datos y se desee facilitar la b√∫squeda de datos.
-* Cuando se realicen mantenimientos de tablas haciendo uso de las especificaciones establecidas en la gu√≠a de desarrollo de UDA.
+* Cuando se tenga que presentar a los usuarios filas de datos y se desee facilitar la b˙squeda de datos.
+* Cuando se realicen mantenimientos de tablas haciendo uso de las especificaciones establecidas en la guÌa de desarrollo de UDA.
 
 
 ## 4. Infraestructura
 
-A continuaci√≥n se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
+A continuaciÛn se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 
-√önicamente se requiere la inclusi√≥n de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros* y *Dependencias*.
+√önicamente se requiere la inclusiÛn de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros* y *Dependencias*.
 
 ### 4.1. Ficheros
 
@@ -38,7 +38,7 @@ A continuaci√≥n se comenta la infraestructura necesaria para el correcto funcion
 
 ### 4.2. Dependencias
 
-Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librer√≠a *JavaScript* **jQuery**, es necesaria la inclusi√≥n de esta como capa base. La versi√≥n elegida para el desarrollo ha sido la **3.4.1**.
+Por la naturaleza de desarrollo de los componentes (patrones) como *plugins* basados en la librerÌa *JavaScript* **jQuery**, es necesaria la inclusiÛn de esta como capa base. La versiÛn elegida para el desarrollo ha sido la **3.4.1**.
 * **jQuery 3.4.1**: http://jquery.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
@@ -51,42 +51,42 @@ Los ficheros necesarios para el correcto funcionamiento del componente son:
     select.table.css
     Ejemplos online: https://datatables.net/examples/index
 
-### 4.3 Versi√≥n minimizada
+### 4.3 VersiÛn minimizada
 
-A partir de la versi√≥n v2.4.0 se distribuye la versi√≥n minimizada de los componentes **RUP**. Estos ficheros contienen la versi√≥n compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
+A partir de la versiÛn v2.4.0 se distribuye la versiÛn minimizada de los componentes **RUP**. Estos ficheros contienen la versiÛn compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente **RUP**.
 
 Los ficheros minimizados de RUP son los siguientes:
 * **rup/scripts/min/rup.min-x.y.z.js**
 * **rup/css/rup.min-x.y.z.css**
 
-Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deber√°n de emplearse en tareas de desarrollo o depuraci√≥n.
+Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deber·n de emplearse en tareas de desarrollo o depuraciÛn.
 
-## 5. Invocaci√≥n
+## 5. InvocaciÛn
 
-El componente table necesita de una invocaci√≥n de una llamada javascript sobre una estructura HTML existente.
+El componente table necesita de una invocaciÛn de una llamada javascript sobre una estructura HTML existente.
 
-Cada m√≥dulo del componente asocia funcionalidades y eventos a los diferentes objetos de la estructura HTML. De esto modo los componentes feedback, formulario de filtrado, formulario de detalle o multiselecci√≥n entre otros, deber√°n de construirse sobre objetos HTML.
+Cada mÛdulo del componente asocia funcionalidades y eventos a los diferentes objetos de la estructura HTML. De esto modo los componentes feedback, formulario de filtrado, formulario de detalle o multiselecciÛn entre otros, deber·n de construirse sobre objetos HTML.
 
-En el componente table se ha optado por minimizar el c√≥digo HTML que se genera al vuelo mediante javascript. Esto permite una serie de mejoras.
+En el componente table se ha optado por minimizar el cÛdigo HTML que se genera al vuelo mediante javascript. Esto permite una serie de mejoras.
 
-* Mayor velocidad de renderizado de la pantalla. El c√≥digo HTML generado mediante javascript es significativamente m√°s lento, sobre todo en navegadores antiguos.
-* Se facilitan las modificaciones y ajustes sobre las diferentes partes del componente ya que se tiene acceso a la mayor√≠a de las mismas directamente desde la jsp.
+* Mayor velocidad de renderizado de la pantalla. El cÛdigo HTML generado mediante javascript es significativamente m·s lento, sobre todo en navegadores antiguos.
+* Se facilitan las modificaciones y ajustes sobre las diferentes partes del componente ya que se tiene acceso a la mayorÌa de las mismas directamente desde la jsp.
 
-Para facilitar a√∫n m√°s y simplificar el c√≥digo necesario a la hora de invocar y configurar el componente, se ha definido una nomenclatura est√°ndar a la hora de indicar los identificadores de los diferentes objetos HTML. De este modo no ser√° necesario indicarle al componente todos los objetos HTML sobre los que debe definir cada una de las funcionalidades.
+Para facilitar a˙n m·s y simplificar el cÛdigo necesario a la hora de invocar y configurar el componente, se ha definido una nomenclatura est·ndar a la hora de indicar los identificadores de los diferentes objetos HTML. De este modo no ser· necesario indicarle al componente todos los objetos HTML sobre los que debe definir cada una de las funcionalidades.
 
-### 5.1. C√≥digo HTML
+### 5.1. CÛdigo HTML
 
 Para simplificar la nomenclatura nodos los identificadores de los objetos HTML se derivan a partir del identificador base del componente table.
 
-Para lograr una configuraci√≥n m√≠nima del componente js se deber√° de implementar el siguiente c√≥digo HTML en la jsp de la pantalla, cuidando los identificadores de cada elemento.
+Para lograr una configuraciÛn mÌnima del componente js se deber· de implementar el siguiente cÛdigo HTML en la jsp de la pantalla, cuidando los identificadores de cada elemento.
 
 Para el ejemplo supongamos que el componente RUP table se invoca sobre el elemento base con identificador table.
 
-Partiendo de esto, el resto de identificadores se derivar√°n a partir de la norma:
+Partiendo de esto, el resto de identificadores se derivar·n a partir de la norma:
 
     tableID_<componente>
 
-Este ser√≠a un ejemplo del c√≥digo que se deber√≠a de incluir en la jsp:
+Este serÌa un ejemplo del cÛdigo que se deberÌa de incluir en la jsp:
 
 ```xml
 <%@include file="/WEB-INF/includeTemplate.inc"%>
@@ -94,20 +94,18 @@ Este ser√≠a un ejemplo del c√≥digo que se deber√≠a de incluir en la jsp:
 
 <jsp:include page="includes/filterForm.jsp"></jsp:include>
 
-<table id="example" class="tableFit table-striped table-bordered table-material"
-	data-url-base="./tableUsuario"
-	data-filter-form="#table_filter_form">
-        <thead>
-            <tr>
-                <th data-col-prop="id">Id</th>
-                <th data-col-prop="nombre">Nombre</th>
-                <th data-col-prop="apellido1">Primer apellido</th>
-                <th data-col-prop="ejie" data-col-type="checkbox">Ejie</th>
-                <th data-col-prop="fechaAlta" data-col-sidx="fecha_alta" data-col-type="date">Fecha alta</th>
-                <th data-col-prop="fechaBaja" data-col-type="date">Fecha baja</th>
-                <th data-col-prop="rol" data-col-type="combo">Rol</th>
-            </tr>
-        </thead>
+<table id="example" class="tableFit table-striped table-bordered table-material" data-url-base="./tableUsuario" data-filter-form="#table_filter_form">
+    <thead>
+        <tr>
+            <th data-col-prop="id">Id</th>
+            <th data-col-prop="nombre">Nombre</th>
+            <th data-col-prop="apellido1">Primer apellido</th>
+            <th data-col-prop="ejie" data-col-type="checkbox">Ejie</th>
+            <th data-col-prop="fechaAlta" data-col-sidx="fecha_alta" data-col-type="date">Fecha alta</th>
+            <th data-col-prop="fechaBaja" data-col-type="date">Fecha baja</th>
+            <th data-col-prop="rol" data-col-type="combo">Rol</th>
+        </tr>
+    </thead>
 </table>
 
 <jsp:include page="includes/tableEdit.jsp"></jsp:include>
@@ -117,116 +115,114 @@ Este ser√≠a un ejemplo del c√≥digo que se deber√≠a de incluir en la jsp:
 * **data-col-prop**: Identificador de la columna que va asociado a los formularios.
 * **data-col-type**: Tipo que hace correspondencia con los RUP.
 * **data-col-sidx**: Identificador de base de datos.
-* **tfoot**: Se usa para el formulario de filtrado. Los campos incluidos en este formulario se utilizar√°n como valores de filtrado de los registros.
+* **tfoot**: Se usa para el formulario de filtrado. Los campos incluidos en este formulario se utilizar·n como valores de filtrado de los registros.
 
-### 5.1. C√≥digo Javascript
+### 5.1. CÛdigo Javascript
 
-La invocaci√≥n del componente propiamente dicha se realizar√° desde el fichero js correspondiente a la p√°gina. Si se ha seguido la nomenclatura del apartado anterior se requerir√° √∫nicamente de una
-configuraci√≥n m√≠nima:
+La invocaciÛn del componente propiamente dicha se realizar· desde el fichero js correspondiente a la p·gina. Si se ha seguido la nomenclatura del apartado anterior se requerir· ˙nicamente de una
+configuraciÛn mÌnima:
 
 ```js
 jQuery(function($){
-
 	//FILTRO Y DETALLE
 	var combo = [
-		   {rol: "---", codTipoSubsanacion:""},
-		   {rol: "Administrador", codTipoSubsanacion:"administrador"},
-		   {rol: "Desarrollador", codTipoSubsanacion:"desarrollador"},
-		   {rol: "Espectador", codTipoSubsanacion:"espectador"},
-		   {rol: "Informador", codTipoSubsanacion:"informador"},
-		   {rol: "Manager", codTipoSubsanacion:"manager"}
-		];
+       {rol: "---", codTipoSubsanacion:""},
+       {rol: "Administrador", codTipoSubsanacion:"administrador"},
+       {rol: "Desarrollador", codTipoSubsanacion:"desarrollador"},
+       {rol: "Espectador", codTipoSubsanacion:"espectador"},
+       {rol: "Informador", codTipoSubsanacion:"informador"},
+       {rol: "Manager", codTipoSubsanacion:"manager"}
+	];
 
 	var tableColModels = [
-			{ name: "id", index: "id", editable:true, width: 80
-				, formoptions:{rowpos:1, colpos:1}
-			},
-			{ name: "nombre", index: "nombre", editable:true
-				, formoptions:{rowpos:2, colpos:1}
-			},
-			{ name: "apellido1", index: "apellido1", editable:true
-				, formoptions:{rowpos:3, colpos:1}
-				, classes:'ui-ellipsis'
-			},
-			{ name: "apellido2", index: "apellido2", editable:true
-				, formoptions:{rowpos:4, colpos:1}
-			},
-			{ name: "ejie", index: "ejie", editable:true, width: 60,
-				edittype: "checkbox",
-				formatter: "checkbox",
-				rwdClasses:"hidden-xs hidden-sm hidden-md",
-				align: "center",
-				editoptions: {
-					value:"1:0"
-				},
-				searchoptions:{
-					rupType: "combo",
-					source : [
-					   {label: "---", value:""},
-					   {label: "Si", value:"1"},
-					   {label: "No", value:"0"}
-					]
-				}
-				, formoptions:{rowpos:5, colpos:1}
-			},
-			{ name: "fechaAlta",  index: "fecha_alta", editable:true, width: 120,
-				rupType: "date",
-				rwdClasses:"hidden-xs hidden-sm hidden-md",
-				editoptions:{
-					labelMaskId : "fecha-mask",
-					showButtonPanel : true,
-					showOtherMonths : true,
-					noWeekend : true
-				}
-				, formoptions:{rowpos:2, colpos:2}
-			},
-			{ name: "fechaBaja", index: "fecha_baja", editable:true, width: 120,
-				rupType: "date",
-				rwdClasses:"hidden-xs hidden-sm hidden-md",
-				editoptions:{
-					labelMaskId : "fecha-mask",
-					showButtonPanel : true,
-					showOtherMonths : true,
-					noWeekend : true
-				}
-				, formoptions:{rowpos:3, colpos:2}
-			},
-			{ name: "rol", index: "rol", editable:true, width: 140,
-				rupType: "combo",
-				rwdClasses:"hidden-xs hidden-sm hidden-md",
-				formatter: "rup_combo",
-				editoptions: {
-					source: $.map(combo, function(elem){
-						return {
-							label: elem.rol,
-							value: elem.codTipoSubsanacion
-						};
-
-					})
-				}
-				, formoptions:{rowpos:3, colpos:2}
-			}
-     ],
-     options_ejie_combo = {
-			source : [
-			   {label: "---", value:""},
-			   {i18nCaption: "0", value:"0"},
-			   {i18nCaption: "1", value:"1"}
-			],
-			i18nId: "GRID_simple##ejie",
-			width: 120
+		{ name: "id", index: "id", editable:true, width: 80
+			, formoptions:{rowpos:1, colpos:1}
 		},
-		options_role_combo = {
-			source : [
-			   {label: "---", value:""},
-			   {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
-			   {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
-			   {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
-			   {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
-			   {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
-			]
-		};
+		{ name: "nombre", index: "nombre", editable:true
+			, formoptions:{rowpos:2, colpos:1}
+		},
+		{ name: "apellido1", index: "apellido1", editable:true
+			, formoptions:{rowpos:3, colpos:1}
+			, classes:'ui-ellipsis'
+		},
+		{ name: "apellido2", index: "apellido2", editable:true
+			, formoptions:{rowpos:4, colpos:1}
+		},
+		{ name: "ejie", index: "ejie", editable:true, width: 60,
+			edittype: "checkbox",
+			formatter: "checkbox",
+			rwdClasses:"hidden-xs hidden-sm hidden-md",
+			align: "center",
+			editoptions: {
+				value:"1:0"
+			},
+			searchoptions:{
+				rupType: "combo",
+				source : [
+				   {label: "---", value:""},
+				   {label: "Si", value:"1"},
+				   {label: "No", value:"0"}
+				]
+			}
+			, formoptions:{rowpos:5, colpos:1}
+		},
+		{ name: "fechaAlta",  index: "fecha_alta", editable:true, width: 120,
+			rupType: "date",
+			rwdClasses:"hidden-xs hidden-sm hidden-md",
+			editoptions:{
+				labelMaskId : "fecha-mask",
+				showButtonPanel : true,
+				showOtherMonths : true,
+				noWeekend : true
+			}
+			, formoptions:{rowpos:2, colpos:2}
+		},
+		{ name: "fechaBaja", index: "fecha_baja", editable:true, width: 120,
+			rupType: "date",
+			rwdClasses:"hidden-xs hidden-sm hidden-md",
+			editoptions:{
+				labelMaskId : "fecha-mask",
+				showButtonPanel : true,
+				showOtherMonths : true,
+				noWeekend : true
+			}
+			, formoptions:{rowpos:3, colpos:2}
+		},
+		{ name: "rol", index: "rol", editable:true, width: 140,
+			rupType: "combo",
+			rwdClasses:"hidden-xs hidden-sm hidden-md",
+			formatter: "rup_combo",
+			editoptions: {
+				source: $.map(combo, function(elem){
+					return {
+						label: elem.rol,
+						value: elem.codTipoSubsanacion
+					};
 
+				})
+			}
+			, formoptions:{rowpos:3, colpos:2}
+		}
+    ],
+    options_ejie_combo = {
+	    source : [
+            {label: "---", value:""},
+            {i18nCaption: "0", value:"0"},
+            {i18nCaption: "1", value:"1"}
+		],
+		i18nId: "GRID_simple##ejie",
+		width: 120
+	},
+	options_role_combo = {
+		source : [
+		   {label: "---", value:""},
+		   {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
+		   {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
+		   {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
+		   {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
+		   {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
+		]
+	};
 
 	//Formulario de filtrado
 	jQuery("#ejie_filter_table").rup_combo(options_ejie_combo);
@@ -242,9 +238,8 @@ jQuery(function($){
 	jQuery("#rol_detail_table").rup_combo(options_role_combo);
 
 	$('#example').rup_table({
-
         multiSelect: {
-            style:    'multi'
+            style: 'multi'
         },
         order: [[ 1, 'asc' ]],
         columnDefs: [ {
@@ -273,23 +268,23 @@ jQuery(function($){
 });
 ```
 
-El uso y configuraci√≥n de los diferentes plugins del table se especifica en el siguiente apartado.
+El uso y configuraciÛn de los diferentes plugins del table se especifica en el siguiente apartado.
 
 ## 6. Plugins
 
 El componente table se ha implementado siguiendo una arquitectura modular. De este modo se consigue:
 * Integrar las diferentes funcionalidades como plugins independientes logrando una peque√±a interdependencia entre ellas.
-* Facilitar y simplificar el mantenimiento y la aplicaci√≥n de correctivos en el componente.
-* Simplificar la extensi√≥n y sobreescritura de los m√©todos de determinados plugins.
-* Permitir la creaci√≥n de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
+* Facilitar y simplificar el mantenimiento y la aplicaciÛn de correctivos en el componente.
+* Simplificar la extensiÛn y sobreescritura de los mÈtodos de determinados plugins.
+* Permitir la creaciÛn de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
 
 Todas las tablas , tienen estas opciones:
 
 $("#idTable").rup_table("getSelectedIds")        -> Devuelve todos los ids seleccionados.
 $("#idTable").rup_table("getSelectedRows")       -> Devuelve todos los datos seleccionados, previamente cargados en el ajax.
-$("#idTable").rup_table("getSelectedRowPerPage") -> Devuelve todos los ids seleccionadas, en la l√≠nea y pagina en la que est√°n.
+$("#idTable").rup_table("getSelectedRowPerPage") -> Devuelve todos los ids seleccionadas, en la lÌnea y pagina en la que est·n.
 
-Todos los plugins est√°n montados sobre el contexto de la tabla para obtener dicho contexto :
+Todos los plugins est·n montados sobre el contexto de la tabla para obtener dicho contexto :
 
 ```
 var ctx = $("#idTable").rup_table("getContext");
@@ -305,28 +300,28 @@ ctx.seeker
 Los detalles de cada uno de los plugins se pueden consultar en los documentos correspondientes:
 
 * Core
-* Men√∫ contextual
+* Men˙ contextual
 * Feedback
 * Filtrado
 * Dise√±o responsivo (RWD)
-* Edici√≥n en formulario
-* Multiselecci√≥n
-* B√∫squeda (seeker)
+* EdiciÛn en formulario
+* MultiselecciÛn
+* B˙squeda (seeker)
 * Botonera
 * Reporting (Parcial)
-* Edici√≥n en linea
+* EdiciÛn en linea
 * ColReorder
-* Selecci√≥n simple
+* SelecciÛn simple
 * Maestro detalle
 * RowGroup
 * Multifilter
 
 Propiedades de la tabla:
 
-* multiplePkToken -> Es el token que se va usar cuando el id sea m√∫ltiple.
+* multiplePkToken -> Es el token que se va usar cuando el id sea m˙ltiple.
 * primaryKey      -> El identificador principal de la tabla.
-* blockPKeditForm -> Si deseas que el pk se bloquee en modo edici√≥n (true o false).
-* searchPaginator -> Si deseas tener paginador con n√∫mero o no (true o false).
+* blockPKeditForm -> Si deseas que el pk se bloquee en modo ediciÛn (true o false).
+* searchPaginator -> Si deseas tener paginador con n˙mero o no (true o false).
 
 Para obtener las propiedades del plugin subyacente consultar en https://datatables.net/reference/api/
 
@@ -334,54 +329,53 @@ Para obtener las propiedades del plugin subyacente consultar en https://datatabl
 
 El componente *table* se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.table-x.y.z.css**.
 
-Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicaci√≥n situado dentro del proyecto de est√°ticos (*codAppStatics/WebContent/codApp/styles*).
+Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicaciÛn situado dentro del proyecto de est·ticos (*codAppStatics/WebContent/codApp/styles*).
 
-Los estilos del componente se basan en *Bootstrap*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente podr√°n tener repercusi√≥n sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusi√≥n general o ajustado a un subconjunto de componentes).
+Los estilos del componente se basan en *Bootstrap*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente podr·n tener repercusiÛn sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusiÛn general o ajustado a un subconjunto de componentes).
 
 
-## 8. Internacionalizaci√≥n (i18n)
+## 8. InternacionalizaciÛn (i18n)
 
-La gesti√≥n de los literales del table se realiza a trav√©s de ficheros json, lo que flexibiliza el desarrollo. Para acceder a los literales se har√° uso del objeto base RUP, mediante √©ste se acceder√° al objeto json correspondiente seg√∫n el idioma obteniendo tanto los literales como los propios mensajes.
+La gestiÛn de los literales del table se realiza a travÈs de ficheros json, lo que flexibiliza el desarrollo. Para acceder a los literales se har· uso del objeto base RUP, mediante Èste se acceder· al objeto json correspondiente seg˙n el idioma obteniendo tanto los literales como los propios mensajes.
 
-Los literales definidos para el contenido del table son texto simple. Para este componente los literales utilizados est√°n en la parte global de la internacionalizaci√≥n dentro de los resources de rup.
+Los literales definidos para el contenido del table son texto simple. Para este componente los literales utilizados est·n en la parte global de la internacionalizaciÛn dentro de los resources de rup.
 
-El objeto de internacionalizaci√≥n del table se encuentra accesible del siguiente modo:
+El objeto de internacionalizaciÛn del table se encuentra accesible del siguiente modo:
 
     $.rup.i18n.base
 
 
-## 9. Integraci√≥n con UDA
+## 9. IntegraciÛn con UDA
 
-La interacci√≥n entre la capa de presentaci√≥n y el servidor de aplicaciones que requiere el componente, hace uso de una serie de clases y configuraciones para facilitar su gesti√≥n.
+La interacciÛn entre la capa de presentaciÛn y el servidor de aplicaciones que requiere el componente, hace uso de una serie de clases y configuraciones para facilitar su gestiÛn.
 
-El componente ha sido implementado de manera que sea f√°cilmente extensible mediante plugins. Debido a esto es posible dotar al componente de funcionalidades extra que se ajusten a las necesidades de nuestra aplicaci√≥n.
+El componente ha sido implementado de manera que sea f·cilmente extensible mediante plugins. Debido a esto es posible dotar al componente de funcionalidades extra que se ajusten a las necesidades de nuestra aplicaciÛn.
 
-Dependiendo del tipo de nueva funcionalidad que se necesite es muy posible que la informaci√≥n que se transfiera se incremente.
+Dependiendo del tipo de nueva funcionalidad que se necesite es muy posible que la informaciÛn que se transfiera se incremente.
 
-Para facilitar este proceso y flexibilizar el proceso de extensibilidad del componente se ha implementado una serie de componentes que se presupondr√° que son utilizadas a la hora de explicar su funcionamiento.
+Para facilitar este proceso y flexibilizar el proceso de extensibilidad del componente se ha implementado una serie de componentes que se presupondr· que son utilizadas a la hora de explicar su funcionamiento.
 
-### 9.1. Comunicaci√≥n con la capa servidor
+### 9.1. ComunicaciÛn con la capa servidor
 
-La comunicaci√≥n entre el componente y la capa servidor se realiza principalmente mediante en env√≠o y recepci√≥n de objetos JSON.
+La comunicaciÛn entre el componente y la capa servidor se realiza principalmente mediante el envÌo y recepciÛn de objetos JSON.
 
-Para facilitar los procesos de serializaci√≥n y deserializaci√≥n entre los objetos JSON y Java se proporcionan las siguientes clases Java:
+Para facilitar los procesos de serializaciÛn y deserializaciÛn entre los objetos JSON y Java se proporcionan las siguientes clases Java:
 
-* **com.ejie.x38.dto.TableRequestDto**: Clase encargada de almacenar la informaci√≥n del JSON enviado por el componente. Despu√©s del proceso de deserializaci√≥n este ser√° el objeto resultante que se obtendr√° a partir del objeto JSON enviado.
+* **com.ejie.x38.dto.TableRequestDto**: Clase encargada de almacenar la informaciÛn del JSON enviado por el componente. DespuÈs del proceso de deserializaciÛn este ser· el objeto resultante que se obtendr· a partir del objeto JSON enviado.
 
-* **com.ejie.x38.dto.TableResponseDto**: Clase encargada de almacenar las propiedades que despu√©s del proceso de serializaci√≥n, se convertir√°n en propiedades del objeto JSON que deber√° de ser enviado al componente.
+* **com.ejie.x38.dto.TableResponseDto**: Clase encargada de almacenar las propiedades que despuÈs del proceso de serializaciÛn, se convertir·n en propiedades del objeto JSON que deber· de ser enviado al componente.
 
-### 9.2. Configuraci√≥n de Spring
+### 9.2. ConfiguraciÛn de Spring
 
-Es necesario incluir la siguiente configuraci√≥n en los ficheros de configuraci√≥n de Spring:
+Es necesario incluir la siguiente configuraciÛn en los ficheros de configuraciÛn de Spring:
 
-En el fichero *mvc-config.xml* se deber√° de especificar el uso de un Argument Resolver para gesti√≥nar el uso de las anotaciones ```@RequestBodyJson```.
+En el fichero *mvc-config.xml* se deber· de especificar el uso de un Argument Resolver para gestiÛnar el uso de las anotaciones ```@RequestBodyJson```.
 
 [mvc-config.xml]
 
 ```xml
-<bean id="requestMappingHandlerAdapter"
-class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-  <!-- Resto de configuraci√≥n... -->
+<bean id="requestMappingHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+  <!-- Resto de configuraciÛn... -->
   <property name="customArgumentResolvers">
     <list>
       <bean class="com.ejie.x38.control.view.RequestFormEntityMethodArgumentResolver"/>
@@ -390,55 +384,46 @@ class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 </bean>
 ```
 
-### 9.3. M√©todos controller
+### 9.3. MÈtodos controller
 
-Estos son los m√©todos generados en el Controller para gestionar las peticiones de las diferentes operaciones del componente table:
+Estos son los mÈtodos generados en el Controller para gestionar las peticiones de las diferentes operaciones del componente table:
 
 * Filtrado:
 ```java
 @RequestMapping(value = "/filter", method = RequestMethod.POST)
-public @ResponseBody TableResponseDto<Usuario> filter(
-@RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody TableRequestDto tableRequestDto) {
-  TableUsuarioController.logger.info("[POST - table] : Obtener Usuarios");
-  return tableUsuarioService.filter(filterUsuario, tableRequestDto, false);
+public @ResponseBody TableResponseDto<Usuario> filter(@RequestJsonBody(param="filter") Usuario filterUsuario, @RequestJsonBody TableRequestDto tableRequestDto) {
+    TableUsuarioController.logger.info("[POST - table] : Obtener Usuarios");
+    return tableUsuarioService.filter(filterUsuario, tableRequestDto, false);
 }
 ```
 
-* B√∫squeda:
+* B˙squeda:
 ```java
 @RequestMapping(value = "/search", method = RequestMethod.POST)
-public @ResponseBody List<TableRowDto<Usuario>> search(
-@RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody(param="search") Usuario searchUsuario,
-@RequestJsonBody TableRequestDto tableRequestDto){
-  TableUsuarioController.logger.info("[POST - search] : Buscar Usuarios");
-  return tableUsuarioService.search(filterUsuario, searchUsuario, tableRequestDto, false);
+public @ResponseBody List<TableRowDto<Usuario>> search(@RequestJsonBody(param="filter") Usuario filterUsuario, @RequestJsonBody(param="search") Usuario searchUsuario, @RequestJsonBody TableRequestDto tableRequestDto){
+    TableUsuarioController.logger.info("[POST - search] : Buscar Usuarios");
+    return tableUsuarioService.search(filterUsuario, searchUsuario, tableRequestDto, false);
 }
 ```
 
-* Borrado m√∫ltiple:
+* Borrado m˙ltiple:
 ```java
 @RequestMapping(value = "/deleteAll", method = RequestMethod.POST)
 @ResponseStatus(value=HttpStatus.OK)
-public @ResponseBody List<String> removeMultiple(
-@RequestJsonBody(param="filter") Usuario filterUsuario,
-@RequestJsonBody TableRequestDto tableRequestDto) {
-  TableUsuarioController.logger.info("[POST - removeMultiple] : Eliminar multiples usuarios");
-  this.tableUsuarioService.removeMultiple(tableRequestDto);
-  TableUsuarioController.logger.info("All entities correctly deleted!");
-  return tableRequestDto.getMultiselection().getSelectedIds();
+public @ResponseBody List<String> removeMultiple(@RequestJsonBody(param="filter") Usuario filterUsuario, @RequestJsonBody TableRequestDto tableRequestDto) {
+    TableUsuarioController.logger.info("[POST - removeMultiple] : Eliminar multiples usuarios");
+    this.tableUsuarioService.removeMultiple(tableRequestDto);
+    TableUsuarioController.logger.info("All entities correctly deleted!");
+    return tableRequestDto.getMultiselection().getSelectedIds();
 }
 ```
 
 * Copia de registros:
 ```java
 @RequestMapping(value = "/clipboardReport", method = RequestMethod.POST)
-protected @ResponseBody List<Usuario> getClipboardReport(
-		@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario,
-		@RequestJsonBody TableRequestDto tableRequestDto) {
-	TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
-	return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
+protected @ResponseBody List<Usuario> getClipboardReport(@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, @RequestJsonBody TableRequestDto tableRequestDto) {
+    TableUsuarioController.logger.info("[POST - clipboardReport] : Copiar multiples usuarios");
+    return this.tableUsuarioService.getDataForReports(filterUsuario, tableRequestDto);
 }
 ```
 ### 9.5. Propiedades adicionales
@@ -447,23 +432,23 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 Plugins.noEdit = true 
 ```
 
-Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edici√≥n de la tabla (formEdit) ni la edici√≥n en l√≠nea (inlineEdit).
+Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de ediciÛn de la tabla (formEdit) ni la ediciÛn en lÌnea (inlineEdit).
 
 ```js
-//Par√°metros: jqXHR jqXHR, String textStatus, String errorThrown
+//Par·metros: jqXHR jqXHR, String textStatus, String errorThrown
 Plugins.customError =  function(qXHR, textStatus, errorThrown ){
-                             let ctx = $('#'+idTabla).rup_table("getContext"); 
-                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
-                        }
+    let ctx = $('#'+idTabla).rup_table("getContext"); 
+    cargarFeedback(ctx, qXHR.responseText, textStatus); 
+}
 ```
 
-Se puede cargar una funci√≥n para que los errores que vienen de ajax.
+Se puede cargar una funciÛn para que los errores que vienen de ajax.
 
 ```js
 Plugins.filter = 'noFilter' 
 ```
 
-Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no har√° la validaci√≥n correspondiente.
+Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no har· la validaciÛn correspondiente.
 
 ```js
 Plugins.formEdit.width = 650 
@@ -472,155 +457,155 @@ Plugins.formEdit.width = 650
 Permite cambiar la anchura en pÌxeles que tendr· el formulario de ediciÛn. Si no se define, obtendr· el valor por defecto que equivale a 569 pÌxeles.
 
 ```js
-//Par√°metros: jqXHR jqXHR, String textStatus, String errorThrown
+//Par·metros: jqXHR jqXHR, String textStatus, String errorThrown
 Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
-                             let ctx = $('#'+idTabla).rup_table("getContext"); 
-                             cargarFeedback(ctx, qXHR.responseText, textStatus); 
-                        }
+    let ctx = $('#'+idTabla).rup_table("getContext"); 
+    cargarFeedback(ctx, qXHR.responseText, textStatus); 
+}
 ```
 
-Se puede cargar una funci√≥n para que los errores que vienen de ajax.
+Se puede cargar una funciÛn para que los errores que vienen de ajax.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
+//Par·metros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit e inlineEdit.
 Plugins.validarEliminar =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al eliminar.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al eliminar.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
+//Par·metros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit e inlineEdit.
 Plugins.validarModificar  =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al guardar en la edici√≥n de la tabla.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al guardar en la ediciÛn de la tabla.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
+//Par·metros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit.
 Plugins.validarModificarContinuar =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al guardar y continuar en la edici√≥n de la tabla.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al guardar y continuar en la ediciÛn de la tabla.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
+//Par·metros: ctx -> el contexto de la tabla
 //valido: Para los plugins: todos siempre que exista el filtrado.
 Plugins.validarFiltrar  =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al filtrar en la tabla.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al filtrar en la tabla.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
+//Par·metros: ctx -> el contexto de la tabla
 //valido: Para los plugins: seeker.
 Plugins.validarBuscar =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al buscar con el seeker.
-
-```jsa
-//Par√°metros: ctx -> el contexto de la tabla
-//valido: Para los plugins: formEdit e inlineEdit.
-Plugins.validarAlta  =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
-```
-
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al hacer un nuevo registro.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al buscar con el seeker.
 
 ```js
-//Par√°metros: ctx -> el contexto de la tabla
-//valido: Para los plugins: formEdit.
-Plugins.validarAltaContinuar =  function miFuncion(ctx){
-                             if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
-                             	return true;//no paso la validaci√≥n;
-                             } 
-                             	return false;//paso la validaci√≥n
-                        };
+//Par·metros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit e inlineEdit.
+Plugins.validarAlta  =  function miFuncion(ctx){
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
 ```
 
-Se puede cargar una funci√≥n y hacer un validaci√≥n externa al hacer un nuevo registro y continuar.
+Se puede cargar una funciÛn y hacer un validaciÛn externa al hacer un nuevo registro.
+
+```js
+//Par·metros: ctx -> el contexto de la tabla
+//valido: Para los plugins: formEdit.
+Plugins.validarAltaContinuar =  function miFuncion(ctx){
+    if($('#apellido1_detail_table_'+ctx.sTableId).val() !== 'ruiz'){
+     	return true;//no paso la validaciÛn;
+    } 
+    return false;//paso la validaciÛn
+};
+```
+
+Se puede cargar una funciÛn y hacer un validaciÛn externa al hacer un nuevo registro y continuar.
 
 ```js
 plugins.feedback.customGoTo  = function miFuncion(){
-									return $('#example_containerToolbar').offset().top ;
-								} 
+	return $('#example_containerToolbar').offset().top ;
+} 
 ```
 
-Se puede personalizar el feedback para que cuando aparezca, suba la posici√≥n hasta donde el desarrollador quiera, hay que devolver un n√∫mero.
+Se puede personalizar el feedback para que cuando aparezca, suba la posiciÛn hasta donde el desarrollador quiera, hay que devolver un n˙mero.
 
 ```js
-        let miColModel = [{
-                name: 'id',
-                editable: true,
-                formoptions: {
-                    rowpos: 1,
-                    colpos: 1
-                }
-            },
-            {
-                name: 'ejie',
-                editable: true,
-                edittype: 'checkbox',
-                rupType: 'checkbox',
-                editoptions: {
-                    value: '1:0'
-                },
-                searchoptions : {
-                    rowpos: 5,
-                    colpos: 1
-                }
-            },
-            {
-                name: 'fechaAlta',
-                editable: true,
-                rupType: 'date',
-                editoptions: {
-                    labelMaskId: 'fecha-mask',
-                    showButtonPanel: true,
-                    showOtherMonths: true,
-                    noWeekend: true
-                },
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 2
-                }
-            }
-            ];
+let miColModel = [
+    {
+        name: 'id',
+        editable: true,
+        formoptions: {
+            rowpos: 1,
+            colpos: 1
+        }
+    },
+    {
+        name: 'ejie',
+        editable: true,
+        edittype: 'checkbox',
+        rupType: 'checkbox',
+        editoptions: {
+            value: '1:0'
+        },
+        searchoptions : {
+            rowpos: 5,
+            colpos: 1
+        }
+    },
+    {
+        name: 'fechaAlta',
+        editable: true,
+        rupType: 'date',
+        editoptions: {
+            labelMaskId: 'fecha-mask',
+            showButtonPanel: true,
+            showOtherMonths: true,
+            noWeekend: true
+        },
+        formoptions: {
+            rowpos: 2,
+            colpos: 2
+        }
+    }
+];
 
-
-plugins.colModel  = miColModel; 
+plugins.colModel = miColModel; 
 ```
 
 El colModel se usa para modelar, los campos de la tabla.
