@@ -194,7 +194,8 @@
 
         });
         ctx.oInit.formEdit.detailForm.settings = {
-            type: $.rup.dialog.DIV
+            type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
+            width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569
         };
 
         $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
@@ -1794,7 +1795,7 @@
                 autoOpen: false,
                 modal: true,
                 resizable: '',
-                width: 569,
+                width: ctx.oInit.formEdit.detailForm.settings.width,
                 create: function () {
                     /* Se encarga de eliminar la clase que oculta los campos del formEdit. Esta clase esta presente
                      * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 

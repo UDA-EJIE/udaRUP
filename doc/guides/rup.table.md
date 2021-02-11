@@ -258,6 +258,7 @@ jQuery(function($){
         },
         formEdit:{
         	detailForm: "#table_detail_div",
+        	width: 650,
         	validate:{
     			rules:{
     				"nombre":{required:true},
@@ -442,13 +443,13 @@ protected @ResponseBody List<Usuario> getClipboardReport(
 ```
 ### 9.5. Propiedades adicionales
 
-```java
+```js
 Plugins.noEdit = true 
 ```
 
 Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edición de la tabla (formEdit) ni la edición en línea (inlineEdit).
 
-```java
+```js
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
 Plugins.customError =  function(qXHR, textStatus, errorThrown ){
                              let ctx = $('#'+idTabla).rup_table("getContext"); 
@@ -458,13 +459,19 @@ Plugins.customError =  function(qXHR, textStatus, errorThrown ){
 
 Se puede cargar una función para que los errores que vienen de ajax.
 
-```java
+```js
 Plugins.filter = 'noFilter' 
 ```
 
 Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no hará la validación correspondiente.
 
-```java
+```js
+Plugins.formEdit.width = 650 
+```
+
+Permite cambiar la anchura en p�xeles que tendr� el formulario de edici�n. Si no se define, obtendr� el valor por defecto que equivale a 569 p�xeles.
+
+```js
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
 Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
                              let ctx = $('#'+idTabla).rup_table("getContext"); 
@@ -474,7 +481,7 @@ Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
 
 Se puede cargar una función para que los errores que vienen de ajax.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit e inlineEdit.
 Plugins.validarEliminar =  function miFuncion(ctx){
@@ -487,7 +494,7 @@ Plugins.validarEliminar =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al eliminar.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit e inlineEdit.
 Plugins.validarModificar  =  function miFuncion(ctx){
@@ -500,7 +507,7 @@ Plugins.validarModificar  =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al guardar en la edición de la tabla.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit.
 Plugins.validarModificarContinuar =  function miFuncion(ctx){
@@ -513,7 +520,7 @@ Plugins.validarModificarContinuar =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al guardar y continuar en la edición de la tabla.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: todos siempre que exista el filtrado.
 Plugins.validarFiltrar  =  function miFuncion(ctx){
@@ -526,7 +533,7 @@ Plugins.validarFiltrar  =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al filtrar en la tabla.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: seeker.
 Plugins.validarBuscar =  function miFuncion(ctx){
@@ -539,7 +546,7 @@ Plugins.validarBuscar =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al buscar con el seeker.
 
-```java
+```jsa
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit e inlineEdit.
 Plugins.validarAlta  =  function miFuncion(ctx){
@@ -552,7 +559,7 @@ Plugins.validarAlta  =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro.
 
-```java
+```js
 //Parámetros: ctx -> el contexto de la tabla
 //valido: Para los plugins: formEdit.
 Plugins.validarAltaContinuar =  function miFuncion(ctx){
@@ -565,7 +572,7 @@ Plugins.validarAltaContinuar =  function miFuncion(ctx){
 
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro y continuar.
 
-```java
+```js
 plugins.feedback.customGoTo  = function miFuncion(){
 									return $('#example_containerToolbar').offset().top ;
 								} 
@@ -573,7 +580,7 @@ plugins.feedback.customGoTo  = function miFuncion(){
 
 Se puede personalizar el feedback para que cuando aparezca, suba la posición hasta donde el desarrollador quiera, hay que devolver un número.
 
-```java
+```js
         let miColModel = [{
                 name: 'id',
                 editable: true,
@@ -617,7 +624,7 @@ plugins.colModel  = miColModel;
 ```
 
 El colModel se usa para modelar, los campos de la tabla.
-Destacadaos:
+Destacados:
 
 name -> Identificador del campo.
 
