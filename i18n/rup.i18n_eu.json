@@ -585,6 +585,9 @@
         "odsButton": "Ods",
         "pdfButton": "Pdf",
         "csvButton": "Csv"
+      },
+      "feedback": {
+      	"keyNameError": "Bezeroaren primaryKey-en arteko inkontsistentzia eta zerbitzaria. Mesedez, ikuska ezazu rup_table-definizioa."
       }
     },
     "copyButton": {

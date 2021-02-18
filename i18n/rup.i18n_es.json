@@ -540,6 +540,9 @@
         "odsButton": "Ods",
         "pdfButton": "Pdf",
         "csvButton": "Csv"
+      },
+      "feedback": {
+      	"keyNameError": "Inconsistencia entre las primaryKey del cliente y el servidor. Por favor, revise la definición de rup_table."
       }
     },
     "copyButton": {

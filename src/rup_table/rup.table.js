@@ -256,11 +256,13 @@
 
                 $.each(opts.primaryKey, function (index, key) {
                     // Comprueba si la primaryKey es un subcampo
-                    if (key.indexOf('.') !== -1) {
-                        id = $self._getDescendantProperty(json, key);
-                    } else {
-                        id = id + json[key];
-                    }
+                	if (json.hasOwnProperty(key)) {
+                		id = id + json[key];
+                	} else if (key.indexOf('.') !== -1) {
+                	    id = $self._getDescendantProperty(json, key);
+                	} else {
+                		feedbackOpts.$feedbackContainer.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.filter.keyNameError, 'error');
+                	}
 
                     if (opts.primaryKey.length > 1 && index < opts.primaryKey.length - 1) {
                         id = id + opts.multiplePkToken;

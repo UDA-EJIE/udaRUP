@@ -583,6 +583,9 @@
         "pdfButton": "Pdf",
         "csvButton": "Csv"
 
+      },
+      "feedback": {
+      	"keyNameError": "Inconsistency between the primaryKey of the client and the server. Please check the rup_table definition."
       }
     },
     "copyButton": {
