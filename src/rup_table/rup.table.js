@@ -261,7 +261,7 @@
                 	} else if (key.indexOf('.') !== -1) {
                 	    id = $self._getDescendantProperty(json, key);
                 	} else {
-                		feedbackOpts.$feedbackContainer.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.filter.keyNameError, 'error');
+                		ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', $.rup.i18nParse($.rup.i18n.base, 'rup_table.feedback.keyNameError'), 'error');
                 	}
 
                     if (opts.primaryKey.length > 1 && index < opts.primaryKey.length - 1) {
