@@ -662,216 +662,230 @@
      */
     function _callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url) {
         var ctx = dt.settings()[0];
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax',ctx);
-        // add Filter
-        var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
-        var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
-        var validaciones = ctx.oInit.formEdit.validate;
-        if (url === '/deleteAll' || actionType === 'DELETE') {
-            msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
-            if (validaciones !== undefined) {
-                validaciones.rules = {};
-            }
-        }
-
-        if (ctx.oInit.masterDetail !== undefined) { //Asegurar que se recoge el idPadre
-            var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
-            jQuery.extend(true, masterPkObject, row);
-            row = masterPkObject;
-        }
-        if (ctx.oInit.formEdit.multiPart) { //si es multiPart el row se coje solo.
-            row = {};
-        }
-        var ajaxOptions = {
-            url: ctx.oInit.urlBase + url,
-            accepts: {
-                '*': '*/*',
-                'html': 'text/html',
-                'json': 'application/json, text/javascript',
-                'script': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-                'text': 'text/plain',
-                'xml': 'application/xml, text/xml'
-            },
-            type: actionType,
-            data: row,
-            dataType: 'json',
-            showLoading: false,
-            contentType: 'application/json',
-            async: true,
-            success: function (valor) {
-            	ctx.oInit.formEdit.okCallBack = true;
-            	ctx.oInit.formEdit.lastValue = valor;
-                if (url !== '/deleteAll' && actionType !== 'DELETE') {
-                    if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
-                        var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                        if (divOkFeedback.length === 0) {
-                            divOkFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                            divOkFeedback.rup_feedback(ctx.oInit.feedback);
-                        }
-                        _callFeedbackOk(ctx, divOkFeedback, msgFeedBack, 'ok'); //Se informa, feedback del formulario
-                    } else {
-                        ctx.oInit.formEdit.detailForm.rup_dialog('close');
-                        _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
+        $('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax', ctx);
+        
+        $.rup_messages('msgConfirm', {
+            title: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+            message: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+            OKFunction: function () {
+            	$('#' + ctx.sTableId).triggerHandler('tableEditFormDialogOkCallAjax', ctx);
+            	
+            	// Añadir filtro
+                var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+                var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
+                var validaciones = ctx.oInit.formEdit.validate;
+                if (url === '/deleteAll' || actionType === 'DELETE') {
+                    msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
+                    if (validaciones !== undefined) {
+                        validaciones.rules = {};
                     }
+                }
 
-                    if (actionType === 'PUT') { //Modificar
-                        dt.row(idRow).data(row); // se actualiza al editar
-                        ctx.json.rows[idRow] = row;
-                        // Actualizamos el ultimo id seleccionado (por si ha sido editado)
-                        var posicion = 0;
-                        $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
-                            if (p.id === ctx.multiselection.lastSelectedId) {
-                                posicion = index;
-                                return;
-                            }
-                        });
-                        if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data !== undefined &&
-                        		ctx.seeker.ajaxOption.data.search !== undefined && ctx.seeker.search.funcionParams !== undefined &&
-                            ctx.seeker.search.funcionParams.length > 0) {
-                            _comprobarSeeker(row, ctx, idRow);
-                        }
-                        ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
-                        ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
-                        ctx.oInit.feedback.type = undefined; //se recarga el type no esta definido.
-                    } else {
-                    	//Asegura a cargar los nuevos IDS.
-                    	
-                        $.each(ctx.oInit.primaryKey, function (index, key) {
-                            // Comprueba si la primaryKey es un subcampo
-                            if (key.indexOf('.') !== -1) {
-                                row[key] = DataTable.Api().rupTable.getDescendantProperty(valor, key);
+                if (ctx.oInit.masterDetail !== undefined) { //Asegurar que se recoge el idPadre
+                    var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+                    jQuery.extend(true, masterPkObject, row);
+                    row = masterPkObject;
+                }
+                if (ctx.oInit.formEdit.multiPart) { //si es multiPart el row se coje solo.
+                    row = {};
+                }
+                var ajaxOptions = {
+                    url: ctx.oInit.urlBase + url,
+                    accepts: {
+                        '*': '*/*',
+                        'html': 'text/html',
+                        'json': 'application/json, text/javascript',
+                        'script': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+                        'text': 'text/plain',
+                        'xml': 'application/xml, text/xml'
+                    },
+                    type: actionType,
+                    data: row,
+                    dataType: 'json',
+                    showLoading: false,
+                    contentType: 'application/json',
+                    async: true,
+                    success: function (valor) {
+                    	ctx.oInit.formEdit.okCallBack = true;
+                    	ctx.oInit.formEdit.lastValue = valor;
+                        if (url !== '/deleteAll' && actionType !== 'DELETE') {
+                            if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
+                                var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                                if (divOkFeedback.length === 0) {
+                                    divOkFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                                    divOkFeedback.rup_feedback(ctx.oInit.feedback);
+                                }
+                                _callFeedbackOk(ctx, divOkFeedback, msgFeedBack, 'ok'); //Se informa, feedback del formulario
                             } else {
-                            	row[key] = valor[key];
+                                ctx.oInit.formEdit.detailForm.rup_dialog('close');
+                                _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                             }
 
-                        });
-                        // Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
-                        if (ctx.oInit.select !== undefined) {
-                            DataTable.Api().select.deselect(ctx);
-                        }
-                        var rowAux = row;
-                        if (ctx.json !== undefined) {
-	                        $.each(ctx.json.rows, function (index, r) {
-	                            var rowNext = r;
-	                            dt.row(index).data(rowAux);
-	                            rowAux = rowNext;
-	                        });
-	                        ctx.json.rows.pop();
-	                        ctx.json.rows.splice(0, 0, row);
-                        }else{//es el primer registro
-                        	dt.row.add(rowAux).draw( false );
-                        	ctx.json = {};
-                          	ctx.json.rows = [];
-                        	ctx.json.rows.push(rowAux);
-                        }
+                            if (actionType === 'PUT') { //Modificar
+                                dt.row(idRow).data(row); // se actualiza al editar
+                                ctx.json.rows[idRow] = row;
+                                // Actualizamos el ultimo id seleccionado (por si ha sido editado)
+                                var posicion = 0;
+                                $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
+                                    if (p.id === ctx.multiselection.lastSelectedId) {
+                                        posicion = index;
+                                        return;
+                                    }
+                                });
+                                if (ctx.seeker !== undefined && ctx.seeker.ajaxOption.data !== undefined &&
+                                		ctx.seeker.ajaxOption.data.search !== undefined && ctx.seeker.search.funcionParams !== undefined &&
+                                    ctx.seeker.search.funcionParams.length > 0) {
+                                    _comprobarSeeker(row, ctx, idRow);
+                                }
+                                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+                                ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+                                ctx.oInit.feedback.type = undefined; //se recarga el type no esta definido.
+                            } else {
+                            	// Asegura a cargar los nuevos IDS.
+                                $.each(ctx.oInit.primaryKey, function (index, key) {
+                                    // Comprueba si la primaryKey es un subcampo
+                                    if (key.indexOf('.') !== -1) {
+                                        row[key] = DataTable.Api().rupTable.getDescendantProperty(valor, key);
+                                    } else {
+                                    	row[key] = valor[key];
+                                    }
 
-                        //Se guardan los datos para pasar de nuevo a editable.
-                        if (ctx.oInit.formEdit.saveContinueEdit) {
-                            ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
-                            DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT');
-                        } else { //mantener y borrar
-                            var idForm = ctx.oInit.formEdit.idForm;
-                            idForm.resetForm();
-                            jQuery('.ui-selectmenu-status', idForm).text('--');
-                            jQuery('[ruptype=\'combo\']', idForm).rup_combo('clear');
-                        }
+                                });
+                                // Se actualiza la tabla temporalmente. y deja de ser post para pasar a put(edicion)
+                                if (ctx.oInit.select !== undefined) {
+                                    DataTable.Api().select.deselect(ctx);
+                                }
+                                var rowAux = row;
+                                if (ctx.json !== undefined) {
+        	                        $.each(ctx.json.rows, function (index, r) {
+        	                            var rowNext = r;
+        	                            dt.row(index).data(rowAux);
+        	                            rowAux = rowNext;
+        	                        });
+        	                        ctx.json.rows.pop();
+        	                        ctx.json.rows.splice(0, 0, row);
+                                }else{//es el primer registro
+                                	dt.row.add(rowAux).draw( false );
+                                	ctx.json = {};
+                                  	ctx.json.rows = [];
+                                	ctx.json.rows.push(rowAux);
+                                }
 
-                        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
-                        if (ctx.oInit.multiSelect !== undefined) {
-                            ctx.oInit.feedback.type = 'noBorrar';
-                            dt.row().multiSelect();
+                                // Se guardan los datos para pasar de nuevo a editable.
+                                if (ctx.oInit.formEdit.saveContinueEdit) {
+                                    ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
+                                    DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT');
+                                } else { //mantener y borrar
+                                    var idForm = ctx.oInit.formEdit.idForm;
+                                    idForm.resetForm();
+                                    jQuery('.ui-selectmenu-status', idForm).text('--');
+                                    jQuery('[ruptype=\'combo\']', idForm).rup_combo('clear');
+                                }
+
+                                ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
+                                if (ctx.oInit.multiSelect !== undefined) {
+                                    ctx.oInit.feedback.type = 'noBorrar';
+                                    dt.row().multiSelect();
+                                }
+                                
+                                // Se actualiza la linea
+                                if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
+        	                        try
+        	                        {
+        	                          ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
+        	                          
+        	                        }
+        	                        catch(err) {
+        	                          console.log(err.message);
+        	                        }
+                                }
+                                
+                                $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
+                            }
+
+                            dt.ajax.reload(function () {
+                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                            }, false);
+
+                        } else { // Eliminar
+                            ctx.oInit.feedback.type = 'eliminar';
+                            ctx.oInit.feedback.msgFeedBack = msgFeedBack;
+
+                            if (ctx.oInit.multiSelect !== undefined) {
+                                dt.ajax.reload(function () {
+                                    $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                                    DataTable.Api().multiSelect.deselectAll(dt);
+                                }, false);                        
+                            } else if (ctx.oInit.select !== undefined) {
+                                dt.ajax.reload(function () {
+                                    $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                                    DataTable.Api().select.deselect(ctx);
+                                }, false);                        
+                            }
+                            _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                         }
-                        
-                     // Se actualiza la linea
-                        if (ctx.json.reorderedSelection !== null && ctx.json.reorderedSelection !== undefined) {
-	                        try
-	                        {
-	                          ctx.multiselection.selectedRowsPerPage[0].line = ctx.json.reorderedSelection[0].pageLine;
-	                          
-	                        }
-	                        catch(err) {
-	                          console.log(err.message);
-	                        }
+                    },
+                    complete: function () {
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
+                    },
+                    error: function (xhr) {
+                        let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                        if (divErrorFeedback.length === 0) {
+                            divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+                            divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                         }
-                        
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
+        				if (xhr.status === 406 && xhr.responseText !== '') {
+        					try {
+        						let responseJSON = jQuery.parseJSON(xhr.responseText);
+        						if (responseJSON.rupErrorFields) {
+        							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
+        								let $form = ctx.oInit.formEdit.idForm;
+        								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
+        								$form.validate().invalid = responseJSON.rupErrorFields;
+        								$form.validate().showErrors(responseJSON.rupErrorFields);
+        							} else if (errors.rupFeedback !== undefined) {
+        								let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
+        								_callFeedbackOk(ctx, divErrorFeedback, mensajeJSON, 'error');
+        							}
+
+        						}
+        					} catch (e) {
+        						// El mensaje NO es JSON
+        						_callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
+        					}
+
+        				}else{//cualquier error se devuelve el texto
+                            _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
+        				}
+
+                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType,ctx);
+                    },
+                    validate: validaciones,
+                    feedback: feed.rup_feedback({
+                        type: 'error',
+                        block: false
+                    })
+                };
+
+                if (url !== '/deleteAll' && actionType !== 'DELETE') {
+                    ctx.oInit.formEdit.idForm.rup_form('ajaxNotSubmit', ajaxOptions);
+                } else {
+                    //Se cambia el data
+                    if (ajaxOptions.data == '') {
+                        delete ajaxOptions.data;
+                    } else {
+                        ajaxOptions.data = JSON.stringify(ajaxOptions.data);
                     }
-
-                    dt.ajax.reload(function () {
-                        $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                    }, false);
-
-                } else { // Eliminar
-                    ctx.oInit.feedback.type = 'eliminar';
-                    ctx.oInit.feedback.msgFeedBack = msgFeedBack;
-
-                    if (ctx.oInit.multiSelect !== undefined) {
-                        dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                            DataTable.Api().multiSelect.deselectAll(dt);
-                        }, false);                        
-                    } else if (ctx.oInit.select !== undefined) {
-                        dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                            DataTable.Api().select.deselect(ctx);
-                        }, false);                        
-                    }
-                    _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
+                    $.rup_ajax(ajaxOptions);
                 }
             },
-            complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
+            CANCELFunction: function () {
+            	$('#' + ctx.sTableId).triggerHandler('tableEditFormDialogCancelCallAjax', ctx);
             },
-            error: function (xhr) {
-                let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
-                }
-				if (xhr.status === 406 && xhr.responseText !== '') {
-					try {
-						let responseJSON = jQuery.parseJSON(xhr.responseText);
-						if (responseJSON.rupErrorFields) {
-							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
-								let $form = ctx.oInit.formEdit.idForm;
-								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
-								$form.validate().invalid = responseJSON.rupErrorFields;
-								$form.validate().showErrors(responseJSON.rupErrorFields);
-							} else if (errors.rupFeedback !== undefined) {
-								let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
-								_callFeedbackOk(ctx, divErrorFeedback, mensajeJSON, 'error');
-							}
-
-						}
-					} catch (e) {
-						// El mensaje NO es JSON
-						_callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-					}
-
-				}else{//cualquier error se devuelve el texto
-                    _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-				}
-
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType,ctx);
-            },
-            validate: validaciones,
-            feedback: feed.rup_feedback({
-                type: 'error',
-                block: false
-            })
-        };
-
-        if (url !== '/deleteAll' && actionType !== 'DELETE') {
-            ctx.oInit.formEdit.idForm.rup_form('ajaxNotSubmit', ajaxOptions);
-        } else {
-            //Se cambia el data
-            if (ajaxOptions.data == '') {
-                delete ajaxOptions.data;
-            } else {
-                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+            CLOSEFunction: function () {
+            	$('#' + ctx.sTableId).triggerHandler('tableEditFormDialogCloseCallAjax', ctx);
             }
-            $.rup_ajax(ajaxOptions);
-        }
+        });
     }
 
     /**
