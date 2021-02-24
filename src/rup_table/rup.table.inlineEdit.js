@@ -909,7 +909,11 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 					if(searchRupType === 'combo'){//asignar el valor
-						$('#'+$elem.attr('id')).rup_combo('setRupValue',ctx.inlineEdit.lastRow.cellValues[cont]);
+						global.initRupI18nPromise.then(() => {
+							$('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont - 1]);
+						}).catch((error) => {
+			                console.error('Error al establecer el valor:\n', error);
+			            });
 					}
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem
