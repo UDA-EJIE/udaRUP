@@ -15,7 +15,7 @@ El uso del plugin en el componente se realiza incluyendo en el array de la propi
 
 ```js
 $("#idComponente").rup_table({
-    formEdit:{
+    formEdit: {
         // Propiedades de configuración del plugin formEdit
         detailForm: '#example_detail_div',
         validate: {
@@ -49,59 +49,51 @@ $("#idComponente").rup_table({
 
 Identificador del formulario de edición:
 ```js
-$("#idComponente").rup_table({
-    formEdit:{
-        detailForm: '#example_detail_div'
-    }
-});
+formEdit: {
+    detailForm: '#example_detail_div'
+}
 ```
 
 Añadir validaciones sobre los campos:
 ```js
-$("#idComponente").rup_table({
-    formEdit:{
-        validate: {
-            rules: {
-                'nombre': {
-                    required: true
-                },
-                'apellido1': {
-                    required: true
-                },
-                'fechaAlta': {
-                    required: true
-                },
-                'fechaBaja': {
-                    date: true
-                }
+formEdit: {
+    validate: {
+        rules: {
+            'nombre': {
+                required: true
+            },
+            'apellido1': {
+                required: true
+            },
+            'fechaAlta': {
+                required: true
+            },
+            'fechaBaja': {
+                date: true
             }
         }
     }
-});
+}
 ```
 
 Habilitar la personalización de una función a la hora de cancelar, cuando se va a borrar los registros de la tabla:
 ```js
-$("#idComponente").rup_table({
-    formEdit:{
-        cancelDeleteFunction: function () {
-            console.log('Ha cancelado la acción de eliminar.');
-        }
+formEdit: {
+    cancelDeleteFunction: function () {
+        console.log('Ha cancelado la acción de eliminar.');
     }
-});
+}
 ```
 
 Permitir habilitar o deshabilitar los diálogos de confirmación:
 ```js
-$("#idComponente").rup_table({
-    formEdit:{
-        confirmDialogs: {
-            saveDialog: false,
-            cancelDialog: true,
-            deleteDialog: true
-        }
+formEdit: {
+    confirmDialogs: {
+        saveDialog: false,
+        cancelDialog: true,
+        deleteDialog: true
     }
-});
+}
 ```
 
 Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deben tener la siguiente estructura:
@@ -110,8 +102,8 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deb
 <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
     <div class="form-row">      
         <div class="checkbox-material col-sm">
-			<form:checkbox path="lugares[${status.index}].checkeado" id="checkeado${status.index}_lugares" value="1" data-lista="lugares" data-clave="buzones" data-valor="${lugarapli.id}" />
-			<label for="checkeado${status.index}_lugares">${lugarapli.email}</label>
+            <form:checkbox path="lugares[${status.index}].checkeado" id="checkeado${status.index}_lugares" value="1" data-lista="lugares" data-clave="buzones" data-valor="${lugarapli.id}" />
+            <label for="checkeado${status.index}_lugares">${lugarapli.email}</label>
          </div>
     </div>
 </c:forEach>
