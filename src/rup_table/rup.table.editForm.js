@@ -155,9 +155,9 @@
         ctx.oInit.formEdit.detailForm.settings = {
             type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
             width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
-            saveDialog: ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true,
-            cancelDialog: ctx.oInit.formEdit.confirmDialogs.cancelDialog !== undefined ? ctx.oInit.formEdit.confirmDialogs.cancelDialog : true,
-            deleteDialog: ctx.oInit.formEdit.confirmDialogs.deleteDialog !== undefined ? ctx.oInit.formEdit.confirmDialogs.deleteDialog : true
+            saveDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true,
+            cancelDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.cancelDialog : true,
+            deleteDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.deleteDialog : true
         };
 
         // Capturar evento de cierre

@@ -232,9 +232,9 @@ DataTable.inlineEdit.init = function ( dt ) {
 	}
 	
 	ctx.oInit.inlineEdit.settings = {
-        saveDialog: ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
-        cancelDialog: ctx.oInit.inlineEdit.confirmDialogs.cancelDialog !== undefined ? ctx.oInit.inlineEdit.confirmDialogs.cancelDialog : true,
-        deleteDialog: ctx.oInit.inlineEdit.confirmDialogs.deleteDialog !== undefined ? ctx.oInit.inlineEdit.confirmDialogs.deleteDialog : true
+        saveDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
+        cancelDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.cancelDialog : true,
+        deleteDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.deleteDialog : true
     };
 
     $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
