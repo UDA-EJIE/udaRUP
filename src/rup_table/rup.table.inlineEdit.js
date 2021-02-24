@@ -1806,6 +1806,10 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 
 	if(ctx.oInit.inlineEdit !== undefined){
 		DataTable.inlineEdit.init( new DataTable.Api( ctx ) );
+		
+		if (ctx.oInit.inlineEdit.cancelDeleteFunction === undefined) {
+            ctx.oInit.inlineEdit.cancelDeleteFunction = function cancelClicked() {};
+        }
 	}
 
 } );
