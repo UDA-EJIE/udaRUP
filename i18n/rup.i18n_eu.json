@@ -570,9 +570,9 @@
     "new": "Nuevo_eu"
   },
   "rup_table": {
-    "seleccionada": "[EU]seleccionada",
-    "seleccionadas": "[EU]seleccionadas",
-    "fila": "[EU]fila",
+    "seleccionada": "aukeratutako",
+    "seleccionadas": "aukeratutako",
+    "fila": "ilara",
     "toolbar": {
       "add": "Gehitu",
       "edit": "Editatu",

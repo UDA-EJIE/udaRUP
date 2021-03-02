@@ -652,26 +652,47 @@ handler that will select the items using the API methods.
         }).flatten().length;
 
         var add = function (el, name, num) {
-            name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'fila');
-            var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionadas');
-            var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'seleccionada');
+            name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.fila');
+            var sels = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.seleccionadas');
+            var sel = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.seleccionada');
             if (ctx.oInit.showMultiSelectedZero) { //se muestra el mensaje
-                el.append($('<span class="select-item"></span>').append(api.i18n(
-                    'select.' + name + 's', {
-                        _: '%d ' + name + 's ' + sels + '',
-                        1: '1 ' + name + ' ' + sel + ''
-                    },
-                    num
-                )));
+            	if ($.rup.lang !== 'eu') {
+            		el.append($('<span class="select-item"></span>').append(api.i18n(
+                    	'select.filas', {
+                    		_: '%d ' + name + 's ' + sels + '',
+                    		1: '1 ' + name + ' ' + sel + ''
+                    	},
+                    	num
+                    )));
+                } else {
+                	el.append($('<span class="select-item"></span>').append(api.i18n(
+                		'select.filas', {
+                			_: sel + ' %d ' + name ,
+                			1: sel + ' ' + name + ' 1'
+                		},
+                		num
+                	)));
+                }
             } else { // nose muestra.
-                el.append($('<span class="select-item"></span>').append(api.i18n(
-                    'select.' + name + 's', {
-                        _: '%d ' + name + 's ' + sels + '',
-                        0: '',
-                        1: '1 ' + name + ' ' + sel + ''
-                    },
-                    num
-                )));
+            	if ($.rup.lang !== 'eu') {
+	                el.append($('<span class="select-item"></span>').append(api.i18n(
+	                    'select.filas', {
+	                        _: '%d ' + name + 's ' + sels + '',
+	                        0: '',
+	                        1: '1 ' + name + ' ' + sel + ''
+	                    },
+	                    num
+	                )));
+            	} else {
+            		el.append($('<span class="select-item"></span>').append(api.i18n(
+	                    'select.filas', {
+	                        _: sel + ' %d ' + name ,
+	                        0: '',
+	                        1: sel + ' ' + name + ' 1'
+	                    },
+	                    num
+	                )));
+            	}
             }
         };
 
