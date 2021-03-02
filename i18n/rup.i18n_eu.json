@@ -641,6 +641,10 @@
     "deselectMsg": "{1}. orrialdeko {0} elementuak hautaketik kenduko dira.",
     "deselectRestMsg": "Gainerako {0}ak hautaketatik kendu.",
     "detailTitle": "Detalle de registro",
+    "add": {
+    	"save": "Gehitu",
+    	"saveData": "Ziur zaude erregistro hau sortu nahi duzula?"
+    },
     "edit": {
       "addCaption": "Gehitu erregistroa",
       "bCancel": "Ezeztatu",
@@ -664,6 +668,7 @@
         "required": "Derrigorrezko eremua",
         "url": "URL-a ez da zuzena. Aurrizki hau izan behar du ('http://' or 'https://')"
       },
+      "save": "Gorde",
       "saveData": "Datuak aldatu dira. Aldaketak gorde nahi al dituzu?"
     },
     "element(s)": "Elementua(k)",

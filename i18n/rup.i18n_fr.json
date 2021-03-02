@@ -571,7 +571,7 @@
     "seleccionadas": "[FR]seleccionadas",
     "fila": "[FR]fila",
     "toolbar": {
-      "add": "[FR]Añadir",
+      "add": "Ajouter",
       "edit": "[FR]Editar",
       "clone": "[FR]Clonar",
       "delete": "[FR]Eliminar",
@@ -637,6 +637,10 @@
     "deselectMsg": "Se han deseleccionado los {0} elementos de la página {1}.",
     "deselectRestMsg": "Deseleccionar los {0} restantes",
     "detailTitle": "fr_Detalle de Registro",
+    "add": {
+    	"save": "Ajouter",
+    	"saveData": "[FR]¿Está seguro que desea crear el siguiente registro?"
+    },
     "edit": {
       "addCaption": "Agregar registro",
       "bCancel": "Cancelar",
@@ -660,7 +664,8 @@
         "required": "Campo obligatorio",
         "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
       },
-      "saveData": "Se han modificado los datos, ¿guardar cambios?"
+      "save": "[FR]Guardar",
+      "saveData": "[FR]Se han modificado los datos, ¿guardar cambios?"
     },
     "element(s)": "fr_Elemento(s)",
     "elements": "fr_Elementos",

@@ -638,6 +638,10 @@
     "deselectMsg": "en_Se han deseleccionado los {0} elementos de la página {1}.",
     "deselectRestMsg": "en_Deseleccionar los {0} restantes",
     "detailTitle": "en_Detalle de Registro",
+    "add": {
+    	"save": "Add",
+    	"saveData": "[EN]¿Está seguro que desea crear el siguiente registro?"
+    },
     "edit": {
       "addCaption": "Agregar registro",
       "bCancel": "Cancelar",
@@ -661,7 +665,8 @@
         "required": "Campo obligatorio",
         "url": "No es una URL válida. Prefijo requerido ('http://' or 'https://')"
       },
-      "saveData": "Se han modificado los datos, ¿guardar cambios?"
+      "save": "Save",
+      "saveData": "[EN]Se han modificado los datos, ¿guardar cambios?"
     },
     "element(s)": "en_Elemento(s)",
     "elements": "en_Elementos",
