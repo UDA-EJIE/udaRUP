@@ -260,8 +260,6 @@
                 		id = id + json[key];
                 	} else if (key.indexOf('.') !== -1) {
                 	    id = $self._getDescendantProperty(json, key);
-                	} else {
-                		opts.feedback.$feedbackContainer.rup_feedback('set', $.rup.i18nParse($.rup.i18n.base, 'rup_table.feedback.keyNameError'), 'error');
                 	}
 
                     if (opts.primaryKey.length > 1 && index < opts.primaryKey.length - 1) {
