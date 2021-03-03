@@ -668,10 +668,12 @@ handler that will select the items using the API methods.
                 	el.append($('<span class="select-item"></span>').append(api.i18n(
                 		'select.filas', {
                 			_: sel + ' %d ' + name ,
+                			0: sel + ' inongo ' + name + 'rik',
                 			1: sel + ' ' + name + ' 1'
                 		},
                 		num
                 	)));
+                	el.attr("style", "white-space: nowrap;");
                 }
             } else { // nose muestra.
             	if ($.rup.lang !== 'eu') {
