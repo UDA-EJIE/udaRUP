@@ -665,7 +665,7 @@
         var ctx = dt.settings()[0];
         
         let _makeAjaxCall = function () {
-        	$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax', ctx);
+        	$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax', [ctx, actionType, url]);
         	
         	// Añadir filtro
             var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');

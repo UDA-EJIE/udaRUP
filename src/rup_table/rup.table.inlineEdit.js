@@ -1283,7 +1283,7 @@ function _guardar(ctx,$fila,child){
 */
 function _callSaveAjax(actionType, ctx, $fila, row, url){
 	let _makeAjaxCall = function () {
-		$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax',ctx);
+		$('#' + ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax', [ctx, actionType, url]);
 		
 		// add Filter
 		var feed = ctx.oInit.feedback.$feedbackContainer;
