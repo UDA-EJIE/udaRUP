@@ -94,14 +94,8 @@
                     `);
                 
 
-                let searchParams = new URLSearchParams(window.location.search),
-            		hdivStateParam = searchParams.get('_HDIV_STATE_');
-                
-                if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
-                	hdivStateParam = '&_HDIV_STATE_=' + hdivStateParam;
-                } else {
-                	hdivStateParam = '';
-                }
+                // Obtener el parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
+                var hdivStateParam = $.fn.hasHDIV_STATE(true);
 
                 //gestion de estilos de jquery-ui
                 $(self).addClass('ui-widget');

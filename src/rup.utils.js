@@ -1012,6 +1012,21 @@
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
+	$.fn.hasHDIV_STATE = function (hasMoreParams) {
+		// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
+		let searchParams = new URLSearchParams(window.location.search);
+		let hdivStateParam = searchParams.get('_HDIV_STATE_');
+		let prefix = hasMoreParams ? '&' : '?';
+	    
+	    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
+	    	hdivStateParam = prefix + '_HDIV_STATE_=' + hdivStateParam;
+	    } else {
+	    	hdivStateParam = '';
+	    }
+	    
+	    return hdivStateParam;
+	};
+	
 	$.fn.resetAutocomplete = function (type, obj) {
 		// Reinicia por completo los autocomplete ya que sino siguen filtrando
         jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
