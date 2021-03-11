@@ -162,7 +162,7 @@
                 }
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (ctx.oInit.seeker.colModel != undefined && ctx.oInit.seeker.colModel[colModelIndex].hidden) {
+                if (ctx.oInit.colModel != undefined && ctx.oInit.colModel[colModelIndex].hidden) {
                     $(this).empty();
                 } else {
                     var nombre = $('#' + idTabla + ' thead th:nth-child(' + position + ')').attr('data-col-prop');
