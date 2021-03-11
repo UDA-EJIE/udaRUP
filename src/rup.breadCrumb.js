@@ -122,6 +122,9 @@
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
                     i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId,
                     idBreadCrumb = this.element[0].id;
+                    
+                // Obtener el parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
+                var hdivStateParam = $.fn.hasHDIV_STATE(false);
                 
                 this.element.append("<div class='row'></div>");
                     
@@ -147,7 +150,7 @@
 
                             //función encargada de poner el icono y el literal de salida
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl + hdivStateParam).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
@@ -161,7 +164,7 @@
 
                             //función encargada de poner el icono y el literal de desconexion
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl + hdivStateParam).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
@@ -199,7 +202,7 @@
                     //Si encontramos dentro del fichero de estructura de las migas el parte de la url
                     if (breadCrumbStruct[breadCrumbElems[i]]) {
                         //Generamos su miga de actualimos la estructura en la que buscar, devolviendo las estructura del nivel que se ha añadido
-                        breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
+                        breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId, hdivStateParam);
                     }
                 }
                 
@@ -261,9 +264,10 @@
          * @param {object} elem - Elemento actual que se está procesando.
          * @param {object} parentUl - Referencia al ul padre donde insertar la li correspondiente.
          * @param {string} i18nId - Key del recurso i18n a buscar en los ficheros idiomáticos correspondientes.
+         * @param {string} hdivStateParam - Parámetro HDIV_STATE (en caso de no estar disponible estará vacío).
          * @return {object} - Devuelve la nueva entructura en la que seguir iterando.
          */
-        _createBreadCrumb: function (breadCrumbStruct, elem, parentUl, i18nId) { //nos recorremos la entrada correspondiente
+        _createBreadCrumb: function (breadCrumbStruct, elem, parentUl, i18nId, hdivStateParam) { //nos recorremos la entrada correspondiente
             var createdLI, subLevelUL = $('<ul>');
             if (breadCrumbStruct.i18nCaption) { //si tengo i18nCaption es que es elemento final
                 createdLI = this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.i18nCaption), (breadCrumbStruct.url ? $.rup.CTX_PATH + breadCrumbStruct.url : '#'));
@@ -273,7 +277,7 @@
                 //nos recorremos todos los submenus
                 for (var i = 0; i < breadCrumbStruct.subLevel.length; i++) {
                     //creamos cada li y se lo añadimos al ul nuevo
-                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), (breadCrumbStruct.subLevel[i].url ? breadCrumbStruct.subLevel[i].url : '#'), false).css('background', 'none'));
+                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), (breadCrumbStruct.subLevel[i].url ? breadCrumbStruct.subLevel[i].url + hdivStateParam : '#'), false).css('background', 'none'));
                 }
                 //añadimos al li padre el nuevo ul con todos li de los sublevels
                 createdLI.append(subLevelUL);
