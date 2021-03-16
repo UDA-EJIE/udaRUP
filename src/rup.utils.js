@@ -979,10 +979,10 @@
 			}).get();
 	};
 	
-	$.fn.deleteMulticomboLabelFromObject = function (obj, $filterContainer) {
-		if (obj !== undefined && obj !== null && $filterContainer !== undefined && $filterContainer !== null) {
+	$.fn.deleteMulticomboLabelFromObject = function (obj, form) {
+		if (obj !== undefined && obj !== null && form !== undefined && form !== null) {
 			Object.keys(obj).filter(function (keys) {
-				let element = $filterContainer.find("[name$=" + keys + "]");
+				let element = form.find("[name$=" + keys + "]");
 	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
 	        		delete obj["_" + keys];
 				}
@@ -1012,14 +1012,19 @@
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
-	$.fn.hasHDIV_STATE = function (hasMoreParams) {
+	$.fn.getHDIV_STATE = function (hasMoreParams) {
 		// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
 		let searchParams = new URLSearchParams(window.location.search);
 		let hdivStateParam = searchParams.get('_HDIV_STATE_');
-		let prefix = hasMoreParams ? '&' : '?';
+		let prefix = '';
+		
+		// Si se ha especificado un valor booleano en el parámetro recibido es porque se trata de una petición GET
+		if (hasMoreParams !== undefined && hasMoreParams !== null && typeof hasMoreParams === "boolean") {
+			prefix = hasMoreParams ? '&' : '?' + '_HDIV_STATE_=';
+		}
 	    
 	    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
-	    	hdivStateParam = prefix + '_HDIV_STATE_=' + hdivStateParam;
+	    	hdivStateParam = prefix + hdivStateParam;
 	    } else {
 	    	hdivStateParam = '';
 	    }

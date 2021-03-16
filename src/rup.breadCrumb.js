@@ -124,7 +124,7 @@
                     idBreadCrumb = this.element[0].id;
                     
                 // Obtener el parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
-                var hdivStateParam = $.fn.hasHDIV_STATE(false);
+                var hdivStateParam = $.fn.getHDIV_STATE(false);
                 
                 this.element.append("<div class='row'></div>");
                     

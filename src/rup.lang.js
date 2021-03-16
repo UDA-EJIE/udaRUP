@@ -95,7 +95,7 @@
                 
 
                 // Obtener el parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
-                var hdivStateParam = $.fn.hasHDIV_STATE(true);
+                var hdivStateParam = $.fn.getHDIV_STATE(true);
 
                 //gestion de estilos de jquery-ui
                 $(self).addClass('ui-widget');
