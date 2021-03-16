@@ -654,7 +654,7 @@
             // Elimina los campos _label generados en los autocompletes del filtro
             $.fn.deleteAutocompleteLabelFromObject(data.filter);
             
-            // Elimina del filtro los campos autogenerados por lo multicombos que no forman parte de la entidad
+            // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
             $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
 
             var tableRequest = new TableRequest(data);
