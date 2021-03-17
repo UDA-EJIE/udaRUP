@@ -1560,7 +1560,7 @@
     }
 
     /**
-     * Metodo que serializa los datos del formulario.
+     * Método que serializa los datos del formulario.
      *
      * @name _editFormSerialize
      * @function
@@ -1580,12 +1580,13 @@
         $.each(idFormArray, function (key, obj) {
         	if (ultimo != obj.name) {
         		count = 0;
-    		}	
-        	let ruptype = idForm.find('[name="' + obj.name + '"]').attr('ruptype');
+    		}
+        	let element = idForm.find('[name="' + obj.name + '"]');
+        	let ruptype = element.attr('ruptype');
         	if (ruptype === undefined) {
-        		ruptype = idForm.find('[name="' + obj.name + '"]').data('ruptype');
+        		ruptype = element.data('ruptype');
         	}
-        	if (obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
+        	if ((obj.type === 'hidden' && element.attr('id') !== undefined) || obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
         		let valor = '';
         		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
         			valor = '[' + count++ + ']';

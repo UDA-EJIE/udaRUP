@@ -119,3 +119,6 @@ DATA-CLAVE-> Es la clave de la entidad, en caso de ser una lista de objetos, en 
 admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
 
 DATA-VALOR-> Es donde se recoge el valor del identificador, la clave primaria.
+
+# 2. Aspectos a tener en cuenta
+Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
