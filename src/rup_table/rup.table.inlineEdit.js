@@ -1262,7 +1262,8 @@ function _guardar(ctx,$fila,child){
 	    	}
 		}
 		
-		_callSaveAjax(actionType,ctx,$fila,row,'');
+		let url = actionType == 'POST' ? '/add' : '/edit';
+		_callSaveAjax(actionType, ctx, $fila, row, url);
 		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
 }
@@ -1299,12 +1300,12 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
 		}
 	
 		var ajaxOptions = {
-			url : ctx.oInit.urlBase+url,
+			url : ctx.oInit.urlBase + url,
 	            accepts: {
 	                '*': '*/*',
 	                'html': 'text/html',
 	                'json': 'application/json, text/javascript',
-				'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+	                'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
 	                'text': 'text/plain',
 	                'xml': 'application/xml, text/xml'
 	            },
@@ -1420,18 +1421,31 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
 	        feedback: feed
 		};
 		
-		var idForm = $('#'+ctx.sTableId+'_search_searchForm');
 		if(ctx.inlineEdit.lastRow !== undefined){
 			ctx.inlineEdit.lastRow.submit = 1;
 		}
 		
-		if(url !== '/deleteAll' && actionType !== 'DELETE'){
-			idForm.rup_form('ajaxNotSubmit', ajaxOptions);
-		}else{
-			//Se cambia el data
-			ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-			$.rup_ajax(ajaxOptions);
-		}
+		// Se cambia el data
+        if (ajaxOptions.data == '') {
+            delete ajaxOptions.data;
+        } else {
+        	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
+        	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
+            
+            // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
+            $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
+            
+        	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
+            if (url.indexOf('deleteAll') === -1) {
+            	var hdivStateParamValue = $.fn.getHDIV_STATE();
+                if (hdivStateParamValue !== '') {
+                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+                }
+            }
+            
+            ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+        }
+        $.rup_ajax(ajaxOptions);
 	}
     
     if (ctx.oInit.inlineEdit.settings.saveDialog) {
