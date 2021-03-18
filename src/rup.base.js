@@ -97,6 +97,19 @@
    * @typedef {number} Integer
    */
 
+    //[Ajuste para IE] funcion asociada a deficiencias de IE(msie). En caso de ya no dar soporte, eliminar
+    if (!String.prototype.includes) {//To check browser supports or not
+    	String.prototype.includes = function (str) {//Add method includes to String type
+    	  var returnValue = false;
+
+    	  if (this.indexOf(str) !== -1) {
+    		returnValue = true;
+    	  }
+
+    	  return returnValue;
+    	}
+    }
+    
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
