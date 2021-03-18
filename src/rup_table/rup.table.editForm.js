@@ -875,10 +875,12 @@
                 // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
                 
-            	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
-                var hdivStateParamValue = $.fn.getHDIV_STATE();
-                if (hdivStateParamValue !== '') {
-                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+            	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
+                if (url.indexOf('deleteAll') === -1) {
+                	var hdivStateParamValue = $.fn.getHDIV_STATE();
+                    if (hdivStateParamValue !== '') {
+                    	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+                    }
                 }
                 
                 ajaxOptions.data = JSON.stringify(ajaxOptions.data);
@@ -1558,7 +1560,7 @@
     }
 
     /**
-     * Metodo que serializa los datos del formulario.
+     * Método que serializa los datos del formulario.
      *
      * @name _editFormSerialize
      * @function
@@ -1578,12 +1580,13 @@
         $.each(idFormArray, function (key, obj) {
         	if (ultimo != obj.name) {
         		count = 0;
-    		}	
-        	let ruptype = idForm.find('[name="' + obj.name + '"]').attr('ruptype');
+    		}
+        	let element = idForm.find('[name="' + obj.name + '"]');
+        	let ruptype = element.attr('ruptype');
         	if (ruptype === undefined) {
-        		ruptype = idForm.find('[name="' + obj.name + '"]').data('ruptype');
+        		ruptype = element.data('ruptype');
         	}
-        	if (obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
+        	if ((obj.type === 'hidden' && element.attr('id') !== undefined) || obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
         		let valor = '';
         		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
         			valor = '[' + count++ + ']';
