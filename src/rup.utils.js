@@ -295,17 +295,44 @@
 				}
 			}
 
-			var nvp = queryString.split('&'),
-				data = {},
+			var nvp = [],
+				nvpBruto = queryString.split('&'), data = {},
 				pair, name, value, path, first;
+			
+			//Se revisa la correcta gestion de los campos
+			for (var i = 0; i < nvpBruto.length; i++) {
+				pair = nvpBruto[i].split('=');
+				
+				if(pair.length >= 2){
+					nvp.push(nvpBruto[i]); 
+				} else if(pair.length == 1){
+					nvp[i-1] = nvp[i-1] + '&' + nvpBruto[i]; 
+				}
+			}
 
 			for (var i = 0; i < nvp.length; i++) {
 				pair = nvp[i].split('=');
+				
+				if(pair.length > 2){
+					var pairAux = '';
+					for (var j = 1; j < pair.length; j++) {
+						if(j = 1){
+							pairAux = pair[j];
+							
+						} else {
+							pairAux = pairAux + "=" + pair[j] 
+							
+						}
+					}
+					
+					pair[pair.length -1] = pairAux;
+				}
+				
 				name = decodeURIComponent(pair[0]);
-				if(pair[1].includes("%")) {
+				if(pair[pair.length -1].includes("%")) {
 					return false;
 				}
-				value = decodeURIComponent(pair[1]);
+				value = decodeURIComponent(pair[pair.length -1]);
 
                 path = name.match(/(^[^[]+)(\[.*\]$)?/);
 				first = path[1];
