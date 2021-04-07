@@ -273,7 +273,7 @@ El uso y configuración de los diferentes plugins del table se especifica en el s
 ## 6. Plugins
 
 El componente table se ha implementado siguiendo una arquitectura modular. De este modo se consigue:
-* Integrar las diferentes funcionalidades como plugins independientes logrando una pequeÃ±a interdependencia entre ellas.
+* Integrar las diferentes funcionalidades como plugins independientes logrando una pequeña interdependencia entre ellas.
 * Facilitar y simplificar el mantenimiento y la aplicación de correctivos en el componente.
 * Simplificar la extensión y sobreescritura de los métodos de determinados plugins.
 * Permitir la creación de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
@@ -303,7 +303,7 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Menú contextual
 * Feedback
 * Filtrado
-* DiseÃ±o responsivo (RWD)
+* Diseño responsivo (RWD)
 * Edición en formulario
 * Multiselección
 * Búsqueda (seeker)
@@ -567,31 +567,91 @@ Se puede personalizar el feedback para que cuando aparezca, suba la posición has
 
 ```js
 let miColModel = [
-    {
+	{
         name: 'id',
-        editable: true,
+        index: 'id',
+        editable: false,
+        hidden: true,
         formoptions: {
             rowpos: 1,
             colpos: 1
         }
     },
+	{
+        name: 'nombre',
+        index: 'nombre',
+        editable: true,
+        hidden: false,
+        formoptions: {
+            rowpos: 2,
+            colpos: 1
+        }
+    },
+    {
+        name: 'apellido1',
+        index: 'apellido1',
+        editable: true,
+        hidden: false,
+        rupType: 'autocomplete',
+        editoptions: {
+        	source : './apellidos',
+            sourceParam : {label: 'label', value: 'value'},
+            menuMaxHeight: 200,
+            minLength: 3,
+            combobox: true,
+            contains: true
+        },
+        formoptions: {
+            rowpos: 3,
+            colpos: 1
+        },
+        classes: 'ui-ellipsis'
+    },
+    { 
+    	name: "apellido2", 
+    	index: "apellido2", 
+    	editable: true, 
+    	hidden: false,
+    	rupType: 'combo',
+        editoptions: {
+        	source : './apellidos',
+            sourceParam : {label: 'label', value: 'value'},
+            blank: '',
+            width: '100%',
+            customClasses: ['select-material']
+        },
+    	formoptions:{
+    		rowpos: 4, 
+    		colpos: 1
+    	},
+    	classes: 'ui-ellipsis'
+    },
     {
         name: 'ejie',
+        index: 'ejie_detail_table',
         editable: true,
+        hidden: false,
+        width: 60,
         edittype: 'checkbox',
-        rupType: 'checkbox',
+        formatter: 'checkbox',
+        rwdClasses: 'hidden-xs hidden-sm hidden-md',
+        align: 'center',
         editoptions: {
             value: '1:0'
         },
-        searchoptions : {
+        formoptions: {
             rowpos: 5,
             colpos: 1
         }
     },
     {
         name: 'fechaAlta',
+        index: 'fechaAlta_detail_table',
         editable: true,
+        hidden: false,
+        width: 120,
         rupType: 'date',
+        rwdClasses: 'hidden-xs hidden-sm hidden-md',
         editoptions: {
             labelMaskId: 'fecha-mask',
             showButtonPanel: true,
@@ -602,19 +662,60 @@ let miColModel = [
             rowpos: 2,
             colpos: 2
         }
+    },
+    {
+        name: 'fechaBaja',
+        index: 'fechaBaja_detail_table',
+        editable: true,
+        hidden: false,
+        width: 120,
+        rupType: 'date',
+        rwdClasses: 'hidden-xs hidden-sm hidden-md',
+        editoptions: {
+            labelMaskId: 'fecha-mask',
+            showButtonPanel: true,
+            showOtherMonths: true,
+            noWeekend: true
+        },
+        formoptions: {
+            rowpos: 3,
+            colpos: 2
+        }
+    },
+    {
+        name: 'rol',
+        index: 'rol_detail_table',
+        editable: true,
+        hidden: false,
+        width: 140,
+        rupType: 'combo',
+        rwdClasses: 'hidden-xs hidden-sm hidden-md',
+        formatter: 'rup_combo',
+        editoptions: {
+            source : './roles',
+            sourceParam : {label: 'label', value: 'value'},
+            blank: '',
+            width: '100%',
+            customClasses: ['select-material']
+        },
+        formoptions: {
+            rowpos: 3,
+            colpos: 2
+        }
     }
 ];
 
 plugins.colModel = miColModel; 
 ```
 
-El colModel se usa para modelar, los campos de la tabla.
-Destacados:
+El **colModel** se usa para modelar los campos de la tabla y es necesario para el correcto funcionamiento del formulario de edición. Es aquí dónde se han de inicializar los componentes RUP junto a sus propiedades para que UDA pueda encargarse de reinicializarlos en caso necesario.
 
-name -> Identificador del campo.
+Propiedades destacadas:
 
-editable -> true o false, si se quiere editar o no este campo.
+* **name**: identificador del campo.
 
-editoptions y formoptions -> Para configurar todas las opciones de los campos rup.
+* **editable**: dependiendo de si se quiere permitir la edición o no, hay que definirlo a true o false.
 
-rupType -> Tipo rup para ese campo.
+* **editoptions** y **formoptions**: sirven para configurar todas las opciones de los campos RUP.
+
+* **rupType**: tipo RUP del campo.

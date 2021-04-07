@@ -122,3 +122,5 @@ DATA-VALOR-> Es donde se recoge el valor del identificador, la clave primaria.
 
 # 2. Aspectos a tener en cuenta
 Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
+
+También se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el colModel de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el colModel, leer el documento [rup.table](https://github.com/UDA-EJIE/udaRUP/blob/master/doc/guides/rup.table.md).

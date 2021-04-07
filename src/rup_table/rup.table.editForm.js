@@ -358,9 +358,81 @@
             feedback.rup_feedback('hide');
         }
     }
+    
+    /**
+     * Función que gestiona la carga del diálogo de añadir o editar.
+     *
+     * @name loadSaveDialogForm
+     * @function
+     * @since UDA 4.3.0 // Table 1.0.0
+     *
+     * @param {object} ctx - Contexto del Datatable.
+     * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
+     *
+     * @return {object}
+     */
+    function _loadSaveDialogForm(ctx, actionType) {
+    	var idForm = ctx.oInit.formEdit !== undefined ? ctx.oInit.formEdit.idForm : undefined;
+    	let formContainer = $('#' + ctx.sTableId + '_detail_form_container');
+    	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
+    	let lastAction = ctx.oInit.formEdit.actionType;
+    	
+    	// Si la última acción no es la misma que la actual, es necesario volver a obtener el formulario
+		if (lastAction !== actionType) {
+			let tempForm;
+			// Si existe un formulario previo, se elimina
+			if (idForm !== undefined) {
+				tempForm = $(ctx.oInit.formEdit.idForm);
+				$(idForm).remove();
+			}
+			
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
+			
+			return $.post('editForm', {'actionType': actionType}, function (form) {
+				formContainer.html(form);
+				
+				ctx.oInit.formEdit.actionType = actionType;
+				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first()
+				
+				// Si el diálogo no ha sido inicializado, se inicializa
+				if (lastAction === undefined) {
+					$('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx);
+				}
+				
+				// Detectar componentes RUP y reinicializarlos
+				if (tempForm !== undefined && tempForm.length === 1 && ctx.oInit.colModel !== undefined) {
+					$.each(ctx.oInit.colModel, function (key, column) {
+						if (column.rupType) {
+							let element = tempForm.find('[name="' + column.name + '"]');
+							let type = column.rupType;
+							let options = column.editoptions;
+							
+							switch (type) {
+								case 'date':
+									$('#' + element[0].id).rup_date(options);
+									break;
+								case 'autocomplete':
+									$('#' + element[0].id).rup_autocomplete(options);
+									break;
+								case 'combo':
+									$('#' + element[0].id).rup_combo(options);
+									break;
+							}
+						}
+					});
+				}
+								
+				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterLoad', ctx);
+	    	}, 'html');
+        } else {
+        	let deferred = $.Deferred();
+        	deferred.resolve();
+    		return deferred.promise();
+        }
+    }
 
     /**
-     * Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
+     * Función que gestiona el comportamiento de abrir el dialog para añadir o editar un registro.
      *
      * @name openSaveDialog
      * @function
@@ -373,275 +445,278 @@
      *
      */
     DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType, dt, idRow, customTitle) {
-        var loadPromise = $.Deferred();
         var ctx = dt.settings()[0];
-        var idForm = ctx.oInit.formEdit.idForm;
-        ctx.oInit.formEdit.actionType = actionType;
-        //Se limpia los errores. Si hubiese
-        var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
-        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id);
-        if (divErrorFeedback.length > 0) {
-            divErrorFeedback.hide();
-        }
-        //Se limpia los elementos.
-        if (idForm.find('.error').length > 0) {
-        	idForm.rup_validate('resetElements');
-        }
-
-        //se añade el boton de guardar
-        var button = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save');
-        //se añade el boton de guardar y continuar
-        var buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
-
-        if (actionType === 'CLONE') { //En caso de ser clonado, solo se debe guardar.
-            actionType = 'POST';
-            buttonContinue.hide();
-        } else {
-            buttonContinue.show();
-        }
-
-        if (idRow < 0) {
-            idRow = 1;
-        }
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
-        let row;
-        if(ctx.json !== undefined){
-        	row = ctx.json.rows[idRow];
-        }
-        let rowArray = $.rup_utils.jsontoarray(row);
         
-        let title = customTitle != (undefined && null) ? customTitle : "";
-
-        if (actionType === 'PUT') {
-            if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
-                //se obtiene el row entero de bbdd, meter parametro opcional.
-                var pk = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
-                //se evita slash en la url GET como parámetros.Formateo de fecha.
-                var regexSlash = new RegExp('/', 'g');
-                pk = pk.replace(regexSlash, '-');
-                var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
-                pk = pk.replace(regex, '/');
-
-                var ajaxOptions = {
-                    url: ctx.oInit.urlBase + '/' + pk,
-                    accepts: {
-                        '*': '*/*',
-                        'html': 'text/html',
-                        'json': 'application/json, text/javascript',
-                        'script': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-                        'text': 'text/plain',
-                        'xml': 'application/xml, text/xml'
-                    },
-                    type: 'GET',
-                    data: [],
-                    dataType: 'json',
-                    showLoading: false,
-                    contentType: 'application/json',
-                    async: false,
-                    success: function (data) {
-                    	row = data;
-                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
-	                        // Actualizar el nuevo id que viene de HDIV.
-                    		let idHdiv = data[ctx.oInit.primaryKey];
-	                        if (pk === ctx.multiselection.lastSelectedId) {
-	                            ctx.multiselection.lastSelectedId = idHdiv;
+        // Comprobar si existe un formulario, en caso de no existir o de no contener el action requerido, lo crea
+        $.when(_loadSaveDialogForm(ctx, actionType)).then(function () {
+            let loadPromise = $.Deferred();
+        	var idForm = ctx.oInit.formEdit.idForm;
+        	// Limpiar los errores en caso de haberlos
+	        var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
+	        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id);
+	        if (divErrorFeedback.length > 0) {
+	            divErrorFeedback.hide();
+	        }
+	        // Limpiar los elementos
+	        if (idForm.find('.error').length > 0) {
+	        	idForm.rup_validate('resetElements');
+	        }
+	
+	        // Añadir el botón de guardar
+	        var button = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save');
+	        // Añadir el botón de guardar y continuar
+	        var buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
+	
+	        if (actionType === 'CLONE') { //En caso de ser clonado, solo se debe guardar.
+	            actionType = 'POST';
+	            buttonContinue.hide();
+	        } else {
+	            buttonContinue.show();
+	        }
+	
+	        if (idRow < 0) {
+	            idRow = 1;
+	        }
+	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
+	        let row;
+	        if(ctx.json !== undefined){
+	        	row = ctx.json.rows[idRow];
+	        }
+	        let rowArray = $.rup_utils.jsontoarray(row);
+	        
+	        let title = customTitle != (undefined && null) ? customTitle : "";
+	
+	        if (actionType === 'PUT') {
+	            if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
+	                //se obtiene el row entero de bbdd, meter parametro opcional.
+	                var pk = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+	                //se evita slash en la url GET como parámetros.Formateo de fecha.
+	                var regexSlash = new RegExp('/', 'g');
+	                pk = pk.replace(regexSlash, '-');
+	                var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+	                pk = pk.replace(regex, '/');
+	
+	                var ajaxOptions = {
+	                    url: ctx.oInit.urlBase + '/' + pk,
+	                    accepts: {
+	                        '*': '*/*',
+	                        'html': 'text/html',
+	                        'json': 'application/json, text/javascript',
+	                        'script': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+	                        'text': 'text/plain',
+	                        'xml': 'application/xml, text/xml'
+	                    },
+	                    type: 'GET',
+	                    data: [],
+	                    dataType: 'json',
+	                    showLoading: false,
+	                    contentType: 'application/json',
+	                    async: false,
+	                    success: function (data) {
+	                    	row = data;
+	                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
+		                        // Actualizar el nuevo id que viene de HDIV.
+	                    		let idHdiv = data[ctx.oInit.primaryKey];
+		                        if (pk === ctx.multiselection.lastSelectedId) {
+		                            ctx.multiselection.lastSelectedId = idHdiv;
+		                        }
+		                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
+		                        if (pos >= 0) {
+		                            ctx.multiselection.selectedIds[pos] = idHdiv;
+		                        }
+		                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+		                                return v.id === pk;
+		                            });
+		                        if (result !== undefined && result.length > 0) {
+		                            result[0].id = idHdiv;
+		                        }
+	                    	}
+	                    },
+	                    error: function (xhr) {
+	                        var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
+	                        if (divErrorFeedback.length === 0) {
+	                            divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+	                            divErrorFeedback.rup_feedback(ctx.oInit.feedback);
 	                        }
-	                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
-	                        if (pos >= 0) {
-	                            ctx.multiselection.selectedIds[pos] = idHdiv;
+	                        _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
+	                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
+	                    },
+	                    complete: () => {
+	                        if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
+	                            _showOnNav(dt, ctx.oInit.formEdit.$navigationBar.funcionParams[3]);
 	                        }
-	                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-	                                return v.id === pk;
-	                            });
-	                        if (result !== undefined && result.length > 0) {
-	                            result[0].id = idHdiv;
-	                        }
-                    	}
-                    },
-                    error: function (xhr) {
-                        var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
-                        if (divErrorFeedback.length === 0) {
-                            divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                            divErrorFeedback.rup_feedback(ctx.oInit.feedback);
-                        }
-                        _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
-                    },
-                    complete: () => {
-                        if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
-                            _showOnNav(dt, ctx.oInit.formEdit.$navigationBar.funcionParams[3]);
-                        }
-                    }
-                };
-                loadPromise = $.rup_ajax(ajaxOptions);
-                //Se carga desde bbdd y se actualiza la fila
-                dt.row(idRow).data(row);
-                ctx.json.rows[idRow] = row;
-                //Se mantiene el checked sin quitar.
-                var identy = idRow + 1;
-                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
-                rowArray = $.rup_utils.jsontoarray(row);
-            }
-            $.rup_utils.populateForm(rowArray, idForm);
-            var multiselection = ctx.multiselection;
-            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
-            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
-                indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
-            }
-            if (indexInArray === undefined) {
-                indexInArray = 0;
-                ctx.oInit.formEdit.$navigationBar.numPosition = 0;
-            }
-            var numTotal = multiselection.numSelected;
-            if (ctx.oInit.multiSelect === undefined) {
-                numTotal = ctx.json.recordsTotal;
-                indexInArray = (Number(ctx.json.page) - 1) * 10;
-                indexInArray = indexInArray + idRow;
-            }
-            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
-            _updateDetailPagination(ctx, indexInArray + 1, numTotal);
-            DataTable.Api().rupTable.selectPencil(ctx, idRow);
-            // Se guarda el ultimo id editado.
-            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
-            // Se muestra el dialog.
-            ctx.oInit.formEdit.$navigationBar.show();
-            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
-            if(customTitle === (undefined || null)) {
-            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
-            }
-            // Comprobamos si se desea bloquear la edicion de las claves primarias
-            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
-        } else if (actionType === 'POST') {
-            $.rup_utils.populateForm(rowArray, idForm);
-            ctx.oInit.formEdit.$navigationBar.hide();
-            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
-            if(customTitle === (undefined || null)) {
-            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
-            }
-            // Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
-            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
-        }
-
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
-        // Establecemos el título del formulario
-
-        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
-        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
-        ctx.oInit.formEdit.detailForm.rup_dialog('open');
-
-        // Establecemos el foco al primer elemento input o select que se
-        // encuentre habilitado en el formulario
-        $(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
-
-        // Se guardan los datos originales
-        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
-        ctx.oInit.formEdit.okCallBack = false;
-
-
-        button.unbind('click');
-        button.bind('click', function () {
-        	//Funcion de validacion
-        	if (actionType === 'PUT') {
-	        	let customModificar = ctx.oInit.validarModificar;
-	        	if($.isFunction(customModificar) && customModificar(ctx)){
-	        		return false;
+	                    }
+	                };
+	                loadPromise = $.rup_ajax(ajaxOptions);
+	                //Se carga desde bbdd y se actualiza la fila
+	                dt.row(idRow).data(row);
+	                ctx.json.rows[idRow] = row;
+	                //Se mantiene el checked sin quitar.
+	                var identy = idRow + 1;
+	                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                rowArray = $.rup_utils.jsontoarray(row);
+	            }
+	            $.rup_utils.populateForm(rowArray, idForm);
+	            var multiselection = ctx.multiselection;
+	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
+	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
+	                indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
+	            }
+	            if (indexInArray === undefined) {
+	                indexInArray = 0;
+	                ctx.oInit.formEdit.$navigationBar.numPosition = 0;
+	            }
+	            var numTotal = multiselection.numSelected;
+	            if (ctx.oInit.multiSelect === undefined) {
+	                numTotal = ctx.json.recordsTotal;
+	                indexInArray = (Number(ctx.json.page) - 1) * 10;
+	                indexInArray = indexInArray + idRow;
+	            }
+	            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
+	            _updateDetailPagination(ctx, indexInArray + 1, numTotal);
+	            DataTable.Api().rupTable.selectPencil(ctx, idRow);
+	            // Se guarda el ultimo id editado.
+	            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+	            // Se muestra el dialog.
+	            ctx.oInit.formEdit.$navigationBar.show();
+	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
+	            if(customTitle === (undefined || null)) {
+	            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.editCaption');
+	            }
+	            // Comprobamos si se desea bloquear la edicion de las claves primarias
+	            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
+	        } else if (actionType === 'POST') {
+	            $.rup_utils.populateForm(rowArray, idForm);
+	            ctx.oInit.formEdit.$navigationBar.hide();
+	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
+	            if(customTitle === (undefined || null)) {
+	            	title = $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.addCaption');
+	            }
+	            // Comprobamos si hay claves primarias bloqueadas y las desbloqueamos
+	            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
+	        }
+	
+	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
+	        
+	        // Establecemos el título del formulario
+	        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
+	        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
+	        ctx.oInit.formEdit.detailForm.rup_dialog('open');
+	
+	        // Establecemos el foco al primer elemento input o select que se
+	        // encuentre habilitado en el formulario
+	        $(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
+	
+	        // Se guardan los datos originales
+	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
+	        ctx.oInit.formEdit.okCallBack = false;
+	
+	
+	        button.unbind('click');
+	        button.bind('click', function () {
+	        	//Funcion de validacion
+	        	if (actionType === 'PUT') {
+		        	let customModificar = ctx.oInit.validarModificar;
+		        	if($.isFunction(customModificar) && customModificar(ctx)){
+		        		return false;
+		        	}
+	        	}else if (actionType === 'POST') {
+	        	
+		        	let customAlta = ctx.oInit.validarAlta;
+		        	if($.isFunction(customAlta) && customAlta(ctx)){
+		        		return false;
+		        	}
 	        	}
-        	}else if (actionType === 'POST') {
-        	
-	        	let customAlta = ctx.oInit.validarAlta;
-	        	if($.isFunction(customAlta) && customAlta(ctx)){
-	        		return false;
+	            // Comprobar si row ha sido modificada
+	            // Se serializa el formulario con los cambios
+	            row = _editFormSerialize(idForm);
+	
+	            // Verificar los checkbox vacíos.
+	            row = _returnCheckEmpty(idForm, row);
+	            
+	            // Se transforma
+	            row = $.rup_utils.queryStringToJson(row);
+	            
+	            //listas checkbox
+	            row = _addListType(idForm,row);
+	            
+	        	let idTableDetail = ctx.oInit.formEdit.detailForm;
+	            
+	            // Muestra un feedback de error por caracter ilegal
+	            if(!row) {
+	            	ctx.oInit.formEdit.okCallBack = false;
+	            	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+	            	let divErrorFeedback = feed;
+	                if (divErrorFeedback.length === 0) {
+	                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+	                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
+	                }
+	                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
+	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
+	            } else {
+	            	let url = actionType == 'POST' ? '/add' : '/edit';
+	            	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, url, false);
+	            }
+	            $('#' + ctx.sTableId).triggerHandler('tableButtonSave',ctx);
+	        });
+	
+	
+	        ctx.oInit.formEdit.detailForm.buttonSaveContinue = buttonContinue;
+	        ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = actionType;
+	        buttonContinue.unbind('click');
+	        buttonContinue.bind('click', function () {
+	        	//Funcion de validacion
+	        	if (actionType === 'PUT') {
+		        	let customModificar = ctx.oInit.validarModificarContinuar;
+		        	if($.isFunction(customModificar) && customModificar(ctx)){
+		        		return false;
+		        	}
+	        	}else if (actionType === 'POST') {
+	        	
+		        	let customAlta = ctx.oInit.validarAltaContinuar;
+		        	if($.isFunction(customAlta) && customAlta(ctx)){
+		        		return false;
+		        	}
 	        	}
-        	}
-            // Comprobar si row ha sido modificada
-            // Se serializa el formulario con los cambios
-            row = _editFormSerialize(idForm);
-
-            // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, row);
-            
-            // Se transforma
-            row = $.rup_utils.queryStringToJson(row);
-            
-            //listas checkbox
-            row = _addListType(idForm,row);
-            
-        	let idTableDetail = ctx.oInit.formEdit.detailForm;
-            
-            // Muestra un feedback de error por caracter ilegal
-            if(!row) {
-            	ctx.oInit.formEdit.okCallBack = false;
-            	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
-            	let divErrorFeedback = feed;
-                if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
-                }
-                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
-            } else {
-            	let url = actionType == 'POST' ? '/add' : '/edit';
-            	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, url, false);
-            }
-            $('#' + ctx.sTableId).triggerHandler('tableButtonSave',ctx);
+	        	
+	            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
+	            // Comprobar si row ha sido modificada
+	            // Se serializa el formulario con los cambios
+	            row = _editFormSerialize(idForm);
+	
+	            // Verificar los checkbox vacíos.
+	            row = _returnCheckEmpty(idForm, row);
+	
+	            // Se transforma
+	            row = $.rup_utils.queryStringToJson(row);
+	            
+	            //listas checkbox
+	            row = _addListType(idForm,row);
+	            
+	            let idTableDetail = ctx.oInit.formEdit.detailForm;
+	            
+	            // Muestra un feedback de error por caracter ilegal
+	            if(!row) {
+	            	ctx.oInit.formEdit.okCallBack = false;
+	            	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+	            	let divErrorFeedback = feed;
+	                if (divErrorFeedback.length === 0) {
+	                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+	                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
+	                }
+	                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
+	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
+	            } else {
+	            	let url = actionType == 'POST' ? '/add' : '/edit';
+	            	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, url, false);
+	            }
+	            $('#' + ctx.sTableId).triggerHandler('tableButtonSaveContinue', ctx);
+	        });
+	
+	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm', ctx);
+	
+	        return loadPromise;
         });
-
-
-        ctx.oInit.formEdit.detailForm.buttonSaveContinue = buttonContinue;
-        ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = actionType;
-        buttonContinue.unbind('click');
-        buttonContinue.bind('click', function () {
-        	//Funcion de validacion
-        	if (actionType === 'PUT') {
-	        	let customModificar = ctx.oInit.validarModificarContinuar;
-	        	if($.isFunction(customModificar) && customModificar(ctx)){
-	        		return false;
-	        	}
-        	}else if (actionType === 'POST') {
-        	
-	        	let customAlta = ctx.oInit.validarAltaContinuar;
-	        	if($.isFunction(customAlta) && customAlta(ctx)){
-	        		return false;
-	        	}
-        	}
-        	
-            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
-            // Comprobar si row ha sido modificada
-            // Se serializa el formulario con los cambios
-            row = _editFormSerialize(idForm);
-
-            // Verificar los checkbox vacíos.
-            row = _returnCheckEmpty(idForm, row);
-
-            // Se transforma
-            row = $.rup_utils.queryStringToJson(row);
-            
-            //listas checkbox
-            row = _addListType(idForm,row);
-            
-            let idTableDetail = ctx.oInit.formEdit.detailForm;
-            
-            // Muestra un feedback de error por caracter ilegal
-            if(!row) {
-            	ctx.oInit.formEdit.okCallBack = false;
-            	let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
-            	let divErrorFeedback = feed;
-                if (divErrorFeedback.length === 0) {
-                    divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
-                }
-                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
-            } else {
-            	let url = actionType == 'POST' ? '/add' : '/edit';
-            	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, url, false);
-            }
-            $('#' + ctx.sTableId).triggerHandler('tableButtonSaveContinue',ctx);
-        });
-
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm',ctx);
-
-        return loadPromise;
     };
 
 
@@ -1131,22 +1206,23 @@
                 }
             }
 
-            _hideOnNav(dt, linkType, () => {
+            _hideOnNav(dt, linkType, function () {
                 if (Number(rowSelected.page) !== page) {
                     var table = $('#' + ctx.sTableId).DataTable();
                     table.page(rowSelected.page - 1).draw('page');
-                    //Se añaden los parametros para luego ejecutar, la funcion del dialog.
+                    // Se añaden los parámetros para luego ejecutar la función del dialog
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
-                } else { //Si nose pagina se abre directamente la funcion.
-                    DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, null).then(() => {
+                } else {
+                	// Llamar directamente a la función
+                	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, null)).then(function () {
                         _showOnNav(dt, linkType);
                     });
                 }
             });
 
-            //Se actualiza la ultima posicion movida.
+            // Actualizar la última posición movida
             ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
-            // Se añade el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
+            // Se añade el parámetro 7 mientras estén en convivencia el rup.jqtable(entrar) y rup.table
             return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1, ''];
 
         };
@@ -1275,71 +1351,75 @@
      */
     function _getRowSelected(dt, actionType) {
         var ctx = dt.settings()[0];
-        var rowDefault = {
-            id: 0,
-            page: 1,
-            line: 0
-        };
-        var lastSelectedId = ctx.multiselection.lastSelectedId;
-        if (!ctx.multiselection.selectedAll) {
-            //Si no hay un ultimo señalado se coge el ultimo;
-
-            if (lastSelectedId === undefined || lastSelectedId === '') {
-                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
-            }
-            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
-                if (p.id === ctx.multiselection.lastSelectedId) {
-                    rowDefault.id = p.id;
-                    rowDefault.page = p.page;
-                    rowDefault.line = p.line;
-                    rowDefault.indexSelected = index;
-                    if (ctx.oInit.formEdit !== undefined) {
-                        ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
-                    }
-                    return false;
-                }
-            });
-        } else {
-            if (ctx.oInit.formEdit !== undefined) {
-                ctx.oInit.formEdit.$navigationBar.numPosition = 0; //variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
-            }
-            if (lastSelectedId === undefined || lastSelectedId === '') {
-                rowDefault.page = _getNextPageSelected(ctx, 1, 'next'); //Como arranca de primeras la pagina es la 1.
-                rowDefault.line = _getLineByPageSelected(ctx, -1);
-            } else {
-                //buscar la posicion y pagina
-                var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-                    return v.id === ctx.multiselection.lastSelectedId;
-                });
-                rowDefault.page = result[0].page;
-                rowDefault.line = result[0].line;
-                var index = ctx._iDisplayLength * (Number(rowDefault.page) - 1);
-                index = index + 1 + rowDefault.line;
-                //Hay que restar los deselecionados.
-                result = $.grep(ctx.multiselection.deselectedRowsPerPage, function (v) {
-                    return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
-                });
-                rowDefault.indexSelected = index - result.length; //Buscar indice
-                if (ctx.oInit.formEdit !== undefined) {
-                    ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected - 1;
-                }
-            }
-            if (ctx.oInit.formEdit !== undefined) {
-                ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
-            }
-        }
-
-        //En caso de estar en una pagina distinta , navegamos a ella
-        if (dt.page() + 1 !== Number(rowDefault.page)) {
-            var pageActual = dt.page() + 1;
-            var table = $('#' + ctx.sTableId).DataTable();
-            table.page(rowDefault.page - 1).draw('page');
-            if (ctx.oInit.formEdit !== undefined) {
-                ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType, dt, rowDefault.line, undefined, pageActual];
-            }
-        }
-
-        return rowDefault;
+        
+        // Comprobar si existe un formulario, en caso de no haberlo o de no contener el action requerido lo crea
+        return $.when(_loadSaveDialogForm(ctx, actionType)).then(function () {
+	        var rowDefault = {
+	            id: 0,
+	            page: 1,
+	            line: 0
+	        };
+	        var lastSelectedId = ctx.multiselection.lastSelectedId;
+	        if (!ctx.multiselection.selectedAll) {
+	            //Si no hay un ultimo señalado se coge el ultimo;
+	
+	            if (lastSelectedId === undefined || lastSelectedId === '') {
+	                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
+	            }
+	            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
+	                if (p.id === ctx.multiselection.lastSelectedId) {
+	                    rowDefault.id = p.id;
+	                    rowDefault.page = p.page;
+	                    rowDefault.line = p.line;
+	                    rowDefault.indexSelected = index;
+	                    if (ctx.oInit.formEdit !== undefined) {
+	                        ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+	                    }
+	                    return false;
+	                }
+	            });
+	        } else {
+	            if (ctx.oInit.formEdit !== undefined) {
+	                ctx.oInit.formEdit.$navigationBar.numPosition = 0; //variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+	            }
+	            if (lastSelectedId === undefined || lastSelectedId === '') {
+	                rowDefault.page = _getNextPageSelected(ctx, 1, 'next'); //Como arranca de primeras la pagina es la 1.
+	                rowDefault.line = _getLineByPageSelected(ctx, -1);
+	            } else {
+	                //buscar la posicion y pagina
+	                var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+	                    return v.id === ctx.multiselection.lastSelectedId;
+	                });
+	                rowDefault.page = result[0].page;
+	                rowDefault.line = result[0].line;
+	                var index = ctx._iDisplayLength * (Number(rowDefault.page) - 1);
+	                index = index + 1 + rowDefault.line;
+	                //Hay que restar los deselecionados.
+	                result = $.grep(ctx.multiselection.deselectedRowsPerPage, function (v) {
+	                    return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+	                });
+	                rowDefault.indexSelected = index - result.length; //Buscar indice
+	                if (ctx.oInit.formEdit !== undefined) {
+	                    ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected - 1;
+	                }
+	            }
+	            if (ctx.oInit.formEdit !== undefined) {
+	                ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+	            }
+	        }
+	
+	        // En caso de estar en una página distinta, navegamos a ella
+	        if (dt.page() + 1 !== Number(rowDefault.page)) {
+	            var pageActual = dt.page() + 1;
+	            var table = $('#' + ctx.sTableId).DataTable();
+	            table.page(rowDefault.page - 1).draw('page');
+	            if (ctx.oInit.formEdit !== undefined) {
+	                ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType, dt, rowDefault.line, undefined, pageActual];
+	            }
+	        }
+	        
+			return rowDefault;
+        });
     }
 
     /**
@@ -1353,7 +1433,7 @@
      * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
      * @param {string} orden - Pueder ser pre o next, en función de si necesitar ir hacia adelante o hacia atrás.
      *
-     * @return integer - devuele la página
+     * @return integer - devuelve la página
      *
      */
     function _getNextPageSelected(ctx, pageInit, orden) {
@@ -1790,13 +1870,18 @@
 
     // Local variables to improve compression
     var apiRegister = DataTable.Api.register;
-
-    apiRegister('editForm.openSaveDialog()', function (actionType, dt, idRow, customTitle) { //Se declara la variable del editForm para que puede ser invocada desde cualquier sitio.
-        DataTable.editForm.fnOpenSaveDialog(actionType, dt, idRow, customTitle);
+    
+    // Se declara la variable de editForm para que pueda ser invocada desde cualquier sitio
+    apiRegister('editForm.openSaveDialog()', function (actionType, dt, idRow, customTitle) {
+    	DataTable.editForm.fnOpenSaveDialog(actionType, dt, idRow, customTitle);
     });
 
     apiRegister('editForm.updateDetailPagination()', function (ctx, currentRowNum, totalRowNum) {
         _updateDetailPagination(ctx, currentRowNum, totalRowNum);
+    });
+    
+    apiRegister('editForm.loadSaveDialogForm()', function (ctx, actionType) {
+    	return _loadSaveDialogForm(ctx, actionType);
     });
 
     apiRegister('editForm.getRowSelected()', function (dt, actionType) {
@@ -1833,24 +1918,26 @@
         }
 
         if (ctx.oInit.formEdit !== undefined) {
-            DataTable.editForm.init(new DataTable.Api(ctx));
-            $(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
-                type: $.rup.dialog.DIV,
-                autoOpen: false,
-                modal: true,
-                resizable: '',
-                width: ctx.oInit.formEdit.detailForm.settings.width,
-                create: function () {
-                    /* Se encarga de eliminar la clase que oculta los campos del formEdit. Esta clase esta presente
-                     * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
-                     * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
-                     */
-                    $('div.rup-table-formEdit-detail').removeClass('d-none');
-                }
-            }, {}));
-            if (ctx.oInit.formEdit.cancelDeleteFunction === undefined) {
-                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {};
-            }
+        	$('#' + ctx.sTableId).on('tableEditFormInitialize', function(event, ctx) {
+		        DataTable.editForm.init(new DataTable.Api(ctx));
+	            $(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
+	                type: $.rup.dialog.DIV,
+	                autoOpen: false,
+	                modal: true,
+	                resizable: '',
+	                width: ctx.oInit.formEdit.detailForm.settings.width,
+	                create: function () {
+	                    /* Se encarga de eliminar la clase que oculta los campos del formEdit. Esta clase esta presente
+	                     * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
+	                     * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
+	                     */
+	                    $('div.rup-table-formEdit-detail').removeClass('d-none');
+	                }
+	            }, {}));
+	            if (ctx.oInit.formEdit.cancelDeleteFunction === undefined) {
+	                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {};
+	            }
+        	});
         }
 
     });
