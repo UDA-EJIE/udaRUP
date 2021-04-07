@@ -388,7 +388,7 @@
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
 			
-			return $.post('editForm', {'actionType': actionType}, function (form) {
+			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', {'actionType': actionType}, function (form) {
 				formContainer.html(form);
 				
 				ctx.oInit.formEdit.actionType = actionType;
