@@ -627,7 +627,7 @@
          */
         _ajaxRequestData(data, ctx) {
             //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-        	if (ctx.oInit.ordering) {
+        	if (ctx.oInit.ordering&& data.order[0] != undefined && data.order[0].column != undefined) {
         		data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
         	}
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
@@ -1285,6 +1285,11 @@
                 }
 
                 var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
+                
+                //Se valida que se haya definido una ordenacion de columnas, por defecto 
+                if(!options.defaultOrder){
+                	options.order = [];
+                 }
 
                 $self.triggerHandler('tableBeforeInit',options);
 
@@ -1642,6 +1647,7 @@
             [1, 'asc']
         ],
         ordering: true,
+        defaultOrder: true,
         showMultiSelectedZero: true,
         filterMessage: true,
         noEdit: false
