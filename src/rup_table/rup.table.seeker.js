@@ -166,7 +166,7 @@
                     $(this).empty();
                 } else {
                     var nombre = $('#' + idTabla + ' thead th:nth-child(' + position + ')').attr('data-col-prop');
-                    $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_seeker"/>');
+                    $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"/>');
                 }
             }
         });
@@ -531,7 +531,8 @@
         var colModel = ctx.oInit.colModel,
             searchEditOptions;
         if (colModel !== undefined) {
-            $('#' + ctx.sTableId + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+        	var idTabla = ctx.sTableId;
+            $('#' + idTabla + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
 
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');
@@ -546,7 +547,7 @@
 	                if($elem.length == 1){
 	                	// Se añade el title de los elementos de acuerdo al colname
 	                	$elem.attr({
-	                		'title': $('#' + cellColModel.name + '_seeker').attr('placeholder'),
+	                		'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
 	                		'class': 'editable customelement form-control-customer'
 	                	}).removeAttr('readOnly');
 	                	
