@@ -324,6 +324,7 @@ Propiedades de la tabla:
 
 * multiplePkToken -> Es el token que se va usar cuando el id sea múltiple.
 * primaryKey      -> El identificador principal de la tabla.
+* defaultOrder    -> Especifica si, por defecto, la tabla debe ser ordenada, por la primera columna o el “order” que se especifique (default: true).
 * blockPKeditForm -> Si deseas que el pk se bloquee en modo edición (true o false).
 * searchPaginator -> Si deseas tener paginador con número o no (true o false).
 
