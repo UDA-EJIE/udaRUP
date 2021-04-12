@@ -780,12 +780,22 @@
          *
          */
         _clearFilter(options) {
-            var $self = this;
+            let $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
             
             // Reinicia por completo los autocomplete ya que sino siguen filtrando
             $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
+            
+            //si es Maestro-Detalle restaura el valor del padre.
+            if(options.masterDetail !== undefined){
+	            let tableMaster = $(options.masterDetail.master).DataTable();
+	            let rowSelected = tableMaster.rows('.selected').indexes();
+	            let row = tableMaster.rows(rowSelected).data();
+	            let id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
+	            let $hiddenPKMaster = $('#' + options.id + '_filter_masterPK');
+	            $hiddenPKMaster.val('' + id);
+        	}
             
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');

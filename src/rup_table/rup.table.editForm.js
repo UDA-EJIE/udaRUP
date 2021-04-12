@@ -903,6 +903,9 @@
                 },
                 error: function (xhr) {
                     let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                    if(actionType === 'DELETE'){//el feedback va a la tabla.
+                    	divErrorFeedback = $('#rup_feedback_' + ctx.sTableId);
+                    }
                     if (divErrorFeedback.length === 0) {
                         divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         divErrorFeedback.rup_feedback(ctx.oInit.feedback);
