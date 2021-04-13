@@ -112,6 +112,7 @@ Este sería un ejemplo del código que se debería de incluir en la jsp:
 ```
 
 * **table**: Componente HTML sobre el que se inicializa el componente RUP table.
+* **data-filter-form**: Identificador del formulario de filtrado. Hay que definirlo siempre excepto cuando no se quiere usar el formulario de filtrado y Hdiv no está activado. 
 * **data-col-prop**: Identificador de la columna que va asociado a los formularios.
 * **data-col-type**: Tipo que hace correspondencia con los RUP.
 * **data-col-sidx**: Identificador de base de datos.
@@ -432,8 +433,8 @@ protected @ResponseBody List<Usuario> getClipboardReport(@RequestJsonBody(param 
 ```js
 Plugins.noEdit = true 
 ```
-
-Por defecto viene a false, y si se activa deja solo el boton de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edición de la tabla (formEdit) ni la edición en línea (inlineEdit).
+Por defecto siempre es false y si se activa, deja sólo el botón de informes. Cabe decir que es necesario declararlo con valor true siempre y cuando no se vaya a usar ni el formulario de edición de la tabla (formEdit) ni la edición en línea (inlineEdit).
+&nbsp;
 
 ```js
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
@@ -442,20 +443,27 @@ Plugins.customError =  function(qXHR, textStatus, errorThrown ){
     cargarFeedback(ctx, qXHR.responseText, textStatus); 
 }
 ```
-
 Se puede cargar una función para que los errores que vienen de ajax.
+&nbsp;
 
 ```js
 Plugins.filter = 'noFilter' 
 ```
+Por defecto carga un filtro si el usuario no ha puesto el suyo propio. Si se define como 'noFilter', es para indicar a la tabla que no se quiere habilitar el filtro de tal manera que no haga la validación correspondiente. 
 
-Por defecto carga un filtro si el usuario no ha puesto su propio filtro, si se activa el 'noFilter', es para indicar a la tabla que no se quiere filtro y la tabla no hará la validación correspondiente.
+Cabe decir que en los casos en los que se use Hdiv hay que crear igualmente un formulario de filtrado para que se pueda realizar el envío del parámetro HDIV_STATE (necesario para Hdiv). Por ejemplo:
+```html
+<!-- Formulario necesario para garantizar el correcto funcionamiento con Hdiv cuando filter = 'noFilter' -->
+<spring:url value="/table/dynamicColumns/filter" var="url"/>
+<form:form modelAttribute="usuario" id="columnasDinamicas_filter_form" class="d-none" action="${url}"/>
+```
+&nbsp;
 
 ```js
 Plugins.formEdit.width = 650 
 ```
-
 Permite cambiar la anchura en píxeles que tendrá el formulario de edición. Si no se define, obtendrá el valor por defecto que equivale a 569 píxeles.
+&nbsp;
 
 ```js
 //Parámetros: jqXHR jqXHR, String textStatus, String errorThrown
@@ -464,8 +472,8 @@ Plugins.customError =  function miError(qXHR, textStatus, errorThrown ){
     cargarFeedback(ctx, qXHR.responseText, textStatus); 
 }
 ```
-
 Se puede cargar una función para que los errores que vienen de ajax.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -477,8 +485,8 @@ Plugins.validarEliminar =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al eliminar.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -490,8 +498,8 @@ Plugins.validarModificar  =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al guardar en la edición de la tabla.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -503,8 +511,8 @@ Plugins.validarModificarContinuar =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al guardar y continuar en la edición de la tabla.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -516,8 +524,8 @@ Plugins.validarFiltrar  =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al filtrar en la tabla.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -529,8 +537,8 @@ Plugins.validarBuscar =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al buscar con el seeker.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -542,8 +550,8 @@ Plugins.validarAlta  =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro.
+&nbsp;
 
 ```js
 //Parámetros: ctx -> el contexto de la tabla
@@ -555,16 +563,16 @@ Plugins.validarAltaContinuar =  function miFuncion(ctx){
     return false;//paso la validación
 };
 ```
-
 Se puede cargar una función y hacer un validación externa al hacer un nuevo registro y continuar.
+&nbsp;
 
 ```js
 plugins.feedback.customGoTo  = function miFuncion(){
 	return $('#example_containerToolbar').offset().top ;
 } 
 ```
-
 Se puede personalizar el feedback para que cuando aparezca, suba la posición hasta donde el desarrollador quiera, hay que devolver un número.
+&nbsp;
 
 ```js
 let miColModel = [
@@ -708,8 +716,8 @@ let miColModel = [
 
 plugins.colModel = miColModel; 
 ```
-
 El **colModel** se usa para modelar los campos de la tabla y es necesario para el correcto funcionamiento del formulario de edición. Es aquí dónde se han de inicializar los componentes RUP junto a sus propiedades para que UDA pueda encargarse de reinicializarlos en caso necesario.
+&nbsp;
 
 Propiedades destacadas:
 

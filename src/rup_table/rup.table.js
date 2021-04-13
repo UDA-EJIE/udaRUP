@@ -865,9 +865,9 @@
              */
             
             // Se define el selector del formulario de filtrado por preferencia "JSP > JS > Default"
-            if(options.filterForm){
+            if (options.filterForm) {
                 filterOpts.id = $(options.filterForm).attr('id');
-            } else if(!filterOpts.id) {
+            } else if (!filterOpts.id) {
                 filterOpts.id = tableId + '_filter_form';
             }
             filterOpts.$filterContainer = jQuery('#' + filterOpts.id);
@@ -1413,16 +1413,39 @@
                 $self._initFeedback(options);
 
                 // Se inicializa el filtro de la tabla
-                if (args[0].filter !== 'noFilter') {
-                    //Se añade filter por defecto
-                    $.fn.rup_table.defaults.filter = {
-                        id: $self[0].id + '_filter_form',
-                        filterToolbar: $self[0].id + '_filter_toolbar',
-                        collapsableLayerId: $self[0].id + '_filter_fieldset'
-                    };
-                    $self._initFilter(options);
+            	let filterOptions = args[0].filter;
+            	let hasOptions = false;
+            	
+            	if (filterOptions !== undefined && filterOptions !== 'noFilter') {
+            		hasOptions = true;
+            	}
+            	
+                // Añadir filter por defecto o el definido por el usuario
+                $.fn.rup_table.defaults.filter = {
+                    id: hasOptions ? filterOptions.id : $self[0].id + '_filter_form',
+                    filterToolbar: hasOptions ? filterOptions.filterToolbar : $self[0].id + '_filter_toolbar',
+                    collapsableLayerId: hasOptions ? filterOptions.collapsableLayerId : $self[0].id + '_filter_fieldset'
+                };
+                
+                // Gestionar la inicialización del formulario de filtrado
+                if (filterOptions !== 'noFilter') {
+                	// En caso de que no haya sido definido por el usuario, se usa el por defecto
+                	if (filterOptions === undefined) {
+                		options.filter = $.fn.rup_table.defaults.filter;
+                	}
+                	$self._initFilter(options);
+                } else if (filterOptions === 'noFilter' && options.filterForm !== undefined) {
+                	// Garantizar la posibilidad del envío del parámetro HDIV_STATE cuando el formulario de filtrado no esté habilitado
+                	options.filter = {};
+                	if (options.filterForm) {
+                		options.filter.id = $(options.filterForm).attr('id');
+                    } else {
+                    	options.filter.id = $self[0].id + '_filter_form';
+                    }
+                	options.filter.$filterContainer = jQuery('#' + options.filter.id);
                 } else {
-                    args[0].filter = undefined;
+                	// Para casos en los que no se quiera usar el formulario de filtrado y Hdiv no esté activado
+                	args[0].filter = undefined;
                 }
 
                 if (options.loadOnStartUp !== undefined && !options.loadOnStartUp) {
