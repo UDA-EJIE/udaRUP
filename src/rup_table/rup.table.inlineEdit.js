@@ -933,6 +933,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
 					}
+					
+					//Se Comprueba que los elemnetos menu estan eliminados.
+					if( $('#'+$elem.attr('id')+'-menu').length > 0){
+						$('#'+$elem.attr('id')+'-menu').remove('ul');
+					}
+					
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 					if(searchRupType === 'combo'){//asignar el valor
