@@ -576,7 +576,7 @@ function _getRowSelected(dt,actionType){
 			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
 		}
 		$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
-			if(p.id === ctx.multiselection.lastSelectedId){
+			if(p.id == ctx.multiselection.lastSelectedId){
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
@@ -597,7 +597,7 @@ function _getRowSelected(dt,actionType){
 		}else{
 			//buscar la posicion y pagina
 			var result = $.grep(ctx.multiselection.selectedRowsPerPage, function(v) {
-				return v.id === ctx.multiselection.lastSelectedId;
+				return v.id == ctx.multiselection.lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
@@ -972,7 +972,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					//Realizar comprobaciones por si el id es NO editable
 					if(edicion && ctx.oInit.blockPKeditForm && ctx.oInit.primaryKey.length > 0){
 						$.each(ctx.oInit.primaryKey,function(key,id) {
-							if(id === cellColModel.name){
+							if(id == cellColModel.name){
 								ctx.inlineEdit.lastRow.ponerFocus = true;
 							}
 						});
@@ -1338,7 +1338,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
 						// Actualizamos el ultimo id seleccionado (por si ha sido editado)
 						var posicion = 0;
 						$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
-							if(p.id === ctx.multiselection.lastSelectedId){
+							if(p.id == ctx.multiselection.lastSelectedId){
 								posicion = index;
 								return;
 							}
@@ -1699,7 +1699,7 @@ function _notExistOnPage(ctx){
 	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row,ctx.oInit);
 	var encontrado = true;
 	$.each(ctx.json.rows,function(index,r) {
-		if(DataTable.Api().rupTable.getIdPk(r,ctx.oInit) === pk){
+		if(DataTable.Api().rupTable.getIdPk(r,ctx.oInit) == pk){
 			encontrado = false;
 			return false;
 		}
@@ -1818,7 +1818,7 @@ apiRegister( 'inlineEdit.editSameLine()', function (ctx, idx ) {
 	var mismaLinea = false;
 	
         if (ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
-            ctx.inlineEdit.lastRow.idx === idx) {
+            ctx.inlineEdit.lastRow.idx == idx) {
 		mismaLinea = true;
 	}
 	
