@@ -1665,6 +1665,7 @@
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
+        enableDynamicForms: false,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {

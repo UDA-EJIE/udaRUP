@@ -377,8 +377,8 @@
     	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
     	let lastAction = ctx.oInit.formEdit.actionType;
     	
-    	// Si la última acción no es la misma que la actual, es necesario volver a obtener el formulario
-		if (lastAction !== actionType) {
+    	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
+		if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
 			let tempForm;
 			// Si existe un formulario previo, se elimina
 			if (idForm !== undefined) {
@@ -424,8 +424,18 @@
 								
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterLoad', ctx);
 	    	}, 'html');
+        } else if (!ctx.oInit.enableDynamicForms && lastAction === undefined) {
+        	// Entrará por aquí cuando los formularios dinámicos hayan sido desactivados (comportamiento por defecto) y se necesite inicializar el formulario por ser la primera llamada
+        	ctx.oInit.formEdit.actionType = actionType;
+        	$.when($('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
+        		let deferred = $.Deferred();
+            	deferred.resolve();
+        		return deferred.promise();
+        	});
         } else {
+        	// Para cuando el formulario actual sigue siendo válido (ya sea dinámico o no)
         	let deferred = $.Deferred();
+        	ctx.oInit.formEdit.actionType = actionType;
         	deferred.resolve();
     		return deferred.promise();
         }
@@ -1922,8 +1932,10 @@
 
         if (ctx.oInit.formEdit !== undefined) {
         	$('#' + ctx.sTableId).on('tableEditFormInitialize', function(event, ctx) {
+        		let deferred = $.Deferred();
 		        DataTable.editForm.init(new DataTable.Api(ctx));
-	            $(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
+	            
+		        $(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
 	                type: $.rup.dialog.DIV,
 	                autoOpen: false,
 	                modal: true,
@@ -1940,6 +1952,9 @@
 	            if (ctx.oInit.formEdit.cancelDeleteFunction === undefined) {
 	                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {};
 	            }
+	            
+	            deferred.resolve();
+	            return deferred.promise();
         	});
         }
 
