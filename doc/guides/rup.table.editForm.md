@@ -62,7 +62,7 @@ formEdit: {
     url: './editFormDouble'
 }
 ```
-Cabe decir que para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
+Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
 * Ponerle el identificador **XXX_detail_form_container** al elemento **div** que contiene la clase **dialog-content-material**. Cabe decir que las tres equises hay que sustituirlas por el identificador de la tabla, por ejemplo, en una tabla con identificador *example*, el identificador a usar en el *div* sería *example_detail_form_container*. Esto sería un ejemplo real: 
     ```html
     <!-- Formulario de detalle -->
@@ -210,4 +210,4 @@ Destacan cuatro elementos:
 # 2. Aspectos a tener en cuenta
 Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
 
-También se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el colModel de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el colModel, leer el documento [rup.table](https://github.com/UDA-EJIE/udaRUP/blob/master/doc/guides/rup.table.md).
+En los casos en los que se usen los formularios dinámicos (``enableDynamicForms: true``) se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el colModel de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el colModel, leer el documento [rup.table](./rup.table.md).
