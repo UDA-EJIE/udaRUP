@@ -781,7 +781,7 @@ input.
          *
          * @function _getParentsValues
          * @private
-	     * @since UDA 4.3.0
+	     * @since UDA 5.0.0
 		 *
          * @param {object} settings - Configuración general del componente.
 		 *
@@ -814,7 +814,7 @@ input.
          *
          * @function _processHDIV
          * @private
-	     * @since UDA 4.3.0
+	     * @since UDA 5.0.0
 		 *
          * @param {object} parentSettings - Configuración general del componente padre.
          * @param {string} selectedSource - Valor del padre.

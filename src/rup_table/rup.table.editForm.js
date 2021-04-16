@@ -364,7 +364,7 @@
      *
      * @name loadSaveDialogForm
      * @function
-     * @since UDA 4.3.0 // Table 1.0.0
+     * @since UDA 5.0.0 // Table 1.0.0
      *
      * @param {object} ctx - Contexto del Datatable.
      * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
