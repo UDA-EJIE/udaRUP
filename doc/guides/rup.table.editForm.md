@@ -59,7 +59,11 @@ Endpoint que devolverá el formulario de edición en aquellos casos en los que se 
 ```js
 formEdit: {
     // El valor por defecto es './editForm' aunque puede variar dependiendo del campo urlBase
-    url: './editFormDouble'
+    url: './editFormDouble',
+    // Por defecto, el componente siempre enviará el method (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
+    data: {
+        'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envío de parámetros desde editForm :)'
+    }
 }
 ```
 Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
@@ -93,7 +97,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
     	</div>
     </div>
     ```
-* Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente (puede usarse cualquier otra lógica). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
+* Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente, también puede usarse cualquier otra lógica gracias a que los parámetros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
     ```html
     <!-- Formulario -->
     <c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />

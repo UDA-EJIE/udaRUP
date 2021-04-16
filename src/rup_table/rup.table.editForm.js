@@ -380,6 +380,10 @@
     	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
 		if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
 			let tempForm;
+			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType.
+			let defaultData = {'actionType': actionType};
+			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
+			
 			// Si existe un formulario previo, se elimina
 			if (idForm !== undefined) {
 				tempForm = $(ctx.oInit.formEdit.idForm);
@@ -388,7 +392,7 @@
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
 			
-			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', {'actionType': actionType}, function (form) {
+			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', data, function (form) {
 				formContainer.html(form);
 				
 				ctx.oInit.formEdit.actionType = actionType;
