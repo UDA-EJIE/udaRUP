@@ -73,10 +73,6 @@
 		var name = element.prop('name'),
 			$container = element.parent(),
 			$icon = $('<i class="mdi mdi-close error" aria-hidden="true"></i>');
-		//si el elemento a validar es date, hay que buscar el siguiente parent
-		if($container.hasClass('rup-date-input-group-material')){
-			$container = $container.parent();
-		}
 			
 		// Si el elemento a validar es un checkbox/radio elegir otra posicion para su correcto visualizacion
 		if(element[0].type === "checkbox" || element[0].type === "radio") {
