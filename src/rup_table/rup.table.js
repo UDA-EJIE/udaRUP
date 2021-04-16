@@ -1309,6 +1309,15 @@
                 if (args[0].primaryKey !== undefined) {
                     options.primaryKey = args[0].primaryKey.split(';');
                 }
+                
+                //Si vienen los columnsDefs con columnas ocultas,se asegura la clase para que no se vean.
+                if( options.columnDefs !== undefined &&  options.columnDefs.length > 0){
+                	$.each(options.columnDefs, function () {
+	                    if(this.visible === false){
+	                    	this.className = 'never';
+	                    }
+	                });
+                }
 
                 //Comprobar plugin dependientes
                 if (options.multiSelect !== undefined) {

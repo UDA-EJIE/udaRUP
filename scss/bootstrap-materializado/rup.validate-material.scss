@@ -111,46 +111,50 @@ i.mdi.error {
 				}
 			}
 		}
-	}
-	
-	/* RUP.DATE */
-	div.rup-date-input-group-material.rup-validate-field-error {
-		input:not([type="checkbox"]):not([type="radio"]) {
-			&:enabled {
-				border-color: $validation-error-color-light;
-				
-				~ button {
+		
+		/* RUP.DATE */
+		div.rup-date-input-group-material {
+			input:not([type="checkbox"]):not([type="radio"]) {
+				&:enabled {
 					border-color: $validation-error-color-light;
 					
-					&:focus {
-						background-color: $validation-error-color;
+					~ button {
+						border-color: $validation-error-color-light;
 						
-						> i.mdi {
-							color: $white-color;
+						&:focus {
+							background-color: $validation-error-color;
+							
+							> i.mdi {
+								color: $white-color;
+							}
 						}
+					}
+				}
+				
+				&:hover:enabled {
+					border-color: $validation-error-color;
+					
+					~ button {
+						border-color: $validation-error-color;
+					}
+				}
+				
+				&:focus:enabled {
+					border: 2px solid $validation-error-color;
+					caret-color: $validation-error-color;
+					
+					~ button {
+						border: 2px solid $validation-error-color;
+						border-left-style: hidden;
 					}
 				}
 			}
 			
-			&:hover:enabled {
-				border-color: $validation-error-color;
-				
-				~ button {
-					border-color: $validation-error-color;
-				}
+			+ label {
+				color: $validation-error-color-light;
 			}
 			
-			&:focus:enabled {
-				border: 2px solid $validation-error-color;
-				caret-color: $validation-error-color;
-				
-				~ button {
-					border: 2px solid $validation-error-color;
-					border-left-style: hidden;
-				}
-			}
-			
-			i.mdi.error {
+			+ i.mdi.error {
 				position: absolute;
 				top: 1px;
 				right: 30px;
@@ -159,9 +163,6 @@ i.mdi.error {
 				font-weight: 400;
 			}
 		}
-		
-		+ label {
-			color: $validation-error-color-light;
-		}
+
 	}
 }

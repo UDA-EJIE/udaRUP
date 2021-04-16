@@ -531,7 +531,7 @@
 	                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
 		                        // Actualizar el nuevo id que viene de HDIV.
 	                    		let idHdiv = data[ctx.oInit.primaryKey];
-		                        if (pk === ctx.multiselection.lastSelectedId) {
+		                        if (pk == ctx.multiselection.lastSelectedId) {
 		                            ctx.multiselection.lastSelectedId = idHdiv;
 		                        }
 		                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
@@ -539,7 +539,7 @@
 		                            ctx.multiselection.selectedIds[pos] = idHdiv;
 		                        }
 		                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-		                                return v.id === pk;
+		                                return v.id == pk;
 		                            });
 		                        if (result !== undefined && result.length > 0) {
 		                            result[0].id = idHdiv;
@@ -814,7 +814,7 @@
                             // Actualizamos el ultimo id seleccionado (por si ha sido editado)
                             var posicion = 0;
                             $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
-                                if (p.id === ctx.multiselection.lastSelectedId) {
+                                if (p.id == ctx.multiselection.lastSelectedId) {
                                     posicion = index;
                                     return;
                                 }
@@ -1384,7 +1384,7 @@
 	                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
 	            }
 	            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
-	                if (p.id === ctx.multiselection.lastSelectedId) {
+	                if (p.id == ctx.multiselection.lastSelectedId) {
 	                    rowDefault.id = p.id;
 	                    rowDefault.page = p.page;
 	                    rowDefault.line = p.line;
@@ -1405,7 +1405,7 @@
 	            } else {
 	                //buscar la posicion y pagina
 	                var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-	                    return v.id === ctx.multiselection.lastSelectedId;
+	                    return v.id == ctx.multiselection.lastSelectedId;
 	                });
 	                rowDefault.page = result[0].page;
 	                rowDefault.line = result[0].line;
