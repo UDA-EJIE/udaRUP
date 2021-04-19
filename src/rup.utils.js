@@ -1046,7 +1046,8 @@
 		
 		// Cuando se recibe un formulario se extrae directamente de ahí el parámetro HDIV_STATE
 		if ($form != undefined && $form.length == 1) {
-			hdivStateParam = $form.find('input[name="_HDIV_STATE_"]').val();
+			let fieldHdiv = $form.find('input[name="_HDIV_STATE_"]');
+			hdivStateParam = fieldHdiv.length == 1 ? fieldHdiv.val() : '';
 		} else {
 			// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
 			let searchParams = new URLSearchParams(window.location.search);
