@@ -969,7 +969,7 @@
                 
             	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
                 if (url.indexOf('deleteAll') === -1) {
-                	var hdivStateParamValue = $.fn.getHDIV_STATE();
+                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
                     if (hdivStateParamValue !== '') {
                     	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
                     }
