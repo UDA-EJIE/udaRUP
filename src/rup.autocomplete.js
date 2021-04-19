@@ -641,7 +641,7 @@ input.
 			// Comprobar si se puede cachear
 			lastTerm = $stock.data('tmp.loadObjects.term');
 
-			if (term.indexOf(lastTerm) === 0) {
+			if (!settings.disabledCache && term.indexOf(lastTerm) === 0) {
 
 				$stock.data('tmp.loadObjects.term', term);
 

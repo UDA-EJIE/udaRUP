@@ -634,7 +634,7 @@
                     if (data === null) {
                         return false;
                     } //Se para la petición porque algún padre no tiene el dato cargado
-                    if (settings.ultimaLlamada === undefined || settings.ultimaLlamada === '' || settings.ultimaLlamada !== data) { //si es la misma busqueda, no tiene sentido volver a intentarlo.
+                    if (settings.ultimaLlamada === undefined || settings.ultimaLlamada === '' || settings.ultimaLlamada !== data || settings.disabledCache) { //si es la misma busqueda, no tiene sentido volver a intentarlo.
                         $.rup_ajax({
                             url: settings.source ? settings.source : settings.sourceGroup,
                             data: data,
