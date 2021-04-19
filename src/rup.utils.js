@@ -1041,22 +1041,29 @@
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
-	$.fn.getHDIV_STATE = function (hasMoreParams) {
-		// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
-		let searchParams = new URLSearchParams(window.location.search);
-		let hdivStateParam = searchParams.get('_HDIV_STATE_');
-		let prefix = '';
+	$.fn.getHDIV_STATE = function (hasMoreParams, $form) {
+		let hdivStateParam = '';
 		
-		// Si se ha especificado un valor booleano en el parámetro recibido es porque se trata de una petición GET
-		if (hasMoreParams !== undefined && hasMoreParams !== null && typeof hasMoreParams === "boolean") {
-			prefix = hasMoreParams ? '&' : '?' + '_HDIV_STATE_=';
+		// Cuando se recibe un formulario se extrae directamente de ahí el parámetro HDIV_STATE
+		if ($form != undefined && $form.length == 1) {
+			hdivStateParam = $form.find('input[name="_HDIV_STATE_"]').val();
+		} else {
+			// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
+			let searchParams = new URLSearchParams(window.location.search);
+			hdivStateParam = searchParams.get('_HDIV_STATE_');
+			let prefix = '';
+			
+			// Si se ha especificado un valor booleano en el parámetro recibido es porque se trata de una petición GET
+			if (hasMoreParams !== undefined && hasMoreParams !== null && typeof hasMoreParams === "boolean") {
+				prefix = hasMoreParams ? '&' : '?' + '_HDIV_STATE_=';
+			}
+		    
+		    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
+		    	hdivStateParam = prefix + hdivStateParam;
+		    } else {
+		    	hdivStateParam = '';
+		    }
 		}
-	    
-	    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
-	    	hdivStateParam = prefix + hdivStateParam;
-	    } else {
-	    	hdivStateParam = '';
-	    }
 	    
 	    return hdivStateParam;
 	};
