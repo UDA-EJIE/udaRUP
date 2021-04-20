@@ -202,34 +202,6 @@
         $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
             _addChildIcons(ctx);
         }));
-        
-        // Añadir validaciones
-        let idTableDetail = ctx.oInit.formEdit.detailForm;
-        let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
-        let validaciones;
-        if(ctx.oInit.formEdit.validate !== undefined){
-        	validaciones = ctx.oInit.formEdit.validate.rules;
-        }
-        
-        if (feed.length === 0) {
-        	feed = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
-        }
-        
-    	feed.rup_feedback(ctx.oInit.feedback);
-          
-        let propertiesDefault = {
-                liveCheckingErrors: false,
-                showFieldErrorAsDefault: true,
-                showErrorsInFeedback: true,
-                showFieldErrorsInFeedback:true
-            };
-        let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.formEdit.propertiesValidate);
-        propertiesValidate.feedback = feed;
-        propertiesValidate.rules = validaciones;
-        propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
-        
-        ctx.oInit.formEdit.idForm.rup_validate(propertiesValidate);
-
     };
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -360,6 +332,44 @@
     }
     
     /**
+     * Función que añade las validaciones a un formulario.
+     *
+     * @name addValidation
+     * @function
+     * @since UDA 5.0.0 // Table 1.0.0
+     *
+     * @param {object} ctx - Contexto del Datatable.
+     *
+     */
+    function _addValidation(ctx) {
+        let idTableDetail = ctx.oInit.formEdit.detailForm;
+        let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
+        let validaciones;
+        if (ctx.oInit.formEdit.validate !== undefined) {
+        	validaciones = ctx.oInit.formEdit.validate.rules;
+        }
+        
+        if (feed.length === 0) {
+        	feed = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+        }
+        
+    	feed.rup_feedback(ctx.oInit.feedback);
+          
+        let propertiesDefault = {
+            liveCheckingErrors: false,
+            showFieldErrorAsDefault: true,
+            showErrorsInFeedback: true,
+            showFieldErrorsInFeedback: true
+        };
+        
+        let propertiesValidate = $.extend(true, {}, propertiesDefault, ctx.oInit.formEdit.propertiesValidate);
+        propertiesValidate.feedback = feed;
+        propertiesValidate.rules = validaciones;
+        
+        ctx.oInit.formEdit.idForm.rup_validate(propertiesValidate);
+    }
+    
+    /**
      * Función que gestiona la carga del diálogo de añadir o editar.
      *
      * @name loadSaveDialogForm
@@ -396,13 +406,13 @@
 				formContainer.html(form);
 				
 				ctx.oInit.formEdit.actionType = actionType;
-				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first()
+				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
 					$('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx);
 				}
-				
+		        
 				// Detectar componentes RUP y reinicializarlos
 				if (tempForm !== undefined && tempForm.length === 1 && ctx.oInit.colModel !== undefined) {
 					$.each(ctx.oInit.colModel, function (key, column) {
@@ -425,6 +435,9 @@
 						}
 					});
 				}
+				
+				// Añadir validaciones
+				_addValidation(ctx);
 								
 				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterLoad', ctx);
 	    	}, 'html');
@@ -433,6 +446,10 @@
         	ctx.oInit.formEdit.actionType = actionType;
         	$.when($('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
         		let deferred = $.Deferred();
+				
+				// Añadir validaciones
+				_addValidation(ctx);
+				
             	deferred.resolve();
         		return deferred.promise();
         	});
@@ -960,7 +977,8 @@
             // Se cambia el data
             if (ajaxOptions.data == '') {
                 delete ajaxOptions.data;
-            } else {
+                $.rup_ajax(ajaxOptions);
+            } else if (ctx.oInit.formEdit.idForm.valid()) {
             	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
                 $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
                 
@@ -976,8 +994,8 @@
                 }
                 
                 ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+                $.rup_ajax(ajaxOptions);
             }
-            $.rup_ajax(ajaxOptions);
         }
         
         if (ctx.oInit.formEdit.detailForm.settings.saveDialog && !isDeleting) {
