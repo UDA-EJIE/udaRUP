@@ -355,7 +355,7 @@
 
         //Se cierran los mensajes del feedback
         if (feedback[0].className !== '') {
-            feedback.rup_feedback('hide');
+            feedback.rup_feedback('hide',0);
         }
     }
     
