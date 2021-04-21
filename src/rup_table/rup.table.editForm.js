@@ -402,6 +402,17 @@
     	let formContainer = $('#' + ctx.sTableId + '_detail_form_container');
     	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
     	let lastAction = ctx.oInit.formEdit.actionType;
+		
+		// Botón de guardar y continuar
+        let buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
+        
+        // En caso de ser clonado el method ha de ser POST
+        if (actionType === 'CLONE') {
+            actionType = 'POST';
+            buttonContinue.hide();
+        } else {
+            buttonContinue.show();
+        }
     	
     	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
 		if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
@@ -509,17 +520,10 @@
 	        	idForm.rup_validate('resetElements');
 	        }
 	
-	        // Añadir el botón de guardar
+	        // Botón de guardar
 	        var button = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save');
-	        // Añadir el botón de guardar y continuar
+	        // Botón de guardar y continuar
 	        var buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
-	
-	        if (actionType === 'CLONE') { //En caso de ser clonado, solo se debe guardar.
-	            actionType = 'POST';
-	            buttonContinue.hide();
-	        } else {
-	            buttonContinue.show();
-	        }
 	
 	        if (idRow < 0) {
 	            idRow = 1;
