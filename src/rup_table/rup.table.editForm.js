@@ -999,14 +999,14 @@
                 delete ajaxOptions.data;
                 $.rup_ajax(ajaxOptions);
             } else if (isDeleting || ctx.oInit.formEdit.idForm.valid()) {
-            	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
-                $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
-                
-                // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
-                $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
-                
             	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
                 if (url.indexOf('deleteAll') === -1) {
+                	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
+                    $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
+                    
+                    // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
+                    $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
+                    
                 	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
                     if (hdivStateParamValue !== '') {
                     	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
