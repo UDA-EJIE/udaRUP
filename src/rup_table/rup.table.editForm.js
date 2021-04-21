@@ -1059,17 +1059,17 @@
 
 
     /**
-     * Se verifican los check vacios dentro de un formulario.
+     * Se añade el tipo de la lista.
      *
-     * @name returnCheckEmpty
+     * @name addListType
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 4.2.0 // Table 1.0.0
      *
      * @param {object} idForm - Identificador del formulario.
      * @param {string} row - Values ya añadidos al formulario.
      *
      */
-    function _addListType(idForm,row) {
+    function _addListType(idForm, row) {
     	//Listas de checkbox
     	$.each(idForm.find('[data-lista]'), function () {
     		let name = this.dataset.lista;
