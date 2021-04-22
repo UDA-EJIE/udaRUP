@@ -1398,7 +1398,7 @@
     }
 
     /**
-     * Metodo que obtiene la fila siguiente seleccionada.
+     * Método que obtiene la fila siguiente seleccionada.
      *
      * @name getRowSelected
      * @function
@@ -1412,75 +1412,71 @@
      */
     function _getRowSelected(dt, actionType) {
         var ctx = dt.settings()[0];
+        var rowDefault = {
+            id: 0,
+            page: 1,
+            line: 0
+        };
+        var lastSelectedId = ctx.multiselection.lastSelectedId;
+        if (!ctx.multiselection.selectedAll) {
+            //Si no hay un ultimo señalado se coge el ultimo;
+
+            if (lastSelectedId === undefined || lastSelectedId === '') {
+                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
+            }
+            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
+                if (p.id == ctx.multiselection.lastSelectedId) {
+                    rowDefault.id = p.id;
+                    rowDefault.page = p.page;
+                    rowDefault.line = p.line;
+                    rowDefault.indexSelected = index;
+                    if (ctx.oInit.formEdit !== undefined) {
+                        ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+                    }
+                    return false;
+                }
+            });
+        } else {
+            if (ctx.oInit.formEdit !== undefined) {
+                ctx.oInit.formEdit.$navigationBar.numPosition = 0; //variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+            }
+            if (lastSelectedId === undefined || lastSelectedId === '') {
+                rowDefault.page = _getNextPageSelected(ctx, 1, 'next'); //Como arranca de primeras la pagina es la 1.
+                rowDefault.line = _getLineByPageSelected(ctx, -1);
+            } else {
+                //buscar la posicion y pagina
+                var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+                    return v.id == ctx.multiselection.lastSelectedId;
+                });
+                rowDefault.page = result[0].page;
+                rowDefault.line = result[0].line;
+                var index = ctx._iDisplayLength * (Number(rowDefault.page) - 1);
+                index = index + 1 + rowDefault.line;
+                //Hay que restar los deselecionados.
+                result = $.grep(ctx.multiselection.deselectedRowsPerPage, function (v) {
+                    return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+                });
+                rowDefault.indexSelected = index - result.length; //Buscar indice
+                if (ctx.oInit.formEdit !== undefined) {
+                    ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected - 1;
+                }
+            }
+            if (ctx.oInit.formEdit !== undefined) {
+                ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
+            }
+        }
+
+        // En caso de estar en una página distinta, navegamos a ella
+        if (dt.page() + 1 !== Number(rowDefault.page)) {
+            var pageActual = dt.page() + 1;
+            var table = $('#' + ctx.sTableId).DataTable();
+            table.page(rowDefault.page - 1).draw('page');
+            if (ctx.oInit.formEdit !== undefined) {
+                ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType, dt, rowDefault.line, undefined, pageActual];
+            }
+        }
         
-        // Comprobar si existe un formulario, en caso de no haberlo o de no contener el action requerido lo crea
-        return $.when(_loadSaveDialogForm(ctx, actionType)).then(function () {
-	        var rowDefault = {
-	            id: 0,
-	            page: 1,
-	            line: 0
-	        };
-	        var lastSelectedId = ctx.multiselection.lastSelectedId;
-	        if (!ctx.multiselection.selectedAll) {
-	            //Si no hay un ultimo señalado se coge el ultimo;
-	
-	            if (lastSelectedId === undefined || lastSelectedId === '') {
-	                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
-	            }
-	            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
-	                if (p.id == ctx.multiselection.lastSelectedId) {
-	                    rowDefault.id = p.id;
-	                    rowDefault.page = p.page;
-	                    rowDefault.line = p.line;
-	                    rowDefault.indexSelected = index;
-	                    if (ctx.oInit.formEdit !== undefined) {
-	                        ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
-	                    }
-	                    return false;
-	                }
-	            });
-	        } else {
-	            if (ctx.oInit.formEdit !== undefined) {
-	                ctx.oInit.formEdit.$navigationBar.numPosition = 0; //variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
-	            }
-	            if (lastSelectedId === undefined || lastSelectedId === '') {
-	                rowDefault.page = _getNextPageSelected(ctx, 1, 'next'); //Como arranca de primeras la pagina es la 1.
-	                rowDefault.line = _getLineByPageSelected(ctx, -1);
-	            } else {
-	                //buscar la posicion y pagina
-	                var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-	                    return v.id == ctx.multiselection.lastSelectedId;
-	                });
-	                rowDefault.page = result[0].page;
-	                rowDefault.line = result[0].line;
-	                var index = ctx._iDisplayLength * (Number(rowDefault.page) - 1);
-	                index = index + 1 + rowDefault.line;
-	                //Hay que restar los deselecionados.
-	                result = $.grep(ctx.multiselection.deselectedRowsPerPage, function (v) {
-	                    return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
-	                });
-	                rowDefault.indexSelected = index - result.length; //Buscar indice
-	                if (ctx.oInit.formEdit !== undefined) {
-	                    ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected - 1;
-	                }
-	            }
-	            if (ctx.oInit.formEdit !== undefined) {
-	                ctx.oInit.formEdit.$navigationBar.currentPos = rowDefault;
-	            }
-	        }
-	
-	        // En caso de estar en una página distinta, navegamos a ella
-	        if (dt.page() + 1 !== Number(rowDefault.page)) {
-	            var pageActual = dt.page() + 1;
-	            var table = $('#' + ctx.sTableId).DataTable();
-	            table.page(rowDefault.page - 1).draw('page');
-	            if (ctx.oInit.formEdit !== undefined) {
-	                ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType, dt, rowDefault.line, undefined, pageActual];
-	            }
-	        }
-	        
-			return rowDefault;
-        });
+		return rowDefault;
     }
 
     /**
