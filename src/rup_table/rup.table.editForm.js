@@ -399,7 +399,7 @@
      */
     function _loadSaveDialogForm(ctx, actionType) {
     	var idForm = ctx.oInit.formEdit !== undefined ? ctx.oInit.formEdit.idForm : undefined;
-    	let formContainer = $('#' + ctx.sTableId + '_detail_form_container');
+    	
     	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
     	let lastAction = ctx.oInit.formEdit.actionType;
 		
@@ -416,24 +416,30 @@
     	
     	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
 		if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
-			let tempForm;
 			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType.
 			let defaultData = {'actionType': actionType};
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			
-			// Si existe un formulario previo, se elimina
-			if (idForm !== undefined) {
-				tempForm = $(ctx.oInit.formEdit.idForm);
-				$(idForm).remove();
-			}
-			
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
 			
-			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', data, function (form) {
-				formContainer.html(form);
+			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', data, function (form) {				
+				// Guardar anterior formulario para poder comprobarlo con el recién recibido
+				let tempForm = idForm !== undefined ? idForm : undefined;
+				
+				// Insertar formulario recibido dentro del contenedor especificado
+				$('#' + ctx.sTableId + '_detail_form_container').html(form);
 				
 				ctx.oInit.formEdit.actionType = actionType;
 				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
+				// Actualizar referencia del formulario
+				idForm = ctx.oInit.formEdit.idForm;
+				
+				// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
+				let wasOldFormDeleted = false;
+				if (tempForm !== undefined && tempForm.length === 1 && tempForm[0].id === idForm[0].id) {
+					tempForm.remove();
+					wasOldFormDeleted = true;
+				}
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
@@ -441,7 +447,7 @@
 				}
 		        
 				// Detectar componentes RUP y reinicializarlos
-				if (tempForm !== undefined && tempForm.length === 1 && ctx.oInit.colModel !== undefined) {
+				if (wasOldFormDeleted && ctx.oInit.colModel !== undefined) {
 					$.each(ctx.oInit.colModel, function (key, column) {
 						if (column.rupType) {
 							let element = tempForm.find('[name="' + column.name + '"]');
