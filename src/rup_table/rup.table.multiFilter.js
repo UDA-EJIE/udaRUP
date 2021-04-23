@@ -1031,7 +1031,7 @@
         if (e.namespace !== 'dt') {
             return;
         }
-        if (ctx.oInit.multiFilter !== undefined) {
+        if (ctx.oInit.multiFilter !== undefined && ctx.oInit.multiFilter.activate !== false) {
             DataTable.multiFilter.init(new DataTable.Api(ctx));
         }
     });

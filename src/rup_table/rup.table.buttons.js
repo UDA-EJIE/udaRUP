@@ -3616,13 +3616,13 @@
     //create the buttons instance here so they can be inserted into the document
     //using the API. Listen for `init` for compatibility with pre 1.10.10, but to
     //be removed in future.
-    $(document).on('plugin-init.dt', function (e, settings) {
+    $(document).on('plugin-init.dt', function (e, ctx) {
         if (e.namespace !== 'dt') {
             return;
         }
 
-        if (settings.oInit.buttons !== undefined) {
-            inicio(settings);
+        if (ctx.oInit.buttons !== undefined && ctx.oInit.buttons.activate !== false) {
+            inicio(ctx);
         }
     });
 
