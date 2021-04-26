@@ -152,35 +152,7 @@
      *
      */
     DataTable.editForm.init = function (ctx) {
-    	// Opción para usar el colModel
-        if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
-        	$.each(ctx.oInit.colModel, function () {
-        		var cellColModel = this;
-        	    	if (cellColModel.editable === true) {
-        	    		var searchRupType = cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-        	            var colModelName = cellColModel.name;
-        	            // Añadir el title de los elementos de acuerdo al colname
-        	            var $elem = ctx.oInit.formEdit.detailForm.find('[name="' + colModelName + '"]');
-        	            // Si ya existe el div necesario para dar los estilos material al input, evitamos duplicarlo
-        	            $elem.removeAttr('readOnly');
-        	            
-        	            // En caso de tratarse de un componente RUP, se inicializa de acuerdo a la configuración especificada en el colModel
-        	            if (searchRupType !== undefined) {
-        	            	// Invocación al componente RUP
-        	            	var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
-
-        	            	$elem['rup_' + searchRupType](searchEditOptions);
-
-        	            	if (searchRupType === 'combo') {
-        	            		// Asignar el valor
-        	            		//$('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont]);
-        	            	}
-        	            } 
-        	    	}
-        	 });
-        }
-
-        // Capturar evento de cierre
+    	// Capturar evento de cierre
         ctx.oInit.formEdit.detailForm.on('dialogbeforeclose', function (event) {
             if (event.originalEvent !== undefined) { //el evento es cerrado por el aspa
                 ctx.oInit.formEdit.okCallBack = false;
@@ -426,45 +398,36 @@
 				// Guardar anterior formulario para poder comprobarlo con el recién recibido
 				let tempForm = idForm !== undefined ? idForm : undefined;
 				
+				// Guardar referencia del formulario recibido
+				let receivedForm = $(form).find("form").addBack('form');
+				
+				// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
+				if (tempForm !== undefined && tempForm.length === 1 && tempForm.attr("id") === receivedForm.attr("id")) {
+					tempForm.remove();
+				}
+				
 				// Insertar formulario recibido dentro del contenedor especificado
-				$('#' + ctx.sTableId + '_detail_form_container').html(form);
+				let formContainerID = '#' + ctx.sTableId + '_detail_form_container';
+				$(formContainerID).prepend(receivedForm);
 				
 				ctx.oInit.formEdit.actionType = actionType;
 				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
-				// Actualizar referencia del formulario
-				idForm = ctx.oInit.formEdit.idForm;
-				
-				// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
-				let wasOldFormDeleted = false;
-				if (tempForm !== undefined && tempForm.length === 1 && tempForm[0].id === idForm[0].id) {
-					tempForm.remove();
-					wasOldFormDeleted = true;
-				}
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
 					$('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx);
 				}
-		        
-				// Detectar componentes RUP y reinicializarlos
-				if (wasOldFormDeleted && ctx.oInit.colModel !== undefined) {
+				
+				// Detectar componentes RUP e inicializarlos
+				if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
+					let insertedForm = $(formContainerID + ' #' + receivedForm.attr("id"));
 					$.each(ctx.oInit.colModel, function (key, column) {
-						if (column.rupType) {
-							let element = tempForm.find('[name="' + column.name + '"]');
-							let type = column.rupType;
-							let options = column.editoptions;
-							
-							switch (type) {
-								case 'date':
-									$('#' + element[0].id).rup_date(options);
-									break;
-								case 'autocomplete':
-									$('#' + element[0].id).rup_autocomplete(options);
-									break;
-								case 'combo':
-									$('#' + element[0].id).rup_combo(options);
-									break;
-							}
+						let element = insertedForm.find('[name="' + column.name + '"]');
+						// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly
+						if (column.rupType && column.editable) {
+							element['rup_' + column.rupType](column.editoptions);
+						} else if (!column.editable) {
+							element.prop('readonly', true);
 						}
 					});
 				}
@@ -542,6 +505,9 @@
 	        let rowArray = $.rup_utils.jsontoarray(row);
 	        
 	        let title = customTitle != (undefined && null) ? customTitle : "";
+	        
+	        // Actualizar el valor de la variable por si ha sufrido cambios en la función _loadSaveDialogForm() ya que en caso de ser un CLONE, habrá sido convertido a POST
+	        actionType = ctx.oInit.formEdit.actionType;
 	
 	        if (actionType === 'PUT') {
 	            if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
