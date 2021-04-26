@@ -505,6 +505,9 @@
 	        let rowArray = $.rup_utils.jsontoarray(row);
 	        
 	        let title = customTitle != (undefined && null) ? customTitle : "";
+	        
+	        // Actualizar el valor de la variable por si ha sufrido cambios en la función _loadSaveDialogForm() ya que en caso de ser un CLONE, habrá sido convertido a POST
+	        actionType = ctx.oInit.formEdit.actionType;
 	
 	        if (actionType === 'PUT') {
 	            if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
