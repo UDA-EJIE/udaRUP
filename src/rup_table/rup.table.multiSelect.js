@@ -2094,7 +2094,7 @@ handler that will select the items using the API methods.
         if (e.namespace !== 'dt') {
             return;
         }
-        if (ctx.oInit.multiSelect !== undefined) {
+        if (ctx.oInit.multiSelect !== undefined && ctx.oInit.multiSelect.activate !== false) {
             DataTable.multiSelect.init(new DataTable.Api(ctx));
         }
     });

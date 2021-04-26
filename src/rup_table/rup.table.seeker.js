@@ -659,7 +659,7 @@
         if (e.namespace !== 'dt') {
             return;
         }
-        if (ctx.oInit.seeker !== undefined) {
+        if (ctx.oInit.seeker !== undefined && ctx.oInit.seeker.activate !== false ) {
             DataTable.seeker.init(new DataTable.Api(ctx));
         } else {
             $('tfoot').hide();

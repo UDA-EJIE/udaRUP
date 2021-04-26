@@ -264,7 +264,7 @@
         if (e.namespace !== 'dt') {
             return;
         }
-        if (ctx.oInit.select !== undefined) {
+        if (ctx.oInit.select !== undefined && ctx.oInit.select.activate !== false) {
             DataTable.select.init(new DataTable.Api(ctx));
         }
     });
