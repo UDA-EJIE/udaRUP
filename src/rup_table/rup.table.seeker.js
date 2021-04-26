@@ -146,34 +146,33 @@
      */
     function _createFilterColumn(dt, ctx) {
 
-        var idTabla = ctx.sTableId;
+        let idTabla = ctx.sTableId;
         $('#' + idTabla + ' tfoot').css('display', 'table-header-group');
         $('#' + idTabla + ' tfoot th').each(function () {
-            var title = this.innerText;
-            var index = $(this).index();
+            let title = this.innerText;
+            let index = $(this).index();
+            let colModel = ctx.oInit.colModel;            
 
             if (index > 0 || ctx.oInit.multiSelect === undefined) {
 
-                var colModelIndex = index;
-                var position = index + 1;
+                let position = index + 1;
+                let nombre = $('#' + idTabla + ' thead th:nth-child(' + position + ')').attr('data-col-prop')
 
-                if (ctx.oInit.multiSelect != undefined) {
-                    colModelIndex--;
-                }
+                let result = $.grep(colModel, function (v) {
+                    return v.index.toUpperCase() === nombre.toUpperCase();
+                });
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (ctx.oInit.colModel != undefined && ctx.oInit.colModel[colModelIndex].hidden) {
+                if (colModel != undefined && result.hidden) {
                     $(this).empty();
                 } else {
-                    var nombre = $('#' + idTabla + ' thead th:nth-child(' + position + ')').attr('data-col-prop');
                     $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"/>');
                 }
             }
         });
 
-
-        dt.columns().eq(0).each(function (colIdx) {
-            if (colIdx > 0) {
+      dt.columns().eq(0).each(function (colIdx) {
+            if (colIdx > 0 || ctx.oInit.multiSelect === undefined) {//evitar el checkbox
                 $('input', $('#' + idTabla + ' tfoot')[0].rows[0].cells[colIdx]).on('keypress', function (ev) {
                     this.focus();
                     if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
@@ -536,9 +535,19 @@
 
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');
+                let flagMultiSelect = 0;
+                if (ctx.oInit.multiSelect !== undefined) {
+                	flagMultiSelect = 1;
+                }
+                let cont = i + flagMultiSelect;
+                
+                let nombre = $(this).find('input').attr('name');
+                let cellColModel = $.grep(colModel, function (v) {
+                    return v.index.toUpperCase() === nombre.toUpperCase();
+                });
 
-                var cellColModel = colModel[i];
                 if(cellColModel !== undefined){
+                	cellColModel = cellColModel[0];
 	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined) ? cellColModel.searchoptions.rupType : cellColModel.rupType;
 	
 	                var colModelName = cellColModel.name;
