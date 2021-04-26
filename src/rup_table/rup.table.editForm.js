@@ -426,20 +426,21 @@
 				// Guardar anterior formulario para poder comprobarlo con el recién recibido
 				let tempForm = idForm !== undefined ? idForm : undefined;
 				
-				// Insertar formulario recibido dentro del contenedor especificado
-				$('#' + ctx.sTableId + '_detail_form_container').html(form);
-				
-				ctx.oInit.formEdit.actionType = actionType;
-				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
-				// Actualizar referencia del formulario
-				idForm = ctx.oInit.formEdit.idForm;
+				// Guardar referencia del formulario recibido
+				let receivedForm = $(form).find("form").addBack('form');
 				
 				// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
 				let wasOldFormDeleted = false;
-				if (tempForm !== undefined && tempForm.length === 1 && tempForm[0].id === idForm[0].id) {
+				if (tempForm !== undefined && tempForm.length === 1 && tempForm[0].id === receivedForm[0].id) {
 					tempForm.remove();
 					wasOldFormDeleted = true;
 				}
+				
+				// Insertar formulario recibido dentro del contenedor especificado
+				$('#' + ctx.sTableId + '_detail_form_container').prepend(form);
+				
+				ctx.oInit.formEdit.actionType = actionType;
+				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
