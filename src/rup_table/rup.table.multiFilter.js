@@ -792,7 +792,7 @@
      */
     function configureMultifilter(ctx) {
         var settings = ctx.oInit;
-        settings.filter.$filterForm = $('#' + settings.sTableId + '_filter_form');
+        settings.multiFilter.$filterForm = $('#' + settings.sTableId + '_filter_form');
 
 
         var selector;
@@ -892,7 +892,7 @@
      */
     function _cleanFilterForm(ctx) {
         var options = ctx.oInit;
-        options.$filterForm.resetForm();
+        options.multiFilter.$filterForm.resetForm();
 
         options.filter.$filterSummary.html(' <i></i>');
         jQuery('input,textarea', options.$filterForm).val('');
