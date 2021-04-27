@@ -892,12 +892,12 @@
      */
     function _cleanFilterForm(ctx) {
         var options = ctx.oInit;
-        options.multiFilter.$filterForm.resetForm();
+        options.filter.$filterContainer.resetForm();
 
         options.filter.$filterSummary.html(' <i></i>');
-        jQuery('input,textarea', options.$filterForm).val('');
+        jQuery('input,textarea', options.filter.$filterContainer).val('');
         jQuery('.ui-selectmenu-status', '.rup-table-filter-fieldset').text('--');
-        $.rup_utils.populateForm([], options.$filterForm)
+        $.rup_utils.populateForm([], options.filter.$filterContainer)
 
     }
 
