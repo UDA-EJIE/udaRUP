@@ -246,7 +246,6 @@
             });
 
             apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
-
                 var opts = options;
                 if (optionsParam !== undefined) {
                     opts = optionsParam;
@@ -268,6 +267,30 @@
                 });
 
                 return id;
+            });
+            
+            /**
+             * Comprueba si dos claves primarias son iguales.
+             *
+             * @name comparePKs
+             * @function
+             * @since UDA 5.0.0 // Table 1.0.0
+             * 
+             * @param {object} firstRow - Fila de la tabla a comparar.
+             * @param {object} secondRow - Fila de la tabla a comparar.
+             *
+             * @return {boolean}
+             */
+            apiRegister('rupTable.comparePKs()', function (firstRow, secondRow) {
+            	let firstRowPK = DataTable.Api().rupTable.getIdPk(firstRow);
+            	let secondRowPK = DataTable.Api().rupTable.getIdPk(secondRow);
+            	
+            	// Si Hdiv está activado se comprueba el parámetro nid en vez de la PK (es lo mismo pero sin cifrar)
+            	if ($.fn.isHDIV(firstRowPK) && $.fn.isHDIV(secondRowPK)) {
+            		return firstRow.nid === secondRow.nid;
+            	} else {
+            		return firstRowPK === secondRowPK;
+            	}
             });
 
             /**
