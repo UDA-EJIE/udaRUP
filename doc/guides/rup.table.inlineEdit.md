@@ -93,3 +93,6 @@ inlineEdit: {
     }
 }
 ```
+
+# 2. Aspectos a tener en cuenta
+Es importante saber que para inicializar los componentes de UDA como el autocomplete, combo o date, hay que hacerlo mediante la propiedad `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. También es importante remarcar que **todos los campos que estén ocultos mediante la propiedad `columnDefs` no deben de ser declarados en el `colModel`**. Para más información sobre cómo usar esta propiedad, leer el documento [rup.table](./rup.table.md).

@@ -125,7 +125,7 @@ DataTable.inlineEdit.init = function ( dt ) {
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
 	
-    // Se añaden las validaciones
+	// Se añaden las validaciones
     let feed = ctx.oInit.feedback.$feedbackContainer;
     let validaciones;
     if(ctx.oInit.inlineEdit.validate !== undefined){
@@ -141,7 +141,6 @@ DataTable.inlineEdit.init = function ( dt ) {
     let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.inlineEdit.propertiesValidate);
     propertiesValidate.feedback = feed;
     propertiesValidate.rules = validaciones;
-    propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
 	
     $('#' + ctx.sTableId + '_search_searchForm').rup_validate(propertiesValidate);
     
@@ -646,29 +645,30 @@ function _getRowSelected(dt,actionType){
 * @since UDA 3.7.0 // Table 1.0.0
 *
 *
-* @param {object} dt - Es el objeto table.
+* @param {object} dt - Objeto table.
 * @param {object} ctx - Contexto del Datatable.
 * @param {integer} line - Número de la fila.
 *
 */
-function _cloneLine(dt,ctx,line){
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone',ctx);
-	dt.row(0).data(dt.row(line+1).data());
-	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
+function _cloneLine(dt, ctx, line){
+	$('#' + ctx.sTableId).triggerHandler('tableEditInlineClone', ctx);
+	
+	dt.row(0).data(dt.row(line + 1).data());
+	
+	if (ctx.oInit.inlineEdit.rowDefault !== undefined) {
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
 	}
+	
 	ctx.multiselection.selectedIds = [];
-        ctx.multiselection.lastSelectedId = '';
+	ctx.multiselection.lastSelectedId = '';
 	ctx.multiselection.numSelected = 0;
-	$.each(ctx.oInit.primaryKey,function() {
-            dt.row(0).data()[this] = '';
+	
+	$.each(ctx.oInit.primaryKey, function() {
+		dt.row(0).data()[this] = '';
 	});
-        var columnsHide = dt.columns().responsiveHidden().reduce(function (a, b) {
-            return b === false ? a + 1 : a;
-        }, 0);
-	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
-		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
-	}
+        
+	// Añadir clase necesaria para su futura gestión a la hora de guardar el registro
+	$('#' + ctx.sTableId + ' tbody tr:eq(0)').addClass('new');
 }
 
 /**
@@ -1269,7 +1269,7 @@ function _guardar(ctx,$fila,child){
 		}
 		
 		let url = actionType == 'POST' ? '/add' : '/edit';
-		_callSaveAjax(actionType, ctx, $fila, row, url);
+		_callSaveAjax(actionType, ctx, $fila, row, url, false);
 		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
 }
@@ -1286,9 +1286,10 @@ function _guardar(ctx,$fila,child){
 * @param {object} $fila - Fila que se está editando.
 * @param {object} $row - Son los datos que se cargan.
 * @param {string} url - Url que se añade para llamar  al controller. Añadir, editar o borrar.
+* @param {boolean} isDeleting - Evita mostrar el diálogo de confirmación porque la función _deleteAllSelects() tiene el suyo propio.
 *
 */
-function _callSaveAjax(actionType, ctx, $fila, row, url){
+function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 	let _makeAjaxCall = function () {
 		$('#' + ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax', [ctx, actionType, url]);
 		
@@ -1434,27 +1435,32 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
 		// Se cambia el data
         if (ajaxOptions.data == '') {
             delete ajaxOptions.data;
-        } else {
-        	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
-        	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
-            
-            // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
-            $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
-            
+            $.rup_ajax(ajaxOptions);
+        } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
         	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
             if (url.indexOf('deleteAll') === -1) {
-            	var hdivStateParamValue = $.fn.getHDIV_STATE();
-                if (hdivStateParamValue !== '') {
-                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-                }
+            	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
+            	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
+                
+                // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
+                $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
+            	
+            	$.when(_loadAuxForm(ctx, actionType)).then(function () {
+	            	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
+	                if (hdivStateParamValue !== '') {
+	                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+	                }
+	                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+	                $.rup_ajax(ajaxOptions);
+            	});
+            } else {
+            	ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+            	$.rup_ajax(ajaxOptions);
             }
-            
-            ajaxOptions.data = JSON.stringify(ajaxOptions.data);
         }
-        $.rup_ajax(ajaxOptions);
 	}
     
-    if (ctx.oInit.inlineEdit.settings.saveDialog) {
+    if (ctx.oInit.inlineEdit.settings.saveDialog && !isDeleting) {
     	$.rup_messages('msgConfirm', {
             title: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
             message: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
@@ -1474,6 +1480,58 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
     }    
 }
 
+/**
+ * Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+ *
+ * @name loadAuxForm
+ * @function
+ * @since UDA 5.0.0 // Table 1.0.0
+ *
+ * @param {object} ctx - Contexto del Datatable.
+ * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
+ *
+ * @return {object}
+ */
+function _loadAuxForm(ctx, actionType) {
+	var idForm = ctx.oInit.inlineEdit !== undefined ? ctx.oInit.inlineEdit.idForm : undefined;
+	
+	// Servirá para saber si la última llamada a inlineEdit fue para añadir, editar o si aún no ha sido inicializado
+	let lastAction = ctx.oInit.inlineEdit.actionType;
+	
+	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
+	if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
+		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType.
+		let defaultData = {
+				'actionType': actionType,
+				'tableID': ctx.sTableId
+			};
+		let data = ctx.oInit.inlineEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.inlineEdit.data) : defaultData;
+		
+		return $.post(ctx.oInit.inlineEdit.url !== undefined ? ctx.oInit.inlineEdit.url : ctx.oInit.urlBase + '/inlineEdit', data, function (form) {
+			// Guardar anterior formulario para poder comprobarlo con el recién recibido
+			let tempForm = idForm !== undefined ? idForm : undefined;
+			
+			// Guardar referencia del formulario recibido
+			let receivedForm = $(form).find("form").addBack('form');
+			
+			// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
+			if (tempForm !== undefined && tempForm.length === 1 && tempForm.attr("id") === receivedForm.attr("id")) {
+				tempForm.remove();
+			}
+			
+			let tableWrapper = $('#' + ctx.sTableId + '_wrapper');
+			tableWrapper.prepend(receivedForm);
+			ctx.oInit.inlineEdit.actionType = actionType;
+			ctx.oInit.inlineEdit.idForm = tableWrapper.find("form").first();
+    	}, 'html');
+    } else {
+    	// Para cuando el formulario actual sigue siendo válido o los formularios dinámicos están desactivados
+    	let deferred = $.Deferred();
+    	ctx.oInit.inlineEdit.actionType = actionType;
+    	deferred.resolve();
+		return deferred.promise();
+    }
+}
 
 /**
  * Llamada para crear el feedback dentro del dialog.
@@ -1725,6 +1783,8 @@ function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
 	let idRow = 0;
 	let regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+    let actionType = ctx.multiselection.selectedIds.length > 1 ? 'POST' : 'DELETE';
+    
 	let _doDelete = function () {
 		let row = {};
         row.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
@@ -1740,11 +1800,11 @@ function _deleteAllSelects(dt){
 			} else {
 				row.multiselection.selectedIds = ctx.multiselection.selectedIds;
 			}
-			_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
+			_callSaveAjax(actionType, ctx, idRow, row, '/deleteAll', true);
 		} else {
 			row = ctx.multiselection.selectedIds[0];
 			row = row.replace(regex,'/');
-			_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
+			_callSaveAjax(actionType, ctx, '', idRow, '/' + row, true);
 		}
     };
     
