@@ -1489,6 +1489,9 @@ function _callSaveAjax(actionType, ctx, $fila, row, url){
  *
  */
 function _callFeedbackOk(ctx, msgFeedBack, type) {
+	if(ctx.oInit.inlineEdit.disabledFeedback){//no muestra el feedback
+		return false;
+	}
     $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow',ctx);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');

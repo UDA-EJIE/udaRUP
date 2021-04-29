@@ -73,7 +73,7 @@
         var $hiddenPKMaster = $(masterPKInputId);
 
         if ($hiddenPKMaster.length === 0) {
-            const msgError = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.msg', ctx.oInit.$filterForm.attr('id'), masterPKInputId);
+            const msgError = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.msg', ctx.oInit.filter.$filterContainer.attr('id'), masterPKInputId);
             $.rup_messages('msgError', {
                 title: jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.title'),
                 message: msgError

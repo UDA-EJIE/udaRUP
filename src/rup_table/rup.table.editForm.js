@@ -1024,6 +1024,9 @@
      *
      */
     function _callFeedbackOk(ctx, feedback, msgFeedBack, type) {
+    	if(ctx.oInit.formEdit.disabledFeedback){//no muestra el feedback
+    		return false;
+    	}
         $('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow',ctx);
         feedback.rup_feedback('set', msgFeedBack, type);
         feedback.rup_feedback('show');
