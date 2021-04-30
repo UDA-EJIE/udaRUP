@@ -1246,6 +1246,10 @@ function _guardar(ctx,$fila,child){
 	//Se serializa el formulario con los cambios
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
+    $.each(ctx.oInit.primaryKey, function (index, key) {
+    	row[key] = ctx.json.rows[$fila.index()][key];
+    });
+	
 	if(!row) {
     	_callFeedbackOk(ctx, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
 		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);

@@ -663,6 +663,10 @@
 	            //listas checkbox
 	            row = _addListType(idForm,row);
 	            
+                $.each(ctx.oInit.primaryKey, function (index, key) {
+                	row[key] = ctx.json.rows[idRow][key];
+                });            
+	            
 	        	let idTableDetail = ctx.oInit.formEdit.detailForm;
 	            
 	            // Muestra un feedback de error por caracter ilegal
@@ -716,6 +720,10 @@
 	            //listas checkbox
 	            row = _addListType(idForm,row);
 	            
+                $.each(ctx.oInit.primaryKey, function (index, key) {
+                	row[key] = ctx.json.rows[idRow][key];
+                });
+                
 	            let idTableDetail = ctx.oInit.formEdit.detailForm;
 	            
 	            // Muestra un feedback de error por caracter ilegal
