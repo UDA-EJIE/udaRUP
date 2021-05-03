@@ -653,9 +653,6 @@
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
 	            row = _editFormSerialize(idForm);
-	
-	            // Verificar los checkbox vacíos.
-	            row = _returnCheckEmpty(idForm, row);
 	            
 	            // Se transforma
 	            row = $.rup_utils.queryStringToJson(row);
@@ -710,9 +707,6 @@
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
 	            row = _editFormSerialize(idForm);
-	
-	            // Verificar los checkbox vacíos.
-	            row = _returnCheckEmpty(idForm, row);
 	
 	            // Se transforma
 	            row = $.rup_utils.queryStringToJson(row);
@@ -1089,29 +1083,6 @@
     		}
     	});
     	return row;
-    }
-    
-    /**
-     * Se verifican los check vacios dentro de un formulario.
-     *
-     * @name returnCheckEmpty
-     * @function
-     * @since UDA 3.4.0 // Table 1.0.0
-     *
-     * @param {object} idForm - Identificador del formulario.
-     * @param {string} values - Values ya añadidos al formulario.
-     *
-     */
-    function _returnCheckEmpty(idForm, values) {
-        var maps = jQuery('#'+idForm.attr('id') + ' input[type=checkbox]:not(:checked)').map(
-            function () {
-            	let texto = '';
-            	if($(this).data('lista') === undefined){
-            		return texto = '&' + this.name + '=0';
-            	}
-            }).get().toString();
-        maps = maps.replace(/\&,/g, '&');
-        return values + maps;
     }
 
     /**
