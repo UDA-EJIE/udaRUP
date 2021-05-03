@@ -144,12 +144,41 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 					loadObjects = $self.data('loadObjects');
 					newObject[value] = data.$hiddenField.val();
 					$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+					let labelFound = '';
+					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+					$.each(loadObjectsLabels, function (label, key) {
+						if(key !== undefined){
+							if(value === value){
+								labelFound = label;
+								return;
+							}
+						}
+	                });
+					if(labelFound !== ''){
+						$('#' + id + '_label').val(labelFound);
+					}
 				}
 
 				if (data.$labelField) {
 					loadObjects = data.$labelField.data('loadObjects');
 					newObject[$self.attr('rup_autocomplete_label')] = value;
 					data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+					let labelFound = '';
+					$.each(loadObjectsLabels, function (label, key) {
+						if(key !== undefined){
+							if(value === key){
+								labelFound = label;
+								return;
+							}
+						}
+	                });
+					let settings = data.$labelField.data('settings');
+					if(labelFound !== ''){
+						$('#' + id + '_label').val(labelFound);
+					}else if(settings.showDefault){
+						$('#' + id + '_label').val(value);
+					}
 				}
 			}
 
@@ -499,7 +528,7 @@ input.
          */
 		_sourceLOCAL: function (request, response) {
 			var settings, loadObjects = {},
-				returnValue, stock;
+				returnValue, stock,loadObjectsLabels = {};
 
 			if (this.element.data('settings') !== undefined) {
 				settings = this.element.data('settings');
@@ -550,6 +579,7 @@ input.
 						category = item.category;
 				}
 				var labelLimpio = label;
+				
 				if(settings.accentFolding){
 					labelLimpio = $.rup_utils.normalize(label);
 				}
@@ -560,7 +590,7 @@ input.
 					else
 						returnValue = settings._parseResponse(termLimpio, labelLimpio, value);
 					loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
-					
+					loadObjectsLabels[label] = returnValue.value;
 					if(settings.accentFolding && labelLimpio !== label){//limpiar acentos y mayúsculas
 						//parte delantera
 						//returnValue.label = literal.substr(0,nDelante)+label.substr(0,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
@@ -582,6 +612,7 @@ input.
 
 			// Se almacenan los datos cargados
 			$('#' + stock).data('loadObjects', loadObjects);
+			$('#' + stock).data('loadObjectsLabels', loadObjectsLabels);
 
 			// Eliminar elementos vacíos
 			data = $.grep(data, function (value) {
@@ -601,7 +632,7 @@ input.
 			//Se escapan los comodines/wildcards de BD
 			var $self = this.element,
 				settings, loadObjects = {},
-				returnValue, stock, term, data, lastTerm, bckData, $stock;
+				returnValue, stock, term, data, lastTerm, bckData, $stock, loadObjectsLabels = {};
 
 			if (this.element.data('settings') !== undefined) {
 				settings = this.element.data('settings');
@@ -691,6 +722,7 @@ input.
 								}
 							}
 							var labelLimpio = item.label;
+							
 							if(settings.accentFolding){
 								labelLimpio = $.rup_utils.normalize(item.label);
 							}
@@ -700,7 +732,8 @@ input.
 							else
 
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value);
-
+							
+							loadObjectsLabels[item.label] = returnValue.value;
 							loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
 							if(settings.accentFolding && labelLimpio !== item.label){//limpiar acentos y mayúsculas
 								//parte delantera
@@ -718,6 +751,7 @@ input.
 
 						//se almacenan los datos cargados
 						$stock.data('loadObjects', loadObjects);
+						$stock.data('loadObjectsLabels', loadObjectsLabels);
 						$stock.data('tmp.loadObjects.term', term);
 						$stock.data('tmp.data', data);
 
