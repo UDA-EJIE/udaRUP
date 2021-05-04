@@ -491,7 +491,9 @@
     "minuteText": "en_Minuto",
     "secondText": "en_Segundo",
     "timeOnlyTitle": "en_Seleccione Tiempo",
-    "timeText": "en_Tiempo"
+    "timeText": "en_Tiempo",
+    "millisecText": "en_MiliSegundo",
+    "microsecText": "en_MicroSegundo"
   },
   "rup_tree": {
     "ccp": {

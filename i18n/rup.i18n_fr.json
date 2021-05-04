@@ -491,7 +491,9 @@
     "minuteText": "Minuto",
     "secondText": "Segundo",
     "timeOnlyTitle": "Seleccione Tiempo",
-    "timeText": "Tiempo"
+    "timeText": "Tiempo",
+    "millisecText": "fr_MiliSegundo",
+    "microsecText": "fr_MicroSegundo"
   },
   "rup_tree": {
     "ccp": {

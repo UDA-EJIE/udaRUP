@@ -493,7 +493,9 @@
     "minuteText": "Minutu",
     "secondText": "Segundu",
     "timeOnlyTitle": "Aukeratu denbora",
-    "timeText": "Denbora"
+    "timeText": "Denbora",
+    "millisecText": "MiliSegundu",
+    "microsecText": "MicroSegundu"
   },
   "rup_tree": {
     "ccp": {

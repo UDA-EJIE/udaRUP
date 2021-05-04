@@ -408,6 +408,8 @@
                         settings.hourText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.hourText');
                         settings.minuteText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.minuteText');
                         settings.secondText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.secondText');
+                        settings.millisecText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.millisecText');
+                        settings.microsecText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.microsecText');
                         $('#' + settings.id).datetimepicker(settings);
                     } else {
                         (this).attr('maxlength', '10');
@@ -664,7 +666,9 @@
         noWeekend: false,
         showSecond: true,
         autoFillToField: true,
-        autoFillFromField: true
+        autoFillFromField: true,
+        showMillisec: false,
+        showMicrosec: false
     };
 
     //EVENTOS
