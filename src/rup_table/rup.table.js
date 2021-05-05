@@ -1381,7 +1381,7 @@
                     ctx.sTableId = $self[0].id;
                     $.rup_ajax({
                         url: options.urlBase +
-                            '/multiFilter/getDefault?filterSelector=' +
+                        	options.multiFilter.url + '/getDefault?filterSelector=' +
                             options.multiFilter.idFilter + '&user=' +
                             usuario,
                         type: 'GET',
