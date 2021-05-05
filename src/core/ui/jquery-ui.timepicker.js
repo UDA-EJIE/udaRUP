@@ -2258,7 +2258,7 @@
 	$.timepicker.log = function () {
 		// Older IE (9, maybe 10) throw error on accessing `window.console.log.apply`, so check first.
 		if (window.console && window.console.log && window.console.log.apply) {
-			window.console.log.apply(window.console, Array.prototype.slice.call(arguments));
+			//window.console.log.apply(window.console, Array.prototype.slice.call(arguments));
 		}
 	};
 

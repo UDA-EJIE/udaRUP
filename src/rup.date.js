@@ -424,6 +424,7 @@
                                 maxPicks: settings.multiSelect
                             }
                         };
+                        settings.maxPicks = settings.multiSelect;
                         maxlength = (10 * settings.multiSelect) + (settings.multiSelect - 1);
                     } else if (typeof settings.multiSelect === 'object') {
                         settings.mode = {
