@@ -3174,7 +3174,7 @@
                     ctx.oInit.formEdit.okCallBack = true;
                 }
                 _reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
-                if (ctx.oInit.formEdit !== undefined) {
+                if (ctx.oInit.formEdit !== undefined && !ctx.oInit.formEdit.detailForm.hasClass('d-none')) {//si esta oculto, no hace falta
                     ctx.oInit.formEdit.detailForm.rup_dialog('close');
                 }
             },
