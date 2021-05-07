@@ -1102,7 +1102,12 @@
                         fieldName = label.html();
                     } else {
                         if ($(field).attr('ruptype') !== 'combo') {
+                        	//Mirar si es masterDetail
                             fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).prev('div').find('label').first().html();
+                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
+                            	let md = settings.masterDetail;
+                            	fieldName = (md.masterPrimaryLabel !== undefined) ? md.masterPrimaryLabel : md.masterPrimaryKey;
+                            }
                         } else {
                             // Buscamos el label asociado al combo
                             // Primero por id
@@ -1132,7 +1137,14 @@
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
 	                            fieldValue += label.html();
 	                        } else {
-	                            fieldValue += $(field).val();
+	                        	//Mirar si es masterDetail
+	                            
+	                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
+	                            	let md = settings.masterDetail;
+	                            	fieldValue += (md.masterPrimaryNid) ? field.data('nid') : $(field).val();
+	                            }else{
+	                            	fieldValue += $(field).val();
+	                            }
 	                        }
 	                        break;
 	                        //Rup-tree

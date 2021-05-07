@@ -13,6 +13,10 @@ El uso del plugin en el componente, se realiza incluyendo en el array de la prop
 ```js
 $("#idComponenteMaestro").rup_table({
   //Propiedades
+  master: '#example', //-> Identificador con el nombre de la tabla padre. 
+  masterPrimaryKey: 'example.id', //-> Campo clave de la tabla padre
+  masterPrimaryNid: true, //-> Si tienes activado hdiv, tienes la posiblidad de mostrar en nid(masterPrimaryNid = true) o el id
+  masterPrimaryLabel: 'example_label' //-> Propiedad para renombrar el campo clave del padre en la leyenda de los filros.
 });
 
 $("#idComponenteDetalle").rup_table({
