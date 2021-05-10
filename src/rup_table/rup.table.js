@@ -166,6 +166,14 @@
         	let dt = $('#' + this[0].id).DataTable();
             let ctx = dt.context[0];
             return ctx.multiselection.selectedRowsPerPage;
+        },
+        //$("#idTable").rup_table("clear");
+        clear: function () {
+        	$('#' + this[0].id + ' tbody').empty();
+        },
+        //$("#idTable").rup_table("reload");
+        reload: function () {
+        	$('#' + this[0].id).DataTable().ajax.reload();
         }
     });
 
