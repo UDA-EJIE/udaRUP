@@ -1504,7 +1504,7 @@ function _loadAuxForm(ctx, actionType) {
 	
 	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
 	if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
-		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType.
+		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType y el identificador de la tabla.
 		let defaultData = {
 				'actionType': actionType,
 				'tableID': ctx.sTableId
