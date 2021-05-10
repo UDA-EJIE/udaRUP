@@ -1056,7 +1056,7 @@
 			
 			// Si se ha especificado un valor booleano en el parámetro recibido es porque se trata de una petición GET
 			if (hasMoreParams !== undefined && hasMoreParams !== null && typeof hasMoreParams === "boolean") {
-				prefix = hasMoreParams ? '&' : '?' + '_HDIV_STATE_=';
+				prefix = (hasMoreParams ? '&' : '?') + '_HDIV_STATE_=';
 			}
 		    
 		    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
