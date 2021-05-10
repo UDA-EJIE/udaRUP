@@ -216,7 +216,7 @@
             //Se cargan los metodos en la API, Se referencia al Register
             var apiRegister = DataTable.Api.register;
 
-            DataTable.Api.register('rupTable.selectPencil()', function (ctx, idRow) {
+            apiRegister('rupTable.selectPencil()', function (ctx, idRow) {
                 //Se elimina el lapicero indicador.
                 $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
                 //se añade el span con el lapicero
