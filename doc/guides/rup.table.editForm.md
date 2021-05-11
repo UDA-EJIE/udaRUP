@@ -206,10 +206,10 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deb
 </c:forEach>
 ```		
 Destacan cuatro elementos:
-1. PATH: es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
-2. DATA-LISTA: nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
-3. DATA-CLAVE: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
-4. DATA-VALOR: recoge el valor del identificador, la clave primaria.
+1. **PATH**: es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+2. **DATA-LISTA**: nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
+3. **DATA-CLAVE**: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
+4. **DATA-VALOR**: recoge el valor del identificador, la clave primaria.
 
 # 2. Aspectos a tener en cuenta
 Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
