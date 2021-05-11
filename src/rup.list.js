@@ -2243,6 +2243,32 @@ import Printd from 'printd';
                 self._disableNavItem($pagenavF_next);
             }
         },
+        /**
+         * Método interno que se encarga de reordenar del servidor
+         *
+         * @name _reorderDataFromServer
+         * @private
+         * @function
+         */
+        _reorderDataFromServer: function (self, opciones, xhr) {
+        	let reorderSelection = xhr.reorderedSelection;
+            if(reorderSelection !== null && reorderSelection.length > 0 && xhr.records != reorderSelection.length){
+            	 //Se mira la nueva reordenacion y se ordena.
+            	opciones.multiselection.selectedIds = [];
+            	opciones.multiselection.selectedRowsPerPage = []; //Viene del servidor por eso la linea de la pagina es 1 menos.
+
+                $.each(reorderSelection, function (index, p) {
+                  var arra = {
+                    id: p.pk[opciones.key],
+                    page: p.page,
+                    line: p.pageLine - 1
+                  };
+                  opciones.multiselection.selectedIds.splice(index, 0, arra.id);
+                  opciones.multiselection.selectedRowsPerPage.splice(index, 0, arra);
+                });
+                $('#' + self.element[0].id).triggerHandler('listAfterReorderData',opciones);
+            }
+        },
 
         /**
          * Método interno que se encarga del bloqueo del componente
@@ -2427,6 +2453,7 @@ import Printd from 'printd';
                             self._unlock();
                         } else {
                             if (xhr.rows && xhr.rows.length > 0) {
+                            	self._reorderDataFromServer(self, opciones, xhr);
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
@@ -2454,7 +2481,8 @@ import Printd from 'printd';
                                     }
                                     if (xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
-                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
+                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)
+                                        		|| (xhr.records == xhr.reorderedSelection.length)) {
                                             $item.addClass('rup_list-item-selected');
                                             $item.attr('aria-selected', 'true');
                                         }
