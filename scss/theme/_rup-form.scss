@@ -90,10 +90,6 @@ legend{
   padding: 0 0.4rem;
 }
 
-.form-group-sm .form-control, .form-group-sm select.form-control{
-  height: 25px;
-}
-
 select{
   @extend %select-style;
 }

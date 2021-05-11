@@ -21,21 +21,6 @@
   text-shadow: none;
 }
 
-.form-control{
-  height: 2rem;
-  font-size: $rup-font-size-base;
-}
-
-select.form-control{
-  @extend %select-style;
-
-}
-
-select.form-control-sm{
-  @extend %select-style;
-  @extend .form-control-sm;
-}
-
 .input-lg {
   font-size: $rup-font-size-lg;
   height: 2.5rem;
@@ -55,29 +40,3 @@ select.form-control-sm{
 // .navbar-brand{
 //   font-size: $rup-font-size-xlg;
 // }
-
-.form-control{
-  font-size: $rup-font-size-base;
-}
-
-.form-group-sm{
-  font-size: $rup-font-size-sm;
-  .form-control{
-    @extend .form-group-sm;
-  }
-}
-
-.form-control-lg{
-  font-size: $rup-font-size-lg;
-}
-
-.form-control-sm{
-  font-size: $rup-font-size-sm;
-}
-
-.form-group-sm{
-  font-size: $rup-font-size-sm;
-}
-
-select.form-control:not([size]):not([multiple]) {
-  height: $rup-input-height; }
