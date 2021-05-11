@@ -279,27 +279,39 @@ El componente table se ha implementado siguiendo una arquitectura modular. De es
 * Simplificar la extensiÃ³n y sobreescritura de los mÃ©todos de determinados plugins.
 * Permitir la creaciÃ³n de nuevas funcionalidades e incluirlas en el componente de manera sencilla e inocua para el resto de funcionalidades existentes.
 
-Todas las tablas , tienen estas opciones:
-
-$("#idTable").rup_table("getSelectedIds")        -> Devuelve todos los ids seleccionados.
-$("#idTable").rup_table("getSelectedRows")       -> Devuelve todos los datos seleccionados, previamente cargados en el ajax.
-$("#idTable").rup_table("getSelectedRowPerPage") -> Devuelve todos los ids seleccionadas, en la lÃ­nea y pagina en la que estÃ¡n.
-
-Todos los plugins estÃ¡n montados sobre el contexto de la tabla para obtener dicho contexto :
-
-```
+Todas las tablas, disponen de las siguientes opciones:
+* Devuelve los identificadores de todos los elementos seleccionados:
+    ```javascript
+    $("#idTable").rup_table("getSelectedIds");
+    ```
+* Devuelve todos los datos seleccionados y que estén cargados (en la página actual):
+    ```javascript
+    $("#idTable").rup_table("getSelectedRows");
+    ```
+* Devuelve los identificadores de todos los elementos seleccionadas, además de la línea y página en la que están:
+    ```javascript
+    $("#idTable").rup_table("getSelectedRowPerPage");
+    ```
+* Obtener el contexto de la tabla:
+    ```javascript
+    $("#idTable").rup_table("getContext");
+    ```
+* Vacía las filas de la tabla:
+    ```javascript
+    $("#idTable").rup_table("clear");
+    ```
+* Recarga la tabla:
+    ```javascript
+    $("#idTable").rup_table("reload");
+    ```
+    
+Cabe decir que todos los plugins están montados sobre el contexto de la tabla, por ese motivo, dentro del contexto puedes acceder a todas sus propiedades y a todos sus plugins, por ejemplo:
+```javascript
 var ctx = $("#idTable").rup_table("getContext");
-```
-
-
-Dentro del contexto puedes acceder a todas sus propiedades ya todos sus plugins, ejemplo:
-
-```
-ctx.seeker
+ctx.seeker;
 ```
 
 Los detalles de cada uno de los plugins se pueden consultar en los documentos correspondientes:
-
 * Core
 * MenÃº contextual
 * Feedback
@@ -318,12 +330,11 @@ Los detalles de cada uno de los plugins se pueden consultar en los documentos co
 * Multifilter
 
 Propiedades de la tabla:
-
-* multiplePkToken -> Es el token que se va usar cuando el id sea mÃºltiple.
-* primaryKey      -> El identificador principal de la tabla.
-* blockPKeditForm -> Si deseas que el pk se bloquee en modo ediciÃ³n (true o false).
-* searchPaginator -> Si deseas tener paginador con nÃºmero o no (true o false).
-* defaultOrder    -> Especifica que la tabla tome la primera columna, por defecto, como criterio de ordenaciÃ³n (Default: true).      
+* **multiplePkToken**: token a usar cuando el identificador sea compuesto.
+* **primaryKey**: identificador principal de la tabla.
+* **blockPKeditForm**: si deseas que el campo que contiene la clave primaria esté bloqueado en modo edición (`true` o `false`).
+* **searchPaginator**: si deseas tener paginador con número o no (`true` o `false`).
+* **defaultOrder**: especifica que la tabla tome la primera columna como criterio de ordenación por defecto (valor por defecto: `true`).      
 
 Para obtener las propiedades del plugin subyacente consultar en https://datatables.net/reference/api/
 
