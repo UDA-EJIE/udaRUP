@@ -1248,8 +1248,10 @@
                         }
 
                     }
-                    DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], null);
-                    ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+                      
+                    $.when(DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], null)).then(function () {
+                    	ctx.oInit.formEdit.$navigationBar.funcionParams = {};;
+                      });
                 }
 
             });
