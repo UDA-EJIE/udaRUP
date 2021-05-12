@@ -321,12 +321,6 @@
 
         $navLayer.hide();
 
-        function doSearchButtonNavigation($button, buttonId) {
-            if (!$button.prop('disabled')) {
-                $self.rup_jqtable('navigateToMatchedRow', buttonId);
-            }
-        }
-
         // Elemento primero
         $firstNavButton.on('click', function () {
             ctx.seeker.search.pos = 0;

@@ -11,7 +11,6 @@ var express = require('express'),
     routesTree = require('./demo/routes/tree'),
     routesCombo = require('./demo/routes/combo'),
     routesTable = require('./demo/routes/table'),
-    routesJqtable = require('./demo/routes/jqtable'),
     routesUpload = require('./demo/routes/upload'),
     dashboardTable = require('./demo/routes/dashboard'),
     routesAudit = require('./demo/routes/audit'),
@@ -76,21 +75,9 @@ module.exports = (PORT) => {
     app.get('/demo/nora/autonomia', routesNora.autonomia);
     app.get('/demo/nora/provincia', routesNora.provincia);
     app.post('/demo/nora', routesNora.submit);
-    // Jqtable
-    app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
-    app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
-    app.put('/demo/jqGridUsuario', routesJqtable.put);
-    app.post('/demo/jqGridUsuario', routesJqtable.post);
-    app.post('/demo/jqGridUsuario/search', routesJqtable.search);
 
     // Upload
     app.post('/upload', routesUpload.upload);
-
-    app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
-    app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
-    app.put('/demo/jqGridUsuario', routesJqtable.put);
-    app.post('/demo/jqGridUsuario', routesJqtable.post);
-
 
     // Dashboard
     app.get('/dashboard/getAll', dashboardTable.getAll);

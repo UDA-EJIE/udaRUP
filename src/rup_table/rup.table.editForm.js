@@ -1238,9 +1238,8 @@
 
             // Actualizar la última posición movida
             ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
-            // Se añade el parámetro 7 mientras estén en convivencia el rup.jqtable(entrar) y rup.table
-            return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1, ''];
-
+            
+            return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
         };
 
         ctx.oInit.formEdit.$navigationBar.data('settings', settings);
@@ -1340,9 +1339,8 @@
             }
             //Se actualiza la ultima posicion movida.
             //ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
-            // Se añade el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
-            return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1, ''];
-
+            
+            return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
         };
 
 
