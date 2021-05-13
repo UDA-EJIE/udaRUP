@@ -83,11 +83,13 @@ $ npm run test
 El resultado de los test se muestra en la consola.
 
 
-## Migración desde aplicaciones UDA v2.x
+## Migración desde aplicaciones UDA v2.x o UDA v3.x
 
-En el caso de que se desee actualizar una aplicación desarrollada con una versión v2.x de UDA a la versión actual v3.x, se deberán de acometer las modificaciones indicadas en los documentos de migración.
+En el caso de que se desee actualizar una aplicación desarrollada con una versión v2.x de UDA a la versión v3.x, se deberán de acometer las modificaciones indicadas en el siguiente documento de migración:
+* [Migración a UDA v3.x](./blob/master/doc/MIGRACION_2-3.md): Detalla los pasos a seguir para actualizar una apliación a la versión v3.x de UDA.
 
-* [Migración](https://github.com/UDA-EJIE/udaRUP/blob/develop/doc/MIGRACION.md): Detalla los pasos a seguir para actualizar una apliación a la versión v3.x de UDA.
+Cuando se trate de migrar de una versión v3.x de UDA a una v4.x el documento de migración a seguir será el siguiente:
+* [Migración a UDA v4.x](./blob/master/doc/MIGRACION_3-4.md): Detalla los pasos a seguir para actualizar una apliación a la versión v4.x de UDA.
 
 > En el documento de migración solo se detallan los pasos a seguir para mantener la compatibilidad de la aplicación a nivel de API publica y funcionalidades de los componentes RUP y uso de liberías Java empleadas por UDA.
 
