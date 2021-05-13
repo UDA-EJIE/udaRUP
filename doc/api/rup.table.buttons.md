@@ -51,6 +51,7 @@ Genera los botones del table
     * [~_reportsRequestFile(ctx, ajaxOptions)](#module_rup.table.buttons.._reportsRequestFile) ⇒ <code>object</code>
     * [~_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsOpenMessage)
     * [~_reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsToClipboard)
+    * [~_deleteAllSelects(dt)](#module_rup.table.buttons.._deleteAllSelects)
     * [~_initButtons(ctx, opts)](#module_rup.table.buttons.._initButtons)
 
 <a name="module_rup.table.buttons..Buttons"></a>
@@ -599,6 +600,18 @@ Copia los datos recibidos al portapapeles
 | exportDataRows | <code>int</code> | Numero de filas a ser exportadas |
 | hiddenDiv | <code>object</code> | Elemento del DOM |
 | textarea | <code>object</code> | Elemento del DOM |
+
+<a name="module_rup.table.buttons.._deleteAllSelects"></a>
+
+### rup.table.buttons~\_deleteAllSelects(dt)
+Metodo que elimina todos los registros seleccionados.
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Since**: UDA 4.2.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | Es el objeto table. |
 
 <a name="module_rup.table.buttons.._initButtons"></a>
 

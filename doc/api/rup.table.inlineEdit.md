@@ -28,7 +28,8 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_lastIndexEditable(ctx, $target)](#module_rup.table.inlineEdit.._lastIndexEditable) ⇒
     * [~_inlineEditFormSerialize($fila, ctx, child)](#module_rup.table.inlineEdit.._inlineEditFormSerialize)
     * [~_guardar(ctx, $fila, $child)](#module_rup.table.inlineEdit.._guardar)
-    * [~_callSaveAjax(actionType, ctx, $fila, $row, url)](#module_rup.table.inlineEdit.._callSaveAjax)
+    * [~_callSaveAjax(actionType, ctx, $fila, $row, url, isDeleting)](#module_rup.table.inlineEdit.._callSaveAjax)
+    * [~loadAuxForm(ctx, actionType)](#module_rup.table.inlineEdit..loadAuxForm) ⇒ <code>object</code>
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.inlineEdit..callFeedbackOk)
     * [~_inResponsiveChangeInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._inResponsiveChangeInputsValues)
     * [~_asignarInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._asignarInputsValues)
@@ -137,7 +138,7 @@ Método que clona el elemento seleccionado.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dt | <code>object</code> | Es el objeto table. |
+| dt | <code>object</code> | Objeto table. |
 | ctx | <code>object</code> | Contexto del Datatable. |
 | line | <code>integer</code> | Número de la fila. |
 
@@ -296,7 +297,7 @@ Método para llamar al ajax de guardado y nuevo.
 
 <a name="module_rup.table.inlineEdit.._callSaveAjax"></a>
 
-### rup.table.inlineEdit~\_callSaveAjax(actionType, ctx, $fila, $row, url)
+### rup.table.inlineEdit~\_callSaveAjax(actionType, ctx, $fila, $row, url, isDeleting)
 Llamada al servidor con los datos de edición.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
@@ -309,6 +310,20 @@ Llamada al servidor con los datos de edición.
 | $fila | <code>object</code> | Fila que se está editando. |
 | $row | <code>object</code> | Son los datos que se cargan. |
 | url | <code>string</code> | Url que se añade para llamar  al controller. Añadir, editar o borrar. |
+| isDeleting | <code>boolean</code> | Evita mostrar el diálogo de confirmación porque la función _deleteAllSelects() tiene el suyo propio. |
+
+<a name="module_rup.table.inlineEdit..loadAuxForm"></a>
+
+### rup.table.inlineEdit~loadAuxForm(ctx, actionType) ⇒ <code>object</code>
+Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 5.0.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
 
 <a name="module_rup.table.inlineEdit..callFeedbackOk"></a>
 

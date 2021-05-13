@@ -9,12 +9,6 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o de var
 ```js
 $("#idAutocomplete").rup_autocomplete({	source : "autocomplete/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"}});
 ```
-### rup_autocomplete~Properties
-
-* [rup_autocomplete](#module_rup_autocomplete)
-    * [~source] ⇒ <code>Fuente donde obtener los datos.</code> 
-    * [~sourceParam()] ⇒ <code>Serialización de los parámetros.</code> 
-    * [~disabledCache] ⇒ <code>Por defecto es false, al estar el true, desactiva el cacheo cuando se busca por el mismo parámetro.</code> 
 
 * [rup_autocomplete](#module_rup_autocomplete)
     * [~defaults](#module_rup_autocomplete..defaults)

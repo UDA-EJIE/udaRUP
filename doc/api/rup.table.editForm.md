@@ -9,13 +9,15 @@ Módulo que habilita la edicción mediante un formulario.
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table.editForm](#module_rup.table.editForm)
-    * [~init(dt)](#module_rup.table.editForm..init)
+    * [~preConfigure(dt)](#module_rup.table.editForm..preConfigure)
     * [~init(ctx)](#module_rup.table.editForm..init)
+    * [~init(ctx)](#module_rup.table.editForm..init)
+    * [~addValidation(ctx)](#module_rup.table.editForm..addValidation)
+    * [~loadSaveDialogForm(ctx, actionType, row)](#module_rup.table.editForm..loadSaveDialogForm) ⇒ <code>object</code>
     * [~openSaveDialog(actionType, dt, idRow, customTitle)](#module_rup.table.editForm..openSaveDialog)
-    * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url)](#module_rup.table.editForm.._callSaveAjax)
+    * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url, isDeleting)](#module_rup.table.editForm.._callSaveAjax)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
-    * [~returnCheckEmpty(idForm, row)](#module_rup.table.editForm..returnCheckEmpty)
-    * [~returnCheckEmpty(idForm, values)](#module_rup.table.editForm..returnCheckEmpty)
+    * [~addListType(idForm, row)](#module_rup.table.editForm..addListType)
     * [~updateDetailPagination(ctx, currentRowNum, totalRowNum)](#module_rup.table.editForm..updateDetailPagination)
     * [~callNavigatorBar(dt)](#module_rup.table.editForm..callNavigatorBar)
     * [~callNavigatorSelectBar(dt)](#module_rup.table.editForm..callNavigatorSelectBar)
@@ -30,17 +32,29 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_blockPKeditForm(ctx, actionType)](#module_rup.table.editForm.._blockPKeditForm)
     * [~_addChildIcons(ctx)](#module_rup.table.editForm.._addChildIcons)
 
+<a name="module_rup.table.editForm..preConfigure"></a>
+
+### rup.table.editForm~preConfigure(dt)
+Configura el componente editForm para su inicialización
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 5.0.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dt | <code>object</code> | Es el objeto table. |
+
 <a name="module_rup.table.editForm..init"></a>
 
-### rup.table.editForm~init(dt)
-Se inicializa el componente editForm
+### rup.table.editForm~init(ctx)
+Inicializa el componente editForm
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dt | <code>object</code> | Es el objeto table. |
+| ctx | <code>object</code> | Contexto del Datatable. |
 
 <a name="module_rup.table.editForm..init"></a>
 
@@ -54,10 +68,36 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 | --- | --- | --- |
 | ctx | <code>DataTable.settings</code> | Settings object to operate on |
 
+<a name="module_rup.table.editForm..addValidation"></a>
+
+### rup.table.editForm~addValidation(ctx)
+Función que añade las validaciones a un formulario.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 5.0.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+
+<a name="module_rup.table.editForm..loadSaveDialogForm"></a>
+
+### rup.table.editForm~loadSaveDialogForm(ctx, actionType, row) ⇒ <code>object</code>
+Función que gestiona la carga del diálogo de añadir o editar.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 5.0.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto del Datatable. |
+| actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
+| row | <code>object</code> | Datos del formulario para cargar lo. |
+
 <a name="module_rup.table.editForm..openSaveDialog"></a>
 
 ### rup.table.editForm~openSaveDialog(actionType, dt, idRow, customTitle)
-Función que lleva todo el comportamiento para abrir el dialog y editar un registro.
+Función que gestiona el comportamiento de abrir el dialog para añadir o editar un registro.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -71,7 +111,7 @@ Función que lleva todo el comportamiento para abrir el dialog y editar un regis
 
 <a name="module_rup.table.editForm.._callSaveAjax"></a>
 
-### rup.table.editForm~\_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url)
+### rup.table.editForm~\_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url, isDeleting)
 Llamada al servidor con los datos de edición.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
@@ -86,6 +126,7 @@ Llamada al servidor con los datos de edición.
 | continuar | <code>boolean</code> | Si es true guarda la pagina y se queda en el dialog , si es false guarda y cierra el dialog. |
 | idTableDetail | <code>string</code> | Identificdor del detail de la table. |
 | url | <code>string</code> | Url que se añade para llamar  al controller. |
+| isDeleting | <code>boolean</code> | Evita mostrar el diálogo de confirmación porque la función _deleteAllSelects() tiene el suyo propio. |
 
 <a name="module_rup.table.editForm..callFeedbackOk"></a>
 
@@ -102,31 +143,18 @@ Llamada para crear el feedback dentro del dialog.
 | msgFeedBack | <code>string</code> | Mensaje para el feedback. |
 | type | <code>string</code> | Tipos del feedback, mirar en el rup.feedback.. |
 
-<a name="module_rup.table.editForm..returnCheckEmpty"></a>
+<a name="module_rup.table.editForm..addListType"></a>
 
-### rup.table.editForm~returnCheckEmpty(idForm, row)
-Se verifican los check vacios dentro de un formulario.
+### rup.table.editForm~addListType(idForm, row)
+Se añade el tipo de la lista.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 4.2.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | idForm | <code>object</code> | Identificador del formulario. |
 | row | <code>string</code> | Values ya añadidos al formulario. |
-
-<a name="module_rup.table.editForm..returnCheckEmpty"></a>
-
-### rup.table.editForm~returnCheckEmpty(idForm, values)
-Se verifican los check vacios dentro de un formulario.
-
-**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| idForm | <code>object</code> | Identificador del formulario. |
-| values | <code>string</code> | Values ya añadidos al formulario. |
 
 <a name="module_rup.table.editForm..updateDetailPagination"></a>
 
@@ -169,7 +197,7 @@ Constructor de la barra de navegación.
 <a name="module_rup.table.editForm..getRowSelected"></a>
 
 ### rup.table.editForm~getRowSelected(dt, actionType) ⇒ <code>object</code>
-Metodo que obtiene la fila siguiente seleccionada.
+Método que obtiene la fila siguiente seleccionada.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>object</code> - que contiene  el identificador, la pagina y la linea de la fila seleccionada  
@@ -186,7 +214,7 @@ Metodo que obtiene la fila siguiente seleccionada.
 Metodo que obtiene la página siguiente donde esta el primer elemento o elemento seleccionado.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Returns**: integer - devuele la página  
+**Returns**: integer - devuelve la página  
 **Since**: UDA 3.4.0 // Table 1.0.0  
 
 | Param | Type | Description |
@@ -252,7 +280,7 @@ Metodo que elimina todos los registros seleccionados.
 <a name="module_rup.table.editForm.._editFormSerialize"></a>
 
 ### rup.table.editForm~\_editFormSerialize(idForm) ⇒ <code>string</code>
-Metodo que serializa los datos del formulario.
+Método que serializa los datos del formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  

@@ -10,6 +10,7 @@ Genera un table
 
 * [rup.table](#module_rup.table)
     * [~_initOptions(options)](#module_rup.table.._initOptions)
+    * [~comparePKs(firstRow, secondRow)](#module_rup.table..comparePKs) ⇒ <code>boolean</code>
     * [~blockPKEdit(ctx, actionType)](#module_rup.table..blockPKEdit)
     * [~_getDescendantProperty(obj, key)](#module_rup.table.._getDescendantProperty)
     * [~_getColumns(options)](#module_rup.table.._getColumns)
@@ -35,6 +36,19 @@ Inicializa ciertas opciones del componente
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>object</code> | Opciones del componente |
+
+<a name="module_rup.table..comparePKs"></a>
+
+### rup.table~comparePKs(firstRow, secondRow) ⇒ <code>boolean</code>
+Comprueba si dos claves primarias son iguales.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 5.0.0 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| firstRow | <code>object</code> | Fila de la tabla a comparar. |
+| secondRow | <code>object</code> | Fila de la tabla a comparar. |
 
 <a name="module_rup.table..blockPKEdit"></a>
 

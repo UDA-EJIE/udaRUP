@@ -10,8 +10,6 @@ Módulo que permite toda multiFilter
 
 * [rup.table.multiFilter](#module_rup.table.multiFilter)
     * [~init(dt)](#module_rup.table.multiFilter..init)
-    * [~preConfigureMultifilter(settings)](#module_rup.table.multiFilter..preConfigureMultifilter)
-    * [~postConfigureMultifilter(settings)](#module_rup.table.multiFilter..postConfigureMultifilter)
     * [~deleteFilter(filter)](#module_rup.table.multiFilter..deleteFilter)
     * [~addFilter(filter)](#module_rup.table.multiFilter..addFilter)
     * [~getMultifilterDialogTemplate(settings)](#module_rup.table.multiFilter..getMultifilterDialogTemplate) ⇒ <code>object</code>
@@ -29,29 +27,6 @@ Se inicializa el componente multiFilter
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto table. |
-
-<a name="module_rup.table.multiFilter..preConfigureMultifilter"></a>
-
-### rup.table.multiFilter~preConfigureMultifilter(settings)
-Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
-
-**Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
-
-<a name="module_rup.table.multiFilter..postConfigureMultifilter"></a>
-
-### rup.table.multiFilter~postConfigureMultifilter(settings)
-Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la inicialización del plugin.
-
-**Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_multifilter\_fillForm</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| settings | <code>object</code> | Parámetros de configuración del componente. |
 
 <a name="module_rup.table.multiFilter..deleteFilter"></a>
 
@@ -74,7 +49,7 @@ deleteFilter, filter
 Función que añade un filtro al multifiltro
 
 **Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
-**Emits**: <code>module:rup\_jqtable#event:rupTable\_multifilter\_beforeAdd</code>  
+**Emits**: <code>module:rup\_table#event:rupTable\_multifilter\_beforeAdd</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -82,7 +57,7 @@ Función que añade un filtro al multifiltro
 
 **Example**  
 ```js
-$("#idComponente").rup_jqtable("addFilter", filter);
+$("#idComponente").rup_table("addFilter", filter);
 ```
 <a name="module_rup.table.multiFilter..getMultifilterDialogTemplate"></a>
 
@@ -98,7 +73,7 @@ Devuelve la template html empleada para renderizar los controles del formulario 
 
 **Example**  
 ```js
-$("#idComponente").rup_jqtable("getMultifilterDialogTemplate", settings);
+$("#idComponente").rup_table("getMultifilterDialogTemplate", settings);
 ```
 <a name="module_rup.table.multiFilter..configureMultifilter"></a>
 
@@ -113,7 +88,7 @@ Realiza la configuración interna del plugin multifilter a partir de las propied
 
 **Example**  
 ```js
-$("#idComponente").rup_jqtable("configureMultifilter", settings);
+$("#idComponente").rup_table("configureMultifilter", settings);
 ```
 <a name="module_rup.table.multiFilter.._clearFilter"></a>
 
