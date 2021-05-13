@@ -228,8 +228,10 @@
 
             apiRegister('rupTable.reorderDataFromServer()', function (json, ctx) {
                 //Se mira la nueva reordenacion y se ordena.
-                ctx.multiselection.selectedIds = [];
-                ctx.multiselection.selectedRowsPerPage = [];
+            	if(ctx.multiselection !== undefined){
+            		ctx.multiselection.selectedIds = [];
+            		ctx.multiselection.selectedRowsPerPage = [];
+            	}
 
                 //Viene del servidor por eso la linea de la pagina es 1 menos.
                 $.each(json.reorderedSelection, function (index, p) {
@@ -241,7 +243,7 @@
                     ctx.multiselection.selectedIds.splice(index, 0, arra.id);
                     ctx.multiselection.selectedRowsPerPage.splice(index, 0, arra);
                 });
-                if (!ctx.multiselection.selectedAll) {
+                if (ctx.multiselection !== undefined && !ctx.multiselection.selectedAll) {
                     ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
                 }
 

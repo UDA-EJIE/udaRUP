@@ -147,10 +147,11 @@
                         second: tmpTime.getSeconds()
                     };
                     tmpDate.setHours(dateObj.hour + '', dateObj.minute + '', dateObj.second + '');
-                    formattedTime = $.timepicker._formatTime(dateObj, $(this).data('datepicker').settings.timeFormat);
+                    formattedTime =  $.datepicker.formatTime($(this).data('datepicker').settings.timeFormat,dateObj);
+                   
                 }
 
-                $(this).datepicker('setTime', tmpDate);
+                $(this).multiDatesPicker('toggleDate', [tmpDate]);
 
                 $(this).val(fechaArray[0] + ' ' + formattedTime);
 

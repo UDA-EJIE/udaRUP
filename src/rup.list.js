@@ -2076,7 +2076,7 @@ import Printd from 'printd';
             var self = this;
             var keys = [];
             $('#' + self.element[0].id).children().toArray().forEach((elem) => {
-                keys.push($(elem)[0].id);
+                keys.push(String($(elem)[0].id));
             });
             return keys;
         },
@@ -2092,7 +2092,7 @@ import Printd from 'printd';
             var self = this;
             var keys = [];
             $('#' + self.element[0].id).children().toArray().forEach((elem) => {
-                keys.push($(elem).data('pk'));
+                keys.push(String($(elem).data('pk')));
             });
             return keys;
         },

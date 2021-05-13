@@ -133,7 +133,7 @@ function testDate(lang) {
                     expect($altDate.hasClass('hasDatepicker')).toBeTruthy();
                 });
                 it(langStr(lang) + 'Debe crear un timepicker:', () => {
-                    expect($('#ui-timepicker-div-altDate').length).toBe(1);
+                    expect($('#ui-datepicker-div').length).toBe(1);
                 });
                 it(langStr(lang) + 'No debe tener los select para cambiar mes y año:', () => {
                     expect($('select', $('.ui-datepicker-title')).length).toBe(0);
