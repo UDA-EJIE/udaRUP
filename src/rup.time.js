@@ -66,7 +66,7 @@
             var timeformat, dateObj;
             timeformat = $(this).data('datepicker').settings.timeFormat;
             dateObj = $.datepicker.parseTime(timeformat, $(this).rup_time('getTime'));
-            return dateObj ? $.timepicker._formatTime(dateObj, 'hh:mm:ss') : '';
+            return dateObj ? $.datepicker.formatTime('hh:mm:ss',dateObj) : '';
         },
         /**
      * Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor.
@@ -84,7 +84,7 @@
             if(!tmpDate){// se añade la mascara de seg por sino se ha metido.
             	tmpDate = $.datepicker.parseTime('hh:mm:ss', param+":00");
             }
-            formattedTime = tmpDate ? $.timepicker._formatTime(tmpDate, timeformat) : '';
+            formattedTime = tmpDate ? $.datepicker.formatTime(timeformat,tmpDate) : '';
             $(this).val(formattedTime);
         },
         /**
