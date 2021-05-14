@@ -48,7 +48,7 @@ function generateHtml(idDatatable) {
         '</form>' +
         '</div>' +
         '</div>' +
-        '<div id="' + idDatatable + '_detail_div" class="rup-table-formEdit-detail">' +
+        '<div id="' + idDatatable + '_detail_div" class="rup-table-formEdit-detail d-none">' +
         '<div id ="' + idDatatable + '_detail_navigation"></div>' +
         '<div class="ui-dialog-content ui-widget-content" >' +
         '<form id="' + idDatatable + '_detail_form">' +

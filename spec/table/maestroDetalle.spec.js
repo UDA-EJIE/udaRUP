@@ -493,13 +493,16 @@ function testForm2Form(defer) {
                             $('#rup_feedback_example1').on('rupFeedback_show', () => {
                                 done();
                             });
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example1_detail_div"]')
+                                .find('#nombre_detail_table').val('Anabelle');
+	                            $('div[aria-describedby="example1_detail_div"]')
+	                                .find('#example1_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                             $('#example1 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example1editButton_1').click();
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#example1_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+  
                         });
                         it('Debe aparecer el feedback de #example1:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -526,13 +529,16 @@ function testForm2Form(defer) {
                             $('#rup_feedback_example2').on('rupFeedback_show', () => {
                                 done();
                             });
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example2_detail_div"]')
+                                .find('#nombre_detail_table').val('Anabelle');
+	                            $('div[aria-describedby="example2_detail_div"]')
+	                                .find('#example2_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                             $('#example2 > tbody > tr:eq(2) > td:eq(0)').click();
                             $('#example2editButton_1').click();
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#nombre_detail_table').val('Arlene');
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#example2_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+
                         });
                         it('Debe aparecer el feedback de #example2:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -558,10 +564,13 @@ function testForm2Form(defer) {
                         });
                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example1editButton_1').click();
-                        $('div[aria-describedby="example1_detail_div"]')
+                        $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example1_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example1_detail_button_save').click();
-                        $(buscarAceptar()).click();//boton confirmar cambios
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example1:', () => {
                         expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
@@ -579,10 +588,13 @@ function testForm2Form(defer) {
                         });
                         $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example2editButton_1').click();
-                        $('div[aria-describedby="example2_detail_div"]')
+                        $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example2_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example2_detail_button_save').click();
-                        $(buscarAceptar()).click();//boton confirmar cambios
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example2:', () => {
                         expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
@@ -619,9 +631,12 @@ function testForm2Form(defer) {
                         beforeEach((done) => {
                             $('#example1').on('tableEditFormErrorCallSaveAjax', done);
                             $('#example1 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example1_detail_div')).val('asd');
-                            $('#example1_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+                            
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example1_detail_div')).val('asd');
+                                $('#example1_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -663,9 +678,12 @@ function testForm2Form(defer) {
                         beforeEach((done) => {
                             $('#example2').on('tableEditFormErrorCallSaveAjax', done);
                             $('#example2 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example2_detail_div')).val('asd');
-                            $('#example2_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+                            
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example2_detail_div')).val('asd');
+                                $('#example2_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            })
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -1045,6 +1063,7 @@ function testForm2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1074,11 +1093,13 @@ function testForm2Inline(defer) {
                             });
                             $('#example1 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example1editButton_1').click();
-                            $('div[aria-describedby="example1_detail_div"]')
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example1_detail_div"]')
                                 .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#example1_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+	                            $('div[aria-describedby="example1_detail_div"]')
+	                                .find('#example1_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('Debe aparecer el feedback de #example1:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -1110,6 +1131,7 @@ function testForm2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -1139,10 +1161,13 @@ function testForm2Inline(defer) {
                         });
                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example1editButton_1').click();
-                        $('div[aria-describedby="example1_detail_div"]')
+                        $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example1_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example1_detail_button_save').click();
-                        $(buscarAceptar()).click();//boton confirmar cambios
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example1:', () => {
                         expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
@@ -1156,6 +1181,7 @@ function testForm2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done,100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1197,9 +1223,12 @@ function testForm2Inline(defer) {
                                 done();
                             });
                             $('#example1 > tbody > tr:eq(0) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example1_detail_div')).val('asd');
-                            $('#example1_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example1_detail_div')).val('asd');
+                                $('#example1_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
+                            
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -1244,6 +1273,7 @@ function testForm2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1603,6 +1633,7 @@ function testInline2Form(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1660,6 +1691,7 @@ function testInline2Form(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -1690,11 +1722,13 @@ function testInline2Form(defer) {
                             });
                             $('#example2 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example2editButton_1').click();
-                            $('div[aria-describedby="example2_detail_div"]')
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example2_detail_div"]')
                                 .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#example2_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+	                            $('div[aria-describedby="example2_detail_div"]')
+	                                .find('#example2_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('Debe aparecer el feedback de #example2:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -1722,6 +1756,7 @@ function testInline2Form(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1742,10 +1777,13 @@ function testInline2Form(defer) {
                         });
                         $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example2editButton_1').click();
-                        $('div[aria-describedby="example2_detail_div"]')
+                        $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example2_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example2_detail_button_save').click();
-                        $(buscarAceptar()).click();//boton confirmar cambios
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example2:', () => {
                         expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
@@ -1781,6 +1819,7 @@ function testInline2Form(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1828,9 +1867,12 @@ function testInline2Form(defer) {
                                 done();
                             });
                             $('#example2 > tbody > tr:eq(0) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example2_detail_div')).val('asd');
-                            $('#example2_detail_button_save').click();
-                            $(buscarAceptar()).click();//boton confirmar cambios
+                            
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example2_detail_div')).val('asd');
+                                $('#example2_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -2186,6 +2228,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2204,6 +2247,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2236,6 +2280,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2269,6 +2314,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2298,6 +2344,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2317,6 +2364,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2358,6 +2406,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2406,6 +2455,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();

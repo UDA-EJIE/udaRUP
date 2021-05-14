@@ -478,7 +478,7 @@
      */
     DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType, dt, idRow, customTitle) {
         var ctx = dt.settings()[0];
-        if (idRow < 0) {
+        if (idRow == null || idRow == undefined || idRow < 0) {
             idRow = 1;
         }
         let row;
@@ -1949,7 +1949,7 @@
 	                     * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
 	                     * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
 	                     */
-	                    $('div.rup-table-formEdit-detail').removeClass('d-none');
+	                    $('#'+ctx.sTableId+'_detail_div.rup-table-formEdit-detail').removeClass('d-none');
 	                }
 	            }, {}));
 	            if (ctx.oInit.formEdit.cancelDeleteFunction === undefined) {

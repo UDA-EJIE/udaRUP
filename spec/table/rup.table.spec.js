@@ -122,8 +122,8 @@ function testDatatable() {
 
                 describe('Funcionalidades de los items de contextMenu > ', () => {
                     describe('Item añadir > ', () => {
-                        beforeEach(() => {
-                        	$('#example').on('tableEditFormAfterLoad', () => {
+                        beforeEach((done) => {
+                        	$('#example').on('tableEditFormAddEditAfterShowForm', () => {
                                 done();
                             });
                             $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
@@ -153,9 +153,12 @@ function testDatatable() {
                     });
 
                     describe('Item clone > ', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
                             $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
+                        	$('#example').on('tableEditFormAddEditAfterShowForm', () => {
+                                done();
+                            });
                         });
 
                         it('Debe aparecer el formulario:', () => {
@@ -278,8 +281,11 @@ function testDatatable() {
                 });
 
                 describe('Añadido de nuevos elementos > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
                         $('.table_toolbar_btnAdd').click();
+                    	$('#example').on('tableEditFormAddEditAfterShowForm', () => {
+                            done();
+                        });
                     });
 
                     it('El formulario debe mostrarse:', () => {
@@ -296,7 +302,8 @@ function testDatatable() {
                                 setTimeout(done, 600);
                             });
                             $('#example_detail_button_save_repeat').click();
-                            buscarAceptar().click();
+                            $(buscarAceptar()).click();
+                            
                         });
 
                         afterEach((done) => {
@@ -369,7 +376,7 @@ function testDatatable() {
                         expect($('#id_example_seeker').is(':visible')).toBeTruthy();
                         expect($('#nombre_example_seeker').is(':visible')).toBeTruthy();
                         expect($('#apellidos_example_seeker').is(':visible')).toBeTruthy();
-                        expect($('#edad_example_sseeker').is(':visible')).toBeTruthy();
+                        expect($('#edad_example_seeker').is(':visible')).toBeTruthy();
                     });
                 });
 
@@ -716,9 +723,13 @@ function testDatatable() {
                     $('#example_detail_feedback').on('rupFeedback_show', done);
                     $('#example > tbody > tr:contains(Irene) > td:eq(0)').click();
                     $('#exampleeditButton_1').click();
-                    $('div[aria-describedby="example_detail_div"]')
+                    
+                    $('#example').on('tableEditFormAddEditAfterShowForm', () => {
+                    	$('div[aria-describedby="example_detail_div"]')
                         .find('#nombre_detail_table').val('');
-                    $('#example_detail_button_save').click();
+                    	$('#example_detail_button_save').click();
+                    	$(buscarAceptar()).click();//boton confirmar cambios
+                    });
                 });
 
                 afterEach((done) => {
@@ -753,8 +764,12 @@ function testDatatable() {
                             done();
                         });
                         $('#example > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-                        $('#edad_detail_table').val('asd');
-                        $('#example_detail_button_save').click();
+
+                        $('#example').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('#edad_detail_table').val('asd');
+                            $('#example_detail_button_save').click();
+                        	$(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
 
                     afterEach((done) => {
