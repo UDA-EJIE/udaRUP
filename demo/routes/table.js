@@ -387,6 +387,13 @@ exports.delete = (req, res) => {
     json4.records = 5 + json.rows.length;
     res.status(200).json(json4);
 };
+exports.add = (req, res) => {
+    json4.rows = json4.rows.filter((e) => {
+        return e.id != req.params.id;
+    });
+    json4.records = 5 + json.rows.length;
+    res.status(200).json(json4);
+};
 exports.deleteEnd = (req, res) => {
     json4 = json4Backup;
     res.status(200).json(json4);

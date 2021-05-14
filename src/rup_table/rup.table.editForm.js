@@ -667,9 +667,11 @@
 	            //listas checkbox
 	            row = _addListType(idForm,row);
 	            
-                $.each(ctx.oInit.primaryKey, function (index, key) {
-                	row[key] = ctx.json.rows[idRow][key];
-                });            
+	            if (actionType === 'PUT') {//Solo al modificar
+	                $.each(ctx.oInit.primaryKey, function (index, key) {
+	                	row[key] = ctx.json.rows[idRow][key];
+	                });   
+	            }
 	            
 	        	let idTableDetail = ctx.oInit.formEdit.detailForm;
 	            
@@ -721,9 +723,11 @@
 	            //listas checkbox
 	            row = _addListType(idForm,row);
 	            
-                $.each(ctx.oInit.primaryKey, function (index, key) {
-                	row[key] = ctx.json.rows[idRow][key];
-                });
+	            if (actionType === 'PUT') {//Solo al modificar
+	                $.each(ctx.oInit.primaryKey, function (index, key) {
+	                	row[key] = ctx.json.rows[idRow][key];
+	                });
+	            }
                 
 	            let idTableDetail = ctx.oInit.formEdit.detailForm;
 	            
