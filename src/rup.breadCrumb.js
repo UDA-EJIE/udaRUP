@@ -142,7 +142,7 @@
                 }
                 if (LOGGED_USER !== '') {
                 	//Se añade el boton de desconexion si este fuera necesario
-                    if (logouturl !== undefined) {
+                    if (logoutUrl !== undefined) {
 
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
