@@ -482,7 +482,7 @@
             idRow = 1;
         }
         let row;
-        if(ctx.json !== undefined){
+        if(ctx.json !== undefined && actionType !== 'POST'){//si acción es add, no hace falta coger el row.
         	row = ctx.json.rows[idRow];
         }
         
@@ -616,6 +616,10 @@
 	            // Comprobamos si se desea bloquear la edicion de las claves primarias
 	            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	        } else if (actionType === 'POST') {
+	        	//al ser add, s elimpian los combos
+	        	jQuery.each($('select.rup_combo', idForm), function (index, elem) {
+	                jQuery(elem).rup_combo('setRupValue','')
+	            });
 	            $.rup_utils.populateForm(rowArray, idForm);
 	            ctx.oInit.formEdit.$navigationBar.hide();
 	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
