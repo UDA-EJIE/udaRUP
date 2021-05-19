@@ -95,6 +95,74 @@ table.dataTable tbody {
 	}
 }
 
+/* ESTILIZA EL INPUT, LABEL Y SELECT DEL PAGINADOR DE LA TABLA */
+.paginationContainer {
+	.searchPaginator {
+		input {
+			padding: 1px;
+			border: 1px solid $grey-color-light;
+			border-radius: 5px;
+			box-sizing: border-box;
+			color: $grey-color;
+			background-image: none;
+			background-color: $white-color;
+			
+			&:hover {
+			  	border-color: $black-color;
+			}
+			
+			&:focus {
+				outline: none;
+			  	border-color: $primary-color;
+			  	caret-color: $primary-color;
+			  	border-width: 2px;
+			  	box-shadow: none;
+				padding: initial;
+			}
+		}
+	}
+	
+	.dataTables_length label {	
+		margin: initial;
+	
+		select {
+			padding: 0 20px 0 13px;
+			border: 1px solid $grey-color-light;
+			border-radius: 5px;
+			box-sizing: border-box;
+			color: $grey-color;
+			background-image: none;
+			background-color: $white-color;
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+			/* ICONO DROPDOWN */
+			background-image: linear-gradient(45deg, $no-color 50%, #555555 50%), linear-gradient(135deg, #555555 50%, $no-color 50%);
+			background-repeat: no-repeat;
+			background-position: calc(100% - 14.5px) calc(0.8em), calc(100% - 9.5px) calc(0.8em);
+			background-size: 5px 5px, 5px 5px;
+	
+			/* ELIMINA EL ICONO DE DROPDOWN NATIVO EN IE 10/11 */
+			&::-ms-expand {
+				display: none;
+			}
+	
+			&:hover {
+				border-color: $black-color;
+			}
+			
+			&:focus {
+				outline: none;
+				border-color: $primary-color;
+				caret-color: $primary-color;
+				border-width: 2px;
+				box-shadow: none;
+			}
+		}
+	}
+}
+
 form + div.paginationContainer {
 	border-bottom-left-radius: 7px;
 	border-bottom-right-radius: 7px;
