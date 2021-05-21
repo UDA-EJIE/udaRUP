@@ -232,11 +232,19 @@
             		ctx.multiselection.selectedIds = [];
             		ctx.multiselection.selectedRowsPerPage = [];
             	}
-
+            	
+            	let posibleLastselection = "";
                 //Viene del servidor por eso la linea de la pagina es 1 menos.
                 $.each(json.reorderedSelection, function (index, p) {
+                	let idEntity = DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit);
+                	if(ctx.oInit.formEdit !== undefined){                	
+	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
+	                    if (hdivStateParamValue !== '' && index == 0) {
+	                    	ctx.multiselection.lastSelectedId = idEntity;
+	                    }
+                	}
                     var arra = {
-                        id: DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit),
+                        id: idEntity,
                         page: p.page,
                         line: p.pageLine - 1
                     };
