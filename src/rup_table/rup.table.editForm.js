@@ -856,11 +856,15 @@
                         } else {
                         	// Asegura a cargar los nuevos IDS.
                             $.each(ctx.oInit.primaryKey, function (index, key) {
+                            	let posibleId = row[key];
                                 // Comprueba si la primaryKey es un subcampo
                                 if (key.indexOf('.') !== -1) {
                                     row[key] = DataTable.Api().rupTable.getDescendantProperty(valor, key);
                                 } else {
                                 	row[key] = valor[key];
+                                }
+                                if(row[key] === undefined){
+                                	row[key]  = posibleId;
                                 }
 
                             });

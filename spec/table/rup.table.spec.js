@@ -298,7 +298,7 @@ function testDatatable() {
                             $('#nombre_detail_table').val('Adriana');
                             $('#apellidos_detail_table').val('Moreno');
                             $('#edad_detail_table').val(11);
-                            $('#example').on('tableEditFormCompleteCallSaveAjax', () => {
+                            $('#example').on('tableEditFormAfterInsertRow', () => {
                                 setTimeout(done, 600);
                             });
                             $('#example_detail_button_save_repeat').click();
