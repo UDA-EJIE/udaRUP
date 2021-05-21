@@ -538,6 +538,9 @@ function _editInline ( dt,ctx, idRow ){
 			var rowsBody = $( ctx.nTBody);
 			$('tr',rowsBody).removeClass('selected tr-highlight');
 			DataTable.Api().select.selectRowIndex(dt,idRow,true);
+			if(ctx.multiselection.selectedIds == ""){//es nuevo
+				ctx.multiselection.selectedIds = [];
+			}
 		}
 	}
 	

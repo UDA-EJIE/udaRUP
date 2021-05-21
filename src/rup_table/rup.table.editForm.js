@@ -915,10 +915,22 @@
                             
                             $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
                         }
-
-                        dt.ajax.reload(function () {
-                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
-                        }, false);
+                        if(actionType === 'PUT'){
+	                        dt.ajax.reload(function () {
+	                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+	                        }, false);
+                        }else{
+                        	if (ctx.oInit.multiSelect === undefined) {
+                        		let arra = {
+                        	            id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
+                        	            page: Number(ctx.json.page),
+                        	            line: 0
+                        	          };
+                        		ctx.multiselection.selectedRowsPerPage[0] = arra;
+                        		DataTable.Api().select.drawSelectId(ctx);
+                        	}
+                        	$('#' + ctx.sTableId).trigger('tableAddFormSuccessCallSaveAjax',actionType,ctx);
+                        }
 
                     } else { // Eliminar
                         ctx.oInit.feedback.type = 'eliminar';
