@@ -278,7 +278,23 @@
                 	if (breadCrumbStruct.subLevel[i].url) {
                     	breadCrumbLinkURL = breadCrumbStruct.subLevel[i].url;
                 		
-                    	let menuLinkURL = $('nav.rup-navbar ul.nav a[href^="' + breadCrumbStruct.subLevel[i].url + '"]').attr('href');
+                    	let menuLinkURL = $('nav.rup-navbar ul.nav a[href^="' + breadCrumbStruct.subLevel[i].url + '"]');
+                    	
+                    	// Comprobar si más de un elemento contiene la URL buscada. Se busca al comienzo para evitar que no encuentre nada cuando las URLs contienen parámetros
+                    	if (menuLinkURL.length > 1) {
+                    		$.each(menuLinkURL, function (key, element) {
+                    			let elementURL = $(element).attr('href');
+                    			
+                    			// Comprobar la URL obtenida con la definida por el usuario. Cuando la URL obtenida contiene parámetros, se eliminan para poder hacer una correcta comparación
+                    			if ((elementURL.indexOf('?') != -1 ? elementURL.substring(0, elementURL.indexOf('?')) : elementURL) === breadCrumbLinkURL) {
+                    				menuLinkURL = elementURL;
+                        			return false;
+                    			}
+                    		});
+                    	} else {
+                    		menuLinkURL = menuLinkURL.attr('href');
+                    	}
+                    	
                 		if (menuLinkURL != undefined) {
                 			breadCrumbLinkURL = menuLinkURL;
                 		}
