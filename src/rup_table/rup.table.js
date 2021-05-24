@@ -1721,7 +1721,7 @@
             '<"row"' +
             '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
             '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0"l>' +
             '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
             '>' +
             '>' +

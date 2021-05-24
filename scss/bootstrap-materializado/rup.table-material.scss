@@ -126,7 +126,7 @@ table.dataTable tbody {
 		margin: initial;
 	
 		select {
-			padding: 0 20px 0 13px;
+			padding: 0 15px 0 5px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
 			box-sizing: border-box;
@@ -140,7 +140,7 @@ table.dataTable tbody {
 			/* ICONO DROPDOWN */
 			background-image: linear-gradient(45deg, $no-color 50%, #555555 50%), linear-gradient(135deg, #555555 50%, $no-color 50%);
 			background-repeat: no-repeat;
-			background-position: calc(100% - 14.5px) calc(0.8em), calc(100% - 9.5px) calc(0.8em);
+			background-position: calc(100% - 9.5px) calc(0.8em), calc(100% - 4.5px) calc(0.8em);
 			background-size: 5px 5px, 5px 5px;
 	
 			/* ELIMINA EL ICONO DE DROPDOWN NATIVO EN IE 10/11 */
@@ -160,6 +160,15 @@ table.dataTable tbody {
 				box-shadow: none;
 			}
 		}
+	}
+}
+	
+/* PARA TABLAS DOBLES */
+@media(min-width: 1200px) {
+	.col-xl-6 .paginationContainer .dataTables_length label select {
+		padding: 0 10px 0 0;
+		/* ICONO DROPDOWN */
+		background-position: calc(100% - 7.5px) calc(0.8em), calc(100% - 2.5px) calc(0.8em);
 	}
 }
 
