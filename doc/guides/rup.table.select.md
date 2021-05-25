@@ -1,4 +1,4 @@
-# RUP Table - Select
+# RUP Table - Selecci髇
 
 Permite realizar una selecci贸n simple de los registros que se muestran en la tabla.
 
@@ -9,7 +9,7 @@ Permite realizar una selecci贸n simple de los registros que se muestran en la ta
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor select. La configuraci贸n del plugin se especifica en la propiedad select.
 
 ```js
-$("#idComponente").rup_datatable({
+$("#idComponente").rup_table({
   select:{
     // Propiedades de configuraci贸n del plugin select
   }
@@ -18,16 +18,19 @@ $("#idComponente").rup_datatable({
 
 ## Funcionamiento interno
 
-Para su funcioanmiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante ```multiselection```. Comparte objeto con el plugin de multiselection.
+Para su funcioanmiento el plugin de multiseleccion del componente RUP Table hace uso de una estrcutura de datos almacenada mediante `multiselection`. Comparte objeto con el plugin de multiselection.
 
 Se puede acceder a esta estructura mediante la siguiente instrucci贸n.
 
 ```js
-var table = $('#example').DataTable();
-var multiselectionObj = table.context[0].multiselection;
+var ctx = $('#example').rup_table('getContext');
+var multiselectionObj = ctx.multiselection;
 ```
 Se puede acceder a los m茅todos de la api del Select
-``DataTable.Api().select.metodoEjemplo()`
+
+```js
+DataTable.Api().select.metodoEjemplo()
+```
 
 Adem谩s de las propiedades de configuraci贸n asociadas a la configuraci贸n del plugin de select se pueden observar las siguientes propiedades.
 

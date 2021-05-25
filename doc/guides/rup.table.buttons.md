@@ -2,89 +2,49 @@
 
 Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
 
-## 1. Declaraci√≥n
+## 1. DeclaraciÛn y configuraciÛn
 
-Declaramos la botonera dentro del m√©todo de inicializaci√≥n del *rup_table* en el fichero __rup.table.js__:
+El uso del plugin en el componente se realiza incluyendo en la configuraciÛn de inicializaciÛn la propiedad `buttons`.
 
-``` js
-  // Toolbar por defecto del table
-  new $.fn.dataTable.Buttons(
-  	tabla,
-  	DataTable.Buttons.defaults.buttons
-  ).container().insertBefore($('#table_filter_form'));
-```
-
-Una vez tenemos la botonera declarada le podemos a√±adir botones declar√°ndolos en el siguiente objeto ubicado dentro del fichero __table.buttons.js__ o mediante la creaci√≥n de uno personalizado:
-
-``` js
-Buttons.defaults = {
-	buttons: [ 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton' ],
-	name: 'main',
-	tabIndex: 0,
-	dom: {
-		container: {
-			tag: 'div',
-			className: 'dt-buttons'
-		},
-		collection: {
-			tag: 'div',
-			className: 'dt-button-collection'
-		},
-		button: {
-			tag: 'button',
-			className: 'btn-material btn-material-primary-high-emphasis',
-			active: 'active',
-			disabled: 'disabledButtonsTable'
-		},
-		buttonLiner: {
-			tag: 'span',
-			className: ''
-		}
+```js
+$("#idComponente").rup_table({
+	buttons: {
+    	activate: true,
+    	blackListButtons: ['deleteButton', 'reportsButton'],
+      	myButtons: [
+      		{
+	        	text: function () {
+	        		return $.rup.i18n.app.iberdokTable.ver;
+	        	},
+	        	id: 'iberdokTableVerDocumento', // Campo obligatorio si se quiere usar desde el contextMenu
+	        	className: 'btn-material-primary-high-emphasis table_toolbar_btnView',
+	        	icon: "mdi-file-find",
+	        	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+	        	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+	        	type: 'view',
+	        	init: function (dt, node, config) {
+					$('#' + idComponente).triggerHandler('tableButtonsExampleInit');
+			 	},
+	        	action: function () {
+	        		fnAbrirDocumento();
+	        	}
+	     	}
+  		]
 	}
-};
+});
 ```
-Propiedades del plugin de buttons:
 
-* myButtons -> Permite crear un array con los botones personalizados que el usuario quiera, por ejemplo:
+Propiedades del propio botÛn:
+* __id:__ campo obligatorio si se quiere usar desde el contextMenu.
+* __icon:__ campo para asignar alg˙n icono. Por ejemplo, `mdi-file-excel`.
+* __displayRegex:__ se muestra siempre que sea un n˙mero positivo o neutro, es el regex para mostrar el botÛn tirando contra la popiedad de multiselecciÛn.
+* __insideContextMenu:__ sirve para insertar el botÛn en el contextMenu. Independientemente de este valor, ser· `false` si no tiene un identificador definido.
+* __size:__ permite aumentar el tamaÒo o disminuirlo. El valor de la propiedad `lg` los hace m·s grandes y `sm` m·s pequeÒos. Por ejemplo:
 	``` js
-	var optionButtonEdit = {
-		text: function (dt) {
-			return 'Editar con MultiPart';
-		},
-		id: 'exampleeditMultiPart_1', // Campo obligatorio si se quiere usar desde el contextMenu
-		className: 'table_toolbar_btnEdit',
-		displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un n√∫mero mayor a 0, cualquier regex para la multiselecci√≥n
-		insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-		type: 'edit',
-		init: function (dt, node, config) {
-			//init del bot√≥n
-		},
-		action: function (e, dt, node, config) {
-			var ctx = dt.context[0];
-			dt.buttons.actions(dt, config);
-		}
-	};
-
-	var	buttons = {};
-	var plugins = {};
-	plugins.buttons = buttons;
-	plugins.buttons.myButtons = []; 
-	plugins.buttons.myButtons.push(optionButtonEdit);
-	
-	$('#example').rup_table(plugins);
-	```
-
-Propiedades del propio bot√≥n:
-* __id:__ Campo obligatorio si se quiere usar desde el contextMenu.
-* __icon:__ Campo para asignar alg√∫n icono. Por ejemplo, "mdi-file-excel".
-* __displayRegex:__ Se muestra siempre que sea un n√∫mero positivo o neutro, es el regex para mostrar el bot√≥n tirando contra la popiedad de multiselecci√≥n.
-* __insideContextMenu:__ Independientemente de este valor, sera 'false' si no tiene un id definido, sirve para meter el bot√≥n en el contextMenu.
-* __size:__ Permite aumentar el tamaÒo o disminuirlo. El valor de la propiedad ëlgí los hace m·s grandes y ësmí m·s pequeÒos. Por ejemplo:
-	```` js
 	plugins.buttons.size = 'lg'
-	````
-* __request:__ Define parametros de la petici√≥n, como por ejemplo:
-	```` js
+	```
+* __request:__ define par·metros de la peticiÛn, como por ejemplo:
+	``` js
 	request: {
 		url: '/xlsxReport',
 		method: 'POST',
@@ -94,30 +54,30 @@ Propiedades del propio bot√≥n:
 		fileName: 'x21aExcel',
 		sheetTitle: 'Usuario'
 	}
-	````
-* __custom:__ Todos los botones deben ir con est√° propiedad a true, a menos que se quiere usar el displayRegex con la propiedad de multiselecci√≥n.
-* __blackListButtons:__ Lista donde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: 'addButton', 'editButton', 'cloneButton', 'deleteButton', 'reportsButton', 'copyButton', 'excelButton', 'pdfButton', 'odsButton', 'csvButton'
-	Por ejemplo:
-	```` js
+	```
+* __custom:__ todos los botones deben ir con esta propiedad a `true`, a menos que se quiere usar la propiedad `displayRegex` con la propiedad de multiselecciÛn.
+* __blackListButtons:__ lista dÛnde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: `'addButton'`, `'editButton'`, `'cloneButton'`, `'deleteButton'`, `'reportsButton'`, `'copyButton'`, `'excelButton'`, `'pdfButton'`, `'odsButton'`, `'csvButton'`. Por ejemplo:
+	``` js
 	plugins.buttons.blackListButtons = ['csvButton'];
-	````
-* __report:__ Alberga el t√≠tulo y mensaje del popup de descarga, el listado de columnas que se desee exportar y par√°metros adicionales que llegar√°n al controller:
-	```` js
+	```
+* __report:__ alberga el tÌtulo y mensaje del popup de descarga, el listado de columnas que se desee exportar y par·metros adicionales que llegar·n al controller:
+	``` js
 	plugins.buttons.report = {
-		title: 'Exportaci√≥n (t√≠tulo personalizado)',
-		message: 'Su archivo est√° siendo generado... (mensaje personalizado)',
+		title: 'ExportaciÛn (tÌtulo personalizado)',
+		message: 'Su archivo est· siendo generado... (mensaje personalizado)',
 		columns: ["id", "nombre", "apellido1", "ejie", "fechaAlta"],
 		reportsParams: {
 			"isInline": false
 		}
 	};
-	````
+	```
 Ejemplo del controller:
-```` java
+``` java
 	@RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	protected @ResponseBody void generateExcelReport(
 			@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, 
 			@RequestJsonBody(param = "columns", required = false) String[] columns, 
+			@RequestJsonBody(param = "columnsName", required = false) String[] columnsName, 
 			@RequestJsonBody(param = "fileName", required = false) String fileName, 
 			@RequestJsonBody(param = "sheetTitle", required = false) String sheetTitle,
 			@RequestJsonBody(param = "reportsParams", required = false) ArrayList<?> reportsParams,
@@ -127,13 +87,13 @@ Ejemplo del controller:
 		TableUsuarioController.logger.info("[POST - generateExcelReport] : Devuelve un fichero excel");
 		// Idioma
         Locale locale = LocaleContextHolder.getLocale();
-		this.tableUsuarioService.generateReport(filterUsuario, columns, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
+		this.tableUsuarioService.generateReport(filterUsuario, columns, columnsName, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
     }
-````
+```
 
 ## 2. API
 
-Es posible que en alg√∫n momento sea necesario eliminar registros de manera program√°tica. Para ello se puede hacer de la siguiente manera:
+Es posible que en alg˙n momento sea necesario eliminar registros de manera program·tica. Para ello, es posible realizarlo de la siguiente manera:
 ```js
 var dt = $('#example').DataTable();
 
