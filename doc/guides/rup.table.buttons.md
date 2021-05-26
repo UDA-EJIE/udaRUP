@@ -2,48 +2,46 @@
 
 Genera una botonera asociada a la tabla con la finalidad de agrupar los controles que permiten realizar acciones sobre los registros de la misma.
 
-## 1. DeclaraciÛn y configuraciÛn
+## 1. Declaraci√≥n y configuraci√≥n
 
-El uso del plugin en el componente se realiza incluyendo en la configuraciÛn de inicializaciÛn la propiedad `buttons`.
+El uso del plugin en el componente se realiza incluyendo en la configuraci√≥n de inicializaci√≥n la propiedad `buttons`.
 
 ```js
 $("#idComponente").rup_table({
 	buttons: {
-    	activate: true,
-    	blackListButtons: ['deleteButton', 'reportsButton'],
-      	myButtons: [
-      		{
-	        	text: function () {
-	        		return $.rup.i18n.app.iberdokTable.ver;
-	        	},
-	        	id: 'iberdokTableVerDocumento', // Campo obligatorio si se quiere usar desde el contextMenu
-	        	className: 'btn-material-primary-high-emphasis table_toolbar_btnView',
-	        	icon: "mdi-file-find",
-	        	displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
-	        	insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-	        	type: 'view',
-	        	init: function (dt, node, config) {
-					$('#' + idComponente).triggerHandler('tableButtonsExampleInit');
-			 	},
-	        	action: function () {
-	        		fnAbrirDocumento();
-	        	}
-	     	}
-  		]
+		activate: true,
+		blackListButtons: ['deleteButton', 'reportsButton'],
+		myButtons: [{
+			text: function () {
+				return $.rup.i18n.app.iberdokTable.ver;
+			},
+			id: 'iberdokTableVerDocumento', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'btn-material-primary-high-emphasis table_toolbar_btnView',
+			icon: "mdi-file-find",
+			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'view',
+			init: function (dt, node, config) {
+				$('#' + idComponente).triggerHandler('tableButtonsExampleInit');
+			},
+			action: function () {
+				fnAbrirDocumento();
+			}
+		}]
 	}
 });
 ```
 
-Propiedades del propio botÛn:
+Propiedades del propio bot√≥n:
 * __id:__ campo obligatorio si se quiere usar desde el contextMenu.
-* __icon:__ campo para asignar alg˙n icono. Por ejemplo, `mdi-file-excel`.
-* __displayRegex:__ se muestra siempre que sea un n˙mero positivo o neutro, es el regex para mostrar el botÛn tirando contra la popiedad de multiselecciÛn.
-* __insideContextMenu:__ sirve para insertar el botÛn en el contextMenu. Independientemente de este valor, ser· `false` si no tiene un identificador definido.
-* __size:__ permite aumentar el tamaÒo o disminuirlo. El valor de la propiedad `lg` los hace m·s grandes y `sm` m·s pequeÒos. Por ejemplo:
+* __icon:__ campo para asignar alg√∫n icono. Por ejemplo, `mdi-file-excel`.
+* __displayRegex:__ se muestra siempre que sea un n√∫mero positivo o neutro, es el regex para mostrar el bot√≥n tirando contra la popiedad de multiselecci√≥n.
+* __insideContextMenu:__ sirve para insertar el bot√≥n en el contextMenu. Independientemente de este valor, ser√° `false` si no tiene un identificador definido.
+* __size:__ permite aumentar el tama√±o o disminuirlo. El valor de la propiedad `lg` los hace m√°s grandes y `sm` m√°s peque√±os. Por ejemplo:
 	``` js
 	plugins.buttons.size = 'lg'
 	```
-* __request:__ define par·metros de la peticiÛn, como por ejemplo:
+* __request:__ define par√°metros de la petici√≥n, como por ejemplo:
 	``` js
 	request: {
 		url: '/xlsxReport',
@@ -55,16 +53,16 @@ Propiedades del propio botÛn:
 		sheetTitle: 'Usuario'
 	}
 	```
-* __custom:__ todos los botones deben ir con esta propiedad a `true`, a menos que se quiere usar la propiedad `displayRegex` con la propiedad de multiselecciÛn.
-* __blackListButtons:__ lista dÛnde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: `'addButton'`, `'editButton'`, `'cloneButton'`, `'deleteButton'`, `'reportsButton'`, `'copyButton'`, `'excelButton'`, `'pdfButton'`, `'odsButton'`, `'csvButton'`. Por ejemplo:
+* __custom:__ todos los botones deben ir con esta propiedad a `true`, a menos que se quiere usar la propiedad `displayRegex` con la propiedad de multiselecci√≥n.
+* __blackListButtons:__ lista d√≥nde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: `'addButton'`, `'editButton'`, `'cloneButton'`, `'deleteButton'`, `'reportsButton'`, `'copyButton'`, `'excelButton'`, `'pdfButton'`, `'odsButton'`, `'csvButton'`. Por ejemplo:
 	``` js
 	plugins.buttons.blackListButtons = ['csvButton'];
 	```
-* __report:__ alberga el tÌtulo y mensaje del popup de descarga, el listado de columnas que se desee exportar y par·metros adicionales que llegar·n al controller:
+* __report:__ alberga el t√≠tulo y mensaje del popup de descarga, el listado de columnas que se desee exportar y par√°metros adicionales que llegar√°n al controller:
 	``` js
 	plugins.buttons.report = {
-		title: 'ExportaciÛn (tÌtulo personalizado)',
-		message: 'Su archivo est· siendo generado... (mensaje personalizado)',
+		title: 'Exportaci√≥n (t√≠tulo personalizado)',
+		message: 'Su archivo est√° siendo generado... (mensaje personalizado)',
 		columns: ["id", "nombre", "apellido1", "ejie", "fechaAlta"],
 		reportsParams: {
 			"isInline": false
@@ -93,7 +91,7 @@ Ejemplo del controller:
 
 ## 2. API
 
-Es posible que en alg˙n momento sea necesario eliminar registros de manera program·tica. Para ello, es posible realizarlo de la siguiente manera:
+Es posible que en alg√∫n momento sea necesario eliminar registros de manera program√°tica. Para ello, es posible realizarlo de la siguiente manera:
 ```js
 var dt = $('#example').DataTable();
 
