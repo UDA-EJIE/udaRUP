@@ -71,22 +71,22 @@ Propiedades del propio botón:
 	```
 Ejemplo del controller:
 ``` java
-	@RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	protected @ResponseBody void generateExcelReport(
-			@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, 
-			@RequestJsonBody(param = "columns", required = false) String[] columns, 
-			@RequestJsonBody(param = "columnsName", required = false) String[] columnsName, 
-			@RequestJsonBody(param = "fileName", required = false) String fileName, 
-			@RequestJsonBody(param = "sheetTitle", required = false) String sheetTitle,
-			@RequestJsonBody(param = "reportsParams", required = false) ArrayList<?> reportsParams,
-			@RequestJsonBody TableRequestDto tableRequestDto,
-			HttpServletRequest request,
-			HttpServletResponse response) throws ServletException{
-		TableUsuarioController.logger.info("[POST - generateExcelReport] : Devuelve un fichero excel");
-		// Idioma
-        Locale locale = LocaleContextHolder.getLocale();
-		this.tableUsuarioService.generateReport(filterUsuario, columns, columnsName, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
-    }
+@RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+protected @ResponseBody void generateExcelReport(
+		@RequestJsonBody(param = "filter", required = false) Usuario filterUsuario, 
+		@RequestJsonBody(param = "columns", required = false) String[] columns, 
+		@RequestJsonBody(param = "columnsName", required = false) String[] columnsName, 
+		@RequestJsonBody(param = "fileName", required = false) String fileName, 
+		@RequestJsonBody(param = "sheetTitle", required = false) String sheetTitle,
+		@RequestJsonBody(param = "reportsParams", required = false) ArrayList<?> reportsParams,
+		@RequestJsonBody TableRequestDto tableRequestDto,
+		HttpServletRequest request,
+		HttpServletResponse response) throws ServletException {
+	TableUsuarioController.logger.info("[POST - generateExcelReport] : Devuelve un fichero excel");
+	// Idioma
+	Locale locale = LocaleContextHolder.getLocale();
+	this.tableUsuarioService.generateReport(filterUsuario, columns, columnsName, fileName, sheetTitle, reportsParams, tableRequestDto, locale, request, response);
+}
 ```
 
 ## 2. API
