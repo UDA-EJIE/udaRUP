@@ -780,6 +780,7 @@ En caso de hacer uso de un componente autocomplete o combo, puede usarse la enti
     /** 
 	 * Devuelve los nombres disponibles.
 	 *
+	 * @param q String enviado por el cliente para la búsqueda de resultados.
 	 * @return List<Resource<AutocompleteComboPKsPOJO>>
 	 */
 	public static List<Resource<AutocompleteComboPKsPOJO>> getNames(String q) {		
