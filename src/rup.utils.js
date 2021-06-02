@@ -1041,6 +1041,28 @@
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
+	/**
+     * Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.
+     * Es útil cuando se necesita comparar identificadores cifrados.
+     *
+     * @name getStaticHdivID
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {string} id - Identificador de la entidad.
+     *
+     * @return {string} Identificador de la entidad con la parte dinámica del cifrado eliminada.
+     */
+	$.fn.getStaticHdivID = function (id) {
+		let regex = /([0-9a-fA-F]+)-([0-9a-fA-F]+)-([0-9a-fA-F]+)$/;
+		
+		if (regex.test(id)) {
+			id = id.replace(regex, '');
+		}
+		
+		return id;
+	};
+	
 	$.fn.getHDIV_STATE = function (hasMoreParams, $form) {
 		let hdivStateParam = '';
 		
