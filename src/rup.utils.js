@@ -1064,12 +1064,12 @@
      * @function
      * @since UDA 5.0.0
      *
-     * @param {string} paramToCheck - Identificador de la entidad.
+     * @param {string} id - Identificador de la entidad.
      *
      * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
      */
-	$.fn.isHDIV = function (paramToCheck) {
-		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
+	$.fn.isHDIV = function (id) {
+		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(id);
 	};
 	
 	/**
