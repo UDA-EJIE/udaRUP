@@ -552,93 +552,96 @@ function _editInline ( dt,ctx, idRow ){
 }
 
 /**
-* Metodo que obtiene la fila siguiente seleccionada.
+* Método que obtiene la fila siguiente seleccionada.
 *
 * @name getRowSelected
 * @function
 * @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto table.
-* @param {string} actionType - Es el objeto table.
+* @param {object} dt - Instancia de la tabla.
+* @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
 *
-* @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
+* @return {object} Contiene el identificador, la página y la línea de la fila seleccionada.
 *
 */
-function _getRowSelected(dt,actionType){
+function _getRowSelected(dt, actionType){
 	var ctx = dt.settings()[0];
-        var rowDefault = {
-            id: 0,
-            page: 1,
-            line: 0
-        };
+	var rowDefault = {
+			id: 0,
+			page: 1,
+			line: 0
+		};
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
-	if(!ctx.multiselection.selectedAll){
-		//Si no hay un ultimo señalado se coge el ultimo
-		if(lastSelectedId === undefined || lastSelectedId === ''){
+	if (!ctx.multiselection.selectedAll) {
+		// Si no hay un último señalado, obtiene el último
+		if (lastSelectedId === undefined || lastSelectedId === '') {
 			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
 		}
 		
 		let staticID = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
-		$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
+		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
 			// Obtener el último seleccionado para tener el identificador actualizado (solamente es necesario cuando se usa Hdiv porque cambia el cifrado entre peticiones)
 			if ($.fn.isHDIV(p.id) && staticID === $.fn.getStaticHdivID(p.id)) {
 				ctx.multiselection.lastSelectedId = p.id;
 			}
 			
-			if(p.id == ctx.multiselection.lastSelectedId){
+			if (p.id == ctx.multiselection.lastSelectedId) {
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
 				rowDefault.indexSelected = index;
-				if(ctx.oInit.inlineEdit !== undefined){
+				if (ctx.oInit.inlineEdit !== undefined) {
 					ctx.oInit.inlineEdit.currentPos = rowDefault;
 				}
 				return false;
 			}
 		});
-	}else{
-		if(ctx.oInit.inlineEdit !== undefined){
-			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
+	} else {
+		if (ctx.oInit.inlineEdit !== undefined) {
+			// Indica los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
+			ctx.oInit.inlineEdit.numPosition = 0;
 		}
-		if(lastSelectedId === undefined || lastSelectedId === ''){
-			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
-			rowDefault.line = _getLineByPageSelected(ctx,-1);
-		}else{
-			//buscar la posicion y pagina
+		if (lastSelectedId === undefined || lastSelectedId === '') {
+			// Como arranca de primeras, la página es la 1
+			rowDefault.page = _getNextPageSelected(ctx, 1, 'next');
+			rowDefault.line = _getLineByPageSelected(ctx, -1);
+		} else {
+			// Buscar la posición y la página
 			var result = $.grep(ctx.multiselection.selectedRowsPerPage, function(v) {
 				return v.id == ctx.multiselection.lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
-			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
-			index = index+1+rowDefault.line;
-			//Hay que restar los deselecionados.
-			 result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
-					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
-				});
-			rowDefault.indexSelected = index-result.length;//Buscar indice
-			if(ctx.oInit.inlineEdit !== undefined){
-				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected-1;
+			var index = ctx._iDisplayLength * (Number(rowDefault.page) -1);
+			index = index + 1 + rowDefault.line;
+			// Restar los deselecionados
+			result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
+				return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+			});
+			// Buscar índice
+			rowDefault.indexSelected = index - result.length;
+			if (ctx.oInit.inlineEdit !== undefined) {
+				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected - 1;
 			}
 		}
-		if(ctx.oInit.inlineEdit !== undefined){
+		if (ctx.oInit.inlineEdit !== undefined) {
 			ctx.oInit.inlineEdit.currentPos = rowDefault;
 		}
 	}
 
-	//En caso de estar en una pagina distinta , navegamos a ella
-	if(dt.page()+1 !== Number(rowDefault.page)){
-		var table = $('#'+ctx.sTableId).DataTable();
-		table.page( rowDefault.page-1 ).draw( 'page' );
-		if(ctx.oInit.inlineEdit !== undefined){
+	// En caso de estar en una página distinta, navegamos a ella
+	if (dt.page() + 1 !== Number(rowDefault.page)) {
+		var table = $('#' + ctx.sTableId).DataTable();
+		table.page(rowDefault.page - 1).draw('page');
+		if (ctx.oInit.inlineEdit !== undefined) {
 			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
-	}else{
-		if(actionType === 'PUT'){
-			_editInline(dt,ctx,rowDefault.line);
-		}else if(actionType === 'CLONE'){
-			dt.ajax.reload( undefined,false );
+	} else {
+		if (actionType === 'PUT') {
+			_editInline(dt, ctx, rowDefault.line);
+		} else if (actionType === 'CLONE') {
+			dt.ajax.reload(undefined, false);
 			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}

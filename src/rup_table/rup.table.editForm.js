@@ -1381,26 +1381,26 @@
      * @function
      * @since UDA 3.4.0 // Table 1.0.0
      *
-     * @param {object} dt - Es el objeto table.
-     * @param {string} actionType - Es el objeto table.
+     * @param {object} dt - Instancia de la tabla.
+     * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
      *
-     * @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
+     * @return {object} Contiene el identificador, la página y la línea de la fila seleccionada.
      *
      */
     function _getRowSelected(dt, actionType) {
         var ctx = dt.settings()[0];
         var rowDefault = {
-            id: 0,
-            page: 1,
-            line: 0
-        };
+        		id: 0,
+        		page: 1,
+        		line: 0
+        	};
         var lastSelectedId = ctx.multiselection.lastSelectedId;
         if (!ctx.multiselection.selectedAll) {
-            //Si no hay un ultimo señalado se coge el ultimo;
-
-            if (lastSelectedId === undefined || lastSelectedId === '') {
+            // Si no hay un último señalado, obtiene el último
+        	if (lastSelectedId === undefined || lastSelectedId === '') {
                 ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
             }
+        	
             $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
                 if (p.id == ctx.multiselection.lastSelectedId) {
                     rowDefault.id = p.id;
@@ -1415,13 +1415,15 @@
             });
         } else {
             if (ctx.oInit.formEdit !== undefined) {
-                ctx.oInit.formEdit.$navigationBar.numPosition = 0; //variable para indicar los mostrados cuando es selectAll y no se puede calcular,El inicio es 0.
+            	// Indica los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
+                ctx.oInit.formEdit.$navigationBar.numPosition = 0;
             }
             if (lastSelectedId === undefined || lastSelectedId === '') {
-                rowDefault.page = _getNextPageSelected(ctx, 1, 'next'); //Como arranca de primeras la pagina es la 1.
+            	// Como arranca de primeras, la página es la 1
+                rowDefault.page = _getNextPageSelected(ctx, 1, 'next');
                 rowDefault.line = _getLineByPageSelected(ctx, -1);
             } else {
-                //buscar la posicion y pagina
+                // Buscar la posición y la página
                 var result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
                     return v.id == ctx.multiselection.lastSelectedId;
                 });
@@ -1429,11 +1431,12 @@
                 rowDefault.line = result[0].line;
                 var index = ctx._iDisplayLength * (Number(rowDefault.page) - 1);
                 index = index + 1 + rowDefault.line;
-                //Hay que restar los deselecionados.
+                // Restar los deselecionados
                 result = $.grep(ctx.multiselection.deselectedRowsPerPage, function (v) {
                     return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
                 });
-                rowDefault.indexSelected = index - result.length; //Buscar indice
+                // Buscar índice
+                rowDefault.indexSelected = index - result.length;
                 if (ctx.oInit.formEdit !== undefined) {
                     ctx.oInit.formEdit.$navigationBar.numPosition = rowDefault.indexSelected - 1;
                 }
