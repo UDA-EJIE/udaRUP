@@ -856,7 +856,7 @@ input.
 		 * @return {string}
          */
 		_processHDIV: function (parentSettings, selectedSource) {
-			if (parentSettings !== undefined && parentSettings.source.name === '_sourceREMOTE' && $.fn.isHDIV(selectedSource)) {
+			if (parentSettings !== undefined && parentSettings.source.name === '_sourceREMOTE' && $.fn.isHdiv(selectedSource)) {
 				let parentData = $("#" + parentSettings.loadObjects).data('tmp.data');
 				let parentLabel = $("#" + parentSettings.loadObjects).rup_autocomplete("getRupValue");
 				

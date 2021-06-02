@@ -304,7 +304,7 @@
             	let secondRowPK = DataTable.Api().rupTable.getIdPk(secondRow);
             	
             	// Si Hdiv está activado se comprueba el parámetro nid en vez de la PK (es lo mismo pero sin cifrar)
-            	if ($.fn.isHDIV(firstRowPK) && $.fn.isHDIV(secondRowPK)) {
+            	if ($.fn.isHdiv(firstRowPK) && $.fn.isHdiv(secondRowPK)) {
             		return firstRow.nid === secondRow.nid;
             	} else {
             		return firstRowPK === secondRowPK;

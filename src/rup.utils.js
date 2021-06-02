@@ -1060,7 +1060,7 @@
 	/**
      * Comprueba si el parámetro ha sido cifrado por Hdiv.
      *
-     * @name isHDIV
+     * @name isHdiv
      * @function
      * @since UDA 5.0.0
      *
@@ -1068,7 +1068,7 @@
      *
      * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
      */
-	$.fn.isHDIV = function (id) {
+	$.fn.isHdiv = function (id) {
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(id);
 	};
 	
