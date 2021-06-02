@@ -97,7 +97,7 @@
    * @typedef {number} Integer
    */
 
-    //[Ajuste para IE] funcion asociada a deficiencias de IE(msie). En caso de ya no dar soporte, eliminar
+    // [Ajuste para IE] función asociada a deficiencias de IE(msie). Cuando se deje de soportar este navegador, hay que eliminar este polyfill
     if (!String.prototype.includes) {//To check browser supports or not
     	String.prototype.includes = function (str) {//Add method includes to String type
     	  var returnValue = false;
