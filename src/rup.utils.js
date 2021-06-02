@@ -1006,6 +1006,17 @@
 			}).get();
 	};
 	
+	/**
+     * Elimina el campo autogenerado por el componente combo de un objeto. 
+     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+     *
+     * @name deleteMulticomboLabelFromObject
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
+     * @param {object} container - Contenedor del componente.
+     */
 	$.fn.deleteMulticomboLabelFromObject = function (obj, container) {
 		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
 			Object.keys(obj).filter(function (keys) {
@@ -1019,6 +1030,16 @@
 		}
 	};
 	
+	/**
+     * Elimina el campo autogenerado por el componente autocomplete de un objeto. 
+     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+     *
+     * @name deleteAutocompleteLabelFromObject
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
+     */
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
 		if (obj !== undefined && obj !== null) {
 	        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
@@ -1036,8 +1057,18 @@
 		}
 	};
 	
+	/**
+     * Comprueba si el parámetro ha sido cifrado por Hdiv.
+     *
+     * @name isHDIV
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {string} paramToCheck - Identificador de la entidad.
+     *
+     * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
+     */
 	$.fn.isHDIV = function (paramToCheck) {
-		// Comprobar si el parámetro ha sido cifrado por HDIV
 		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(paramToCheck);
 	};
 	
@@ -1063,6 +1094,18 @@
 		return id;
 	};
 	
+	/**
+     * Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
+     *
+     * @name getHDIV_STATE
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {boolean} hasMoreParams - Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL.
+     * @param {object} $form - Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use.
+     *
+     * @return {string} Parámetro HDIV_STATE.
+     */
 	$.fn.getHDIV_STATE = function (hasMoreParams, $form) {
 		let hdivStateParam = '';
 		
@@ -1091,9 +1134,18 @@
 	    return hdivStateParam;
 	};
 	
+	/**
+     * Reinicia por completo los autocomplete de un formulario para que no sigan filtrando.
+     *
+     * @name resetAutocomplete
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {string} type - Valor del atributo type.
+     * @param {object} obj - Formulario del que obtener los autocompletes a reiniciar.
+     */
 	$.fn.resetAutocomplete = function (type, obj) {
-		// Reinicia por completo los autocomplete ya que sino siguen filtrando
-        jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
+		jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
         	$("#" + elem.id).rup_autocomplete("setRupValue", "");
         });
 	};
