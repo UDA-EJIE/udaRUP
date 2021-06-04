@@ -917,19 +917,25 @@
     	                        }
                             }
                             
+                            /* 
+                             * Filtrar para colocar cada registro en su lugar correspondiente. 
+                             * Si no se filtra, aparece un error visual en la selección de registros y otro en el paginador del formulario de edición.
+                             */
+                            dt.ajax.reload();
+                            
                             $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
                         }
                         if(actionType === 'PUT'){
 	                        dt.ajax.reload(function () {
 	                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
 	                        }, false);
-                        }else{
+                        } else {
                         	if (ctx.oInit.multiSelect === undefined) {
                         		let arra = {
-                        	            id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
-                        	            page: Number(ctx.json.page),
-                        	            line: 0
-                        	          };
+                        				id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
+                        				page: Number(ctx.json.page),
+                        				line: 0
+                        	    	};
                         		ctx.multiselection.selectedRowsPerPage[0] = arra;
                         		DataTable.Api().select.drawSelectId(ctx);
                         	}
