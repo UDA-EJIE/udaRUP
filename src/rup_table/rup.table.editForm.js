@@ -881,7 +881,15 @@
     	                        });
     	                        ctx.json.rows.pop();
     	                        ctx.json.rows.splice(0, 0, row);
-                            }else{//es el primer registro
+    	                        
+    	                        // Limpiar las clases de las filas seleccionadas de la página actual porque han sido movidas
+    	                        $.each($('#' + ctx.sTableId + ' tbody tr'), function(index, value) {
+    	                        	if ($(value).hasClass('selected tr-highlight')) {
+    	                        		$(value).removeClass('selected tr-highlight');
+    	                        	}
+    	                        });
+                            } else {
+                            	// Es el primer registro
                             	dt.row.add(rowAux).draw( false );
                             	ctx.json = {};
                               	ctx.json.rows = [];
