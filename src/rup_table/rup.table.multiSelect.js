@@ -865,7 +865,7 @@ handler that will select the items using the API methods.
                 // Marcamos el checkbox
                 $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
                 $(api.context[0].aoData[idx].nTr).triggerHandler('tableHighlightRowAsSelected',ctx);
-                if (ctx.multiselection.lastSelectedId === value) {
+                if ($.fn.getStaticHdivID(ctx.multiselection.lastSelectedId) === $.fn.getStaticHdivID(value)) {
                     pos = idx;
                 }
                 if (pos === -1 && ctx.multiselection.lastSelectedId === '') { //En caso de que no hay ninguna coincidencia se pone el ultimo.
