@@ -1392,6 +1392,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				    }
 				    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete', ctx);
 				}
+				ctx.inlineEdit.row = undefined;
 				ctx.inlineEdit.lastRow = undefined;
 				ctx._buttons[0].inst.s.disableAllButttons = undefined;
 	
