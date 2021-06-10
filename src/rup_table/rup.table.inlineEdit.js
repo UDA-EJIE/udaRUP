@@ -671,14 +671,6 @@ function _cloneLine(dt, ctx, line){
 	if (ctx.oInit.inlineEdit.rowDefault !== undefined) {
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
 	}
-	
-	ctx.multiselection.selectedIds = [];
-	ctx.multiselection.lastSelectedId = '';
-	ctx.multiselection.numSelected = 0;
-	
-	$.each(ctx.oInit.primaryKey, function() {
-		dt.row(0).data()[this] = '';
-	});
         
 	// Añadir clase necesaria para su futura gestión a la hora de guardar el registro
 	$('#' + ctx.sTableId + ' tbody tr:eq(0)').addClass('new');
@@ -1324,57 +1316,72 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 		}
 	
 		var ajaxOptions = {
-			url : ctx.oInit.urlBase + url,
-	            accepts: {
-	                '*': '*/*',
-	                'html': 'text/html',
-	                'json': 'application/json, text/javascript',
-	                'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
-	                'text': 'text/plain',
-	                'xml': 'application/xml, text/xml'
-	            },
-			type : actionType,
-			data : row,
-			dataType : 'json',
-			showLoading : false,
-			contentType : 'application/json',
-			async : true,
-			success : function(data, status, xhr) {
+			url: ctx.oInit.urlBase + url,
+            accepts: {
+                '*': '*/*',
+                'html': 'text/html',
+                'json': 'application/json, text/javascript',
+                'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+                'text': 'text/plain',
+                'xml': 'application/xml, text/xml'
+            },
+			type: actionType,
+			data: row,
+			dataType: 'json',
+			showLoading: false,
+			contentType: 'application/json',
+			async: true,
+			success: function(data, status, xhr) {
 				$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
 				$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 				$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
 				$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 				ctx.oInit.inlineEdit.alta = undefined;
-				var dt = $('#'+ctx.sTableId).DataTable();
-				if(url !== '/deleteAll' && actionType !== 'DELETE'){
-	
-					_callFeedbackOk(ctx, msgFeedBack, 'ok');//Se informa feedback de la tabla
+				var dt = $('#' + ctx.sTableId).DataTable();
+				var idPk = DataTable.Api().rupTable.getIdPk(data, ctx.oInit);
+				
+				if (url !== '/deleteAll' && actionType !== 'DELETE') {
+					// Se informa al feedback de la tabla
+					_callFeedbackOk(ctx, msgFeedBack, 'ok');
 					
-					if(actionType === 'PUT'){//Modificar
-						dt.row($fila.index()).data(row);// se actualiza al editar
-						ctx.json.rows[$fila.index()] = row;
-						// Actualizamos el ultimo id seleccionado (por si ha sido editado)
-						var posicion = 0;
-						$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
-							if(p.id == ctx.multiselection.lastSelectedId){
+					if(actionType === 'PUT'){
+						// Modificar
+						dt.row($fila.index()).data(data);
+						ctx.json.rows[$fila.index()] = data;
+						
+						// Actualizamos el último id seleccionado (por si ha sido editado)
+						let posicion = 0;
+						$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
+							if (p.id == ctx.multiselection.lastSelectedId) {
 								posicion = index;
 								return;
 							}
 						});
-	                        if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) &&
-	                            ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
-							_comprobarSeeker(row,ctx,$fila.index());
+						
+						if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) && ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
+							_comprobarSeeker(data, ctx, $fila.index());
 						}
-						ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-						ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-					}else{// dar alta
-						var idPk = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-						ctx.multiselection.selectedIds = [idPk];
+						
 						ctx.multiselection.lastSelectedId = idPk;
-						ctx.multiselection.numSelected = 1;
+						ctx.multiselection.selectedRowsPerPage[posicion].id = idPk;
+					} else {
+						// Alta o clonado
+						if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE') {
+							// Clonado (se mantiene seleccionado el registro original)
+							ctx.multiselection.selectedIds.push(idPk);
+							// Si la multiselección está activada se suma el nuevo registro seleccionado, en los demás casos, se establece a uno los registros seleccionados
+							ctx.multiselection.numSelected = ctx.oInit.multiSelect ? ctx.multiselection.numSelected + 1 : 1;
+						} else {
+							// Alta nueva
+							ctx.multiselection.selectedIds = [idPk];
+							ctx.multiselection.numSelected = 1;
+						}
+						ctx.multiselection.lastSelectedId = idPk;
+						ctx.multiselection.selectedRowsPerPage[0].id = idPk;
 					}
-					ctx.inlineEdit.row = row;
-				} else { // Eliminar
+					ctx.inlineEdit.row = data;
+				} else {
+					// Eliminar
 				    ctx.oInit.feedback.type = 'eliminar';
 				    ctx.oInit.feedback.msgFeedBack = msgFeedBack;
 				    if (ctx.oInit.multiSelect !== undefined) {
@@ -1383,25 +1390,20 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				        DataTable.Api().select.deselect(ctx);
 				        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
 				    }
-				    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete',ctx);
-	
+				    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete', ctx);
 				}
 				ctx.inlineEdit.lastRow = undefined;
 				ctx._buttons[0].inst.s.disableAllButttons = undefined;
 	
 				DataTable.Api().seeker.disabledButtons(ctx);
 			
-					// Recargar datos
-					// Primer parametro para mandar una funcion a ejecutar, segundo parametro bloquear la pagina si pones false
-					dt.ajax.reload( function (  ) {
-						_addChildIcons(ctx);
-					},false );
-			
-				
-				$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax',ctx);
+				// Recargar datos (el primer parámetro es el callback y el segundo permite permanecer en la página actual cuando es false)
+				dt.ajax.reload(function() {
+					_addChildIcons(ctx);
+				}, false);
 			},
-			complete : function() {
-				$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax',ctx);
+			complete: function() {
+				$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax', ctx);
 			},
 			error: function (xhr) {
 				if (xhr.status === 406 && xhr.responseText !== '') {
