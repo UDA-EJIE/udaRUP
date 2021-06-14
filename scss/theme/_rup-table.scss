@@ -25,20 +25,20 @@ div.formEdit_dialog_loading_container {
 
 @keyframes fadeIn-overlay {
 	from {
-  		opacity: 0;
+		opacity: 0;
 	}
 	to {
-  		opacity: 0.3;
-    	background-color: #050505;
+		opacity: 0.3;
+		background-color: #050505;
   	}
 }
 
 @keyframes fadeIn-spinner {
 	from {
-    	opacity: 0;
+		opacity: 0;
   	}
   	to {
-    	opacity: 1;
-    	color: #333333;
+		opacity: 1;
+		color: #333333;
   	}
 }

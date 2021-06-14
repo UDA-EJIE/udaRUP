@@ -484,7 +484,7 @@
     		$('body').append(
     				'<div id="' + ctx.sTableId + '_formEdit_dialog_loading" class="formEdit_dialog_loading_container">' +
     					'<div></div>' +
-						'<span><i class="mx-auto mdi mdi-spin mdi-loading" aria-hidden="true"></i></span>' +
+    					'<span><i class="mx-auto mdi mdi-spin mdi-loading" aria-hidden="true"></i></span>' +
     				'</div>'
     			);
     	}

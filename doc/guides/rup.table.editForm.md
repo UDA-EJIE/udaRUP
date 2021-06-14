@@ -58,8 +58,8 @@ formEdit: {
 Mostrar spinner de carga hasta que el formulario sea visible:
 ```js
 formEdit: {
-	// No está activado por defecto
-	loadSpinner: true
+    // No está activado por defecto
+    loadSpinner: true
 }
 ```
 &nbsp;
