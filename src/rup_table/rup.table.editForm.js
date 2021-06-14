@@ -478,6 +478,17 @@
      */
     DataTable.editForm.fnOpenSaveDialog = function _openSaveDialog(actionType, dt, idRow, customTitle) {
         var ctx = dt.settings()[0];
+
+    	// Mostrar spinner de carga hasta que el formulario sea visible (sólo si fue activado). La segunda comprobación, evita que aparezca el spinner cuando se pagina dentro de editForm entre registros porque para ese caso, ya existe otro spinner
+    	if (ctx.oInit.formEdit.loadSpinner && $('#' + ctx.sTableId + '_detail_div_loading').length == 0) {
+    		$('body').append(
+    				'<div id="' + ctx.sTableId + '_formEdit_dialog_loading" class="formEdit_dialog_loading_container">' +
+    					'<div></div>' +
+						'<span><i class="mx-auto mdi mdi-spin mdi-loading" aria-hidden="true"></i></span>' +
+    				'</div>'
+    			);
+    	}
+        
         if (idRow == null || idRow == undefined || idRow < 0) {
             idRow = 1;
         }
@@ -636,6 +647,11 @@
 	        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
 	        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
 	        ctx.oInit.formEdit.detailForm.rup_dialog('open');
+	        
+	        // Quitar spinner de carga porque el formulario ya es visible (si fue activado)
+	    	if ($('#' + ctx.sTableId + '_formEdit_dialog_loading').length > 0) {
+	    		$('#' + ctx.sTableId + '_formEdit_dialog_loading').remove();
+	    	}
 	
 	        // Establecemos el foco al primer elemento input o select que se
 	        // encuentre habilitado en el formulario

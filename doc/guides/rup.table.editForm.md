@@ -55,6 +55,15 @@ formEdit: {
 ```
 &nbsp;
 
+Mostrar spinner de carga hasta que el formulario sea visible:
+```js
+formEdit: {
+	// No está activado por defecto
+	loadSpinner: true
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {
