@@ -120,7 +120,7 @@
                             DataTable.Api().select.selectRowIndex(dt, idRow, true);
                         }
                         _getRowSelected(dt, 'PUT');
-                        DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow, null);
+                        DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow, ctx.oInit.formEdit.customTitle);
                         $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow',ctx);
                     }
                 });
@@ -1276,7 +1276,7 @@
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
                 } else {
                 	// Llamar directamente a la función
-                	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, null)).then(function () {
+                	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, ctx.oInit.formEdit.customTitle)).then(function () {
                         _showOnNav(dt, linkType);
                     });
                 }
@@ -1377,7 +1377,7 @@
                 ctx.select.selectedRowsPerPage.page = futurePage;
                 table.page(futurePage - 1).draw('page');
             } else { //Si no se pagina se abre directamente la funcion.
-                DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line, null);
+                DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line, ctx.oInit.formEdit.customTitle);
                 var rowSelectAux = ctx.json.rows[ctx.multiselection.selectedRowsPerPage[0].line];
                 ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit);
                 DataTable.Api().select.deselect(ctx);

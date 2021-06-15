@@ -18,6 +18,7 @@ $("#idComponente").rup_table({
     formEdit: {
         // Propiedades de configuración del plugin formEdit
         detailForm: '#example_detail_div',
+        customTitle: jQuery.rup.i18nParse(jQuery.rup.i18n.app, 'table.sampleTitle'),
         validate: {
             rules: {
                 'nombre': {
@@ -51,6 +52,14 @@ Identificador del formulario de edición:
 ```js
 formEdit: {
     detailForm: '#example_detail_div'
+}
+```
+&nbsp;
+
+Permite definir un título permanente en los diálogos del formulario de edición:
+```js
+formEdit: {
+    customTitle: jQuery.rup.i18nParse(jQuery.rup.i18n.app, 'table.sampleTitle')
 }
 ```
 &nbsp;

@@ -2159,11 +2159,11 @@
                                             DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
                                         }
                                     }
-                                    DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
+                                    DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
                                 }
                             });
                         } else {
-                            DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
+                            DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
                         }
                     } else {
                     	$.rup_messages('msgError', {
@@ -2186,7 +2186,7 @@
             		if (ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
                             ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
                             dt.page() + 1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])) {
-                        DataTable.Api().editForm.openSaveDialog('PUT', dt, rowInfo.line, null);
+                        DataTable.Api().editForm.openSaveDialog('PUT', dt, rowInfo.line, ctx.oInit.formEdit.customTitle);
                     }
             	});
             } else { //edicion en linea
@@ -2201,7 +2201,7 @@
             if (ctx.oInit.formEdit !== undefined) {
             	// Se busca el idRow con el último seleccionado. En caso de no existir, será el primero.
             	$.when(DataTable.Api().editForm.getRowSelected(dt, 'CLONE')).then(function (rowInfo) {
-            		DataTable.Api().editForm.openSaveDialog('CLONE', dt, rowInfo.line, null);
+            		DataTable.Api().editForm.openSaveDialog('CLONE', dt, rowInfo.line, ctx.oInit.formEdit.customTitle);
             	});
             } else { //edicion en linea
                 ctx.oInit.inlineEdit.alta = true;
