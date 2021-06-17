@@ -148,7 +148,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aExcel',
+        		fileName: 'reportExcel',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
@@ -179,7 +179,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/pdf',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aPDF'
+        		fileName: 'reportPDF'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -209,7 +209,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/vnd.oasis.opendocument.spreadsheet',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aODS',
+        		fileName: 'reportODS',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
@@ -240,7 +240,7 @@
 	            contentType: 'application/json',
         		dataType: 'text/csv',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aCSV',
+        		fileName: 'reportCSV',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
