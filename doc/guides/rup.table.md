@@ -586,7 +586,7 @@ Se puede personalizar el feedback para que cuando aparezca, suba la posiciÃ³n 
 &nbsp;
 
 ```js
-// Su valor por defecto es false
+// Su valor por defecto es true
 Plugins.enableDynamicForms = true
 ```
 Permite habilitar el uso de formularios dinámicos aunque hay que hacer algunos cambios en las JSPs de edición. En [este documento](./rup.table.editForm.md#propiedades-de-configuración) puede encontrarse más información al respecto.
