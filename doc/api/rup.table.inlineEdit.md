@@ -117,16 +117,16 @@ Método principal para la edición en línea.
 <a name="module_rup.table.inlineEdit..getRowSelected"></a>
 
 ### rup.table.inlineEdit~getRowSelected(dt, actionType) ⇒ <code>object</code>
-Metodo que obtiene la fila siguiente seleccionada.
+Método que obtiene la fila siguiente seleccionada.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Returns**: <code>object</code> - que contiene  el identificador, la pagina y la linea de la fila seleccionada  
+**Returns**: <code>object</code> - Contiene el identificador, la página y la línea de la fila seleccionada.  
 **Since**: UDA 3.7.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| dt | <code>object</code> | Es el objeto table. |
-| actionType | <code>string</code> | Es el objeto table. |
+| dt | <code>object</code> | Instancia de la tabla. |
+| actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
 
 <a name="module_rup.table.inlineEdit..cloneLine"></a>
 
