@@ -33,7 +33,7 @@
     padding: 5px 0;
 }
 
-td>div.centerOnResponsiveContainer {
+td > div.centerOnResponsiveContainer {
     display: flex;
 }
 
@@ -55,4 +55,69 @@ td>div.centerOnResponsiveContainer {
 	-webkit-appearance: menulist;
   	-moz-appearance: menulist;
   	appearance: menulist;
+}
+
+/* ************************* */
+/*  AÃ‘ADIDOS PARA RUP.TABLE  */
+/* ************************* */
+
+.cursor_pointer {
+	cursor: pointer;
+}
+
+.collapse_icon {
+	float: left;
+	cursor: pointer;
+}
+
+.collapse_icon_right {
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.collapse_label {
+	color: blue;	
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.collapse_label, .matched_layer {
+	font-weight: normal;
+}
+
+.collapse_icon_right:hover {
+	opacity: 0.3;
+}
+
+.matched_layer {
+	float: left;
+}
+
+.search_collapse_layer {
+	float: left;
+}
+
+.search_nav_layer {
+	float: right;
+}
+
+// No usamos "display: none" para evitar que el elemento sea ignorado
+.checkboxPKBloqueado {
+	visibility: hidden;
+	position: absolute;
+}
+
+.sustitutoCheckboxPKBloqueadoGeneral {
+	display: block;
+	width: 16px;
+	height: 15px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #C4C4C4;
+	background-color: #FAFAFA;
+}
+
+.sustitutoCheckboxPKBloqueadoCross {
+	padding-left: 1.5px;
 }

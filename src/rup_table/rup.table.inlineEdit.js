@@ -125,8 +125,7 @@ DataTable.inlineEdit.init = function ( dt ) {
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
 	
-    //Se añaden las validaciones
-
+	// Se añaden las validaciones
     let feed = ctx.oInit.feedback.$feedbackContainer;
     let validaciones;
     if(ctx.oInit.inlineEdit.validate !== undefined){
@@ -134,15 +133,14 @@ DataTable.inlineEdit.init = function ( dt ) {
     }
     
     let propertiesDefault = {
-            liveCheckingErrors: false,
-            showFieldErrorAsDefault: true,
-            showErrorsInFeedback: true,
-            showFieldErrorsInFeedback:true
-        };
+        liveCheckingErrors: false,
+        showFieldErrorAsDefault: true,
+        showErrorsInFeedback: true,
+        showFieldErrorsInFeedback:true
+    };
     let propertiesValidate = $.extend(true, {}, propertiesDefault,ctx.oInit.inlineEdit.propertiesValidate);
     propertiesValidate.feedback = feed;
     propertiesValidate.rules = validaciones;
-    propertiesValidate.submitHandler = function(form) {return false;}; // block the default submit action
 	
     $('#' + ctx.sTableId + '_search_searchForm').rup_validate(propertiesValidate);
     
@@ -175,7 +173,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	         },
 	         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
-	            icon: 'mdi-content-save',
+	         icon: 'mdi-content-save',
 	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
 	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	         type: 'save',
@@ -187,32 +185,60 @@ DataTable.inlineEdit.init = function ( dt ) {
 	}
   
 	if(!borrarCancelar){
-	    // Boton Cancelar
-	    ctx.oInit.inlineEdit.myButtons.cancelar = {
-	         text: function (dt) {
-	                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
-	         },
-	         id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-	         className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
-	            icon: 'mdi-cancel',
-	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
-	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
-	         type: 'cancel',
-	         action: function ( ) {
-	        	 	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
-	        		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-	        	 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
-	        		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-		    		ctx.inlineEdit.lastRow = undefined;
-		    		ctx.oInit.inlineEdit.alta = undefined;
-	                dt.ajax.reload(undefined, false);
-	       }
+		// Boton Cancelar
+		ctx.oInit.inlineEdit.myButtons.cancelar = {
+			text: function (dt) {
+				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
+			},
+			id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
+			icon: 'mdi-cancel',
+			displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
+			type: 'cancel',
+			action: function () {
+				let _cancelRow = function () {
+					$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
+					$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
+					$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+					ctx.inlineEdit.lastRow = undefined;
+					ctx.oInit.inlineEdit.alta = undefined;
+			        dt.ajax.reload(undefined, false);
+				}
+				
+	        	if (ctx.oInit.inlineEdit.settings.cancelDialog) {
+					$.rup_messages('msgConfirm', {
+					    message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
+					    title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					    OKFunction: function () {
+					    	_cancelRow();
+					        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+					    },
+					    CANCELFunction: function () {
+					        $('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+					    }
+					    ,
+					    CLOSEFunction: function () {
+					        $('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+					    }
+					});
+	        	} else {
+	        		_cancelRow();
+	        	}
+	        }
 	    };
 	}
+	
+	ctx.oInit.inlineEdit.settings = {
+        saveDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
+        cancelDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.cancelDialog : true,
+        deleteDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.deleteDialog : true
+    };
 
-        $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
-            _addChildIcons(ctx);
-        }));
+    $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
+        _addChildIcons(ctx);
+    }));
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -512,6 +538,9 @@ function _editInline ( dt,ctx, idRow ){
 			var rowsBody = $( ctx.nTBody);
 			$('tr',rowsBody).removeClass('selected tr-highlight');
 			DataTable.Api().select.selectRowIndex(dt,idRow,true);
+			if(ctx.multiselection.selectedIds == ""){//es nuevo
+				ctx.multiselection.selectedIds = [];
+			}
 		}
 	}
 	
@@ -523,86 +552,96 @@ function _editInline ( dt,ctx, idRow ){
 }
 
 /**
-* Metodo que obtiene la fila siguiente seleccionada.
+* Método que obtiene la fila siguiente seleccionada.
 *
 * @name getRowSelected
 * @function
 * @since UDA 3.7.0 // Table 1.0.0
 *
-* @param {object} dt - Es el objeto table.
-* @param {string} actionType - Es el objeto table.
+* @param {object} dt - Instancia de la tabla.
+* @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
 *
-* @return {object} que contiene  el identificador, la pagina y la linea de la fila seleccionada
+* @return {object} Contiene el identificador, la página y la línea de la fila seleccionada.
 *
 */
-function _getRowSelected(dt,actionType){
+function _getRowSelected(dt, actionType){
 	var ctx = dt.settings()[0];
-        var rowDefault = {
-            id: 0,
-            page: 1,
-            line: 0
-        };
+	var rowDefault = {
+			id: 0,
+			page: 1,
+			line: 0
+		};
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
-	if(!ctx.multiselection.selectedAll){
-		//Si no hay un ultimo señalado se coge el ultimo
-		if(lastSelectedId === undefined || lastSelectedId === ''){
+	if (!ctx.multiselection.selectedAll) {
+		// Si no hay un último señalado, obtiene el último
+		if (lastSelectedId === undefined || lastSelectedId === '') {
 			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
 		}
-		$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
-			if(p.id === ctx.multiselection.lastSelectedId){
+		
+		let staticID = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
+		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
+			// Obtener el último seleccionado para tener el identificador actualizado (solamente es necesario cuando se usa Hdiv porque cambia el cifrado entre peticiones)
+			if ($.fn.isHdiv(p.id) && staticID === $.fn.getStaticHdivID(p.id)) {
+				ctx.multiselection.lastSelectedId = p.id;
+			}
+			
+			if (p.id == ctx.multiselection.lastSelectedId) {
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
 				rowDefault.line = p.line;
 				rowDefault.indexSelected = index;
-				if(ctx.oInit.inlineEdit !== undefined){
+				if (ctx.oInit.inlineEdit !== undefined) {
 					ctx.oInit.inlineEdit.currentPos = rowDefault;
 				}
 				return false;
 			}
 		});
-	}else{
-		if(ctx.oInit.inlineEdit !== undefined){
-			ctx.oInit.inlineEdit.numPosition = 0;//variable para indicar los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
+	} else {
+		if (ctx.oInit.inlineEdit !== undefined) {
+			// Indica los mostrados cuando es selectAll y no se puede calcular. El inicio es 0.
+			ctx.oInit.inlineEdit.numPosition = 0;
 		}
-		if(lastSelectedId === undefined || lastSelectedId === ''){
-			rowDefault.page = _getNextPageSelected (ctx,1,'next');//Como arranca de primeras la pagina es la 1.
-			rowDefault.line = _getLineByPageSelected(ctx,-1);
-		}else{
-			//buscar la posicion y pagina
+		if (lastSelectedId === undefined || lastSelectedId === '') {
+			// Como arranca de primeras, la página es la 1
+			rowDefault.page = _getNextPageSelected(ctx, 1, 'next');
+			rowDefault.line = _getLineByPageSelected(ctx, -1);
+		} else {
+			// Buscar la posición y la página
 			var result = $.grep(ctx.multiselection.selectedRowsPerPage, function(v) {
-				return v.id === ctx.multiselection.lastSelectedId;
+				return v.id == ctx.multiselection.lastSelectedId;
 			});
 			rowDefault.page = result[0].page;
 			rowDefault.line = result[0].line;
-			var index = ctx._iDisplayLength * (Number(rowDefault.page)-1);
-			index = index+1+rowDefault.line;
-			//Hay que restar los deselecionados.
-			 result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
-					return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
-				});
-			rowDefault.indexSelected = index-result.length;//Buscar indice
-			if(ctx.oInit.inlineEdit !== undefined){
-				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected-1;
+			var index = ctx._iDisplayLength * (Number(rowDefault.page) -1);
+			index = index + 1 + rowDefault.line;
+			// Restar los deselecionados
+			result = $.grep(ctx.multiselection.deselectedRowsPerPage, function(v) {
+				return Number(v.page) < Number(rowDefault.page) || (Number(rowDefault.page) === Number(v.page) && Number(v.line) < Number(rowDefault.line));
+			});
+			// Buscar índice
+			rowDefault.indexSelected = index - result.length;
+			if (ctx.oInit.inlineEdit !== undefined) {
+				ctx.oInit.inlineEdit.numPosition = rowDefault.indexSelected - 1;
 			}
 		}
-		if(ctx.oInit.inlineEdit !== undefined){
+		if (ctx.oInit.inlineEdit !== undefined) {
 			ctx.oInit.inlineEdit.currentPos = rowDefault;
 		}
 	}
 
-	//En caso de estar en una pagina distinta , navegamos a ella
-	if(dt.page()+1 !== Number(rowDefault.page)){
-		var table = $('#'+ctx.sTableId).DataTable();
-		table.page( rowDefault.page-1 ).draw( 'page' );
-		if(ctx.oInit.inlineEdit !== undefined){
+	// En caso de estar en una página distinta, navegamos a ella
+	if (dt.page() + 1 !== Number(rowDefault.page)) {
+		var table = $('#' + ctx.sTableId).DataTable();
+		table.page(rowDefault.page - 1).draw('page');
+		if (ctx.oInit.inlineEdit !== undefined) {
 			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
-	}else{
-		if(actionType === 'PUT'){
-			_editInline(dt,ctx,rowDefault.line);
-		}else if(actionType === 'CLONE'){
-			dt.ajax.reload( undefined,false );
+	} else {
+		if (actionType === 'PUT') {
+			_editInline(dt, ctx, rowDefault.line);
+		} else if (actionType === 'CLONE') {
+			dt.ajax.reload(undefined, false);
 			rowDefault.actionType = actionType;
 			ctx.oInit.inlineEdit.rowDefault = rowDefault;
 		}
@@ -619,29 +658,22 @@ function _getRowSelected(dt,actionType){
 * @since UDA 3.7.0 // Table 1.0.0
 *
 *
-* @param {object} dt - Es el objeto table.
+* @param {object} dt - Objeto table.
 * @param {object} ctx - Contexto del Datatable.
 * @param {integer} line - Número de la fila.
 *
 */
-function _cloneLine(dt,ctx,line){
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineClone',ctx);
-	dt.row(0).data(dt.row(line+1).data());
-	if(ctx.oInit.inlineEdit.rowDefault !== undefined){
+function _cloneLine(dt, ctx, line){
+	$('#' + ctx.sTableId).triggerHandler('tableEditInlineClone', ctx);
+	
+	dt.row(0).data(dt.row(line + 1).data());
+	
+	if (ctx.oInit.inlineEdit.rowDefault !== undefined) {
 		ctx.oInit.inlineEdit.rowDefault.line = 0;
 	}
-	ctx.multiselection.selectedIds = [];
-        ctx.multiselection.lastSelectedId = '';
-	ctx.multiselection.numSelected = 0;
-	$.each(ctx.oInit.primaryKey,function() {
-            dt.row(0).data()[this] = '';
-	});
-        var columnsHide = dt.columns().responsiveHidden().reduce(function (a, b) {
-            return b === false ? a + 1 : a;
-        }, 0);
-	if(columnsHide === 0){//si no hay responsive se pone como nuevo, si hay responsive ya se encarga de poner el new
-		$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
-	}
+        
+	// Añadir clase necesaria para su futura gestión a la hora de guardar el registro
+	$('#' + ctx.sTableId + ' tbody tr:eq(0)').addClass('new');
 }
 
 /**
@@ -906,10 +938,20 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
 					}
+					
+					//Se Comprueba que los elemnetos menu estan eliminados.
+					if( $('#'+$elem.attr('id')+'-menu').length > 0){
+						$('#'+$elem.attr('id')+'-menu').remove('ul');
+					}
+					
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
 					if(searchRupType === 'combo'){//asignar el valor
-						$('#'+$elem.attr('id')).rup_combo('setRupValue',ctx.inlineEdit.lastRow.cellValues[cont]);
+						global.initRupI18nPromise.then(() => {
+							$('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont - 1]);
+						}).catch((error) => {
+							console.error('Error al establecer el valor:\n', error);
+						});
 					}
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem
@@ -935,7 +977,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					//Realizar comprobaciones por si el id es NO editable
 					if(edicion && ctx.oInit.blockPKeditForm && ctx.oInit.primaryKey.length > 0){
 						$.each(ctx.oInit.primaryKey,function(key,id) {
-							if(id === cellColModel.name){
+							if(id == cellColModel.name){
 								ctx.inlineEdit.lastRow.ponerFocus = true;
 							}
 						});
@@ -1209,30 +1251,35 @@ function _guardar(ctx,$fila,child){
 	//Se serializa el formulario con los cambios
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
+    $.each(ctx.oInit.primaryKey, function (index, key) {
+    	row[key] = ctx.json.rows[$fila.index()][key];
+    });
+	
 	if(!row) {
     	_callFeedbackOk(ctx, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
 		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
     } else {
         var actionType = 'PUT';
-	if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
-            actionType = 'POST';
-	}
-	
-	if (actionType === 'PUT') {
-    	let customModificar = ctx.oInit.validarModificar;
-    	if($.isFunction(customModificar) && customModificar(ctx)){
-    		return false;
-    	}
-	}else if (actionType === 'POST') {
-	
-    	let customAlta = ctx.oInit.validarAlta;
-    	if($.isFunction(customAlta) && customAlta(ctx)){
-    		return false;
-    	}
-	}
-	
-	_callSaveAjax(actionType,ctx,$fila,row,'');
-	$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
+		if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
+	            actionType = 'POST';
+		}
+		
+		if (actionType === 'PUT') {
+	    	let customModificar = ctx.oInit.validarModificar;
+	    	if($.isFunction(customModificar) && customModificar(ctx)){
+	    		return false;
+	    	}
+		}else if (actionType === 'POST') {
+		
+	    	let customAlta = ctx.oInit.validarAlta;
+	    	if($.isFunction(customAlta) && customAlta(ctx)){
+	    		return false;
+	    	}
+		}
+		
+		let url = actionType == 'POST' ? '/add' : '/edit';
+		_callSaveAjax(actionType, ctx, $fila, row, url, false);
+		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
 }
 
@@ -1248,160 +1295,263 @@ function _guardar(ctx,$fila,child){
 * @param {object} $fila - Fila que se está editando.
 * @param {object} $row - Son los datos que se cargan.
 * @param {string} url - Url que se añade para llamar  al controller. Añadir, editar o borrar.
+* @param {boolean} isDeleting - Evita mostrar el diálogo de confirmación porque la función _deleteAllSelects() tiene el suyo propio.
 *
 */
-function _callSaveAjax(actionType,ctx,$fila,row,url){
+function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
+	let _makeAjaxCall = function () {
+		$('#' + ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax', [ctx, actionType, url]);
+		
+		// add Filter
+		var feed = ctx.oInit.feedback.$feedbackContainer;
+		var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
+		if(url === '/deleteAll' || actionType === 'DELETE'){
+			msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
+		}
+		
+		if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
+			var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
+			jQuery.extend(true,masterPkObject,row);
+			row = masterPkObject;
+		}
 	
-	$('#'+ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax',ctx);
-	// add Filter
-	var feed = ctx.oInit.feedback.$feedbackContainer;
-	var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
-	if(url === '/deleteAll' || actionType === 'DELETE'){
-		msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
-	}
-	
-	if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
-		var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
-		jQuery.extend(true,masterPkObject,row);
-		row = masterPkObject;
-	}
-
-	var ajaxOptions = {
-		url : ctx.oInit.urlBase+url,
+		var ajaxOptions = {
+			url: ctx.oInit.urlBase + url,
             accepts: {
                 '*': '*/*',
                 'html': 'text/html',
                 'json': 'application/json, text/javascript',
-			'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
+                'script':'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript',
                 'text': 'text/plain',
                 'xml': 'application/xml, text/xml'
             },
-		type : actionType,
-		data : row,
-		dataType : 'json',
-		showLoading : false,
-		contentType : 'application/json',
-		async : true,
-		success : function(data, status, xhr) {
-			$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
-			$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-			$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
-			$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-			ctx.oInit.inlineEdit.alta = undefined;
-			var dt = $('#'+ctx.sTableId).DataTable();
-			if(url !== '/deleteAll' && actionType !== 'DELETE'){
-
-				_callFeedbackOk(ctx, msgFeedBack, 'ok');//Se informa feedback de la tabla
+			type: actionType,
+			data: row,
+			dataType: 'json',
+			showLoading: false,
+			contentType: 'application/json',
+			async: true,
+			success: function(data, status, xhr) {
+				$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
+				$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
+				$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				ctx.oInit.inlineEdit.alta = undefined;
+				var dt = $('#' + ctx.sTableId).DataTable();
+				var idPk = DataTable.Api().rupTable.getIdPk(data, ctx.oInit);
 				
-				if(actionType === 'PUT'){//Modificar
-					dt.row($fila.index()).data(row);// se actualiza al editar
-					ctx.json.rows[$fila.index()] = row;
-					// Actualizamos el ultimo id seleccionado (por si ha sido editado)
-					var posicion = 0;
-					$.each(ctx.multiselection.selectedRowsPerPage,function(index,p) {
-						if(p.id === ctx.multiselection.lastSelectedId){
-							posicion = index;
-							return;
+				if (url !== '/deleteAll' && actionType !== 'DELETE') {
+					// Se informa al feedback de la tabla
+					_callFeedbackOk(ctx, msgFeedBack, 'ok');
+					
+					if(actionType === 'PUT'){
+						// Modificar
+						dt.row($fila.index()).data(data);
+						ctx.json.rows[$fila.index()] = data;
+						
+						// Actualizamos el último id seleccionado (por si ha sido editado)
+						let posicion = 0;
+						$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
+							if (p.id == ctx.multiselection.lastSelectedId) {
+								posicion = index;
+								return;
+							}
+						});
+						
+						if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) && ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
+							_comprobarSeeker(data, ctx, $fila.index());
 						}
-					});
-                        if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) &&
-                            ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
-						_comprobarSeeker(row,ctx,$fila.index());
+						
+						ctx.multiselection.lastSelectedId = idPk;
+						ctx.multiselection.selectedRowsPerPage[posicion].id = idPk;
+					} else {
+						// Alta o clonado
+						if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE') {
+							// Clonado (se mantiene seleccionado el registro original)
+							ctx.multiselection.selectedIds.push(idPk);
+							// Si la multiselección está activada se suma el nuevo registro seleccionado, en los demás casos, se establece a uno los registros seleccionados
+							ctx.multiselection.numSelected = ctx.oInit.multiSelect ? ctx.multiselection.numSelected + 1 : 1;
+						} else {
+							// Alta nueva
+							ctx.multiselection.selectedIds = [idPk];
+							ctx.multiselection.numSelected = 1;
+						}
+						ctx.multiselection.lastSelectedId = idPk;
+						ctx.multiselection.selectedRowsPerPage[0].id = idPk;
 					}
-					ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-					ctx.multiselection.selectedRowsPerPage[posicion].id = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-				}else{// dar alta
-					var idPk = DataTable.Api().rupTable.getIdPk(row,ctx.oInit);
-					ctx.multiselection.selectedIds = [idPk];
-					ctx.multiselection.lastSelectedId = idPk;
-					ctx.multiselection.numSelected = 1;
+					ctx.inlineEdit.row = data;
+				} else {
+					// Eliminar
+				    ctx.oInit.feedback.type = 'eliminar';
+				    ctx.oInit.feedback.msgFeedBack = msgFeedBack;
+				    if (ctx.oInit.multiSelect !== undefined) {
+				        DataTable.Api().multiSelect.deselectAll(dt);
+				    } else if (ctx.oInit.select !== undefined) {
+				        DataTable.Api().select.deselect(ctx);
+				        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
+				    }
+				    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete', ctx);
 				}
-				ctx.inlineEdit.row = row;
-			} else { // Eliminar
-			    ctx.oInit.feedback.type = 'eliminar';
-			    ctx.oInit.feedback.msgFeedBack = msgFeedBack;
-			    if (ctx.oInit.multiSelect !== undefined) {
-			        DataTable.Api().multiSelect.deselectAll(dt);
-			    } else if (ctx.oInit.select !== undefined) {
-			        DataTable.Api().select.deselect(ctx);
-			        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
-			    }
-			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete',ctx);
-
-			}
-			ctx.inlineEdit.lastRow = undefined;
-			ctx._buttons[0].inst.s.disableAllButttons = undefined;
-
-			DataTable.Api().seeker.disabledButtons(ctx);
-		
-				// Recargar datos
-				// Primer parametro para mandar una funcion a ejecutar, segundo parametro bloquear la pagina si pones false
-				dt.ajax.reload( function (  ) {
-					_addChildIcons(ctx);
-				},false );
-		
+				ctx.inlineEdit.row = undefined;
+				ctx.inlineEdit.lastRow = undefined;
+				ctx._buttons[0].inst.s.disableAllButttons = undefined;
+	
+				DataTable.Api().seeker.disabledButtons(ctx);
 			
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineSuccessCallSaveAjax',ctx);
-		},
-		complete : function() {
-			$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax',ctx);
-		},
-		error: function (xhr) {
-			if (xhr.status === 406 && xhr.responseText !== '') {
-				try {
-					let responseJSON = jQuery.parseJSON(xhr.responseText);
-					if (responseJSON.rupErrorFields) {
-						if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
-							//se transforma a inline
-							var rulesAux = responseJSON.rupErrorFields;
-						     $.each(rulesAux, function (name, rule) {
-						    	 if($('#'+name+'_inline').length === 1){
-						    		 responseJSON.rupErrorFields[name + '_inline'] = rule;
-						    	 }
-						    	 if($('#'+name+'_inline_child').length === 1){
-						    		 responseJSON.rupErrorFields[name + '_inline_child'] = rule;
-						    	 }
-						    	 delete responseJSON.rupErrorFields[name];
-						     });
-							let $form = $('#' + ctx.sTableId + '_search_searchForm');
-							$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
-							$form.validate().invalid = responseJSON.rupErrorFields;
-							$form.validate().showErrors(responseJSON.rupErrorFields);
-						} else if (errors.rupFeedback !== undefined) {
-							let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
-							_callFeedbackOk(ctx, mensajeJSON, 'error');
+				// Recargar datos (el primer parámetro es el callback y el segundo permite permanecer en la página actual cuando es false)
+				dt.ajax.reload(function() {
+					_addChildIcons(ctx);
+				}, false);
+			},
+			complete: function() {
+				$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax', ctx);
+			},
+			error: function (xhr) {
+				if (xhr.status === 406 && xhr.responseText !== '') {
+					try {
+						let responseJSON = jQuery.parseJSON(xhr.responseText);
+						if (responseJSON.rupErrorFields) {
+							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
+								//se transforma a inline
+								var rulesAux = responseJSON.rupErrorFields;
+							     $.each(rulesAux, function (name, rule) {
+							    	 if($('#'+name+'_inline').length === 1){
+							    		 responseJSON.rupErrorFields[name + '_inline'] = rule;
+							    	 }
+							    	 if($('#'+name+'_inline_child').length === 1){
+							    		 responseJSON.rupErrorFields[name + '_inline_child'] = rule;
+							    	 }
+							    	 delete responseJSON.rupErrorFields[name];
+							     });
+								let $form = $('#' + ctx.sTableId + '_search_searchForm');
+								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
+								$form.validate().invalid = responseJSON.rupErrorFields;
+								$form.validate().showErrors(responseJSON.rupErrorFields);
+							} else if (errors.rupFeedback !== undefined) {
+								let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
+								_callFeedbackOk(ctx, mensajeJSON, 'error');
+							}
+	
 						}
-
+					} catch (e) {
+						// El mensaje NO es JSON
+						_callFeedbackOk(ctx, xhr.responseText, 'error');
 					}
-				} catch (e) {
-					// El mensaje NO es JSON
-					_callFeedbackOk(ctx, xhr.responseText, 'error');
+	
+				}else{//cualquier error se devuelve el texto
+	                _callFeedbackOk(ctx, xhr.responseText, 'error');
 				}
-
-			}else{//cualquier error se devuelve el texto
-                _callFeedbackOk(ctx, xhr.responseText, 'error');
-			}
-
-		    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
-		},
-		validate:ctx.oInit.inlineEdit.validate,
-        feedback: feed
-	};
 	
-	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
-	if(ctx.inlineEdit.lastRow !== undefined){
-		ctx.inlineEdit.lastRow.submit = 1;
+			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
+			},
+			validate:ctx.oInit.inlineEdit.validate,
+	        feedback: feed
+		};
+		
+		if(ctx.inlineEdit.lastRow !== undefined){
+			ctx.inlineEdit.lastRow.submit = 1;
+		}
+		
+		// Se cambia el data
+        if (ajaxOptions.data == '') {
+            delete ajaxOptions.data;
+            $.rup_ajax(ajaxOptions);
+        } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
+        	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
+            if (url.indexOf('deleteAll') === -1) {
+            	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
+            	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
+                
+                // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
+                $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
+            	
+            	$.when(_loadAuxForm(ctx, actionType)).then(function () {
+	            	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
+	                if (hdivStateParamValue !== '') {
+	                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+	                }
+	                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+	                $.rup_ajax(ajaxOptions);
+            	});
+            } else {
+            	ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+            	$.rup_ajax(ajaxOptions);
+            }
+        }
 	}
-	
-	if(url !== '/deleteAll' && actionType !== 'DELETE'){
-		idForm.rup_form('ajaxNotSubmit', ajaxOptions);
-	}else{
-		//Se cambia el data
-		ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-		$.rup_ajax(ajaxOptions);
-	}
+    
+    if (ctx.oInit.inlineEdit.settings.saveDialog && !isDeleting) {
+    	$.rup_messages('msgConfirm', {
+            title: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+            message: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+            OKFunction: function () {
+            	_makeAjaxCall();
+            	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+            },
+            CANCELFunction: function () {
+            	$('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+            },
+            CLOSEFunction: function () {
+            	$('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+            }
+        });
+    } else {
+    	_makeAjaxCall();
+    }    
 }
 
+/**
+ * Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+ *
+ * @name loadAuxForm
+ * @function
+ * @since UDA 5.0.0 // Table 1.0.0
+ *
+ * @param {object} ctx - Contexto del Datatable.
+ * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
+ *
+ * @return {object}
+ */
+function _loadAuxForm(ctx, actionType) {
+	var idForm = ctx.oInit.inlineEdit !== undefined ? ctx.oInit.inlineEdit.idForm : undefined;
+	
+	// Servirá para saber si la última llamada a inlineEdit fue para añadir, editar o si aún no ha sido inicializado
+	let lastAction = ctx.oInit.inlineEdit.actionType;
+	
+	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
+	if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
+		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType y el identificador de la tabla.
+		let defaultData = {
+				'actionType': actionType,
+				'tableID': ctx.sTableId
+			};
+		let data = ctx.oInit.inlineEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.inlineEdit.data) : defaultData;
+		
+		return $.post(ctx.oInit.inlineEdit.url !== undefined ? ctx.oInit.inlineEdit.url : ctx.oInit.urlBase + '/inlineEdit', data, function (form) {
+			// Guardar anterior formulario para poder comprobarlo con el recién recibido
+			let tempForm = idForm !== undefined ? idForm : undefined;
+			
+			// Guardar referencia del formulario recibido
+			let receivedForm = $(form).find("form").addBack('form');
+			
+			// Si existe un formulario previo con el mismo identificador que el recibido, se elimina
+			if (tempForm !== undefined && tempForm.length === 1 && tempForm.attr("id") === receivedForm.attr("id")) {
+				tempForm.remove();
+			}
+			
+			let tableWrapper = $('#' + ctx.sTableId + '_wrapper');
+			tableWrapper.prepend(receivedForm);
+			ctx.oInit.inlineEdit.actionType = actionType;
+			ctx.oInit.inlineEdit.idForm = tableWrapper.find("form").first();
+    	}, 'html');
+    } else {
+    	// Para cuando el formulario actual sigue siendo válido o los formularios dinámicos están desactivados
+    	let deferred = $.Deferred();
+    	ctx.oInit.inlineEdit.actionType = actionType;
+    	deferred.resolve();
+		return deferred.promise();
+    }
+}
 
 /**
  * Llamada para crear el feedback dentro del dialog.
@@ -1417,6 +1567,9 @@ function _callSaveAjax(actionType,ctx,$fila,row,url){
  *
  */
 function _callFeedbackOk(ctx, msgFeedBack, type) {
+	if(ctx.oInit.inlineEdit.disabledFeedback){//no muestra el feedback
+		return false;
+	}
     $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow',ctx);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
@@ -1627,7 +1780,7 @@ function _notExistOnPage(ctx){
 	var pk = DataTable.Api().rupTable.getIdPk(ctx.inlineEdit.row,ctx.oInit);
 	var encontrado = true;
 	$.each(ctx.json.rows,function(index,r) {
-		if(DataTable.Api().rupTable.getIdPk(r,ctx.oInit) === pk){
+		if(DataTable.Api().rupTable.getIdPk(r,ctx.oInit) == pk){
 			encontrado = false;
 			return false;
 		}
@@ -1648,33 +1801,46 @@ function _notExistOnPage(ctx){
 */
 function _deleteAllSelects(dt){
 	var ctx = dt.settings()[0];
-	var idRow = 0;
-	var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
-	$.rup_messages('msgConfirm', {
-		message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
-		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
-		OKFunction: function () {
-			if(ctx.multiselection.selectedIds.length > 1){
-				var row = {};
-                    row.core = {
-                        'pkToken': ctx.oInit.multiplePkToken,
-                        'pkNames': ctx.oInit.primaryKey
-                    };
-				row.multiselection = {};
-				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
-				if(row.multiselection.selectedAll){
-					row.multiselection.selectedIds = ctx.multiselection.deselectedIds;
-				}else{
-					row.multiselection.selectedIds = ctx.multiselection.selectedIds;
-				}
-				_callSaveAjax('POST',ctx,idRow,row,'/deleteAll');
-			}else{
-				row = ctx.multiselection.selectedIds[0];
-				row = row.replace(regex,'/');
-				_callSaveAjax('DELETE',ctx,'',idRow,'/'+row);
+	let idRow = 0;
+	let regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
+    let actionType = ctx.multiselection.selectedIds.length > 1 ? 'POST' : 'DELETE';
+    
+	let _doDelete = function () {
+		let row = {};
+        row.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
+		if (ctx.multiselection.selectedIds.length > 1) {
+            row.core = {
+                'pkToken': ctx.oInit.multiplePkToken,
+                'pkNames': ctx.oInit.primaryKey
+            };
+			row.multiselection = {};
+			row.multiselection.selectedAll = ctx.multiselection.selectedAll;
+			if (row.multiselection.selectedAll) {
+				row.multiselection.selectedIds = ctx.multiselection.deselectedIds;
+			} else {
+				row.multiselection.selectedIds = ctx.multiselection.selectedIds;
 			}
+			_callSaveAjax(actionType, ctx, idRow, row, '/deleteAll', true);
+		} else {
+			row = ctx.multiselection.selectedIds[0];
+			row = row.replace(regex,'/');
+			_callSaveAjax(actionType, ctx, '', idRow, '/' + row, true);
 		}
-	});
+    };
+    
+	if (ctx.oInit.inlineEdit.settings.deleteDialog) {
+		$.rup_messages('msgConfirm', {
+			message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+			title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+			OKFunction: function () {
+				_doDelete();
+	            $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+			},
+			CANCELFunction: ctx.oInit.inlineEdit.cancelDeleteFunction
+		});
+    } else {
+    	_doDelete();
+    }
 }
 
 /**
@@ -1735,7 +1901,7 @@ apiRegister( 'inlineEdit.editSameLine()', function (ctx, idx ) {
 	var mismaLinea = false;
 	
         if (ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
-            ctx.inlineEdit.lastRow.idx === idx) {
+            ctx.inlineEdit.lastRow.idx == idx) {
 		mismaLinea = true;
 	}
 	
@@ -1799,8 +1965,12 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 		return;
 	}
 
-	if(ctx.oInit.inlineEdit !== undefined){
+	if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.activate !== false){
 		DataTable.inlineEdit.init( new DataTable.Api( ctx ) );
+		
+		if (ctx.oInit.inlineEdit.cancelDeleteFunction === undefined) {
+            ctx.oInit.inlineEdit.cancelDeleteFunction = function cancelClicked() {};
+        }
 	}
 
 } );

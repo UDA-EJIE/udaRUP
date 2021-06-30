@@ -147,10 +147,11 @@
                         second: tmpTime.getSeconds()
                     };
                     tmpDate.setHours(dateObj.hour + '', dateObj.minute + '', dateObj.second + '');
-                    formattedTime = $.timepicker._formatTime(dateObj, $(this).data('datepicker').settings.timeFormat);
+                    formattedTime =  $.datepicker.formatTime($(this).data('datepicker').settings.timeFormat,dateObj);
+                   
                 }
 
-                $(this).datepicker('setTime', tmpDate);
+                $(this).multiDatesPicker('toggleDate', [tmpDate]);
 
                 $(this).val(fechaArray[0] + ' ' + formattedTime);
 
@@ -408,6 +409,8 @@
                         settings.hourText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.hourText');
                         settings.minuteText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.minuteText');
                         settings.secondText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.secondText');
+                        settings.millisecText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.millisecText');
+                        settings.microsecText = $.rup.i18nParse($.rup.i18n.base, 'rup_time.microsecText');
                         $('#' + settings.id).datetimepicker(settings);
                     } else {
                         (this).attr('maxlength', '10');
@@ -422,6 +425,7 @@
                                 maxPicks: settings.multiSelect
                             }
                         };
+                        settings.maxPicks = settings.multiSelect;
                         maxlength = (10 * settings.multiSelect) + (settings.multiSelect - 1);
                     } else if (typeof settings.multiSelect === 'object') {
                         settings.mode = {
@@ -664,7 +668,9 @@
         noWeekend: false,
         showSecond: true,
         autoFillToField: true,
-        autoFillFromField: true
+        autoFillFromField: true,
+        showMillisec: false,
+        showMicrosec: false
     };
 
     //EVENTOS

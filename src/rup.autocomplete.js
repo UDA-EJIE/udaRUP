@@ -132,6 +132,8 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			var $self = this,
 				data = $self.data('rup.autocomplete'),
 				loadObjects, newObject = {};
+				
+			let id = $self[0].id;
 
 			if (data) {
 
@@ -142,16 +144,57 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 					loadObjects = $self.data('loadObjects');
 					newObject[value] = data.$hiddenField.val();
 					$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+					let labelFound = '';
+					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+					$.each(loadObjectsLabels, function (label, key) {
+						if(key !== undefined){
+							if(value === value){
+								labelFound = label;
+								return;
+							}
+						}
+	                });
+					if(labelFound !== ''){
+						$('#' + id + '_label').val(labelFound);
+					}
 				}
 
 				if (data.$labelField) {
 					loadObjects = data.$labelField.data('loadObjects');
 					newObject[$self.attr('rup_autocomplete_label')] = value;
 					data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+					let labelFound = '';
+					$.each(loadObjectsLabels, function (label, key) {
+						if(key !== undefined){
+							if(value === key){
+								labelFound = label;
+								return;
+							}
+						}
+	                });
+					let settings = data.$labelField.data('settings');
+					if(labelFound !== ''){
+						$('#' + id + '_label').val(labelFound);
+					}else if(settings.showDefault){
+						$('#' + id + '_label').val(value);
+					}
 				}
 			}
 
 			$(this).val(value);
+			
+			if (id.includes('_label')) {
+				if (value == "") {
+					$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
+				}
+				$self.triggerHandler('rupAutocomplete_change');
+			} else {
+				if (value == "") {
+					$('#' + id + '_label').val(value);
+				}
+				$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
+			}
 		},
 		/**
          * Elimina el autocomplete.
@@ -485,7 +528,7 @@ input.
          */
 		_sourceLOCAL: function (request, response) {
 			var settings, loadObjects = {},
-				returnValue, stock;
+				returnValue, stock,loadObjectsLabels = {};
 
 			if (this.element.data('settings') !== undefined) {
 				settings = this.element.data('settings');
@@ -507,7 +550,19 @@ input.
 				json_i18n = $.rup.i18n.app[settings.i18nId];
 
 			matcher = new RegExp(matcher, 'i');
-			data = $.map(settings.data, function (item) {
+			
+			// Detecta si es enlazado o no y lo gestiona
+			let dataSource = settings.data;
+			
+			if (settings.parent) {	
+				let parentsValues = settings.$self._getParentsValues(settings);
+				
+				if (parentsValues.selectedSource in settings.data) {
+					dataSource = settings.data[parentsValues.selectedSource];
+				}
+			}
+			
+			data = $.map(dataSource, function (item) {
 				var label = item,
 					value = item,
 					category;
@@ -524,6 +579,7 @@ input.
 						category = item.category;
 				}
 				var labelLimpio = label;
+				
 				if(settings.accentFolding){
 					labelLimpio = $.rup_utils.normalize(label);
 				}
@@ -534,7 +590,7 @@ input.
 					else
 						returnValue = settings._parseResponse(termLimpio, labelLimpio, value);
 					loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
-					
+					loadObjectsLabels[label] = returnValue.value;
 					if(settings.accentFolding && labelLimpio !== label){//limpiar acentos y mayúsculas
 						//parte delantera
 						//returnValue.label = literal.substr(0,nDelante)+label.substr(0,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
@@ -542,7 +598,7 @@ input.
 						var literal = returnValue.label;
 						var nDelante = literal.indexOf(termLimpio);
 						var n = labelLimpio.indexOf(termLimpio);
-						returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
+						returnValue.label = literal.substr(0, nDelante) + label.substr(n, termLimpio.length) + literal.substr(nDelante + termLimpio.length);
 						//parte trasera
 						//var nAtras = literal.indexOf(labelLimpio.substr(termLimpio.length));
 						
@@ -554,10 +610,11 @@ input.
 				}
 			});
 
-			//Se almacenan los datos cargados
+			// Se almacenan los datos cargados
 			$('#' + stock).data('loadObjects', loadObjects);
+			$('#' + stock).data('loadObjectsLabels', loadObjectsLabels);
 
-			//Eliminar elementos vacíos
+			// Eliminar elementos vacíos
 			data = $.grep(data, function (value) {
 				return value != undefined;
 			});
@@ -575,7 +632,7 @@ input.
 			//Se escapan los comodines/wildcards de BD
 			var $self = this.element,
 				settings, loadObjects = {},
-				returnValue, stock, term, data, lastTerm, bckData, $stock;
+				returnValue, stock, term, data, lastTerm, bckData, $stock, loadObjectsLabels = {};
 
 			if (this.element.data('settings') !== undefined) {
 				settings = this.element.data('settings');
@@ -590,17 +647,32 @@ input.
 			}
 
 			$stock = jQuery('#' + stock);
+			
+			// Si tiene parent, envía su valor como parámetro extra
+			if (settings.parent) {
+				if (settings.extraParams === undefined) {
+					settings.extraParams = {};
+				}
+				
+				$.each(settings.parent, function (position, item) {
+					let entityName = $('#' + item).attr('name');
+					
+					if (entityName !== undefined && entityName !== '') {
+						settings.extraParams[entityName] = $('#' + item).rup_autocomplete('getRupValue');
+					}
+				});
+			}
 
 			term = request.term.replace(/%/g, '\\%').replace(/_/g, '\\_');
 			data = $.extend({
 				q: term,
-				c: this.options.contains
-			}, this.options.extraParams);
+				c: settings.contains
+			}, settings.extraParams);
 
 			// Comprobar si se puede cachear
 			lastTerm = $stock.data('tmp.loadObjects.term');
 
-			if (term.indexOf(lastTerm) === 0) {
+			if (!settings.disabledCache && term.indexOf(lastTerm) === 0) {
 
 				$stock.data('tmp.loadObjects.term', term);
 
@@ -650,6 +722,7 @@ input.
 								}
 							}
 							var labelLimpio = item.label;
+							
 							if(settings.accentFolding){
 								labelLimpio = $.rup_utils.normalize(item.label);
 							}
@@ -659,7 +732,8 @@ input.
 							else
 
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value);
-
+							
+							loadObjectsLabels[item.label] = returnValue.value;
 							loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
 							if(settings.accentFolding && labelLimpio !== item.label){//limpiar acentos y mayúsculas
 								//parte delantera
@@ -677,6 +751,7 @@ input.
 
 						//se almacenan los datos cargados
 						$stock.data('loadObjects', loadObjects);
+						$stock.data('loadObjectsLabels', loadObjectsLabels);
 						$stock.data('tmp.loadObjects.term', term);
 						$stock.data('tmp.data', data);
 
@@ -736,14 +811,77 @@ input.
 			settings.$comboboxToogle = $button;
 		},
 		/**
+         * Método que obtiene el valor del autocomplete padre (ya sea uno o varios).
+         *
+         * @function _getParentsValues
+         * @private
+	     * @since UDA 5.0.0
+		 *
+         * @param {object} settings - Configuración general del componente.
+		 *
+		 * @return {object}
+         */
+		_getParentsValues: function (settings) {
+			let parentsValues = {};
+			parentsValues.allParentsHaveValues = true;
+			parentsValues.selectedSource = '';
+			
+			$.each(settings.parent, function (position, parentId) {				
+				if ($("#" + parentId).rup_autocomplete("getRupValue") == '' || $("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
+					parentsValues.allParentsHaveValues = false;
+					return false;
+				}
+				
+				// Obtener valor del padre
+				parentsValues.selectedSource += settings.$self._processHDIV($('#' + parentId + '_label').data('settings'), $("#" + parentId).rup_autocomplete("getRupValue"));
+				
+				// Comprobar si se trata de un autocomplete enlazado múltiple
+				if (settings.parent.length > 1 && position != settings.parent.length - 1) {
+					parentsValues.selectedSource += settings.multiValueToken;
+				}
+			});
+				
+			return parentsValues;
+		},
+		/**
+         * Método que comprueba si el padre de un autocomplete local es remoto y usa HDIV. En caso afirmativo, se usará el NID en vez del ID, ya que este último, viene cifrado.
+         *
+         * @function _processHDIV
+         * @private
+	     * @since UDA 5.0.0
+		 *
+         * @param {object} parentSettings - Configuración general del componente padre.
+         * @param {string} selectedSource - Valor del padre.
+		 *
+		 * @return {string}
+         */
+		_processHDIV: function (parentSettings, selectedSource) {
+			if (parentSettings !== undefined && parentSettings.source.name === '_sourceREMOTE' && $.fn.isHdiv(selectedSource)) {
+				let parentData = $("#" + parentSettings.loadObjects).data('tmp.data');
+				let parentLabel = $("#" + parentSettings.loadObjects).rup_autocomplete("getRupValue");
+				
+				let search = $.grep(parentData, function (row) {
+					return row.value === selectedSource && row.label === parentLabel; 
+				});
+				
+				if (search[0] !== undefined && search[0] !== '') {
+					let nid = search[0].nid;
+				
+					if (nid) {
+						selectedSource = nid;
+					}
+				}
+			}
+			
+			return selectedSource;
+		},
+		/**
          * Método de inicialización del componente.
          *
          * @function _init
          * @private
          */
 		_init: function (args) {
-
-
 			if (args.length > 1) {
 				$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
 			} else {
@@ -800,6 +938,7 @@ input.
 					$('#' + settings.id).data('selected', true);
 					$('#' + settings.id).val(ui.item.value);
 					$self.triggerHandler('rupAutocomplete_select', [ui]);
+					event.stopPropagation();
 					return false;
 				};
 				settings.focus = function (event, ui) {
@@ -911,13 +1050,13 @@ input.
 				//         $('span').has('#'+settings.id+'_label').find("a").removeAttr("style");
 				//     }
 				// }
-
-				//Valor por defecto
-				if (settings.defaultValue) {
+				
+				// Valor por defecto
+				if ((settings.defaultValue && settings.parent == undefined) || (settings.parent != undefined && settings.parent != '' && $("#" + settings.parent + "_label").rup_autocomplete("getRupValue") != '')) {
 					$('#' + settings.id).rup_autocomplete('search', settings.defaultValue);
 				}
 
-				//Valor pre-cargado
+				// Valor pre-cargado
 				if (settings.loadValue) {
 					$('#' + settings.id).val(settings.loadValue);
 					$('#' + settings.id + '_value').val(settings.loadValue);
@@ -968,14 +1107,9 @@ input.
 					var autoCompObject = $(event.currentTarget),
 						loadObjects = $('#' + settings.loadObjects).data('loadObjects');
 
-					if (settings.getText == true) {
-						if (loadObjects[autoCompObject.val()] !== undefined) {
-							$('#' + settings.id).val(autoCompObject.val());
-							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
-						} else {
-							$('#' + settings.id).val(autoCompObject.val());
-							$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
-						}
+					if (settings.getText) {
+						$('#' + settings.id).val(autoCompObject.val());
+						$('#' + settings.id).attr('rup_autocomplete_label', autoCompObject.val());
 					} else {
 						// Cuando la propiedad accentFolding = true
 						if (settings.accentFolding && loadObjects[$.rup_utils.normalize(autoCompObject.val())] !== undefined) {
@@ -1012,17 +1146,137 @@ input.
 
 
 				//Deshabilitar
-				if (settings.disabled === true) {
+				if (settings.disabled) {
 					$('#' + settings.id).rup_autocomplete('disable');
-
-				} else if (settings.disabled === false) { //habilitar
+				} else if (!settings.disabled) { //habilitar
 					$('#' + settings.id).rup_autocomplete('enable');
 				}
+				
+				if (settings.parent) {
+					$.map(settings.parent, function (item) {
+                        var childsArray = $('#' + item).data('childs') === undefined ? [] : $('#' + item).data('childs');
+                        childsArray[childsArray.length] = settings.id;
+                        $('#' + item).data('childs', childsArray);
+                        $('#' + item).data('childSelector', 0);
+                    });
 
-				//Se audita el componente
+					// Comprobar si tiene un padre o varios
+					if (settings.parent.length > 1) {
+						let allParentsHaveValues = true;
+						
+						// Se comprueba si todos los padres tienen valores asignados
+						$.each(settings.parent, function (position, parentId) {
+							if ($("#" + parentId + "_label").rup_autocomplete("getRupValue") == '') {
+								allParentsHaveValues = !allParentsHaveValues;
+								return false;
+							}
+						});
+						
+						if (allParentsHaveValues) {
+							$('#' + settings.id).rup_autocomplete('enable');
+						} else {
+							$('#' + settings.id).rup_autocomplete('disable');
+							$('#' + settings.id).rup_autocomplete("setRupValue", "");
+						}
+					} else {
+						if ($("#" + settings.parent + "_label").rup_autocomplete("getRupValue") != '') {
+	                        $('#' + settings.id).rup_autocomplete('enable');
+	                    } else {
+							$('#' + settings.id).rup_autocomplete('disable');
+							$('#' + settings.id).rup_autocomplete("setRupValue", "");
+						}
+					}
+					
+					// Añadir evento para detectar los cambios en valores del padre/s
+					$.each(settings.parent, function (position, parentId) {
+						$("#" + parentId + "_label").on("rupAutocomplete_change", function (event) {
+							let autocompleteId = event.target.id.substring(0, event.target.id.indexOf("_label"));
+							let childSelector = $("#" + autocompleteId).data('childSelector');
+							let child = $("#" + autocompleteId).data('childs')[childSelector];
+							let resourceIsCached = false;
+							let parentsValues = settings.$self._getParentsValues(settings);
+							let selectedSource = parentsValues.selectedSource;
+							let allParentsHaveValues = parentsValues.allParentsHaveValues;
+							let checkValueDeferred = $.Deferred();
+							
+							// Comprobar valor para saber si habilitar o no el hijo
+							if (allParentsHaveValues) {
+								// Si es remoto hay que obtener los datos para poder hacer la siguiente comprobación de valores válidos
+								if (settings.source.name === '_sourceREMOTE') {
+									let retrieveValueDeferred = $.Deferred();
+									
+									$('#' + child + '_label').on("autocompleteresponse", function() {
+										retrieveValueDeferred.resolve();
+										return retrieveValueDeferred.promise();
+									});
+									
+									$.when(retrieveValueDeferred).then(function () {
+										resourceIsCached = false;
+										allParentsHaveValues = false;
+										let childData = $('#' + child + '_label').data('tmp.data');
+										
+										if (childData !== undefined && childData.length > 0) {
+											allParentsHaveValues = true;
+										}
+										
+										checkValueDeferred.resolve();
+										return checkValueDeferred.promise();
+									});
+									
+									// Eliminar cache porque sino no realiza la búsquedas cuando se cambia el padre
+									if (settings.$self.data('tmp.loadObjects.term') !== undefined) {
+										settings.$self.removeData('tmp.loadObjects.term');
+									}
+									
+									// Realizar búsqueda
+									$('#' + child).rup_autocomplete('search', settings.defaultValue !== undefined ? settings.defaultValue : undefined);
+									// Quitar foco del elemento para evitar desplegar los resultados automáticamente
+									$('#' + child + '_label').trigger('blur');
+								} else if (settings.source.name === '_sourceLOCAL' && !(selectedSource in $('#' + child + '_label').data('settings').data)) {
+									allParentsHaveValues = false;
+										
+									checkValueDeferred.resolve();
+									checkValueDeferred.promise();
+								} else {
+									checkValueDeferred.resolve();
+									checkValueDeferred.promise();
+								}
+							} else {
+								checkValueDeferred.resolve();
+								checkValueDeferred.promise();	
+							}
+							
+							// Cuando es enlazado, hay que comprobar si el valor seleccionado en el padre permite seleccionar algún valor en el hijo
+							$.when(checkValueDeferred).then(function () {
+								// Activar o desactivar dependiendo de si todos los parent tienen valores
+								if (allParentsHaveValues) {
+									$('#' + child).rup_autocomplete('enable');
+								} else {
+									$('#' + child).rup_autocomplete('disable');
+								}
+								
+								// Definir valor por defecto o vaciarlo en caso contrario
+								if (allParentsHaveValues && !resourceIsCached && settings.defaultValue != undefined) {
+									$('#' + child).rup_autocomplete('search', settings.defaultValue);
+								} else {
+									$('#' + child + "_label").val("");
+									$('#' + child).rup_autocomplete("setRupValue", "");
+								}
+								
+								// Comprobar que hijo se usara la proxima vez
+								if ($("#" + autocompleteId).data('childs').length - 1 > childSelector) {
+									$('#' + autocompleteId).data('childSelector', childSelector + 1);
+								} else {
+									$('#' + autocompleteId).data('childSelector', 0);
+								}
+							});
+						});
+					});
+				}
+
+				// Se audita el componente
 				$.rup.auditComponent('rup_autocomplete', 'init');
 			}
-
 		}
 	});
 
@@ -1053,7 +1307,8 @@ input.
      * @property {object} [menuAppendTo=null] - Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable.
      * @property {boolean} [disabled=false] - Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda.
      * @property {string} [defaultValue] - Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos
-     */
+     * @property {string} [multiValueToken="##"] - Define el separador a utilizar en combos enlazados locales. 
+	 */
 	$.fn.rup_autocomplete.defaults = {
 		onLoadError: null,
 		contains: true,
@@ -1064,7 +1319,8 @@ input.
 		menuMaxHeight: false,
 		menuAppendTo: null,
 		disabled: false,
-		accentFolding: true
+		accentFolding: true,
+        multiValueToken: '##'
 	};
 
 	/**
@@ -1075,7 +1331,7 @@ input.
      */
 
 	/**
-     * Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del comonente
+     * Permite asociar una función que se ejecutará cuando se produzca un cambio en el valor seleccionado del componente
      * @event module:rup_autocomplete#rupAutocomplete_change
      * @example
      * $("#autocomplete").on("rupAutocomplete_change", function(event, data){});

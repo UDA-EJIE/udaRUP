@@ -404,7 +404,7 @@ function getResult(req) {
                     pageLine: arrElem.line + 1,
                     tableLine: (req.body.rows * (arrElem.page - 1)) + arrElem.line + 1,
                     pk: {
-                        codigoPK: arrElem.id.split('_').pop()
+                        codigoPK: String(arrElem.id).split('_').pop()
                     }
                 };
                 rSelection.push(tmpObj);

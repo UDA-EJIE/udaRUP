@@ -4,3 +4,90 @@
 Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa métodos para la manipulación de JSON, formularios, formatos...
 
 **Summary**: Librería de utilidades para los componentes RUP.  
+
+* [rup_utils](#jQuery.module_rup_utils)
+    * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
+    * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
+    * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
+    * [~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>
+    * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
+    * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
+
+<a name="jQuery.module_rup_utils..deleteMulticomboLabelFromObject"></a>
+
+### rup_utils~deleteMulticomboLabelFromObject(obj, container)
+Elimina el campo autogenerado por el componente combo de un objeto. Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Since**: UDA 4.2.2  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>object</code> | Objeto del que se quiere eliminar el campo autogenerado. |
+| container | <code>object</code> | Contenedor del componente. |
+
+<a name="jQuery.module_rup_utils..deleteAutocompleteLabelFromObject"></a>
+
+### rup_utils~deleteAutocompleteLabelFromObject(obj)
+Elimina el campo autogenerado por el componente autocomplete de un objeto. Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Since**: UDA 4.2.2  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>object</code> | Objeto del que se quiere eliminar el campo autogenerado. |
+
+<a name="jQuery.module_rup_utils..isHdiv"></a>
+
+### rup_utils~isHdiv(id) ⇒ <code>boolean</code>
+Comprueba si el parámetro ha sido cifrado por Hdiv.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>boolean</code> - Verdadero si el parámetro ha sido cifrado por Hdiv.  
+**Since**: UDA 5.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | Identificador de la entidad. |
+
+<a name="jQuery.module_rup_utils..getStaticHdivID"></a>
+
+### rup_utils~getStaticHdivID(id) ⇒ <code>string</code>
+Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.Es útil cuando se necesita comparar identificadores cifrados.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - Identificador de la entidad con la parte dinámica del cifrado eliminada.  
+**Since**: UDA 5.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | Identificador de la entidad. |
+
+<a name="jQuery.module_rup_utils..getHDIV_STATE"></a>
+
+### rup_utils~getHDIV\_STATE(hasMoreParams, $form) ⇒ <code>string</code>
+Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - Parámetro HDIV_STATE.  
+**Since**: UDA 5.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hasMoreParams | <code>boolean</code> | Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL. |
+| $form | <code>object</code> | Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use. |
+
+<a name="jQuery.module_rup_utils..resetAutocomplete"></a>
+
+### rup_utils~resetAutocomplete(type, obj)
+Reinicia por completo los autocomplete de un formulario para que no sigan filtrando.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Since**: UDA 4.2.2  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Valor del atributo type. |
+| obj | <code>object</code> | Formulario del que obtener los autocompletes a reiniciar. |
+

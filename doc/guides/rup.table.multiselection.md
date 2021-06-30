@@ -1,10 +1,10 @@
-# RUP Table - Multiselection
+# RUP Table - Multiselecci髇
 
 Permite realizar una selecci贸n m煤ltiple de los registros que se muestran en la tabla.
 
 ![Imagen 1](img/rup.table.multiselection_1.png)
 
-## 1. Declaraci贸n y configuraci贸n
+## 1. Declaraci髇 y configuraci髇
 
 El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor multiselection. La configuraci贸n del plugin se especifica en la propiedad multiselect.
 
@@ -18,15 +18,16 @@ $("#idComponente").rup_table({
 
 ## Funcionamiento interno
 
-Para su funcionamiento el plugin de multiselecci贸n del componente RUP Table hace uso de una estructura de datos almacenada mediante ```multiselection```.
+Para su funcionamiento el plugin de multiselecci贸n del componente RUP Table hace uso de una estructura de datos almacenada mediante `multiselection`.
 
 Se puede acceder a esta estructura mediante la siguiente instrucci贸n:
 
 ```js
-var table = $('#example').DataTable();
-var multiselectionObj = table.context[0].multiselection;
+var ctx = $('#example').rup_table('getContext');
+var multiselectionObj = ctx.multiselection;
 ```
 Se puede acceder a los m茅todos de la api del multiSelect:
+
 ```js
 DataTable.Api().multiSelect.metodoEjemplo()
 ```

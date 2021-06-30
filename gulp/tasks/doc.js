@@ -21,24 +21,15 @@ var runJsdoc2md = function (fileSource, outputPath) {
     var basename;
     return gulp.src(fileSource)
         .pipe(tap(function (file) {
-            if (file.relative !== 'rup.jqtable.js') {
-                basename = file.relative.split('.js')[0];
-                console.log('outpath ' + outputPath + ' File ' + file.path + '  ' + basename);
+            basename = file.relative.split('.js')[0];
+            console.log('outpath ' + outputPath + ' File ' + file.path + '  ' + basename);
 
-                var output = jsdoc2md.renderSync({
-                    files: file.path
-                });
-                fs.writeFileSync(outputPath + basename + '.md', output);
-            }
+            var output = jsdoc2md.renderSync({
+                files: file.path
+            });
+            fs.writeFileSync(outputPath + basename + '.md', output);
         }));
 };
-
-gulp.task('doc:api:jqtable', function () {
-    var fileSource = 'src/rup_jqtable/rup*.js';
-    var outputPath = './doc/api/';
-
-    return runJsdoc2md(fileSource, outputPath);
-});
 
 gulp.task('doc:api:table', function () {
     var fileSource = 'src/rup_table/rup*.js';
@@ -49,7 +40,6 @@ gulp.task('doc:api:table', function () {
 
 gulp.task('doc', gulp.series(
     'doc:api:clean',
-    'doc:api:jqtable',
     'doc:api:table',
     function () {
         var fileSource = 'src/rup*.js';
@@ -58,12 +48,3 @@ gulp.task('doc', gulp.series(
         return runJsdoc2md(fileSource, outputPath);
     }
 ));
-
-gulp.task('jsdocFile', function () {
-    var filePath = 'src/rup_jqtable/';
-    var basename = 'rup.jqtable.report';
-    var outputPath = './doc/api/';
-    jsdoc2md.render({
-        files: filePath + basename + '.js'
-    }).then(output => fs.writeFile(outputPath + basename + '.md', output));
-});

@@ -148,7 +148,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aExcel',
+        		fileName: 'reportExcel',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
@@ -179,7 +179,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/pdf',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aPDF'
+        		fileName: 'reportPDF'
             },
             action: function (e, dt, button, config) {
                 // Si es llamado desde el contextMenu este paso es innecesario y la condicion
@@ -209,7 +209,7 @@
 	            contentType: 'application/json',
         		dataType: 'application/vnd.oasis.opendocument.spreadsheet',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aODS',
+        		fileName: 'reportODS',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
@@ -240,7 +240,7 @@
 	            contentType: 'application/json',
         		dataType: 'text/csv',
         		reportsExportAllColumns: false,
-        		fileName: 'x21aCSV',
+        		fileName: 'reportCSV',
         		sheetTitle: 'Usuario'
             },
             action: function (e, dt, button, config) {
@@ -2136,40 +2136,42 @@
         case 'add':
         	ctx.oInit.buttons.myLastAction = 'add';
             if (ctx.oInit.formEdit !== undefined) {
-                let idTableDetail = ctx.oInit.formEdit.detailForm;
-                // Limpiamos el formulario
-                if($(idTableDetail).find('form')[0] !== undefined) {
-                	$(idTableDetail).find('form')[0].reset();
-                    jQuery.each($('select.rup_combo',$(idTableDetail)), function (index, elem) {
-        				jQuery(elem).rup_combo('refresh');
-                    });
-                    if (ctx.multiselection.numSelected > 0) {
-                        $.rup_messages('msgConfirm', {
-                            message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-                            title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
-                            OKFunction: function () {
-                                // Abrimos el formulario
-                                if (ctx.oInit.seeker !== undefined) {
-                                    DataTable.Api().seeker.limpiarSeeker(dt, ctx); // Y deselecionamos los checks y seekers
-                                } else {
-                                    if (ctx.oInit.multiSelect !== undefined) {
-                                        DataTable.Api().multiSelect.deselectAll(dt); // Y deselecionamos los checks y seekers
-                                    } else if (ctx.oInit.select !== undefined) {
-                                        DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
-                                    }
-                                }
-                                DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
-                            }
+            	$.when(DataTable.Api().editForm.loadSaveDialogForm(ctx, 'POST')).then(function () {
+            		let idTableDetail = ctx.oInit.formEdit.detailForm;
+                    // Limpiamos el formulario
+                    if($(idTableDetail).find('form')[0] !== undefined) {
+                    	$(idTableDetail).find('form')[0].reset();
+                        jQuery.each($('select.rup_combo',$(idTableDetail)), function (index, elem) {
+            				jQuery(elem).rup_combo('refresh');
                         });
+                        if (ctx.multiselection.numSelected > 0) {
+                            $.rup_messages('msgConfirm', {
+                                message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
+                                title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+                                OKFunction: function () {
+                                    // Abrimos el formulario
+                                    if (ctx.oInit.seeker !== undefined) {
+                                        DataTable.Api().seeker.limpiarSeeker(dt, ctx); // Y deselecionamos los checks y seekers
+                                    } else {
+                                        if (ctx.oInit.multiSelect !== undefined) {
+                                            DataTable.Api().multiSelect.deselectAll(dt); // Y deselecionamos los checks y seekers
+                                        } else if (ctx.oInit.select !== undefined) {
+                                            DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
+                                        }
+                                    }
+                                    DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
+                                }
+                            });
+                        } else {
+                            DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
+                        }
                     } else {
-                        DataTable.Api().editForm.openSaveDialog('POST', dt, null, null);
+                    	$.rup_messages('msgError', {
+                            title: 'Error grave',
+                            message: '<p>Falta definir "detailForm" en la inicialización de la tabla.</p>'
+                        });
                     }
-                } else {
-                	$.rup_messages('msgError', {
-                        title: 'Error grave',
-                        message: '<p>Falta definir "detailForm" en la inicialización de la tabla.</p>'
-                    });
-                }
+            	});
             } else { //edicion en linea
                 ctx.oInit.inlineEdit.currentPos = undefined;
                 DataTable.Api().inlineEdit.add(dt, ctx);
@@ -2179,15 +2181,15 @@
             // Abrimos el formulario
         	ctx.oInit.buttons.myLastAction = 'edit'
             if (ctx.oInit.formEdit !== undefined) {
-                //Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
-                var idRow = DataTable.Api().editForm.getRowSelected(dt, 'PUT').line;
-                if (ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
-                        ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
-                        dt.page() + 1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])) {
-                    DataTable.Api().editForm.openSaveDialog('PUT', dt, idRow, null);
-                }
+                // Se busca el idRow con el último seleccionado. En caso de no existir, será el primero.
+            	$.when(DataTable.Api().editForm.getRowSelected(dt, 'PUT')).then(function (rowInfo) {
+            		if (ctx.oInit.formEdit.$navigationBar === undefined || ctx.oInit.formEdit.$navigationBar.funcionParams === undefined ||
+                            ctx.oInit.formEdit.$navigationBar.funcionParams[4] === undefined ||
+                            dt.page() + 1 === Number(ctx.oInit.formEdit.$navigationBar.funcionParams[4])) {
+                        DataTable.Api().editForm.openSaveDialog('PUT', dt, rowInfo.line, ctx.oInit.formEdit.customTitle);
+                    }
+            	});
             } else { //edicion en linea
-                //Se busca el idRow con el ultimó seleccionado en caso de no existir será el primero.
                 ctx.oInit.inlineEdit.currentPos = undefined;
                 ctx.oInit.inlineEdit.alta = undefined;
                 var idRowInline = DataTable.Api().inlineEdit.getRowSelected(dt, 'PUT').line;
@@ -2197,8 +2199,10 @@
         	ctx.oInit.buttons.myLastAction = 'clone'
             // Abrimos el formulario
             if (ctx.oInit.formEdit !== undefined) {
-                var idRow = DataTable.Api().editForm.getRowSelected(dt, 'CLONE').line;
-                DataTable.Api().editForm.openSaveDialog('CLONE', dt, idRow, null);
+            	// Se busca el idRow con el último seleccionado. En caso de no existir, será el primero.
+            	$.when(DataTable.Api().editForm.getRowSelected(dt, 'CLONE')).then(function (rowInfo) {
+            		DataTable.Api().editForm.openSaveDialog('CLONE', dt, rowInfo.line, ctx.oInit.formEdit.customTitle);
+            	});
             } else { //edicion en linea
                 ctx.oInit.inlineEdit.alta = true;
                 ctx.oInit.inlineEdit.currentPos = undefined;
@@ -3170,7 +3174,7 @@
                     ctx.oInit.formEdit.okCallBack = true;
                 }
                 _reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
-                if (ctx.oInit.formEdit !== undefined) {
+                if (ctx.oInit.formEdit !== undefined && !ctx.oInit.formEdit.detailForm.hasClass('d-none')) {//si esta oculto, no hace falta
                     ctx.oInit.formEdit.detailForm.rup_dialog('close');
                 }
             },
@@ -3284,6 +3288,16 @@
         }
     };
     
+    /**
+     * Metodo que elimina todos los registros seleccionados.
+     *
+     * @name _deleteAllSelects
+     * @function
+     * @since UDA 4.2.0 // Table 1.0.0
+     *
+     * @param {object} dt - Es el objeto table.
+     *
+     */
     var _deleteAllSelects = function (dt) {
     	var ctx = dt.settings()[0];
     	let idRow = 0;
@@ -3293,8 +3307,12 @@
     		title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
     		OKFunction: function () {
     			let row = {};
+                row.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
     			if (ctx.multiselection.selectedIds.length > 1){
-    				row.core =  {'pkToken': ctx.oInit.multiplePkToken, 'pkNames': ctx.oInit.primaryKey};
+    				row.core = {
+    					'pkToken': ctx.oInit.multiplePkToken,
+    					'pkNames': ctx.oInit.primaryKey
+    				};
     				row.multiselection = {};
     				row.multiselection.selectedAll = ctx.multiselection.selectedAll;
     				if (row.multiselection.selectedAll){
@@ -3598,13 +3616,13 @@
     //create the buttons instance here so they can be inserted into the document
     //using the API. Listen for `init` for compatibility with pre 1.10.10, but to
     //be removed in future.
-    $(document).on('plugin-init.dt', function (e, settings) {
+    $(document).on('plugin-init.dt', function (e, ctx) {
         if (e.namespace !== 'dt') {
             return;
         }
 
-        if (settings.oInit.buttons !== undefined) {
-            inicio(settings);
+        if (ctx.oInit.buttons !== undefined && ctx.oInit.buttons.activate !== false) {
+            inicio(ctx);
         }
     });
 

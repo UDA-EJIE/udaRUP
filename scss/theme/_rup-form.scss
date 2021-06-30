@@ -42,13 +42,11 @@ input, textarea{
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     color: #555;
     // display: block;
     font-size: $rup-font-size-base;
     //height: 2rem;
     line-height: 1.42857;
-    padding: 2px 12px;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     //width: 100%;
 }
@@ -88,10 +86,6 @@ legend{
   margin-bottom: 0;
   border: none;
   padding: 0 0.4rem;
-}
-
-.form-group-sm .form-control, .form-group-sm select.form-control{
-  height: 25px;
 }
 
 select{

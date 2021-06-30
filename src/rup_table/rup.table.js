@@ -166,6 +166,14 @@
         	let dt = $('#' + this[0].id).DataTable();
             let ctx = dt.context[0];
             return ctx.multiselection.selectedRowsPerPage;
+        },
+        //$("#idTable").rup_table("clear");
+        clear: function () {
+        	$('#' + this[0].id + ' tbody').empty();
+        },
+        //$("#idTable").rup_table("reload");
+        reload: function () {
+        	$('#' + this[0].id).DataTable().ajax.reload();
         }
     });
 
@@ -208,7 +216,7 @@
             //Se cargan los metodos en la API, Se referencia al Register
             var apiRegister = DataTable.Api.register;
 
-            DataTable.Api.register('rupTable.selectPencil()', function (ctx, idRow) {
+            apiRegister('rupTable.selectPencil()', function (ctx, idRow) {
                 //Se elimina el lapicero indicador.
                 $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
                 //se añade el span con el lapicero
@@ -220,20 +228,30 @@
 
             apiRegister('rupTable.reorderDataFromServer()', function (json, ctx) {
                 //Se mira la nueva reordenacion y se ordena.
-                ctx.multiselection.selectedIds = [];
-                ctx.multiselection.selectedRowsPerPage = [];
-
+            	if(ctx.multiselection !== undefined){
+            		ctx.multiselection.selectedIds = [];
+            		ctx.multiselection.selectedRowsPerPage = [];
+            	}
+            	
+            	let posibleLastselection = "";
                 //Viene del servidor por eso la linea de la pagina es 1 menos.
                 $.each(json.reorderedSelection, function (index, p) {
+                	let idEntity = DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit);
+                	if(ctx.oInit.formEdit !== undefined){                	
+	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
+	                    if (hdivStateParamValue !== '' && index == 0) {
+	                    	ctx.multiselection.lastSelectedId = idEntity;
+	                    }
+                	}
                     var arra = {
-                        id: DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit),
+                        id: idEntity,
                         page: p.page,
                         line: p.pageLine - 1
                     };
                     ctx.multiselection.selectedIds.splice(index, 0, arra.id);
                     ctx.multiselection.selectedRowsPerPage.splice(index, 0, arra);
                 });
-                if (!ctx.multiselection.selectedAll) {
+                if (ctx.multiselection !== undefined && !ctx.multiselection.selectedAll) {
                     ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
                 }
 
@@ -246,7 +264,6 @@
             });
 
             apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
-
                 var opts = options;
                 if (optionsParam !== undefined) {
                     opts = optionsParam;
@@ -256,11 +273,11 @@
 
                 $.each(opts.primaryKey, function (index, key) {
                     // Comprueba si la primaryKey es un subcampo
-                    if (key.indexOf('.') !== -1) {
-                        id = $self._getDescendantProperty(json, key);
-                    } else {
-                        id = id + json[key];
-                    }
+                	if (json.hasOwnProperty(key)) {
+                		id = id + json[key];
+                	} else if (key.indexOf('.') !== -1) {
+                	    id = $self._getDescendantProperty(json, key);
+                	}
 
                     if (opts.primaryKey.length > 1 && index < opts.primaryKey.length - 1) {
                         id = id + opts.multiplePkToken;
@@ -268,6 +285,30 @@
                 });
 
                 return id;
+            });
+            
+            /**
+             * Comprueba si dos claves primarias son iguales.
+             *
+             * @name comparePKs
+             * @function
+             * @since UDA 5.0.0 // Table 1.0.0
+             * 
+             * @param {object} firstRow - Fila de la tabla a comparar.
+             * @param {object} secondRow - Fila de la tabla a comparar.
+             *
+             * @return {boolean}
+             */
+            apiRegister('rupTable.comparePKs()', function (firstRow, secondRow) {
+            	let firstRowPK = DataTable.Api().rupTable.getIdPk(firstRow);
+            	let secondRowPK = DataTable.Api().rupTable.getIdPk(secondRow);
+            	
+            	// Si Hdiv está activado se comprueba el parámetro nid en vez de la PK (es lo mismo pero sin cifrar)
+            	if ($.fn.isHdiv(firstRowPK) && $.fn.isHdiv(secondRowPK)) {
+            		return firstRow.nid === secondRow.nid;
+            	} else {
+            		return firstRowPK === secondRowPK;
+            	}
             });
 
             /**
@@ -627,7 +668,9 @@
          */
         _ajaxRequestData(data, ctx) {
             //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-            data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
+        	if (ctx.oInit.ordering && data.order[0] != undefined && data.order[0].column != undefined) {
+        		data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
+        	}
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
             if (ctx.oInit.filter.$filterContainer) {
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
@@ -654,7 +697,7 @@
             // Elimina los campos _label generados en los autocompletes del filtro
             $.fn.deleteAutocompleteLabelFromObject(data.filter);
             
-            // Elimina del filtro los campos autogenerados por lo multicombos que no forman parte de la entidad
+            // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
             $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
 
             var tableRequest = new TableRequest(data);
@@ -703,7 +746,7 @@
                     size: '3',
                     value: settingsT.json.page,
                     maxlength: '3'
-                }).addClass('ui-pg-input');
+                }).addClass('ui-pg-input text-center');
 
                 liSearch.append(textPagina);
                 liSearch.append(input);
@@ -778,12 +821,22 @@
          *
          */
         _clearFilter(options) {
-            var $self = this;
+            let $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
             
             // Reinicia por completo los autocomplete ya que sino siguen filtrando
             $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
+            
+            //si es Maestro-Detalle restaura el valor del padre.
+            if(options.masterDetail !== undefined){
+	            let tableMaster = $(options.masterDetail.master).DataTable();
+	            let rowSelected = tableMaster.rows('.selected').indexes();
+	            let row = tableMaster.rows(rowSelected).data();
+	            let id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
+	            let $hiddenPKMaster = $('#' + options.id + '_filter_masterPK');
+	            $hiddenPKMaster.val('' + id);
+        	}
             
             $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
@@ -853,9 +906,9 @@
              */
             
             // Se define el selector del formulario de filtrado por preferencia "JSP > JS > Default"
-            if(options.filterForm){
+            if (options.filterForm) {
                 filterOpts.id = $(options.filterForm).attr('id');
-            } else if(!filterOpts.id) {
+            } else if (!filterOpts.id) {
                 filterOpts.id = tableId + '_filter_form';
             }
             filterOpts.$filterContainer = jQuery('#' + filterOpts.id);
@@ -887,8 +940,10 @@
                 filterOpts.$clearButton.on('click', function () {
                     $self._clearFilter(options);
                 });
-
-                options.filter.showHidden = false;
+                
+                if (filterOpts.showHidden === undefined || typeof filterOpts.showHidden !== "boolean") {
+                	filterOpts.showHidden = false;
+                }
 
                 toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon1');
                 toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleLabel');
@@ -896,7 +951,7 @@
                 toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon2');
 
                 $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
-                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
+                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
                 $filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterOpts.filterSummaryId));
                 $toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterOpts.toggleIcon2Id));
 
@@ -927,7 +982,7 @@
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-right').addClass('mdi-chevron-down');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-up-drop-circle').addClass('mdi-arrow-down-drop-circle');
                     filterOpts.$filterToolbar.addClass('formulario_opened');
-                    options.filter.showHidden = false;
+                    filterOpts.showHidden = false;
                 };
                 
                 filterOpts.hideLayer = function(){
@@ -935,12 +990,12 @@
                     filterOpts.$toggleIcon1.removeClass('mdi-chevron-down').addClass('mdi-chevron-right');
                     filterOpts.$toggleIcon2.removeClass('mdi-arrow-down-drop-circle').addClass('mdi-arrow-up-drop-circle');
                     filterOpts.$filterToolbar.removeClass('formulario_opened');
-                    options.filter.showHidden = true;
+                    filterOpts.showHidden = true;
                 };
 
                 filterOpts.$filterToolbar.addClass('cursor_pointer').on({
                     'click': function () {
-                        if (options.filter.showHidden === false) {
+                        if (filterOpts.showHidden === false) {
                         	filterOpts.hideLayer();
                         } else {
                         	filterOpts.showLayer();
@@ -948,7 +1003,7 @@
                     }
                 });
 
-                if (options.filter.showHidden === true) {
+                if (filterOpts.showHidden === true) {
                 	filterOpts.hideLayer();
                 } else {
                 	filterOpts.showLayer();
@@ -1065,7 +1120,12 @@
                         fieldName = label.html();
                     } else {
                         if ($(field).attr('ruptype') !== 'combo') {
+                        	//Mirar si es masterDetail
                             fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).prev('div').find('label').first().html();
+                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
+                            	let md = settings.masterDetail;
+                            	fieldName = (md.masterPrimaryLabel !== undefined) ? md.masterPrimaryLabel : md.masterPrimaryKey;
+                            }
                         } else {
                             // Buscamos el label asociado al combo
                             // Primero por id
@@ -1095,7 +1155,14 @@
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
 	                            fieldValue += label.html();
 	                        } else {
-	                            fieldValue += $(field).val();
+	                        	//Mirar si es masterDetail
+	                            
+	                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
+	                            	let md = settings.masterDetail;
+	                            	fieldValue += (md.masterPrimaryNid) ? field.data('nid') : $(field).val();
+	                            }else{
+	                            	fieldValue += $(field).val();
+	                            }
 	                        }
 	                        break;
 	                        //Rup-tree
@@ -1191,10 +1258,11 @@
                         }
 
                     }
-                    DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], null);
-                    ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+                      
+                    $.when(DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], ctx.oInit.formEdit.customTitle)).then(function () {
+                    	ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+                    });
                 }
-
             });
         },
         /**
@@ -1281,6 +1349,11 @@
                 }
 
                 var options = $.extend(true, {}, $.fn.rup_table.defaults, $self[0].dataset, args[0]);
+                
+                //Se valida que se haya definido una ordenacion de columnas, por defecto 
+                if(!options.defaultOrder){
+                	options.order = [];
+                 }
 
                 $self.triggerHandler('tableBeforeInit',options);
 
@@ -1289,6 +1362,15 @@
                 $self.triggerHandler('tableInit',options);
                 if (args[0].primaryKey !== undefined) {
                     options.primaryKey = args[0].primaryKey.split(';');
+                }
+                
+                //Si vienen los columnsDefs con columnas ocultas,se asegura la clase para que no se vean.
+                if( options.columnDefs !== undefined &&  options.columnDefs.length > 0){
+                	$.each(options.columnDefs, function () {
+	                    if(this.visible === false){
+	                    	this.className = 'never';
+	                    }
+	                });
                 }
 
                 //Comprobar plugin dependientes
@@ -1330,7 +1412,7 @@
                     ctx.sTableId = $self[0].id;
                     $.rup_ajax({
                         url: options.urlBase +
-                            '/multiFilter/getDefault?filterSelector=' +
+                        	options.multiFilter.url + '/getDefault?filterSelector=' +
                             options.multiFilter.idFilter + '&user=' +
                             usuario,
                         type: 'GET',
@@ -1394,16 +1476,39 @@
                 $self._initFeedback(options);
 
                 // Se inicializa el filtro de la tabla
-                if (args[0].filter !== 'noFilter') {
-                    //Se añade filter por defecto
-                    $.fn.rup_table.defaults.filter = {
-                        id: $self[0].id + '_filter_form',
-                        filterToolbar: $self[0].id + '_filter_toolbar',
-                        collapsableLayerId: $self[0].id + '_filter_fieldset'
-                    };
-                    $self._initFilter(options);
+            	let filterOptions = args[0].filter;
+            	let hasOptions = false;
+            	
+            	if (filterOptions !== undefined && filterOptions !== 'noFilter') {
+            		hasOptions = true;
+            	}
+            	
+                // Añadir filter por defecto o el definido por el usuario
+                $.fn.rup_table.defaults.filter = {
+                    id: hasOptions ? filterOptions.id : $self[0].id + '_filter_form',
+                    filterToolbar: hasOptions ? filterOptions.filterToolbar : $self[0].id + '_filter_toolbar',
+                    collapsableLayerId: hasOptions ? filterOptions.collapsableLayerId : $self[0].id + '_filter_fieldset'
+                };
+                
+                // Gestionar la inicialización del formulario de filtrado
+                if (filterOptions !== 'noFilter') {
+                	// En caso de que no haya sido definido por el usuario, se usa el por defecto
+                	if (filterOptions === undefined) {
+                		options.filter = $.fn.rup_table.defaults.filter;
+                	}
+                	$self._initFilter(options);
+                } else if (filterOptions === 'noFilter' && options.filterForm !== undefined) {
+                	// Garantizar la posibilidad del envío del parámetro HDIV_STATE cuando el formulario de filtrado no esté habilitado
+                	options.filter = {};
+                	if (options.filterForm) {
+                		options.filter.id = $(options.filterForm).attr('id');
+                    } else {
+                    	options.filter.id = $self[0].id + '_filter_form';
+                    }
+                	options.filter.$filterContainer = jQuery('#' + options.filter.id);
                 } else {
-                    args[0].filter = undefined;
+                	// Para casos en los que no se quiera usar el formulario de filtrado y Hdiv no esté activado
+                	args[0].filter = undefined;
                 }
 
                 if (options.loadOnStartUp !== undefined && !options.loadOnStartUp) {
@@ -1615,7 +1720,7 @@
             '<"row"' +
             '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
             '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1"l>' +
+            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0"l>' +
             '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
             '>' +
             '>' +
@@ -1623,6 +1728,7 @@
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
+        enableDynamicForms: true,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {
@@ -1637,6 +1743,8 @@
         order: [
             [1, 'asc']
         ],
+        ordering: true,
+        defaultOrder: true,
         showMultiSelectedZero: true,
         filterMessage: true,
         noEdit: false
