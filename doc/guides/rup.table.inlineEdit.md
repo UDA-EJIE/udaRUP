@@ -1,22 +1,22 @@
-# RUP Table - Edici髇 en l韓ea
+# RUP Table - Edici贸n en l铆nea
 
-Permite la edici髇 de los registros de la tabla utilizando un formulario dentro de la tabla. El formulario se muestra
+Permite la edici贸n de los registros de la tabla utilizando un formulario dentro de la tabla. El formulario se muestra
 dentro de una fila y ofrece las siguientes funcionalidades:
 
-* A馻dir un nuevo registro o modificar uno ya existente.
-* Cancelar la inserci髇 o edici髇 de un registro.
-* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas 醙il sobre los diferentes elementos.
+* A帽adir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserci贸n o edici贸n de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas 谩gil sobre los diferentes elementos.
 
 ![Imagen 1](img/edicionEnLinea.png)
 
-# 1. Declaraci髇 y configuraci髇
+# 1. Declaraci贸n y configuraci贸n
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor inlineEdit. La configuraci髇 del plugin se especifica en la propiedad inlineEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor inlineEdit. La configuraci贸n del plugin se especifica en la propiedad inlineEdit.
 
 ```js
 $("#idComponente").rup_table({
     inlineEdit: {
-        // Propiedades de configuraci髇 del plugin inlineEdit
+        // Propiedades de configuraci贸n del plugin inlineEdit
         validate: {
             rules: {
                 'nombre': {
@@ -37,7 +37,7 @@ $("#idComponente").rup_table({
             }
         },
         cancelDeleteFunction: function () {
-            console.log('Ha cancelado la acci髇 de eliminar.');
+            console.log('Ha cancelado la acci贸n de eliminar.');
         },
         confirmDialogs: {
             saveDialog: false,
@@ -47,9 +47,9 @@ $("#idComponente").rup_table({
     }
 });
 ```
-### Propiedades de configuraci髇
+### Propiedades de configuraci贸n
 
-A馻dir validaciones sobre los campos:
+A帽adir validaciones sobre los campos:
 ```js
 inlineEdit: {
     validate: {
@@ -74,16 +74,16 @@ inlineEdit: {
 }
 ```
 
-Habilitar la personalizaci髇 de una funci髇 a la hora de cancelar, cuando se va a borrar los registros de la tabla:
+Habilitar la personalizaci贸n de una funci贸n a la hora de cancelar, cuando se va a borrar los registros de la tabla:
 ```js
 inlineEdit: {
     cancelDeleteFunction: function () {
-        console.log('Ha cancelado la acci髇 de eliminar.');
+        console.log('Ha cancelado la acci贸n de eliminar.');
     }
 }
 ```
 
-Permitir habilitar o deshabilitar los di醠ogos de confirmaci髇:
+Permitir habilitar o deshabilitar los di谩logos de confirmaci贸n:
 ```js
 inlineEdit: {
     confirmDialogs: {
@@ -95,4 +95,4 @@ inlineEdit: {
 ```
 
 # 2. Aspectos a tener en cuenta
-Es importante saber que para inicializar los componentes de UDA como el autocomplete, combo o date, hay que hacerlo mediante la propiedad `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Tambi閚 es importante remarcar que **todos los campos que est閚 ocultos mediante la propiedad `columnDefs` no deben de ser declarados en el `colModel`**. Para m醩 informaci髇 sobre c髆o usar esta propiedad, leer el documento [rup.table](./rup.table.md).
+Es importante saber que para inicializar los componentes de UDA como el autocomplete, combo o date, hay que hacerlo mediante la propiedad `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Tambi茅n es importante remarcar que **todos los campos que est茅n ocultos mediante la propiedad `columnDefs` no deben de ser declarados en el `colModel`**. Para m谩s informaci贸n sobre c贸mo usar esta propiedad, leer el documento [rup.table](./rup.table.md).
