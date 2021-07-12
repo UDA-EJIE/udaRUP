@@ -295,17 +295,44 @@
 				}
 			}
 
-			var nvp = queryString.split('&'),
-				data = {},
+			var nvp = [],
+				nvpBruto = queryString.split('&'), data = {},
 				pair, name, value, path, first;
+			
+			//Se revisa la correcta gestion de los campos
+			for (var i = 0; i < nvpBruto.length; i++) {
+				pair = nvpBruto[i].split('=');
+				
+				if(pair.length >= 2){
+					nvp.push(nvpBruto[i]); 
+				} else if(pair.length == 1){
+					nvp[i-1] = nvp[i-1] + '&' + nvpBruto[i]; 
+				}
+			}
 
 			for (var i = 0; i < nvp.length; i++) {
 				pair = nvp[i].split('=');
+				
+				if(pair.length > 2){
+					var pairAux = '';
+					for (var j = 1; j < pair.length; j++) {
+						if(j = 1){
+							pairAux = pair[j];
+							
+						} else {
+							pairAux = pairAux + "=" + pair[j] 
+							
+						}
+					}
+					
+					pair[pair.length -1] = pairAux;
+				}
+				
 				name = decodeURIComponent(pair[0]);
-				if(pair[1].includes("%")) {
+				if(pair[pair.length -1].includes("%")) {
 					return false;
 				}
-				value = decodeURIComponent(pair[1]);
+				value = decodeURIComponent(pair[pair.length -1]);
 
                 path = name.match(/(^[^[]+)(\[.*\]$)?/);
 				first = path[1];
@@ -979,10 +1006,23 @@
 			}).get();
 	};
 	
-	$.fn.deleteMulticomboLabelFromObject = function (obj, $filterContainer) {
-		if (obj !== undefined && obj !== null && $filterContainer !== undefined && $filterContainer !== null) {
+	/**
+     * Elimina el campo autogenerado por el componente combo de un objeto. 
+     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+     *
+     * @name deleteMulticomboLabelFromObject
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
+     * @param {object} container - Contenedor del componente.
+     */
+	$.fn.deleteMulticomboLabelFromObject = function (obj, container) {
+		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
 			Object.keys(obj).filter(function (keys) {
-				let element = $filterContainer.find("[name$=" + keys + "]");
+				// Si container es un fila de la tabla (tr) significa que la función ha sido llamada desde rup.table.inlineEdit y es necesario añadir el sufijo _inline
+				let suffix = container.is('tr') ? '_inline' : '';
+				let element = container.find("[name$=" + keys + suffix + "]");
 	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
 	        		delete obj["_" + keys];
 				}
@@ -990,6 +1030,16 @@
 		}
 	};
 	
+	/**
+     * Elimina el campo autogenerado por el componente autocomplete de un objeto. 
+     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+     *
+     * @name deleteAutocompleteLabelFromObject
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
+     */
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
 		if (obj !== undefined && obj !== null) {
 	        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
@@ -1007,9 +1057,95 @@
 		}
 	};
 	
+	/**
+     * Comprueba si el parámetro ha sido cifrado por Hdiv.
+     *
+     * @name isHdiv
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {string} id - Identificador de la entidad.
+     *
+     * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
+     */
+	$.fn.isHdiv = function (id) {
+		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(id);
+	};
+	
+	/**
+     * Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.
+     * Es útil cuando se necesita comparar identificadores cifrados.
+     *
+     * @name getStaticHdivID
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {string} id - Identificador de la entidad.
+     *
+     * @return {string} Identificador de la entidad con la parte dinámica del cifrado eliminada.
+     */
+	$.fn.getStaticHdivID = function (id) {
+		let regex = /([0-9a-fA-F]+)-([0-9a-fA-F]+)-([0-9a-fA-F]+)$/;
+		
+		if (regex.test(id)) {
+			id = id.replace(regex, '');
+		}
+		
+		return id;
+	};
+	
+	/**
+     * Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
+     *
+     * @name getHDIV_STATE
+     * @function
+     * @since UDA 5.0.0
+     *
+     * @param {boolean} hasMoreParams - Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL.
+     * @param {object} $form - Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use.
+     *
+     * @return {string} Parámetro HDIV_STATE.
+     */
+	$.fn.getHDIV_STATE = function (hasMoreParams, $form) {
+		let hdivStateParam = '';
+		
+		// Cuando se recibe un formulario se extrae directamente de ahí el parámetro HDIV_STATE
+		if ($form != undefined && $form.length == 1) {
+			let fieldHdiv = $form.find('input[name="_HDIV_STATE_"]');
+			hdivStateParam = fieldHdiv.length == 1 ? fieldHdiv.val() : '';
+		} else {
+			// Si el parámetro HDIV_STATE está disponible se obtiene y se devuelve, en caso contrario, se devuelve vacío
+			let searchParams = new URLSearchParams(window.location.search);
+			hdivStateParam = searchParams.get('_HDIV_STATE_');
+			let prefix = '';
+			
+			// Si se ha especificado un valor booleano en el parámetro recibido es porque se trata de una petición GET
+			if (hasMoreParams !== undefined && hasMoreParams !== null && typeof hasMoreParams === "boolean") {
+				prefix = (hasMoreParams ? '&' : '?') + '_HDIV_STATE_=';
+			}
+		    
+		    if (hdivStateParam != undefined && hdivStateParam != null && hdivStateParam != '') {
+		    	hdivStateParam = prefix + hdivStateParam;
+		    } else {
+		    	hdivStateParam = '';
+		    }
+		}
+	    
+	    return hdivStateParam;
+	};
+	
+	/**
+     * Reinicia por completo los autocomplete de un formulario para que no sigan filtrando.
+     *
+     * @name resetAutocomplete
+     * @function
+     * @since UDA 4.2.2
+     *
+     * @param {string} type - Valor del atributo type.
+     * @param {object} obj - Formulario del que obtener los autocompletes a reiniciar.
+     */
 	$.fn.resetAutocomplete = function (type, obj) {
-		// Reinicia por completo los autocomplete ya que sino siguen filtrando
-        jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
+		jQuery.each($('input[ruptype=autocomplete][type=' + type + ']', obj), function (index, elem) {
         	$("#" + elem.id).rup_autocomplete("setRupValue", "");
         });
 	};

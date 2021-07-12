@@ -47,6 +47,7 @@ Opciones por defecto de configuración del componente.
 | [menuAppendTo] | <code>object</code> | <code></code> | Permite especificar mediante un selector de jQuery el elemento del DOM al que se añadirá el menú desplegable. |
 | [disabled] | <code>boolean</code> | <code>false</code> | Determina si se deshabilita el componente Autocomplete sobre el input al que se aplica. De tal modo que por mucho que se interactué con el elemento no se hará una búsqueda. |
 | [defaultValue] | <code>string</code> |  | Valor que se cargará por defecto en el input y con el que se lanzará una búsqueda para mostrar valores propuestos |
+| [multiValueToken] | <code>string</code> | <code>&quot;\&quot;##\&quot;&quot;</code> | Define el separador a utilizar en combos enlazados locales. |
 
 <a name="module_rup_autocomplete..getRupValue"></a>
 

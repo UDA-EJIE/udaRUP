@@ -121,7 +121,8 @@
                     lastCrum = null,
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
                     i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId,
-                    idBreadCrumb = this.element[0].id;
+                    idBreadCrumb = this.element[0].id,
+                    logoutUrl = $("div.rup-breadCrumb_root").data("logoutUrl");
                 
                 this.element.append("<div class='row'></div>");
                     
@@ -141,13 +142,13 @@
                 }
                 if (LOGGED_USER !== '') {
                 	//Se añade el boton de desconexion si este fuera necesario
-                    if (this.options.logOutUrl !== undefined) {
+                    if (logoutUrl !== undefined) {
 
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
                             //función encargada de poner el icono y el literal de salida
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
@@ -161,7 +162,7 @@
 
                             //función encargada de poner el icono y el literal de desconexion
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).bind('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
@@ -272,8 +273,34 @@
             if (breadCrumbStruct.subLevel) {
                 //nos recorremos todos los submenus
                 for (var i = 0; i < breadCrumbStruct.subLevel.length; i++) {
+                	// Definir URL a usar en los enlaces
+                	let breadCrumbLinkURL = '#';
+                	if (breadCrumbStruct.subLevel[i].url) {
+                    	breadCrumbLinkURL = breadCrumbStruct.subLevel[i].url;
+                		
+                    	let menuLinkURL = $('nav.rup-navbar ul.nav a[href^="' + breadCrumbStruct.subLevel[i].url + '"]');
+                    	
+                    	// Comprobar si más de un elemento contiene la URL buscada. Se busca al comienzo para evitar que no encuentre nada cuando las URLs contienen parámetros
+                    	if (menuLinkURL.length > 1) {
+                    		$.each(menuLinkURL, function (key, element) {
+                    			let elementURL = $(element).attr('href');
+                    			
+                    			// Comprobar la URL obtenida con la definida por el usuario. Cuando la URL obtenida contiene parámetros, se eliminan para poder hacer una correcta comparación
+                    			if ((elementURL.indexOf('?') != -1 ? elementURL.substring(0, elementURL.indexOf('?')) : elementURL) === breadCrumbLinkURL) {
+                    				menuLinkURL = elementURL;
+                        			return false;
+                    			}
+                    		});
+                    	} else {
+                    		menuLinkURL = menuLinkURL.attr('href');
+                    	}
+                    	
+                		if (menuLinkURL != undefined) {
+                			breadCrumbLinkURL = menuLinkURL;
+                		}
+                	}
                     //creamos cada li y se lo añadimos al ul nuevo
-                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), (breadCrumbStruct.subLevel[i].url ? breadCrumbStruct.subLevel[i].url : '#'), false).css('background', 'none'));
+                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), breadCrumbLinkURL, false).css('background', 'none'));
                 }
                 //añadimos al li padre el nuevo ul con todos li de los sublevels
                 createdLI.append(subLevelUL);

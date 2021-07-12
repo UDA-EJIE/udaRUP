@@ -572,7 +572,7 @@ import Printd from 'printd';
                     });
                 }
                 opciones.multiselection.selectedRowsPerPage.push({
-                    id: $clickedEl.attr('id'),
+                    id: clickedPK,
                     line: (function () {
                         let cont = 0;
                         let final = 0;
@@ -608,7 +608,7 @@ import Printd from 'printd';
 
                 opciones.multiselection.selectedIds.splice(index, 1);
                 opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(elem =>
-                    elem.id != $clickedEl.attr('id')
+                    elem.id != clickedPK
                 );
                 if (!modeAll) {
                     $clickedEl.removeClass('rup_list-item-selected');
@@ -956,10 +956,10 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -997,14 +997,14 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
                                             opciones.multiFilter.$combo.rup_autocomplete('set', '', '');
                                             opciones.multiFilter.$label.data('tmp.loadObjects.term', null);
                                             opciones.multiFilter.$label.data('loadObjects', {});
                                             opciones.multiFilter.$label.data('tmp.data', {});
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -1078,7 +1078,7 @@ import Printd from 'printd';
                                 }
                             },
                             error: () => {
-                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                             }
                         });
                     }
@@ -1852,7 +1852,7 @@ import Printd from 'printd';
             opciones.multiselection.selectedIds = [];
             opciones.multiselection.selectedRowsPerPage = [];
 
-            self._getPageIds().forEach((elem) => {
+            self._getPageElementsIds().forEach((elem) => {
                 $('#' + elem).addClass('rup_list-item-selected');
                 $('#' + elem).attr('aria-selected', 'true');
             });
@@ -1873,7 +1873,7 @@ import Printd from 'printd';
             opciones.multiselection.selectedAll = false;
             opciones.multiselection.selectedIds = null;
             opciones.multiselection.selectedRowsPerPage = null;
-            self._getPageIds().forEach((elem) => {
+            self._getPageElementsIds().forEach((elem) => {
                 $('#' + elem).removeClass('rup_list-item-selected');
                 $('#' + elem).attr('aria-selected', 'false');
             });
@@ -1918,8 +1918,8 @@ import Printd from 'printd';
                             })(),
                             page: opciones.page
                         });
-                        $('#' + arrElem).addClass('rup_list-item-selected');
-                        $('#' + arrElem).attr('aria-selected', 'true');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).addClass('rup_list-item-selected');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'true');
                     }
                 });
             } else {
@@ -1929,8 +1929,8 @@ import Printd from 'printd';
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                        $('#' + arrElem).addClass('rup_list-item-selected');
-                        $('#' + arrElem).attr('aria-selected', 'true');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).addClass('rup_list-item-selected');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'true');
                     }
                 });
             }
@@ -1967,8 +1967,8 @@ import Printd from 'printd';
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                        $('#' + arrElem).removeClass('rup_list-item-selected');
-                        $('#' + arrElem).attr('aria-selected', 'false');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).removeClass('rup_list-item-selected');
+                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'false');
                     }
                 });
             } else {
@@ -1993,8 +1993,8 @@ import Printd from 'printd';
                             page: opciones.page
                         });
                     }
-                    $('#' + arrElem).removeClass('rup_list-item-selected');
-                    $('#' + arrElem).attr('aria-selected', 'false');
+                    $('#' + self.options._idItemTemplate + '_' + arrElem).removeClass('rup_list-item-selected');
+                    $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'false');
                 });
             }
             if (opciones.multiselection.selectedIds.length == 0) {
@@ -2066,6 +2066,22 @@ import Printd from 'printd';
         },
 
         /**
+         * Método interno para obtener los Ids de los elementos de la página actual
+         *
+         * @name _getPageElementsIds
+         * @private
+         * @function
+         */
+        _getPageElementsIds: function () {
+            var self = this;
+            var keys = [];
+            $('#' + self.element[0].id).children().toArray().forEach((elem) => {
+                keys.push(String($(elem)[0].id));
+            });
+            return keys;
+        },
+
+        /**
          * Método interno para obtener los Ids de la página actual
          *
          * @name _getPageIds
@@ -2076,7 +2092,7 @@ import Printd from 'printd';
             var self = this;
             var keys = [];
             $('#' + self.element[0].id).children().toArray().forEach((elem) => {
-                keys.push($(elem)[0].id);
+                keys.push(String($(elem).data('pk')));
             });
             return keys;
         },
@@ -2225,6 +2241,32 @@ import Printd from 'printd';
             } else {
                 self._disableNavItem($pagenavH_next);
                 self._disableNavItem($pagenavF_next);
+            }
+        },
+        /**
+         * Método interno que se encarga de reordenar del servidor
+         *
+         * @name _reorderDataFromServer
+         * @private
+         * @function
+         */
+        _reorderDataFromServer: function (self, opciones, xhr) {
+        	let reorderSelection = xhr.reorderedSelection;
+            if(reorderSelection !== null && reorderSelection.length > 0 && xhr.records != reorderSelection.length){
+            	 //Se mira la nueva reordenacion y se ordena.
+            	opciones.multiselection.selectedIds = [];
+            	opciones.multiselection.selectedRowsPerPage = []; //Viene del servidor por eso la linea de la pagina es 1 menos.
+
+                $.each(reorderSelection, function (index, p) {
+                  var arra = {
+                    id: p.pk[opciones.key],
+                    page: p.page,
+                    line: p.pageLine - 1
+                  };
+                  opciones.multiselection.selectedIds.splice(index, 0, arra.id);
+                  opciones.multiselection.selectedRowsPerPage.splice(index, 0, arra);
+                });
+                $('#' + self.element[0].id).triggerHandler('listAfterReorderData',opciones);
             }
         },
 
@@ -2411,6 +2453,7 @@ import Printd from 'printd';
                             self._unlock();
                         } else {
                             if (xhr.rows && xhr.rows.length > 0) {
+                            	self._reorderDataFromServer(self, opciones, xhr);
                                 var initRecord = ((opciones.page - 1) * parseInt(opciones.rowNum.value)) + 1;
                                 var endRecord = initRecord + xhr.rows.length - 1;
                                 var records = parseInt(xhr.records) == 0 ? xhr.rows.length : xhr.records;
@@ -2438,7 +2481,8 @@ import Printd from 'printd';
                                     }
                                     if (xhr.reorderedSelection) {
                                         let tmp = xhr.reorderedSelection.filter(arrItem => arrItem.pk[opciones.key] == elem[opciones.key]);
-                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)) {
+                                        if ((tmp.length > 0 && !xhr.selectedAll) || (tmp.length == 0 && xhr.selectedAll)
+                                        		|| (xhr.records == xhr.reorderedSelection.length)) {
                                             $item.addClass('rup_list-item-selected');
                                             $item.attr('aria-selected', 'true');
                                         }

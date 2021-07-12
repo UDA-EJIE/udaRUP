@@ -7,32 +7,32 @@
    - [2 Ejemplo](#2-ejemplo)   
    - [3 Casos de uso](#3-casos-de-uso)   
    - [4 Infraestructura](#4-infraestructura)   
-      - [4.1 Ficheros](#4.1-ficheros)   
-      - [4.2 Dependencias](#4.2-dependencias)   
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)   
+      - [4.1 Ficheros](#41ficheros)   
+      - [4.2 Dependencias](#42-dependencias)   
+      - [4.3 Versión minimizada](#43-versión-minimizada)   
    - [5 Invocación](#5-invocación)   
    - [6 API](#6-api)   
    - [7 Comunicación remota](#7-comunicación-remota)   
-      - [7.1 Option Groups Remotos](#7.1-option-groups-remotos)   
+      - [7.1 Option Groups Remotos](#71option-groups-remotos)   
    - [8 Combos enlazados](#8-combos-enlazados)   
-      - [8.1 Local](#8.1-local)   
-      - [8.2 Remoto](#8.2-remoto)   
-   - [9   Precarga de datos](#9-precarga-de-datos)   
-      - [9.1.    Carga a partir del elemento HTML select](#9.1-carga-a-partir-del-elemento-html-select)   
-      - [9.2 Carga a partir de un objeto JSON](#9.2-carga-a-partir-de-un-objeto-json)   
-   - [10  Sobreescritura del theme](#10-sobreescritura-del-theme)   
-   - [11  Integración con UDA](#11-integración-con-uda)   
+      - [8.1 Local](#81-local)   
+      - [8.2 Remoto](#82remoto)   
+   - [9 Precarga de datos](#9-precarga-de-datos)   
+      - [9.1 Carga a partir del elemento HTML select](#91carga-a-partir-del-elemento-html-select)   
+      - [9.2 Carga a partir de un objeto JSON](#92carga-a-partir-de-un-objeto-json)   
+   - [10 Sobreescritura del theme](#10-sobreescritura-del-theme)   
+   - [11 Integración con UDA](#11integración-con-uda)   
 
 <!-- /MDTOC -->
 
 
 
 
-##  1 Introducción
+## 1 Introducción
 La descripción del **Componente Combo**, visto desde el punto de vista de RUP, es la siguiente:
 *Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.*
 
-##  2 Ejemplo
+## 2 Ejemplo
 Se presentan a continuación un ejemplo de este componente:
 ![Selección simple](img/rup.combo_1.png)
 Selección Simple
@@ -40,12 +40,12 @@ Selección Simple
 ![Selección múltiple](img/rup.combo_2.png)
 Selección Múltiple
 
-##  3 Casos de uso
+## 3 Casos de uso
 Se aconseja la utilización de este componente:
 + Cuando la entrada de datos dependa de una selección de información previa. El ejemplo más común es la selección de provincia y municipio.
 
 
-##  4 Infraestructura
+## 4 Infraestructura
 A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
 + Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados *Ficheros y Dependencias*.
 
@@ -81,17 +81,17 @@ Los ficheros minimizados de RUP son los siguientes:
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
-##  5 Invocación
+## 5 Invocación
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente Combo. Por ejemplo:
 ```javascript
 $("#id_input").rup_combo(properties);
 ```
 Donde el parámetro *“properties”* es un objeto *( var properties = {}; )* o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
-##  6 API
+## 6 API
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.combo.md).
 
-##  7 Comunicación remota
+## 7 Comunicación remota
 El componente Combo permite recuperar los datos almacenados en base de datos. En el método del *controller* que recibe la petición se invocará  al servicio encargado de recuperar los datos. Como no se va a realizar ningún filtrado por algún campo de la entidad ni se requiere de paginación, los parámetros serán **null, null:**
 ```java
 @RequestMapping(value = "combo/remote", method=RequestMethod.GET)
@@ -277,7 +277,7 @@ Un ejemplo de la respuesta devuelta por este método del controlador sería la s
 ]
 ```
 
-##  8 Combos enlazados
+## 8 Combos enlazados
 Mediante el uso del componente Combo, se pueden encadenar dos o más combos de tal manera que los valores que se cargarán en uno dependan directamente del valor seleccionado en el otro. Es decir, crear combos enlazados (también conocidos como combos dependientes).
 
 Estos combos enlazados, pueden ser tanto locales o remotos. Para indicar que un combo depende directamente del valor de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
@@ -377,7 +377,7 @@ Cuando se desea utilizar el componente Combo enlazando datos remotos, se deben r
 	</bean>
 	```
 
-##  9	Precarga de datos
+## 9 Precarga de datos
 La recuperación los datos proporcionados por el servidor de aplicaciones, se realiza mediante una petición AJAX. Con el objeto de minimizar el número de peticiones realizadas por el componente combo, se posibilita el realizar una precarga de los datos que va a presentar el combo sin necesidad de realizar la primera petición AJAX.
 Se proporcionan dos mecanismos para permitir realizar la carga inicial de los datos del combo:
 
@@ -426,7 +426,7 @@ La invocación del componente se realizará de modo normal, indicando mediante e
 ### 9.2	Carga a partir de un objeto JSON
 De manera alternativa se puede proporcionar al componente de los datos con los que debe de inicializarse mediante un objeto JSON. Este objeto puede ser inicializado directamente o generado dinámicamente tanto en cliente como en el servidor de aplicaciones. El objeto json debe consistir en un *array*
 
-##  10	Sobreescritura del theme
+## 10 Sobreescritura del theme
 El componente combo se presenta con una apariencia visual definida en el fichero de estilos theme.rup.combo-x.y.z.css.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.

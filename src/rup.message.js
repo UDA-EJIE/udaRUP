@@ -197,7 +197,7 @@
             }];
             self.dialog('option', 'buttons', acceptButton);
 
-            this._createCloseLink(self);
+            this._createCloseLink(self, settings.CLOSEFunction);
             this._addStyles(self, 'confirm', settings.message);
             this._createLinkButton(self, settings.CANCELFunction);
             docHeight = $(document).height();
@@ -260,7 +260,7 @@
                 self.data('uiDialog').uiDialog.addClass('rup-message rup-message-ok');
             }
 
-            this._createCloseLink(self);
+            this._createCloseLink(self, settings.CLOSEFunction);
             this._addStyles(self, 'ok', settings.message);
             docHeight = $(document).height();
             docWidth = $(document).width();
@@ -318,7 +318,7 @@
             var self = this._createDiv().appendTo('body');
             self.dialog(settings);
             self.data('uiDialog').uiDialog.addClass('rup-message rup-message-alert');
-            this._createCloseLink(self);
+            this._createCloseLink(self,settings.CLOSEFunction);
             this._addStyles(self, 'alert', settings.message);
             docHeight = $(document).height();
             docWidth = $(document).width();
@@ -358,11 +358,14 @@
          * @function  _createCloseLink
          * @private
          */
-        _createCloseLink: function (self) { //Crea el enlace de cerrar junto a la x de cerrar.
+        _createCloseLink: function (self, CLOSEFunction) { //Crea el enlace de cerrar junto a la x de cerrar.
             self.prev('div')
                 .append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
                 .on('click', 'i.mdi', function () {
                     self.dialog('close');
+                    if (CLOSEFunction !== undefined) {
+                    	CLOSEFunction.call(this, self);
+                    }
                     return false;
                 });
         },

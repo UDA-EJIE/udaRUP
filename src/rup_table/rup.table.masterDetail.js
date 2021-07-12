@@ -73,7 +73,7 @@
         var $hiddenPKMaster = $(masterPKInputId);
 
         if ($hiddenPKMaster.length === 0) {
-            const msgError = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.msg', ctx.oInit.$filterForm.attr('id'), masterPKInputId);
+            const msgError = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.msg', ctx.oInit.filter.$filterContainer.attr('id'), masterPKInputId);
             $.rup_messages('msgError', {
                 title: jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.errors.noMasterPKField.title'),
                 message: msgError
@@ -92,6 +92,7 @@
             if (rowSelected[0] !== undefined) { //Se ha deseleccionado, no entrar.
                 var row = tableMaster.rows(rowSelected).data();
                 var id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
+                $hiddenPKMaster.data('nid',row[0].nid);
                 $hiddenPKMaster.val('' + id);
                 $('#' + ctx.sTableId + '_filter_filterButton').click();
             } else { //se deselecciona
@@ -120,6 +121,7 @@
 
     function _deselectMaster(dt, ctx, $hiddenPKMaster) {
         $hiddenPKMaster.val('-1');
+        $hiddenPKMaster.data('nid',undefined);
         $('#' + ctx.sTableId + ' > tbody tr').remove();
         var asStripeClasses = ctx.asStripeClasses;
         var iStripes = asStripeClasses.length;

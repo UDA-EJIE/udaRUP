@@ -33,7 +33,7 @@
 }(function ($) {
 
     // NO MODIFICAR: (AUTOGENERADO)
-    var rup_version = '4.2.2';
+    var rup_version = '5.0.0';
 
     jQuery.migrateMute = true;
 
@@ -97,6 +97,19 @@
    * @typedef {number} Integer
    */
 
+    // [Ajuste para IE] función asociada a deficiencias de IE(msie). Cuando se deje de soportar este navegador, hay que eliminar este polyfill
+    if (!String.prototype.includes) {//To check browser supports or not
+    	String.prototype.includes = function (str) {//Add method includes to String type
+    	  var returnValue = false;
+
+    	  if (this.indexOf(str) !== -1) {
+    		returnValue = true;
+    	  }
+
+    	  return returnValue;
+    	}
+    }
+    
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
@@ -251,10 +264,6 @@
                 success: function (data) {
                     //Se cargan los literales generales de la aplicacion en RUP
                     $.rup.i18n.base = data;
-                    //Se cargan los literales de la tabla por separado (consecuencia de la naturalza de JqGrid)
-                    $.jgrid = {};
-                    $.extend($.jgrid, data.rup_jqtable);
-                    $.jgrid.formatter.date.S = new Function('j', data.rup_jqtable.formatter.date.S);
                 },
                 error: function (XMLHttpRequest, textStatus) {
                     //tratamiento de error

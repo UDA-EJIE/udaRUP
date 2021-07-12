@@ -610,8 +610,9 @@ table.dataTable tbody>tr:hover {
 
 table.tableFit {
     &:not(.DTCR_clonedTable) {
-	    width: calc(100% - 1px)!important;
-	    max-width: calc(100% - 1px);
+	    width: 100% !important;
+	    max-width: 100%;
+	    box-sizing: border-box;
 	    margin-bottom: 0
 	}
 	

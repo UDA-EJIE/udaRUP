@@ -1,1 +1,44 @@
-// Inserta tus estilos aqui
+// Estilos personalizados
+
+// Spinner de carga que aparece antes de cargar formEdit (cuando haya sido activado)
+div.formEdit_dialog_loading_container {
+	div {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		animation: fadeIn-overlay 0.75s ease-out forwards;
+	}
+	
+	span {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 10rem;
+		z-index: 101;
+		animation: fadeIn-spinner 1.25s ease-out forwards;
+	}
+}
+
+@keyframes fadeIn-overlay {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 0.3;
+		background-color: #050505;
+  	}
+}
+
+@keyframes fadeIn-spinner {
+	from {
+		opacity: 0;
+  	}
+  	to {
+		opacity: 1;
+		color: #333333;
+  	}
+}

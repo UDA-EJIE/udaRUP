@@ -173,6 +173,12 @@ div.material-datepicker.ui-datepicker {
 
 		dd {
 			margin-bottom: 1.35em;
+			
+			.ui_tpicker_time_input {
+				border: none;
+				box-shadow: none;
+				padding: 0;
+			}
 
 			.ui-slider-horizontal {
 				height: 0;

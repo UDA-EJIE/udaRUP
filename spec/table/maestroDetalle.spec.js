@@ -49,6 +49,13 @@ function relacionMaestroDetalle(callback) {
     callback();
 }
 
+function buscarAceptar(){
+	var boton = $('.ui-dialog-buttonset button').filter(function() {
+		  return $(this).text().trim() === 'Aceptar';
+		});
+	return boton[0];
+}
+
 function relacionMaestroDetalleF2I(callback) {
     let api = $('#example1').DataTable();
     $('#example1').on('select.dt', (e, dt, type, indexes) => {
@@ -196,22 +203,22 @@ function testForm2Form(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #example1:', () => {
-                            expect($('#example1').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#id_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#nombre_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#apellidos_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#edad_example1_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #example2', () => {
-                            expect($('#example2').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#id_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#nombre_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#apellidos_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#edad_example2_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#example1').on('tableSeekerAfterSearch', done);
-                            $('#example1').find('#nombre_seeker').val('E');
+                            $('#example1').find('#nombre_example1_seeker').val('E');
                             $('#search_nav_button_example1').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -232,22 +239,22 @@ function testForm2Form(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #example2:', () => {
-                            expect($('#example2').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#id_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#nombre_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#apellidos_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#edad_example2_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #example2', () => {
-                            expect($('#example1').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#id_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#nombre_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#apellidos_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#edad_example1_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#example2').on('tableSeekerAfterSearch', done);
-                            $('#example2').find('#nombre_seeker').val('E');
+                            $('#example2').find('#nombre_example2_seeker').val('E');
                             $('#search_nav_button_example2').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -286,6 +293,7 @@ function testForm2Form(defer) {
                             $('#example1').on('tableEditFormSuccessCallSaveAjax', done);
                             $('#example1_detail_div').find('#edad_detail_table').val(11);
                             $('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         it('Debe actualizar la línea en #example1 sin modificar #example2:', () => {
                             let ctx = $('#example1 > tbody > tr:eq(0)');
@@ -315,6 +323,7 @@ function testForm2Form(defer) {
                             });
                             $('#example2_detail_div').find('#edad_detail_table').val(12);
                             $('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         it('Debe actualizar la línea en #example1 sin modificar #example2:', () => {
                             let ctx = $('#example2 > tbody > tr:eq(0)');
@@ -484,12 +493,16 @@ function testForm2Form(defer) {
                             $('#rup_feedback_example1').on('rupFeedback_show', () => {
                                 done();
                             });
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example1_detail_div"]')
+                                .find('#nombre_detail_table').val('Anabelle');
+	                            $('div[aria-describedby="example1_detail_div"]')
+	                                .find('#example1_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                             $('#example1 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example1editButton_1').click();
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#example1_detail_button_save').click();
+  
                         });
                         it('Debe aparecer el feedback de #example1:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -516,12 +529,16 @@ function testForm2Form(defer) {
                             $('#rup_feedback_example2').on('rupFeedback_show', () => {
                                 done();
                             });
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example2_detail_div"]')
+                                .find('#nombre_detail_table').val('Anabelle');
+	                            $('div[aria-describedby="example2_detail_div"]')
+	                                .find('#example2_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                             $('#example2 > tbody > tr:eq(2) > td:eq(0)').click();
                             $('#example2editButton_1').click();
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#nombre_detail_table').val('Arlene');
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#example2_detail_button_save').click();
+
                         });
                         it('Debe aparecer el feedback de #example2:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -547,9 +564,13 @@ function testForm2Form(defer) {
                         });
                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example1editButton_1').click();
-                        $('div[aria-describedby="example1_detail_div"]')
+                        $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example1_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example1_detail_button_save').click();
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example1:', () => {
                         expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
@@ -567,9 +588,13 @@ function testForm2Form(defer) {
                         });
                         $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example2editButton_1').click();
-                        $('div[aria-describedby="example2_detail_div"]')
+                        $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example2_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example2_detail_button_save').click();
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example2:', () => {
                         expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
@@ -606,8 +631,12 @@ function testForm2Form(defer) {
                         beforeEach((done) => {
                             $('#example1').on('tableEditFormErrorCallSaveAjax', done);
                             $('#example1 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example1_detail_div')).val('asd');
-                            $('#example1_detail_button_save').click();
+                            
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example1_detail_div')).val('asd');
+                                $('#example1_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -619,7 +648,7 @@ function testForm2Form(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_example1').click();
-                            $('#edad_seeker', $('#example1')).val('asd');
+                            $('#edad_example1_seeker', $('#example1')).val('asd');
                             $('#search_nav_button_example1').click();
                             $('#example1').on('tableSeekerSearchError', done);
                         });
@@ -649,8 +678,12 @@ function testForm2Form(defer) {
                         beforeEach((done) => {
                             $('#example2').on('tableEditFormErrorCallSaveAjax', done);
                             $('#example2 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example2_detail_div')).val('asd');
-                            $('#example2_detail_button_save').click();
+                            
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example2_detail_div')).val('asd');
+                                $('#example2_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            })
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -662,7 +695,7 @@ function testForm2Form(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_example2').click();
-                            $('#edad_seeker', $('#example2')).val('asd');
+                            $('#edad_example2_seeker', $('#example2')).val('asd');
                             $('#search_nav_button_example2').click();
                             $('#example2').on('tableSeekerSearchError', done);
                         });
@@ -783,22 +816,22 @@ function testForm2Inline(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #example1:', () => {
-                            expect($('#example1').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#id_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#nombre_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#apellidos_example1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example1').find('#edad_example1_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #inline2', () => {
-                            expect($('#inline2').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#id_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#nombre_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#apellidos_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#edad_inline2_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#example1').on('tableSeekerAfterSearch', done);
-                            $('#example1').find('#nombre_seeker').val('E');
+                            $('#example1').find('#nombre_example1_seeker').val('E');
                             $('#search_nav_button_example1').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -819,22 +852,22 @@ function testForm2Inline(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #inline2:', () => {
-                            expect($('#inline2').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#id_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#nombre_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#apellidos_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#edad_inline2_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #example1', () => {
-                            expect($('#example1').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example1').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#id_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#nombre_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#apellidos_example1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example1').find('#edad_example1_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#inline2').on('tableSeekerAfterSearch', done);
-                            $('#inline2').find('#nombre_seeker').val('E');
+                            $('#inline2').find('#nombre_inline2_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -1009,6 +1042,7 @@ function testForm2Inline(defer) {
                             $('#example1').on('tableEditFormSuccessCallSaveAjax', done);
                             $('#example1_detail_div').find('#edad_detail_table').val(11);
                             $('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         it('Debe actualizar la línea en #example1 sin modificar #inline2:', () => {
                             let ctx = $('#example1 > tbody > tr:eq(0)');
@@ -1029,6 +1063,7 @@ function testForm2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1058,10 +1093,13 @@ function testForm2Inline(defer) {
                             });
                             $('#example1 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example1editButton_1').click();
-                            $('div[aria-describedby="example1_detail_div"]')
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example1_detail_div"]')
                                 .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example1_detail_div"]')
-                                .find('#example1_detail_button_save').click();
+	                            $('div[aria-describedby="example1_detail_div"]')
+	                                .find('#example1_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('Debe aparecer el feedback de #example1:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -1093,6 +1131,7 @@ function testForm2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -1122,9 +1161,13 @@ function testForm2Inline(defer) {
                         });
                         $('#example1 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example1editButton_1').click();
-                        $('div[aria-describedby="example1_detail_div"]')
+                        $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example1_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example1_detail_button_save').click();
+                            $('div[aria-describedby="example1_detail_div"]')
+                                .find('#example1_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example1:', () => {
                         expect($('#example1_detail_feedback').is(':visible')).toBeTruthy();
@@ -1138,6 +1181,7 @@ function testForm2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done,100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1179,8 +1223,12 @@ function testForm2Inline(defer) {
                                 done();
                             });
                             $('#example1 > tbody > tr:eq(0) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example1_detail_div')).val('asd');
-                            $('#example1_detail_button_save').click();
+                            $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example1_detail_div')).val('asd');
+                                $('#example1_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
+                            
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example1_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -1192,7 +1240,7 @@ function testForm2Inline(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_example1').click();
-                            $('#edad_seeker', $('#example1')).val('asd');
+                            $('#edad_example1_seeker', $('#example1')).val('asd');
                             $('#search_nav_button_example1').click();
                             $('#example1').on('tableSeekerSearchError', done);
                         });
@@ -1225,6 +1273,7 @@ function testForm2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1240,7 +1289,7 @@ function testForm2Inline(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_inline2').click();
-                            $('#edad_seeker', $('#inline2')).val('asd');
+                            $('#edad_inline2_seeker', $('#inline2')).val('asd');
                             $('#search_nav_button_inline2').click();
                             $('#inline2').on('tableSeekerSearchError', done);
                         });
@@ -1362,22 +1411,22 @@ function testInline2Form(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #inline1:', () => {
-                            expect($('#inline1').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#id_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#nombre_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#apellidos_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#edad_inline1_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #example2', () => {
-                            expect($('#example2').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#example2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#id_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#nombre_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#apellidos_example2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#example2').find('#edad_example2_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#inline1').on('tableSeekerAfterSearch', done);
-                            $('#inline1').find('#nombre_seeker').val('E');
+                            $('#inline1').find('#nombre_inline1_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -1398,22 +1447,22 @@ function testInline2Form(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #example2:', () => {
-                            expect($('#example2').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#example2').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#id_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#nombre_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#apellidos_example2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#example2').find('#edad_example2_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #inline1', () => {
-                            expect($('#inline1').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#id_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#nombre_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#apellidos_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#edad_inline1_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#example2').on('tableSeekerAfterSearch', done);
-                            $('#example2').find('#nombre_seeker').val('E');
+                            $('#example2').find('#nombre_example2_seeker').val('E');
                             $('#search_nav_button_example2').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -1584,6 +1633,7 @@ function testInline2Form(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1606,6 +1656,7 @@ function testInline2Form(defer) {
                             $('#example2').on('tableEditFormSuccessCallSaveAjax', done);
                             $('#example2_detail_div').find('#edad_detail_table').val(11);
                             $('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         it('Debe actualizar la línea en #example2 sin modificar #inline1:', () => {
                             let ctx = $('#example2 > tbody > tr:eq(0)');
@@ -1640,6 +1691,7 @@ function testInline2Form(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -1670,10 +1722,13 @@ function testInline2Form(defer) {
                             });
                             $('#example2 > tbody > tr:eq(2) > td:eq(1)').click();
                             $('#example2editButton_1').click();
-                            $('div[aria-describedby="example2_detail_div"]')
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                                $('div[aria-describedby="example2_detail_div"]')
                                 .find('#nombre_detail_table').val('Anabelle');
-                            $('div[aria-describedby="example2_detail_div"]')
-                                .find('#example2_detail_button_save').click();
+	                            $('div[aria-describedby="example2_detail_div"]')
+	                                .find('#example2_detail_button_save').click();
+	                            $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('Debe aparecer el feedback de #example2:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -1701,6 +1756,7 @@ function testInline2Form(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1721,9 +1777,13 @@ function testInline2Form(defer) {
                         });
                         $('#example2 > tbody > tr:contains(Irene) > td:eq(0)').click();
                         $('#example2editButton_1').click();
-                        $('div[aria-describedby="example2_detail_div"]')
+                        $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            $('div[aria-describedby="example2_detail_div"]')
                             .find('#nombre_detail_table').val('');
-                        $('#example2_detail_button_save').click();
+                            $('div[aria-describedby="example2_detail_div"]')
+                                .find('#example2_detail_button_save').click();
+                            $(buscarAceptar()).click();//boton confirmar cambios
+                        });
                     });
                     it('Debe mostrar el feedback del formulario de #example2:', () => {
                         expect($('#example2_detail_feedback').is(':visible')).toBeTruthy();
@@ -1759,6 +1819,7 @@ function testInline2Form(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1774,7 +1835,7 @@ function testInline2Form(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_inline1').click();
-                            $('#edad_seeker', $('#inline1')).val('asd');
+                            $('#edad_inline1_seeker', $('#inline1')).val('asd');
                             $('#search_nav_button_inline1').click();
                             $('#inline1').on('tableSeekerSearchError', done);
                         });
@@ -1806,8 +1867,12 @@ function testInline2Form(defer) {
                                 done();
                             });
                             $('#example2 > tbody > tr:eq(0) > td:eq(1)').dblclick();
-                            $('#edad_detail_table', $('#example2_detail_div')).val('asd');
-                            $('#example2_detail_button_save').click();
+                            
+                            $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
+                            	$('#edad_detail_table', $('#example2_detail_div')).val('asd');
+                                $('#example2_detail_button_save').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios
+                            });
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#example2_detail_feedback_ok').is(':visible')).toBeTruthy();
@@ -1819,7 +1884,7 @@ function testInline2Form(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_example2').click();
-                            $('#edad_seeker', $('#example2')).val('asd');
+                            $('#edad_example2_seeker', $('#example2')).val('asd');
                             $('#search_nav_button_example2').click();
                             $('#example2').on('tableSeekerSearchError', done);
                         });
@@ -1941,22 +2006,22 @@ function testInline2Inline(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #inline1:', () => {
-                            expect($('#inline1').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline1').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#id_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#nombre_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#apellidos_inline1_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline1').find('#edad_inline1_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #inline2', () => {
-                            expect($('#inline2').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline2').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#id_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#nombre_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#apellidos_inline2_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline2').find('#edad_inline2_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#inline1').on('tableSeekerAfterSearch', done);
-                            $('#inline1').find('#nombre_seeker').val('E');
+                            $('#inline1').find('#nombre_inline1_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -1977,22 +2042,22 @@ function testInline2Inline(defer) {
                     });
                     describe('Aparición del seeker > ', () => {
                         it('Se muestra el formulario de búsqueda en #inline2:', () => {
-                            expect($('#inline2').find('#id_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#nombre_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#apellidos_seeker').is(':visible')).toBeTruthy();
-                            expect($('#inline2').find('#edad_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#id_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#nombre_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#apellidos_inline2_seeker').is(':visible')).toBeTruthy();
+                            expect($('#inline2').find('#edad_inline2_seeker').is(':visible')).toBeTruthy();
                         });
                         it('No se debe mostrar el formulario de búsqueda en #inline1', () => {
-                            expect($('#inline1').find('#id_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#nombre_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#apellidos_seeker').is(':visible')).toBeFalsy();
-                            expect($('#inline1').find('#edad_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#id_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#nombre_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#apellidos_inline1_seeker').is(':visible')).toBeFalsy();
+                            expect($('#inline1').find('#edad_inline1_seeker').is(':visible')).toBeFalsy();
                         });
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
                             $('#inline2').on('tableSeekerAfterSearch', done);
-                            $('#inline2').find('#nombre_seeker').val('E');
+                            $('#inline2').find('#nombre_inline2_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
                         it('Se selecciona y marca el resultado de la selección: ', () => {
@@ -2163,6 +2228,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2181,6 +2247,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2213,6 +2280,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2246,6 +2314,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2275,6 +2344,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2294,6 +2364,7 @@ function testInline2Inline(defer) {
                             var ev = $.Event('keydown');
                             ev.keyCode = 13;
                             $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2335,6 +2406,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2350,7 +2422,7 @@ function testInline2Inline(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_inline1').click();
-                            $('#edad_seeker', $('#inline1')).val('asd');
+                            $('#edad_inline1_seeker', $('#inline1')).val('asd');
                             $('#search_nav_button_inline1').click();
                             $('#inline1').on('tableSeekerSearchError', done);
                         });
@@ -2383,6 +2455,7 @@ function testInline2Inline(defer) {
                                 var ev = $.Event('keydown');
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $(buscarAceptar()).click();//boton confirmar cambios
                                 setTimeout(done, 400);
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -2398,7 +2471,7 @@ function testInline2Inline(defer) {
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
                             $('#searchCollapsLabel_inline2').click();
-                            $('#edad_seeker', $('#inline2')).val('asd');
+                            $('#edad_inline2_seeker', $('#inline2')).val('asd');
                             $('#search_nav_button_inline2').click();
                             $('#inline2').on('tableSeekerSearchError', done);
                         });
