@@ -87,6 +87,93 @@ this["Rup"]["Templates"]["rup"]["dashboard"]["item"] = Handlebars.template({"1":
     + alias4(((helper = (helper = helpers.itemClass || (depth0 != null ? depth0.itemClass : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"itemClass","hash":{},"data":data,"loc":{"start":{"line":8,"column":16},"end":{"line":8,"column":29}}}) : helper)))
     + "\" >\r\n\r\n    </div>\r\n</div>\r\n";
 },"useData":true});
+this["Rup"]["Templates"]["rup"]["jqtable"] = this["Rup"]["Templates"]["rup"]["jqtable"] || {};
+this["Rup"]["Templates"]["rup"]["jqtable"]["detail"] = this["Rup"]["Templates"]["rup"]["jqtable"]["detail"] || {};
+this["Rup"]["Templates"]["rup"]["jqtable"]["detail"]["navigation"] = this["Rup"]["Templates"]["rup"]["jqtable"]["detail"]["navigation"] || {};
+this["Rup"]["Templates"]["rup"]["jqtable"]["detail"]["navigation"]["bootstrap"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"pagination_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":33}}}) : helper)))
+    + "\" class=\"rup-jqtable-detail-info\">\r\n  <i class=\"mdi mdi-view-list\" aria-hidden=\"true\" title=\""
+    + alias4(((helper = (helper = helpers.resultNumText || (depth0 != null ? depth0.resultNumText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":2,"column":57},"end":{"line":2,"column":74}}}) : helper)))
+    + "\"></i>\r\n  <span id=\"rup_jqtable_selectedElements_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":3,"column":41},"end":{"line":3,"column":54}}}) : helper)))
+    + "\" class=\"rup-jqtable-detail-currentElement\" >\r\n    "
+    + alias4(((helper = (helper = helpers.numResult || (depth0 != null ? depth0.numResult : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"numResult","hash":{},"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":4,"column":17}}}) : helper)))
+    + "\r\n  </span>\r\n</div>\r\n<div id=\"pag_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":7,"column":13},"end":{"line":7,"column":26}}}) : helper)))
+    + "\" class=\"rup-jqtable-detail-navigation\">\r\n    <button type=\"button\" id=\"first_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":8,"column":36},"end":{"line":8,"column":49}}}) : helper)))
+    + "\" class=\"btn-sm btn-outline-dark\" alt=\""
+    + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data,"loc":{"start":{"line":8,"column":88},"end":{"line":8,"column":102}}}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelFirst || (depth0 != null ? depth0.labelFirst : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelFirst","hash":{},"data":data,"loc":{"start":{"line":8,"column":104},"end":{"line":8,"column":118}}}) : helper)))
+    + "</button>\r\n    <button type=\"button\" id=\"back_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":9,"column":35},"end":{"line":9,"column":48}}}) : helper)))
+    + "\" class=\"btn-sm btn-outline-dark\" alt=\""
+    + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data,"loc":{"start":{"line":9,"column":87},"end":{"line":9,"column":100}}}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelPrev || (depth0 != null ? depth0.labelPrev : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelPrev","hash":{},"data":data,"loc":{"start":{"line":9,"column":102},"end":{"line":9,"column":115}}}) : helper)))
+    + "</button>\r\n    <button type=\"button\" id=\"forward_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":10,"column":38},"end":{"line":10,"column":51}}}) : helper)))
+    + "\" class=\"btn-sm btn-outline-dark\" alt=\""
+    + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data,"loc":{"start":{"line":10,"column":90},"end":{"line":10,"column":103}}}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelNext || (depth0 != null ? depth0.labelNext : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelNext","hash":{},"data":data,"loc":{"start":{"line":10,"column":105},"end":{"line":10,"column":118}}}) : helper)))
+    + "</button>\r\n    <button type=\"button\" id=\"last_"
+    + alias4(((helper = (helper = helpers.jqtableId || (depth0 != null ? depth0.jqtableId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"jqtableId","hash":{},"data":data,"loc":{"start":{"line":11,"column":35},"end":{"line":11,"column":48}}}) : helper)))
+    + "\" class=\"btn-sm btn-outline-dark\" alt=\""
+    + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data,"loc":{"start":{"line":11,"column":87},"end":{"line":11,"column":100}}}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.labelLast || (depth0 != null ? depth0.labelLast : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"labelLast","hash":{},"data":data,"loc":{"start":{"line":11,"column":102},"end":{"line":11,"column":115}}}) : helper)))
+    + "</button>\r\n  </div>\r\n  <div class=\"rup-jqtable-detail-separator separador\"></div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["jqtable"]["pager"] = this["Rup"]["Templates"]["rup"]["jqtable"]["pager"] || {};
+this["Rup"]["Templates"]["rup"]["jqtable"]["pager"]["bootstrap"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "\r\n  <div id=\"pg_"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":2,"column":14},"end":{"line":2,"column":20}}}) : helper)))
+    + "_pager\" class=\"ui-pager-control rup_jqtable_pager\" role=\"group\">\r\n    <div id=\""
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":3,"column":13},"end":{"line":3,"column":24}}}) : helper)))
+    + "_left\" class=\"pager_left\"></div>\r\n    <div id=\""
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":4,"column":13},"end":{"line":4,"column":24}}}) : helper)))
+    + "_center\" class=\"pager_center\">\r\n      <div id=\"first_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":5,"column":21},"end":{"line":5,"column":32}}}) : helper)))
+    + "\">\r\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.firstPageText || (depth0 != null ? depth0.firstPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"firstPageText","hash":{},"data":data,"loc":{"start":{"line":6,"column":60},"end":{"line":6,"column":77}}}) : helper)))
+    + "</a>\r\n      </div>\r\n      <div id=\"prev_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":8,"column":20},"end":{"line":8,"column":31}}}) : helper)))
+    + "\">\r\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.prevPageText || (depth0 != null ? depth0.prevPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prevPageText","hash":{},"data":data,"loc":{"start":{"line":9,"column":60},"end":{"line":9,"column":76}}}) : helper)))
+    + "</a>\r\n      </div>\r\n      <div id=\"next_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":11,"column":20},"end":{"line":11,"column":31}}}) : helper)))
+    + "\">\r\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.nextPageText || (depth0 != null ? depth0.nextPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"nextPageText","hash":{},"data":data,"loc":{"start":{"line":12,"column":60},"end":{"line":12,"column":76}}}) : helper)))
+    + "</a>\r\n      </div>\r\n      <div id=\"last_"
+    + alias4(((helper = (helper = helpers.idPager || (depth0 != null ? depth0.idPager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"idPager","hash":{},"data":data,"loc":{"start":{"line":14,"column":20},"end":{"line":14,"column":31}}}) : helper)))
+    + "\">\r\n        <a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.lastPageText || (depth0 != null ? depth0.lastPageText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"lastPageText","hash":{},"data":data,"loc":{"start":{"line":15,"column":60},"end":{"line":15,"column":76}}}) : helper)))
+    + "</a>\r\n      </div>\r\n\r\n    </div>\r\n    <div id=\""
+    + alias4(((helper = (helper = helpers.table_pager || (depth0 != null ? depth0.table_pager : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"table_pager","hash":{},"data":data,"loc":{"start":{"line":19,"column":13},"end":{"line":19,"column":28}}}) : helper)))
+    + "_right\" class=\"pager_right\">\r\n      <div class=\"ui-paging-info\">"
+    + alias4(((helper = (helper = helpers.resultText || (depth0 != null ? depth0.resultText : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultText","hash":{},"data":data,"loc":{"start":{"line":20,"column":34},"end":{"line":20,"column":48}}}) : helper)))
+    + "</div>\r\n    </div>\r\n  </div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["jqtable"]["pager"]["jqueryui"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"table_pager\" class=\"ui-state-default ui-jqgrid-pager ui-corner-bottom\" dir=\"ltr\" style=\"width: 100%; height: auto;\">\r\n  <div id=\"pg_table_pager\" class=\"ui-pager-control\" role=\"group\">\r\n    <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" class=\"ui-pg-table\" style=\"width:100%;table-layout:fixed;height:100%;\" role=\"row\">\r\n      <tbody>\r\n        <tr>\r\n          <td id=\"table_pager_left\" align=\"left\" class=\"pager_left\"></td>\r\n          <td id=\"table_pager_center\" align=\"center\" style=\"white-space: pre; width: 305px;\" class=\"pager_center\">\r\n            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"table-layout:auto;\" class=\"ui-pg-table\">\r\n              <tbody>\r\n                <tr>\r\n                  <td id=\"first_table_pager\" class=\"ui-corner-all pagControls ui-state-disabled\">\r\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Primera Página</a>\r\n                  </td>\r\n                  <td id=\"prev_table_pager\" class=\"ui-corner-all pagControls ui-state-disabled\">\r\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Anterior</a>\r\n                  </td>\r\n                  <td class=\"ui-pg-button ui-state-disabled pagControls\" style=\"width:4px;\">\r\n                    <span class=\"ui-separator\"></span>\r\n                  </td>\r\n                  <td dir=\"ltr\" class=\"pagControls\">\r\n                    Página\r\n                    <input class=\"ui-pg-input\" type=\"text\" size=\"2\" maxlength=\"7\" value=\"0\" role=\"textbox\" data-hasqtip=\"1\" oldtitle=\"Página actual\" title=\"\" aria-describedby=\"qtip-1\"> de <span id=\"sp_1_table_pager\">100</span>\r\n                  </td>\r\n                  <td class=\"ui-pg-button ui-state-disabled pagControls\" style=\"width:4px;\">\r\n                    <span class=\"ui-separator\"></span>\r\n                  </td>\r\n                  <td id=\"next_table_pager\" class=\"ui-corner-all pagControls\">\r\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Siguiente</a>\r\n                  </td>\r\n                  <td id=\"last_table_pager\" class=\"ui-corner-all pagControls\">\r\n                    <a href=\"javascript:void(0)\" class=\"linkPaginacion\">Última Página</a>\r\n                  </td>\r\n                  <td dir=\"ltr\" class=\"pagControls\">\r\n                    <select class=\"ui-pg-selbox\" role=\"listbox\" data-hasqtip=\"0\" oldtitle=\"Número de elementos por página\" title=\"\" aria-describedby=\"qtip-0\">\r\n                      <option role=\"option\" value=\"10\" selected=\"selected\">10</option>\r\n                      <option role=\"option\" value=\"20\">20</option>\r\n                      <option role=\"option\" value=\"30\">30</option>\r\n                    </select>\r\n                  </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          </td>\r\n          <td id=\"table_pager_right\" align=\"right\" class=\"pager_right\">\r\n            <div dir=\"ltr\" style=\"text-align:right\" class=\"ui-paging-info\">Mostrando 1 - 10 de 1.000</div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n</div>\r\n";
+},"useData":true});
+this["Rup"]["Templates"]["rup"]["jqtable"]["pager"]["link"] = this["Rup"]["Templates"]["rup"]["jqtable"]["pager"]["link"] || {};
+this["Rup"]["Templates"]["rup"]["jqtable"]["pager"]["link"]["bootstrap"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<a href=\"javascript:void(0)\" class=\"linkPaginacion\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":1,"column":52},"end":{"line":1,"column":61}}}) : helper)))
+    + "</a>\r\n<i class=\"iconPaginacion "
+    + alias4(((helper = (helper = helpers.icon || (depth0 != null ? depth0.icon : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"icon","hash":{},"data":data,"loc":{"start":{"line":2,"column":25},"end":{"line":2,"column":33}}}) : helper)))
+    + "\"></i></td>\r\n";
+},"useData":true});
 this["Rup"]["Templates"]["rup"]["table"] = this["Rup"]["Templates"]["rup"]["table"] || {};
 this["Rup"]["Templates"]["rup"]["table"]["detail"] = this["Rup"]["Templates"]["rup"]["table"]["detail"] || {};
 this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"] = this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"] || {};
