@@ -956,10 +956,10 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -997,14 +997,14 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
                                             opciones.multiFilter.$combo.rup_autocomplete('set', '', '');
                                             opciones.multiFilter.$label.data('tmp.loadObjects.term', null);
                                             opciones.multiFilter.$label.data('loadObjects', {});
                                             opciones.multiFilter.$label.data('tmp.data', {});
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -1078,7 +1078,7 @@ import Printd from 'printd';
                                 }
                             },
                             error: () => {
-                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
+                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
                             }
                         });
                     }

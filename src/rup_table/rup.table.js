@@ -951,7 +951,7 @@
                 toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon2');
 
                 $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
-                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
+                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
                 $filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterOpts.filterSummaryId));
                 $toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterOpts.toggleIcon2Id));
 
@@ -1728,7 +1728,7 @@
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
-        enableDynamicForms: true,
+        enableDynamicForms: false,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {

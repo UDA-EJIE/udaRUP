@@ -1,0 +1,134 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+/* Estilo para icono vacío (al no encontrarlo) */
+.ui-icon-none {
+  	background-position: -900px -900px; 
+} 
+ 
+/* Estilo general para todos los niveles */
+.rup-grid-jerarquia {
+ 	float: left;
+	cursor: pointer;
+	
+}
+
+/* Estilo por nivel (hasta 10) */ 
+.rup-grid-jerarquia_level_1 {
+ 	margin-left: 1em;
+}
+.rup-grid-jerarquia_filter_1 {
+ 	margin-right: -1em;
+}
+.rup-grid-jerarquia_level_2 {
+	margin-left: 2em;
+}
+.rup-grid-jerarquia_filter_2 {
+ 	margin-right: -2em;
+}
+.rup-grid-jerarquia_level_3 {
+	margin-left: 3em;
+}
+.rup-grid-jerarquia_filter_3 {
+ 	margin-right: -3em;
+}
+.rup-grid-jerarquia_level_4 {
+	margin-left: 4em;
+}
+.rup-grid-jerarquia_filter_4 {
+ 	margin-right: -4em;
+}
+.rup-grid-jerarquia_level_5 {
+	margin-left: 5em;
+}
+.rup-grid-jerarquia_filter_5 {
+ 	margin-right: -5em;
+}
+.rup-grid-jerarquia_level_6 {
+	margin-left: 6em;
+}
+.rup-grid-jerarquia_filter_6 {
+ 	margin-right: -6em;
+}
+.rup-grid-jerarquia_level_7 {
+	margin-left: 7em;
+}
+.rup-grid-jerarquia_filter_7 {
+ 	margin-right: -7em;
+}
+.rup-grid-jerarquia_level_8 {
+	margin-left: 8em;
+}
+.rup-grid-jerarquia_filter_8 {
+ 	margin-right: -8em;
+}
+.rup-grid-jerarquia_level_9 {
+	margin-left: 9em;
+}
+.rup-grid-jerarquia_filter_9 {
+ 	margin-right: -9em;
+}
+.rup-grid-jerarquia_level_10 {
+ 	margin-left: 10em;
+}
+.rup-grid-jerarquia_filter_10 {
+ 	margin-right: -10em;
+}
+ 
+ 
+/** MULTISELECCION **/
+/* Menu (UL) */
+.rup-grid-jerarquia_checkmenu {
+	width: 200px;
+	position: absolute !important;	
+}
+/* Elementos menu (A) */
+.rup-grid-jerarquia_checkmenu  a {
+	text-decoration: none !important;
+}
+/* Apertura menu (SPAN) */
+.rup-grid-jerarquia_checkmenu_arrow {
+	display : inline;
+	position : absolute;
+	margin-left : -0.8em;
+	cursor : pointer;	
+	background-position: -64px -16px;
+}
+
+/* Iconos multiselect */
+.check_icon{
+	background-image: url("images/jerarquia/check.png") !important;
+}
+.child_icon{
+	background-image: url("images/jerarquia/child.png") !important;
+}
+.hierarchy-down_icon{
+	background-image: url("images/jerarquia/hierarchy_down.png") !important;
+}
+.uncheck_icon{
+	background-image: url("images/jerarquia/uncheck.png") !important;
+}
+.parent_icon{
+	background-image: url("images/jerarquia/parent.png") !important;
+}
+.hierarchy-up_icon{
+	background-image: url("images/jerarquia/hierarchy_up.png") !important;
+}
+/********************/
+ 
+.rup-grid-jerarquia_filter {
+	background-image: url("images/jerarquia/ui-icons.png") !important;
+}

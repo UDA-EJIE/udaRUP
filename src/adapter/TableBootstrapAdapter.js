@@ -150,7 +150,7 @@
 
 		var $self = $(this),
 			settings = $self.data('settings'),
-			tableID = $self.attr('id');
+			jqGridID = $self.attr('id');
 		var $template = $(Rup.Templates.rup.table.detail.navigation.bootstrap({
 			tableId: $self.prop('id'),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
@@ -163,17 +163,17 @@
 
 		// var $self = $(this),
 		//     settings = $self.data("settings"),
-		//     tableID = $self.attr("id"),
+		//     jqGridID = $self.attr("id"),
 		//     paginationBarTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationBar"),
 		//     paginationLinkTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.paginationLink"),
 		//     elementCounterTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.elementCounter"),
 		//     $separator = $(jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.templates.detailForm.separator")),
-		//     $elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, tableID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.numResult"))),
-		//     $paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, tableID)),
-		var $firstPaginationLink = $('#first_' + tableID, $template),
-			$backPaginationLink = $('#back_' + tableID, $template),
-			$forwardPaginationLink = $('#forward_' + tableID, $template),
-			$lastPaginationLink = $('#last_' + tableID, $template),
+		//     $elementCounter = $(jQuery.jgrid.format(elementCounterTmpl, jqGridID, jQuery.rup.STATICS, jQuery.rup.i18nParse(jQuery.rup.i18n.base, "rup_table.numResult"))),
+		//     $paginationBar = $(jQuery.jgrid.format(paginationBarTmpl, jqGridID)),
+		var $firstPaginationLink = $('#first_' + jqGridID, $template),
+			$backPaginationLink = $('#back_' + jqGridID, $template),
+			$forwardPaginationLink = $('#forward_' + jqGridID, $template),
+			$lastPaginationLink = $('#last_' + jqGridID, $template),
 			extpost = undefined;
 
 		// $paginationBar.append($firstPaginationLink)
@@ -184,8 +184,17 @@
 		// $pagina
 
 		function doLinkNavigation(linkId, $link) {
-			$.proxy(settings.fncGetNavigationParams, $self)(linkId);
+			var retNavParams = $.proxy(settings.fncGetNavigationParams, $self)(linkId);
+			// Se comprueba el parametro 7 mientras esten en convivencia el rup.jqtable(entrar) y rup.table
+			if (retNavParams[7] === undefined && !$link.hasClass('ui-state-disabled')) {
+				if ($.proxy($.jgrid.checkUpdates, $self[0])(extpost, function () {
+					$.proxy(settings.doNavigation, $self)(retNavParams);
+				})) {
+					$.proxy(settings.doNavigation, $self)(retNavParams);
+				}
+			}
 		}
+
 
 		$firstPaginationLink.on('click', function () {
 			doLinkNavigation('first', $(this));

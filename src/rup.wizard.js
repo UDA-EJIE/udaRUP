@@ -659,6 +659,18 @@
                     $(pointer).append(tab);
                 }
 
+
+                // rup_jqtable
+                $('#step' + stepNumber + ' .rup-table-container').each(function () {
+                    var $table = $(this);
+
+                    $table.fluidWidth({
+                        fluidBaseLayer: '#' + $table.parent().attr('id')
+                    });
+
+                });
+
+
                 //h1 a /h1 para Pesatañas
                 if (settings.summaryTabs2Accordion) {
                     $(fieldset).find('a').each(function () {

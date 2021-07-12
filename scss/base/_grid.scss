@@ -1,0 +1,128 @@
+/*!
+ * Copyright 2013 E.J.I.E., S.A.
+ *
+ * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+ * Solo podrá usarse esta obra si se respeta la Licencia.
+ * Puede obtenerse una copia de la Licencia en
+ *
+ *      http://ec.europa.eu/idabc/eupl.html
+ *
+ * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito, 
+ * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+ * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+ * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ * que establece la Licencia.
+ */
+ 
+/*
+ * PIJAMA
+ */
+.rup-grid_evenRow {
+	background-color: #FFF !important;
+	background-image: none;
+}
+.rup-grid_oddRow {
+	background-color: #EEE !important;
+	background-image: none;
+}
+ 
+/* 
+ * Fila resaltada (HOVER) => .rup-grid_evenRow:hover, .rup-grid_oddRow:hover  
+ * Fila seleccionada  => .rup-grid_evenRow.ui-state-highlight, .rup-grid_oddRow.ui-state-highlight
+ * NOTA: Si solo se van a usar colores (sin imágenes), sobreescribir el fondo de jQuery UI con:
+ * 		background-image: none;
+ */
+ /*
+.rup-grid_evenRow:hover,
+.rup-grid_oddRow:hover {
+	background-color: #CCC;
+	background-image: none; 
+}
+*/
+
+/*
+.rup-grid_evenRow.ui-state-highlight,
+.rup-grid_oddRow.ui-state-highlight {
+	background-color: #FFFFCC;
+	background-image: none; 
+}
+*/
+
+
+/* Padding de las celdas [IMPORTANT] */
+.rup-grid_cellPadding_important { 
+	padding: 0 15px !important
+}
+
+
+/** MODIFICACIONES jqGrid [ui.jqgrid.css] **/
+/*******************************************/
+/* Fila seleccionada con negrita */
+.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {font-weight: bold;}
+
+/* Paginador "Mostrando X-Y de Z" */
+.ui-jqgrid .ui-paging-info { height: auto; margin: 0px; }
+
+/* Aplicar 'ellipsis' a cada celda (si no cabe un dato poner ...) NO FUNCIONA CORRECTAMENTE REVISAR
+.ui-jqgrid tr.jqgrow td {text-overflow:ellipsis; -moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+*/
+.ui-jqgrid tr.jqgrow td{
+	font-weight: inherit;
+}
+
+/* Estilos para el separador y efectos de los elementos añadidos */
+.ui-jqgrid-btable .trAddSeparator{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+	height: 0em;
+}
+.ui-jqgrid-btable .trAddSeparator:HOVER{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+	height: .2em !important;
+}
+.ui-jqgrid-btable .tdAddSeparator{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+}
+.ui-jqgrid-btable .tdAddSeparator:HOVER{
+/* 	background-color: #929292; */
+/* 	border-color: #929292; */
+}
+.ui-jqgrid-btable .addElement{
+/* 	background-color: #E0E4EC; */
+}
+.ui-jqgrid-btable .addElementBorder{
+/* 	border-color: #E0E4EC #E0E4EC #E0E4EC #FFFFFF; */
+/* 	background-color: #E0E4EC; */
+}
+
+.ui-jqgrid tr.ui-row-ltr td:last-child {
+	border-right-style: none;
+}
+
+/* Animación para el mensaje de "Cargando..." */
+.ui-jqgrid .loading   { background: white url('images/rup.ajaxLoader.gif') right center no-repeat; font-weight:normal !important;}
+
+/**********
+ PAGINADOR 
+***********/
+/* Tamaño letra */
+.ui-jqgrid-pager { font-size: 0.85em; }
+
+/* Secciones */
+.pager_left { padding-left: 1.7em !important;}
+.pager_center{ width: 60% !important;}
+.pager_right { padding-right:1.7em !important; }
+
+/* Cada elemento de la sección central */
+.pagControls { 
+	padding-right: 1em !important; border:0px !important; 
+	background-image: none !important; background-color: transparent !important; /* Sobreescribir el ui-state-hover por defecto */
+}
+
+/* Links de paginacion */
+.linkPaginacion { text-decoration:underline !important; color:#0052C7 !important; }
+.linkPaginacion:hover { text-decoration:none; color:#0052C7; }
+.linkPaginacion.ui-state-disabled:hover { text-decoration: underline;} /* Para que en los links deshabilitados no se quite el subrayado*/
+.ui-state-disabled > .linkPaginacion { cursor:default;} /* Links deshabilitados sin cursor de mano */

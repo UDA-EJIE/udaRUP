@@ -32,6 +32,7 @@ gulp.task('watch', function(){
     return gulp.watch(
         ['./src/**/*.*', 
             '!./src/templates.js', 
+            '!./src/rup.jqtable.js', 
             './scss/**/*.*'], 
         gulp.series('run-npm-all-x21a')
     );
@@ -40,7 +41,8 @@ gulp.task('watch', function(){
 gulp.task('watch:fast', function(){
     return gulp.watch(
         ['./src/**/*.*', 
-            '!./src/templates.js',
+            '!./src/templates.js', 
+            '!./src/rup.jqtable.js', 
             './scss/**/*.*'], 
         gulp.series('run-npm-build-fast')
     );

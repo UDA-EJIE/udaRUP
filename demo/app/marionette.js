@@ -31,6 +31,7 @@ import WizardDynamicView from 'components/wizard/dynamic/wizardDynamicView';
 import ComboSimpleView from 'components/combo/comboSimple/comboSimpleView';
 import TableEditInlineView from 'components/table/editInline/tableView';
 import TableEditFormView from 'components/table/editForm/tableView';
+import JqtableFilterView from 'components/jqtable/jqtableFilterView';
 import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHorizontalView';
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
@@ -72,6 +73,7 @@ var MyRouter = Marionette.AppRouter.extend({
         'wizardSimple' : 'wizardSimple',
         'wizardDynamic' : 'wizardDynamic',
         'comboSimple' : 'comboSimple',
+        'jqtableFilter' : 'jqtableFilter',
         'stackedHorizontal': 'stackedHorizontal',
         'mobileDesktop': 'mobileDesktop',
         'mobileTabletDesktop': 'mobileTabletDesktop',
@@ -169,6 +171,9 @@ var RouteController = Marionette.Controller.extend({
     },
     comboSimple: function(){
         RupResponsiveDemoApp.mainView.Container.show(new ComboSimpleView());
+    },
+    jqtableFilter: function(){
+        RupResponsiveDemoApp.mainView.Container.show(new JqtableFilterView());
     },
     stackedHorizontal: function(){
         RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
