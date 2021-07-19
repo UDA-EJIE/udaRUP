@@ -316,7 +316,7 @@
 				if(pair.length > 2){
 					var pairAux = '';
 					for (var j = 1; j < pair.length; j++) {
-						if(j = 1){
+						if(j == 1){
 							pairAux = pair[j];
 							
 						} else {
