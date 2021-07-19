@@ -1,9 +1,3 @@
-* Rama estable:
-[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=master)](https://travis-ci.org/UDA-EJIE/udaRUP)
-* Rama de desarrollo:
-[![Build Status](https://travis-ci.org/UDA-EJIE/udaRUP.svg?branch=develop)](https://travis-ci.org/UDA-EJIE/udaRUP)
-
-
 # UDA - Componentes RUP
 
 Los componentes (plugins jQuery) que implementan los patrones de interacción identificados han sido agrupados bajo un nombre propio, RUP (Rich Uda Patterns).

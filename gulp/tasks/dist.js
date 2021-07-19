@@ -5,13 +5,13 @@ const cssWrap = require('gulp-css-wrap');
 const rename = require('gulp-rename');
 
 gulp.task('dist:x21a:clean', function () {
-    return gulp.src('../udaDemoApp/x21aStatics/WebContent/4x/rup/', {allowEmpty: true})
+    return gulp.src('../udaDemoApp/x21aStatics/WebContent/5x/rup/', {allowEmpty: true})
         .pipe(clean({force: true}));
 });
 
 gulp.task('dist:x21a:copy', function () {
     return gulp.src('./dist/**/*.*')
-        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/4x/rup/'));
+        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/5x/rup/'));
 });
 
 gulp.task('dist:x21a', gulp.series(

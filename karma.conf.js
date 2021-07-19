@@ -45,9 +45,9 @@ module.exports = function (config) {
             templatePath: null, // set if you moved jasmine_template.html
             focusOnFailures: false, // reports show failures on start
             namedFiles: true, // name files instead of creating sub-directories
-            pageTitle: 'Karma Report 4.2.2', // page title for reports; browser info by default
+            pageTitle: 'Karma Report 5.0.1', // page title for reports; browser info by default
             urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
-            reportName: 'karma_report_4.2.2', // report summary filename; browser info by default
+            reportName: 'karma_report_5.0.1', // report summary filename; browser info by default
 
             // experimental
             preserveDescribeNesting: false, // folded suites stay folded 
@@ -94,7 +94,7 @@ module.exports = function (config) {
             '/x21aAppWar/patrones/': '/',
             '/externals/icons/': '/dist/css/externals/icons',
             '/x21aResponsive/patrones/': '/dist/css/',
-            '/x21aStatics/4x/rup': '/dist'
+            '/x21aStatics/5x/rup': '/dist'
         },
 
         // list of files to exclude

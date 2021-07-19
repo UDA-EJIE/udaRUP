@@ -605,6 +605,11 @@ input.
                         var nAtras = literal.indexOf('</strong>')+9;
 						literal = returnValue.label;
 						returnValue.label = literal.substr(0,nAtras)+label.substr(n+termLimpio.length);
+						let nStrong = literal.indexOf('<strong>');
+						returnValue.label = item.label.substr(0, nStrong) + '<strong>' 
+											+ item.label.substr(nStrong,termLimpio.length) 
+											+ '</strong>' + item.label.substr(nStrong + 
+													termLimpio.length);
 					}
 					return returnValue;
 				}
@@ -733,8 +738,7 @@ input.
 
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value);
 							
-							loadObjectsLabels[item.label] = returnValue.value;
-							loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
+							
 							if(settings.accentFolding && labelLimpio !== item.label){//limpiar acentos y mayúsculas
 								//parte delantera
 								var literal = returnValue.label;
@@ -745,6 +749,16 @@ input.
                                 var nAtras = literal.indexOf('</strong>')+9;
 								literal = returnValue.label;
 								returnValue.label = literal.substr(0,nAtras)+item.label.substr(n+termLimpio.length);
+								let nStrong = literal.indexOf('<strong>');
+								returnValue.label = item.label.substr(0, nStrong) + '<strong>' 
+													+ item.label.substr(nStrong,termLimpio.length) 
+													+ '</strong>' + item.label.substr(nStrong + 
+															termLimpio.length);
+								loadObjectsLabels[returnValue.label] = returnValue.value;
+								loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
+							}else{
+								loadObjectsLabels[item.label] = returnValue.value;
+								loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
 							}
 							return returnValue;
 						}));

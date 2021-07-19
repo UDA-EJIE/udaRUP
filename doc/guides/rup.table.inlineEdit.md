@@ -1,22 +1,22 @@
-# RUP Table - Edici髇 en l韓ea
+# RUP Table - Edici贸n en l铆nea
 
-Permite la edici髇 de los registros de la tabla utilizando un formulario dentro de la tabla. El formulario se muestra
+Permite la edici贸n de los registros de la tabla utilizando un formulario dentro de la tabla. El formulario se muestra
 dentro de una fila y ofrece las siguientes funcionalidades:
 
-* A馻dir un nuevo registro o modificar uno ya existente.
-* Cancelar la inserci髇 o edici髇 de un registro.
-* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas 醙il sobre los diferentes elementos.
+* A帽adir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserci贸n o edici贸n de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas 谩gil sobre los diferentes elementos.
 
 ![Imagen 1](img/edicionEnLinea.png)
 
-# 1. Declaraci髇 y configuraci髇
+# 1. Declaraci贸n y configuraci贸n
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor inlineEdit. La configuraci髇 del plugin se especifica en la propiedad inlineEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor inlineEdit. La configuraci贸n del plugin se especifica en la propiedad inlineEdit.
 
 ```js
 $("#idComponente").rup_table({
     inlineEdit: {
-        // Propiedades de configuraci髇 del plugin inlineEdit
+        // Propiedades de configuraci贸n del plugin inlineEdit
         validate: {
             rules: {
                 'nombre': {
@@ -37,7 +37,7 @@ $("#idComponente").rup_table({
             }
         },
         cancelDeleteFunction: function () {
-            console.log('Ha cancelado la acci髇 de eliminar.');
+            console.log('Ha cancelado la acci贸n de eliminar.');
         },
         confirmDialogs: {
             saveDialog: false,
@@ -47,9 +47,9 @@ $("#idComponente").rup_table({
     }
 });
 ```
-### Propiedades de configuraci髇
+### Propiedades de configuraci贸n
 
-A馻dir validaciones sobre los campos:
+A帽adir validaciones sobre los campos:
 ```js
 inlineEdit: {
     validate: {
@@ -73,17 +73,19 @@ inlineEdit: {
     }
 }
 ```
+&nbsp;
 
-Habilitar la personalizaci髇 de una funci髇 a la hora de cancelar, cuando se va a borrar los registros de la tabla:
+Habilitar la personalizaci贸n de una funci贸n a la hora de cancelar, cuando se va a borrar los registros de la tabla:
 ```js
 inlineEdit: {
     cancelDeleteFunction: function () {
-        console.log('Ha cancelado la acci髇 de eliminar.');
+        console.log('Ha cancelado la acci贸n de eliminar.');
     }
 }
 ```
+&nbsp;
 
-Permitir habilitar o deshabilitar los di醠ogos de confirmaci髇:
+Permitir habilitar o deshabilitar los di谩logos de confirmaci贸n:
 ```js
 inlineEdit: {
     confirmDialogs: {
@@ -93,6 +95,47 @@ inlineEdit: {
     }
 }
 ```
+&nbsp;
+
+Endpoint que devolver谩 el formulario necesario para poder llevar a cabo la edici贸n en aquellos casos en los que se haya activado su dinamismo (m谩s informaci贸n sobre su activaci贸n [aqu铆](./rup.table.md#95-propiedades-adicionales)):
+```js
+inlineEdit: {
+    // El valor por defecto es './inlineEdit' aunque puede variar dependiendo del campo urlBase
+    url: './inlineEditDouble',
+    // Por defecto, el componente siempre enviar谩 el method e identificador de la tabla (puede sobrescribirse) pero pueden a帽adirse m谩s par谩metros mediante el objeto data.
+    data: {
+        'nombreUsuario': 'Este es el nombre del usuario'
+    }
+}
+```
+Para que esto funcione correctamente, hay que crear una JSP llamada `tableInlineEditAuxForm`. Esta JSP podr谩 ser usada por todos aquellos mantenimientos que lo requieran, independientemente de que las entidades sean diferentes. A continuaci贸n el contenido que debe tener este archivo:
+```html
+<%--  
+ -- Copyright 2021 E.J.I.E., S.A.
+ -- Licencia con arreglo a la EUPL, Versi贸n 1.1 exclusivamente (la 芦Licencia禄);
+ -- Solo podr谩 usarse esta obra si se respeta la Licencia.
+ -- Puede obtenerse una copia de la Licencia en
+ -- 
+ -- http://ec.europa.eu/idabc/eupl.html
+ -- 
+ -- Salvo cuando lo exija la legislaci贸n aplicable o se acuerde por escrito,
+ -- el programa distribuido con arreglo a la Licencia se distribuye 芦TAL CUAL禄,
+ -- SIN GARANT脥AS NI CONDICIONES DE NING脷N TIPO, ni expresas ni impl铆citas.
+ -- V茅ase la Licencia en el idioma concreto que rige los permisos y limitaciones
+ -- que establece la Licencia. 
+ --%>
+
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="/WEB-INF/tld/spring.tld"%>
+<%@taglib prefix="form" uri="/WEB-INF/tld/spring-form.tld"%>
+
+<!-- Formulario -->
+<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
+<spring:url value="${mapping}/${endpoint}" var="url"/>
+<form:form modelAttribute="${entity}" id="${tableID}_detail_inlineEdit_aux_form" class="d-none" action="${url}" method="${actionType}"/>
+```
+&nbsp;
 
 # 2. Aspectos a tener en cuenta
-Es importante saber que para inicializar los componentes de UDA como el autocomplete, combo o date, hay que hacerlo mediante la propiedad `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Tambi閚 es importante remarcar que **todos los campos que est閚 ocultos mediante la propiedad `columnDefs` no deben de ser declarados en el `colModel`**. Para m醩 informaci髇 sobre c髆o usar esta propiedad, leer el documento [rup.table](./rup.table.md).
+Es importante saber que para inicializar los componentes de UDA como el autocomplete, combo o date, hay que hacerlo mediante la propiedad `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Tambi茅n es importante remarcar que **todos los campos que est茅n ocultos mediante la propiedad `columnDefs` no deben de ser declarados en el `colModel`**. Para m谩s informaci贸n sobre c贸mo usar esta propiedad, leer el documento [rup.table](./rup.table.md).
