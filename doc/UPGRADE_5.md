@@ -6,7 +6,9 @@ En esta sección iremos indicando como mantenerse actualizado con las últimas v
 
 Si lo que buscas es información sobre cómo mantener tu entorno de desarrollo actualizado, debes consultar la sección [Instalar](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Instalar) o por el contrario, si lo que quieres es actualizar una aplicación con UDA 4.x.x, debes de consultar la wiki [Actualizar 4.x.x](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Actualizar-4.x.x).
 
-**IMPORTANTE:** desde la versión 4.1.0 de UDA, es necesario hacer uso de la función **initRupI18nPromise()** para cargar los recursos idiomáticos, se puede encontrar más información dentro de este documento en el [apartado de la versión 4.1.0](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Actualizar-4.x.x#v410-12-noviembre-2019).
+**IMPORTANTE:** 
+* desde la versión 4.1.0 de UDA, es necesario hacer uso de la función **initRupI18nPromise()** para cargar los recursos idiomáticos, se puede encontrar más información dentro de este documento en el [apartado de la versión 4.1.0](https://github.com/UDA-EJIE/uda-ejie.github.io/wiki/Actualizar-4.x.x#v410-12-noviembre-2019).
+* por el momento al menos, no se pueden usar los combos mixtos en las aplicaciones que tengan Hdiv activado. El motivo es simple, Hdiv funciona con identificadores cifrados y al utilizar combos mixtos, van a existir identificadores sin cifrar, dando lugar a un bloqueo por parte de Hdiv por ser un problema de seguridad.
   
 ***
 
