@@ -10,6 +10,103 @@ Si lo que buscas es información sobre cómo mantener tu entorno de desarrollo a
   
 ***
 
+### v4.3.0 (23-julio-2021)
+
+Para actualizar una aplicación UDA a la versión v4.3.0 se deben realizar las siguientes modificaciones.
+
+#### Componentes RUP
+
+Se debe sustituir la carpeta ```xxxStatics\WebContent\rup``` por la carpeta incluida en el fichero [rup](https://github.com/UDA-EJIE/udaRUP/releases/download/v4.3.0/rup-v4.3.0.zip).
+
+#### Verificar el colModel
+
+Aunque el colModel ya lleva mucho tiempo en las tablas de UDA, es necesario que las propiedades `name` e `index` estén presentes, teniendo además, el mismo valor que la columna a la que referencian, al menos en el caso de la propiedad `index`, es obligatorio. Esto es necesario para evitar problemas con la búsqueda, gestión de columnas y bugs visuales.
+Esta verificación ha de realizarse en todos los archivos JavaScript de los mantenimientos que usen una tabla, pueden encontrarse dentro de la carpeta ```xxxStatics\WebContent\xxx\scripts\xxxYYY\```.
+
+Las entradas del colModel solían tener el siguiente aspecto:
+```javascript
+{
+    name: 'id',
+    editable: true,
+    hidden: false,
+    width: 80,
+    formoptions: {
+        rowpos: 1,
+        colpos: 1
+    }
+}
+```
+
+Habrá que sustituirlo por el siguiente:
+```javascript
+{
+    name: 'id',
+    index: 'id',
+    editable: true,
+    hidden: false,
+    width: 80,
+    formoptions: {
+        rowpos: 1,
+        colpos: 1
+    }
+}
+```
+Como se puede observar comparando ambos ejemplos, se ha añadido la propiedad `index` y tiene el mismo valor que el nombre de la columna.
+
+#### Añadir valor al mapping de los endpoints add y edit en los controladores
+
+Para asegurarnos de que la edición de valores en una tabla funcione bien, es necesario añadir un valor al mapping de los endpoints `add` y `edit` en los controladores. Estos pueden ser encontrados en ```xxxYYYWar\src\```.
+
+Los endpoints de `add` y `edit` tendrán el siguiente aspecto:
+```java
+@RequestMapping(method = RequestMethod.POST)
+public @ResponseBody Usuario add(@Validated @RequestBody Usuario usuario) {		
+    Usuario usuarioAux = this.tableUsuarioService.add(usuario);
+    logger.info("Entity correctly inserted!");	
+    return usuarioAux;
+}
+
+@RequestMapping(method = RequestMethod.PUT)
+public @ResponseBody Usuario edit(@RequestJsonBody Usuario usuario) {
+    Usuario usuarioAux = this.tableUsuarioService.update(usuario);
+    logger.info("Entity correctly updated!");
+    return usuarioAux;
+}
+```
+
+Habrá que sustituirlo por el siguiente:
+```java
+@RequestMapping(value = "/add", method = RequestMethod.POST)
+public @ResponseBody Usuario add(@Validated @RequestBody Usuario usuario) {		
+    Usuario usuarioAux = this.tableUsuarioService.add(usuario);
+    logger.info("Entity correctly inserted!");	
+    return usuarioAux;
+}
+
+@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+public @ResponseBody Usuario edit(@RequestJsonBody Usuario usuario) {
+    Usuario usuarioAux = this.tableUsuarioService.update(usuario);
+    logger.info("Entity correctly updated!");
+    return usuarioAux;
+}
+```
+
+#### Plugin y Templates
+
+Para generar código correspondiente a la versión v4.3.0 de UDA mediante el plugin de generación de código, podrá usarse el de la versión anterior ya que no ha sufrido cambios ([puede obtenerse aquí](https://github.com/UDA-EJIE/udaPlugin/releases/download/v4.2.2/udaPlugin_4.2.2_all.zip)). Lo que sí que es necesario actualizar son las [templates](https://github.com/UDA-EJIE/udaTemplates/releases/download/v4.3.0/templates-v4.3.0.zip) que correspondan a la versión.
+
+#### Actualizar la versión de x38
+
+Para actualizar la librería habrá que descargar la [nueva versión de x38](https://github.com/UDA-EJIE/udaLib/releases/tag/v4.3.0) y seguir los siguientes pasos:
+
+* Actualizar fichero ```pom.xml```
+
+```xml
+<properties>
+	<com.ejie.x38.version>4.3.0-RELEASE</com.ejie.x38.version>
+</properties>
+```
+
 ### v4.2.2 (19-Noviembre-2020)
 
 Para actualizar una aplicación UDA a la versión v4.2.2 se deben realizar las siguientes modificaciones.
