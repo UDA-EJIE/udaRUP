@@ -292,7 +292,7 @@
              *
              * @name comparePKs
              * @function
-             * @since UDA 5.0.0 // Table 1.0.0
+             * @since UDA 5.0.0 (backported) // Table 1.0.0
              * 
              * @param {object} firstRow - Fila de la tabla a comparar.
              * @param {object} secondRow - Fila de la tabla a comparar.

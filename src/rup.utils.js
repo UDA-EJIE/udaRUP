@@ -1062,7 +1062,7 @@
      *
      * @name isHdiv
      * @function
-     * @since UDA 5.0.0
+     * @since UDA 5.0.0 (backported)
      *
      * @param {string} id - Identificador de la entidad.
      *
@@ -1078,7 +1078,7 @@
      *
      * @name getStaticHdivID
      * @function
-     * @since UDA 5.0.0
+     * @since UDA 5.0.0 (backported)
      *
      * @param {string} id - Identificador de la entidad.
      *
@@ -1099,7 +1099,7 @@
      *
      * @name getHDIV_STATE
      * @function
-     * @since UDA 5.0.0
+     * @since UDA 5.0.0 (backported)
      *
      * @param {boolean} hasMoreParams - Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL.
      * @param {object} $form - Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use.

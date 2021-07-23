@@ -1505,7 +1505,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
  *
  * @name loadAuxForm
  * @function
- * @since UDA 5.0.0 // Table 1.0.0
+ * @since UDA 5.0.0 (backported) // Table 1.0.0
  *
  * @param {object} ctx - Contexto del Datatable.
  * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
