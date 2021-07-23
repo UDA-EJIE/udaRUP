@@ -108,7 +108,6 @@
 		<delete file="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar" />
 		<delete file="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar" />
         
         <echo>Generando ${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar ...</echo>
 		<jar destfile="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar">
@@ -157,17 +156,6 @@
 		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar ...</echo>
 		<jar destfile="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar">
 			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/cache/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/hdiv/** LICENSE.txt NOTICE.txt" />
 			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
 			<manifest>
 		      	<attribute name="Main-Class" value=""/>
