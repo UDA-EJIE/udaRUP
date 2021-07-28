@@ -1043,7 +1043,7 @@
         _makeCombo: function (settings) {
 
             //Opción vacía
-            if (settings.blank != null) {
+            if (settings.blank != null && $('#' + settings.id +' option[value="'+settings.blank+'"]').length == 0) {
                 $('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
             }
 
@@ -1374,6 +1374,9 @@
             //Cargar combo (si se reciben datos)
             if (data.length > 0) {
                 if (settings.source) {
+                    if (settings.blank != null && $('#' + settings.id +' option[value="'+settings.blank+'"]').length == 0) {
+                        $('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
+                    }
                     this._parseREMOTE(data, settings, html);
                 } else {
                     settings.ordered = false;
