@@ -557,7 +557,7 @@
 	                    	row = data;
 	                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
 		                        // Actualizar el nuevo id que viene de HDIV.
-	                    		let idHdiv = data[ctx.oInit.primaryKey];
+	                    		let idHdiv = "" + data[ctx.oInit.primaryKey];
 		                        if (pk == ctx.multiselection.lastSelectedId) {
 		                            ctx.multiselection.lastSelectedId = idHdiv;
 		                        }
