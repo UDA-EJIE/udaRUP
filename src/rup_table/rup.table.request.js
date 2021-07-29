@@ -42,11 +42,20 @@
         var start = data.start,
             length = data.length,
             page = (start / length) + 1,
-            sidx, sord;
+            sidx = '', sord = '';
 
-        if (data.order.length>0){
+        if (data.order.length == 1){
             sidx = data.columns[data.order[0].column].colSidx ||  data.columns[data.order[0].column].data;
             sord = data.order[0].dir;
+        }else if (data.order.length > 1){
+        	for (let i = 0; i<data.order.length; i++) {
+        			sidx += data.columns[data.order[i].column].colSidx || data.columns[data.order[i].column].data;
+        			sord += data.order[i].dir;
+        		if(i<data.order.length-1){
+        			sidx += ' ,';
+        			sord += ' ,';
+        		}
+        	}
         }
 
         // super(length, (start / length) + 1, 'id', 'asc');

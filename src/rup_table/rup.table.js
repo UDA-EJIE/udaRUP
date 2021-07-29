@@ -700,8 +700,8 @@
             // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
             $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
 
-            var tableRequest = new TableRequest(data);
-            var json = $.extend({}, data, tableRequest.getData());
+            let tableRequest = new TableRequest(data);
+            let json = $.extend({}, data, tableRequest.getData());//Mantenemos todos los valores, por si se quieren usar.
 
             json.core.pkNames = ctx.oInit.primaryKey;
 
