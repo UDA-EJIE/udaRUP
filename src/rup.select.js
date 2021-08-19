@@ -68,37 +68,32 @@
          */
         getRupValue: function () {
             var $self = $(this),
-                settings = $self.data('settings'),
-                retObj, arrayTMP, wrapObj = {},
-                name;
+                settings = $self.data('settings'), value;
 
-            name = $self.attr('name');
-
-            if (name) {
-                arrayTMP = $self.attr('name').split('.');
+            let values = $self.select2('data')
+            
+            if (values.length == 0) {
+            	value = '';
+            }else if (values.length == 1) {
+                value = values[0].id;
+            }else{
+            	value = [];
+            	$.each(values, function (ind, elem) { 
+            		value.push(elem.id); 
+            	}); 
             }
 
             if (settings.submitAsJSON) {
-                //					arrayTMP = $self.attr("name").split(".");
-                //					prop = arrayTMP[arrayTMP.length-1];
-                //					valueArray = $self.rup_combo("value");
-                //					valueArray_length = valueArray.length;
-                //					returnArray = [];
-                //				for(var i=0; i<valueArray_length; i++){
-                //					var map = {};
-                //					map[prop] = valueArray[i];
-                //					returnArray.push(map);
-                //				}
-                return jQuery.rup_utils.getRupValueAsJson(name, $self.rup_combo('value'));
+            	let name = $self.attr('name');
+            	if(name == undefined){
+            		name = $self.attr('id');
+            	}
+                return jQuery.rup_utils.getRupValueAsJson(name, value);
             }
+            
+            return value;
 
-            retObj = settings.submitAsString ? $self.rup_combo('value').toString() : $self.rup_combo('value');
 
-            if (arrayTMP !== undefined && arrayTMP !== null && settings.multiselect) {
-                wrapObj[arrayTMP[arrayTMP.length - 1]] = retObj;
-            }
-
-            return (settings.multiselect === true && arrayTMP !== undefined && arrayTMP.length > 1) && settings.legacyWrapMode === false ? wrapObj : retObj;
         },
         /**
          * Método utilizado para asignar el valor al componente. Este método es el utilizado por 
@@ -114,15 +109,12 @@
                 settings = $self.data('settings');
 
             //Tipo de combo
-            if (this.length === 0 || (settings !== undefined && !settings.multiselect)) {
-                //Simple > selectmenu
-                $.data(this[0], 'setRupValue', param.toString());
-                $(this).rup_combo('select', param.toString());
+            if (this.length === 0 || (settings !== undefined && !settings.multiple)) {
+                //Simple 
+            	$self.val(param).trigger('change');
             } else {
                 //Multiple > multiselect
-                $(this).multiselect('uncheckAll');
-                $(this).rup_combo('select', (settings.readAsString === true ? param.split(',') : param));
-                $(this).multiselect('refresh');
+            	$('#selectLargoMulti').select2('val', [param]);
             }
         },
         /**
@@ -133,13 +125,14 @@
          * $("#idCombo").rup_combo("clear");
          */
         clear: function () {
+        	var $self = $(this);
             //Tipo de combo
-            if (this.length === 0 || !$(this).data('settings').multiselect) {
-                //Simple > selectmenu
-                $(this).rup_combo('select', 0);
+            if (this.length === 0 || !$(this).data('settings').multiple) {
+                //Simple 
+            	$self.val(null).trigger('change');
             } else {
                 //Multiple > multiselect
-                $(this).multiselect('uncheckAll');
+            	$self.val(null);
             }
         },
         /**
@@ -239,29 +232,6 @@
                 }
                 //Actualizar literal de elementos seleccionados
                 $(this).multiselect('update');
-            }
-        },
-        /**
-         * Método que devuelve el valor seleccionado en el combo. En caso de ser el valor vació, o sin selección, el valor devuelto es el asociado al “blank”. En el caso de la selección múltiple se devolverá un array.
-         *
-         * @function  value
-         * @return {string | string[]} - Valor del elemento o elementos seleccionados.
-         * @example
-         * $("#idCombo").rup_combo("value");
-         */
-        value: function () {
-            //Tipo de combo
-            if (this.length === 0 || !$(this).data('settings').multiselect) {
-                //Simple > selectmenu
-                return ($(this).selectmenu('value'));
-            } else {
-                //Multiple > multiselect
-                var retorno = [],
-                    checked = $(this).multiselect('getChecked');
-                for (let i = 0; i < checked.length; i++) {
-                    retorno.push($(checked[i]).val());
-                }
-                return retorno;
             }
         },
         /**
@@ -927,11 +897,11 @@
                 return app[id]._blank;
             }
             // Comprueba si la aplicacion tiene un texto definido para todos los blank
-            else if (app.rup_combo && app.rup_combo.blank) {
-                return app.rup_combo.blank;
+            else if (app.rup_select && app.rup_select.blank) {
+                return app.rup_select.blank;
             }
             // Si no hay textos definidos para los blank obtiene el por defecto de UDA
-            return $.rup.i18n.base.rup_combo.blankNotDefined;
+            return $.rup.i18n.base.rup_select.blankNotDefined;
         },
         /**
          * Realiza el formateo de los registros que se muestran en la lista desplegable del combo.
@@ -1214,26 +1184,24 @@
          * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
          * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
          */
-        _parseLOCAL: function (array, settings, html) {
-            var imgs = settings.imgs ? settings.imgs : [],
-                label, value;
+        _parseLOCAL: function (settings) {
+            var imgs = settings.imgs ? settings.imgs : [],text;
+            let array = settings.data;
+          
             for (let i = 0; i < array.length; i = i + 1) {
-                label = value = array[i];
                 if (typeof array[i] === 'object') { //multi-idioma
                     if (array[i].i18nCaption) {
-                        label = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], array[i].i18nCaption);
+                        text = $.rup.i18nParse($.rup.i18n.app[settings.i18nId], array[i].i18nCaption);
                     } else {
-                        label = array[i].label;
+                        text = array[i].text;
                     }
-                    value = array[i].value;
+                    array[i].text = text;
+                }else{
+                	return ;
                 }
-                if (array[i] != undefined && array[i].style) {
-                    imgs[imgs.length] = {};
-                    imgs[imgs.length - 1][value] = array[i].style;
-                    settings.imgs = imgs;
-                }
-                html.append($('<option>').attr('value', value).text(settings.showValue ? value + settings.token + label : label));
             }
+            
+            return array;
         },
         /**
          * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos local. Este método se emplea en el caso de existir agrupación de los mismos.
@@ -1663,14 +1631,22 @@
 	                });
 	                
 	                //tratar placeHolder	
-	                if(settings.placeholder !== undefined && !settings.allowClear && typeof settings.placeholder == 'string'){
-	                	settings.templateSelection = function (data,span) {
-	                        if (data.id === settings.blank) { // adjust for custom placeholder values, restaurar
-	                        	return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
-	                        }
-
-	                        return data.text;
-	                      }
+	                if(settings.placeholder !== undefined && typeof settings.placeholder == 'string'){
+	                	 if(!settings.allowClear){
+		                	settings.templateSelection = function (data,span) {
+		                        if (data.id === settings.blank) { // adjust for custom placeholder values, restaurar
+		                        	return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
+		                        }
+	
+		                        return data.text;
+		                      }
+		                	if(settings.placeholder == ''){//si es vació se asigna el label
+		                		settings.placeholder = this._getBlankLabel(settings.id)
+		                	}
+		                	settings.data.unshift({id:settings.blank , text:settings.placeholder})
+	                	 }else if($('#' + settings.id).find('option').length == 0){//revisar y crear option vacio.
+	                		 $('#' + settings.id).append(new Option("", ""));
+	                	 }
 	                }
 	
 	                //Borrar referencia
@@ -1692,13 +1668,38 @@
 	                  });
 	                }
 	                
-	                if (settings.source) {//local
-	                	// _this._parseLOCAL(settings.firstLoad !== null ? settings.firstLoad : settings.source, settings, html);
-	                }{//remoto
-	                	
+	              //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
+	                if (!settings.i18nId) {
+	                    settings.i18nId = settings.id;
+	                }
+	                
+	                if (settings.data) {//local
+	                	settings.data = this._parseLOCAL(settings);
+	                }else if(!settings.ajax){//remoto
+	                	settings.ajax = {
+	            		    url: settings.url,
+	            		    dataType: settings.dataType,
+	            		    processResults: function (response) {//Require id y text, podemos permitir que no venga.
+	            		    		     return {
+	            		    		        results: response
+	            		    		     };
+	            		    		   },
+	            		    cache: false
+	                	};
+	                	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
+	                		settings.ajax.data = settings.data;
+	                	}
+	                	if(settings.sourceParams){//modifica el header para parsear la response
+	                		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
+	                	}
+	                	if(settings.processResults){//modifica los results
+	                		settings.ajax.processResults = settings.processResults;
+	                	}
 	                }
 	                
 	                $('#' + settings.id).select2(settings);
+	                
+	                $('#' + settings.id).data('settings', settings);
 	            }
         	}).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
@@ -1777,7 +1778,11 @@
     $.fn.rup_select.defaults = {
         onLoadError: null,
         customClasses: ['select-material'],
-        blank: "-1"
+        blank: "-1",
+        minimumResultsForSearch: Infinity,
+        submitAsJSON: false,
+        dataType: 'json',
+        cache: false
         };
 
 

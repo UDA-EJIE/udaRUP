@@ -45,6 +45,23 @@
       "uncheckAllTitle": "Aukera guztiak garbitu"
     }
   },
+    "rup_combo": {
+    "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
+    "blankNotDefined": "[Literala falta da]",
+    "loadingText": "Kargatzen...",
+    "multiselect": {
+      "checkAllText": "Hautatu dena",
+      "checkAllTitle": "Aukera guztiak hautatu",
+      "noneSelectedText": "Hautatu aukerak",
+      "optGroupDeselect": "Talde osoa garbitu",
+      "optGroupDeselectTitle": "Talde honen aukera guztiak garbitu",
+      "optGroupSelect": "Talde osoa hautatu",
+      "optGroupSelectTitle": "Talde honen aukera guztiak hautatu",
+      "selectedText": "# hautatuta",
+      "uncheckAllText": "Garbitu hautapena",
+      "uncheckAllTitle": "Aukera guztiak garbitu"
+    }
+  },
   "rup_date": {
     "buttonText": "Egutegia zabaldu",
     "closeText": "Itxi",

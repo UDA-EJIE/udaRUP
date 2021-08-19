@@ -45,6 +45,23 @@
       "uncheckAllTitle": "Deseleccionar todos los elementos_fr"
     }
   },
+    "rup_combo": {
+    "ajaxError": "fr_Se ha producido un error al recuperar los datos del servidor",
+    "blankNotDefined": "fr_[Falta literal]",
+    "loadingText": "fr_Cargando...",
+    "multiselect": {
+      "checkAllText": "Tout cocher",
+      "checkAllTitle": "Seleccionar todos los elementos_fr",
+      "noneSelectedText": "Selectionner les options",
+      "optGroupDeselect": "Deseleccionar grupo_fr",
+      "optGroupDeselectTitle": "Deseleccionar todos los elementos de este grupo_fr",
+      "optGroupSelect": "Seleccionar grupo_fr",
+      "optGroupSelectTitle": "Seleccionar todos los elementos de este grupo_fr",
+      "selectedText": "# selectionnés",
+      "uncheckAllText": "Tout décocher",
+      "uncheckAllTitle": "Deseleccionar todos los elementos_fr"
+    }
+  },
   "rup_date": {
     "buttonText": "Abrir calendario",
     "closeText": "Cerrar",
