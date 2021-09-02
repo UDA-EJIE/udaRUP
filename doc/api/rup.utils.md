@@ -6,6 +6,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 **Summary**: Librería de utilidades para los componentes RUP.  
 
 * [rup_utils](#jQuery.module_rup_utils)
+    * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
     * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
@@ -13,6 +14,23 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
+<a name="jQuery.module_rup_utils..normalize"></a>
+
+### rup_utils~normalize(texto) ⇒ <code>string</code>
+Devuelve un string con los caracteres sencillos.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - - Cadena de caracteres sin accentFolding.  
+**Since**: UDA 3.3.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| texto | <code>string</code> | Cadena de caracteres inicial. |
+
+**Example**  
+```js
+// Convierte los caracteres de la cadena "áéíóu" a "aeiou"$.rup_utils.normalize("áéíóu");
+```
 <a name="jQuery.module_rup_utils..deleteMulticomboLabelFromObject"></a>
 
 ### rup_utils~deleteMulticomboLabelFromObject(obj, container)
