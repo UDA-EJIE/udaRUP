@@ -532,7 +532,7 @@
                 var $th = $('<th>').appendTo($tr);
                 $th.text($(e).text());
 
-                if (e.getAttribute('data-col-type') === 'Checkbox') {
+                if (/^checkbox$/i.test(e.getAttribute('data-col-type'))) {
                     options.columnDefs.push({
                         targets: i,
                         data: '',
