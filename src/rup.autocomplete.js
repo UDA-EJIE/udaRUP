@@ -741,7 +741,7 @@ input.
 							// Limpiar tildes
 							if (settings.accentFolding && labelLimpio !== item.label) {
 								// Parte delantera
-								let regex = new RegExp(termLimpio, 'gi');
+								let regex = new RegExp(termLimpio, 'i');
 								var literal = returnValue.label;
 								var nDelante = literal.search(regex);
 								var n = labelLimpio.search(regex);
