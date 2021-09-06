@@ -447,6 +447,23 @@
         	ctx.oInit.formEdit.actionType = actionType;
         	$.when($('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
         		let deferred = $.Deferred();
+        		
+        		// Detectar componentes RUP e inicializarlos
+				if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
+					$.each(ctx.oInit.colModel, function (key, column) {
+						let element = idForm.find('[name="' + column.name + '"]');
+						// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly
+						if (column.rupType && column.editable) {
+							//Los combos tienen otra comprobación por el deferred
+							if(row !== undefined && column.rupType === 'combo'){
+								column.editoptions.selected = row[column.name];
+							}
+							element['rup_' + column.rupType](column.editoptions);
+						} else if (!column.editable) {
+							element.prop('readonly', true);
+						}
+					});
+				}
 				
 				// Añadir validaciones
 				_addValidation(ctx);
