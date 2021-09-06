@@ -145,7 +145,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 					newObject[value] = data.$hiddenField.val();
 					$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
 					let labelFound = '';
-					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+					let loadObjectsLabels = $('#' + data.$hiddenField.attr('id')).data('rup.autocomplete').$labelField.data('loadObjectsLabels');
 					$.each(loadObjectsLabels, function (label, key) {
 						if(key !== undefined){
 							if(value === value){
