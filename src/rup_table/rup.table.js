@@ -945,10 +945,10 @@
                 	filterOpts.showHidden = false;
                 }
 
-                toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon1');
-                toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleLabel');
-                filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.filterSummary');
-                toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon2');
+                toggleIcon1Tmpl = "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>";
+                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-none' href='#0'>{1}:</a>";
+                filterSummaryTmpl = "<span id='{0}'></span>";
+                toggleIcon2Tmpl = "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>";
 
                 $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
                 $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
@@ -965,9 +965,9 @@
                 filterOpts.$toggleLabel = $toggleLabel;
                 filterOpts.$filterSummary = $filterSummary;
                 filterOpts.$toggleIcon2 = $toggleIcon2;
-
-                // Se asigna a la tecla ENTER la funcion de busqueda.
-                filterOpts.$filterContainer.bind('keydown', function (evt) {
+                
+                // Se asigna a la tecla ENTER la función de búsqueda
+                filterOpts.$collapsableLayer.bind('keydown', function (evt) {
                     if (evt.keyCode === 13) {
                         let customFiltrar = options.validarFiltrar;
                         if ($.isFunction(customFiltrar) && customFiltrar(options)) {
