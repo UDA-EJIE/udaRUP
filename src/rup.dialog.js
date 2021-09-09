@@ -513,8 +513,8 @@
                             //Se comprueba que no existe el aspa.
                             if($('#'+settings.id + '_close').length === 0){
 	                            $self.prev('div')
-	                                .append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
-	                                .on('click', 'i.mdi', function () {
+	                                .append('<a class="float-right text-white" href="#0"><i id="' + settings.id + '_close" class="mdi mdi-close float-right" aria-hidden="true"></i></a>')
+	                                .on('click', 'a', function () {
 	                                    $self.dialog('close');
 	                                    return false;
 	                                });
