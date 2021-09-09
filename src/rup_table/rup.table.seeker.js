@@ -221,7 +221,7 @@
             searchRowHeaderTmpl = "<th class='search_row_header' colspan='{0}'></th>",
             collapseLayerTmpl = "<div id='{0}' class='search_collapse_layer'></div>",
             collapseIconTmpl = "<span id='{0}' class='collapse_icon mdi mdi-chevron-right'></span>",
-            collapseLabelTmpl = "<a id='{0}' class='text-primary text-decoration-none' href='#0'>{1}:&nbsp&nbsp</a>",
+            collapseLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline' href='#0'>{1}:&nbsp&nbsp</a>",
             matchedLayerTmpl = "<div id='{0}' class='matched_layer mr-3'></div>",
             matchedLabelTmpl = "<span id='{0}'>{1}</span>",
             navLayerTmpl = "<div id='{0}' class='search_nav_layer row no-gutters'></div>",
