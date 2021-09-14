@@ -1566,18 +1566,6 @@
 	                    attrsJson = {},
 	                    attrs;
 	
-	                // Se sobreescribe el change:
-	                if (settings.change) {
-	                    settings.userChange = settings.change;
-	                }
-	                if (settings.userChange) {
-	                    settings.change = function () {
-	                        if ($('#' + settings.id).is('.inited')) {
-	                            settings.userChange();
-	                        }
-	                    };
-	                }
-	
 	                //Se recoge el tabindex indicado en el elemento
 	                settings.tabindex = $(this).attr('tabindex');
 	
@@ -1607,18 +1595,7 @@
 	                    ruptype: 'select'
 	                });
 	
-	                //Contenido combo
-	                html = $('<select>').attr(attrsJson).addClass('rup_combo');
-	
-	                if ($(this).hasClass('validableElem')) {
-	                    isValidableElem = true;
-	                    html.addClass('validableElem');
-	                }
-	                if ($(this).hasClass('customelement')) {
-	                    isValidableElem = true;
-	                    html.addClass('customelement');
-	                }
-	
+	                //Revisar apra el select
 	                if (settings.firstLoad === null && ($(this).is('select') && settings.loadFromSelect)) {
 	                    loadAsLocal = true;
 	                }
@@ -1676,25 +1653,81 @@
 	                if (settings.data) {//local
 	                	settings.data = this._parseLOCAL(settings);
 	                }else if(!settings.ajax){//remoto
-	                	settings.ajax = {
-	            		    url: settings.url,
-	            		    dataType: settings.dataType,
-	            		    processResults: function (response) {//Require id y text, podemos permitir que no venga.
-	            		    		     return {
-	            		    		        results: response
-	            		    		     };
-	            		    		   },
-	            		    cache: false
-	                	};
-	                	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
-	                		settings.ajax.data = settings.data;
+		                	settings.ajax = {
+		            		    url: settings.url,
+		            		    dataType: settings.dataType,
+		            		    processResults: function (response) {//Require id y text, podemos permitir que no venga.
+		            		    		     return {
+		            		    		        results: response
+		            		    		     };
+		            		    		   },
+		            		    cache: false
+
+		                	};
+		                if(settings.cache){//si existe cacheo
+	                		let __cache = [];
+	                		let __lastQuery = null;
+		                	settings.ajax.transport = function(params, success, failure) {
+	                			//retrieve the cached key or default to _ALL_
+	                	        var __cachekey = params.data.q || '_ALL_';
+	                	        if (__lastQuery !== __cachekey) {
+	                	          //remove caches not from last query
+	                	          __cache = [];
+	                	        }
+	                	        __lastQuery = __cachekey;
+	                	        if ('undefined' !== typeof __cache[__cachekey]) {
+	                	          //display the cached results
+	                	          success(__cache[__cachekey]);
+	                	          return; /* noop */
+	                	        }
+	                	        var $request = $.ajax(params);
+	                	        $request.then(function(data) {
+	                	          //store data in cache
+	                	          __cache[__cachekey] = data;
+	                	          //display the results
+	                	          success(__cache[__cachekey]);
+	                	        });
+	                	        $request.fail(failure);
+	                	        return $request;
+	                		}
+		                }	
+		                	
+	                	if(settings.ajax !== undefined){
+		                	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
+		                		settings.ajax.data = settings.data;
+		                	}
+		                	if(settings.sourceParam){//modifica el header para parsear la response
+		                		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
+		                	}
+		                	if(settings.processResults){//modifica los results
+		                		settings.ajax.processResults = settings.processResults;
+		                	}
 	                	}
-	                	if(settings.sourceParams){//modifica el header para parsear la response
-	                		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
+	                	
+	                	if(settings.sortered === undefined){//PAra añadir ordenación
+	                		settings.sorter = data => data.sort((a, b) => a.text.localeCompare(b.text));
+	                	}else if(settings.sortered !== false){
+	                		settings.sorter = settings.sortered;
 	                	}
-	                	if(settings.processResults){//modifica los results
-	                		settings.ajax.processResults = settings.processResults;
+	                }
+	                
+	                //Init eventos: El resto van en el propio subyacente
+	                //Change
+	                if(settings.change){
+	                	$('#' + settings.id).on('select2:select', function (e) {
+	                		settings.change(e);
+	                	});
+	                	if(!settings.clean){
+		                	$('#' + settings.id).on('select2:clearing', function (e) {
+		                		settings.change(e);
+		                	});
 	                	}
+	                }
+	                //clean
+	                if(settings.clean){
+	                	$('#' + settings.id).on('select2:clearing', function (e) {
+	                		settings.clean(e);
+	                	});
 	                }
 	                
 	                $('#' + settings.id).select2(settings);
