@@ -132,68 +132,70 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			var $self = this,
 				data = $self.data('rup.autocomplete'),
 				loadObjects, newObject = {};
-				
-			let id = $self[0].id;
-
-			if (data) {
-
-				// Comprobamos si tiene la referencia al campo hidden
-				if (data.$hiddenField) {
-					data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
-
-					loadObjects = $self.data('loadObjects');
-					newObject[value] = data.$hiddenField.val();
-					$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
-					let labelFound = '';
-					let loadObjectsLabels = $('#' + data.$hiddenField.attr('id')).data('rup.autocomplete').$labelField.data('loadObjectsLabels');
-					$.each(loadObjectsLabels, function (label, key) {
-						if(key !== undefined){
-							if(value === value){
-								labelFound = label;
-								return;
+			
+			if ($self[0] != undefined) {
+				let id = $self[0].id;
+	
+				if (data) {
+	
+					// Comprobamos si tiene la referencia al campo hidden
+					if (data.$hiddenField) {
+						data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
+	
+						loadObjects = $self.data('loadObjects');
+						newObject[value] = data.$hiddenField.val();
+						$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+						let labelFound = '';
+						let loadObjectsLabels = $('#' + data.$hiddenField.attr('id')).data('rup.autocomplete').$labelField.data('loadObjectsLabels');
+						$.each(loadObjectsLabels, function (label, key) {
+							if(key !== undefined){
+								if(value === value){
+									labelFound = label;
+									return;
+								}
 							}
+		                });
+						if(labelFound !== ''){
+							$('#' + id + '_label').val(labelFound);
 						}
-	                });
-					if(labelFound !== ''){
-						$('#' + id + '_label').val(labelFound);
+					}
+	
+					if (data.$labelField) {
+						loadObjects = data.$labelField.data('loadObjects');
+						newObject[$self.attr('rup_autocomplete_label')] = value;
+						data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+						let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+						let labelFound = '';
+						$.each(loadObjectsLabels, function (label, key) {
+							if(key !== undefined){
+								if(value === key){
+									labelFound = label;
+									return;
+								}
+							}
+		                });
+						let settings = data.$labelField.data('settings');
+						if(labelFound !== ''){
+							$('#' + id + '_label').val(labelFound);
+						}else if(settings.showDefault){
+							$('#' + id + '_label').val(value);
+						}
 					}
 				}
-
-				if (data.$labelField) {
-					loadObjects = data.$labelField.data('loadObjects');
-					newObject[$self.attr('rup_autocomplete_label')] = value;
-					data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
-					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
-					let labelFound = '';
-					$.each(loadObjectsLabels, function (label, key) {
-						if(key !== undefined){
-							if(value === key){
-								labelFound = label;
-								return;
-							}
-						}
-	                });
-					let settings = data.$labelField.data('settings');
-					if(labelFound !== ''){
-						$('#' + id + '_label').val(labelFound);
-					}else if(settings.showDefault){
+	
+				$(this).val(value);
+				
+				if (id.includes('_label')) {
+					if (value == "") {
+						$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
+					}
+					$self.triggerHandler('rupAutocomplete_change');
+				} else {
+					if (value == "") {
 						$('#' + id + '_label').val(value);
 					}
+					$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
 				}
-			}
-
-			$(this).val(value);
-			
-			if (id.includes('_label')) {
-				if (value == "") {
-					$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
-				}
-				$self.triggerHandler('rupAutocomplete_change');
-			} else {
-				if (value == "") {
-					$('#' + id + '_label').val(value);
-				}
-				$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
 			}
 		},
 		/**
