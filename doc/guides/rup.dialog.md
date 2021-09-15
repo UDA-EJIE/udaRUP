@@ -134,7 +134,7 @@ $.rup.i18n.base.rup_global.cerrar
 ```
 
 ## 9 Aspectos a tener en cuenta
-Es importante destacar que siempre es necesario definir un botón con la siguiente propiedad:
+Es importante destacar que siempre que se usen botones, es necesario definir uno con la siguiente propiedad:
 ```javascript
 btnType: $.rup.dialog.LINK
 ```
