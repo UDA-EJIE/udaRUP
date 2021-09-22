@@ -72,7 +72,7 @@
 
             let values = $self.select2('data')
             
-            if (values.length == 0) {
+            if (values == undefined || values.length == 0) {
             	value = '';
             }else if (values.length == 1) {
                 value = values[0].id;
@@ -83,7 +83,7 @@
             	}); 
             }
 
-            if (settings.submitAsJSON) {
+            if (settings.submitAsJSON !== undefined && settings.submitAsJSON) {
             	let name = $self.attr('name');
             	if(name == undefined){
             		name = $self.attr('id');
@@ -102,7 +102,7 @@
          * @function  setRupValue
          * @param {string | number} param - Valor que se va a asignar al componente.
          * @example
-         * $("#idCombo").rup_combo("setRupValue", "Si");
+         * $("#idCombo").rup_select('setRupValue', 'Si');
          */
         setRupValue: function (param) {
             var $self = $(this),
@@ -113,16 +113,16 @@
                 //Simple 
             	$self.val(param).trigger('change');
             } else {
-                //Multiple > multiselect
+                //Multiple > multiselect - falta
             	$('#selectLargoMulti').select2('val', [param]);
             }
         },
         /**
-         * Método que limpia el valor seleccionado en el combo. En el caso de selección múltiple los valores seleccionados.
+         * Método que limpia el valor seleccionado en el select. En el caso de selección múltiple los valores seleccionados.
          *
          * @function clear
          * @example
-         * $("#idCombo").rup_combo("clear");
+         * $("#idSelect").rup_select("clear");
          */
         clear: function () {
         	var $self = $(this);
@@ -131,7 +131,7 @@
                 //Simple 
             	$self.val(null).trigger('change');
             } else {
-                //Multiple > multiselect
+                //Multiple > multiselect - falta
             	$self.val(null);
             }
         },
@@ -1548,6 +1548,109 @@
             }, settings.typeAhead);
         },
         /**
+         * Carga la opción remoto.
+         *
+         * @function  _loadRemote
+         * @private
+         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
+         * @return {jQuery} - Objeto jQuery con referencia al elemento que contiene el foco.
+         */
+
+        _loadRemote: function (settings,first) {
+        	 	settings.ajax = {
+		    url: settings.url,
+		    dataType: settings.dataType,
+		    processResults: function (response) {//Require id y text, podemos permitir que no venga.
+		    		     return {
+		    		        results: response
+		    		     };
+		    		   },
+		    cache: false
+
+    	};
+    	    
+        	 	if(settings.selected){
+        	 	settings.callAjaxOptions = {
+		            url: settings.url,
+			           // data: settings.data,
+			            dataType: settings.dataType,
+			            contentType: 'application/json',
+			            beforeSend: function (xhr) {
+			            	//Cabecera RUP
+			                xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
+			            },
+			            success: function (datos) {
+			            	let data = $.grep(datos, function (v) {
+			                    return v.id == settings.selected;
+			                  });
+			            	if(data !== undefined && data.length == 1){
+			            		data = data[0];
+			            		let newOption = new Option(data.text, data.id, false, false);
+			            		$('#' + settings.id).append(newOption);
+			            		$('#' + settings.id).val(data.id).trigger('change');
+			            		$('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
+			            	}
+			            },
+			            error: function (xhr, textStatus, errorThrown) {
+			                if (settings.onLoadError !== null) {
+			                    jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+			                } else {
+			                    rupCombo._ajaxError(xhr, textStatus, errorThrown);
+			                }
+			            }
+			        };
+	    			$.rup_ajax(settings.callAjaxOptions); 
+        	 	}
+		     if(settings.cache){//si existe cacheo
+				let __cache = [];
+				let __lastQuery = null;
+		    	settings.ajax.transport = function(params, success, failure) {
+					//retrieve the cached key or default to _ALL_
+			        var __cachekey = params.data.q || '_ALL_';
+			        if (__lastQuery !== __cachekey) {
+			          //remove caches not from last query
+			          __cache = [];
+			        }
+			        __lastQuery = __cachekey;
+			        if ('undefined' !== typeof __cache[__cachekey]) {
+			          //display the cached results
+			          success(__cache[__cachekey]);
+			          return; 
+			        }
+			        var $request = $.ajax(params);
+			        $request.then(function(data) {
+			          //store data in cache
+			          __cache[__cachekey] = data;
+			          //display the results
+			          success(__cache[__cachekey]);
+			        });
+			        $request.fail(failure);
+			        return $request;
+				}
+		    }	
+		    	
+			if(settings.ajax !== undefined){
+		    	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
+		    		settings.ajax.data = settings.data;
+		    	}
+		    	if(settings.sourceParam){//modifica el header para parsear la response
+		    		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
+		    	}
+		    	if(settings.processResults){//modifica los results
+		    		settings.ajax.processResults = settings.processResults;
+		    	}
+			}
+	
+			if(settings.sortered === undefined){//PAra añadir ordenación
+				settings.sorter = data => data.sort((a, b) => a.text.localeCompare(b.text));
+			}else if(settings.sortered !== false){
+				settings.sorter = settings.sortered;
+			} 
+            	
+			$('#' + settings.id).select2(settings);
+ 
+        },
+        /**
          * Método de inicialización del componente.
          *
          * @function  _init
@@ -1620,7 +1723,9 @@
 		                	if(settings.placeholder == ''){//si es vació se asigna el label
 		                		settings.placeholder = this._getBlankLabel(settings.id)
 		                	}
-		                	settings.data.unshift({id:settings.blank , text:settings.placeholder})
+		                	if(settings.data !== undefined){
+		                		settings.data.unshift({id:settings.blank , text:settings.placeholder})
+		                	}
 	                	 }else if($('#' + settings.id).find('option').length == 0){//revisar y crear option vacio.
 	                		 $('#' + settings.id).append(new Option("", ""));
 	                	 }
@@ -1653,63 +1758,8 @@
 	                if (settings.data) {//local
 	                	settings.data = this._parseLOCAL(settings);
 	                }else if(!settings.ajax){//remoto
-		                	settings.ajax = {
-		            		    url: settings.url,
-		            		    dataType: settings.dataType,
-		            		    processResults: function (response) {//Require id y text, podemos permitir que no venga.
-		            		    		     return {
-		            		    		        results: response
-		            		    		     };
-		            		    		   },
-		            		    cache: false
-
-		                	};
-		                if(settings.cache){//si existe cacheo
-	                		let __cache = [];
-	                		let __lastQuery = null;
-		                	settings.ajax.transport = function(params, success, failure) {
-	                			//retrieve the cached key or default to _ALL_
-	                	        var __cachekey = params.data.q || '_ALL_';
-	                	        if (__lastQuery !== __cachekey) {
-	                	          //remove caches not from last query
-	                	          __cache = [];
-	                	        }
-	                	        __lastQuery = __cachekey;
-	                	        if ('undefined' !== typeof __cache[__cachekey]) {
-	                	          //display the cached results
-	                	          success(__cache[__cachekey]);
-	                	          return; /* noop */
-	                	        }
-	                	        var $request = $.ajax(params);
-	                	        $request.then(function(data) {
-	                	          //store data in cache
-	                	          __cache[__cachekey] = data;
-	                	          //display the results
-	                	          success(__cache[__cachekey]);
-	                	        });
-	                	        $request.fail(failure);
-	                	        return $request;
-	                		}
-		                }	
-		                	
-	                	if(settings.ajax !== undefined){
-		                	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
-		                		settings.ajax.data = settings.data;
-		                	}
-		                	if(settings.sourceParam){//modifica el header para parsear la response
-		                		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
-		                	}
-		                	if(settings.processResults){//modifica los results
-		                		settings.ajax.processResults = settings.processResults;
-		                	}
-	                	}
-	                	
-	                	if(settings.sortered === undefined){//PAra añadir ordenación
-	                		settings.sorter = data => data.sort((a, b) => a.text.localeCompare(b.text));
-	                	}else if(settings.sortered !== false){
-	                		settings.sorter = settings.sortered;
-	                	}
-	                }
+	                	this._loadRemote(settings,true);
+		           }
 	                
 	                //Init eventos: El resto van en el propio subyacente
 	                //Change
@@ -1729,10 +1779,14 @@
 	                		settings.clean(e);
 	                	});
 	                }
-	                
-	                $('#' + settings.id).select2(settings);
-	                
-	                $('#' + settings.id).data('settings', settings);
+	                if (settings.data) {//local
+		                $('#' + settings.id).select2(settings);
+		                if(settings.selected){
+		                	$('#' + settings.id).val(settings.selected).trigger('change')
+		                }
+		                
+		                $('#' + settings.id).data('settings', settings);
+	                }
 	            }
         	}).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
