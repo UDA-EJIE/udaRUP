@@ -1061,6 +1061,38 @@
 	};
 	
 	/**
+     * Convierte un JSON con múltiples niveles en un JSON con un único nivel.
+     *
+     * @name flattenJSON
+     * @function
+     * @since UDA 5.0.2
+     *
+     * @param {object} originalObj - Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
+     * @param {object} flattenedObj - Objeto con un único nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma.
+     * @param {string} extraKey - Clave necesaria cuando hay más de un nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma.
+     * 
+     * @return {object} Objeto con un único nivel.
+     */
+	$.fn.flattenJSON = function (originalObj, flattenedObj, extraKey) {
+		if (flattenedObj == undefined) {
+			flattenedObj = {};
+		}
+		
+		if (extraKey == undefined) {
+			extraKey = '';
+		}
+		
+		for (let key in originalObj) {
+			if (typeof originalObj[key] !== 'object') {
+				flattenedObj[extraKey + key] = originalObj[key];
+			} else {
+				$.fn.flattenJSON(originalObj[key], flattenedObj, `${extraKey}${key}.`);
+			}
+		}
+		return flattenedObj;
+	};
+	
+	/**
      * Comprueba si el parámetro ha sido cifrado por Hdiv.
      *
      * @name isHdiv
