@@ -1045,18 +1045,32 @@
      */
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
 		if (obj !== undefined && obj !== null) {
-	        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
-	        	return /_label$/.test(keys);
-	        });
-	        if (autocompleteLabelTester.length > 0) {
-	        	// Nos aseguramos que el _label proviene de un autocomplete
-	        	$.each(autocompleteLabelTester, function (index, value) {
-	        		if (obj.hasOwnProperty(value.substring(0, value.indexOf('_label')))) {
-	                	// Eliminamos el _label
-	        			delete obj[value];
+			let flattenedObj = $.fn.flattenJSON(obj);
+			
+	        // Nos aseguramos de que el campo _label provenga de un autocomplete
+	        Object.keys(flattenedObj).filter(function (key) {
+	        	if (/_label$/.test(key)) {
+	        		if (flattenedObj.hasOwnProperty(key.substring(0, key.indexOf('_label')))) {
+	        			// Necesario hacer un split por si la clave a usar está anidada
+	        			let keys = key.split('.');
+	        			
+	        			// Eliminamos el _label
+	        			const recursiveRemoveKey = function (object, deleteKey) {
+	        				if (object[deleteKey] != undefined) {
+	        					delete object[deleteKey];
+	        				} else {
+	        					Object.values(object).forEach(function (val) { 
+									if (typeof val === 'object') {
+										recursiveRemoveKey(val, deleteKey);
+									}
+								})
+	        				}
+						}
+	
+						recursiveRemoveKey(obj, keys[keys.length - 1]);
 	                }
-	            });
-	        }
+	        	}
+	        })
 		}
 	};
 	
