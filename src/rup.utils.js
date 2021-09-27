@@ -1068,7 +1068,7 @@
 	        			}
 	
 	        			recursiveRemoveKey(obj, keys[keys.length - 1]);
-	                }
+	        		}
 	        	}
 	        })
 		}
