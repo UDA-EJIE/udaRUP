@@ -1060,14 +1060,14 @@
 	        					delete object[deleteKey];
 	        				} else {
 	        					Object.values(object).forEach(function (val) { 
-									if (typeof val === 'object') {
-										recursiveRemoveKey(val, deleteKey);
-									}
-								})
+	        						if (typeof val === 'object') {
+	        							recursiveRemoveKey(val, deleteKey);
+	        						}
+	        					})
 	        				}
-						}
+	        			}
 	
-						recursiveRemoveKey(obj, keys[keys.length - 1]);
+	        			recursiveRemoveKey(obj, keys[keys.length - 1]);
 	                }
 	        	}
 	        })
