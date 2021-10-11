@@ -1475,6 +1475,8 @@
 		    				settings.sorter = settings.sortered;
 		    			}
 	                	this._loadRemote(settings,true);
+		           } else {//por si viene cargado de un select
+		        	   settings.data = true;
 		           }
 	                
 	                //Init eventos: El resto van en el propio subyacente
