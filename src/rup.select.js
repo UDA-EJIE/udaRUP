@@ -1202,7 +1202,7 @@
 				            		data = data[0];
 				      
 				            		let newOption = new Option(data.text, data.id, false, false);
-				            		if(data.style !== undefined){
+				            		if(data.style != null){
 				            			newOption.setAttribute('style',data.style);
 				            		}
 				            		$('#' + settings.id).append(newOption);
@@ -1284,6 +1284,13 @@
             let _span = $('<span/>');
 
             let icon = $('<i class="mdi mdi-' + data.style + '"></i>');
+            if(data.imgStyle){//en lugar d mdi,clase icon.
+            	_span.addClass(data.style );
+            	icon = $('<span class="ui-selectmenu-item-icon ui-icon "></span>');
+            	if(data.stylePosition.toUpperCase() === 'M'){
+            		data.stylePosition = 'B';// en caso de ser span, no admite texto en medio
+            	}
+            }
 
             if (data.stylePosition.toUpperCase() === 'M') {
               icon.prepend(data.text);
@@ -1384,7 +1391,7 @@
 		                		}
 		                		if (data.id === settings.blank) {
 		                			return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
-		                		}else  if (data.style !== undefined && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
+		                		}else  if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
 		                			return _this._textIcon(data);
 		                        }
 	
@@ -1395,7 +1402,7 @@
 		                		if(data.style === undefined && data.element !== undefined){//mirar estilo
 		                			data.style = data.element.getAttribute('style');
 		                		}
-		                		if (data.style !== undefined && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
+		                		if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
 		                			return _this._textIcon(data);
 		                        }
 	
@@ -1461,7 +1468,7 @@
 		            	      settings.data = settings.dataGroups;
 		            	}
 	                	
-	                }else if(!settings.ajax){//remoto
+	                }else if(!settings.ajax && settings.url != null){//remoto
 		            	if(settings.sortered === undefined){//PAra añadir ordenación, en remoto siempre se ordena por defecto.
 		            		settings.sorter = ordenFunction;
 		    			}else if(settings.sortered !== false){
