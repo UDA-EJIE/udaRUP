@@ -999,14 +999,14 @@
                     $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
                 },
                 error: function (xhr) {
-                    let divErrorFeedback;
+                	let divErrorFeedback;
                 	
-                    // Si es una petición de tipo DELETE o no existe la referencia al feedback de editForm, el feedback utilizado será el de la tabla, en los demás casos, se usará el del editForm.
-                    if (actionType === 'DELETE' || feed[0] == undefined) {
-                    	divErrorFeedback = ctx.oInit.feedback.$feedbackContainer;
-                    } else {
-                    	divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                    }
+                	// Si es una petición de tipo DELETE o no existe la referencia al feedback de editForm, el feedback utilizado será el de la tabla, en los demás casos, se usará el del editForm.
+                	if (actionType === 'DELETE' || feed[0] == undefined) {
+                		divErrorFeedback = ctx.oInit.feedback.$feedbackContainer;
+                	} else {
+                		divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                	}
                     
                     if (divErrorFeedback.length === 0) {
                         divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
