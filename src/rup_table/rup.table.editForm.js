@@ -999,14 +999,20 @@
                     $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
                 },
                 error: function (xhr) {
-                    let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                    if(actionType === 'DELETE'){//el feedback va a la tabla.
-                    	divErrorFeedback = $('#rup_feedback_' + ctx.sTableId);
+                    let divErrorFeedback;
+                	
+                    // Si es una petición de tipo DELETE o no existe la referencia al feedback de editForm, el feedback utilizado será el de la tabla, en los demás casos, se usará el del editForm.
+                    if (actionType === 'DELETE' || feed[0] == undefined) {
+                    	divErrorFeedback = ctx.oInit.feedback.$feedbackContainer;
+                    } else {
+                    	divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                     }
+                    
                     if (divErrorFeedback.length === 0) {
                         divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                     }
+                    
     				if (xhr.status === 406 && xhr.responseText !== '') {
     					try {
     						let responseJSON = jQuery.parseJSON(xhr.responseText);
@@ -1026,8 +1032,7 @@
     						// El mensaje NO es JSON
     						_callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     					}
-
-    				}else{//cualquier error se devuelve el texto
+    				} else {//cualquier error se devuelve el texto
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     				}
 
