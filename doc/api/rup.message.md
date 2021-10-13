@@ -6,7 +6,7 @@ Tiene como objetivo mostrar al usuario de forma homogénea, clara y llamativa, l
 **Summary**: Componente RUP Message.  
 **Example**  
 ```js
-$.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK."});
+$.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK.",		buttonText: $.rup.i18nParse($.rup.i18n.app, "message.acceptOK")	});
 ```
 
 * [rup_messages](#module_rup_messages)
@@ -68,7 +68,7 @@ Muestra un mensaje de confirmación.
 
 **Example**  
 ```js
-// funciones de callback.	function acceptClicked() { alert("Ha pulsado aceptar."); }	function cancelClicked() { alert("Ha pulsado cancelar."); }	// Mostrar un mensaje de error.	$.rup_messages("msgConfirm", {		title: "Confirmación",		message: "¿Está seguro que desea cancelar?",		OKFunction : acceptClicked,		OKText: $.rup.i18nParse($.rup.i18n.app, "message.OK"),		CANCELFunction : cancelClicked		CANCELText: $.rup.i18nParse($.rup.i18n.app, "message.CANCEL"),	});
+// funciones de callback.	function acceptClicked() { alert("Ha pulsado aceptar."); }	function cancelClicked() { alert("Ha pulsado cancelar."); }	// Mostrar un mensaje de error.	$.rup_messages("msgConfirm", {		title: "Confirmación",		message: "¿Está seguro que desea cancelar?",		OKFunction : acceptClicked,		OKText: $.rup.i18nParse($.rup.i18n.app, "message.OK"),		CANCELFunction : cancelClicked,		CANCELText: $.rup.i18nParse($.rup.i18n.app, "message.CANCEL")	});
 ```
 <a name="module_rup_messages..msgOK"></a>
 
