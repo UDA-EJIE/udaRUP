@@ -132,68 +132,70 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 			var $self = this,
 				data = $self.data('rup.autocomplete'),
 				loadObjects, newObject = {};
-				
-			let id = $self[0].id;
-
-			if (data) {
-
-				// Comprobamos si tiene la referencia al campo hidden
-				if (data.$hiddenField) {
-					data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
-
-					loadObjects = $self.data('loadObjects');
-					newObject[value] = data.$hiddenField.val();
-					$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
-					let labelFound = '';
-					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
-					$.each(loadObjectsLabels, function (label, key) {
-						if(key !== undefined){
-							if(value === value){
-								labelFound = label;
-								return;
+			
+			if ($self[0] != undefined) {
+				let id = $self[0].id;
+	
+				if (data) {
+	
+					// Comprobamos si tiene la referencia al campo hidden
+					if (data.$hiddenField) {
+						data.$hiddenField.attr({ rup_autocomplete_label: value, value: value });
+	
+						loadObjects = $self.data('loadObjects');
+						newObject[value] = data.$hiddenField.val();
+						$self.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+						let labelFound = '';
+						let loadObjectsLabels = $('#' + data.$hiddenField.attr('id')).data('rup.autocomplete').$labelField.data('loadObjectsLabels');
+						$.each(loadObjectsLabels, function (label, key) {
+							if(key !== undefined){
+								if(value === value){
+									labelFound = label;
+									return;
+								}
 							}
+		                });
+						if(labelFound !== ''){
+							$('#' + id + '_label').val(labelFound);
 						}
-	                });
-					if(labelFound !== ''){
-						$('#' + id + '_label').val(labelFound);
+					}
+	
+					if (data.$labelField) {
+						loadObjects = data.$labelField.data('loadObjects');
+						newObject[$self.attr('rup_autocomplete_label')] = value;
+						data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
+						let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
+						let labelFound = '';
+						$.each(loadObjectsLabels, function (label, key) {
+							if(key !== undefined){
+								if(value === key){
+									labelFound = label;
+									return;
+								}
+							}
+		                });
+						let settings = data.$labelField.data('settings');
+						if(labelFound !== ''){
+							$('#' + id + '_label').val(labelFound);
+						}else if(settings.showDefault){
+							$('#' + id + '_label').val(value);
+						}
 					}
 				}
-
-				if (data.$labelField) {
-					loadObjects = data.$labelField.data('loadObjects');
-					newObject[$self.attr('rup_autocomplete_label')] = value;
-					data.$labelField.data('loadObjects', jQuery.extend(true, {}, loadObjects, newObject));
-					let loadObjectsLabels = data.$labelField.data('loadObjectsLabels');
-					let labelFound = '';
-					$.each(loadObjectsLabels, function (label, key) {
-						if(key !== undefined){
-							if(value === key){
-								labelFound = label;
-								return;
-							}
-						}
-	                });
-					let settings = data.$labelField.data('settings');
-					if(labelFound !== ''){
-						$('#' + id + '_label').val(labelFound);
-					}else if(settings.showDefault){
+	
+				$(this).val(value);
+				
+				if (id.includes('_label')) {
+					if (value == "") {
+						$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
+					}
+					$self.triggerHandler('rupAutocomplete_change');
+				} else {
+					if (value == "") {
 						$('#' + id + '_label').val(value);
 					}
+					$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
 				}
-			}
-
-			$(this).val(value);
-			
-			if (id.includes('_label')) {
-				if (value == "") {
-					$('#' + id.substring(0, id.lastIndexOf('_label'))).val(value);
-				}
-				$self.triggerHandler('rupAutocomplete_change');
-			} else {
-				if (value == "") {
-					$('#' + id + '_label').val(value);
-				}
-				$('#' + id + '_label').triggerHandler('rupAutocomplete_change');
 			}
 		},
 		/**
@@ -732,34 +734,36 @@ input.
 								labelLimpio = $.rup_utils.normalize(item.label);
 							}
 							var termLimpio = $.rup_utils.normalize(request.term);
-							if (settings.category === true)
+							if (settings.category) {
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value, item.category);
-							else
-
+							} else {
 								returnValue = settings._parseResponse(termLimpio, labelLimpio, item.value);
+							}
 							
-							
-							if(settings.accentFolding && labelLimpio !== item.label){//limpiar acentos y mayúsculas
-								//parte delantera
+							// Limpiar tildes
+							if (settings.accentFolding && labelLimpio !== item.label) {
+								// Parte delantera
+								let regex = new RegExp(termLimpio, 'i');
 								var literal = returnValue.label;
-								var nDelante = literal.indexOf(termLimpio);
-								var n = labelLimpio.indexOf(termLimpio);
-								returnValue.label = literal.substr(0,nDelante)+item.label.substr(n,termLimpio.length)+literal.substr(nDelante+termLimpio.length);
-								//parte trasera
-                                var nAtras = literal.indexOf('</strong>')+9;
+								var nDelante = literal.search(regex);
+								var n = labelLimpio.search(regex);
+								returnValue.label = literal.substr(0, nDelante) + item.label.substr(n, termLimpio.length) + literal.substr(nDelante + termLimpio.length);
+								
+								// Parte trasera
+                                var nAtras = literal.indexOf('</strong>') + 9;
 								literal = returnValue.label;
-								returnValue.label = literal.substr(0,nAtras)+item.label.substr(n+termLimpio.length);
+								returnValue.label = literal.substr(0, nAtras) + item.label.substr(n + termLimpio.length);
 								let nStrong = literal.indexOf('<strong>');
 								returnValue.label = item.label.substr(0, nStrong) + '<strong>' 
-													+ item.label.substr(nStrong,termLimpio.length) 
-													+ '</strong>' + item.label.substr(nStrong + 
-															termLimpio.length);
+													+ item.label.substr(nStrong, termLimpio.length) 
+													+ '</strong>' + item.label.substr(nStrong + termLimpio.length);
 								loadObjectsLabels[returnValue.label] = returnValue.value;
-								loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
-							}else{
+								loadObjects[$.rup_utils.normalize(returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, ''))] = returnValue.value;
+							} else {
 								loadObjectsLabels[item.label] = returnValue.value;
 								loadObjects[returnValue.label.replace(/<strong>/g, '').replace(/<\/strong>/g, '')] = returnValue.value;
 							}
+							
 							return returnValue;
 						}));
 

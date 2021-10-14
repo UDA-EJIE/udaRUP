@@ -447,6 +447,23 @@
         	ctx.oInit.formEdit.actionType = actionType;
         	$.when($('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
         		let deferred = $.Deferred();
+        		
+        		// Detectar componentes RUP e inicializarlos
+				if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
+					$.each(ctx.oInit.colModel, function (key, column) {
+						let element = idForm.find('[name="' + column.name + '"]');
+						// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly
+						if (column.rupType && column.editable) {
+							//Los combos tienen otra comprobación por el deferred
+							if(row !== undefined && column.rupType === 'combo'){
+								column.editoptions.selected = row[column.name];
+							}
+							element['rup_' + column.rupType](column.editoptions);
+						} else if (!column.editable) {
+							element.prop('readonly', true);
+						}
+					});
+				}
 				
 				// Añadir validaciones
 				_addValidation(ctx);
@@ -982,14 +999,20 @@
                     $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
                 },
                 error: function (xhr) {
-                    let divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
-                    if(actionType === 'DELETE'){//el feedback va a la tabla.
-                    	divErrorFeedback = $('#rup_feedback_' + ctx.sTableId);
-                    }
+                	let divErrorFeedback;
+                	
+                	// Si es una petición de tipo DELETE o no existe la referencia al feedback de editForm, el feedback utilizado será el de la tabla, en los demás casos, se usará el del editForm.
+                	if (actionType === 'DELETE' || feed[0] == undefined) {
+                		divErrorFeedback = ctx.oInit.feedback.$feedbackContainer;
+                	} else {
+                		divErrorFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
+                	}
+                    
                     if (divErrorFeedback.length === 0) {
                         divErrorFeedback = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
                         divErrorFeedback.rup_feedback(ctx.oInit.feedback);
                     }
+                    
     				if (xhr.status === 406 && xhr.responseText !== '') {
     					try {
     						let responseJSON = jQuery.parseJSON(xhr.responseText);
@@ -1009,8 +1032,7 @@
     						// El mensaje NO es JSON
     						_callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     					}
-
-    				}else{//cualquier error se devuelve el texto
+    				} else {//cualquier error se devuelve el texto
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     				}
 
@@ -1154,15 +1176,25 @@
      */
     function _updateDetailPagination(ctx, currentRowNum, totalRowNum) {
         var tableId = ctx.oInit.formEdit.$navigationBar[0].id;
+        
+        if (currentRowNum === 1 || currentRowNum === totalRowNum) {
+        	let focusedElement = document.activeElement;
+            
+        	// Eliminar foco del elemento porque va a ser deshabilitado a continuación
+        	if ($(ctx.oInit.formEdit.detailForm).find(focusedElement).length > 0) {
+        		focusedElement.blur();
+        	}
+        }
+        
         if (currentRowNum === 1) {
-            $('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
         } else {
-            $('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
         }
         if (currentRowNum === totalRowNum) {
-            $('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
         } else {
-            $('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
         }
 
         $('#rup_table_selectedElements_' + tableId).text($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
