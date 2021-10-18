@@ -1498,6 +1498,15 @@
 	                	});
 	                }
 	                if (settings.data) {//local y groups
+	                	if(settings.parent){//si depende de otro selects.
+	                		let val = $('#'+settings.parent).rup_select('getRupValue');
+	                		
+	                		if(settings.dataParents === undefined){//la primera vez carga los datos fijos.
+	                			settings.dataParents = settings.data;
+	                		}
+	                		let valores = settings.dataParents[val];
+	                		settings.data = valores;
+	                	}
 		                $('#' + settings.id).select2(settings);
 		                if(settings.selected){
 		                	$('#' + settings.id).val(settings.selected).trigger('change')
@@ -1505,6 +1514,24 @@
 		                //cargar los options
 		                settings.options = settings.data;
 		                
+	                }
+	                if(settings.parent){//si dependen de otros selects
+	                	$('#' + settings.parent).off('change.parent');
+		                $('#' + settings.parent).on('change.parent', function (){//Cambios para los hijos,onchange del padre
+		                	
+		                	
+		                	//Si soy local 
+		                	if(settings.data !== undefined){
+		                		console.log('cambiando local');
+		                		let val = $('#'+settings.parent).rup_select('getRupValue');
+		                		let valores = settings.dataParents[val];
+		                		settings.data = settings.dataParents;
+		                		$('#'+settings.id).rup_select("setSource", valores);
+		                	}else{//si soy Remoto
+		                		console.log('cambiando remoto');
+		                	}
+		                	
+		                });
 	                }
 	                $('#' + settings.id).data('settings', settings);
 	            }
