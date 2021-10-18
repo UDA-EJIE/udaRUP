@@ -1978,7 +1978,7 @@
             }
             // Si es un combo normal
             else {
-                $('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
+                $('#' + this.id + '-menu').parent('div').outerWidth(anchoCombo);
                 $('#' + this.id + '-menu').outerWidth(anchoCombo);
             }
         }
