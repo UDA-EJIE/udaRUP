@@ -13,7 +13,8 @@
   },
   "rup_autocomplete": {
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
-    "showAllItems": "Emaitz guztiak erakutsi"
+    "showAllItems": "Emaitz guztiak erakutsi",
+	"menuAppendToError": "{0} identifikatzailea duen autoosaketan, beharrezkoa da menuAppendTo propietatearentzako baliozko hautatzaile bat zehaztea."
   },
   "rup_blockUI": {
     "cargando": "Lanean, itxaron mesedez"
@@ -32,6 +33,7 @@
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
     "blankNotDefined": "[Literala falta da]",
     "loadingText": "Kargatzen...",
+	"appendToError": "{0} identifikatzailea duen konboan, beharrezkoa da appendTo propietatearentzako baliozko hautatzaile bat zehaztea.",
     "multiselect": {
       "checkAllText": "Hautatu dena",
       "checkAllTitle": "Aukera guztiak hautatu",

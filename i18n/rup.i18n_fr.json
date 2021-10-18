@@ -13,7 +13,8 @@
   },
   "rup_autocomplete": {
     "ajaxError": "fr_Se ha producido un error al recuperar los datos del servidor",
-    "showAllItems": "fr_Mostrar todos los resultados"
+    "showAllItems": "fr_Mostrar todos los resultados",
+	"menuAppendToError": "fr_En el autocomplete con identificador {0}, es necesario especificar un selector válido para la propiedad menuAppendTo."
   },
   "rup_blockUI": {
     "cargando": "fr_Procesando, espere por favor"
@@ -32,6 +33,7 @@
     "ajaxError": "fr_Se ha producido un error al recuperar los datos del servidor",
     "blankNotDefined": "fr_[Falta literal]",
     "loadingText": "fr_Cargando...",
+	"appendToError": "fr_En el combo con identificador {0}, es necesario especificar un selector válido para la propiedad appendTo.",
     "multiselect": {
       "checkAllText": "Tout cocher",
       "checkAllTitle": "Seleccionar todos los elementos_fr",
