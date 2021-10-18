@@ -1630,6 +1630,16 @@
 	                //Se carga el identificador del padre del patron
 	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
 	                settings.name = $(this).attr('name');
+	                
+	                // Definir el elemento del DOM sobre el que se añadirá el componente siempre y cuando no se haya definido ya en los parámetros de inicialización
+	                if (settings.appendTo != undefined) {
+	                	if (settings.appendTo.length == 0 || settings.appendTo.length == undefined) {
+	                		console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_combo.appendToError'), settings.id));
+	                		settings.appendTo = $('#' + settings.id).parent();
+	                	}
+	                } else {
+	                	settings.appendTo = $('#' + settings.id).parent();
+	                }
 	
 	                //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 	                if (!settings.i18nId) {
@@ -1926,6 +1936,8 @@
      * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
      * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
      * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
+     * @property {object} [position={my: 'left top', at: 'left bottom', of: $("#comboMulti")}] - Define la posición del menú. La tercera opción hace referencia al elemento sobre el que se posicionará el menú y su uso es opcional (se usará el botón del combo por defecto si no se define). Más información en https://github.com/ehynds/jquery-ui-multiselect-widget/wiki/Options#available-options.
+     * @property {boolean} [positionMenuByOffset=false] - Ofrece la posibilidad de posicionar el menú del combo con multiselección a partir del método .offset() en caso de ser 'true' o por el método .position() en caso de ser 'false'. Esta propiedad sólo será usada si la propiedad 'position' es definida con un valor vacío.
      * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
      * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
      * @property {boolean} [readAsString=false] - Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json.
@@ -1949,6 +1961,8 @@
         loadFromSelect: false,
         multiselect: false,
         multiOptgroupIconText: true,
+        position: {my: 'left top', at: 'left bottom'},
+        positionMenuByOffset: false,
         submitAsString: false,
         submitAsJSON: false,
         readAsString: false,
