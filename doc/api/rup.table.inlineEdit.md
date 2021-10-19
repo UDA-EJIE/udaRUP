@@ -223,7 +223,7 @@ Método para restaurar las celdas.
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>object</code> | Es el contexto de cada tabla. |
-| $fila | <code>object</code> | fila que se está editando. |
+| $fila | <code>object</code> | Fila que se está editando. |
 | $celdas | <code>object</code> | Todas las celdas a recorrer. |
 | contRest | <code>integer</code> | Contador para saber en que celda nos movemos, sobre todo en el responsive. |
 

@@ -501,6 +501,10 @@
          */
         _getColumns(options) {
             var $self = this;
+            
+            // Indica si la primera columna ha sido generada por el componente RUP
+            let rupSelectColumn = false;
+            
             //Se crea la columna del select.
             if (options.columnDefs !== undefined && options.columnDefs.length > 0 &&
                 options.columnDefs[0].className !== undefined && options.columnDefs[0].className.indexOf('select-checkbox') > -1 &&
@@ -521,7 +525,20 @@
                 if (options.multiSelect !== undefined && options.multiSelect.hideMultiselect) {
                     options.columnDefs[0].visible = false;
                 }
+                
+                rupSelectColumn = true;
             }
+            
+            // Se ocultan las columnas que así hayan sido definidas en el colModel
+            $.each(options.colModel, function (index, column) {
+            	if (column.hidden) {
+            		options.columnDefs.push({
+            			targets: rupSelectColumn ? index + 1 : index,
+            			visible: false,
+            			className: 'never'
+            		})
+            	}
+            });
 
             //se crea el tfoot
             var $tfoot = $('<tfoot>').appendTo($self[0]);

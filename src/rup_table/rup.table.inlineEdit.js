@@ -889,9 +889,15 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		var celda = $(this);
 		var $celda = $(celda);
 		
-            if (!$celda.hasClass('select-checkbox')) {
+		if (!$celda.hasClass('select-checkbox')) {
+			// Si la columna a usar está oculta, se aumenta el contador para usar la siguiente que no lo esté
+			while (colModel[cont].hidden) {
+				cont++;
+			}
+			
 			var cellColModel = colModel[cont];
-			if(cellColModel.editable===true || !edicion){
+			
+			if (cellColModel.editable === true || !edicion) {
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
                     $input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
@@ -1002,22 +1008,26 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 * @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
-* @param {object} $fila - fila que se está editando.
+* @param {object} $fila - Fila que se está editando.
 * @param {object} $celdas - Todas las celdas a recorrer.
 * @param {integer} contRest - Contador para saber en que celda nos movemos, sobre todo en el responsive.
 *
 */
-function _restaurarCeldas(ctx,$fila,$celdas,contRest){
-
-        if ($fila.hasClass('editable')) {
-		var colModel = ctx.oInit.colModel;
-            $fila.removeClass('editable');
-		
+function _restaurarCeldas(ctx, $fila, $celdas, contRest) {
+    if ($fila.hasClass('editable')) {
+    	var colModel = ctx.oInit.colModel;
+        $fila.removeClass('editable');
+	
 		$celdas.each( function() {
 			var celda = $(this);
 			var $celda = $(celda);
 	
-                if (!$celda.hasClass('select-checkbox')) {
+			if (!$celda.hasClass('select-checkbox')) {
+				// Si la columna a usar está oculta, se aumenta el contador para usar la siguiente que no lo esté
+				while (colModel[contRest].hidden) {
+					contRest++;
+				}
+    			
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
@@ -1047,7 +1057,7 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 				contRest++;
 			}
 		});
-	}
+    }
 	
 	return contRest;
 }
