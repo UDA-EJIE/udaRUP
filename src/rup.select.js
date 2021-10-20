@@ -380,12 +380,6 @@
             		settings.url = source;
             		settings.ajax = undefined;
             	}else{//local
-            		let blank = $.grep(source, function (v) {
-	                    return v.id == settings.blank;
-	                  });
-            		if(blank != undefined && blank.size > 0){
-            			source.unshift(blank[0]);
-            		}
             		settings.data = source;
             	}
             	settings.options = undefined;
@@ -842,7 +836,13 @@
 		                		settings.placeholder = this._getBlankLabel(settings.id)
 		                	}
 		                	if(settings.data !== undefined){
-		                		settings.data.unshift({id:settings.blank , text:settings.placeholder})
+		                		if(settings.parent == undefined){//Si tiene padre se mete en todos los valores, sino solo al data
+		                			settings.data.unshift({id:settings.blank , text:settings.placeholder});
+		                		}else{
+		                            $.each(settings.data, function (index, value) {
+		                            	value.unshift({id:settings.blank , text:settings.placeholder})
+		                              });
+		                		}
 		                	}
 	                	 }else if($('#' + settings.id).find('option').length == 0){//revisar y crear option vacio.
 	                		 $('#' + settings.id).append(new Option("", ""));
@@ -1001,8 +1001,8 @@
 		                			valores =[];
 		                		}
 		                		$('#'+settings.id).rup_select("setSource", valores);
-		                		//Aseguramos el valor limpio al cambiar el apdre
-		                		$('#'+settings.id).rup_select("clear");
+		                		//Aseguramos el valor limpio al cambiar el padre
+		                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
 		                	}else{//si soy Remoto
 		                		console.log('cambiando remoto');
 		                	}
