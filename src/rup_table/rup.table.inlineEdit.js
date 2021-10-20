@@ -962,9 +962,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem
 						.prop('type', 'checkbox')
-						.addClass('select-material')
-						.parent().toggleClass('form-groupMaterial checkbox-material')
-						.append('<label for="' + $elem.attr('name') + '"></label>');
+						.parent().toggleClass('form-groupMaterial checkbox-material checkbox-material-inline')
+						.append('<label for="' + $elem.attr('name') + '"></label>')
+						.closest('td').addClass('text-center');
 					
 					var valueCelda = ctx.inlineEdit.lastRow.cellValues[cont];
 					
@@ -1054,6 +1054,11 @@ function _restaurarCeldas(ctx, $fila, $celdas, contRest) {
 						}
 					}
 				}
+				
+				if (cellColModel.edittype === 'checkbox') {
+					$celda.closest('td').removeClass('text-center');
+				}
+				
 				contRest++;
 			}
 		});
