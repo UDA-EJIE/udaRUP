@@ -445,53 +445,24 @@
          *
          * @function  _getParentsValues
          * @private
-         * @param {object[]} array - Array con los elementos a mostrar.
+         * @param {object[]} settings - Array con los elementos de configuración.
          * @param {boolean} remote - Determina si la fuente de datos es remota o no.
-         * @param {string} multiValueToken - Caracter separador en el caso de devolver varios elementos.
          * @return {string} - Devuelve los values seleccionados de los combos padres.
          */
-        _getParentsValues: function (array, remote, multiValueToken) {
-            var retorno = '',
-                id, texto, multiValueTokenAux = multiValueToken != null ? multiValueToken : '',
-                parentBlankValue;
-            //Puede que se lance una recarga de un combo sin padres
-            if (array === undefined) {
-                return retorno;
-            }
-            for (let i = 0; i < array.length; i = i + 1) {
-                id = array[i];
-                //Si tiene seleccionado la primera opción puede que está seleccionada opción vacia
-                if ($('#' + id).rup_combo('index') === 0) {
-                    texto = $('#' + id + '-button span:first-child').text();
-                    //Comprobar si tiene valor por defecto (bien propio o valor base por no haberlo definido)
-                    if (texto === $.rup.i18n.base.rup_combo.blankNotDefined ||
-                        (($.rup.i18n.app[id] !== undefined) && (texto === $.rup.i18n.app[array[i]]._blank))) {
-                        return null;
-                    }
-                }
-
-                //Si el valor de algún padre es null (no se ha cargado aún)
-                if ($('#' + id).data('settings').blank !== undefined && $('#' + id).data('settings').blank !== null) {
-                    parentBlankValue = $('#' + id).data('settings').blank;
-                } else {
-                    parentBlankValue = '';
-                }
-                if ($('#' + id).val() === null || $('#' + id).val() === parentBlankValue) {
-                    return null;
-                }
-
-                if (remote) {
-                    retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
-                } else {
-                    retorno += $('#' + id).val() + multiValueTokenAux;
-                }
-            }
+        _getParentsValues: function (settings, remote, multiValueToken) {
+            let retorno = '';
+            let id = settings.parent;                 
+            
+            if (id != undefined && remote && $('#' + id).val().trim() !== '') {
+                retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
+            } 
+            
             //Evitar & o multiValueToken finales
             if (retorno !== '') {
                 if (remote) {
                     retorno = retorno.substring(0, retorno.length - 1);
                 } else {
-                    retorno = retorno.substring(0, retorno.length - multiValueTokenAux.length);
+                    retorno = retorno.substring(0, retorno.length - multiValueToken.length);
                 }
             }
             return retorno;
@@ -616,6 +587,12 @@
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{//Require id y text, podemos permitir que no venga.
+		    	if(settings.placeholder != undefined){
+	                response.unshift({
+	                    id: settings.blank,
+	                    text: settings.placeholder
+	                  });
+		    	}
 		    		if(settings.groups){//PArsear para grupos.
 		    			let results = [];
 		    			$.each(response, function (index, value) {
@@ -632,11 +609,19 @@
  		    	 		results: response
  		     		};
 		    	},
-		    cache: false
+		    cache: false,
+		    data: this._getParentsValues(settings, true)
 
     	};
+        	 	
+        	 	if(settings.selected){
+        	 		settings.firstLoad = true;
+        	 	}
+        	 	if(settings.parent != undefined && $('#' + settings.parent).val().trim() === ''){
+        	 		settings.firstLoad = false;
+        	 	}
     	    
-        	 	if(settings.selected || settings.firstLoad){
+        	 	if(settings.firstLoad){
         	 	settings.callAjaxOptions = {
 		            url: settings.url,
 			           // data: settings.data,
@@ -684,7 +669,8 @@
 			                } else {
 			                	rupSelect._ajaxError(xhr, textStatus, errorThrown);
 			                }
-			            }
+			            },
+			            data: this._getParentsValues(settings, true)
 			        };
 	    			$.rup_ajax(settings.callAjaxOptions); 
         	 	}
