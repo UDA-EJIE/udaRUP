@@ -208,8 +208,24 @@
          * $("#idCombo").rup_combo("select", [0,2]);
          */
         select: function (param) {
+        	let data = $(this).data();
+        	
+        	// Cuando el identificador está cifrado por Hdiv, hay que asegurarse de tener siempre el valor obtenido a partir de la fuente definida en la inicialización del componente
+        	if (data.values != undefined && $.fn.isHdiv(param) && (data.selectedValueKey == undefined || param != data.values[data.selectedValueKey].value)) {
+        		$.each(data.values, function (key, obj) {
+        			if ($.fn.getStaticHdivID(obj.value) === $.fn.getStaticHdivID(param)) {
+        				data.setRupValue = obj.value;
+        				data.settings.selected = obj.value;
+        				param = obj.value;
+        				
+        				// Para evitar iteraciones innecesarias en el futuro, se guarda la posición del valor en el array para facilitar su comprobación
+        				data.selectedValueKey = key;
+            		}
+        		});
+        	}
+        	
             //Tipo de combo
-            if (this.length === 0 || !$(this).data('settings').multiselect) {
+            if (this.length === 0 || !data.settings.multiselect) {
                 //Simple > selectmenu
                 this._setElement($(this), param); //Cargar elemento
             } else {
@@ -1373,6 +1389,9 @@
 
             //Cargar combo (si se reciben datos)
             if (data.length > 0) {
+            	// Se guardan los datos para poder obtener siempre el elemento original cifrado por Hdiv
+            	$('#' + settings.id).data('values', data);
+            	
                 if (settings.source) {
                     if (settings.blank != null && $('#' + settings.id +' option[value="'+settings.blank+'"]').length == 0) {
                         $('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
