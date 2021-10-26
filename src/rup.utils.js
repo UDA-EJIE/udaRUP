@@ -1087,15 +1087,7 @@
      * 
      * @return {object} Objeto con un único nivel.
      */
-	$.fn.flattenJSON = function (originalObj, flattenedObj, extraKey) {
-		if (flattenedObj == undefined) {
-			flattenedObj = {};
-		}
-		
-		if (extraKey == undefined) {
-			extraKey = '';
-		}
-		
+	$.fn.flattenJSON = function (originalObj, flattenedObj = {}, extraKey = '') {
 		for (let key in originalObj) {
 			if (typeof originalObj[key] !== 'object') {
 				flattenedObj[extraKey + key] = originalObj[key];
