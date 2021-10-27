@@ -963,7 +963,7 @@
                 }
 
                 toggleIcon1Tmpl = "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>";
-                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline' href='#0'>{1}:</a>";
+                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline font-weight-bold' href='#0'>{1}:</a>";
                 filterSummaryTmpl = "<span id='{0}'></span>";
                 toggleIcon2Tmpl = "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>";
 

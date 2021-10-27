@@ -6,10 +6,12 @@ div.dt-buttons .btn-material {
 /* FORMULARIO DE FILTRADO */
 div.formulario_legend {
 	border-radius: 5px;
+	background-color: $whitish-grey-color-light;
 	
 	&.formulario_opened {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+		border-bottom: 1px solid $whitish-grey-color;
 		
 		+ fieldset.rup-table-filter-fieldset {
 			border-top-left-radius: 0;
