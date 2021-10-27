@@ -201,7 +201,7 @@ select.rup_combo ~ button.select-material {
 		}
 	}
 	
-	& + div label {
+	& + div label, + label + div label {
 		position: initial;
 		pointer-events: initial;
 		color: initial;
