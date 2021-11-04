@@ -545,7 +545,8 @@
 	        actionType = ctx.oInit.formEdit.actionType;
 	
 	        if (actionType === 'PUT') {
-	            if (ctx.oInit.formEdit.direct === undefined) { //Si existe esta variable, no accedemos a bbdd a por el registro.
+	        	// Si la opción 'direct' es verdadera, no se solicita el registro a BBDD, en su lugar, se obtiene de la tabla directamente.
+	        	if (!ctx.oInit.formEdit.direct) {
 	                //se obtiene el row entero de bbdd, meter parametro opcional.
 	                var pk = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
 	                //se evita slash en la url GET como parámetros.Formateo de fecha.
