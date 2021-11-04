@@ -127,9 +127,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick', [dt, button, config]);
             }
         };
 
@@ -158,9 +158,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick', [dt, button, config]);
             }
         };
 
@@ -188,9 +188,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick', [dt, button, config]);
             }
         };
 
@@ -219,9 +219,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick', [dt, button, config]);
             }
         };
 
@@ -250,9 +250,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick', [dt, button, config]);
             }
         };
 
@@ -265,13 +265,13 @@
             displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.addButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick', [dt, button, config]);
             }
         };
 
@@ -284,13 +284,13 @@
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.editButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
             }
         };
 
@@ -303,13 +303,13 @@
             displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.cloneButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick', [dt, button, config]);
             }
         };
 
@@ -322,13 +322,13 @@
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.deleteButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick', [dt, button, config]);
             }
         };
 
