@@ -76,8 +76,12 @@ formEdit: {
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {
-    // El valor por defecto es './editForm' aunque puede variar dependiendo del campo urlBase
+    // El valor por defecto es './editForm' aunque puede variar dependiendo del campo urlBase.
     url: './editFormDouble',
+    // El valor por defecto es '/add'. Este campo tiene que apuntar al mismo endpoint que el formulario.
+    addUrl: '/addMultipart',
+    // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
+    editUrl: '/editMultipart',
     // Por defecto, el componente siempre enviará el method (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
     data: {
         'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envío de parámetros desde editForm :)'
@@ -118,52 +122,67 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 * Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente, también puede usarse cualquier otra lógica gracias a que los parámetros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
     ```html
     <!-- Formulario -->
-    <c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
-    <spring:url value="/table/${endpoint}" var="url"/>
-    <form:form modelAttribute="usuario" id="example_detail_form" action="${url}">
-    	<!-- Feedback del formulario de detalle -->
-    	<div id ="example_detail_feedback"></div>	
-    	<div class="form-row">
-    		<!-- Campos del formulario de detalle -->
-    		<c:if test="${endpoint == 'edit'}">
-    			<form:input path="id" id="id_detail_table" type="hidden" />
-    		</c:if>
-    		<div class="form-groupMaterial col-sm">
-    	    	<form:input path="nombre" id="nombre_detail_table" />
-    	    	<label for="nombre_detail_table"><spring:message code="nombre" /></label>
-    	    </div>       
-    	    <div class="form-groupMaterial col-sm">
-    	    	<form:input path="apellido1" id="apellido1_detail_table" />
-    	    	<label for="apellido1_detail_table"><spring:message code="apellido1" /></label>
-    	    </div>
-    	</div>
-    	<div class="form-row">
-    	    <div class="form-groupMaterial col-sm">
-    	    	<form:input path="apellido2" id="apellido2_detail_table" />
-    	    	<label for="apellido2_detail_table"><spring:message code="apellido2" /></label>
-    	    </div>       
-    	    <div class="form-groupMaterial col-sm">
-    	    	<form:input path="fechaBaja" id="fechaBaja_detail_table" />
-    	    	<label for="fechaBaja_detail_table"><spring:message code="fechaBaja" /></label>
-    	    </div>
-    	</div>
-    	<div class="form-row">
-    	    <div class="form-groupMaterial col-sm">
-    	    	<form:input path="fechaAlta" id="fechaAlta_detail_table" />
-    	    	<label for="fechaAlta_detail_table"><spring:message code="fechaAlta" /></label>
-    	    </div>
-    	    <div class="checkbox-material col-sm">
-    	    	<form:checkbox path="ejie" id="ejie_detail_table" value="1" />
-    	    	<label for="ejie_detail_table"><spring:message code="ejie" /></label>
-    	    </div>
-    	</div>
-    	<div class="form-row">
-    	    <div class="form-groupMaterial col-sm">
-    	    	<form:input path="rol" id="rol_detail_table" />
-    	    	<label for="rol_detail_table"><spring:message code="rol" /></label>
-    	    </div>
-    	</div>
-    </form:form>
+	<c:choose>
+		<c:when test="${enableMultipart eq true}">
+			<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
+		</c:when>
+		<c:when test="${!enableMultipart}">
+			<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
+		</c:when>
+	</c:choose>	
+	<spring:url value="/table/${endpoint}" var="url"/>
+	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}">
+		<!-- Feedback del formulario de detalle -->
+		<div id="example_detail_feedback"></div>
+		<c:if test="${not empty fixedMessage}">
+			<p><c:out value="${fixedMessage}"/></p>
+		</c:if>
+		<!-- Campos del formulario de detalle -->
+		<div class="form-row">
+			<div class="form-groupMaterial col-sm">
+				<form:input path="nombre" id="nombre_detail_table" />
+				<label for="nombre_detail_table"><spring:message code="nombre" /></label>
+			</div>       
+			<div class="form-groupMaterial col-sm">
+				<form:input path="apellido1" id="apellido1_detail_table" />
+				<label for="apellido1_detail_table"><spring:message code="apellido1" /></label>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-groupMaterial col-sm">
+				<form:input path="apellido2" id="apellido2_detail_table" />
+				<label for="apellido2_detail_table"><spring:message code="apellido2" /></label>
+			</div>       
+			<div class="form-groupMaterial col-sm">
+				<form:input path="fechaBaja" id="fechaBaja_detail_table" />
+				<label for="fechaBaja_detail_table"><spring:message code="fechaBaja" /></label>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-groupMaterial col-sm">
+				<form:input path="fechaAlta" id="fechaAlta_detail_table" />
+				<label for="fechaAlta_detail_table"><spring:message code="fechaAlta" /></label>
+			</div>
+			<div class="checkbox-material col-sm">
+				<form:checkbox path="ejie" id="ejie_detail_table" value="1" />
+				<label for="ejie_detail_table"><spring:message code="ejie" /></label>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-groupMaterial col-sm">
+				<form:input path="rol" id="rol_detail_table" />
+				<label for="rol_detail_table"><spring:message code="rol" /></label>
+			</div>
+		</div>
+		<c:if test="${enableMultipart eq true}">
+		<div class="form-row">	
+			<div class="form-groupMaterial col-sm">
+				<form:input path="imagenAlumno" type="file" id="imagenAlumno_detail_table" />
+				<label for="imagenAlumno_detail_table"><spring:message code="subidaImg" /></label>
+			</div>	
+		</div>
+		</c:if>
+	</form:form>
     ```
 &nbsp;
 
