@@ -528,10 +528,10 @@
                             }
 
                         } else { //borramos todos los posibles enlances que se hayan creado para esa capa
-                            $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonset a').remove();
+                            $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonset a').remove();
 
                             if (settings.title) {
-                                $('#ui-dialog-title-' + settings.id).text(settings.title);
+                            	$('div[aria-describedby=' + settings.id + '] .ui-dialog-title').text(settings.title);
                             }
                         }
 
@@ -546,7 +546,7 @@
                             if (settings.type !== $.rup.dialog.AJAX) {
                                 $self.rup_dialog('open');
                                 //le establecemos el foco
-                                $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                                $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
                             } else {
                                 settings.autoOpen = true;
                             }
@@ -596,7 +596,7 @@
                     if (settings.autoOpen === true) {
                         $('#' + settings.id).rup_dialog('open');
                         //le establecemos el foco
-                        $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                        $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
                     }
                 }
                 if (settings.ajaxOptions && settings.ajaxOptions.success !== undefined && settings.ajaxOptions.success !== null && typeof settings.ajaxOptions.success === 'function') {
