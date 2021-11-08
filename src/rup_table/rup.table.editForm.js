@@ -726,6 +726,13 @@
 	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
 	            } else {
 	            	let url = actionType == 'POST' ? '/add' : '/edit';
+	            	
+	            	// Comprobar si se ha definido otra URL en las propiedades, en caso afirmativo, se aplica.
+	            	const property = url.substring(1) + 'Url';
+	            	if (ctx.oInit.formEdit[property]) {
+	            		url = ctx.oInit.formEdit[property];
+	            	}
+	            	
 	            	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, url, false);
 	            }
 	            $('#' + ctx.sTableId).triggerHandler('tableButtonSave',ctx);
@@ -782,6 +789,13 @@
 	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
 	            } else {
 	            	let url = actionType == 'POST' ? '/add' : '/edit';
+	            	
+	            	// Comprobar si se ha definido otra URL en las propiedades, en caso afirmativo, se aplica.
+	            	const property = url.substring(1) + 'Url';
+	            	if (ctx.oInit.formEdit[property]) {
+	            		url = ctx.oInit.formEdit[property];
+	            	}
+	            	
 	            	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, url, false);
 	            }
 	            $('#' + ctx.sTableId).triggerHandler('tableButtonSaveContinue', ctx);

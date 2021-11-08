@@ -1291,8 +1291,14 @@ function _guardar(ctx,$fila,child){
 	    		return false;
 	    	}
 		}
-		
 		let url = actionType == 'POST' ? '/add' : '/edit';
+    	
+    	// Comprobar si se ha definido otra URL en las propiedades, en caso afirmativo, se aplica.
+		const property = url.substring(1) + 'Url';
+    	if (ctx.oInit.inlineEdit[property]) {
+    		url = ctx.oInit.inlineEdit[property];
+    	}
+    	
 		_callSaveAjax(actionType, ctx, $fila, row, url, false);
 		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
