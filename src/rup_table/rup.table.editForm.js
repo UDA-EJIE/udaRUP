@@ -2027,7 +2027,7 @@
             return;
         }
 
-        if (ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.activate !== false) {
+        if (!ctx.oInit.noEdit && ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.activate !== false) {
 	        DataTable.editForm.preConfigure(new DataTable.Api(ctx));
 	        
         	$('#' + ctx.sTableId).on('tableEditFormInitialize', function(event, ctx) {

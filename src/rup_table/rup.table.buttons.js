@@ -3589,9 +3589,9 @@
         $('#' + ctx.sTableId).DataTable().on('select deselect contextmenu', function (event) {
             DataTable.Api().buttons.displayRegex(ctx);
         });
-
-        if (!ctx.oInit.noEdit && ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
-            // se deja solo el boton de informes
+        
+        // Si la edición está deshabilitada, se deshabilitan todos los botones menos el de informes.
+        if (ctx.oInit.noEdit || ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
             DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
             ctx._buttons[0].inst.s.disableAllButttons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
