@@ -1986,7 +1986,7 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 		return;
 	}
 
-	if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.activate !== false){
+	if(!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.activate !== false){
 		DataTable.inlineEdit.init( new DataTable.Api( ctx ) );
 		
 		if (ctx.oInit.inlineEdit.cancelDeleteFunction === undefined) {
