@@ -171,7 +171,7 @@
             ctx.multiselection.selectedIds = [];
             ctx.multiselection.lastSelectedId = '';
             // Si es en edicion en linea, no hacer nada
-            if (ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
                 // Seleccionar la fila otra vez.
                 _selectRowIndex(dt, index, tr);
             }
@@ -195,7 +195,7 @@
                 ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
             }
             // Si es en edicion en linea
-            if (ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
                 ctx.inlineEdit.lastRow.idx !== index) {
                 DataTable.Api().inlineEdit.restaurarFila(ctx, true);
             }
@@ -1691,7 +1691,7 @@ handler that will select the items using the API methods.
 
         this.iterator('row', function (ctx, idx) {
             // si es en edicion en linea,
-            if (ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
                 ctx.inlineEdit.lastRow.idx !== idx) {
 
                 DataTable.Api().inlineEdit.restaurarFila(ctx, true);
@@ -1867,7 +1867,7 @@ handler that will select the items using the API methods.
             }
 
             //Si es en edicion en linea, no hacer nada
-            if (ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, idx)) {
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, idx)) {
                 //Seleccionar la fila otra vez.
                 api.rows(idx).multiSelect();
             }
