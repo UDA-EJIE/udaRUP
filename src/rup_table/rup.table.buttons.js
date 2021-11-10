@@ -383,7 +383,7 @@
     	}
 
 
-        if (ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
+        if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
             $.extend(ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
             for (let nameButton in ctx.oInit.inlineEdit.myButtons) {
                 ctx.ext.buttons.defaults.buttons.push(nameButton);
@@ -2216,9 +2216,9 @@
         	}
         	ctx.oInit.buttons.myLastAction = 'delete'
             // borramos todos los seleccionados.
-            if (ctx.oInit.formEdit !== undefined) {
+            if (!ctx.oInit.noEdit && ctx.oInit.formEdit !== undefined) {
                 DataTable.Api().editForm.deleteAllSelects(dt);
-            } else if (ctx.oInit.inlineEdit !== undefined){ //edicion en linea
+            } else if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined){ //edicion en linea
                 DataTable.Api().inlineEdit.deleteAllSelects(dt);
             }else{//Delete sin formulario
             	 _deleteAllSelects(dt);
