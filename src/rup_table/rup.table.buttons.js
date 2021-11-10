@@ -2230,7 +2230,7 @@
     // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
     // los botones
     DataTable.Api.register('buttons.displayRegex()', function (ctx) {
-        if (ctx._buttons[0].inst.s.disableAllButttons === undefined) {
+        if (ctx._buttons[0].inst.s.disableAllButtons === undefined) {
             var opts = ctx._buttons[0].inst.s.buttons;
             var collectionObject;
             $.each(opts, function (i) {
@@ -2262,7 +2262,8 @@
                 this.conf.displayRegex = undefined;
             }
         });
-        ctx._buttons[0].inst.s.disableAllButttons = true;
+        
+        ctx._buttons[0].inst.s.disableAllButtons = true;
     });
 
     DataTable.Api.register('buttons.initButtons()', function (ctx, opts) {
@@ -3372,7 +3373,7 @@
                 }
                 $('#' + ctx.sTableId).triggerHandler('tablefterDelete');
 
-                ctx._buttons[0].inst.s.disableAllButttons = undefined;
+                ctx._buttons[0].inst.s.disableAllButtons = undefined;
 
                 DataTable.Api().seeker.disabledButtons(ctx);
 
@@ -3593,7 +3594,7 @@
         // Si la edición está deshabilitada, se deshabilitan todos los botones menos el de informes.
         if (ctx.oInit.noEdit || ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
             DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
-            ctx._buttons[0].inst.s.disableAllButttons = undefined;
+            ctx._buttons[0].inst.s.disableAllButtons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
         }
         
