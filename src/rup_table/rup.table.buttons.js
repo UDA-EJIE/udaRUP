@@ -335,18 +335,18 @@
         var listadoExports = ['copyButton', 'excelButton', 'pdfButton', 'odsButton', 'csvButton'];
 
         ctx.ext.buttons.reportsButton = {
-                extend: 'collection',
-                text: function (dt) {
-                    return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
-                },
-                id: idTable + 'informes_01',
-                className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
-                displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
-                autoClose: true,
-                type: 'reports',
-                reportsExportAllColumns: false,
-                buttons: listadoExports
-            };
+            extend: 'collection',
+            text: function (dt) {
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
+            },
+            id: idTable + 'informes_01',
+            className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
+            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            autoClose: true,
+            type: 'reports',
+            reportsExportAllColumns: false,
+            buttons: listadoExports
+        };
 
 		// Ajusta el tamaño de los botones por defecto en caso de que haya sido especificado en las preferencias
         if (ctx.oInit.buttons.size !== undefined) {
