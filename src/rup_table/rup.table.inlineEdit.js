@@ -172,7 +172,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
 	         },
 	         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
+	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave order-5',
 	         icon: 'mdi-content-save',
 	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
 	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -191,7 +191,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
 			},
 			id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
+			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel order-6',
 			icon: 'mdi-cancel',
 			displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido

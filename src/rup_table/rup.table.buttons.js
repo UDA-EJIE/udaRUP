@@ -261,7 +261,7 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
             },
             id: idTable + 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd order-1',
             displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
@@ -280,7 +280,7 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
             },
             id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
@@ -299,7 +299,7 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
             },
             id: idTable + 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnClone',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnClone order-3',
             displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
@@ -318,7 +318,7 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
             },
             id: idTable + 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete order-4',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
