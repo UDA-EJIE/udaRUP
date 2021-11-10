@@ -257,7 +257,7 @@
 
                 // Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
                 if (options.buttons !== undefined && ctx._buttons !== undefined) {
-                    ctx._buttons[0].inst.s.disableAllButttons = undefined;
+                    ctx._buttons[0].inst.s.disableAllButtons = undefined;
                     DataTable.Api().buttons.displayRegex(ctx);
                 }
                 $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);

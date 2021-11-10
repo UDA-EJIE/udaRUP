@@ -808,7 +808,7 @@ function _restaurarFila(ctx,limpiar){
 			ctx.multiselection.selectedRowsPerPage = [];
 		}
 		//se habilitan los botones.
-		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		ctx._buttons[0].inst.s.disableAllButtons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
 	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
@@ -1415,7 +1415,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				}
 				ctx.inlineEdit.row = undefined;
 				ctx.inlineEdit.lastRow = undefined;
-				ctx._buttons[0].inst.s.disableAllButttons = undefined;
+				ctx._buttons[0].inst.s.disableAllButtons = undefined;
 	
 				DataTable.Api().seeker.disabledButtons(ctx);
 			
