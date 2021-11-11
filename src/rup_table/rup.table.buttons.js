@@ -347,6 +347,9 @@
             reportsExportAllColumns: false,
             buttons: listadoExports
         };
+        
+        // Almacena los identificadores de los botones personalizados.
+        ctx.ext.buttons.custom = [];
 
 		// Ajusta el tamaño de los botones por defecto en caso de que haya sido especificado en las preferencias
         if (ctx.oInit.buttons.size !== undefined) {
@@ -382,19 +385,19 @@
     		}
     	}
 
-
-        if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
+    	// Añadir los botones de la edición en línea.
+        if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined) {
             $.extend(ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
             for (let nameButton in ctx.oInit.inlineEdit.myButtons) {
                 ctx.ext.buttons.defaults.buttons.push(nameButton);
             }
         }
-        // Añadir botones personalizados / Se almacenan en plugin de buttons
-        if (ctx.oInit.buttons.myButtons !== undefined) { // Añadir botones edición en linea
-        	// Se asegura que todos sean custom
+        // Añadir los botones personalizados.
+        if (ctx.oInit.buttons.myButtons !== undefined) {
             $.extend(ctx.ext.buttons, ctx.oInit.buttons.myButtons);
             for (let nameButton in ctx.oInit.buttons.myButtons) {
                 ctx.ext.buttons.defaults.buttons.push(nameButton);
+                ctx.ext.buttons.custom.push(ctx.oInit.buttons.myButtons[nameButton].id);
             }
         }
         // If there is no config set it to an empty object
@@ -2227,8 +2230,7 @@
         }
     });
 
-    // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
-    // los botones
+    // Detecta el numero de filas seleccionadas y en funcion de eso muestra u oculta los botones.
     DataTable.Api.register('buttons.displayRegex()', function (ctx) {
         if (ctx._buttons[0].inst.s.disableAllButtons === undefined) {
             var opts = ctx._buttons[0].inst.s.buttons;
@@ -2253,17 +2255,20 @@
     });
 
     DataTable.Api.register('buttons.disableAllButtons()', function (ctx, exception) {
-        var opts = ctx._buttons[0].inst.s.buttons;
-        $.each(opts, function () {
-            if (exception === undefined) {
-                $(this.node).prop('disabled', true); //para el toolbar
-                $('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable'); //para el contextmenu
-            } else if (this.node.id !== exception) { //ponemos los regex a cero menos la excepcion
-                this.conf.displayRegex = undefined;
+    	const s = ctx._buttons[0].inst.s;
+        $.each(s.buttons, function () {
+        	if (ctx.oInit.noEdit && !exception?.includes(this.node.id)) {
+        		// Deshabilita permanentemente el botón (tanto de la toolbar como del contextMenu).
+        		this.conf.displayRegex = undefined;
+        	} else if (exception === undefined || !exception.includes(this.node.id)) {
+            	// Deshabilita el botón de la toolbar.
+            	$(this.node).prop('disabled', true);
+            	// Deshabilita el botón del contextMenu.
+            	$('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable');
             }
         });
         
-        ctx._buttons[0].inst.s.disableAllButtons = true;
+        s.disableAllButtons = true;
     });
 
     DataTable.Api.register('buttons.initButtons()', function (ctx, opts) {
@@ -3593,7 +3598,17 @@
         
         // Si la edición está deshabilitada, se deshabilitan todos los botones menos el de informes.
         if (ctx.oInit.noEdit || ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
-            DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
+        	let exceptions;
+        	
+        	// Si existen botones personalizados, se excluyen.
+        	if (ctx.ext.buttons.custom.length > 0) {
+        		exceptions = ctx.ext.buttons.custom;
+        		exceptions.push(ctx.sTableId + 'informes_01');
+        	} else {
+        		exceptions = ctx.sTableId + 'informes_01';
+        	}
+        	
+        	DataTable.Api().buttons.disableAllButtons(ctx, exceptions);
             ctx._buttons[0].inst.s.disableAllButtons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
         }

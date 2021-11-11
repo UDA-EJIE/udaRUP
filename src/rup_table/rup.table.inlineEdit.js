@@ -501,8 +501,8 @@ function _editInline ( dt,ctx, idRow ){
 	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
         if (!$rowSelect.hasClass('editable')) {
 		_changeInputsToRup(ctx,idRow);
-		//se deshabilitan los botones de la tabla.
-		DataTable.Api().buttons.disableAllButtons(ctx);
+		// Se deshabilitan los botones predefinidos de la tabla.
+		DataTable.Api().buttons.disableAllButtons(ctx, ctx.ext.buttons.custom);
 	}
 	
 	// Habilitamos en la botonera y contextMenu
