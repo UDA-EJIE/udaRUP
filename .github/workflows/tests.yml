@@ -1,9 +1,9 @@
 name: UDA front-end tests
 on:
   push:
-    branches: '**'
+    branches: ['master', 'develop*', 'feat-*', 'hotfix-*', 'fix-*']
   pull_request:
-    branches: '**'
+    branches: ['master', 'develop*', 'feat-*', 'hotfix-*', 'fix-*']
 jobs:
   test:
     runs-on: ubuntu-latest
