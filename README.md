@@ -1,4 +1,5 @@
 # UDA - Componentes RUP
+[![UDA front-end tests](https://github.com/UDA-EJIE/udaRUP/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/UDA-EJIE/udaRUP/actions/workflows/tests.yml)
 
 Los componentes (plugins jQuery) que implementan los patrones de interacción identificados han sido agrupados bajo un nombre propio, RUP (Rich Uda Patterns).
 
