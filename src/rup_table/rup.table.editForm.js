@@ -454,9 +454,9 @@
 						let element = idForm.find('[name="' + column.name + '"]');
 						// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly
 						if (column.rupType && column.editable) {
-							//Los combos tienen otra comprobación por el deferred
+							// Los combos tienen que ser comprobados para poder establecer su valor
 							if(row !== undefined && column.rupType === 'combo'){
-								column.editoptions.selected = row[column.name];
+								column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
 							}
 							element['rup_' + column.rupType](column.editoptions);
 						} else if (!column.editable) {
