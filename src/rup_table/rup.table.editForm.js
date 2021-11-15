@@ -364,9 +364,9 @@
      * @function
      * @since UDA 5.0.0 (backported) // Table 1.0.0
      *
-     * @param {object} ctx - Contexto del Datatable.
+     * @param {object} ctx - Contexto de la tabla.
      * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
-     * @param {object} row - Datos del formulario para cargar lo.
+     * @param {object} row - Datos para alimentar los campos del formulario.
      *
      * @return {object}
      */
