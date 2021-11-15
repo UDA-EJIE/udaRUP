@@ -695,7 +695,7 @@
       "validateError": "en_Se han producido los siguientes errores:<br/>"
     },
     "filter": "en_Filtrar",
-    "first": "en_Primero",
+    "first": "First",
     "formatter": {
       "baseLinkUrl": "",
       "checkbox": {
@@ -798,7 +798,7 @@
     "insertError": "en_Error al insertar el elemento.",
     "insertOK": "en_El elemento se ha añadido correctamente.",
     "invalidRowId": "en_El identificador de la fila no es válido. No se puede completar la acción",
-    "last": "en_Ultimo",
+    "last": "Last",
     "modify": "en_Editar",
     "modifyOK": "en_El elemento se ha modificado correctamente.",
     "multiselectHeader": "en_Seleccionar todos los elementos de la página",
@@ -819,7 +819,7 @@
       "viewtitle": "Ver fila seleccionada"
     },
     "new": "en_Añadir",
-    "next": "en_Siguiente",
+    "next": "Next",
     "noGrid": "en_No es posible crear un mantenimiento sin un grid.",
     "noRecordsFound": "en_No hay registros.",
     "noReg": "en_Seleccione un registro.",
@@ -874,7 +874,7 @@
         "searchCriteria": "en_Criterios de búsqueda"
       }
     },
-    "previous": "en_Anterior",
+    "previous": "Previous",
     "save": "en_Guardar",
     "saveAndContinue": "en_Se perderan los cambios en los datos modificados, ¿desea continuar?",
     "search": {
