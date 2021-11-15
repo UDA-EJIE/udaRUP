@@ -680,6 +680,7 @@
       "model": "fr_Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "fr_No hay datos para procesar",
       "nourl": "fr_No se ha especificado una URL",
+      "wrongColModel": "fr_No existe \"editoptions\" para \"{0}\". Las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
       "noMasterPKField": {
         "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "fr_Error en la inicialización de la tabla"

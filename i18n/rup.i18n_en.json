@@ -681,6 +681,7 @@
       "model": "en_Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "en_No hay datos para procesar",
       "nourl": "en_No se ha especificado una URL",
+      "wrongColModel": "There is no 'editoptions' for '{0}'. The properties of the element have not been well defined in the 'colModel' of the table.",
       "noMasterPKField": {
         "msg": "en_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "en_Error en la inicialización de la tabla"

@@ -464,20 +464,32 @@
      */
     function _formInitializeRUP(ctx, row, form) {
     	if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
-			$.each(ctx.oInit.colModel, function (key, column) {
-				const element = form.find('[name="' + column.name + '"]');
-				// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
-				if (column.rupType && column.editable) {
-					// Los combos tienen que ser comprobados para poder establecer su valor.
-					if (row !== undefined && column.rupType === 'combo') {
-						column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
-					}
-					element['rup_' + column.rupType](column.editoptions);
-				} else if (!column.editable) {
-					element.prop('readonly', true);
-				}
-			});
-		}
+    		$.each(ctx.oInit.colModel, function (key, column) {
+    			const element = form.find('[name="' + column.name + '"]');
+    			// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
+    			if (column.rupType && column.editable) {
+    				if (column.editoptions !== undefined) {
+    					// Los combos tienen que ser comprobados para poder establecer su valor.
+    					if (column.rupType === 'combo' && row !== undefined) {
+    						column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
+    						// Cuando no se haya definido un elemento al que hacer el append del menú del combo, se hace al "body" para evitar problemas de CSS.
+    						if (column.editoptions.appendTo === undefined) {
+    							column.editoptions.appendTo = 'body';
+    						}
+    					} else if (column.rupType == 'autocomplete' && column.editoptions.menuAppendTo === undefined) {
+    						// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
+    						column.editoptions.menuAppendTo = 'body';
+    					}
+    					// Inicializar componente.
+    					element['rup_' + column.rupType](column.editoptions);
+    				} else {
+    					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
+    				}
+    			} else if (!column.editable) {
+    				element.prop('readonly', true);
+    			}
+    		});
+    	}
     }
 
     /**
