@@ -1923,7 +1923,7 @@
      * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
      * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
      */
-    $.fn.rup.select.defaults = {
+    $.fn.rup_select.defaults = {
         onLoadError: null,
         width: 200,
         blank: null,
