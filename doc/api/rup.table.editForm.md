@@ -14,6 +14,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~init(ctx)](#module_rup.table.editForm..init)
     * [~addValidation(ctx)](#module_rup.table.editForm..addValidation)
     * [~loadSaveDialogForm(ctx, actionType, row)](#module_rup.table.editForm..loadSaveDialogForm) ⇒ <code>object</code>
+    * [~formInitializeRUP(ctx, row, form)](#module_rup.table.editForm..formInitializeRUP)
     * [~openSaveDialog(actionType, dt, idRow, customTitle)](#module_rup.table.editForm..openSaveDialog)
     * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url, isDeleting)](#module_rup.table.editForm.._callSaveAjax)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
@@ -90,9 +91,23 @@ Función que gestiona la carga del diálogo de añadir o editar.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ctx | <code>object</code> | Contexto del Datatable. |
+| ctx | <code>object</code> | Contexto de la tabla. |
 | actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
-| row | <code>object</code> | Datos del formulario para cargar lo. |
+| row | <code>object</code> | Datos para alimentar los campos del formulario. |
+
+<a name="module_rup.table.editForm..formInitializeRUP"></a>
+
+### rup.table.editForm~formInitializeRUP(ctx, row, form)
+Detecta los componentes RUP del formulario y los inicializa.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 5.0.2 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto de la tabla. |
+| row | <code>object</code> | Datos para alimentar los campos del formulario. |
+| form | <code>object</code> | Formulario en el que hay que inicializar los componentes. |
 
 <a name="module_rup.table.editForm..openSaveDialog"></a>
 
