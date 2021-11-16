@@ -453,7 +453,7 @@
             let retorno = '';
             let id = settings.parent;                 
             
-            if (id != undefined && remote && $('#' + id).val().trim() !== '') {
+            if (id != undefined && remote && $('#' + id).val() != null && $('#' + id).val().trim() !== '') {
                 retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
             } 
             
@@ -610,8 +610,9 @@
  		     		};
 		    	},
 		    cache: false,
-		    data: this._getParentsValues(settings, true)
-
+		    data: function () {
+		    			return _this._getParentsValues(settings, true);
+		    		}
     	};
         	 	
         	 	if(settings.selected){
@@ -620,58 +621,63 @@
         	 	if(settings.parent != undefined && $('#' + settings.parent).val().trim() === ''){
         	 		settings.firstLoad = false;
         	 	}
-    	    
-        	 	if(settings.firstLoad){
+        	 	
+        	 	// CArgar los Datos
         	 	settings.callAjaxOptions = {
-		            url: settings.url,
-			           // data: settings.data,
-			            dataType: settings.dataType,
-			            contentType: 'application/json',
-			            beforeSend: function (xhr) {
-			            	//Cabecera RUP
-			                xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
-			            },
-			            success: function (datos) {
-				    		if(settings.groups){//PArsear para grupos.
-				    			let results = [];
-				    			$.each(datos, function (index, value) {
-				    				let key = Object.keys(value)[0];
-				    				$.each(value[key], function () {//each hijos
-					    				results.push(this);
-					    			});
-				    				
-				    			});
+    		            url: settings.url,
+    			           // data: settings.data,
+    			            dataType: settings.dataType,
+    			            contentType: 'application/json',
+    			            beforeSend: function (xhr) {
+    			            	//Cabecera RUP
+    			                xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
+    			            },
+    			            success: function (datos) {
+    				    		if(settings.groups){//PArsear para grupos.
+    				    			let results = [];
+    				    			$.each(datos, function (index, value) {
+    				    				let key = Object.keys(value)[0];
+    				    				$.each(value[key], function () {//each hijos
+    					    				results.push(this);
+    					    			});
+    				    				
+    				    			});
 
-				    			datos =  results;
-				    		}
-			            	let data = $.grep(datos, function (v) {
-			                    return v.id == settings.selected;
-			                  });
-			            	if(data !== undefined && data.length == 1){
-			            		if(settings.selected){
-				            		data = data[0];
-				      
-				            		let newOption = new Option(data.text, data.id, false, false);
-				            		if(data.style != null){
-				            			newOption.setAttribute('style',data.style);
-				            		}
-				            		$('#' + settings.id).append(newOption);
-				            		$('#' + settings.id).val(data.id).trigger('change');
-			            		}
-			            		settings.options = datos;
-			    		    	$('#' + settings.id).data('settings', settings)
-			            		$('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
-			            	}
-			            },
-			            error: function (xhr, textStatus, errorThrown) {
-			                if (settings.onLoadError !== null) {
-			                    jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-			                } else {
-			                	rupSelect._ajaxError(xhr, textStatus, errorThrown);
-			                }
-			            },
-			            data: this._getParentsValues(settings, true)
-			        };
+    				    			datos =  results;
+    				    		}
+    			            	let data = $.grep(datos, function (v) {
+    			                    return v.id == settings.selected;
+    			                  });
+    			            	if(data !== undefined && data.length == 1){
+    			            		if(settings.selected){
+    				            		data = data[0];
+    				      
+    				            		let newOption = new Option(data.text, data.id, false, false);
+    				            		if(data.style != null){
+    				            			newOption.setAttribute('style',data.style);
+    				            		}
+    				            		$('#' + settings.id).append(newOption);
+    				            		$('#' + settings.id).val(data.id).trigger('change');
+    			            		}
+    			            		settings.options = datos;
+    			    		    	$('#' + settings.id).data('settings', settings)
+    			            		$('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
+    			            	}else{
+    			            		//entro al refresco,y no encuentra se limpia
+    			            		$('#' + settings.id).rup_select("clear");
+    			            	}
+    			            },
+    			            error: function (xhr, textStatus, errorThrown) {
+    			                if (settings.onLoadError !== null) {
+    			                    jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+    			                } else {
+    			                	rupSelect._ajaxError(xhr, textStatus, errorThrown);
+    			                }
+    			            },
+    			            data: this._getParentsValues(settings, true)
+    			};
+    	    
+        	 	if(settings.firstLoad){//ejecutar los datos
 	    			$.rup_ajax(settings.callAjaxOptions); 
         	 	}
 		     if(settings.cache){//si existe cacheo
@@ -991,6 +997,15 @@
 		                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
 		                	}else{//si soy Remoto
 		                		console.log('cambiando remoto');
+		                		settings.callAjaxOptions.data = _this._getParentsValues(settings, true);
+		                		$("#"+ settings.id).val(null);
+		                		//Sola llamar si el padre tiene valor.
+		                		if(settings.callAjaxOptions.data != ''){
+		                			$.rup_ajax(settings.callAjaxOptions);
+		                		}else{
+		                			//Se llama al cambio del trigger.
+		                			$("#" + settings.id).trigger('change');
+		                		}
 		                	}
 		                	
 		                });
