@@ -125,120 +125,108 @@ configuraciÃ³n mÃ­nima:
 
 ```js
 jQuery(function($){
-	//FILTRO Y DETALLE
-	var combo = [
-       {rol: "---", codTipoSubsanacion:""},
-       {rol: "Administrador", codTipoSubsanacion:"administrador"},
-       {rol: "Desarrollador", codTipoSubsanacion:"desarrollador"},
-       {rol: "Espectador", codTipoSubsanacion:"espectador"},
-       {rol: "Informador", codTipoSubsanacion:"informador"},
-       {rol: "Manager", codTipoSubsanacion:"manager"}
-	];
+    // Definición del modelo de columnas.
+    const tableColModel = [
+        {
+            name: 'nombre',
+            index: 'nombre',
+            editable: true,
+            hidden: false
+        },
+        {
+            name: 'apellido1',
+            index: 'apellido1',
+            editable: true,
+            hidden: false,
+            rupType: 'autocomplete',
+            editoptions: {
+                source : './apellidos',
+                sourceParam : {label: 'label', value: 'value'},
+                menuMaxHeight: 200,
+                minLength: 3,
+                combobox: true,
+                contains: true
+            }
+        },
+        { 
+            name: "apellido2", 
+            index: "apellido2", 
+            editable: true, 
+            hidden: true
+        },
+        {
+            name: 'ejie',
+            index: 'ejie',
+            editable: true,
+            hidden: false,
+            edittype: 'checkbox',
+            editoptions: {
+                value: '1:0'
+            }
+        },
+        {
+            name: 'fechaAlta',
+            index: 'fechaAlta',
+            editable: true,
+            hidden: false,
+            rupType: 'date',
+            editoptions: {
+                labelMaskId: 'fecha-mask',
+                showButtonPanel: true,
+                showOtherMonths: true,
+                noWeekend: true
+            }
+        },
+        {
+            name: 'fechaBaja',
+            index: 'fechaBaja',
+            editable: true,
+            hidden: false,
+            rupType: 'date',
+            editoptions: {
+                labelMaskId: 'fecha-mask',
+                showButtonPanel: true,
+                showOtherMonths: true,
+                noWeekend: true
+            }
+        },
+        {
+            name: 'rol',
+            index: 'rol',
+            editable: true,
+            hidden: false,
+            rupType: 'combo',
+            editoptions: {
+                source : './roles',
+                sourceParam : {label: 'label', value: 'value'},
+                blank: '',
+                width: '100%',
+                customClasses: ['select-material']
+            }
+        }
+    ];
 
-	var tableColModels = [
-		{ name: "id", index: "id", editable:true, width: 80
-			, formoptions:{rowpos:1, colpos:1}
-		},
-		{ name: "nombre", index: "nombre", editable:true
-			, formoptions:{rowpos:2, colpos:1}
-		},
-		{ name: "apellido1", index: "apellido1", editable:true
-			, formoptions:{rowpos:3, colpos:1}
-			, classes:'ui-ellipsis'
-		},
-		{ name: "apellido2", index: "apellido2", editable:true
-			, formoptions:{rowpos:4, colpos:1}
-		},
-		{ name: "ejie", index: "ejie", editable:true, width: 60,
-			edittype: "checkbox",
-			formatter: "checkbox",
-			rwdClasses:"hidden-xs hidden-sm hidden-md",
-			align: "center",
-			editoptions: {
-				value:"1:0"
-			},
-			searchoptions:{
-				rupType: "combo",
-				source : [
-				   {label: "---", value:""},
-				   {label: "Si", value:"1"},
-				   {label: "No", value:"0"}
-				]
-			}
-			, formoptions:{rowpos:5, colpos:1}
-		},
-		{ name: "fechaAlta",  index: "fecha_alta", editable:true, width: 120,
-			rupType: "date",
-			rwdClasses:"hidden-xs hidden-sm hidden-md",
-			editoptions:{
-				labelMaskId : "fecha-mask",
-				showButtonPanel : true,
-				showOtherMonths : true,
-				noWeekend : true
-			}
-			, formoptions:{rowpos:2, colpos:2}
-		},
-		{ name: "fechaBaja", index: "fecha_baja", editable:true, width: 120,
-			rupType: "date",
-			rwdClasses:"hidden-xs hidden-sm hidden-md",
-			editoptions:{
-				labelMaskId : "fecha-mask",
-				showButtonPanel : true,
-				showOtherMonths : true,
-				noWeekend : true
-			}
-			, formoptions:{rowpos:3, colpos:2}
-		},
-		{ name: "rol", index: "rol", editable:true, width: 140,
-			rupType: "combo",
-			rwdClasses:"hidden-xs hidden-sm hidden-md",
-			formatter: "rup_combo",
-			editoptions: {
-				source: $.map(combo, function(elem){
-					return {
-						label: elem.rol,
-						value: elem.codTipoSubsanacion
-					};
+    // Formulario de filtrado.
+    jQuery("#ejie_filter_table").rup_combo({
+        source : './ejie',
+        sourceParam : {label: 'label', value: 'value'},
+        blank: '',
+        width: '100%',
+        customClasses: ['select-material']
+    });
+    jQuery('#rol_filter_table').rup_combo({
+        source : './roles',
+        sourceParam : {label: 'label', value: 'value'},
+        blank: '',
+        width: '100%',
+        customClasses: ['select-material']
+    });
+    jQuery("#fechaAlta_filter_table").rup_date();
+    jQuery("#fechaBaja_filter_table").rup_date();
 
-				})
-			}
-			, formoptions:{rowpos:3, colpos:2}
-		}
-    ],
-    options_ejie_combo = {
-	    source : [
-            {label: "---", value:""},
-            {i18nCaption: "0", value:"0"},
-            {i18nCaption: "1", value:"1"}
-		],
-		i18nId: "GRID_simple##ejie",
-		width: 120
-	},
-	options_role_combo = {
-		source : [
-		   {label: "---", value:""},
-		   {label: $.rup.i18n.app["GRID_simple##rol"]["administrador"], value:"administrador"},
-		   {label: $.rup.i18n.app["GRID_simple##rol"]["desarrollador"], value:"desarrollador"},
-		   {label: $.rup.i18n.app["GRID_simple##rol"]["espectador"], value:"espectador"},
-		   {label: $.rup.i18n.app["GRID_simple##rol"]["informador"], value:"informador"},
-		   {label: $.rup.i18n.app["GRID_simple##rol"]["manager"], value:"manager"}
-		]
-	};
-
-	//Formulario de filtrado
-	jQuery("#ejie_filter_table").rup_combo(options_ejie_combo);
-	jQuery('#rol_filter_table').rup_combo(options_role_combo);
-
-	jQuery("#fechaAlta_filter_table").rup_date();
-	jQuery("#fechaBaja_filter_table").rup_date();
-
-	//Formulario de detalle
-	jQuery("#fechaAlta_detail_table").rup_date();
-	jQuery("#fechaBaja_detail_table").rup_date();
-
-	jQuery("#rol_detail_table").rup_combo(options_role_combo);
-
-	$('#example').rup_table({
+    // Inicialización de la tabla.
+    $('#example').rup_table({
+        colModel: tableColModel
         multiSelect: {
             style: 'multi'
         },
@@ -253,19 +241,26 @@ jQuery(function($){
             header:true
         },
         formEdit:{
-        	detailForm: "#table_detail_div",
-        	width: 650,
-        	validate:{
-    			rules:{
-    				"nombre":{required:true},
-    				"apellido1":{required:true},
-    				"fechaAlta":{date:true},
-    				"fechaBaja":{date:true}
-    			}
-    		},
-    		colModel: tableColModels
+            detailForm: "#table_detail_div",
+            width: 650,
+            validate:{
+                rules:{
+                    "nombre": {
+                        required: true
+                    },
+                    "apellido1": {
+                        required: true
+                    },
+                    "fechaAlta": {
+                        date: true
+                    },
+                    "fechaBaja": {
+                        date: true
+                    }
+                }
+            }
         }
-    } );
+    });
 });
 ```
 
@@ -593,26 +588,12 @@ Permite habilitar el uso de formularios dinámicos aunque hay que hacer algunos 
 &nbsp;
 
 ```js
-let miColModel = [
-	{
-        name: 'id',
-        index: 'id',
-        editable: false,
-        hidden: true,
-        formoptions: {
-            rowpos: 1,
-            colpos: 1
-        }
-    },
+const miColModel = [
 	{
         name: 'nombre',
         index: 'nombre',
         editable: true,
-        hidden: false,
-        formoptions: {
-            rowpos: 2,
-            colpos: 1
-        }
+        hidden: false
     },
     {
         name: 'apellido1',
@@ -627,107 +608,62 @@ let miColModel = [
             minLength: 3,
             combobox: true,
             contains: true
-        },
-        formoptions: {
-            rowpos: 3,
-            colpos: 1
-        },
-        classes: 'ui-ellipsis'
+        }
     },
     { 
     	name: "apellido2", 
     	index: "apellido2", 
     	editable: true, 
-    	hidden: false,
-    	rupType: 'combo',
-        editoptions: {
-        	source : './apellidos',
-            sourceParam : {label: 'label', value: 'value'},
-            blank: '',
-            width: '100%',
-            customClasses: ['select-material']
-        },
-    	formoptions:{
-    		rowpos: 4, 
-    		colpos: 1
-    	},
-    	classes: 'ui-ellipsis'
+    	hidden: true
     },
     {
         name: 'ejie',
-        index: 'ejie_detail_table',
+        index: 'ejie',
         editable: true,
         hidden: false,
-        width: 60,
         edittype: 'checkbox',
-        formatter: 'checkbox',
-        rwdClasses: 'hidden-xs hidden-sm hidden-md',
-        align: 'center',
         editoptions: {
             value: '1:0'
-        },
-        formoptions: {
-            rowpos: 5,
-            colpos: 1
         }
     },
     {
         name: 'fechaAlta',
-        index: 'fechaAlta_detail_table',
+        index: 'fechaAlta',
         editable: true,
         hidden: false,
-        width: 120,
         rupType: 'date',
-        rwdClasses: 'hidden-xs hidden-sm hidden-md',
         editoptions: {
             labelMaskId: 'fecha-mask',
             showButtonPanel: true,
             showOtherMonths: true,
             noWeekend: true
-        },
-        formoptions: {
-            rowpos: 2,
-            colpos: 2
         }
     },
     {
         name: 'fechaBaja',
-        index: 'fechaBaja_detail_table',
+        index: 'fechaBaja',
         editable: true,
         hidden: false,
-        width: 120,
         rupType: 'date',
-        rwdClasses: 'hidden-xs hidden-sm hidden-md',
         editoptions: {
             labelMaskId: 'fecha-mask',
             showButtonPanel: true,
             showOtherMonths: true,
             noWeekend: true
-        },
-        formoptions: {
-            rowpos: 3,
-            colpos: 2
         }
     },
     {
         name: 'rol',
-        index: 'rol_detail_table',
+        index: 'rol',
         editable: true,
         hidden: false,
-        width: 140,
         rupType: 'combo',
-        rwdClasses: 'hidden-xs hidden-sm hidden-md',
-        formatter: 'rup_combo',
         editoptions: {
             source : './roles',
             sourceParam : {label: 'label', value: 'value'},
             blank: '',
             width: '100%',
             customClasses: ['select-material']
-        },
-        formoptions: {
-            rowpos: 3,
-            colpos: 2
         }
     }
 ];
@@ -738,14 +674,12 @@ El **colModel** se usa para modelar los campos de la tabla y es necesario para e
 &nbsp;
 
 Propiedades destacadas:
-
 * **name**: identificador del campo.
-
-* **editable**: dependiendo de si se quiere permitir la ediciÃ³n o no, hay que definirlo a true o false.
-
-* **editoptions** y **formoptions**: sirven para configurar todas las opciones de los campos RUP.
-
+* **index**: índice del campo.
+* **editable**: autoriza o bloquea la edición del campo.
+* **hidden**: permite ocultar la columna.
 * **rupType**: tipo RUP del campo.
+* **editoptions**: sirve para configurar todas las opciones de los campos RUP.
 
 ## 10. Aspectos a tener en cuenta
 Siempre que se necesite filtrar la tabla por el campo que forme la clave primaria y Hdiv esté activado, será necesario enviar al servidor el valor cifrado. Esto significa que los valores a usar, siempre han tenido que ser enviados previamente por el servidor ya que mantiene una copia para impedir la inserción de valores desde el cliente, evitando así posibles ataques. 
