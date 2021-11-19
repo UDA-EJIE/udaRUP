@@ -115,8 +115,14 @@
  	              	let data = $.grep(settings.options, function (v) {
 	                    return v.id === param;
 	                  });
- 	              	if(data[0] !== undefined){
- 	              		$('#' + settings.id).append('<option value="'+param+'">'+data[0].text+'</option>');
+ 	              	if(data[0] !== undefined && $('#'+ settings.id).find("option[value='" + data[0] .id + "']").length == 0){
+ 	              	   data = data[0];
+ 	              	   let newOption = new Option(data.text, data.id, false, false);
+ 	                   if (data.style != null) {
+ 	                      newOption.setAttribute('style', data.style);
+ 	                      newOption.setAttribute('imgStyle', data.imgStyle);
+ 	                    }
+ 	              		$('#' + settings.id).append(newOption);
  	              	}
             	}
             	$self.val(param).trigger('change');
@@ -454,7 +460,11 @@
             let id = settings.parent;                 
             
             if (id != undefined && remote && $('#' + id).val() != null && $('#' + id).val().trim() !== '') {
-                retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
+            	if(settings.blank == $('#' + id).val()){
+            		retorno = '';
+            	}else{
+            		retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
+            	}
             } 
             
             //Evitar & o multiValueToken finales
@@ -587,11 +597,14 @@
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{//Require id y text, podemos permitir que no venga.
-		    	if(settings.placeholder != undefined){
-	                response.unshift({
-	                    id: settings.blank,
-	                    text: settings.placeholder
-	                  });
+		    	if(settings.placeholder != undefined ){
+		    		let elBlank = response.find(x => x.id == settings.blank);
+		    		if(elBlank == undefined){
+		                response.unshift({
+		                    id: settings.blank,
+		                    text: settings.placeholder
+		                  });
+		    		}
 		    	}
 		    		if(settings.groups){//PArsear para grupos.
 		    			let results = [];
@@ -612,101 +625,74 @@
 		    cache: false,
 		    data: function () {
 		    			return _this._getParentsValues(settings, true);
-		    		}
+		    		},
+		    error: function (xhr, textStatus, errorThrown) {
+		               if (settings.onLoadError !== null) {
+		                   jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+		               } else {
+		               	rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		               }
+		    }		
     	};
         	 	
         	 	if(settings.selected){
         	 		settings.firstLoad = true;
         	 	}
-        	 	if(settings.parent != undefined && $('#' + settings.parent).val().trim() === ''){
+        	 	if(settings.parent != undefined 
+        	 			&& ($('#' + settings.parent).val() == null || $('#' + settings.parent).val().trim() === '')){
         	 		settings.firstLoad = false;
         	 	}
-        	 	
-        	 	// CArgar los Datos
-        	 	settings.callAjaxOptions = {
-    		            url: settings.url,
-    			           // data: settings.data,
-    			            dataType: settings.dataType,
-    			            contentType: 'application/json',
-    			            beforeSend: function (xhr) {
-    			            	//Cabecera RUP
-    			                xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
-    			            },
-    			            success: function (datos) {
-    				    		if(settings.groups){//PArsear para grupos.
-    				    			let results = [];
-    				    			$.each(datos, function (index, value) {
-    				    				let key = Object.keys(value)[0];
-    				    				$.each(value[key], function () {//each hijos
-    					    				results.push(this);
-    					    			});
-    				    				
-    				    			});
 
-    				    			datos =  results;
-    				    		}
-    			            	let data = $.grep(datos, function (v) {
-    			                    return v.id == settings.selected;
-    			                  });
-    			            	if(data !== undefined && data.length == 1){
-    			            		if(settings.selected){
-    				            		data = data[0];
-    				      
-    				            		let newOption = new Option(data.text, data.id, false, false);
-    				            		if(data.style != null){
-    				            			newOption.setAttribute('style',data.style);
-    				            		}
-    				            		$('#' + settings.id).append(newOption);
-    				            		$('#' + settings.id).val(data.id).trigger('change');
-    			            		}
-    			            		settings.options = datos;
-    			    		    	$('#' + settings.id).data('settings', settings)
-    			            		$('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
-    			            	}else{
-    			            		//entro al refresco,y no encuentra se limpia
-    			            		$('#' + settings.id).rup_select("clear");
-    			            	}
-    			            },
-    			            error: function (xhr, textStatus, errorThrown) {
-    			                if (settings.onLoadError !== null) {
-    			                    jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-    			                } else {
-    			                	rupSelect._ajaxError(xhr, textStatus, errorThrown);
-    			                }
-    			            },
-    			            data: this._getParentsValues(settings, true)
-    			};
-    	    
-        	 	if(settings.firstLoad){//ejecutar los datos
-	    			$.rup_ajax(settings.callAjaxOptions); 
-        	 	}
-		     if(settings.cache){//si existe cacheo
 				let __cache = [];
 				let __lastQuery = null;
 		    	settings.ajax.transport = function(params, success, failure) {
 					//retrieve the cached key or default to _ALL_
-			        var __cachekey = params.data.q || '_ALL_';
+			        var __cachekey = params.data || '_ALL_';
 			        if (__lastQuery !== __cachekey) {
 			          //remove caches not from last query
 			          __cache = [];
 			        }
 			        __lastQuery = __cachekey;
-			        if ('undefined' !== typeof __cache[__cachekey]) {
+			        if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
 			          //display the cached results
 			          success(__cache[__cachekey]);
 			          return; 
 			        }
-			        var $request = $.ajax(params);
-			        $request.then(function(data) {
-			          //store data in cache
-			          __cache[__cachekey] = data;
-			          //display the results
-			          success(__cache[__cachekey]);
-			        });
-			        $request.fail(failure);
+			        
+			        let $request = undefined;
+			        if (settings.parent) {
+			        	var datosParent = _this._getParentsValues(settings, true);
+			        	if(datosParent != ''){
+			        		$request = $.ajax(params);
+			        	}
+			        }else{
+			        	$request = $.ajax(params);
+			        }
+			        if($request != undefined){
+				        $request.then(function(data) {
+				          //store data in cache
+				          __cache[__cachekey] = data;
+				          //display the results
+				          success(__cache[__cachekey]);
+				          let seleccionado = $.grep(data, function (v) {
+			                    return v.id == settings.selected;
+			                  });
+				          if(seleccionado !== undefined && seleccionado.length == 1){
+				        	  seleccionado = seleccionado[0];
+				        	  $('#' + settings.id).rup_select('setRupValue',seleccionado.id);
+				          }else{
+				        	  //$("#" + settings.id).trigger('change');
+				          }
+				          $('#' + settings.id).data('settings', settings);
+	              		  $('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
+				        });
+				        $request.fail(failure);
+			        }else{//cerrar
+			        	$('#' + settings.id).select2('close');
+			        }
 			        return $request;
 				}
-		    }	
+		    	
 		    	
 			if(settings.ajax !== undefined){
 		    	if(settings.data !== undefined){//PAra añadir más parametros de busqueda
@@ -720,7 +706,13 @@
 		    	}
 			}
 	
-			$('#' + settings.id).select2(settings);
+			let selectInit = $('#' + settings.id).select2(settings);
+    	 	if(settings.firstLoad){//ejecutar los datos
+    	 		var $el = $('#' + settings.id);
+    	 		let $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
+    	 		$search.trigger('keyup');
+    	 		$el.select2('close');
+    	 	}
  
         },
         /**
@@ -821,6 +813,13 @@
 		                        if (data.id === settings.blank) { // adjust for custom placeholder values, restaurar
 		                        	return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
 		                        }
+		                        
+		                        chargedStyles(data);
+		                		
+		                        if (data.style != null && data.id !== settings.blank) {
+		                            // adjust for custom placeholder values, restaurar
+		                            return _this._textIcon(data);
+		                          }
 	
 		                        return data.text;
 		                      }
@@ -849,9 +848,7 @@
 	                if( settings.templateResult === undefined){
 	                	if(settings.templateSelection !== undefined){// mirar los iconos
 		                	settings.templateResult = function (data,span) {
-		                		if(data.style === undefined && data.element !== undefined){//mirar estilo
-		                			data.style = data.element.getAttribute('style');
-		                		}
+		                		chargedStyles(data);
 		                		if (data.id === settings.blank) {
 		                			return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
 		                		}else  if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
@@ -862,9 +859,7 @@
 		                      }
 		                }else{
 		                	settings.templateResult = function (data,span) {
-		                		if(data.style === undefined && data.element !== undefined){//mirar estilo
-		                			data.style = data.element.getAttribute('style');
-		                		}
+		                		chargedStyles(data);
 		                		if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
 		                			return _this._textIcon(data);
 		                        }
@@ -996,15 +991,22 @@
 		                		//Aseguramos el valor limpio al cambiar el padre
 		                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
 		                	}else{//si soy Remoto
-		                		console.log('cambiando remoto');
-		                		settings.callAjaxOptions.data = _this._getParentsValues(settings, true);
-		                		$("#"+ settings.id).val(null);
+		                		console.log('cambiando remoto  '+ settings.id);
+		                		let datosParent = _this._getParentsValues(settings, true);
+		                		//$("#"+ settings.id).val(null);
 		                		//Sola llamar si el padre tiene valor.
-		                		if(settings.callAjaxOptions.data != ''){
-		                			$.rup_ajax(settings.callAjaxOptions);
-		                		}else{
+		                		if(datosParent != ''){
+                		          //ejecutar los datos
+                		          var $el = $('#' + settings.id);
+                		          var $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
+                		          $search.trigger('keyup');
+                		          $el.select2('close');
+                		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+                		        	  $("#" + settings.id).val(null).trigger('change');
+                		          }
+		                		}else if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
 		                			//Se llama al cambio del trigger.
-		                			$("#" + settings.id).trigger('change');
+		                			$("#" + settings.id).val(null).trigger('change');
 		                		}
 		                	}
 		                	
@@ -1121,4 +1123,17 @@ function optGroupHTML($, optGroup, html, settings, self) {
         html = $(html).parent();
     });
     return html;
+}
+
+function chargedStyles(data){
+	if(data.style === undefined && data.element !== undefined){//mirar estilo
+		data.style = data.element.getAttribute('style');
+		data.imgStyle = data.element.getAttribute('imgStyle');
+		if(data.style == null || data.style == 'undefined'){
+			data.style = undefined;
+		}
+		if(data.style == null || data.imgStyle == 'undefined'){
+			data.imgStyle = undefined;
+		}
+	}
 }
