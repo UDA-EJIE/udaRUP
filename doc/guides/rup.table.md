@@ -673,6 +673,7 @@ Propiedades destacadas:
 * **editable**: autoriza o bloquea la edición del campo.
 * **hidden**: permite ocultar la columna.
 * **rupType**: tipo RUP del campo.
+* **edittype**: cuando se habilite la edición en línea y se defina esta propiedad con un valor "checkbox", la tabla convertirá un input normal en uno de tipo checkbox.
 * **editoptions**: sirve para configurar todas las opciones de los campos RUP.
 
 ## 10. Aspectos a tener en cuenta
