@@ -483,25 +483,30 @@
          *
          * @function  _parseLOCAL
          * @private
-         * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
-         * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
+         * @param {object[]} data - Array de registros obtenidos a partir del origen de datos.
+         * @param {object} i18nId - Opciones de idioma.
+         * @param {jQuery} isParent - Si tiene datos en forma parent.
          */
-        _parseLOCAL: function (data,i18nId) {
+        _parseLOCAL: function (data,i18nId,isParent) {
             let text;
             let array = data;
-          
-            for (let i = 0; i < array.length; i = i + 1) {
-                if (typeof array[i] === 'object') { //multi-idioma
-                    if (array[i].i18nCaption) {
-                        text = $.rup.i18nParse($.rup.i18n.app[i18nId], array[i].i18nCaption);
-                    } else {
-                        text = array[i].text;
-                    }
-                    array[i].text = text;
-                }else{
-                	return ;
-                }
+            if(isParent){//Si es padre llamar a la recursividad
+            	$.each(data, function (key, value) {
+            		 _this._parseLOCAL(data[key],i18nId,false);
+            	});
+            }else{
+	            for (let i = 0; i < array.length; i = i + 1) {
+	                if (typeof array[i] === 'object') { //multi-idioma
+	                    if (array[i].i18nCaption) {
+	                        text = $.rup.i18nParse($.rup.i18n.app[i18nId], array[i].i18nCaption);
+	                    } else {
+	                        text = array[i].text;
+	                    }
+	                    array[i].text = text;
+	                }else{
+	                	return ;
+	                }
+	            }
             }
             
             return array;
@@ -630,7 +635,8 @@
 		               if (settings.onLoadError !== null) {
 		                   jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 		               } else {
-		               	rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		               	//rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		            	   console.log(textStatus);
 		               }
 		    }		
     	};
@@ -677,9 +683,9 @@
 				          let seleccionado = $.grep(data, function (v) {
 			                    return v.id == settings.selected;
 			                  });
-				          if(seleccionado !== undefined && seleccionado.length == 1){
-				        	  seleccionado = seleccionado[0];
-				        	  $('#' + settings.id).rup_select('setRupValue',seleccionado.id);
+				          //Si es el mismo, no cambia porque esta abirendo
+				          if(seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id){
+				        	  $('#' + settings.id).rup_select('setRupValue',seleccionado[0].id);
 				          }else{
 				        	  //$("#" + settings.id).trigger('change');
 				          }
@@ -916,11 +922,11 @@
 		    				settings.sorter = settings.sortered;
 		    			}
 		            	if(settings.dataGroups === undefined){//LOcal
-		            		settings.data = this._parseLOCAL(settings.data,settings.i18nId);
+		            		settings.data = this._parseLOCAL(settings.data,settings.i18nId,settings.parent);
 		            	}else{//grupos
 		            	      for (var i = 0; i < settings.dataGroups.length; i = i + 1) {
 		            	          if (typeof settings.dataGroups[i] === 'object') {
-		            	        	  settings.dataGroups[i].children = this._parseLOCAL(settings.dataGroups[i].children,settings.i18nId);
+		            	        	  settings.dataGroups[i].children = this._parseLOCAL(settings.dataGroups[i].children,settings.i18nId,settings.parent);
 		            	          } 
 		            	      }
 		            	      settings.data = settings.dataGroups;
@@ -962,8 +968,10 @@
 	                		if(settings.dataParents === undefined){//la primera vez carga los datos fijos.
 	                			settings.dataParents = settings.data;
 	                		}
-	                		let valores = settings.dataParents[val];
-	                		settings.data = valores;
+	                		if(val != null && val.trim() != ''){
+	                			let valores = settings.dataParents[val];
+	                			settings.data = valores;
+	                		}
 	                	}
 		                $('#' + settings.id).select2(settings);
 		                if(settings.selected){
@@ -982,12 +990,14 @@
 		                	if(settings.data !== undefined){
 		                		console.log('cambiando local');
 		                		let val = $('#'+settings.parent).rup_select('getRupValue');
-		                		let valores = settings.dataParents[val];
-		                		settings.data = settings.dataParents;
-		                		if(valores == undefined){//Si no hay valor, se inicializa
-		                			valores =[];
+		                		if(val != settings.blank && val != ''){
+			                		let valores = settings.dataParents[val];
+			                		settings.data = settings.dataParents;
+			                		if(valores == undefined){//Si no hay valor, se inicializa
+			                			valores =[];
+			                		}
+			                		$('#'+settings.id).rup_select("setSource", valores);
 		                		}
-		                		$('#'+settings.id).rup_select("setSource", valores);
 		                		//Aseguramos el valor limpio al cambiar el padre
 		                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
 		                	}else{//si soy Remoto
@@ -1001,6 +1011,7 @@
                 		          var $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
                 		          $search.trigger('keyup');
                 		          $el.select2('close');
+                		          console.log('Buscar PAdre  ' + datosParent);
                 		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
                 		        	  $("#" + settings.id).val(null).trigger('change');
                 		          }
@@ -1100,30 +1111,6 @@
 
 
 }));
-
-function optGroupRemoteHTML($, optGroup, html, self, settings) {
-    $.each(optGroup, function (key, elemGroup) {
-        html.append($('<optgroup>').attr('label', key));
-        html = $(html).children('optgroup:last-child');
-        self._parseREMOTE(elemGroup, settings, html, key);
-        html = $(html).parent();
-    });
-    return html;
-}
-
-function optGroupHTML($, optGroup, html, settings, self) {
-    $.each(optGroup, function (key, elemGroup) {
-        if (typeof (elemGroup[0]) !== 'string') {
-            html.append($('<optgroup>').attr('label', $.rup.i18nParse($.rup.i18n.app[settings.i18nId], key)));
-        } else {
-            html.append($('<optgroup>').attr('label', key));
-        }
-        html = $(html).children('optgroup:last-child');
-        self._parseLOCAL(elemGroup, settings, html);
-        html = $(html).parent();
-    });
-    return html;
-}
 
 function chargedStyles(data){
 	if(data.style === undefined && data.element !== undefined){//mirar estilo
