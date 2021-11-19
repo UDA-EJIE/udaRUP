@@ -586,7 +586,7 @@ Permite habilitar el uso de formularios dinámicos aunque hay que hacer algunos 
 
 ```js
 const miColModel = [
-	{
+    {
         name: 'nombre',
         index: 'nombre',
         editable: true,
@@ -599,7 +599,7 @@ const miColModel = [
         hidden: false,
         rupType: 'autocomplete',
         editoptions: {
-        	source : './apellidos',
+            source : './apellidos',
             sourceParam : {label: 'label', value: 'value'},
             menuMaxHeight: 200,
             minLength: 3,
