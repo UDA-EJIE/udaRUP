@@ -457,23 +457,45 @@
          */
         _getParentsValues: function (settings, remote, multiValueToken) {
             let retorno = '';
-            let id = settings.parent;                 
-            
-            if (id != undefined && remote && $('#' + id).val() != null && $('#' + id).val().trim() !== '') {
-            	if(settings.blank == $('#' + id).val()){
-            		retorno = '';
-            	}else{
-            		retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
-            	}
+            var parent = [];
+            if(settings.parent == undefined){
+            	return '';
+            }
+
+            if (typeof settings.parent == 'string') {
+              parent.push(settings.parent);
+            } else {
+              parent = settings.parent;
             } 
+               
+            let parentsFull = 0;
+            $.each(parent, function (idx, parentId) {
+	            if (parentId != undefined && $('#' + parentId).val() != null && $('#' + parentId).val().trim() !== '') {
+	            	if(settings.blank == $('#' + parentId).val()){
+	            		retorno = '';
+	            	}else{
+	            		if(remote){//PAra remoto
+	            			retorno += $('#' + parentId).attr('name') + '=' + $('#' + parentId).val() + '&';
+	            		}else{ // PAra local
+	            			if(retorno != ''){
+	            				retorno = retorno + multiValueToken + $('#' + parentId).val();
+	            			}else{
+	            				retorno = $('#' + parentId).val();
+	            			}
+	            			
+	            		}
+	            		parentsFull = parentsFull +1;
+	            	}
+	            } 
+            });
+            
+            if(parentsFull < parent.length){//si no estan todos los padres no se busca.
+            	return '';
+            }
             
             //Evitar & o multiValueToken finales
-            if (retorno !== '') {
-                if (remote) {
-                    retorno = retorno.substring(0, retorno.length - 1);
-                } else {
-                    retorno = retorno.substring(0, retorno.length - multiValueToken.length);
-                }
+            if (retorno !== '' && remote) {
+              retorno = retorno.substring(0, retorno.length - 1);
             }
             return retorno;
         },
@@ -675,10 +697,11 @@
 			        	$request = $.ajax(params);
 			        }
 			        if($request != undefined){
-				        $request.then(function(data) {
+				        $request.then(function(data) {//Vuelve la peticion
 				          //store data in cache
 				          __cache[__cachekey] = data;
 				          //display the results
+				          $('#' + settings.id).rup_select("enable");
 				          success(__cache[__cachekey]);
 				          let seleccionado = $.grep(data, function (v) {
 			                    return v.id == settings.selected;
@@ -963,13 +986,17 @@
 	                }
 	                if (settings.data) {//local y groups
 	                	if(settings.parent){//si depende de otro selects.
-	                		let val = $('#'+settings.parent).rup_select('getRupValue');
+	                		//Si es uno meterlo como string - local
+	                		if(typeof settings.parent == 'object' && settings.parent.length == 1){
+	                			settings.parent = settings.parent[0];
+	                		}
 	                		
 	                		if(settings.dataParents === undefined){//la primera vez carga los datos fijos.
 	                			settings.dataParents = settings.data;
 	                		}
-	                		if(val != null && val.trim() != ''){
-	                			let valores = settings.dataParents[val];
+	                		let valores = _this._getParentsValues(settings,false,settings.multiValueToken);
+	                		if(valores != ''){	                			
+	                			valores = settings.dataParents[valores] || settings.dataParents[0][valores];	                			
 	                			settings.data = valores;
 	                		}
 	                	}
@@ -982,46 +1009,83 @@
 		                
 	                }
 	                if(settings.parent){//si dependen de otros selects
-	                	$('#' + settings.parent).off('change.parent');
-		                $('#' + settings.parent).on('change.parent', function (){//Cambios para los hijos,onchange del padre
-		                	
-		                	
-		                	//Si soy local 
-		                	if(settings.data !== undefined){
-		                		console.log('cambiando local');
-		                		let val = $('#'+settings.parent).rup_select('getRupValue');
-		                		if(val != settings.blank && val != ''){
-			                		let valores = settings.dataParents[val];
-			                		settings.data = settings.dataParents;
-			                		if(valores == undefined){//Si no hay valor, se inicializa
-			                			valores =[];
+	                	//Mirar si es simple o no
+	                	let parent = [];
+	                	if(typeof settings.parent == 'string'){
+	                		parent.push(settings.parent );
+	                	}else{
+	                		//Si es uno meterlo como string -remoto
+	                		if(settings.parent.length == 1){
+	                			settings.parent = settings.parent[0];
+	                			parent.push(settings.parent );
+	                		}else{
+	                			parent = settings.parent ;
+	                		}
+	                	}
+	                	//Bucle para eventos Padres
+	                	$.each(parent, function (idx, eventoPadre) {
+		                	$('#' + eventoPadre).off('change.parent');
+			                $('#' + eventoPadre).on('change.parent', function (){//Cambios para los hijos,onchange del padre
+			                	
+			                	
+			                	//Si soy local 
+			                	if(settings.data !== undefined){
+			                		console.log('cambiando local');
+			                		if(typeof settings.parent == 'object'){//Si tiene más de un padre
+			                			let clave = '';
+			                			if(settings.multiValueToken == undefined){
+			                				settings.multiValueToken = '';
+			                			}
+			                			$.each(settings.parent, function (ind, elem) {
+			                				let val = $('#' + elem).rup_select('getRupValue');
+			                		          clave = clave + val + settings.multiValueToken  ;
+			                		        });
+			                			clave = clave.substring(0,clave.length - settings.multiValueToken.length);
+			                			if(settings.dataParents[0][clave] != undefined){//Datos Cargados
+			                				let valores = settings.dataParents[0][clave];
+			                				settings.data = settings.dataParents;
+			                				$('#'+settings.id).rup_select("setSource", valores);
+			                			}
+			                		}else{// si tiene un solo padre
+				                		let val = $('#'+settings.parent).rup_select('getRupValue');
+				                		if(val != settings.blank && val != ''){
+					                		let valores = settings.dataParents[val];
+					                		settings.data = settings.dataParents;
+					                		if(valores == undefined){//Si no hay valor, se inicializa
+					                			valores =[];
+					                		}
+					                		$('#'+settings.id).rup_select("setSource", valores);
+				                		}
 			                		}
-			                		$('#'+settings.id).rup_select("setSource", valores);
-		                		}
-		                		//Aseguramos el valor limpio al cambiar el padre
-		                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
-		                	}else{//si soy Remoto
-		                		console.log('cambiando remoto  '+ settings.id);
-		                		let datosParent = _this._getParentsValues(settings, true);
-		                		//$("#"+ settings.id).val(null);
-		                		//Sola llamar si el padre tiene valor.
-		                		if(datosParent != ''){
-                		          //ejecutar los datos
-                		          var $el = $('#' + settings.id);
-                		          var $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
-                		          $search.trigger('keyup');
-                		          $el.select2('close');
-                		          console.log('Buscar PAdre  ' + datosParent);
-                		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
-                		        	  $("#" + settings.id).val(null).trigger('change');
-                		          }
-		                		}else if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
-		                			//Se llama al cambio del trigger.
-		                			$("#" + settings.id).val(null).trigger('change');
-		                		}
-		                	}
-		                	
-		                });
+	
+			                		//Aseguramos el valor limpio al cambiar el padre
+			                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
+			                	}else{//si soy Remoto
+			                		console.log('cambiando remoto  '+ settings.id);
+			                		let datosParent = _this._getParentsValues(settings, true);
+			                		
+			                		//Sola llamar si el padre tiene valor.
+			                		if(datosParent != ''){
+			                			$('#' + settings.id).rup_select("disable");
+	                		          //ejecutar los datos
+	                		          var $el = $('#' + settings.id);
+	                		          var $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
+	                		          $search.trigger('keyup');
+	                		          $el.select2('close');
+	                		         
+	                		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+	                		        	  $("#" + settings.id).val(null).trigger('change');
+	                		          }
+	                		          
+			                		}else if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+			                			//Se llama al cambio del trigger.
+			                			$("#" + settings.id).val(null).trigger('change');
+			                		}
+			                	}
+			                	
+			                });
+	                	});
+		                //Fin funcion evento padre
 	                }
 	                $('#' + settings.id).data('settings', settings);
 	            }
