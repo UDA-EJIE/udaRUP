@@ -1324,7 +1324,7 @@
                     rowSelected = ctx.oInit.formEdit.$navigationBar.currentPos;
                     rowSelected.page = _getPrevPageSelected(ctx, lastPage);
                     if (Number(rowSelected.page) === page) { //Si es la misma pagina.buscar la linea
-                        rowSelected.line = _getLineByPageSelectedReverse(ctx, -1);
+                        rowSelected.line = _getLineByPageSelectedReverse(ctx, ctx.aBaseJson.length);
                     }
                 }
             }
