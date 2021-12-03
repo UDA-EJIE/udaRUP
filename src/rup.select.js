@@ -36,7 +36,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', 'select2'], factory);
+        define(['jquery', './rup.base', 'select2','./external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -855,10 +855,11 @@
 		                	if(settings.placeholder == ''){//si es vació se asigna el label
 		                		settings.placeholder = this._getBlankLabel(settings.id)
 		                	}
-		                	if(settings.data !== undefined){
-		                		if(settings.parent == undefined){//Si tiene padre se mete en todos los valores, sino solo al data
+		                	if(settings.data !== undefined && !settings.multiple){//y si no es multiple
+		                		if(settings.parent == undefined){
+		                			//Si no tiene padre se mete en todos los valores, sino solo al data, 
 		                			settings.data.unshift({id:settings.blank , text:settings.placeholder});
-		                		}else{
+		                		}else {
 		                            $.each(settings.data, function (index, value) {
 		                            	value.unshift({id:settings.blank , text:settings.placeholder})
 		                              });
@@ -874,29 +875,37 @@
 	                	settings.templateSelection = settings.myTemplate;
 	                }
 	                
-	                if( settings.templateResult === undefined){
-	                	if(settings.templateSelection !== undefined){// mirar los iconos
-		                	settings.templateResult = function (data,span) {
-		                		chargedStyles(data);
-		                		if (data.id === settings.blank) {
-		                			return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
-		                		}else  if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
-		                			return _this._textIcon(data);
-		                        }
-	
+	                if( settings.templateResult === undefined ){
+	                	if(settings.multiple && settings.udaSkill){//Si es multiple, los results cambian
+	                		//settings.templateSelection
+	                		settings.templateSelection = function (data,span) {
+		                		//Template de Uda	
 		                        return data.text;
 		                      }
-		                }else{
-		                	settings.templateResult = function (data,span) {
-		                		chargedStyles(data);
-		                		if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
-		                			return _this._textIcon(data);
-		                        }
-	
-		                        return data.text;
-		                      }
-		                	settings.templateSelection  = settings.templateResult ;
-		                }
+	                	}else{//si no es multiple
+		                	if(settings.templateSelection !== undefined){// mirar los iconos
+			                	settings.templateResult = function (data,span) {
+			                		chargedStyles(data);
+			                		if (data.id === settings.blank) {
+			                			return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
+			                		}else  if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
+			                			return _this._textIcon(data);
+			                        }
+		
+			                        return data.text;
+			                      }
+			                }else{
+			                	settings.templateResult = function (data,span) {
+			                		chargedStyles(data);
+			                		if (data.style != null && data.id !== settings.blank) { // adjust for custom placeholder values, restaurar
+			                			return _this._textIcon(data);
+			                        }
+		
+			                        return data.text;
+			                      }
+			                	settings.templateSelection  = settings.templateResult ;
+			                }
+	                	}
 	                }
 	                
 	
@@ -1000,7 +1009,7 @@
 	                			settings.data = valores;
 	                		}
 	                	}
-		                $('#' + settings.id).select2(settings);
+		                $('#' + settings.id).select2MultiCheckboxes(settings);
 		                if(settings.selected){
 		                	$('#' + settings.id).val(settings.selected).trigger('change')
 		                }
