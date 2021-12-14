@@ -1588,7 +1588,7 @@
                                 });
                                 settingsTable.select.selectedRowsPerPage = undefined;
                                 var numTotal = ctx.json.recordsTotal;
-                                var index = (Number(ctx.json.page) - 1) * 10;
+                                var index = (Number(ctx.json.page) - 1) * ctx.aBaseJson.length;
                                 index = index + line + 1;
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }
