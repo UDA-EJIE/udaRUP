@@ -1009,7 +1009,12 @@
 	                			settings.data = valores;
 	                		}
 	                	}
-		                $('#' + settings.id).select2MultiCheckboxes(settings);
+	                	if(settings.multiple){
+	                		$('#' + settings.id).select2MultiCheckboxes(settings);
+	                	}else{
+	                		$('#' + settings.id).select2(settings);
+	                	}
+		                
 		                if(settings.selected){
 		                	$('#' + settings.id).val(settings.selected).trigger('change')
 		                }
@@ -1104,28 +1109,6 @@
         }
     });
 
-    // Creamos un método para añadir el change a los multiselect
-    var multiChange = function (settings) {
-        if (settings.multiselect) {
-            $('#' + settings.id).on('multiselectopen', () => {
-                if (!settings.opened) {
-                    settings.lastMultiValue = $('#' + settings.id).rup_combo('getRupValue');
-                }
-                settings.opened = !!1;
-            });
-
-            $('#' + settings.id).on('multiselectclose', () => {
-                let changed = (settings.lastMultiValue.toString() != $('#' + settings.id).rup_combo('getRupValue').toString());
-
-                if (settings.change && changed && settings.opened) {
-                    settings.change();
-                }
-
-                settings.opened = !!0;
-            });
-        }
-    };
-
     //******************************************************
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
@@ -1162,7 +1145,6 @@
      * @property {boolean} [orderedByValue=false] - Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto.
      * @property {jQuery.rup_combo~onLoadSuccess} [onLoadSuccess=null] - Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente.
      * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
-     * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
      * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
      * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
      * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
