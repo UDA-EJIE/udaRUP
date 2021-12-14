@@ -640,7 +640,7 @@
 	            var numTotal = multiselection.numSelected;
 	            if (ctx.oInit.multiSelect === undefined) {
 	                numTotal = ctx.json.recordsTotal;
-	                indexInArray = (Number(ctx.json.page) - 1) * 10;
+	                indexInArray = (Number(ctx.json.page) - 1) * ctx.aBaseJson.length;
 	                indexInArray = indexInArray + idRow;
 	            }
 	            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
