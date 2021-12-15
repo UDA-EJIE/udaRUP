@@ -644,7 +644,9 @@
 	                indexInArray = indexInArray + idRow;
 	            }
 	            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
-	            _updateDetailPagination(ctx, indexInArray + 1, numTotal);
+	            if(ctx.oInit.formEdit.$navigationBar.funcionParams == undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length == undefined){
+	            	_updateDetailPagination(ctx, indexInArray + 1, numTotal);
+	            }
 	            DataTable.Api().rupTable.selectPencil(ctx, idRow);
 	            // Se guarda el ultimo id editado.
 	            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
@@ -1341,6 +1343,11 @@
                         _showOnNav(dt, linkType);
                     });
                 }
+                let tableId = ctx.sTableId;
+                $('#first_' + tableId+'_detail_navigation' + 
+                		', #back_' + tableId+'_detail_navigation' +
+                		', #forward_' + tableId+'_detail_navigation' +
+                		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
             });
 
             // Actualizar la última posición movida
@@ -1446,6 +1453,11 @@
             }
             //Se actualiza la ultima posicion movida.
             //ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
+            let tableId = ctx.sTableId;
+            $('#first_' + tableId+'_detail_navigation' + 
+            		', #back_' + tableId+'_detail_navigation' +
+            		', #forward_' + tableId+'_detail_navigation' +
+            		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
             
             return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
         };
