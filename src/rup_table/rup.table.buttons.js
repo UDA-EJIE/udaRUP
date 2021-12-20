@@ -2257,7 +2257,7 @@
     DataTable.Api.register('buttons.disableAllButtons()', function (ctx, exception) {
     	const s = ctx._buttons[0].inst.s;
         $.each(s.buttons, function () {
-        	if (ctx.oInit.noEdit && !exception?.includes(this.node.id)) {
+        	if (ctx.oInit.noEdit && exception !== undefined && !exception.includes(this.node.id)) {
         		// Deshabilita permanentemente el botón (tanto de la toolbar como del contextMenu).
         		this.conf.displayRegex = undefined;
         	} else if (exception === undefined || !exception.includes(this.node.id)) {
