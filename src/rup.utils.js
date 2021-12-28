@@ -1024,8 +1024,8 @@
 		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
 			Object.keys(obj).filter(function (keys) {
 				// Si container es un fila de la tabla (tr) significa que la función ha sido llamada desde rup.table.inlineEdit y es necesario añadir el sufijo _inline
-				let suffix = container.is('tr') ? '_inline' : '';
-				let element = container.find("[name$=" + keys + suffix + "]");
+				const suffix = container.is('tr') ? '_inline' : '';
+				const element = container.find("[name$=" + keys + suffix + "]");
 	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
 	        		delete obj["_" + keys];
 				}
@@ -1045,14 +1045,14 @@
 	 */
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
 		if (obj !== undefined && obj !== null) {
-			let flattenedObj = $.fn.flattenJSON(obj);
+			const flattenedObj = $.fn.flattenJSON(obj);
 			
 			// Nos aseguramos de que el campo _label provenga de un autocomplete
 			Object.keys(flattenedObj).filter(function (key) {
 				if (/_label$/.test(key)) {
 					if (flattenedObj.hasOwnProperty(key.substring(0, key.indexOf('_label')))) {
 						// Necesario hacer un split por si la clave a usar está anidada
-						let keys = key.split('.');
+						const keys = key.split('.');
 						
 						// Eliminamos el _label
 						const recursiveRemoveKey = function (object, deleteKey) {
