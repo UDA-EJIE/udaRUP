@@ -1023,9 +1023,11 @@
 	$.fn.deleteMulticomboLabelFromObject = function (obj, container) {
 		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
 			Object.keys(obj).filter(function (key) {
+				// Se escapan todos los puntos para evitar errores sintácticos
+				const escapedKey = key.replaceAll('.', '\\.');
 				// Si container es un fila de la tabla (tr) significa que la función ha sido llamada desde rup.table.inlineEdit y es necesario añadir el sufijo _inline
 				const suffix = container.is('tr') ? '_inline' : '';
-				const element = container.find("[name$=" + key + suffix + "]");
+				const element = container.find("[name$=" + escapedKey + suffix + "]");
 	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
 	        		delete obj["_" + key];
 				}
