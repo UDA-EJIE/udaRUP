@@ -22,6 +22,7 @@
       - [9.2 Carga a partir de un objeto JSON](#92carga-a-partir-de-un-objeto-json)   
    - [10 Sobreescritura del theme](#10-sobreescritura-del-theme)   
    - [11 Integración con UDA](#11integración-con-uda)   
+      - [11.1 Propiedades adicionales](#111-propiedades-adicionales) 
 
 <!-- /MDTOC -->
 
@@ -529,3 +530,124 @@ Para realizar la serialización de los datos enviados como respuesta desde el se
 </bean>
 ```
 En el serializador deberá de declararse el model correspondiente a los datos que se envían desde el servidor.
+
+### 11.1 Propiedades adicionales
+```javascript
+onLoadError: null
+```
+Función de callback a ejecutar en caso de que se produzca un error en la petición de obtención de la lista de elementos a mostrar.
+&nbsp;
+```javascript
+width: '100%'
+```
+Determina el tamaño del combo. Su valor por defecto es `200` para la selección simple. En el caso de selección múltiple su declaración es obligatoria. Puede establecerse un porcentaje para que el combo sea responsivo.
+&nbsp;
+```javascript
+blank: null
+```
+Se utiliza para declarar un valor independiente de la lógica de negocio y en ocasiones se representa como "Seleccione un elemento". Permite establecer un mensaje independiente por cada combo haciendo uso de `$.rup.i18n.app.id._blank` (sustituyendo id por el propio de cada combo) o uno genérico por aplicación haciendo uso de `$.rup.i18n.app.rup_combo.blank`. En caso de no definir ninguno, se usará el genérico de UDA: `$.rup.i18n.base.rup_combo.blankNotDefined`.
+&nbsp;
+```javascript
+style: dropdown
+```
+Tipo de visualización de la lista de opciones del combo.
+&nbsp;
+```javascript
+showValue: false
+```
+Determina si el combo debe mostrar el valor asociado concatenado al literal (sólo selección simple).
+&nbsp;
+```javascript
+token: "|"
+```
+Define el separador a utilizar cuando se muestra el valor asociado al combo concatenado al literal.
+&nbsp;
+```javascript
+multiValueToken: "##"
+```
+Define el separador a utilizar en combos enlazados locales.
+&nbsp;
+```javascript
+ordered: true
+```
+Indica si el combo debe ordenarse.
+&nbsp;
+```javascript
+orderedByValue: false
+```
+Indica si el la ordenación del combo debe realizarse por el valor de los elementos en lugar de por el texto.
+&nbsp;
+```javascript
+onLoadSuccess: null
+```
+Función de callback a ejecutar en el caso de que la petición de carga de datos se haya producido correctamente.
+&nbsp;
+```javascript
+loadFromSelect: false
+```
+Determina si se debe de utilizar los elementos `option` del elemento HTML sobre el que se inicializa el componente para inicializar los datos del elemento.
+&nbsp;
+```javascript
+multiselect: false
+```
+Indica si el combo permite la selección múltiple.
+&nbsp;
+```javascript
+multiOptgroupIconText: false
+```
+Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
+&nbsp;
+```javascript
+submitAsString: false
+```
+Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
+&nbsp;
+```javascript
+submitAsJSON: false
+```
+Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Por ejemplo: [{id:1}, {id:2}, …].
+&nbsp;
+```javascript
+readAsString: false
+```
+Determina si la asignación de un valor inicial se va a realizar a partir de un `string` con los identificadores de los elementos separados por comas en vez de un array de JSON.
+&nbsp;
+```javascript
+rowStriping: false
+```
+Indica si se debe aplicar un estilo diferente a las filas pares e impares para poder distinguirlas mediante un color diferente.
+&nbsp;
+```javascript
+typeAhead=false
+```
+Especifica en milisegundos el tiempo de espera que toma el componente antes de procesar los eventos de escritura realizados por el usuario.
+&nbsp;
+```javascript
+legacyWrapMode: false
+```
+Determina si se emplea el método obsoleto a la hora de empaquetar en objetos JSON los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
+&nbsp;
+```javascript
+open: function( event, ui )
+```
+Por defecto, se usa para calcular el ancho del combo y se lo aplica al menú que despliega al pulsar sobre él. Puede sobrescribirse, pero se perdería la funcionalidad anteriormente descrita.
+&nbsp;
+```javascript
+source: "../provincia"
+```
+Establece el endpoint al que el componente solicitará los datos.
+&nbsp;
+```javascript
+sourceParam: {label:"dsO", value:"id"}
+```
+Permite definir los campos a usar para el label mostrado por el componente y su valor, por ejemplo, en vez de mostrar el identificador de un alumno, podría mostrarse su nombre completo pero el valor seguiría siendo el identificador, permitiendo así tener formularios sencillos de usar.
+&nbsp;
+```javascript
+customClasses: ['select-material']
+```
+Añade clases personalizadas al elemento generado por el componente. Se recomienda usar la clase mostrada en el ejemplo para así estilizar el elemento con los estilos material de UDA.
+&nbsp;
+```javascript
+selected: ""
+```
+Permite seleccionar uno de los elementos de manera predeterminada a partir del valor.

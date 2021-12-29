@@ -424,3 +424,15 @@ exports.reset = (req, res) => {
     jsonIDFilterOrdered1 = JSON.parse(JSON.stringify(C_JSONIDFILTERORDERED1));
     res.status(200).json({});
 };
+
+exports.editForm = (req, res) => {
+	var path = require("path")
+
+	res.sendFile(path.join(__dirname+'/html/tableEditFormContent.html'));
+};
+
+exports.inlineEdit = (req, res) => {
+	var path = require("path")
+
+	res.sendFile(path.join(__dirname+'/html/tableInlineEditContent.html'));
+};

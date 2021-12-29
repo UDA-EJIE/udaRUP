@@ -149,7 +149,7 @@
             ctx.multiselection.selectedIds = [];
             ctx.multiselection.lastSelectedId = '';
             //Si es en edicion en linea, no hacer nada
-            if (ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
                 //Seleccionar la fila otra vez.
                 _selectRowIndex(dt, index, tr);
             }
@@ -173,7 +173,7 @@
                 ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
             }
             // si es en edicion en linea,
-            if (ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
+            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
                 ctx.inlineEdit.lastRow.idx !== index) {
                 DataTable.Api().inlineEdit.restaurarFila(ctx, true);
             }

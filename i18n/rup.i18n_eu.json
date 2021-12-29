@@ -13,7 +13,8 @@
   },
   "rup_autocomplete": {
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
-    "showAllItems": "Emaitz guztiak erakutsi"
+    "showAllItems": "Emaitz guztiak erakutsi",
+	"menuAppendToError": "{0} identifikatzailea duen autoosaketan, beharrezkoa da menuAppendTo propietatearentzako baliozko hautatzaile bat zehaztea."
   },
   "rup_blockUI": {
     "cargando": "Lanean, itxaron mesedez"
@@ -32,6 +33,7 @@
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
     "blankNotDefined": "[Literala falta da]",
     "loadingText": "Kargatzen...",
+	"appendToError": "{0} identifikatzailea duen konboan, beharrezkoa da appendTo propietatearentzako baliozko hautatzaile bat zehaztea.",
     "multiselect": {
       "checkAllText": "Hautatu dena",
       "checkAllTitle": "Aukera guztiak hautatu",
@@ -332,6 +334,7 @@
       "model": "Izenen eta ereduen zutabeak ezberdinak dira",
       "norecords": "Ez dago daturik prozesatzeko",
       "nourl": "Ez da URLrik zehaztu",
+      "wrongColModel": "\"{0}\" ez dauka \"editoptions\"-ik. Elementuaren ezaugarriak ez dira ondo definitu taularen \"colModel\"-ean.",
       "noMasterPKField": {
         "msg": "Errorea gertatu da xehetasunezko rup_table-a hasieratzerakoan, ezin izan da \"{1}\" aitaren klabearen input-a \"#{0}\" iragazpen-formularioan gehitu.",
         "title": "Errorea taula hasieratzerakoan"
@@ -583,31 +586,12 @@
         "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
         "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
       },
-      "filter": {
-        "filterSummary": "<span id='{0}'></span>",
-        "toggleIcon1": "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>",
-        "toggleIcon2": "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>",
-        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
-      },
       "message": {
         "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
       },
       "multiselection": {
         "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
         "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-      },
-      "search": {
-        "collapseIcon": "<span id='{0}' class='collapse_icon mdi mdi-chevron-right'></span>",
-        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-        "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
-        "navClearButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
-        "navLayer": "<div id='{0}' class='search_nav_layer row no-gutters'></div>",
-        "navButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis col-3 col-sm-auto mr-sm-2' type='button' alt='{1}' disabled>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
-        "searchRow": "<tr class='search_row'></tr>",
-        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
     },
     "titleDelAll": "Erregistroak ezabatu",

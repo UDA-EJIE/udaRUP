@@ -513,8 +513,8 @@
                             //Se comprueba que no existe el aspa.
                             if($('#'+settings.id + '_close').length === 0){
 	                            $self.prev('div')
-	                                .append('<i id="' + settings.id + '_close" class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
-	                                .on('click', 'i.mdi', function () {
+	                                .append('<a class="float-right text-white" href="#0"><i id="' + settings.id + '_close" class="mdi mdi-close" aria-hidden="true"></i></a>')
+	                                .on('click', 'a', function () {
 	                                    $self.dialog('close');
 	                                    return false;
 	                                });
@@ -528,10 +528,10 @@
                             }
 
                         } else { //borramos todos los posibles enlances que se hayan creado para esa capa
-                            $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonset a').remove();
+                            $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonset a').remove();
 
                             if (settings.title) {
-                                $('#ui-dialog-title-' + settings.id).text(settings.title);
+                            	$('div[aria-describedby=' + settings.id + '] .ui-dialog-title').text(settings.title);
                             }
                         }
 
@@ -546,7 +546,7 @@
                             if (settings.type !== $.rup.dialog.AJAX) {
                                 $self.rup_dialog('open');
                                 //le establecemos el foco
-                                $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                                $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
                             } else {
                                 settings.autoOpen = true;
                             }
@@ -596,7 +596,7 @@
                     if (settings.autoOpen === true) {
                         $('#' + settings.id).rup_dialog('open');
                         //le establecemos el foco
-                        $('div[aria-labelledby=ui-dialog-title-' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                        $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
                     }
                 }
                 if (settings.ajaxOptions && settings.ajaxOptions.success !== undefined && settings.ajaxOptions.success !== null && typeof settings.ajaxOptions.success === 'function') {

@@ -127,9 +127,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick', [dt, button, config]);
             }
         };
 
@@ -158,9 +158,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick', [dt, button, config]);
             }
         };
 
@@ -188,9 +188,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick', [dt, button, config]);
             }
         };
 
@@ -219,9 +219,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick', [dt, button, config]);
             }
         };
 
@@ -250,9 +250,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick', [dt, button, config]);
             }
         };
 
@@ -261,17 +261,17 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.add');
             },
             id: idTable + 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd order-1',
             displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.addButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick', [dt, button, config]);
             }
         };
 
@@ -280,17 +280,17 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
             },
             id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.editButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
             }
         };
 
@@ -299,17 +299,17 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.clone');
             },
             id: idTable + 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnClone',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnClone order-3',
             displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.cloneButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick', [dt, button, config]);
             }
         };
 
@@ -318,35 +318,38 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.delete');
             },
             id: idTable + 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-            className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete',
+            className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete order-4',
             displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
-            init: function (dt, node, config) {
+            init: function (dt, button, config) {
                 ctx.ext.buttons.deleteButton.eventDT = dt;
             },
-            action: function (e, dt, node, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick');
+            action: function (e, dt, button, config) {
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick');
+                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick', [dt, button, config]);
             }
         };
 
         var listadoExports = ['copyButton', 'excelButton', 'pdfButton', 'odsButton', 'csvButton'];
 
         ctx.ext.buttons.reportsButton = {
-                extend: 'collection',
-                text: function (dt) {
-                    return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
-                },
-                id: idTable + 'informes_01',
-                className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
-                displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
-                autoClose: true,
-                type: 'reports',
-                reportsExportAllColumns: false,
-                buttons: listadoExports
-            };
+            extend: 'collection',
+            text: function (dt) {
+                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
+            },
+            id: idTable + 'informes_01',
+            className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
+            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            autoClose: true,
+            type: 'reports',
+            reportsExportAllColumns: false,
+            buttons: listadoExports
+        };
+        
+        // Almacena los identificadores de los botones personalizados.
+        ctx.ext.buttons.custom = [];
 
 		// Ajusta el tamaño de los botones por defecto en caso de que haya sido especificado en las preferencias
         if (ctx.oInit.buttons.size !== undefined) {
@@ -382,19 +385,19 @@
     		}
     	}
 
-
-        if (ctx.oInit.inlineEdit !== undefined) { // añadir botones edición en linea
+    	// Añadir los botones de la edición en línea.
+        if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined) {
             $.extend(ctx.ext.buttons, ctx.oInit.inlineEdit.myButtons);
             for (let nameButton in ctx.oInit.inlineEdit.myButtons) {
                 ctx.ext.buttons.defaults.buttons.push(nameButton);
             }
         }
-        // Añadir botones personalizados / Se almacenan en plugin de buttons
-        if (ctx.oInit.buttons.myButtons !== undefined) { // Añadir botones edición en linea
-        	// Se asegura que todos sean custom
+        // Añadir los botones personalizados.
+        if (ctx.oInit.buttons.myButtons !== undefined) {
             $.extend(ctx.ext.buttons, ctx.oInit.buttons.myButtons);
             for (let nameButton in ctx.oInit.buttons.myButtons) {
                 ctx.ext.buttons.defaults.buttons.push(nameButton);
+                ctx.ext.buttons.custom.push(ctx.oInit.buttons.myButtons[nameButton].id);
             }
         }
         // If there is no config set it to an empty object
@@ -2216,9 +2219,9 @@
         	}
         	ctx.oInit.buttons.myLastAction = 'delete'
             // borramos todos los seleccionados.
-            if (ctx.oInit.formEdit !== undefined) {
+            if (!ctx.oInit.noEdit && ctx.oInit.formEdit !== undefined) {
                 DataTable.Api().editForm.deleteAllSelects(dt);
-            } else if (ctx.oInit.inlineEdit !== undefined){ //edicion en linea
+            } else if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined){ //edicion en linea
                 DataTable.Api().inlineEdit.deleteAllSelects(dt);
             }else{//Delete sin formulario
             	 _deleteAllSelects(dt);
@@ -2227,10 +2230,9 @@
         }
     });
 
-    // Detecta el numero de filas seleccionadas y en funcion a eso muestra u oculta
-    // los botones
+    // Detecta el numero de filas seleccionadas y en funcion de eso muestra u oculta los botones.
     DataTable.Api.register('buttons.displayRegex()', function (ctx) {
-        if (ctx._buttons[0].inst.s.disableAllButttons === undefined) {
+        if (ctx._buttons[0].inst.s.disableAllButtons === undefined) {
             var opts = ctx._buttons[0].inst.s.buttons;
             var collectionObject;
             $.each(opts, function (i) {
@@ -2253,16 +2255,20 @@
     });
 
     DataTable.Api.register('buttons.disableAllButtons()', function (ctx, exception) {
-        var opts = ctx._buttons[0].inst.s.buttons;
-        $.each(opts, function () {
-            if (exception === undefined) {
-                $(this.node).prop('disabled', true); //para el toolbar
-                $('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable'); //para el contextmenu
-            } else if (this.node.id !== exception) { //ponemos los regex a cero menos la excepcion
-                this.conf.displayRegex = undefined;
+    	const s = ctx._buttons[0].inst.s;
+        $.each(s.buttons, function () {
+        	if (ctx.oInit.noEdit && exception !== undefined && !exception.includes(this.node.id)) {
+        		// Deshabilita permanentemente el botón (tanto de la toolbar como del contextMenu).
+        		this.conf.displayRegex = undefined;
+        	} else if (exception === undefined || !exception.includes(this.node.id)) {
+            	// Deshabilita el botón de la toolbar.
+            	$(this.node).prop('disabled', true);
+            	// Deshabilita el botón del contextMenu.
+            	$('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable');
             }
         });
-        ctx._buttons[0].inst.s.disableAllButttons = true;
+        
+        s.disableAllButtons = true;
     });
 
     DataTable.Api.register('buttons.initButtons()', function (ctx, opts) {
@@ -3372,7 +3378,7 @@
                 }
                 $('#' + ctx.sTableId).triggerHandler('tablefterDelete');
 
-                ctx._buttons[0].inst.s.disableAllButttons = undefined;
+                ctx._buttons[0].inst.s.disableAllButtons = undefined;
 
                 DataTable.Api().seeker.disabledButtons(ctx);
 
@@ -3589,11 +3595,21 @@
         $('#' + ctx.sTableId).DataTable().on('select deselect contextmenu', function (event) {
             DataTable.Api().buttons.displayRegex(ctx);
         });
-
-        if (!ctx.oInit.noEdit && ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
-            // se deja solo el boton de informes
-            DataTable.Api().buttons.disableAllButtons(ctx, ctx.sTableId + 'informes_01');
-            ctx._buttons[0].inst.s.disableAllButttons = undefined;
+        
+        // Si la edición está deshabilitada, se deshabilitan todos los botones menos el de informes.
+        if (ctx.oInit.noEdit || ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit === undefined) {
+        	let exceptions;
+        	
+        	// Si existen botones personalizados, se excluyen.
+        	if (ctx.ext.buttons.custom.length > 0) {
+        		exceptions = ctx.ext.buttons.custom;
+        		exceptions.push(ctx.sTableId + 'informes_01');
+        	} else {
+        		exceptions = ctx.sTableId + 'informes_01';
+        	}
+        	
+        	DataTable.Api().buttons.disableAllButtons(ctx, exceptions);
+            ctx._buttons[0].inst.s.disableAllButtons = undefined;
             DataTable.Api().buttons.displayRegex(ctx);
         }
         

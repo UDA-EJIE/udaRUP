@@ -257,7 +257,7 @@
 
                 // Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
                 if (options.buttons !== undefined && ctx._buttons !== undefined) {
-                    ctx._buttons[0].inst.s.disableAllButttons = undefined;
+                    ctx._buttons[0].inst.s.disableAllButtons = undefined;
                     DataTable.Api().buttons.displayRegex(ctx);
                 }
                 $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);
@@ -501,6 +501,10 @@
          */
         _getColumns(options) {
             var $self = this;
+            
+            // Indica si la primera columna ha sido generada por el componente RUP
+            let rupSelectColumn = false;
+            
             //Se crea la columna del select.
             if (options.columnDefs !== undefined && options.columnDefs.length > 0 &&
                 options.columnDefs[0].className !== undefined && options.columnDefs[0].className.indexOf('select-checkbox') > -1 &&
@@ -521,7 +525,20 @@
                 if (options.multiSelect !== undefined && options.multiSelect.hideMultiselect) {
                     options.columnDefs[0].visible = false;
                 }
+                
+                rupSelectColumn = true;
             }
+            
+            // Se ocultan las columnas que así hayan sido definidas en el colModel
+            $.each(options.colModel, function (index, column) {
+            	if (column.hidden) {
+            		options.columnDefs.push({
+            			targets: rupSelectColumn ? index + 1 : index,
+            			visible: false,
+            			className: 'never'
+            		})
+            	}
+            });
 
             //se crea el tfoot
             var $tfoot = $('<tfoot>').appendTo($self[0]);
@@ -532,7 +549,7 @@
                 var $th = $('<th>').appendTo($tr);
                 $th.text($(e).text());
 
-                if (e.getAttribute('data-col-type') === 'Checkbox') {
+                if (/^checkbox$/i.test(e.getAttribute('data-col-type'))) {
                     options.columnDefs.push({
                         targets: i,
                         data: '',
@@ -700,8 +717,8 @@
             // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
             $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
 
-            var tableRequest = new TableRequest(data);
-            var json = $.extend({}, data, tableRequest.getData());
+            let tableRequest = new TableRequest(data);
+            let json = $.extend({}, data, tableRequest.getData());//Mantenemos todos los valores, por si se quieren usar.
 
             json.core.pkNames = ctx.oInit.primaryKey;
 
@@ -945,10 +962,10 @@
                 	filterOpts.showHidden = false;
                 }
 
-                toggleIcon1Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon1');
-                toggleLabelTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleLabel');
-                filterSummaryTmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.filterSummary');
-                toggleIcon2Tmpl = jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.templates.filter.toggleIcon2');
+                toggleIcon1Tmpl = "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>";
+                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline font-weight-bold' href='#0'>{1}:</a>";
+                filterSummaryTmpl = "<span id='{0}'></span>";
+                toggleIcon2Tmpl = "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>";
 
                 $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
                 $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
@@ -965,9 +982,9 @@
                 filterOpts.$toggleLabel = $toggleLabel;
                 filterOpts.$filterSummary = $filterSummary;
                 filterOpts.$toggleIcon2 = $toggleIcon2;
-
-                // Se asigna a la tecla ENTER la funcion de busqueda.
-                filterOpts.$filterContainer.bind('keydown', function (evt) {
+                
+                // Se asigna a la tecla ENTER la función de búsqueda
+                filterOpts.$collapsableLayer.bind('keydown', function (evt) {
                     if (evt.keyCode === 13) {
                         let customFiltrar = options.validarFiltrar;
                         if ($.isFunction(customFiltrar) && customFiltrar(options)) {
@@ -1260,7 +1277,25 @@
                     }
                       
                     $.when(DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], ctx.oInit.formEdit.customTitle)).then(function () {
+                    	var row = ctx.json.rows[params[2]];
                     	ctx.oInit.formEdit.$navigationBar.funcionParams = {};
+        	            var multiselection = ctx.multiselection;
+        	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
+        	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
+        	                indexInArray = ctx.oInit.formEdit.$navigationBar.numPosition;
+        	            }
+        	            if (indexInArray === undefined) {
+        	                indexInArray = 0;
+        	                ctx.oInit.formEdit.$navigationBar.numPosition = 0;
+        	            }
+                        var numTotal = multiselection.numSelected;
+        	            if (ctx.oInit.multiSelect === undefined) {
+        	                numTotal = ctx.json.recordsTotal;
+        	                indexInArray = (Number(ctx.json.page) - 1) * ctx.aBaseJson.length;
+        	                indexInArray = indexInArray + params[2];
+        	            }
+        	            
+        	            DataTable.Api().editForm.updateDetailPagination(ctx, indexInArray + 1, numTotal);
                     });
                 }
             });
@@ -1571,7 +1606,7 @@
                                 });
                                 settingsTable.select.selectedRowsPerPage = undefined;
                                 var numTotal = ctx.json.recordsTotal;
-                                var index = (Number(ctx.json.page) - 1) * 10;
+                                var index = (Number(ctx.json.page) - 1) * ctx.aBaseJson.length;
                                 index = index + line + 1;
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }

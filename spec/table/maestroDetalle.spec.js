@@ -277,7 +277,7 @@ function testForm2Form(defer) {
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#example1').on('tableEditFormAfterFillData', () => {
+                        $('#example1').on('tableEditFormAddEditAfterShowForm', () => {
                             setTimeout(done, 100);
                         });
                         $('#example1 > tbody > tr:eq(0)').dblclick();
@@ -1274,9 +1274,12 @@ function testForm2Inline(defer) {
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                                setTimeout(done, 400);
+                                
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
+                            $('#inline2').on('tableEditInLineCompleteCallSaveAjax', () => {
+                                done();
+                            });
                         });
 
                         it('El feedback debe mostrarse:', () => {
@@ -1820,9 +1823,12 @@ function testInline2Form(defer) {
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                                setTimeout(done, 400);
+                               
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
+                            $('#inline1').on('tableEditInLineCompleteCallSaveAjax', () => {
+                                done();
+                            });
                         });
 
                         it('El feedback debe mostrarse:', () => {
@@ -2223,6 +2229,9 @@ function testInline2Inline(defer) {
                         $('#inline1').on('draw.dt', () => {
                             done();
                         });
+                        $('#inline1').on('tableEditFormAddEditAfterShowForm', () => {
+                            setTimeout(done, 100);
+                        });
                         $('#inline1').on('tableEditInlineClickRow', () => {
                             $('#nombre_inline').val(nameEdit);
                             var ev = $.Event('keydown');
@@ -2407,9 +2416,12 @@ function testInline2Inline(defer) {
                                 ev.keyCode = 13;
                                 $('#inline1 > tbody > tr:eq(0)').trigger(ev);
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                                setTimeout(done, 400);
+                               // setTimeout(done, 400);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
+                            $('#inline1').on('tableEditInLineCompleteCallSaveAjax', () => {
+                                done();
+                            });
                         });
 
                         it('El feedback debe mostrarse:', () => {
@@ -2456,9 +2468,12 @@ function testInline2Inline(defer) {
                                 ev.keyCode = 13;
                                 $('#inline2 > tbody > tr:eq(0)').trigger(ev);
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                                setTimeout(done, 400);
+                                
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
+                            $('#inline2').on('tableEditInLineCompleteCallSaveAjax', () => {
+                                done();
+                            });
                         });
 
                         it('El feedback debe mostrarse:', () => {

@@ -13,7 +13,8 @@
   },
   "rup_autocomplete": {
     "ajaxError": "en_Se ha producido un error al recuperar los datos del servidor",
-    "showAllItems": "Show all items"
+    "showAllItems": "Show all items",
+	"menuAppendToError": "en_En el autocomplete con identificador {0}, es necesario especificar un selector válido para la propiedad menuAppendTo."
   },
   "rup_blockUI": {
     "cargando": "en_Procesando, espere por favor"
@@ -32,6 +33,7 @@
     "ajaxError": "en_Se ha producido un error al recuperar los datos del servidor",
     "blankNotDefined": "en_[Falta literal]",
     "loadingText": "en_Cargando...",
+	"appendToError": "en_En el combo con identificador {0}, es necesario especificar un selector válido para la propiedad appendTo.",
     "multiselect": {
       "checkAllText": "Check all",
       "checkAllTitle": "Check all elements",
@@ -331,6 +333,7 @@
       "model": "en_Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "en_No hay datos para procesar",
       "nourl": "en_No se ha especificado una URL",
+      "wrongColModel": "There is no 'editoptions' for '{0}'. The properties of the element have not been well defined in the 'colModel' of the table.",
       "noMasterPKField": {
         "msg": "en_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "en_Error en la inicialización de la tabla"
@@ -344,7 +347,7 @@
       "validateError": "en_Se han producido los siguientes errores:<br/>"
     },
     "filter": "en_Filtrar",
-    "first": "en_Primero",
+    "first": "First",
     "formatter": {
       "baseLinkUrl": "",
       "checkbox": {
@@ -447,7 +450,7 @@
     "insertError": "en_Error al insertar el elemento.",
     "insertOK": "en_El elemento se ha añadido correctamente.",
     "invalidRowId": "en_El identificador de la fila no es válido. No se puede completar la acción",
-    "last": "en_Ultimo",
+    "last": "Last",
     "modify": "en_Editar",
     "modifyOK": "en_El elemento se ha modificado correctamente.",
     "multiselectHeader": "en_Seleccionar todos los elementos de la página",
@@ -468,7 +471,7 @@
       "viewtitle": "Ver fila seleccionada"
     },
     "new": "en_Añadir",
-    "next": "en_Siguiente",
+    "next": "Next",
     "noGrid": "en_No es posible crear un mantenimiento sin un grid.",
     "noRecordsFound": "en_No hay registros.",
     "noReg": "en_Seleccione un registro.",
@@ -523,7 +526,7 @@
         "searchCriteria": "en_Criterios de búsqueda"
       }
     },
-    "previous": "en_Anterior",
+    "previous": "Previous",
     "save": "en_Guardar",
     "saveAndContinue": "en_Se perderan los cambios en los datos modificados, ¿desea continuar?",
     "search": {
@@ -581,31 +584,12 @@
         "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
         "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
       },
-      "filter": {
-        "filterSummary": "<span id='{0}'></span>",
-        "toggleIcon1": "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>",
-        "toggleIcon2": "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>",
-        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
-      },
       "message": {
         "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
       },
       "multiselection": {
         "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
         "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-      },
-      "search": {
-        "collapseIcon": "<span id='{0}' class='collapse_icon mdi mdi-chevron-right'></span>",
-        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-        "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
-        "navClearButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
-        "navLayer": "<div id='{0}' class='search_nav_layer row no-gutters'></div>",
-        "navButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis col-3 col-sm-auto mr-sm-2' type='button' alt='{1}' disabled>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
-        "searchRow": "<tr class='search_row'></tr>",
-        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
     },
     "titleDelAll": "en_Eliminar los registros",

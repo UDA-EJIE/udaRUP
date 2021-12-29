@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <project name="uda" default="buildVersion">
     
-	<property name="udaVersion" value="5.0.1"/>
-    <property name="previousUdaVersion" value="5.0.0"/>
-    <property name="udaLibVersion" value="5.0.1"/>
-    <property name="previousUdaLibVersion" value="5.0.0"/>
+	<property name="udaVersion" value="5.0.2"/>
+    <property name="previousUdaVersion" value="5.0.1"/>
+    <property name="udaLibVersion" value="5.0.2"/>
+    <property name="previousUdaLibVersion" value="5.0.1"/>
     <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
     <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
     
@@ -112,7 +112,7 @@
         
         <echo>Generando ${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar ...</echo>
 		<jar destfile="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rup/**,  com/ejie/x38/cache/**" />
+			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rup/**, com/ejie/x38/cache/**, com/ejie/x38/hdiv/**" />
 			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
 			<manifest>
 		      	<attribute name="Main-Class" value=""/>

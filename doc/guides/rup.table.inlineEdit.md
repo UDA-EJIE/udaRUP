@@ -100,8 +100,12 @@ inlineEdit: {
 Endpoint que devolverá el formulario necesario para poder llevar a cabo la edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 inlineEdit: {
-    // El valor por defecto es './inlineEdit' aunque puede variar dependiendo del campo urlBase
+    // El valor por defecto es './inlineEdit' aunque puede variar dependiendo del campo urlBase.
     url: './inlineEditDouble',
+    // El valor por defecto es '/add'. Este campo tiene que apuntar al mismo endpoint que el formulario.
+    addUrl: '/addMultipart',
+    // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
+    editUrl: '/editMultipart',
     // Por defecto, el componente siempre enviará el method e identificador de la tabla (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
     data: {
         'nombreUsuario': 'Este es el nombre del usuario'
@@ -131,7 +135,14 @@ Para que esto funcione correctamente, hay que crear una JSP llamada `tableInline
 <%@taglib prefix="form" uri="/WEB-INF/tld/spring-form.tld"%>
 
 <!-- Formulario -->
-<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
+<c:choose>
+	<c:when test="${enableMultipart eq true}">
+		<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
+	</c:when>
+	<c:when test="${!enableMultipart}">
+		<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
+	</c:when>
+</c:choose>
 <spring:url value="${mapping}/${endpoint}" var="url"/>
 <form:form modelAttribute="${entity}" id="${tableID}_detail_inlineEdit_aux_form" class="d-none" action="${url}" method="${actionType}"/>
 ```
