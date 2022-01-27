@@ -79,7 +79,7 @@ Comprueba si el parámetro ha sido cifrado por Hdiv.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>boolean</code> - Verdadero si el parámetro ha sido cifrado por Hdiv.  
-**Since**: UDA 5.0.0  
+**Since**: UDA 5.0.0 (backported)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -92,7 +92,7 @@ Procesa el identificador recibido para poder devolver la parte que no altera su 
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - Identificador de la entidad con la parte dinámica del cifrado eliminada.  
-**Since**: UDA 5.0.0  
+**Since**: UDA 5.0.0 (backported)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -105,7 +105,7 @@ Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - Parámetro HDIV_STATE.  
-**Since**: UDA 5.0.0  
+**Since**: UDA 5.0.0 (backported)  
 
 | Param | Type | Description |
 | --- | --- | --- |

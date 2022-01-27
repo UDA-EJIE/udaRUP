@@ -43,7 +43,7 @@ Inicializa ciertas opciones del componente
 Comprueba si dos claves primarias son iguales.
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0 (backported) // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

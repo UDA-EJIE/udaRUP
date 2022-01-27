@@ -318,7 +318,7 @@ Llamada al servidor con los datos de edición.
 Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0 (backported) // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
