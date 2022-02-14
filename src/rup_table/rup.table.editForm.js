@@ -469,9 +469,11 @@
     			// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
     			if (column.rupType && column.editable) {
     				if (column.editoptions !== undefined) {
-    					// Los combos tienen que ser comprobados para poder establecer su valor.
-    					if (column.rupType === 'combo' && row !== undefined) {
-    						column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
+    					if (column.rupType === 'combo') {
+    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el combo.
+    						if (row !== undefined) {
+    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
+    						}
     						// Cuando no se haya definido un elemento al que hacer el append del menú del combo, se hace al "body" para evitar problemas de CSS.
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
