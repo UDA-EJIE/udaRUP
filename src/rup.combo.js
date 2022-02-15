@@ -1989,16 +1989,17 @@
         typeAhead: 1000,
         legacyWrapMode: false,
         open: function () {
-            var anchoCombo = $('#' + this.id + '-button').outerWidth();
+        	const comboId = $.rup_utils.escapeId(this.id);
+        	var anchoCombo = $('#' + comboId + '-button').outerWidth();
 
             // Si es un combo multiselect
             if (this.multiple) {
-                $('#rup-multiCombo_' + this.id).outerWidth(anchoCombo);
+                $('#rup-multiCombo_' + comboId).outerWidth(anchoCombo);
             }
             // Si es un combo normal
             else {
-                $('#' + this.id + '-menu').parent('div').outerWidth(anchoCombo);
-                $('#' + this.id + '-menu').outerWidth(anchoCombo);
+                $('#' + comboId + '-menu').parent('div').outerWidth(anchoCombo);
+                $('#' + comboId + '-menu').outerWidth(anchoCombo);
             }
         }
     };
