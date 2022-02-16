@@ -31,7 +31,7 @@
     
     <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>
     <property name="udaDemoAppStaticsDir" value="/x21aStatics"/>
-    <property name="udaDemoAppStaticsRupDir" value="${udaDemoAppStaticsDir}/WebContent/4x/rup"/>
+    <property name="udaDemoAppStaticsRupDir" value="${udaDemoAppStaticsDir}/WebContent/rup"/>
     
     
     <!-- ***************************** -->
