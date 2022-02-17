@@ -555,7 +555,7 @@
                         data: '',
                         render: function (data) {
                             var iconCheck = 'mdi-close';
-                            if (data === '1') {
+                            if (data == '1') {
                                 iconCheck = 'mdi-check';
                             }
                             return `
