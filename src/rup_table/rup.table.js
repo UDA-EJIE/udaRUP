@@ -529,15 +529,24 @@
                 rupSelectColumn = true;
             }
             
-            // Se ocultan las columnas que así hayan sido definidas en el colModel
             $.each(options.colModel, function (index, column) {
+            	// Se ocultan las columnas que así hayan sido definidas en el colModel.
             	if (column.hidden) {
             		options.columnDefs.push({
             			targets: rupSelectColumn ? index + 1 : index,
             			visible: false,
             			className: 'never'
             		})
+            	} else if (column.orderable === false) {
+            		// Se bloquea la ordenación de las columnas que así hayan sido definidas en el colModel. Solo se hace esta comprobación cuando la columna no ha sido ocultada.
+            		options.columnDefs.push({
+            			targets: rupSelectColumn ? index + 1 : index,
+            			orderable: false
+            		})
             	}
+            });
+            
+            $.each(options.colModel, function (index, column) {
             });
 
             //se crea el tfoot
