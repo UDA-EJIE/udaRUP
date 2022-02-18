@@ -586,6 +586,15 @@ Permite habilitar el uso de formularios dinámicos aunque hay que hacer algunos 
 &nbsp;
 
 ```js
+Plugins.columnOrderArrows = {
+	showOnlyActive: false,
+	display: 'block'
+}
+```
+Ofrece la posibilidad de configurar las flechas de ordenación en las columnas. La propiedad **showOnlyActive** permite mostrar únicamente las flechas que indican la dirección actual de ordenamiento (ascendente o descendente), ocultando también todas aquellas flechas de las columnas que no estén siendo usadas para la ordenación. Por otro lado, la propiedad **display**, permite elegir si el contenedor que alberga las flechas será mostrado como `block` (separa título y flechas en dos líneas), `inline` (unifica título y flechas en una línea) o `none` (oculta las flechas).
+&nbsp;
+
+```js
 const miColModel = [
     {
         name: 'nombre',

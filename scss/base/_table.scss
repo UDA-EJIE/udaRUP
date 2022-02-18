@@ -38,17 +38,37 @@ td>div.centerOnResponsiveContainer {
 }
 
 .dataTable {
-    .sorting_asc {
-        .mdi.mdi-arrow-up::before {
-            font-weight: 600;
-        }
-    }
+	.sorting_asc {
+		&.sorting_active_only {
+			.mdi.mdi-arrow-down {
+				display: none;
+			}
+		}
+		
+		.mdi.mdi-arrow-up::before {
+			font-weight: 600;
+		}
+	}
 
-    .sorting_desc {
-        .mdi.mdi-arrow-down::before {
-            font-weight: 600;
-        }
-    }
+	.sorting_desc {
+		&.sorting_active_only {
+			.mdi.mdi-arrow-up {
+				display: none;
+			}
+		}
+		
+		.mdi.mdi-arrow-down::before {
+			font-weight: 600;
+		}
+	}
+
+	.sorting {
+		&.sorting_active_only {
+			.mdi.mdi-arrow-up, .mdi.mdi-arrow-down {
+				display: none;
+			}
+		}
+	}
 }
 
 .custom-select {
