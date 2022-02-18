@@ -1499,18 +1499,31 @@
                     options.responsive = responsive;
                 }
 
-                // Se añaden los CSS para las flechas.
+                // Se añaden las clases CSS de los títulos y flechas de las columnas.
+                const displayStyle = {
+                	'block': 'd-block',
+                	'inline': 'd-inline ml-1',
+                	'none': 'd-none',
+                	'default': 'd-block'
+                };
+                const arrowsStyle = displayStyle[options.columnOrderArrows.display] || displayStyle['default'];
                 $.each($('#' + $self[0].id + ' thead th'), function () {
-                    var titulo = $(this).text();
-                    $(this).text('');
-                    var span1 = $('<span></span>').addClass('d-block').text(titulo);
-                    var span2 = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
-                    var span3 = $('<span></span>').addClass('mdi mdi-arrow-up');
-                    $(this).append(span1);
-                    var div1 = $('<div></div>').addClass('d-block');
-                    div1.append(span2);
-                    div1.append(span3);
-                    $(this).append(div1);
+                	const $this = $(this);
+                	
+                	// Reubicar título de la columna.
+                	const $columnTitle = $('<span></span>').addClass('d-inline').text($this.text());
+                	
+                	// Si se activó la opción, se mostrarán únicamente las flechas que estén ordenando los datos.
+                	if (options.columnOrderArrows.showOnlyActive) $this.addClass('sorting_active_only');
+                	
+                	// Crear elementos para las flechas de ordenación.
+                	const $columnDownArrow = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+                	const $columnUpArrow = $('<span></span>').addClass('mdi mdi-arrow-up');
+                	const $columnArrowsContainer = $('<div></div>').addClass(arrowsStyle).append($columnDownArrow, $columnUpArrow);
+
+                	$this.text('');
+                	$this.append($columnTitle);
+                	$this.append($columnArrowsContainer);
                 });
 
                 // Se completan las opciones de configuración del componente
@@ -1783,6 +1796,10 @@
             }
         },
         columnDefs: [],
+        columnOrderArrows: {
+        	showOnlyActive: false,
+        	display: 'block'
+        },
         adapter: 'table_material',
         order: [
             [1, 'asc']
