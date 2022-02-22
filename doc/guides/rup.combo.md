@@ -651,3 +651,11 @@ Añade clases personalizadas al elemento generado por el componente. Se recomien
 selected: ""
 ```
 Permite seleccionar uno de los elementos de manera predeterminada a partir del valor.
+&nbsp;
+```javascript
+appendTo: "body"
+```
+Permite especificar el elemento del DOM al que se añadirá el menú desplegable del componente.
+
+## 12 Aspectos a tener en cuenta
+Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `appendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.
