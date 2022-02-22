@@ -22,7 +22,8 @@
       - [9.2 Carga a partir de un objeto JSON](#92carga-a-partir-de-un-objeto-json)   
    - [10 Sobreescritura del theme](#10-sobreescritura-del-theme)   
    - [11 Integración con UDA](#11integración-con-uda)   
-      - [11.1 Propiedades adicionales](#111-propiedades-adicionales) 
+      - [11.1 Propiedades adicionales](#111-propiedades-adicionales)   
+   - [12 Aspectos a tener en cuenta](#12-aspectos-a-tener-en-cuenta)   
 
 <!-- /MDTOC -->
 

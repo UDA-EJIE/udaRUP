@@ -15,6 +15,7 @@
 -   [8  Internacionalización (i18n)](#8-internacionalización-i18n)   
 -   [9 Integración con UDA](#9-integración-con-uda)   
 -   [10 Autocompletes enlazados](#10-autocompletes-enlazados)
+-   [11 Aspectos a tener en cuenta](#11-aspectos-a-tener-en-cuenta)
 
 <!-- /MDTOC -->
 
