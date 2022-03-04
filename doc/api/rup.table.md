@@ -9,6 +9,7 @@ Genera un table
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table](#module_rup.table)
+    * [~isInitialized()](#module_rup.table..isInitialized) ⇒ <code>boolean</code>
     * [~_initOptions(options)](#module_rup.table.._initOptions)
     * [~comparePKs(firstRow, secondRow)](#module_rup.table..comparePKs) ⇒ <code>boolean</code>
     * [~blockPKEdit(ctx, actionType)](#module_rup.table..blockPKEdit)
@@ -25,6 +26,17 @@ Genera un table
     * [~createEventSelect(tabla)](#module_rup.table..createEventSelect)
     * [~initializeMultiselectionProps()](#module_rup.table..initializeMultiselectionProps)
 
+<a name="module_rup.table..isInitialized"></a>
+
+### rup.table~isInitialized() ⇒ <code>boolean</code>
+Indica si un rup_table ya ha sido inicializado sobre el elemento con el identificador provisto.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>boolean</code> - - Indica si ya ha sido inicializada una tabla sobre el elemento.  
+**Example**  
+```js
+$("#idTable").rup_table("isInitialized");
+```
 <a name="module_rup.table.._initOptions"></a>
 
 ### rup.table~\_initOptions(options)
