@@ -403,6 +403,17 @@
             }
         },
         /**
+         * Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identificador provisto.
+         *
+         * @function isInitialized
+         * @return {boolean} - Indica si ya ha sido inicializado un combo sobre el elemento.
+         * @example
+         * $("#idCombo").rup_combo("isInitialized");
+         */
+        isInitialized: function () {
+        	return $(this).attr('ruptype') === 'combo' ? true : false;
+        },
+        /**
          * Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
          *
          * @function  disableChild
