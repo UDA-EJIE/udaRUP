@@ -26,6 +26,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
     * [~disable()](#module_rup_combo..disable)
     * [~enable()](#module_rup_combo..enable)
     * [~isDisabled()](#module_rup_combo..isDisabled)
+    * [~isInitialized()](#module_rup_combo..isInitialized) ⇒ <code>boolean</code>
     * [~disableChild()](#module_rup_combo..disableChild)
     * [~disableOpt(optValue)](#module_rup_combo..disableOpt)
     * [~disableOptArr(optValueArr)](#module_rup_combo..disableOptArr)
@@ -232,6 +233,17 @@ Indica si el combo está deshabilitado o no.
 **Example**  
 ```js
 $("#idCombo").rup_combo("isDisabled");
+```
+<a name="module_rup_combo..isInitialized"></a>
+
+### rup_combo~isInitialized() ⇒ <code>boolean</code>
+Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identificador provisto.
+
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
+**Returns**: <code>boolean</code> - - Indica si ya ha sido inicializado un combo sobre el elemento.  
+**Example**  
+```js
+$("#idCombo").rup_combo("isInitialized");
 ```
 <a name="module_rup_combo..disableChild"></a>
 
