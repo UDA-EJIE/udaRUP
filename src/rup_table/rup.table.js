@@ -77,6 +77,17 @@
         foo: function () {
             return this;
         },
+        /**
+         * Indica si un rup_table ya ha sido inicializado sobre el elemento con el identificador provisto.
+         *
+         * @function isInitialized
+         * @return {boolean} - Indica si ya ha sido inicializada una tabla sobre el elemento.
+         * @example
+         * $("#idTable").rup_table("isInitialized");
+         */
+        isInitialized: function () {
+        	return $(this).attr('ruptype') === 'table' ? true : false;
+        },
         createButton: function (props, pos) {
             var dt = $('#' + this[0].id).DataTable();
             var ctx = dt.context[0];
