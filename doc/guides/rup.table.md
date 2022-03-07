@@ -146,6 +146,14 @@ jQuery(function($){
                 minLength: 3,
                 combobox: true,
                 contains: true
+            },
+            searchoptions: {
+                source : './apellidos',
+                sourceParam : {label: 'label', value: 'value'},
+                menuMaxHeight: 200,
+                minLength: 3,
+                combobox: true,
+                contains: true
             }
         },
         { 
@@ -173,6 +181,12 @@ jQuery(function($){
                 showButtonPanel: true,
                 showOtherMonths: true,
                 noWeekend: true
+            },
+            searchoptions: {
+                labelMaskId: 'fecha-mask',
+                showButtonPanel: true,
+                showOtherMonths: true,
+                noWeekend: true
             }
         },
         {
@@ -186,6 +200,12 @@ jQuery(function($){
                 showButtonPanel: true,
                 showOtherMonths: true,
                 noWeekend: true
+            },
+            searchoptions: {
+                labelMaskId: 'fecha-mask',
+                showButtonPanel: true,
+                showOtherMonths: true,
+                noWeekend: true
             }
         },
         {
@@ -195,6 +215,12 @@ jQuery(function($){
             hidden: false,
             rupType: 'combo',
             editoptions: {
+                source : './roles',
+                sourceParam : {label: 'label', value: 'value'},
+                width: '100%',
+                customClasses: ['select-material']
+            },
+            searchoptions: {
                 source : './roles',
                 sourceParam : {label: 'label', value: 'value'},
                 blank: '',
@@ -615,6 +641,15 @@ const miColModel = [
             minLength: 3,
             combobox: true,
             contains: true
+        },
+        searchoptions: {
+            source : './apellidos',
+            sourceParam : {label: 'label', value: 'value'},
+            blank: '',
+            menuMaxHeight: 200,
+            minLength: 3,
+            combobox: true,
+            contains: true
         }
     },
     { 
@@ -642,6 +677,12 @@ const miColModel = [
             showButtonPanel: true,
             showOtherMonths: true,
             noWeekend: true
+        },
+        searchoptions: {
+            labelMaskId: 'fecha-mask',
+            showButtonPanel: true,
+            showOtherMonths: true,
+            noWeekend: true
         }
     },
     {
@@ -655,6 +696,12 @@ const miColModel = [
             showButtonPanel: true,
             showOtherMonths: true,
             noWeekend: true
+        },
+        searchoptions: {
+            labelMaskId: 'fecha-mask',
+            showButtonPanel: true,
+            showOtherMonths: true,
+            noWeekend: true
         }
     },
     {
@@ -664,6 +711,12 @@ const miColModel = [
         hidden: false,
         rupType: 'combo',
         editoptions: {
+            source : './roles',
+            sourceParam : {label: 'label', value: 'value'},
+            width: '100%',
+            customClasses: ['select-material']
+        },
+        searchoptions: {
             source : './roles',
             sourceParam : {label: 'label', value: 'value'},
             blank: '',
@@ -686,7 +739,8 @@ Propiedades destacadas:
 * **orderable**: permite deshabilitar la ordenación de una columna.
 * **rupType**: tipo RUP del campo.
 * **edittype**: cuando se habilite la edición en línea y se defina esta propiedad con un valor "checkbox", la tabla convertirá un input normal en uno de tipo checkbox.
-* **editoptions**: sirve para configurar todas las opciones de los campos RUP.
+* **editoptions**: sirve para configurar todas las opciones de los campos RUP en edición.
+* **searchoptions**: sirve para configurar todas las opciones de los campos RUP en el buscador (seeker).
 
 ## 10. Aspectos a tener en cuenta
 Siempre que se necesite filtrar la tabla por el campo que forme la clave primaria y Hdiv esté activado, será necesario enviar al servidor el valor cifrado. Esto significa que los valores a usar, siempre han tenido que ser enviados previamente por el servidor ya que mantiene una copia para impedir la inserción de valores desde el cliente, evitando así posibles ataques. 
