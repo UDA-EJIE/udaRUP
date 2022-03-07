@@ -564,8 +564,8 @@
 	                	}).removeAttr('readOnly');
 	                	
 	                	// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-	                	if (searchRupType !== undefined) {
-	                		searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
+	                		searchEditOptions = cellColModel.searchoptions;
 	                		
 	                		// Invocación al componente RUP
 	                		$elem['rup_' + searchRupType](searchEditOptions);
