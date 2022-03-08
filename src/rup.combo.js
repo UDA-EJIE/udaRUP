@@ -1639,6 +1639,43 @@
 	                    attrsJson = {},
 	                    attrs;
 	
+	                // Cargar el identificador del padre del patrón.
+	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
+	                settings.name = $(this).attr('name');
+	                
+	                // Comprobar en caso de ser enlazado, que los combos sobre los que depende hayan sido inicializados.
+	                if (settings.parent && Array.isArray(settings.parent) && !settings.parentsInitialized) {
+	                	let parentsDeferred = [];
+	                	let parentsInitialized = true;
+	                	$.each(settings.parent, function (key, id) {
+	                		if (!$('#' + id).rup_combo("isInitialized")) {
+	                			const parentDeferred = $.Deferred();
+	                			parentsDeferred.push(parentDeferred);
+	                			
+	                			// Inicializarse cuando el padre o padres lo hayan hecho. El evento se adjunta al label en vez de al combo porque este último es convertido más adelante y pierde el evento.
+	                			$('label[for="' + id + '"]').on('comboIsInitialized', function () {
+	                				// Desligar evento del elemento.
+	                				$(this).off('comboIsInitialized');
+	                				// Resolver promesa.
+	                				parentDeferred.resolve();
+	                			});
+		                		
+	                			parentsInitialized = false;
+	                		}
+	                	});
+	                	
+	                	if (!parentsInitialized) {
+	                		$.when(...parentsDeferred).done(function() { 
+	                			// Añadir parámetro para indicar que la inicialización del componente ya puede llevarse a cabo de manera segura.
+	                			settings.parentsInitialized = true;
+	                			// Inicializar componente.
+	                			$('#' + settings.id).rup_combo(settings);
+	                		});
+	                		
+	                		return false;
+	                	}
+	                }
+	
 	                // Se sobreescribe el change:
 	                if (settings.change) {
 	                    settings.userChange = settings.change;
@@ -1656,10 +1693,6 @@
 	
 	                //Sobreescribir literales por defecto para multicombo
 	                $.extend($.ech.multiselect.prototype.options, $.rup.i18n.base.rup_combo.multiselect);
-	
-	                //Se carga el identificador del padre del patron
-	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
-	                settings.name = $(this).attr('name');
 	                
 	                // Definir el elemento del DOM sobre el que se añadirá el componente siempre y cuando no se haya definido ya en los parámetros de inicialización
 	                if (settings.appendTo != undefined) {
@@ -1899,6 +1932,9 @@
 	
 	                //Se audita el componente
 	                $.rup.auditComponent('rup_combo', 'init');
+	                
+	                // Comunicar la inicialización del componente.
+	                $('label[for="' + settings.id + '"]').triggerHandler('comboIsInitialized');
 	            }
         	}).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
