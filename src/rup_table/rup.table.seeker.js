@@ -557,6 +557,13 @@
 	                		'class': 'editable customelement form-control-customer'
 	                	}).removeAttr('readOnly');
 	                	
+	                	// Añadir label oculto que se usará principalmente para la gestión de los combos enlazados.
+	                	$('<label></label>', {
+	                		'for': $elem.attr('id'), 
+	                		'class': "d-none", 
+	                		'text': $elem.attr('placeholder')
+	                	}).insertAfter($elem);
+	                	
 	                	// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
 	                		searchEditOptions = cellColModel.searchoptions;
