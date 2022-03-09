@@ -484,7 +484,7 @@
     					}
     					// Inicializar componente.
     					element['rup_' + column.rupType](column.editoptions);
-    				} else {
+    				} else if (column.searchoptions === undefined) {
     					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
     				}
     			} else if (!column.editable) {
