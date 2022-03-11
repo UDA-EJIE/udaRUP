@@ -151,6 +151,18 @@
             let ctx = dt.context[0];
             return ctx.multiselection.selectedIds;
         },
+        /**
+         * Devuelve el identificador de la última fila seleccionada. 
+         *
+         * @function getLastSelectedId
+         * @since UDA 5.0.3
+         * @return {string} - Identificador del último registro seleccionado.
+         * @example
+         * $("#idTable").rup_table("getLastSelectedId");
+         */
+        getLastSelectedId: function () {
+        	return $('#' + this[0].id).DataTable().context[0].multiselection.lastSelectedId;
+        },
         //$("#idTable").rup_table("getSelectedRows");
         getSelectedRows: function () {
         	let dt = $('#' + this[0].id).DataTable();

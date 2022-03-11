@@ -10,6 +10,7 @@ Genera un table
 
 * [rup.table](#module_rup.table)
     * [~isInitialized()](#module_rup.table..isInitialized) ⇒ <code>boolean</code>
+    * [~getLastSelectedId()](#module_rup.table..getLastSelectedId) ⇒ <code>string</code>
     * [~_initOptions(options)](#module_rup.table.._initOptions)
     * [~comparePKs(firstRow, secondRow)](#module_rup.table..comparePKs) ⇒ <code>boolean</code>
     * [~blockPKEdit(ctx, actionType)](#module_rup.table..blockPKEdit)
@@ -36,6 +37,18 @@ Indica si un rup_table ya ha sido inicializado sobre el elemento con el identifi
 **Example**  
 ```js
 $("#idTable").rup_table("isInitialized");
+```
+<a name="module_rup.table..getLastSelectedId"></a>
+
+### rup.table~getLastSelectedId() ⇒ <code>string</code>
+Devuelve el identificador de la última fila seleccionada.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>string</code> - - Identificador del último registro seleccionado.  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idTable").rup_table("getLastSelectedId");
 ```
 <a name="module_rup.table.._initOptions"></a>
 
