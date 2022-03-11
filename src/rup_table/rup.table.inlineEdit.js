@@ -919,7 +919,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				//Convertir a input.
-				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
+				var searchRupType = (cellColModel.editoptions !== undefined && cellColModel.editoptions.rupType !== undefined) ? cellColModel.editoptions.rupType : cellColModel.rupType;
 				var colModelName = cellColModel.name;
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
@@ -939,8 +939,8 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-				if(searchRupType!==undefined) {
-					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+				if(searchRupType !== undefined && cellColModel.editoptions) {
+					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
 					}
