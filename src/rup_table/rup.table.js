@@ -64,10 +64,12 @@
     // DEFINICIÓN DE MÉTODOS RUP
     //*******************************
     $.fn.rup_table('extend', {
-        getRupValue: function () {
-            return null;
+    	getRupValue: function () {
+        	return console.warn($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.warnings.methodNotAvailable')));
         },
-        setRupValue: function () {}
+        setRupValue: function () {
+        	return console.warn($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.warnings.methodNotAvailable')));
+        }
     });
 
     //*******************************
@@ -116,12 +118,10 @@
 				}
 			}, 0);
          */
-        createButton: function (props, pos) {
-            var dt = $('#' + this[0].id).DataTable();
-            var ctx = dt.context[0];
-            if (pos === undefined) {
-                pos = 0;
-            }
+        createButton: function (props, pos = 0) {
+            const dt = $(this).DataTable();
+            const ctx = dt.context[0];
+            
             if (ctx.oInit.buttons !== undefined && props !== undefined) {
                 if (props.custom === undefined) {
                     props.custom = true;
@@ -140,9 +140,8 @@
                     custom: props.custom
                 });
             } else {
-                alert('Esta función requiere el plugin de buttons y 2 parámetros.');
+            	console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongParams')));
             }
-
         },
         /**
          * Elimina el botón especificado.
@@ -154,11 +153,13 @@
          * $("#idTable").rup_table("removeButton", $('#exampleeditButton_1'));
          */
         removeButton: function (selector) {
-            var dt = $('#' + this[0].id).DataTable();
-            var ctx = dt.context[0];
+        	const dt = $(this).DataTable();
+        	const ctx = dt.context[0];
 
-            if (ctx.oInit.buttons !== undefined) {
+            if (ctx.oInit.buttons !== undefined && selector !== undefined) {
                 dt.buttons(selector).remove();
+            } else {
+            	console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongParam')));
             }
         },
         /**
@@ -172,11 +173,13 @@
          * $("#idTable").rup_table("disableButton", $('#exampleeditButton_1'), true);
          */
         disableButton: function (selector, contextMenu) {
-            var dt = $('#' + this[0].id).DataTable();
-            var ctx = dt.context[0];
+        	const dt = $(this).DataTable();
+        	const ctx = dt.context[0];
 
-            if (ctx.oInit.buttons !== undefined) {
+            if (ctx.oInit.buttons !== undefined && selector !== undefined && contextMenu !== undefined) {
                 dt.buttons(selector).disable(contextMenu);
+            } else {
+            	console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongParams')));
             }
         },
         /**
@@ -191,11 +194,13 @@
          * $("#idTable").rup_table("enableButton", $('#exampleeditButton_1'), true, false);
          */
         enableButton: function (selector, flag, contextMenu) {
-            var dt = $('#' + this[0].id).DataTable();
-            var ctx = dt.context[0];
+        	const dt = $(this).DataTable();
+        	const ctx = dt.context[0];
 
-            if (ctx.oInit.buttons !== undefined) {
+            if (ctx.oInit.buttons !== undefined && selector !== undefined && flag !== undefined && contextMenu !== undefined) {
                 dt.buttons(selector).enable(flag, contextMenu);
+            } else {
+            	console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongParams')));
             }
         },
         /**
@@ -208,8 +213,7 @@
          * $("#idTable").rup_table("getContext");
          */
         getContext: function () {
-            let dt = $('#' + this[0].id).DataTable();
-            return dt.context[0];
+            return $(this).DataTable().context[0];
         },
         /**
          * Devuelve los identificadores de los elementos seleccionados.
@@ -221,9 +225,7 @@
          * $("#idTable").rup_table("getSelectedIds");
          */
         getSelectedIds: function () {
-            let dt = $('#' + this[0].id).DataTable();
-            let ctx = dt.context[0];
-            return ctx.multiselection.selectedIds;
+            return $(this).DataTable().context[0].multiselection.selectedIds;
         },
         /**
          * Devuelve el identificador de la última fila seleccionada.
@@ -235,7 +237,7 @@
          * $("#idTable").rup_table("getLastSelectedId");
          */
         getLastSelectedId: function () {
-        	return $('#' + this[0].id).DataTable().context[0].multiselection.lastSelectedId;
+        	return $(this).DataTable().context[0].multiselection.lastSelectedId;
         },
         /**
          * Devuelve los campos y valores de las filas seleccionadas.
@@ -247,17 +249,18 @@
          * $("#idTable").rup_table("getSelectedRows");
          */
         getSelectedRows: function () {
-        	let dt = $('#' + this[0].id).DataTable();
-            let ctx = dt.context[0];
-            let page = dt.page() + 1;
-            let rows = '';
-            if(ctx.json !== undefined && ctx.json.rows !== undefined && ctx.json.rows.length > 0){
-            	let selecteds = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
+        	const dt = $(this).DataTable();
+        	const ctx = dt.context[0];
+        	const page = dt.page() + 1;
+            let rows = [];
+            
+            if (ctx.json !== undefined && ctx.json.rows !== undefined && ctx.json.rows.length > 0) {
+            	const selecteds = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
                     return v.page === page;
                 });
-            	if(selecteds.length === 1){
+            	if (selecteds.length === 1) {
             		rows = ctx.json.rows[selecteds[0].line];
-            	}else if(selecteds.length > 1){
+            	} else if (selecteds.length > 1) {
             		rows = [];
                     $.each(selecteds, function (index) {
                     	rows.push(ctx.json.rows[selecteds[index].line]);
@@ -276,9 +279,7 @@
          * $("#idTable").rup_table("getSelectedRowPerPage");
          */
         getSelectedRowPerPage: function () {
-        	let dt = $('#' + this[0].id).DataTable();
-            let ctx = dt.context[0];
-            return ctx.multiselection.selectedRowsPerPage;
+        	return $(this).DataTable().context[0].multiselection.selectedRowsPerPage;
         },
         /**
          * Limpia todas las filas de la tabla y la deja vacía.
@@ -300,7 +301,7 @@
          * $("#idTable").rup_table("reload");
          */
         reload: function () {
-        	$('#' + this[0].id).DataTable().ajax.reload();
+        	$(this).DataTable().ajax.reload();
         }
     });
 

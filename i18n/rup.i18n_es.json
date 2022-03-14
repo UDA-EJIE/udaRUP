@@ -328,12 +328,17 @@
     "element(s)": "Elemento(s)",
     "elements": "Elementos",
     "emptyChanges": "No se han realizado cambios.",
+    "warnings": {
+      "methodNotAvailable": "Método no disponible."
+    },
     "errors": {
       "errcap": "Error",
       "errorOnGet": "Se ha producido un error al tratar de recuperar los datos",
       "model": "Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "No hay datos para procesar",
       "nourl": "No se ha especificado una URL",
+      "wrongParam": "No se ha recibido el parámetro esperado.",
+      "wrongParams": "No se han recibido los parámetros esperados.",
       "wrongColModel": "No existe ni \"editoptions\" ni \"searchoptions\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
       "noMasterPKField": {
         "msg": "Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
