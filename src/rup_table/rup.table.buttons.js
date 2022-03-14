@@ -2153,7 +2153,7 @@
                                 title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
                                 OKFunction: function () {
                                     // Abrimos el formulario
-                                    if (ctx.oInit.seeker !== undefined) {
+                                    if (ctx.oInit.seeker !== undefined && ctx.oInit.seeker.activate) {
                                         DataTable.Api().seeker.limpiarSeeker(dt, ctx); // Y deselecionamos los checks y seekers
                                     } else {
                                         if (ctx.oInit.multiSelect !== undefined) {
