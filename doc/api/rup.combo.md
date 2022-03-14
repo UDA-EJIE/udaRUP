@@ -241,6 +241,7 @@ Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identifi
 
 **Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
 **Returns**: <code>boolean</code> - - Indica si ya ha sido inicializado un combo sobre el elemento.  
+**Since**: UDA 5.0.3  
 **Example**  
 ```js
 $("#idCombo").rup_combo("isInitialized");
