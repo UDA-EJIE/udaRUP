@@ -406,6 +406,7 @@
          * Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identificador provisto.
          *
          * @function isInitialized
+         * @since UDA 5.0.3
          * @return {boolean} - Indica si ya ha sido inicializado un combo sobre el elemento.
          * @example
          * $("#idCombo").rup_combo("isInitialized");
