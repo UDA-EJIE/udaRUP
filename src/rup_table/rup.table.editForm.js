@@ -959,10 +959,7 @@
                                 ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
                                 DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT');
                             } else { //mantener y borrar
-                                var idForm = ctx.oInit.formEdit.idForm;
-                                idForm.resetForm();
-                                jQuery('.ui-selectmenu-status', idForm).text('--');
-                                jQuery('[ruptype=\'combo\']', idForm).rup_combo('clear');
+                            	ctx.oInit.formEdit.idForm.resetForm();
                             }
 
                             ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
