@@ -315,12 +315,18 @@
              * $("#formValidaciones").rup_validate("resetForm");
              */
             resetForm: function () {
-                var self = this,
-                    settings = self.data('settings');
+            	const self = this,
+                	settings = self.data('settings'),
+                    combos = $('[ruptype=\'combo\']', self);
 
                 // En caso de mostrarse el feedback de error se oculta.
                 if (settings != null && settings.feedback !== undefined && settings.showErrorsInFeedback) {
-                    settings.feedback.rup_feedback('hide');
+                	settings.feedback.rup_feedback('hide');
+                }
+                
+                // Limpiar los combos por completo. Es importante hacerlo antes de la llamada a "resetForm" porque si no la limpieza de los labels no es llevada a cabo.
+                if (combos.length > 0) {
+                	combos.rup_combo('clear');
                 }
 
                 // Se reinician los mensajes de error.
