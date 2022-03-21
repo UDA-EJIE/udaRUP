@@ -624,6 +624,8 @@
 	                //Se carga desde bbdd y se actualiza la fila
 	                dt.row(idRow).data(row);
 	                ctx.json.rows[idRow] = row;
+	                // Recrear iconos del responsive en caso de ser necesario.
+	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
 	                var identy = idRow + 1;
 	                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
