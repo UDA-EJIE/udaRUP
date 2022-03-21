@@ -2036,7 +2036,7 @@
         rowStriping: false,
         typeAhead: 1000,
         legacyWrapMode: false,
-        open: function () {
+        open: function (event) {
         	const comboId = $.rup_utils.escapeId(this.id);
         	var anchoCombo = $('#' + comboId + '-button').outerWidth();
 
@@ -2049,6 +2049,7 @@
                 $('#' + comboId + '-menu').parent('div').outerWidth(anchoCombo);
                 $('#' + comboId + '-menu').outerWidth(anchoCombo);
             }
+            event.stopPropagation();
         }
     };
 
