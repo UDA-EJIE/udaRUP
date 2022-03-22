@@ -223,6 +223,11 @@
             		}
         		});
         	}
+        	// Asigna el valor recibido como el seleccionado (evita problemas con los enlazados).
+        	else if (param != undefined && param != '') {
+        		data.setRupValue = param;
+        		data.settings.selected = param;
+        	}
         	
             //Tipo de combo
             if (this.length === 0 || !data.settings.multiselect) {
