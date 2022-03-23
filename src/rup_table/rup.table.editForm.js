@@ -127,6 +127,9 @@
             }
         }
         
+        // Establece el valor de las propiedades del formulario de edición.
+        ctx.oInit.formEdit.loadSpinner = $.type(ctx.oInit.formEdit.loadSpinner) === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
+        
         ctx.oInit.formEdit.detailForm.settings = {
             type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
             width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
