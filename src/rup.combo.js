@@ -436,6 +436,8 @@
             }
             //Vaciar combo, deshabilitarlo
             $(this).empty().append('<option></option>').rup_combo('disable');
+            // Eliminar valor seleccionado.
+            $(this).data('settings').selected = undefined;
             //Eliminar texto que se muestra
             $('#' + $(this).attr('id') + '-button span:first-child').text('');
             //Propagar evento de selección a hijos (recursivo)
@@ -1116,14 +1118,9 @@
 
             //Tipo de combo
             if (!settings.multiselect) {
-                //Simple > selectmenu
-                $('#' + settings.id).selectmenu(settings);
-                if (settings.selected !== undefined && settings.selected !== '') {
-                    $('#' + settings.id).rup_combo('setRupValue', settings.selected);
-                } else {
-                    $('#' + settings.id).rup_combo('setRupValue', '');
-                }
-
+            	// Simple > selectmenu
+            	$('#' + settings.id).selectmenu(settings);
+                $('#' + settings.id).rup_combo('setRupValue', settings.selected ?? '');
             } else {
                 //Multiple > multiselect
                 $('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
