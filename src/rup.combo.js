@@ -226,7 +226,7 @@
          * $("#idCombo").rup_combo("select", [0,2]);
          */
         select: function (param) {
-        	let data = $(this).data();
+        	const data = $(this).data();
         	
         	// Cuando el identificador está cifrado por Hdiv, hay que asegurarse de tener siempre el valor obtenido a partir de la fuente definida en la inicialización del componente
         	if (data.values != undefined && $.fn.isHdiv(param) && (data.selectedValueKey == undefined || param != data.values[data.selectedValueKey].value)) {
