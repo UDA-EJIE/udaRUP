@@ -1349,6 +1349,16 @@
                 		', #back_' + tableId+'_detail_navigation' +
                 		', #forward_' + tableId+'_detail_navigation' +
                 		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+                
+                // Reiniciar los componentes rup_combo que pueda contener el formulario de edición.
+                if (ctx.oInit.colModel !== undefined) {
+            		$.each(ctx.oInit.colModel, function (key, column) {
+            			// Comprobar que es un componente combo y editable.
+            			if (column.editable && column.rupType === 'combo') {
+            				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
+            			}
+            		});
+            	}
             });
 
             // Actualizar la última posición movida

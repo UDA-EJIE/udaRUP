@@ -180,6 +180,24 @@
 
         },
         /**
+         * Reinicia por completo el componente, incluyendo sus ajustes. 
+         *
+         * @function hardReset
+         * @since UDA 5.0.3
+         * @example
+         * $("#idCombo").rup_combo("hardReset");
+         */
+        hardReset: function () {
+        	const $self = $(this),
+        		settings = $self.data('settings');
+        	
+        	settings.disabled = undefined;
+        	settings.selected = undefined;
+        	settings.ultimaLlamada = undefined;
+        	settings.ultimosValores = undefined;
+        	$self.rup_combo('select', '');
+        },
+        /**
          * Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
          *
          * @function  checkAll
@@ -610,8 +628,10 @@
                 $('#' + settings.id).removeClass('inited');
                 wasInited = !!1;
 
-                //Vaciar combo, quitarle valor y deshabilitar
-                $('#' + settings.id).rup_combo('disableChild');
+                // Vaciar, quitar el valor y deshabilitar el combo.
+                if (!$('#' + settings.id).rup_combo('isDisabled')) {
+                	$('#' + settings.id).rup_combo('disableChild');
+                }
 
                 if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
                     //LOCAL
