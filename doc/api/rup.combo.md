@@ -17,6 +17,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
     * [~clear()](#module_rup_combo..clear)
     * [~change()](#module_rup_combo..change)
     * [~reset()](#module_rup_combo..reset)
+    * [~hardReset()](#module_rup_combo..hardReset)
     * [~checkAll()](#module_rup_combo..checkAll)
     * [~select(param)](#module_rup_combo..select)
     * [~selectLabel(param)](#module_rup_combo..selectLabel)
@@ -125,6 +126,17 @@ Realiza una reinicizalización del estado del componente.
 **Example**  
 ```js
 $("#idCombo").rup_combo("reset");
+```
+<a name="module_rup_combo..hardReset"></a>
+
+### rup_combo~hardReset()
+Reinicia por completo el componente, incluyendo sus ajustes.
+
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idCombo").rup_combo("hardReset");
 ```
 <a name="module_rup_combo..checkAll"></a>
 
