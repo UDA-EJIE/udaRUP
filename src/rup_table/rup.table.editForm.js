@@ -481,9 +481,14 @@
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
     						}
-    					} else if (column.rupType == 'autocomplete' && column.editoptions.menuAppendTo === undefined) {
-    						// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
-    						column.editoptions.menuAppendTo = 'body';
+    					} else if (column.rupType == 'autocomplete') {
+    						// Establece el valor por defecto.
+    						column.editoptions.defaultValue = row[column.name];
+    						
+    						if (column.editoptions.menuAppendTo === undefined) {
+    							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
+    							column.editoptions.menuAppendTo = 'body';
+    						}
     					}
     					// Inicializar componente.
     					element['rup_' + column.rupType](column.editoptions);
@@ -1353,15 +1358,22 @@
                 		', #forward_' + tableId+'_detail_navigation' +
                 		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
                 
-                // Reiniciar los componentes rup_combo que pueda contener el formulario de edición.
+                // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
                 if (ctx.oInit.colModel !== undefined) {
-            		$.each(ctx.oInit.colModel, function (key, column) {
-            			// Comprobar que es un componente combo y editable.
-            			if (column.editable && column.rupType === 'combo') {
-            				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
-            			}
-            		});
-            	}
+                	$.each(ctx.oInit.colModel, function (key, column) {
+                		if (column.editable) {
+                			if (column.rupType === 'combo') {
+                				// Realizar una limpieza total para asegurar un buen funcionamiento.
+                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
+                			} else if (column.rupType === 'autocomplete') {
+                				// Establecer el valor por defecto del componente.
+                				const newDefaultValue = ctx.json.rows.find(row => row.id === rowSelected.id)[column.name];
+                				column.editoptions.defaultValue = newDefaultValue;
+                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
+                			}
+                		}
+                	});
+                }
             });
 
             // Actualizar la última posición movida
