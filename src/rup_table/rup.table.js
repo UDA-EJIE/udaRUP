@@ -401,7 +401,7 @@
 
                 $.each(opts.primaryKey, function (index, key) {
                     // Comprueba si la primaryKey es un subcampo
-                	if (json.hasOwnProperty(key)) {
+                	if (Object.prototype.hasOwnProperty.call(json, key)) {
                 		id = id + json[key];
                 	} else if (key.indexOf('.') !== -1) {
                 	    id = $self._getDescendantProperty(json, key);
