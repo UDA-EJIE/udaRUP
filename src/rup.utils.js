@@ -1052,7 +1052,7 @@
 			// Nos aseguramos de que el campo _label provenga de un autocomplete
 			Object.keys(flattenedObj).filter(function (key) {
 				if (/_label$/.test(key)) {
-					if (flattenedObj.hasOwnProperty(key.substring(0, key.indexOf('_label')))) {
+					if (Object.prototype.hasOwnProperty.call(flattenedObj, key.substring(0, key.indexOf('_label')))) {
 						// Necesario hacer un split por si la clave a usar está anidada
 						const keys = key.split('.');
 						
