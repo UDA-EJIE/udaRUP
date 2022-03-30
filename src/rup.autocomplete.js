@@ -718,17 +718,18 @@ input.
 						response($.map(data, function (item) {
 							// Si se define un sourceParam se serializan los parámetros desde el cliente en vez de desde el bean.
 							if (settings.sourceParam !== undefined) {
-								if (settings.sourceParam.label !== undefined) {
-									item.label = item[settings.sourceParam.label];
-								}
-								
-								if (settings.sourceParam.category !== undefined && settings.sourceParam.category === 'filter') {
+								if (settings.sourceParam.category === 'filter') {
+									if (settings.sourceParam.label !== undefined) {
+										item.label = item[settings.sourceParam.label];
+									}
 									if (settings.sourceParam.data !== undefined) {
 										item.value = item[settings.sourceParam.data];
 									}
 									if (settings.sourceParam.category !== undefined) {
 										item.category = item[settings.sourceParam.category];
 									}
+								} else if (item.label === undefined && item[settings.sourceParam.label] !== undefined) {
+									item.label = item[settings.sourceParam.label];
 								}
 							}
 							var labelLimpio = item.label;
