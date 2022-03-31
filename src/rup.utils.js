@@ -259,12 +259,13 @@
 		 * @name jQuery.rup_utils#queryStringToJson
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
+		 * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
 		 * @returns {object} - Objeto JSON creado a partir de la query string indicada.
 		 * @example
 		 * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
 		 * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
 		 */
-		queryStringToJson: function (queryString) {
+		queryStringToJson: function (queryString, serializerSplitter = '&') {
 
 			function setValue(root, path, value) {
 				if (path.length > 1) {
@@ -296,7 +297,7 @@
 			}
 
 			var nvp = [],
-				nvpBruto = queryString.split('&'), data = {},
+				nvpBruto = queryString.split(serializerSplitter), data = {},
 				pair, name, value, path, first;
 			
 			//Se revisa la correcta gestion de los campos
@@ -306,7 +307,7 @@
 				if(pair.length >= 2){
 					nvp.push(nvpBruto[i]); 
 				} else if(pair.length == 1){
-					nvp[i-1] = nvp[i-1] + '&' + nvpBruto[i]; 
+					nvp[i-1] = nvp[i-1] + serializerSplitter + nvpBruto[i]; 
 				}
 			}
 

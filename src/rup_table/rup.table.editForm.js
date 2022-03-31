@@ -158,7 +158,7 @@
                 ctx.oInit.formEdit.okCallBack = false;
             }
             // Si es igual no se debe hacer nada
-            var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
+            var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
             if (ctx.oInit.formEdit.dataOrigin === formSerializado || !ctx.oInit.formEdit.detailForm.settings.cancelDialog) {
                 _cancelPopup(ctx);
                 return true;
@@ -699,7 +699,7 @@
 	        $(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
 	
 	        // Se guardan los datos originales
-	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
+	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	        ctx.oInit.formEdit.okCallBack = false;
 	
 	
@@ -720,10 +720,10 @@
 	        	}
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm);
+	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -783,10 +783,10 @@
 	            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm);
+	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -969,7 +969,7 @@
                             	ctx.oInit.formEdit.idForm.resetForm();
                             }
 
-                            ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
+                            ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
                             if (ctx.oInit.multiSelect !== undefined) {
                                 ctx.oInit.feedback.type = 'noBorrar';
                                 dt.row().multiSelect();
@@ -1807,11 +1807,12 @@
      * @since UDA 3.6.0 // Table 1.2.0
      *
      * @param {object} idForm - Formulario que alberga los datos.
+     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
      *
      * @return {string} - Devuelve los datos del formulario serializados
      *
      */
-    function _editFormSerialize(idForm) {
+    function _editFormSerialize(idForm, serializerSplitter = '&') {
         let serializedForm = '';
         let idFormArray = idForm.formToArray();
         let ultimo = '';
@@ -1837,12 +1838,12 @@
         			valor = '[' + count++ + ']'; //y se mete el array
         		}
 	            serializedForm += (obj.name + valor + '=' + obj.value);
-                serializedForm += '&';
+                serializedForm += serializerSplitter;
                 ultimo = obj.name;
         	}
         });
-        //aseguramos que el ultimo caracter no es el &.
-        serializedForm = serializedForm.substring(0,serializedForm.length - 1);
+        // Evitar que el último carácter sea "&" o el separador definido por el usuario.
+        serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
         return serializedForm;
     }
 
