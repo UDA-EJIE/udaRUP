@@ -35,6 +35,7 @@ $("#idComponente").rup_table({
                 }
             }
         },
+		serializerSplitter: '&@&',
         cancelDeleteFunction: function () {
             console.log('Ha cancelado la acción de eliminar.');
         },
@@ -67,8 +68,17 @@ formEdit: {
 Mostrar spinner de carga hasta que el formulario sea visible:
 ```js
 formEdit: {
-    // No está activado por defecto
+    // Activo por defecto
     loadSpinner: true
+}
+```
+&nbsp;
+
+Propiedad que permitirá evitar errores en aquellos formularios en los que el separador por defecto ("&") sea considerado un carácter válido:
+```js
+formEdit: {
+    // La cadena por defecto es: '&'
+    serializerSplitter: '&@&'
 }
 ```
 &nbsp;
