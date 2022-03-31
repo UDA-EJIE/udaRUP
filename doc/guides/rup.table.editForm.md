@@ -35,7 +35,7 @@ $("#idComponente").rup_table({
                 }
             }
         },
-		serializerSplitter: '&@&',
+        serializerSplitter: '&@&',
         cancelDeleteFunction: function () {
             console.log('Ha cancelado la acción de eliminar.');
         },
