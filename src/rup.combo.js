@@ -278,7 +278,7 @@
                     var hijos = $(this).data('childs');
                     if (hijos !== undefined) {
                         for (let i = 0; i < hijos.length; i = i + 1) {
-                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
+                            $('#' + hijos[i]).rup_combo('reload');
                         }
                     }
                 }
@@ -1807,7 +1807,7 @@
 	
 	                    //Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
 	                    if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
-	                        $('#' + settings.id).rup_combo('reload', settings.id);
+	                        $('#' + settings.id).rup_combo('reload');
 	                    }
 	                    multiChange(settings);
 	                    $('#' + settings.id).addClass('inited');
@@ -1940,7 +1940,7 @@
 	                    var hijos = $(this).data('childs');
 	                    if (hijos !== undefined) {
 	                        for (let i = 0; i < hijos.length; i = i + 1) {
-	                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
+	                            $('#' + hijos[i]).rup_combo('reload');
 	                        }
 	                    }
 	                });
