@@ -1052,6 +1052,9 @@
             }
             for (let i = 0; i < array.length; i = i + 1) {
                 id = array[i];
+                const settings = $('#' + id).data('settings'),
+                	lastLoop = i + 1 === array.length;
+                
                 //Si tiene seleccionado la primera opción puede que está seleccionada opción vacia
                 if ($('#' + id).rup_combo('index') === 0) {
                     texto = $('#' + id + '-button span:first-child').text();
@@ -1063,8 +1066,8 @@
                 }
 
                 //Si el valor de algún padre es null (no se ha cargado aún)
-                if ($('#' + id).data('settings').blank !== undefined && $('#' + id).data('settings').blank !== null) {
-                    parentBlankValue = $('#' + id).data('settings').blank;
+                if (settings.blank !== undefined && settings.blank !== null) {
+                    parentBlankValue = settings.blank;
                 } else {
                     parentBlankValue = '';
                 }
@@ -1072,18 +1075,11 @@
                     return null;
                 }
 
+                // Cuando el componente se use en la edición en línea de la tabla, se utilizará el campo definido por esta. También se evita la inserción de "&" o "multiValueTokenAux" en el último bucle.
                 if (remote) {
-                    retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
+                	retorno += (settings.inlineEditFieldName ?? $('#' + id).attr('name')) + '=' + $('#' + id).val() + (lastLoop ? '' : '&');
                 } else {
-                    retorno += $('#' + id).val() + multiValueTokenAux;
-                }
-            }
-            //Evitar & o multiValueToken finales
-            if (retorno !== '') {
-                if (remote) {
-                    retorno = retorno.substring(0, retorno.length - 1);
-                } else {
-                    retorno = retorno.substring(0, retorno.length - multiValueTokenAux.length);
+                	retorno += $('#' + id).val() + (lastLoop ? '' : multiValueTokenAux);
                 }
             }
             return retorno;
