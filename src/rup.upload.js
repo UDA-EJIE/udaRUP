@@ -378,7 +378,12 @@
         },
         downloadTemplate: function (o) {
             return $.proxy(o.options.self._ADAPTER.downloadTemplate, this)(o);
-        }
+        },
+        // By default, the file input field is replaced with a clone after
+        // each input field change event. This is required for iframe transport
+        // queues and allows change events to be fired for the same file
+        // selection, but can be disabled by setting the following option to false:
+        replaceFileInput: false
     };
 
     $.fn.rup_upload.pif = {};
