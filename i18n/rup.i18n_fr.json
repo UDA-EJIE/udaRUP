@@ -13,7 +13,8 @@
   },
   "rup_autocomplete": {
     "ajaxError": "fr_Se ha producido un error al recuperar los datos del servidor",
-    "showAllItems": "fr_Mostrar todos los resultados"
+    "showAllItems": "fr_Mostrar todos los resultados",
+	"menuAppendToError": "fr_En el autocomplete con identificador {0}, es necesario especificar un selector válido para la propiedad menuAppendTo."
   },
   "rup_blockUI": {
     "cargando": "fr_Procesando, espere por favor"
@@ -32,6 +33,7 @@
     "ajaxError": "fr_Se ha producido un error al recuperar los datos del servidor",
     "blankNotDefined": "fr_[Falta literal]",
     "loadingText": "fr_Cargando...",
+	"appendToError": "fr_En el combo con identificador {0}, es necesario especificar un selector válido para la propiedad appendTo.",
     "multiselect": {
       "checkAllText": "Tout cocher",
       "checkAllTitle": "Seleccionar todos los elementos_fr",
@@ -341,12 +343,18 @@
     "element(s)": "fr_Elemento(s)",
     "elements": "fr_Elementos",
     "emptyChanges": "fr_No se han realizado cambios.",
+    "warnings": {
+      "methodNotAvailable": "fr_Método no disponible."
+    },
     "errors": {
       "errcap": "fr_Error",
       "errorOnGet": "fr_Se ha producido un error al tratar de recuperar los datos",
       "model": "fr_Las columnas de nombres son diferentes de las columnas de modelo",
       "norecords": "fr_No hay datos para procesar",
       "nourl": "fr_No se ha especificado una URL",
+      "wrongParam": "fr_No se ha recibido el parámetro esperado.",
+      "wrongParams": "fr_No se han recibido los parámetros esperados.",
+      "wrongColModel": "fr_No existe ni \"editoptions\" ni \"searchoptions\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
       "noMasterPKField": {
         "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "fr_Error en la inicialización de la tabla"
@@ -360,7 +368,7 @@
       "validateError": "fr_Se han producido los siguientes errores:<br/>"
     },
     "filter": "fr_Filtrar",
-    "first": "fr_Primero",
+    "first": "Premier",
     "formatter": {
       "baseLinkUrl": "",
       "checkbox": {
@@ -463,7 +471,7 @@
     "insertError": "fr_Error al insertar el elemento.",
     "insertOK": "fr_El elemento se ha añadido correctamente.",
     "invalidRowId": "fr_El identificador de la fila no es válido. No se puede completar la acción",
-    "last": "fr_Último",
+    "last": "Dernier",
     "modify": "fr_Editar",
     "modifyOK": "fr_El elemento se ha modificado correctamente.",
     "multiselectHeader": "fr_Seleccionar todos los elementos de la página",
@@ -484,7 +492,7 @@
       "viewtitle": "Ver fila seleccionada"
     },
     "new": "fr_Añadir",
-    "next": "fr_Siguiente",
+    "next": "Suivant",
     "noGrid": "fr_No es posible crear un mantenimiento sin un grid.",
     "noRecordsFound": "No hay registros.",
     "noReg": "fr_Seleccione un registro.",
@@ -539,7 +547,7 @@
         "searchCriteria": "fr_Criterios de búsqueda"
       }
     },
-    "previous": "fr_Anterior",
+    "previous": "Précédent",
     "save": "fr_Guardar",
     "saveAndContinue": "fr_Se perderan los cambios en los datos modificados, ¿desea continuar?",
     "search": {
@@ -597,31 +605,12 @@
         "paginationLink": "<a id='{0}' class='rup-table_linkPaginacionDetalle' href='javascript:void(0)' alt='{1}'>{1}</a>",
         "separator": "<div style='border-bottom:1px solid #D1D1D1; clear:both'></div>"
       },
-      "filter": {
-        "filterSummary": "<span id='{0}'></span>",
-        "toggleIcon1": "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>",
-        "toggleIcon2": "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>",
-        "toggleLabel": "<span id='{0}' class='rup-table-filter-toggle-label' style='color:blue;'>{1}</span><span class='cursor_pointer'>:</span>"
-      },
       "message": {
         "confirm": "<div id='rup_msgDIV_msg_icon' class='rup-message_icon-confirm'></div><div id='rup_msgDIV_msg' class='rup-message_msg-confirm white-space-normal'>{0}</div>"
       },
       "multiselection": {
         "deselectRemainingRecords": "<input type='button' id='rup_table_{0}_deselectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />",
         "selectRemainingRecords": "<input type='button' id='rup_table_{0}_selectAll' style='margin-left:1em' class='botonElementosRestantes' value='{1}' alt='{2}' />"
-      },
-      "search": {
-        "collapseIcon": "<span id='{0}' class='collapse_icon mdi mdi-chevron-right'></span>",
-        "collapseLabel": "<span id='{0}' class='collapse_label'>{1}</span><span class='cursor_pointer'>:&nbsp&nbsp</span>",
-        "collapseLayer": "<div id='{0}' class='search_collapse_layer'></div>",
-        "matchedLabel": "<span id='{0}'>{1}</span>",
-        "matchedLayer": "<div id='{0}' class='matched_layer mr-3'></div>",
-        "navClearButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
-        "navLayer": "<div id='{0}' class='search_nav_layer row no-gutters'></div>",
-        "navButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis col-3 col-sm-auto mr-sm-2' type='button' alt='{1}' disabled>{1}</button>",
-        "navSearchButton": "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
-        "searchRow": "<tr class='search_row'></tr>",
-        "searchRowHeader": "<th class='search_row_header' colspan='{0}'></th>"
       }
     },
     "titleDelAll": "fr_Eliminar los registros",

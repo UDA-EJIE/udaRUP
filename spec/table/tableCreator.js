@@ -49,14 +49,17 @@ function generateHtml(idDatatable) {
         '</div>' +
         '</div>' +
         '<div id="' + idDatatable + '_detail_div" class="rup-table-formEdit-detail d-none">' +
+    	'<div id="' + idDatatable + '_detail_form_container" class="dialog-content-material">' +
+		'<!-- El formulario será insertado mediante una llamada Ajax --> ' +
+		'</div>' +
         '<div id ="' + idDatatable + '_detail_navigation"></div>' +
         '<div class="ui-dialog-content ui-widget-content" >' +
         '<form id="' + idDatatable + '_detail_form">' +
         '<div id ="' + idDatatable + '_detail_feedback"></div>' +
         '<div class="floating_left_pad_right">' +
         '<div class="floating_left_pad_right one-column">' +
-        '<label for="id_detailForm_table">id:</label>' +
-        '<input type="text" name="id" class="formulario_linea_input" id="id_detailForm_table" />' +
+        '<label for="id_detail_table">id:</label>' +
+        '<input type="text" name="id" class="formulario_linea_input" id="id_detail_table" />' +
         '</div>' +
         '<div class="floating_left_pad_right one-column">' +
         '<label for="nombre_detail_table">Nombre:</label>' +

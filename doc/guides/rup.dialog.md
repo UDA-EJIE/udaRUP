@@ -13,6 +13,8 @@
    - [6 API](#6-api)   
    - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
    - [8   Internacionalización (i18n)](#8-internacionalización-i18n)   
+   - [9 Aspectos a tener en cuenta](#9-aspectos-a-tener-en-cuenta) 
+   - [10 Propiedades adicionales](#10-propiedades-adicionales)  
 
 <!-- /MDTOC -->
 
@@ -130,3 +132,176 @@ El acceso a cualquier tipo de literal se debe realizar de la siguiente forma (te
 ```javascript
 $.rup.i18n.base.rup_global.cerrar
 ```
+
+## 9 Aspectos a tener en cuenta
+Es importante destacar que siempre que se usen botones, es necesario definir uno con la siguiente propiedad:
+```javascript
+btnType: $.rup.dialog.LINK
+```
+
+Un ejemplo completo sería el siguiente:
+```javascript
+$('#idDialogAjaxWar').rup_dialog({
+    type: $.rup.dialog.AJAX,
+    url: '../patrones/dialogAjax' ,
+    autoOpen: true,
+    modal: true,
+    width: '650',
+    resizable: true,
+    title: 'Diálogo Ajax (War)',
+    buttons: [{
+        text: 'Aceptar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close');
+        }					
+    },
+    {
+        text: 'Enviar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close'); 
+        }
+    },
+    {
+        text: 'Abandonar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close');
+        },
+        btnType: $.rup.dialog.LINK
+    }]
+});
+```
+
+## 10 Propiedades adicionales
+```javascript
+url: '../patrones/dialogAjax'
+```
+URL de la que se obtendrá el contenido del diálogo.
+```javascript
+rupCheckStyle: true
+```
+Propiedad definida por el componente base, si se define a `true` se mostrarán los mensajes específicos del componente base marcados por la guía de estilos, es decir, si el desarrollador no cumple con la guía de estilos o desarrollo, el objeto base mostrará los mensajes advirtiendo de su incumplimiento, si se define a `false`, no se mostrarán. Esta acción queda bajo la responsabilidad de la aplicación, ya que esta propiedad no debería modificarse.
+```javascript
+type: $.rup.dialog.DIV
+```
+Propiedad que establece el tipo de diálogo a mostrar. Existen cuatro tipos diferentes: `$.rup.dialog.DIV`, `$.rup.dialog.TEXT`, `$.rup.dialog.AJAX` y `$.rup.dialog.LINK`.
+```javascript
+ajaxOptions: {
+    prueba: 'Prueba'
+}
+```
+Establece todas las propiedades para configurar la petición AJAX.
+```javascript
+showLoading: true
+```
+Esta propiedad mostrará una capa de carga de datos en los diálogos de tipo AJAX durante la carga del mismo.
+```javascript
+disabled: false
+```
+Propiedad que permite deshabilitar el diálogo.
+```javascript
+autoOpen: true
+```
+Si esta propiedad esta definida a `true`, el diálogo se abrirá automáticamente cuando se cree, en el caso de que su valor sea `false`, el diálogo se mantendrá oculto hasta que se invoque a la función `open` **(.rup_dialog('open'))**.
+```javascript
+buttons: [
+    {
+        text: 'Aceptar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close');
+        }					
+    },
+    {
+        text: 'Enviar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close'); 
+        }
+    },
+    {
+        text: 'Abandonar',
+        click: function () { 
+            $('#idDialogAjaxWar').rup_dialog('close');
+        },
+        btnType: $.rup.dialog.LINK
+    }
+]
+```
+Define los botones (literales y funciones a las que invocan) que contendrá el diálogo. La propiedad sería de tipo `array`. Donde cada elemento del `array` debe ser un objeto que define las propiedades de cada botón y el tipo del mismo.
+```javascript
+closeOnEscape: true
+```
+Especifica si se debe cerrar el diálogo cuando tenga el foco y el usuario pulse la tecla ESC.
+```javascript
+dialogClass: 'clasePersonalizada'
+```
+Propiedad que establece el/los estilos que se añadirán al dialogo para dotarlo de estilos diferentes.
+```javascript
+draggable: true
+```
+Si su valor es `true` el diálogo podrá moverse mientras se pinche sobre la cabecera, replicando así el comportamiento usado en la mayoría de interfaces gráficas.
+```javascript
+height: 'auto'
+```
+Establece la altura del diálogo en pixeles. Permite definir su valor tanto con un `string` como con un `number`.
+```javascript
+hide: null
+```
+Efecto utilizado cuando se cierra el diálogo.
+```javascript
+maxHeight: false
+```
+Altura máxima en pixeles a la que se puede llegar a redimensionar el diálogo. Permite definir su valor tanto con un `boolean` como con un `number`.
+```javascript
+maxWidth: false
+```
+Anchura máxima en pixeles o en porcentaje a la que se puede llegar a redimensionar el diálogo. Permite definir su valor tanto con un `boolean`, `number` o `string` (para porcentajes).
+```javascript
+minHeight: 100
+```
+Altura mínima en pixeles a la que se puede llegar a redimensionar el diálogo. Permite definir su valor tanto con un `boolean` como con un `number`.
+```javascript
+minWidth: 150
+```
+Anchura mínima en pixeles a la que se puede llegar a redimensionar el diálogo. Permite definir su valor tanto con un `boolean` como con un `number`.
+```javascript
+modal: false
+```
+Si se establece esta propiedad a `true` el diálogo se abrirá de forma modal, por encima del resto de elementos.
+```javascript
+position: 'center' 
+```
+Esta propiedad especifica dónde debe mostrarse el diálogo. Sus posibles valores son: 
+- Un simple `string` representando cualquiera de las siguientes posiciones: 'center', 'left', 'right', 'top', 'bottom'. 
+- Un `array` con las coordenadas x, y en píxeles (ej. [350,100]). 
+- Un `array` con `string` que representan la posición (ej. ['right','top']).
+```javascript
+resizable: true
+```
+Si se establece esta propiedad a `true`, el diálogo será redimensionable.
+```javascript
+show: ''
+```
+Efecto a realizar cuando se abre el diálogo.
+```javascript
+title: 'Título personalizado'
+```
+Establece el título de la ventana. Puede ser cualquier código HTML válido.
+```javascript
+width: 300
+```
+Establece la anchura del diálogo en píxeles.
+```javascript
+open: function(event, ui) {}
+```
+Evento que se lanza cuando se abre el diálogo.
+```javascript
+close: function(event, ui) {}
+```
+Evento que se lanza a la hora de cerrar el diálogo.
+```javascript
+beforeClose: function(event, ui) {}
+```
+Evento que se lanza justo antes de que se cierre el dialogo, si este evento devuelve `false`, se anulará la acción de cierre y el dialogo seguirá abierto.
+```javascript
+adapter: 'dialog_material'
+```
+Permite cambiar el aspecto visual del componente. Existen dos tipos diferentes: `dialog_material` y `dialog_bootstrap`.

@@ -14,6 +14,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~init(ctx)](#module_rup.table.editForm..init)
     * [~addValidation(ctx)](#module_rup.table.editForm..addValidation)
     * [~loadSaveDialogForm(ctx, actionType, row)](#module_rup.table.editForm..loadSaveDialogForm) ⇒ <code>object</code>
+    * [~formInitializeRUP(ctx, row, form)](#module_rup.table.editForm..formInitializeRUP)
     * [~openSaveDialog(actionType, dt, idRow, customTitle)](#module_rup.table.editForm..openSaveDialog)
     * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url, isDeleting)](#module_rup.table.editForm.._callSaveAjax)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
@@ -27,7 +28,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~getLineByPageSelected(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelected) ⇒
     * [~getLineByPageSelectedReverse(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelectedReverse) ⇒
     * [~_deleteAllSelects(dt)](#module_rup.table.editForm.._deleteAllSelects)
-    * [~_editFormSerialize(idForm)](#module_rup.table.editForm.._editFormSerialize) ⇒ <code>string</code>
+    * [~_editFormSerialize(idForm, [serializerSplitter])](#module_rup.table.editForm.._editFormSerialize) ⇒ <code>string</code>
     * [~_comprobarSeeker(row, ctx, idRow)](#module_rup.table.editForm.._comprobarSeeker)
     * [~_blockPKeditForm(ctx, actionType)](#module_rup.table.editForm.._blockPKeditForm)
     * [~_addChildIcons(ctx)](#module_rup.table.editForm.._addChildIcons)
@@ -90,9 +91,23 @@ Función que gestiona la carga del diálogo de añadir o editar.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ctx | <code>object</code> | Contexto del Datatable. |
+| ctx | <code>object</code> | Contexto de la tabla. |
 | actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
-| row | <code>object</code> | Datos del formulario para cargar lo. |
+| row | <code>object</code> | Datos para alimentar los campos del formulario. |
+
+<a name="module_rup.table.editForm..formInitializeRUP"></a>
+
+### rup.table.editForm~formInitializeRUP(ctx, row, form)
+Detecta los componentes RUP del formulario y los inicializa.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 5.0.2 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto de la tabla. |
+| row | <code>object</code> | Datos para alimentar los campos del formulario. |
+| form | <code>object</code> | Formulario en el que hay que inicializar los componentes. |
 
 <a name="module_rup.table.editForm..openSaveDialog"></a>
 
@@ -279,16 +294,17 @@ Metodo que elimina todos los registros seleccionados.
 
 <a name="module_rup.table.editForm.._editFormSerialize"></a>
 
-### rup.table.editForm~\_editFormSerialize(idForm) ⇒ <code>string</code>
+### rup.table.editForm~\_editFormSerialize(idForm, [serializerSplitter]) ⇒ <code>string</code>
 Método que serializa los datos del formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  
 **Since**: UDA 3.6.0 // Table 1.2.0  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| idForm | <code>object</code> | Formulario que alberga los datos. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| idForm | <code>object</code> |  | Formulario que alberga los datos. |
+| [serializerSplitter] | <code>string</code> | <code>&quot;&amp;&quot;</code> | Cadena a usar para separar los campos. |
 
 <a name="module_rup.table.editForm.._comprobarSeeker"></a>
 

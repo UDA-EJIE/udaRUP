@@ -77,8 +77,12 @@ Estas son las ramas que existen actualmente en los diferentes proyectos de UDA.
 
 * *master* : Contiene la última versión estable de la aplicación. Sobre esta versión se realizan los tags.
 * *develop* : Rama de desarrollo principal.
-* *support-2.x* : Contiene la última versión estable de la rama 2.x de UDA. Se mantiene para realizar correcciones de errores.
-* *support-2.x* : Rama de desarrollo para implementar los correctivos de la rama 2.x de UDA.
+* *develop-4.x* : Rama de desarrollo para implementar los correctivos de la rama 4.x.x de UDA.
+* *develop-3.x* : Rama de desarrollo para implementar los correctivos de la rama 3.x.x de UDA.
+* *develop-2.x* : Rama de desarrollo para implementar los correctivos de la rama 2.x.x de UDA.
+* *support-4.x* : Contiene la última versión estable de la rama 4.x.x de UDA. Se mantiene para realizar correcciones de errores.
+* *support-3.x* : Contiene la última versión estable de la rama 3.x.x de UDA. Se mantiene para realizar correcciones de errores.
+* *support-2.x* : Contiene la última versión estable de la rama 2.x.x de UDA. Se mantiene para realizar correcciones de errores.
 
 Las ramas **hotfix**, **feat** y **fix** se crean dependiendo de las necesidades que surjen en el proyecto.
 

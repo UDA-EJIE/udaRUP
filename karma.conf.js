@@ -94,7 +94,7 @@ module.exports = function (config) {
             '/x21aAppWar/patrones/': '/',
             '/externals/icons/': '/dist/css/externals/icons',
             '/x21aResponsive/patrones/': '/dist/css/',
-            '/x21aStatics/5x/rup': '/dist'
+            '/x21aStatics/rup': '/dist'
         },
 
         // list of files to exclude

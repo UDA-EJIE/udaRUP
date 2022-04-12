@@ -81,6 +81,7 @@ A continuación se muestran los posibles parámetros de configuración que recib
 | multiselect | <code>array</code> \| <code>number</code> |  | Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica. |
 | [autoFillToField] | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo hasta |
 | [autoFillFromField] | <code>boolean</code> | <code>true</code> | Atributo que indica si se auto rellena el campo desde |
+| [timezoneOffset] | <code>number</code> | <code>0</code> | Permite ajustar el huso horario |
 
 <a name="module_rup_date..getRupValue"></a>
 

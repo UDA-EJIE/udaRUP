@@ -259,12 +259,13 @@
 		 * @name jQuery.rup_utils#queryStringToJson
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
+		 * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
 		 * @returns {object} - Objeto JSON creado a partir de la query string indicada.
 		 * @example
 		 * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
 		 * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
 		 */
-		queryStringToJson: function (queryString) {
+		queryStringToJson: function (queryString, serializerSplitter = '&') {
 
 			function setValue(root, path, value) {
 				if (path.length > 1) {
@@ -296,7 +297,7 @@
 			}
 
 			var nvp = [],
-				nvpBruto = queryString.split('&'), data = {},
+				nvpBruto = queryString.split(serializerSplitter), data = {},
 				pair, name, value, path, first;
 			
 			//Se revisa la correcta gestion de los campos
@@ -306,7 +307,7 @@
 				if(pair.length >= 2){
 					nvp.push(nvpBruto[i]); 
 				} else if(pair.length == 1){
-					nvp[i-1] = nvp[i-1] + '&' + nvpBruto[i]; 
+					nvp[i-1] = nvp[i-1] + serializerSplitter + nvpBruto[i]; 
 				}
 			}
 
@@ -354,14 +355,17 @@
 		},
 		
 		/**
-		 * Devuelve un string Con los caracteres sencillos
+		 * Devuelve un string con los caracteres sencillos.
 		 *
-		 * @name jQuery.rup_utils#normalize
+		 * @name normalize
 		 * @function
-		 * @param {string} cadena - Cadena de caracteres inicial.
+		 * @since UDA 3.3.0
+		 * 
+		 * @param {string} texto - Cadena de caracteres inicial.
 		 * @returns {string} - Cadena de caracteres sin accentFolding.
+		 * 
 		 * @example
-		 * // Convierte los caracteres de la cadena "áéíóu" -> "aeiou"
+		 * // Convierte los caracteres de la cadena "áéíóu" a "aeiou"
 		 * $.rup_utils.normalize("áéíóu");
 		 */
 		normalize: function (texto) {
@@ -381,7 +385,7 @@
 			for (var i = 0; i < texto.length; i++) {
 				cadena += accentMap[texto.charAt(i)] || texto.charAt(i);
 			}
-			return cadena.toLowerCase();
+			return cadena;
 		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
             var formElem;
@@ -1019,42 +1023,82 @@
      */
 	$.fn.deleteMulticomboLabelFromObject = function (obj, container) {
 		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
-			Object.keys(obj).filter(function (keys) {
+			Object.keys(obj).filter(function (key) {
+				// Se escapan todos los puntos para evitar errores sintácticos
+				const escapedKey = key.replaceAll('.', '\\.');
 				// Si container es un fila de la tabla (tr) significa que la función ha sido llamada desde rup.table.inlineEdit y es necesario añadir el sufijo _inline
-				let suffix = container.is('tr') ? '_inline' : '';
-				let element = container.find("[name$=" + keys + suffix + "]");
+				const suffix = container.is('tr') ? '_inline' : '';
+				const element = container.find("[name$=" + escapedKey + suffix + "]");
 	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
-	        		delete obj["_" + keys];
+	        		delete obj["_" + key];
 				}
 	        });
 		}
 	};
 	
 	/**
-     * Elimina el campo autogenerado por el componente autocomplete de un objeto. 
-     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
-     *
-     * @name deleteAutocompleteLabelFromObject
-     * @function
-     * @since UDA 4.2.2
-     *
-     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
-     */
+	 * Elimina el campo autogenerado por el componente autocomplete de un objeto. 
+	 * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
+	 *
+	 * @name deleteAutocompleteLabelFromObject
+	 * @function
+	 * @since UDA 4.2.2
+	 *
+	 * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
+	 */
 	$.fn.deleteAutocompleteLabelFromObject = function (obj) {
 		if (obj !== undefined && obj !== null) {
-	        let autocompleteLabelTester = Object.keys(obj).filter(function (keys) {
-	        	return /_label$/.test(keys);
-	        });
-	        if (autocompleteLabelTester.length > 0) {
-	        	// Nos aseguramos que el _label proviene de un autocomplete
-	        	$.each(autocompleteLabelTester, function (index, value) {
-	        		if (obj.hasOwnProperty(value.substring(0, value.indexOf('_label')))) {
-	                	// Eliminamos el _label
-	        			delete obj[value];
-	                }
-	            });
-	        }
+			const flattenedObj = $.fn.flattenJSON(obj);
+			
+			// Nos aseguramos de que el campo _label provenga de un autocomplete
+			Object.keys(flattenedObj).filter(function (key) {
+				if (/_label$/.test(key)) {
+					if (Object.prototype.hasOwnProperty.call(flattenedObj, key.substring(0, key.indexOf('_label')))) {
+						// Necesario hacer un split por si la clave a usar está anidada
+						const keys = key.split('.');
+						
+						// Eliminamos el _label
+						const recursiveRemoveKey = function (object, deleteKey) {
+							if (object[deleteKey] != undefined) {
+								delete object[deleteKey];
+							} else {
+								Object.values(object).forEach(function (val) { 
+									if (typeof val === 'object') {
+										recursiveRemoveKey(val, deleteKey);
+									}
+								})
+							}
+						}
+			
+						recursiveRemoveKey(obj, keys[keys.length - 1]);
+					}
+				}
+			})
 		}
+	};
+	
+	/**
+     * Convierte un JSON con múltiples niveles en un JSON con un único nivel.
+     *
+     * @name flattenJSON
+     * @function
+     * @since UDA 5.0.2
+     *
+     * @param {object} originalObj - Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
+     * @param {object} flattenedObj - Objeto con un único nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma.
+     * @param {string} extraKey - Clave necesaria cuando hay más de un nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma.
+     * 
+     * @return {object} Objeto con un único nivel.
+     */
+	$.fn.flattenJSON = function (originalObj, flattenedObj = {}, extraKey = '') {
+		for (let key in originalObj) {
+			if (typeof originalObj[key] !== 'object') {
+				flattenedObj[extraKey + key] = originalObj[key];
+			} else {
+				$.fn.flattenJSON(originalObj[key], flattenedObj, `${extraKey}${key}.`);
+			}
+		}
+		return flattenedObj;
 	};
 	
 	/**

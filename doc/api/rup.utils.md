@@ -6,13 +6,32 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 **Summary**: Librería de utilidades para los componentes RUP.  
 
 * [rup_utils](#jQuery.module_rup_utils)
+    * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
+    * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
     * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
     * [~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>
     * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
+<a name="jQuery.module_rup_utils..normalize"></a>
+
+### rup_utils~normalize(texto) ⇒ <code>string</code>
+Devuelve un string con los caracteres sencillos.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - - Cadena de caracteres sin accentFolding.  
+**Since**: UDA 3.3.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| texto | <code>string</code> | Cadena de caracteres inicial. |
+
+**Example**  
+```js
+// Convierte los caracteres de la cadena "áéíóu" a "aeiou"$.rup_utils.normalize("áéíóu");
+```
 <a name="jQuery.module_rup_utils..deleteMulticomboLabelFromObject"></a>
 
 ### rup_utils~deleteMulticomboLabelFromObject(obj, container)
@@ -37,6 +56,21 @@ Elimina el campo autogenerado por el componente autocomplete de un objeto. Dich
 | Param | Type | Description |
 | --- | --- | --- |
 | obj | <code>object</code> | Objeto del que se quiere eliminar el campo autogenerado. |
+
+<a name="jQuery.module_rup_utils..flattenJSON"></a>
+
+### rup_utils~flattenJSON(originalObj, flattenedObj, extraKey) ⇒ <code>object</code>
+Convierte un JSON con múltiples niveles en un JSON con un único nivel.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>object</code> - Objeto con un único nivel.  
+**Since**: UDA 5.0.2  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| originalObj | <code>object</code> | Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso). |
+| flattenedObj | <code>object</code> | Objeto con un único nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
+| extraKey | <code>string</code> | Clave necesaria cuando hay más de un nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
 
 <a name="jQuery.module_rup_utils..isHdiv"></a>
 

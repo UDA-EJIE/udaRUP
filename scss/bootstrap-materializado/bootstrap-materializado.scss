@@ -44,3 +44,13 @@
 .font-size-5rem {
     font-size: 5rem;
 }
+
+.title {
+	color: rgba(16, 91, 131, .8);
+	border-bottom: 2px solid rgba(87, 126, 154, .5);
+}
+
+/* NOTA: ELIMINAR CUANDO SE ACTUALICE BOOTSTRAP A LA VERSIÓN 5.0 O SUPERIOR */
+.text-decoration-underline {
+	text-decoration: underline !important;
+}
