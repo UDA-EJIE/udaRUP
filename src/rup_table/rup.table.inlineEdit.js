@@ -944,6 +944,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
+					} else if (searchRupType === 'autocomplete') {
+						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
+						searchEditOptions.loadValue = cellValue;
+						if(cellValue != null){
+							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
+						}
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.

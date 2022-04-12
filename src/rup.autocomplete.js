@@ -924,7 +924,7 @@ input.
 				settings.$self = this; //Guardar referencia a rup.autocomplete para invocar las funciones privadas
 
 				//Guardar valor del INPUT
-				settings.loadValue = $('#' + settings.id).attr('value');
+				settings.loadValue = settings.loadValue ?? $('#' + settings.id).attr('value');
 
 				//Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 				if (!settings.i18nId) {
@@ -1152,6 +1152,9 @@ input.
 
 				//se guarda la configuracion general (settings) del componente
 				$('#' + settings.id + '_label').data('settings', settings);
+				if(settings.loadObjectsAuto != undefined){
+					$('#' + settings.id + '_label').data('loadObjects', settings.loadObjectsAuto);
+				}
 				$('#' + settings.id + '_label').data('rup.autocomplete', {
 					$hiddenField: $('#' + settings.id)
 				});
