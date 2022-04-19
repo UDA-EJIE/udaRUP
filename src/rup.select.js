@@ -601,7 +601,7 @@
          * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
          */
         _ajaxError: function (xhr) {
-            if (xhr.responseText !== null && xhr.responseTex !== undefined) {
+            if (xhr.responseText !== null && xhr.responseTex !== undefined && xhr.responseText.length < 200) {
                 $.rup.showErrorToUser(xhr.responseText);
             } else {
                 $.rup.showErrorToUser($.rup.i18n.base.rup_combo.ajaxError);
@@ -655,10 +655,10 @@
 		    		},
 		    error: function (xhr, textStatus, errorThrown) {
 		               if (settings.onLoadError !== null) {
-		                   jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+		                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 		               } else {
-		               	//rupSelect._ajaxError(xhr, textStatus, errorThrown);
-		            	   console.log(textStatus);
+		               	 rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		            	 console.log(textStatus);
 		               }
 		    }		
     	};
@@ -703,15 +703,35 @@
 				          //display the results
 				          $('#' + settings.id).rup_select("enable");
 				          success(__cache[__cachekey]);
-				          let seleccionado = $.grep(data, function (v) {
-			                    return v.id == settings.selected;
+				          //Actualizar seleccionado en la lista//css
+				          let positions = [];
+				          let valueSelect = $('#' + settings.id).rup_select('getRupValue');
+				         
+				          let seleccionado = $.grep(data, function (v,index) {
+				        	  	if($.fn.getStaticHdivID(v.id) ==  $.fn.getStaticHdivID(valueSelect)){
+				        	  		positions.push(index);
+				        	  	}
+			                    return v.nid == settings.selected;
 			                  });
+				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
+				        	  seleccionado = $.grep(data, function (v) {
+				                    return $.fn.getStaticHdivID(v.id) == $.fn.getStaticHdivID($('#' + settings.id).rup_select('getRupValue'));
+				                  });
+				          }
 				          //Si es el mismo, no cambia porque esta abirendo
 				          if(seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id){
 				        	  $('#' + settings.id).rup_select('setRupValue',seleccionado[0].id);
+				        	  let mySelect = $('#' + settings.id).data('select2')
+			                  $.each(positions, function (index,valor) {
+			                	  let $option = mySelect.$results.find('li')[valor];
+			                	  if($option != undefined){
+			                		  $($option).attr('aria-selected', 'true');
+			                	  }
+			                    });
 				          }else{
-				        	  //$("#" + settings.id).trigger('change');
+				        	  $('#' + settings.id).rup_select('setRupValue',settings.blank);
 				          }
+			
 				          $('#' + settings.id).data('settings', settings);
 	              		  $('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
 				        });
@@ -1161,7 +1181,8 @@
         minimumResultsForSearch: Infinity,
         submitAsJSON: false,
         dataType: 'json',
-        cache: false
+        cache: true,
+        multiple: false
         };
 
 
