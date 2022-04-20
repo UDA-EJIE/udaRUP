@@ -686,7 +686,8 @@
 			          success(__cache[__cachekey]);
 			          return; 
 			        }
-			        
+			        let mySelect = $('#' + settings.id).data('select2');
+			        mySelect.$results.find('li').addClass('disabledButtonsTable');
 			        let $request = undefined;
 			        if (settings.parent) {
 			        	var datosParent = _this._getParentsValues(settings, true);
@@ -721,7 +722,7 @@
 				          //Si es el mismo, no cambia porque esta abirendo
 				          if(seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id){
 				        	  $('#' + settings.id).rup_select('setRupValue',seleccionado[0].id);
-				        	  let mySelect = $('#' + settings.id).data('select2')
+				        	  let mySelect = $('#' + settings.id).data('select2');
 			                  $.each(positions, function (index,valor) {
 			                	  let $option = mySelect.$results.find('li')[valor];
 			                	  if($option != undefined){
