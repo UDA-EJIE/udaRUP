@@ -537,29 +537,25 @@
         /**
          * Procesa el conjunto de registros devueltos por una petición sobre un origen de datos remoto.
          *
-         * @function  _parseREMOTE
+         * @function  _parseRemoteGroup
          * @private
          * @param {object[]} array - Array de registros obtenidos a partir del origen de datos.
          * @param {object} settings - Objeto de propiedades de configuración con el que se ha inicializado el componente.
-         * @param {jQuery} html - Referencia al objeto jQuery que contiene los elementos.
-         * @param {string} optGroupKey - Identificador del optionGroup al que pertenece.
          */
-        _parseREMOTE: function (array, settings, html, optGroupKey) {
-            var remoteImgs = settings.imgs ? settings.imgs : [],
-                item;
+        _parseRemoteGroup: function (array,settings) {
+            let item;
+            let data = [];
             for (let i = 0; i < array.length; i = i + 1) {
                 item = array[i];
-                if (item.style) {
-                    remoteImgs[remoteImgs.length] = {};
-                    if (optGroupKey == null) {
-                        remoteImgs[remoteImgs.length - 1][item.value] = item.style;
-                    } else {
-                        remoteImgs[remoteImgs.length - 1][optGroupKey + '###' + item.value] = item.style;
-                    }
-                    settings.imgs = remoteImgs;
-                }
-                html.append($('<option>').attr('value', item.value).text(settings.showValue ? item.value + settings.token + item.label : item.label));
+                let key = Object.keys(item)[0];
+                let dato = {};
+                dato.text = key;
+                dato.children = item[key];
+                dato.id = "group__"+i;
+                data.push(dato);
             }
+            
+            return data;
         },
         
         /**
@@ -624,7 +620,7 @@
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{//Require id y text, podemos permitir que no venga.
-		    	if(settings.placeholder != undefined ){
+		    	if(settings.placeholder != undefined && !settings.multiple){
 		    		let elBlank = response.find(x => x.id == settings.blank);
 		    		if(elBlank == undefined){
 		                response.unshift({
@@ -699,6 +695,7 @@
 			        }
 			        if($request != undefined){
 				        $request.then(function(data) {//Vuelve la peticion
+				    
 				          //store data in cache
 				          __cache[__cachekey] = data;
 				          //display the results
@@ -755,8 +752,16 @@
 		    		settings.ajax.processResults = settings.processResults;
 		    	}
 			}
-	
-			let selectInit = $('#' + settings.id).select2(settings);
+        	if(settings.multiple){
+                if (settings.placeholder == undefined || settings.placeholder == '') {
+                   //si es vació se asigna el label
+                   settings.placeholder = rupSelect._getBlankLabel(settings.id);
+                }
+        		$('#' + settings.id).select2MultiCheckboxes(settings);
+        	}else{
+        		$('#' + settings.id).select2(settings);
+        	}
+			
     	 	if(settings.firstLoad){//ejecutar los datos
     	 		var $el = $('#' + settings.id);
     	 		let $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
@@ -1030,10 +1035,28 @@
 	                			settings.data = valores;
 	                		}
 	                	}
+	                	
 	                	if(settings.multiple){
-	                		$('#' + settings.id).select2MultiCheckboxes(settings);
+	                        if (settings.placeholder == undefined || settings.placeholder == '') {
+	                          //si es vació se asigna el label
+	                          settings.placeholder = _this._getBlankLabel(settings.id);
+	                        }
+	                        $('#' + settings.id).select2MultiCheckboxes(settings);
 	                	}else{
 	                		$('#' + settings.id).select2(settings);
+	                		if(settings.deleteOnDeselect){
+			                	let mySelect2 = $('#' + settings.id).data('select2');
+
+			                	mySelect2.on('close', function (e) {
+				                	if (Object.keys(e).length === 1) {
+					                  $('#' + settings.id).val(null).trigger('change');
+					                  if(!settings.closeOnSelect){
+					                	  $('#' + settings.id).select2('open');
+					                  }
+					                }
+			                	});
+	
+	                		}
 	                	}
 		                
 		                if(settings.selected){
