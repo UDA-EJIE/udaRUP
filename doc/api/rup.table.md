@@ -9,6 +9,18 @@ Genera un table
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table](#module_rup.table)
+    * [~isInitialized()](#module_rup.table..isInitialized) ⇒ <code>boolean</code>
+    * [~createButton()](#module_rup.table..createButton)
+    * [~removeButton()](#module_rup.table..removeButton)
+    * [~disableButton()](#module_rup.table..disableButton)
+    * [~enableButton()](#module_rup.table..enableButton)
+    * [~getContext()](#module_rup.table..getContext) ⇒ <code>Object</code>
+    * [~getSelectedIds()](#module_rup.table..getSelectedIds) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [~getLastSelectedId()](#module_rup.table..getLastSelectedId) ⇒ <code>string</code>
+    * [~getSelectedRows()](#module_rup.table..getSelectedRows) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [~getSelectedRowPerPage()](#module_rup.table..getSelectedRowPerPage) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [~clear()](#module_rup.table..clear)
+    * [~reload()](#module_rup.table..reload)
     * [~_initOptions(options)](#module_rup.table.._initOptions)
     * [~comparePKs(firstRow, secondRow)](#module_rup.table..comparePKs) ⇒ <code>boolean</code>
     * [~blockPKEdit(ctx, actionType)](#module_rup.table..blockPKEdit)
@@ -25,6 +37,185 @@ Genera un table
     * [~createEventSelect(tabla)](#module_rup.table..createEventSelect)
     * [~initializeMultiselectionProps()](#module_rup.table..initializeMultiselectionProps)
 
+<a name="module_rup.table..isInitialized"></a>
+
+### rup.table~isInitialized() ⇒ <code>boolean</code>
+Indica si un rup_table ya ha sido inicializado sobre el elemento con el identificador provisto.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>boolean</code> - - Indica si ya ha sido inicializada una tabla sobre el elemento.  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idTable").rup_table("isInitialized");
+```
+<a name="module_rup.table..createButton"></a>
+
+### rup.table~createButton()
+Crea y añade un botón en la botonera de la tabla.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 3.7.1  
+
+| Type | Description |
+| --- | --- |
+| <code>Object</code> | Propiedades del botón. |
+| <code>number</code> | Posición en la que situar el botón. |
+
+**Example**  
+```js
+$("#idTable").rup_table("createButton", {
+				text: function (dt) {
+					return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.edit');
+				},
+				id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
+				className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
+				displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+				insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
+				type: 'edit',
+				init: function (dt, button, config) {
+					ctx.ext.buttons.editButton.eventDT = dt;
+				},
+				action: function (e, dt, button, config) {
+					$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
+					DataTable.Api().buttons.actions(dt, config);
+					$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
+				}
+			}, 0);
+```
+<a name="module_rup.table..removeButton"></a>
+
+### rup.table~removeButton()
+Elimina el botón especificado.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 3.7.1  
+
+| Type | Description |
+| --- | --- |
+| <code>Object</code> | Selector que contenga un botón de la tabla. |
+
+**Example**  
+```js
+$("#idTable").rup_table("removeButton", $('#exampleeditButton_1'));
+```
+<a name="module_rup.table..disableButton"></a>
+
+### rup.table~disableButton()
+Deshabilita el botón especificado.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 3.7.1  
+
+| Type | Description |
+| --- | --- |
+| <code>Object</code> | Selector que contenga un botón de la tabla. |
+| <code>boolean</code> | Permite deshabilitar el botón del menú contextual. |
+
+**Example**  
+```js
+$("#idTable").rup_table("disableButton", $('#exampleeditButton_1'), true);
+```
+<a name="module_rup.table..enableButton"></a>
+
+### rup.table~enableButton()
+Habilita el botón especificado.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 3.7.1  
+
+| Type | Description |
+| --- | --- |
+| <code>Object</code> | Selector que contenga un botón de la tabla. |
+| <code>boolean</code> | Permite habilitar o deshabilitar el botón de la botonera. |
+| <code>boolean</code> | Permite habilitar el botón del menú contextual. |
+
+**Example**  
+```js
+$("#idTable").rup_table("enableButton", $('#exampleeditButton_1'), true, false);
+```
+<a name="module_rup.table..getContext"></a>
+
+### rup.table~getContext() ⇒ <code>Object</code>
+Permite obtener el contexto de la tabla.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>Object</code> - - Contexto de la tabla.  
+**Since**: UDA 3.7.1  
+**Example**  
+```js
+$("#idTable").rup_table("getContext");
+```
+<a name="module_rup.table..getSelectedIds"></a>
+
+### rup.table~getSelectedIds() ⇒ <code>Array.&lt;Object&gt;</code>
+Devuelve los identificadores de los elementos seleccionados.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - - Identificadores de los elementos seleccionados.  
+**Since**: UDA 4.2.1  
+**Example**  
+```js
+$("#idTable").rup_table("getSelectedIds");
+```
+<a name="module_rup.table..getLastSelectedId"></a>
+
+### rup.table~getLastSelectedId() ⇒ <code>string</code>
+Devuelve el identificador de la última fila seleccionada.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>string</code> - - Identificador del último registro seleccionado.  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idTable").rup_table("getLastSelectedId");
+```
+<a name="module_rup.table..getSelectedRows"></a>
+
+### rup.table~getSelectedRows() ⇒ <code>Array.&lt;Object&gt;</code>
+Devuelve los campos y valores de las filas seleccionadas.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - - Objeto con los campos y valores de las filas seleccionadas.  
+**Since**: UDA 4.2.1  
+**Example**  
+```js
+$("#idTable").rup_table("getSelectedRows");
+```
+<a name="module_rup.table..getSelectedRowPerPage"></a>
+
+### rup.table~getSelectedRowPerPage() ⇒ <code>Array.&lt;Object&gt;</code>
+Devuelve las posiciones de todas las filas seleccionadas en la tabla.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - - Objeto con la posición de cada fila seleccionada en la tabla.  
+**Since**: UDA 4.2.1  
+**Example**  
+```js
+$("#idTable").rup_table("getSelectedRowPerPage");
+```
+<a name="module_rup.table..clear"></a>
+
+### rup.table~clear()
+Limpia todas las filas de la tabla y la deja vacía.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 4.3.0  
+**Example**  
+```js
+$("#idTable").rup_table("clear");
+```
+<a name="module_rup.table..reload"></a>
+
+### rup.table~reload()
+Recarga la tabla.
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 4.3.0  
+**Example**  
+```js
+$("#idTable").rup_table("reload");
+```
 <a name="module_rup.table.._initOptions"></a>
 
 ### rup.table~\_initOptions(options)

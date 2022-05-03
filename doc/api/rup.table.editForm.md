@@ -28,7 +28,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~getLineByPageSelected(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelected) ⇒
     * [~getLineByPageSelectedReverse(ctx, lineInit)](#module_rup.table.editForm..getLineByPageSelectedReverse) ⇒
     * [~_deleteAllSelects(dt)](#module_rup.table.editForm.._deleteAllSelects)
-    * [~_editFormSerialize(idForm)](#module_rup.table.editForm.._editFormSerialize) ⇒ <code>string</code>
+    * [~_editFormSerialize(idForm, [serializerSplitter])](#module_rup.table.editForm.._editFormSerialize) ⇒ <code>string</code>
     * [~_comprobarSeeker(row, ctx, idRow)](#module_rup.table.editForm.._comprobarSeeker)
     * [~_blockPKeditForm(ctx, actionType)](#module_rup.table.editForm.._blockPKeditForm)
     * [~_addChildIcons(ctx)](#module_rup.table.editForm.._addChildIcons)
@@ -294,16 +294,17 @@ Metodo que elimina todos los registros seleccionados.
 
 <a name="module_rup.table.editForm.._editFormSerialize"></a>
 
-### rup.table.editForm~\_editFormSerialize(idForm) ⇒ <code>string</code>
+### rup.table.editForm~\_editFormSerialize(idForm, [serializerSplitter]) ⇒ <code>string</code>
 Método que serializa los datos del formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  
 **Since**: UDA 3.6.0 // Table 1.2.0  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| idForm | <code>object</code> | Formulario que alberga los datos. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| idForm | <code>object</code> |  | Formulario que alberga los datos. |
+| [serializerSplitter] | <code>string</code> | <code>&quot;&amp;&quot;</code> | Cadena a usar para separar los campos. |
 
 <a name="module_rup.table.editForm.._comprobarSeeker"></a>
 

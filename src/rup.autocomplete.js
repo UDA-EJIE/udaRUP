@@ -718,17 +718,18 @@ input.
 						response($.map(data, function (item) {
 							// Si se define un sourceParam se serializan los parámetros desde el cliente en vez de desde el bean.
 							if (settings.sourceParam !== undefined) {
-								if (settings.sourceParam.label !== undefined) {
-									item.label = item[settings.sourceParam.label];
-								}
-								
-								if (settings.sourceParam.category !== undefined && settings.sourceParam.category === 'filter') {
+								if (settings.sourceParam.category === 'filter') {
+									if (settings.sourceParam.label !== undefined) {
+										item.label = item[settings.sourceParam.label];
+									}
 									if (settings.sourceParam.data !== undefined) {
 										item.value = item[settings.sourceParam.data];
 									}
 									if (settings.sourceParam.category !== undefined) {
 										item.category = item[settings.sourceParam.category];
 									}
+								} else if (item.label === undefined && item[settings.sourceParam.label] !== undefined) {
+									item.label = item[settings.sourceParam.label];
 								}
 							}
 							var labelLimpio = item.label;
@@ -923,7 +924,7 @@ input.
 				settings.$self = this; //Guardar referencia a rup.autocomplete para invocar las funciones privadas
 
 				//Guardar valor del INPUT
-				settings.loadValue = $('#' + settings.id).attr('value');
+				settings.loadValue = settings.loadValue ?? $('#' + settings.id).attr('value');
 
 				//Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 				if (!settings.i18nId) {
@@ -1151,6 +1152,9 @@ input.
 
 				//se guarda la configuracion general (settings) del componente
 				$('#' + settings.id + '_label').data('settings', settings);
+				if(settings.loadObjectsAuto != undefined){
+					$('#' + settings.id + '_label').data('loadObjects', settings.loadObjectsAuto);
+				}
 				$('#' + settings.id + '_label').data('rup.autocomplete', {
 					$hiddenField: $('#' + settings.id)
 				});

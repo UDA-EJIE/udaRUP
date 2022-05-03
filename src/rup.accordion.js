@@ -245,7 +245,11 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      */
     $.fn.rup_accordion.defaults = {
         validation: true,
-        heightStyle: "content"
+        heightStyle: "content",
+        icons: {
+        	'header': 'mdi mdi-chevron-down',
+        	'activeHeader': 'mdi mdi-arrow-expand'
+        }
     };
 
 }));

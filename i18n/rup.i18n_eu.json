@@ -328,13 +328,18 @@
     "element(s)": "Elementua(k)",
     "elements": "Elementuak",
     "emptyChanges": "Ez da aldaketarik izan.",
+    "warnings": {
+      "methodNotAvailable": "Metodoa ez dago erabilgarri."
+    },
     "errors": {
       "errcap": "Errorea",
       "errorOnGet": "Errorea gertatu da datuak berreskuratzen saiatzean",
       "model": "Izenen eta ereduen zutabeak ezberdinak dira",
       "norecords": "Ez dago daturik prozesatzeko",
       "nourl": "Ez da URLrik zehaztu",
-      "wrongColModel": "\"{0}\" ez dauka \"editoptions\"-ik. Elementuaren ezaugarriak ez dira ondo definitu taularen \"colModel\"-ean.",
+      "wrongParam": "Ez da jaso espero zen parametroa.",
+      "wrongParams": "Ez dira jaso espero ziren parametroak.",
+      "wrongColModel": "\"{0}\" ez dauka \"editoptions\"-ik ezta \"searchoptions\"-ik, baina badauka \"rupType\", beraz, elementuaren ezaugarriak ez dira ondo definitu taularen \"colModel\"-ean.",
       "noMasterPKField": {
         "msg": "Errorea gertatu da xehetasunezko rup_table-a hasieratzerakoan, ezin izan da \"{1}\" aitaren klabearen input-a \"#{0}\" iragazpen-formularioan gehitu.",
         "title": "Errorea taula hasieratzerakoan"

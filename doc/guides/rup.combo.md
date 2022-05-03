@@ -22,7 +22,8 @@
       - [9.2 Carga a partir de un objeto JSON](#92carga-a-partir-de-un-objeto-json)   
    - [10 Sobreescritura del theme](#10-sobreescritura-del-theme)   
    - [11 Integración con UDA](#11integración-con-uda)   
-      - [11.1 Propiedades adicionales](#111-propiedades-adicionales) 
+      - [11.1 Propiedades adicionales](#111-propiedades-adicionales)   
+   - [12 Aspectos a tener en cuenta](#12-aspectos-a-tener-en-cuenta)   
 
 <!-- /MDTOC -->
 
@@ -651,3 +652,11 @@ Añade clases personalizadas al elemento generado por el componente. Se recomien
 selected: ""
 ```
 Permite seleccionar uno de los elementos de manera predeterminada a partir del valor.
+&nbsp;
+```javascript
+appendTo: "body"
+```
+Permite especificar el elemento del DOM al que se añadirá el menú desplegable del componente.
+
+## 12 Aspectos a tener en cuenta
+Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `appendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.

@@ -17,6 +17,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
     * [~clear()](#module_rup_combo..clear)
     * [~change()](#module_rup_combo..change)
     * [~reset()](#module_rup_combo..reset)
+    * [~hardReset()](#module_rup_combo..hardReset)
     * [~checkAll()](#module_rup_combo..checkAll)
     * [~select(param)](#module_rup_combo..select)
     * [~selectLabel(param)](#module_rup_combo..selectLabel)
@@ -26,6 +27,7 @@ $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:
     * [~disable()](#module_rup_combo..disable)
     * [~enable()](#module_rup_combo..enable)
     * [~isDisabled()](#module_rup_combo..isDisabled)
+    * [~isInitialized()](#module_rup_combo..isInitialized) ⇒ <code>boolean</code>
     * [~disableChild()](#module_rup_combo..disableChild)
     * [~disableOpt(optValue)](#module_rup_combo..disableOpt)
     * [~disableOptArr(optValueArr)](#module_rup_combo..disableOptArr)
@@ -124,6 +126,17 @@ Realiza una reinicizalización del estado del componente.
 **Example**  
 ```js
 $("#idCombo").rup_combo("reset");
+```
+<a name="module_rup_combo..hardReset"></a>
+
+### rup_combo~hardReset()
+Reinicia por completo el componente, incluyendo sus ajustes.
+
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idCombo").rup_combo("hardReset");
 ```
 <a name="module_rup_combo..checkAll"></a>
 
@@ -232,6 +245,18 @@ Indica si el combo está deshabilitado o no.
 **Example**  
 ```js
 $("#idCombo").rup_combo("isDisabled");
+```
+<a name="module_rup_combo..isInitialized"></a>
+
+### rup_combo~isInitialized() ⇒ <code>boolean</code>
+Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identificador provisto.
+
+**Kind**: inner method of [<code>rup\_combo</code>](#module_rup_combo)  
+**Returns**: <code>boolean</code> - - Indica si ya ha sido inicializado un combo sobre el elemento.  
+**Since**: UDA 5.0.3  
+**Example**  
+```js
+$("#idCombo").rup_combo("isInitialized");
 ```
 <a name="module_rup_combo..disableChild"></a>
 

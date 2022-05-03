@@ -78,7 +78,7 @@
 		              describe('Item mostrar formulario > ', () => {
 		                  beforeEach(() => {
 		                      $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
-		                      $('#id_detailForm_table').val('008');
+		                      $('#id_detail_table').val('008');
 		                      $('#nombre_detail_table').val('Ana');
 		                      $('#apellido1_detail_table').val('García');
 		                      $('#fechaAlta_detail_table').val('25/05/2019');
@@ -109,7 +109,7 @@
 								});
 		                      row.click();
 		                      $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
-		                      $('#id_detailForm_table').val('009');
+		                      $('#id_detail_table').val('009');
 		                      $('#fechaAlta_detail_table').val('28/05/2019');
 		                      $('#example_detail_button_save').click();
 		                      

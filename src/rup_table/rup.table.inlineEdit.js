@@ -919,7 +919,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				//Convertir a input.
-				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
+				var searchRupType = (cellColModel.editoptions !== undefined && cellColModel.editoptions.rupType !== undefined) ? cellColModel.editoptions.rupType : cellColModel.rupType;
 				var colModelName = cellColModel.name;
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
@@ -939,10 +939,17 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-				if(searchRupType!==undefined) {
-					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+				if(searchRupType !== undefined && cellColModel.editoptions) {
+					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.inlineEditFieldName = cellColModel.name;
+					} else if (searchRupType === 'autocomplete') {
+						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
+						searchEditOptions.loadValue = cellValue;
+						if(cellValue != null){
+							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
+						}
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.
@@ -952,13 +959,6 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
-					if(searchRupType === 'combo'){//asignar el valor
-						global.initRupI18nPromise.then(() => {
-							$('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont - 1]);
-						}).catch((error) => {
-							console.error('Error al establecer el valor:\n', error);
-						});
-					}
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem
 						.prop('type', 'checkbox')

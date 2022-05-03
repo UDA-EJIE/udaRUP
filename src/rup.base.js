@@ -33,7 +33,7 @@
 }(function ($) {
 
     // NO MODIFICAR: (AUTOGENERADO)
-    var rup_version = '5.0.2';
+    var rup_version = '5.0.3';
 
     jQuery.migrateMute = true;
 
@@ -97,19 +97,6 @@
    * @typedef {number} Integer
    */
 
-    // [Ajuste para IE] función asociada a deficiencias de IE(msie). Cuando se deje de soportar este navegador, hay que eliminar este polyfill
-    if (!String.prototype.includes) {//To check browser supports or not
-    	String.prototype.includes = function (str) {//Add method includes to String type
-    	  var returnValue = false;
-
-    	  if (this.indexOf(str) !== -1) {
-    		returnValue = true;
-    	  }
-
-    	  return returnValue;
-    	}
-    }
-    
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };

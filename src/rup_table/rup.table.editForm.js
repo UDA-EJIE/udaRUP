@@ -127,6 +127,9 @@
             }
         }
         
+        // Establece el valor de las propiedades del formulario de edición.
+        ctx.oInit.formEdit.loadSpinner = $.type(ctx.oInit.formEdit.loadSpinner) === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
+        
         ctx.oInit.formEdit.detailForm.settings = {
             type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
             width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
@@ -158,7 +161,7 @@
                 ctx.oInit.formEdit.okCallBack = false;
             }
             // Si es igual no se debe hacer nada
-            var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm);
+            var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
             if (ctx.oInit.formEdit.dataOrigin === formSerializado || !ctx.oInit.formEdit.detailForm.settings.cancelDialog) {
                 _cancelPopup(ctx);
                 return true;
@@ -469,20 +472,27 @@
     			// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
     			if (column.rupType && column.editable) {
     				if (column.editoptions !== undefined) {
-    					// Los combos tienen que ser comprobados para poder establecer su valor.
-    					if (column.rupType === 'combo' && row !== undefined) {
-    						column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
+    					if (column.rupType === 'combo') {
+    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el combo.
+    						if (row !== undefined) {
+    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
+    						}
     						// Cuando no se haya definido un elemento al que hacer el append del menú del combo, se hace al "body" para evitar problemas de CSS.
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
     						}
-    					} else if (column.rupType == 'autocomplete' && column.editoptions.menuAppendTo === undefined) {
-    						// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
-    						column.editoptions.menuAppendTo = 'body';
+    					} else if (column.rupType == 'autocomplete') {
+    						// Establece el valor por defecto.
+    						column.editoptions.defaultValue = row[column.name];
+    						
+    						if (column.editoptions.menuAppendTo === undefined) {
+    							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
+    							column.editoptions.menuAppendTo = 'body';
+    						}
     					}
     					// Inicializar componente.
     					element['rup_' + column.rupType](column.editoptions);
-    				} else {
+    				} else if (column.searchoptions === undefined) {
     					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
     				}
     			} else if (!column.editable) {
@@ -622,6 +632,8 @@
 	                //Se carga desde bbdd y se actualiza la fila
 	                dt.row(idRow).data(row);
 	                ctx.json.rows[idRow] = row;
+	                // Recrear iconos del responsive en caso de ser necesario.
+	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
 	                var identy = idRow + 1;
 	                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
@@ -690,7 +702,7 @@
 	        $(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
 	
 	        // Se guardan los datos originales
-	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm);
+	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	        ctx.oInit.formEdit.okCallBack = false;
 	
 	
@@ -711,10 +723,10 @@
 	        	}
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm);
+	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -774,10 +786,10 @@
 	            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm);
+	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -957,13 +969,10 @@
                                 ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = 'PUT';
                                 DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT');
                             } else { //mantener y borrar
-                                var idForm = ctx.oInit.formEdit.idForm;
-                                idForm.resetForm();
-                                jQuery('.ui-selectmenu-status', idForm).text('--');
-                                jQuery('[ruptype=\'combo\']', idForm).rup_combo('clear');
+                            	ctx.oInit.formEdit.idForm.resetForm();
                             }
 
-                            ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm);
+                            ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
                             if (ctx.oInit.multiSelect !== undefined) {
                                 ctx.oInit.feedback.type = 'noBorrar';
                                 dt.row().multiSelect();
@@ -1348,6 +1357,23 @@
                 		', #back_' + tableId+'_detail_navigation' +
                 		', #forward_' + tableId+'_detail_navigation' +
                 		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+                
+                // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
+                if (ctx.oInit.colModel !== undefined) {
+                	$.each(ctx.oInit.colModel, function (key, column) {
+                		if (column.editable) {
+                			if (column.rupType === 'combo') {
+                				// Realizar una limpieza total para asegurar un buen funcionamiento.
+                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
+                			} else if (column.rupType === 'autocomplete') {
+                				// Establecer el valor por defecto del componente.
+                				const newDefaultValue = ctx.json.rows.find(row => row.id === rowSelected.id)[column.name];
+                				column.editoptions.defaultValue = newDefaultValue;
+                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
+                			}
+                		}
+                	});
+                }
             });
 
             // Actualizar la última posición movida
@@ -1781,11 +1807,12 @@
      * @since UDA 3.6.0 // Table 1.2.0
      *
      * @param {object} idForm - Formulario que alberga los datos.
+     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
      *
      * @return {string} - Devuelve los datos del formulario serializados
      *
      */
-    function _editFormSerialize(idForm) {
+    function _editFormSerialize(idForm, serializerSplitter = '&') {
         let serializedForm = '';
         let idFormArray = idForm.formToArray();
         let ultimo = '';
@@ -1811,12 +1838,12 @@
         			valor = '[' + count++ + ']'; //y se mete el array
         		}
 	            serializedForm += (obj.name + valor + '=' + obj.value);
-                serializedForm += '&';
+                serializedForm += serializerSplitter;
                 ultimo = obj.name;
         	}
         });
-        //aseguramos que el ultimo caracter no es el &.
-        serializedForm = serializedForm.substring(0,serializedForm.length - 1);
+        // Evitar que el último carácter sea "&" o el separador definido por el usuario.
+        serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
         return serializedForm;
     }
 
