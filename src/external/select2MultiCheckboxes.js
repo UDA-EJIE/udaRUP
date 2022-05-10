@@ -42,7 +42,7 @@
 	        formatted = this.options.get("placeholder") || "";
 	      } else {
 	    	let itemsData = {};
-	    	if(this.options.options.url != null){//remoto
+	    	if(this.options.options.url != null || this.$element.find("option").length == 0){//remoto
 		        itemsData = {
 			  	          selected: data || [],
 			  	          all: this.container.$results.find('li') || []

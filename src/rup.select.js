@@ -517,6 +517,7 @@
             		 _this._parseLOCAL(data[key],i18nId,false);
             	});
             }else{
+            	data = [];
 	            for (let i = 0; i < array.length; i = i + 1) {
 	                if (typeof array[i] === 'object') { //multi-idioma
 	                    if (array[i].i18nCaption) {
@@ -525,9 +526,12 @@
 	                        text = array[i].text;
 	                    }
 	                    array[i].text = text;
-	                }else{
-	                	return ;
+	                }else{//El id es el mismo que el texto.
+	                	data[i] = {id : array[i], text : array[i]};
 	                }
+	            }
+	            if(data.length > 0){//El id es el mismo que el texto.
+	            	return data;
 	            }
             }
             
