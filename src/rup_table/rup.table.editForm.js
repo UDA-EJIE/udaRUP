@@ -489,6 +489,13 @@
     							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
     							column.editoptions.menuAppendTo = 'body';
     						}
+    					} else if (column.rupType === 'select') {
+    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
+    						if (row !== undefined) {
+    							let rowName = $.fn.getStaticHdivID(row[column.name]);
+    							let flatter	= $.fn.getStaticHdivID($.fn.flattenJSON(row)[column.name]);
+    							column.editoptions.selected = column.name.includes('.') ? flatter : rowName;    							
+    						}
     					}
     					// Inicializar componente.
     					element['rup_' + column.rupType](column.editoptions);
@@ -1905,6 +1912,8 @@
                         input.rup_date('disable');
                     } else if (input.attr('ruptype') === 'combo' && !input.rup_combo('isDisabled')) {
                         input.rup_combo('disable');
+                    } else if (input.attr('ruptype') === 'select' && !input.rup_select('isDisabled')) {
+                        input.rup_select('disable');
                     } else if (input.attr('ruptype') === 'time' && !input.rup_time('isDisabled')) {
                         input.rup_time('disable');
                     } else if (input.attr('type') === 'checkbox') {
@@ -1947,6 +1956,8 @@
                         input.rup_date('enable');
                     } else if (input.attr('ruptype') === 'combo' && input.rup_combo('isDisabled')) {
                         input.rup_combo('enable');
+                    } else if (input.attr('ruptype') === 'select' && input.rup_select('isDisabled')) {
+                        input.rup_select('enable');
                     } else if (input.attr('ruptype') === 'time' && input.rup_time('isDisabled')) {
                         input.rup_time('enable');
                     } else if (input.attr('type') === 'checkbox') {

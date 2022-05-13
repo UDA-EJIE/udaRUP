@@ -107,15 +107,16 @@
         setRupValue: function (param) {
             var $self = $(this),
                 settings = $self.data('settings');
-
+            param = $.fn.getStaticHdivID(param);//si no viene cofrado el comportamiento es el normal.
             //Tipo de select
             if (this.length === 0 || (settings !== undefined && !settings.multiple)) {
                 //Simple 
             	 if (settings.data === undefined && settings.options !== undefined){//si es remoto crear el option
  	              	let data = $.grep(settings.options, function (v) {
-	                    return v.id === param;
+	                    return v.id === param || $.fn.getStaticHdivID(v.id) == param;
 	                  });
- 	              	if(data[0] !== undefined && $('#'+ settings.id).find("option[value='" + data[0] .id + "']").length == 0){
+ 	              	if(data[0] !== undefined){
+ 	              	 if($('#'+ settings.id).find("option[value='" + data[0] .id + "']").length == 0){
  	              	   data = data[0];
  	              	   let newOption = new Option(data.text, data.id, false, false);
  	                   if (data.style != null) {
@@ -123,6 +124,10 @@
  	                      newOption.setAttribute('imgStyle', data.imgStyle);
  	                    }
  	              		$('#' + settings.id).append(newOption);
+ 	              		param = data.id;//mantenga el cifrado
+ 	              	 }else{
+ 	              		param = data[0].id;//mantenga el cifrado 
+ 	              	 }
  	              	}
             	}
             	$self.val(param).trigger('change');
@@ -713,7 +718,7 @@
 				        	  	if($.fn.getStaticHdivID(v.id) ==  $.fn.getStaticHdivID(valueSelect)){
 				        	  		positions.push(index);
 				        	  	}
-			                    return v.nid == settings.selected;
+			                    return v.nid == settings.selected || $.fn.getStaticHdivID(v.id) == settings.selected;
 			                  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
@@ -842,6 +847,7 @@
 	                //Se carga el identificador del padre del patron
 	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
 	                settings.name = $(this).attr('name');
+	                $('#' + settings.id).attr('ruptype', 'select');
 	
 	                //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 	                if (!settings.i18nId) {

@@ -2061,13 +2061,15 @@
             // Si es un combo multiselect
             if (this.multiple) {
                 $('#rup-multiCombo_' + comboId).outerWidth(anchoCombo);
+                event.stopPropagation();
             }
             // Si es un combo normal
             else {
                 $('#' + comboId + '-menu').parent('div').outerWidth(anchoCombo);
                 $('#' + comboId + '-menu').outerWidth(anchoCombo);
+                event.stopPropagation();
+                $(document).trigger('mousedown.multiselect');
             }
-            event.stopPropagation();
         }
     };
 
