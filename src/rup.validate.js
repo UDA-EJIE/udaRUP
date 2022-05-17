@@ -135,6 +135,11 @@
         jQuery.validator.addMethod('letterswithbasicpunc', function (value, element) {
             return this.optional(element) || /^[a-z-.,()'"\s]+$/i.test(value);
         });
+        
+        // Letras (unicode), tildes y caracteres de puntuación.
+        jQuery.validator.addMethod('lettersunicodewithbasicpunc', function (value, element) {
+        	return this.optional(element) || /^[\p{L}.,()'"\s]+$/iu.test(value);
+        });
 
         // Letras, numeros, espacios o guiones bajos
         jQuery.validator.addMethod('alphanumeric', function (value, element) {
@@ -144,6 +149,21 @@
         // Solo letras
         jQuery.validator.addMethod('lettersonly', function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
+        });
+
+        // Solo letras (unicode) y tildes.
+        jQuery.validator.addMethod('lettersunicodeonly', function (value, element) {
+            return this.optional(element) || /^[\p{L}]+$/iu.test(value);
+        });
+
+        // Solo letras y permite espacios.
+        jQuery.validator.addMethod('letters', function (value, element) {
+            return this.optional(element) || /^[a-z\s]+$/i.test(value);
+        });
+
+        // Solo letras (unicode), tildes y permite espacios.
+        jQuery.validator.addMethod('lettersunicode', function (value, element) {
+            return this.optional(element) || /^[\p{L}\s]+$/iu.test(value);
         });
 
         // Espacios no permitidos
