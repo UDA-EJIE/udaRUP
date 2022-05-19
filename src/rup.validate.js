@@ -366,6 +366,27 @@
                 validator.resetElements(validator.elements());
             }
         });
+        
+        // Corrección para el establecimiento del foco tras las validaciones del combo y autocomplete.
+        $.extend($.validator.prototype, {
+        	focusInvalid: function focusInvalid() {
+        		if (this.settings.focusInvalid) {
+        			try {
+        				let $element = $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []);
+
+        				if ($element.attr('rupType') === 'combo') {
+        					$element = $('#' + $element.attr('id') + '-button');
+        				} else if ($element.attr('rupType') === 'autocomplete') {
+        					$element = $('#' + $element.attr('id') + '_label');
+        				}
+        				// Manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+        				$element.filter(":visible").focus().trigger("focusin");
+        			} catch (e) {
+        				// Ignore IE throwing errors when focusing hidden elements
+        			}
+        		}
+        	}
+        });
 
         //********************************
         // DEFINICIÓN DE MÉTODOS PRIVADOS
