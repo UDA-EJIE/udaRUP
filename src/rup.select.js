@@ -151,7 +151,7 @@
             	$('#' + settings.id).rup_select('change');
             } else {
                 // Multiple > multiselect - falta
-            	if (typeof(param) === 'object' && settings.data === undefined && settings.options !== undefined){// si
+            	if (typeof(param) === 'object' && settings.options !== undefined){// si
 																													// es
 																													// remoto
 																													// crear
@@ -249,9 +249,13 @@
 		 */
         selectByLabel: function (param) {
             // Tipo de select
-        	if($(this).data('settings').options !== undefined ){
-        		let options = $(this).data('settings').options ;
-	            if (!$(this).data('settings').multiple) {
+        	let settings = $(this).data('settings');
+        	if(settings.options !== undefined ){
+        		let options = settings.options ;
+        		if(settings.groups){
+        			options = settings.optionsGroups;
+        		}
+	            if (!settings.multiple) {
 	                // Simple > selectmenu
 	              	let data = $.grep(options, function (v) {
 	                    return v.text === param;
@@ -259,13 +263,6 @@
 	              	if(data[0] !== undefined){
 	              		$(this).rup_select('setRupValue', data[0].id);
 	              	}
-	                // Si se ha cargado un elemento válido
-	             /*
-					 * if (elementSet) { //Lanzar cambio para que se recarguen
-					 * hijos var hijos = $(this).data('childs'); if (hijos !==
-					 * undefined) { for (let i = 0; i < hijos.length; i = i + 1) {
-					 * $('#' + hijos[i]).rup_combo('reload', hijos[i]); } } }
-					 */
 	            } else {// Ejemplo
 						// $('#idSelect').rup_select('selectByLabel',['php_value','java_value'])
 	            	let datos = [];
@@ -306,7 +303,7 @@
         },
         /**
 		 * Devuelve el índice de la opción seleccionada en el select (empezando
-		 * en 0). En el caso de la selección múltiple se devolverá un array.
+		 * en 1). En el caso de la selección múltiple se devolverá un array.
 		 * 
 		 * @function index
 		 * @return {number | number[]} - Índice del elemento o elementos
@@ -315,31 +312,43 @@
 		 */
         index: function () {
             // Tipo de select
-        	if($(this).data('settings').options !== undefined ){
-        		let options = $(this).data('settings').options ;
+        	let settings = $(this).data('settings');
+        	if(settings.options !== undefined ){
+        		let options = settings.options ;
+        		if(settings.groups){
+        			options = settings.optionsGroups;
+        		}
         		let count = 0;
         		let data = $(this).select2('data');
-	            if (!$(this).data('settings').multiple) {
+	            if (!settings.multiple) {
 	                // Simple > selectmenu
 	            	
 	            	$.each(options, function (key, value) {
+	              		if(settings.blank !== value.id.toString()){
+	              			count = count + 1;	              			
+	              		}
 	              		if(value.id.toString() === data[0].id.toString()){
-	              			count = key + 1;
-	              			return;
+	              			return false;
 	              		}
 	              	});
 	            	
 	   
 	            } else {
-	            	count = [];
-	            	$.each(options, function (key, value) {
-	            		$.each(data, function (cont, valor) {
-	                  		if(value.id.toString() === valor.id.toString()){
-	                  			count.push(key + 1);
-		              			return;
+	            	let listaCount = [];
+	            	$.each(data, function (key, value) {
+	            		count = 0;
+	            		$.each(options, function (cont, valor) {
+	                  		if(settings.blank !== value.id.toString()){
+	                  			count = count + 1;
 		              		}
+	                  		if(value.id.toString() === valor.id.toString()){
+	                  			listaCount.push(count);
+		              			return false;
+	                  		}
 	            		});
 	                  });
+	            	
+	            	return listaCount;
 	            }
 	            
 	            return count;
@@ -383,34 +392,6 @@
             }
         },
         /**
-		 * Vacía y deshabilita el select sobre el que se aplica así como todos
-		 * los combos que depende de él. Su uso principalmente es interno para
-		 * las peticiones remotas.
-		 * 
-		 * @function disableChild
-		 * @example $("#idCombo").rup_combo("disableChild");
-		 */
-        disableChild: function () {
-            if($(this).hasClass('rup_combo')){
-                if($(this).attr('multiple')==='multiple'){
-                    $(this).rup_combo('setRupValue', []);
-                } else {
-                    $(this).rup_combo('setRupValue', '');
-                }
-            }
-            // Vaciar combo, deshabilitarlo
-            $(this).empty().append('<option></option>').rup_combo('disable');
-            // Eliminar texto que se muestra
-            $('#' + $(this).attr('id') + '-button span:first-child').text('');
-            // Propagar evento de selección a hijos (recursivo)
-            var hijos = $(this).data('childs');
-            if (hijos !== undefined) {
-                for (let i = 0; i < hijos.length; i = i + 1) {
-                    $('#' + hijos[i]).rup_combo('disableChild');
-                }
-            }
-        },
-        /**
 		 * Realiza una recarga de los select.
 		 * 
 		 * @function reload
@@ -418,9 +399,10 @@
 		 */
         reload: function () {
         	let settings = $(this).data('settings');
+
         	$(this).select2("destroy");
 
-        	$(this).select2(settings);
+        	$(this).rup_select(settings);
         },
         /**
 		 * Cambia el source del select y recarga el componente para que este
@@ -444,9 +426,7 @@
             	}
             	settings.options = undefined;
             	$self.data('settings',settings);
-            	// $self.select2("destroy");
-            	// $self.find('option').remove();
-            	// $self.rup_select(settings);
+
             	$self.empty();
             	$self.select2({
             	    data: settings.data
@@ -466,7 +446,7 @@
 		 * @function _selectLabel
 		 * @private
 		 * @param {object}
-		 *            selector - Referencia al objeto jQuery del combo.
+		 *            selector - Referencia al objeto jQuery del select.
 		 * @param {object}
 		 *            param - Value correspondiente.
 		 */
@@ -507,8 +487,8 @@
         },
        
         /**
-		 * Obtener valores de los combos padres (si no están cargados o valores
-		 * 'vacíos' devuelve null). En caso de disponer de varios combos padres
+		 * Obtener valores de los selects padres (si no están cargados o valores
+		 * 'vacíos' devuelve null). En caso de disponer de varios selects padres
 		 * se devolverán separados por un caracter delimitador.
 		 * 
 		 * @function _getParentsValues
@@ -517,7 +497,7 @@
 		 *            settings - Array con los elementos de configuración.
 		 * @param {boolean}
 		 *            remote - Determina si la fuente de datos es remota o no.
-		 * @return {string} - Devuelve los values seleccionados de los combos
+		 * @return {string} - Devuelve los values seleccionados de los selects
 		 *         padres.
 		 */
         _getParentsValues: function (settings, remote, multiValueToken) {
@@ -656,19 +636,19 @@
 		 *            elementos.
 		 */
         _ajaxBeforeSend: function (xhr, settings, html) {
-            // Crear combo (vacío) y deshabilitarlo
+            // Crear select (vacío) y deshabilitarlo
             if (html !== undefined) {
                 $('#' + settings.id).replaceWith(html);
             } // Si no es 'reload' se debe inicializar vacío
-            this._makeCombo(settings);
-            $('#' + settings.id).rup_combo('disable');
+            
+            $('#' + settings.id).rup_select('disable');
 
             // LOADING...
-            $('#' + settings.id + '-button span:first-child').removeClass("ui-icon ui-icon-triangle-1-s").addClass('rup-combo_loadingText').text($.rup.i18n.base.rup_combo.loadingText);
+            $('#' + settings.id + '-button span:first-child').removeClass("ui-icon ui-icon-triangle-1-s").addClass('rup-select_loadingText').text($.rup.i18n.base.rup_select.loadingText);
             var icon = $('#' + settings.id + '-button span:last-child');
             $(icon).removeClass('ui-icon-triangle-1-s');
             $(icon).text(''); // Evita errores de visualización con el icono
-            $(icon).addClass('rup-combo_loading');
+            $(icon).addClass('rup-select_loading');
 
             // Cabecera RUP
             xhr.setRequestHeader('RUP', $.toJSON(settings.sourceParam));
@@ -696,7 +676,7 @@
             if (xhr.responseText !== null && xhr.responseTex !== undefined && xhr.responseText.length < 200) {
                 $.rup.showErrorToUser(xhr.responseText);
             } else {
-                $.rup.showErrorToUser($.rup.i18n.base.rup_combo.ajaxError);
+                $.rup.showErrorToUser($.rup.i18n.base.rup_select.ajaxError);
             }
         },
         
@@ -851,7 +831,10 @@
 				          }else{
 				        	  $('#' + settings.id).rup_select('setRupValue',settings.blank);
 				          }
-			
+				          
+				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
+				            jQuery(settings.onLoadSuccess($('#' + settings.id)));
+				          }
 				          $('#' + settings.id).data('settings', settings);
 	              		  $('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
 				        });
@@ -1174,11 +1157,16 @@
 		            	if(settings.dataGroups === undefined){// LOcal
 		            		settings.data = this._parseLOCAL(settings.data,settings.i18nId,settings.parent);
 		            	}else{// grupos
+		            		  let optionsGroups = [];
 		            	      for (var i = 0; i < settings.dataGroups.length; i = i + 1) {
 		            	          if (typeof settings.dataGroups[i] === 'object') {
 		            	        	  settings.dataGroups[i].children = this._parseLOCAL(settings.dataGroups[i].children,settings.i18nId,settings.parent);
+		            	        	  for (var j = 0; j < settings.dataGroups[i].children.length; j = j + 1) {
+		            	        		  optionsGroups.push(settings.dataGroups[i].children[j]);
+		            	        	  }
 		            	          } 
 		            	      }
+		            	      settings.optionsGroups = optionsGroups;
 		            	      settings.data = settings.dataGroups;
 		            	}
 	                	
@@ -1200,10 +1188,12 @@
 	                // Init eventos: El resto van en el propio subyacente
 	                // Change
 	                if(settings.change){
+	                	$('#' + settings.id).off('select2:select');
 	                	$('#' + settings.id).on('select2:select', function (e) {
 	                		settings.change(e);
 	                	});
 	                	if(!settings.clean){
+	                		$('#' + settings.id).off('select2:clearing');
 		                	$('#' + settings.id).on('select2:clearing', function (e) {
 		                		settings.change(e);
 		                	});
@@ -1211,6 +1201,7 @@
 	                }
 	                // clean
 	                if(settings.clean){
+	                	$('#' + settings.id).off('select2:clearing');
 	                	$('#' + settings.id).on('select2:clearing', function (e) {
 	                		settings.clean(e);
 	                	});
@@ -1246,7 +1237,7 @@
 	                		$('#' + settings.id).select2(settings);
 	                		if(settings.deleteOnDeselect){
 			                	let mySelect2 = $('#' + settings.id).data('select2');
-
+			                
 			                	mySelect2.on('close', function (e) {
 				                	if (Object.keys(e).length === 1) {
 					                  $('#' + settings.id).val(null).trigger('change');
@@ -1293,7 +1284,7 @@
 			                	
 			                	// Si soy local
 			                	if(settings.data !== undefined){
-			                		console.log('cambiando local');
+			                		
 			                		if(typeof settings.parent == 'object'){// Si
 																			// tiene
 																			// más
@@ -1335,7 +1326,7 @@
 									// padre
 			                		$('#'+settings.id).rup_select("setRupValue",settings.blank);
 			                	}else{// si soy Remoto
-			                		console.log('cambiando remoto  '+ settings.id);
+			                		
 			                		let datosParent = _this._getParentsValues(settings, true);
 			                		
 			                		// Sola llamar si el padre tiene valor.
@@ -1379,7 +1370,7 @@
 	 * Función a ejecutar en caso de producirse un error a la hora de obtener
 	 * los elementos a mostrar.
 	 * 
-	 * @callback jQuery.rup_combo~onLoadError
+	 * @callback jQuery.rup_select~onLoadError
 	 * @param {Object}
 	 *            xhr - Objeto XHR que contiene la respuesta de la petición
 	 *            realizada.
@@ -1394,9 +1385,9 @@
 	 * Función a ejecutar en caso de producirse un error a la hora de obtener
 	 * los elementos a mostrar.
 	 * 
-	 * @callback jQuery.rup_combo~onLoadSuccess
+	 * @callback jQuery.rup_select~onLoadSuccess
 	 * @param {jQuery}
-	 *            self - Referencia al objeto jQuery del propio combo.
+	 *            self - Referencia al objeto jQuery del propio select.
 	 */
 
     /**
@@ -1404,36 +1395,27 @@
 	 * 
 	 * @name defaults
 	 * 
-	 * @property {jQuery.rup_combo~onLoadError} [onLoadError] - Función de
+	 * @property {jQuery.rup_select~onLoadError} [onLoadError] - Función de
 	 *           callback a ejecutar en caso de que se produzca un error en la
 	 *           petición de obtención de la lista de elementos a mostrar.
-	 * @property {number} [width=200] - Determina el tamaño del combo. Su valor
-	 *           por defecto es 200 para la selección simple. En el caso de
-	 *           selección múltiple su declaración es obligatoria. Puede
-	 *           establecerse un porcentaje para que el combo sea responsivo.
 	 * @property {string} [blank=null] - Se utiliza para declarar un valor
 	 *           independiente de la lógica de negocio y en ocasiones se
 	 *           representa como "Seleccione un elemento". Permite establecer un
-	 *           mensaje independiente por cada combo haciendo uso de
+	 *           mensaje independiente por cada select haciendo uso de
 	 *           $.rup.i18n.app.id._blank (sustituyendo id por el propio de cada
-	 *           combo) o uno genérico por aplicación haciendo uso de
-	 *           $.rup.i18n.app.rup_combo.blank. En caso de no definir ninguno,
+	 *           select) o uno genérico por aplicación haciendo uso de
+	 *           $.rup.i18n.app.rup_select.blank. En caso de no definir ninguno,
 	 *           se usará el genérico de UDA,
-	 *           $.rup.i18n.base.rup_combo.blankNotDefined.
-	 * @property {string} [style=dropdown] - Tipo de visualización de la lista
-	 *           de opciones del combo.
-	 * @property {boolean} [showValue=false] - Determina si el combo debe
-	 *           mostrar el valor asociado concatenado al literal (sólo
-	 *           selección simple).
+	 *           $.rup.i18n.base.rup_select.blankNotDefined.
 	 * @property {string} [token="|"] - Define el separador a utilizar cuando se
-	 *           muestra el valor asociado al combo concatenado al literal.
+	 *           muestra el valor asociado al select concatenado al literal.
 	 * @property {string} [multiValueToken="##"] - Define el separador a
-	 *           utilizar en combos enlazados locales.
-	 * @property {boolean} [ordered=true] - Indica si el combo debe ordenarse.
+	 *           utilizar en selects enlazados locales.
+	 * @property {boolean} [ordered=true] - Indica si el select debe ordenarse.
 	 * @property {boolean} [orderedByValue=false] - Indica si el la ordenación
-	 *           del combo debe realizarse por el valor de los elementos en
+	 *           del seelct debe realizarse por el valor de los elementos en
 	 *           lugar de por el texto.
-	 * @property {jQuery.rup_combo~onLoadSuccess} [onLoadSuccess=null] - Función
+	 * @property {jQuery.rup_select~onLoadSuccess} [onLoadSuccess=null] - Función
 	 *           de callback a ejecutar en el caso de que la petición de carga
 	 *           de datos se haya producido correctamente.
 	 * @property {boolean} [loadFromSelect=false] - Determina si se debe de
@@ -1450,7 +1432,7 @@
 	 * @property {boolean} [submitAsJSON=false] - Indica si el envío de los
 	 *           elementos seleccionados en la selección múltiple se realiza
 	 *           como un array JSON donde el nombre del mapa será el nombre del
-	 *           combo. En el caso de que el nombre contenga notación dot se
+	 *           select. En el caso de que el nombre contenga notación dot se
 	 *           tomará el último literal. Ej: [{id:1}, {id:2}, …].
 	 * @property {boolean} [readAsString=false] - Determina si la asignación de
 	 *           un valor inicial se va a realizar a partir de un string con los
@@ -1466,8 +1448,6 @@
 	 *           método obsoleto a la hora de empaquetar en objetos json los
 	 *           elementos seleccionados. Su propósito es mantener la
 	 *           retrocompatibilidad.
-	 * @property {function} [open=function( event, ui )] - Calcula el ancho del
-	 *           combo y se lo aplica al menú que despliega al pulsar sobre el.
 	 */
     $.fn.rup_select.defaults = {
         onLoadError: null,

@@ -29,6 +29,24 @@
     "userAre": " dago:",
     "youAre": "Hemen zaude:"
   },
+  "rup_select": {
+    "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
+    "blankNotDefined": "[Literala falta da]",
+    "loadingText": "Kargatzen...",
+	"appendToError": "{0} identifikatzailea duen konboan, beharrezkoa da appendTo propietatearentzako baliozko hautatzaile bat zehaztea.",
+    "multiselect": {
+      "checkAllText": "Hautatu dena",
+      "checkAllTitle": "Aukera guztiak hautatu",
+      "noneSelectedText": "Hautatu aukerak",
+      "optGroupDeselect": "Talde osoa garbitu",
+      "optGroupDeselectTitle": "Talde honen aukera guztiak garbitu",
+      "optGroupSelect": "Talde osoa hautatu",
+      "optGroupSelectTitle": "Talde honen aukera guztiak hautatu",
+      "selectedText": "# hautatuta",
+      "uncheckAllText": "Garbitu hautapena",
+      "uncheckAllTitle": "Aukera guztiak garbitu"
+    }
+  },
   "rup_combo": {
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
     "blankNotDefined": "[Literala falta da]",
