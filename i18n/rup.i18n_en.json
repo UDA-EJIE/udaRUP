@@ -48,7 +48,7 @@
     }
   },
   "rup_date": {
-    "buttonText": "en_Abrir calendario",
+    "buttonText": "Open calendar",
     "closeText": "Cerrar",
     "currentText": "Hoy",
     "dateFormat": "yy/mm/dd",
