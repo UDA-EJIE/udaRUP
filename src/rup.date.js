@@ -601,76 +601,98 @@
             }
         }
     });
+    
+    $.extend($.datepicker, {
+    	// Corrección para el botón que establece la fecha y hora actual.
+    	_gotoToday: function (id) {
+    		const inst = this._getInst($(id)[0]);
+    		this._base_gotoToday(id);
+
+    		const tzoffset = $.timepicker.timezoneOffsetNumber(inst.settings.timezoneOffset);
+    		const now = new Date();
+    		now.setMinutes(now.getMinutes() + now.getTimezoneOffset() + parseInt(tzoffset, 10));
+    		
+    		this._setTime(inst, now);
+    		this._setDate(inst, now);
+    		this._onSelectHandler(inst);
+    	},
+    	_onSelectHandler: function (inst) {
+    		const onSelect = inst.settings.onSelect;
+    		const inputEl = inst.input ? inst.input[0] : null;
+    		if (onSelect && inputEl) {
+    			onSelect.apply(inputEl, [inputEl.value, inst]);
+    		}
+    	}
+    });
 
     //******************************************************
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
     /**
-   * A continuación se muestran los posibles parámetros de configuración que recibe el componente.
-   * @name options
-   * @property {boolean} [datetimepicker=false] - Indica si el componente permite introducir la hora además de la fecha
-   * @property {boolean} [disabled=false] - Indica si el componente debe aparecer deshabilitado o no.
-   * @property {string} altField - Identificador de un campo adicional para que muestre la fecha en otro formato.
-   * @property {string} altFormat - Formato que debe seguir la fecha en el campo adicional
-   * @property {string} appendText - Texto que se puede añadir detrás de cada campo de fecha. Se recomienda el uso del atributo “labelMaskId” que se detalla a continuación en lugar de este atributo.
-   * @property {string} labelMaskId - Identificador del label que contendrá la máscara que indica el formato de la fecha.
-   * @property {string} mask - Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {boolean} [autoSize=false] - Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido
-   * @property {string} buttonImage - Ruta a la imagen que se muestra junto al campo de la fecha y que sirve para desplegar el calendario pulsando sobre ella. Por defecto se muestra una imagen incluida en los ficheros de RUP.
-   * @property {string} buttonText - Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {boolean} [changeMonth=true] - Indica si se muestra un combo que en la cabecera que facilita el cambio de mes
-   * @property {boolean} [changeYear=true] - indica si se muestra un combo que en la cabecera que facilita el cambio de año
-   * @property {string} [closeText] - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el calendario. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {string} currentText - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la fecha actual en el calendario. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {string} dateFormat - Formato de la fecha a introducir (ej: dd/mm/yy para 20/01/2011). Su valor por defecto se obtiene del fichero de idioma.
-   * @property {array} dayNames - Literales para los días [array]. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {array} dayNamesMin - Literales para los días (mínimos) [array]. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {array} 	dayNamesShort - Literales para los días (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {date|string|number} defaultDate  - fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver la explicación al final de este apartado). Por defecto se destaca la fecha del día.
-   * @property {string|number} [duration=normal] - Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos).
-   * @property {number} firstDay -Número que indica en qué día de la semana debe empezar el calendario. El valor 0 equivale al domingo, el 1 al lunes y así sucesivamente.
-   * @property {boolean} [hideIfNoPrevNext=false] - Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan
-   * @property {date|string|number} maxDate - Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite.
-   * @property {date|string|number} minDate - Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite.
-   * @property {array} monthNames - Literales para los meses [array]. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {array} monthNamesShort - Literales para los meses (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {string} nextText - Literal a mostrar en el enlace de siguiente. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {number|array} [numberOfMonths=1] -Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]).
-   * @property {string} prevText - Literal a mostrar en el enlace de anterior. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {boolean} [selectOtherMonths=false] - Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths
-   * @property {string} [showAnim=show] - Indica el tipo de animación que se emplea para mostrar el calendario en pantalla.
-   * @property {boolean} [showButtonPanel=false] - Indica si se muestran los botones de la parte inferior (hoy y cerrar).
-   * @property {number} [showCurrentAtPos=0] - Cuando se muestra más de un mes, indica la posición que ocupa el mes actual.
-   * @property {boolean} showMonthAfterYear - Intercambia la posición del mes y del año en la cabecera del calendario.
-   * @property {object} showOptions - Objeto que determina las propiedades de la animación del calendario. Para más información ver la siguiente  {@link http://api.jqueryui.com/datepicker/#option-showAnim|página} .
-   * @property {boolean} [showWeek=false] - Indica si se debe mostrar el número de semana.
-   * @property {number} stepMonths - Indica el número de meses que se avanzan al pulsar los enlaces anterior/siguiente.
-   * @property {string} weekHeader - Literal que aparece sobre los números de semana. Su valor por defecto se obtiene del fichero de idioma.
-   * @property {string}  yearRange - Determina el rango de años a mostrar en el combo de la cabecera del calendario. No implica que sea el límite de años a seleccionar. Se debe definir como un literal que indique el inicio y el fin separado por dos puntos ej. 2001:2011. Puede usarse el la letra c como valor actual restándole y sumándole un numérico ej. c-10:c+10. Su valor por defecto es c-10:c+10
-   * @property {string} yearSuffix - Texto adicional a mostrar en la cabecera del calendario junto al año.
-   * @property {booelan} 	[noWeekend=false] - Indica si se muestran o no los días del fin de semana (sábado y domingo).
-   * @property {string} from - Indica el selector del campo inicial en los intervalos de fechas
-   * @property {string} to - Indica el selector del campo final en los intervalos de fechas
-   * @property {array|number} 	multiselect - Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica.
-   * @property {boolean} [autoFillToField=true] - Atributo que indica si se auto rellena el campo hasta
-   * @property {boolean} [autoFillFromField=true] - Atributo que indica si se auto rellena el campo desde
-
-   */
-
-
+     * A continuación se muestran los posibles parámetros de configuración que recibe el componente.
+     * @name options
+     * @property {boolean} [datetimepicker=false] - Indica si el componente permite introducir la hora además de la fecha
+     * @property {boolean} [disabled=false] - Indica si el componente debe aparecer deshabilitado o no.
+     * @property {string} altField - Identificador de un campo adicional para que muestre la fecha en otro formato.
+     * @property {string} altFormat - Formato que debe seguir la fecha en el campo adicional
+     * @property {string} appendText - Texto que se puede añadir detrás de cada campo de fecha. Se recomienda el uso del atributo “labelMaskId” que se detalla a continuación en lugar de este atributo.
+     * @property {string} labelMaskId - Identificador del label que contendrá la máscara que indica el formato de la fecha.
+     * @property {string} mask - Texto empleado para la máscara de la fecha. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [autoSize=false] - Booleano que indica si el campo para la fecha se tiene que redimensionar automáticamente para adaptares al texto introducido
+     * @property {string} buttonImage - Ruta a la imagen que se muestra junto al campo de la fecha y que sirve para desplegar el calendario pulsando sobre ella. Por defecto se muestra una imagen incluida en los ficheros de RUP.
+     * @property {string} buttonText - Texto alternativo de la imagen que se muestra junto al campo de la fecha. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [changeMonth=true] - Indica si se muestra un combo que en la cabecera que facilita el cambio de mes
+     * @property {boolean} [changeYear=true] - indica si se muestra un combo que en la cabecera que facilita el cambio de año
+     * @property {string} [closeText] - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para cerrar el calendario. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} currentText - Texto a mostrar en el botón que se muestra en el panel inferior (requiere el activarlo mediante el atributo showButtonPanel) para seleccionar la fecha actual en el calendario. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} dateFormat - Formato de la fecha a introducir (ej: dd/mm/yy para 20/01/2011). Su valor por defecto se obtiene del fichero de idioma.
+     * @property {array} dayNames - Literales para los días [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {array} dayNamesMin - Literales para los días (mínimos) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {array} 	dayNamesShort - Literales para los días (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {date|string|number} defaultDate  - fecha que se muestra por defecto destacada cuando se abre el calendario y no hay ninguna fecha escrita. El tipo de parámetro puede ser Date, String o Number (ver la explicación al final de este apartado). Por defecto se destaca la fecha del día.
+     * @property {string|number} [duration=normal] - Velocidad a la que aparece el calendario en pantalla (animación). Sus posibles valores son: ‘slow’, ‘normal’ y ‘fast’ o un valor numérico (milisegundos).
+     * @property {number} firstDay -Número que indica en qué día de la semana debe empezar el calendario. El valor 0 equivale al domingo, el 1 al lunes y así sucesivamente.
+     * @property {boolean} [hideIfNoPrevNext=false] - Oculta los enlaces de siguiente/anterior mes cuando no se puede navegar. En caso contrario, los enlaces se deshabilitan
+     * @property {date|string|number} maxDate - Fecha máxima que se puede seleccionar (límite superior). Por defecto no hay límite.
+     * @property {date|string|number} minDate - Fecha mínima que se puede seleccionar (límite inferior). Por defecto no hay límite.
+     * @property {array} monthNames - Literales para los meses [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {array} monthNamesShort - Literales para los meses (corto) [array]. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string} nextText - Literal a mostrar en el enlace de siguiente. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {number|array} [numberOfMonths=1] -Puede definirse como un numérico (ej. 2) o como un array indicando filas y columnas (ej. [2, 3]).
+     * @property {string} prevText - Literal a mostrar en el enlace de anterior. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {boolean} [selectOtherMonths=false] - Permite seleccionar los días del meses anterior/posterior del que se muesta. Requiere que estén activos dichos días mediante el parámetro showOtherMonths
+     * @property {string} [showAnim=show] - Indica el tipo de animación que se emplea para mostrar el calendario en pantalla.
+     * @property {boolean} [showButtonPanel=false] - Indica si se muestran los botones de la parte inferior (hoy y cerrar).
+     * @property {number} [showCurrentAtPos=0] - Cuando se muestra más de un mes, indica la posición que ocupa el mes actual.
+     * @property {boolean} showMonthAfterYear - Intercambia la posición del mes y del año en la cabecera del calendario.
+     * @property {object} showOptions - Objeto que determina las propiedades de la animación del calendario. Para más información ver la siguiente  {@link http://api.jqueryui.com/datepicker/#option-showAnim|página} .
+     * @property {boolean} [showWeek=false] - Indica si se debe mostrar el número de semana.
+     * @property {number} stepMonths - Indica el número de meses que se avanzan al pulsar los enlaces anterior/siguiente.
+     * @property {string} weekHeader - Literal que aparece sobre los números de semana. Su valor por defecto se obtiene del fichero de idioma.
+     * @property {string}  yearRange - Determina el rango de años a mostrar en el combo de la cabecera del calendario. No implica que sea el límite de años a seleccionar. Se debe definir como un literal que indique el inicio y el fin separado por dos puntos ej. 2001:2011. Puede usarse el la letra c como valor actual restándole y sumándole un numérico ej. c-10:c+10. Su valor por defecto es c-10:c+10
+     * @property {string} yearSuffix - Texto adicional a mostrar en la cabecera del calendario junto al año.
+     * @property {booelan} 	[noWeekend=false] - Indica si se muestran o no los días del fin de semana (sábado y domingo).
+     * @property {string} from - Indica el selector del campo inicial en los intervalos de fechas
+     * @property {string} to - Indica el selector del campo final en los intervalos de fechas
+     * @property {array|number} 	multiselect - Atributo que indica si se permite la multiselección de fechas y el modo en el que se aplica.
+     * @property {boolean} [autoFillToField=true] - Atributo que indica si se auto rellena el campo hasta
+     * @property {boolean} [autoFillFromField=true] - Atributo que indica si se auto rellena el campo desde
+     * @property {number} [timezoneOffset=0] - Permite ajustar el huso horario
+     */
     $.fn.rup_date.defaults = {
-        adapter: 'date_material',
-        placeholderMask: false,
-        datetimepicker: false,
-        multiSelect: false,
-        changeMonth: true,
-        changeYear: true,
-        noWeekend: false,
-        showSecond: true,
-        autoFillToField: true,
-        autoFillFromField: true,
-        showMillisec: false,
-        showMicrosec: false
+    	adapter: 'date_material',
+    	placeholderMask: false,
+    	datetimepicker: false,
+    	multiSelect: false,
+    	changeMonth: true,
+    	changeYear: true,
+    	noWeekend: false,
+    	showSecond: true,
+    	autoFillToField: true,
+    	autoFillFromField: true,
+    	showMillisec: false,
+    	showMicrosec: false,
+    	timezoneOffset: 60
     };
 
     //EVENTOS

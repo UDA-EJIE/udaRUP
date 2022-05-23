@@ -79,7 +79,7 @@
 					.attr('id', 'rup-multiCombo_'+ $(this.element).attr('id'))
 					.addClass('ui-multiselect-menu ui-widget ui-widget-content ui-corner-all')
 					.addClass( o.classes )
-					.appendTo( document.body ),
+					.appendTo( o.appendTo ),
 
 				header = (this.header = $('<div></div>'))
 					.addClass('ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix')
@@ -570,7 +570,7 @@
 
 			var $container = menu.find('ul').last(),
 				effect = o.show,
-				pos = button.offset();
+				pos = o.positionMenuByOffset ? button.offset() : button.position();
 
 			// figure out opening effects/speeds
 			if( $.isArray(o.show) ){

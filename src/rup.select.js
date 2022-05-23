@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 
 /*!
- * Copyright 2016 E.J.I.E., S.A.
+ * Copyright 2021 E.J.I.E., S.A.
  *
  * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
  * Solo podrá usarse esta obra si se respeta la Licencia.
@@ -16,23 +16,12 @@
  * que establece la Licencia.
  */
 
-//Modificado "jquery.ui.selectmenu.js" línea 70
-//Modificado "jquery.ui.selectmenu.js" línea 438-442
-//Modificado "jquery.ui.selectmenu.js" línea 270 [jQuery 1.8 compatible]
-
-//Modificado "jquery.multiselect.js" línea 53 [Estilo flecha como combos
-//Añadido	 "jquery.multiselect.js" línea 65 [Id al componete]
-//Modificado "jquery.multiselect.js" línea 581 [jQuery 1.8 compatible]
-//Modificadro "IE Fixes" (evitar problemas con elementos deshabilitados en IE)
-
-//Arregos para resaltado con el teclado (UDA - focus): líneas 446-448, 494-496, 519-522
-
 /**
  * Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
  *
- * @summary Componente RUP Combo.
+ * @summary Componente RUP Select.
  * @module rup_combo
- * @see El componente está basado en el plugin {@link http://jqueryui.com/selectmenu/|jQuery UI Selectmenu}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://api.jqueryui.com/selectmenu/|aquí}.
+ * @see El componente está basado en el plugin {@link https://select2.org//|Select2}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link https://select2.org//|aquí}.
  * @example
  * $("#idCombo").rup_combo({
  *	source : "comboSimple/remote",
@@ -47,7 +36,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './core/ui/jquery.ui.selectmenu', './core/ui/jquery.multiselect'], factory);
+        define(['jquery', './rup.base', 'select2'], factory);
     } else {
 
         // Browser globals
@@ -60,15 +49,15 @@
     //****************************************************************************************************************
 
 
-    var rup_combo = {};
+    var rup_select = {};
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
-    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_combo', rup_combo));
+    $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_select', rup_select));
 
     //*******************************
     // DEFINICIÓN DE MÉTODOS PÚBLICOS
     //*******************************
-    $.fn.rup_combo('extend', {
+    $.fn.rup_select('extend', {
         /**
          * Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del Combo.
          *
@@ -180,24 +169,6 @@
 
         },
         /**
-         * Reinicia por completo el componente, incluyendo sus ajustes. 
-         *
-         * @function hardReset
-         * @since UDA 5.0.3
-         * @example
-         * $("#idCombo").rup_combo("hardReset");
-         */
-        hardReset: function () {
-        	const $self = $(this),
-        		settings = $self.data('settings');
-        	
-        	settings.disabled = undefined;
-        	settings.selected = undefined;
-        	settings.ultimaLlamada = undefined;
-        	settings.ultimosValores = undefined;
-        	$self.rup_combo('select', '');
-        },
-        /**
          * Selecciona todos los elementos en el caso de tratarse de un combo multilesección.
          *
          * @function  checkAll
@@ -226,29 +197,8 @@
          * $("#idCombo").rup_combo("select", [0,2]);
          */
         select: function (param) {
-        	const data = $(this).data();
-        	
-        	// Cuando el identificador está cifrado por Hdiv, hay que asegurarse de tener siempre el valor obtenido a partir de la fuente definida en la inicialización del componente
-        	if (data.values != undefined && $.fn.isHdiv(param) && (data.selectedValueKey == undefined || param != data.values[data.selectedValueKey].value)) {
-        		$.each(data.values, function (key, obj) {
-        			if ($.fn.getStaticHdivID(obj.value) === $.fn.getStaticHdivID(param)) {
-        				data.setRupValue = obj.value;
-        				data.settings.selected = obj.value;
-        				param = obj.value;
-        				
-        				// Para evitar iteraciones innecesarias en el futuro, se guarda la posición del valor en el array para facilitar su comprobación
-        				data.selectedValueKey = key;
-            		}
-        		});
-        	}
-        	// Asigna el valor recibido como el seleccionado (evita problemas con los enlazados).
-        	else if (param != undefined && param != '') {
-        		data.setRupValue = param;
-        		data.settings.selected = param;
-        	}
-        	
             //Tipo de combo
-            if (this.length === 0 || !data.settings.multiselect) {
+            if (this.length === 0 || !$(this).data('settings').multiselect) {
                 //Simple > selectmenu
                 this._setElement($(this), param); //Cargar elemento
             } else {
@@ -278,7 +228,7 @@
                     var hijos = $(this).data('childs');
                     if (hijos !== undefined) {
                         for (let i = 0; i < hijos.length; i = i + 1) {
-                            $('#' + hijos[i]).rup_combo('reload');
+                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
                         }
                     }
                 }
@@ -426,18 +376,6 @@
             }
         },
         /**
-         * Indica si un rup_combo ya ha sido inicializado sobre el elemento con el identificador provisto.
-         *
-         * @function isInitialized
-         * @since UDA 5.0.3
-         * @return {boolean} - Indica si ya ha sido inicializado un combo sobre el elemento.
-         * @example
-         * $("#idCombo").rup_combo("isInitialized");
-         */
-        isInitialized: function () {
-        	return $(this).attr('ruptype') === 'combo' ? true : false;
-        },
-        /**
          * Vacía y deshabilita el combo sobre el que se aplica así como todos los combos que depende de él. Su uso principalmente es interno para las peticiones remotas.
          *
          * @function  disableChild
@@ -454,8 +392,6 @@
             }
             //Vaciar combo, deshabilitarlo
             $(this).empty().append('<option></option>').rup_combo('disable');
-            // Eliminar valor seleccionado.
-            $(this).data('settings').selected = undefined;
             //Eliminar texto que se muestra
             $('#' + $(this).attr('id') + '-button span:first-child').text('');
             //Propagar evento de selección a hijos (recursivo)
@@ -628,10 +564,8 @@
                 $('#' + settings.id).removeClass('inited');
                 wasInited = !!1;
 
-                // Vaciar, quitar el valor y deshabilitar el combo.
-                if (!$('#' + settings.id).rup_combo('isDisabled')) {
-                	$('#' + settings.id).rup_combo('disableChild');
-                }
+                //Vaciar combo, quitarle valor y deshabilitar
+                $('#' + settings.id).rup_combo('disableChild');
 
                 if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
                     //LOCAL
@@ -1052,9 +986,6 @@
             }
             for (let i = 0; i < array.length; i = i + 1) {
                 id = array[i];
-                const settings = $('#' + id).data('settings'),
-                	lastLoop = i + 1 === array.length;
-                
                 //Si tiene seleccionado la primera opción puede que está seleccionada opción vacia
                 if ($('#' + id).rup_combo('index') === 0) {
                     texto = $('#' + id + '-button span:first-child').text();
@@ -1066,8 +997,8 @@
                 }
 
                 //Si el valor de algún padre es null (no se ha cargado aún)
-                if (settings.blank !== undefined && settings.blank !== null) {
-                    parentBlankValue = settings.blank;
+                if ($('#' + id).data('settings').blank !== undefined && $('#' + id).data('settings').blank !== null) {
+                    parentBlankValue = $('#' + id).data('settings').blank;
                 } else {
                     parentBlankValue = '';
                 }
@@ -1075,11 +1006,18 @@
                     return null;
                 }
 
-                // Cuando el componente se use en la edición en línea de la tabla, se utilizará el campo definido por esta. También se evita la inserción de "&" o "multiValueTokenAux" en el último bucle.
                 if (remote) {
-                	retorno += (settings.inlineEditFieldName ?? $('#' + id).attr('name')) + '=' + $('#' + id).val() + (lastLoop ? '' : '&');
+                    retorno += $('#' + id).attr('name') + '=' + $('#' + id).val() + '&';
                 } else {
-                	retorno += $('#' + id).val() + (lastLoop ? '' : multiValueTokenAux);
+                    retorno += $('#' + id).val() + multiValueTokenAux;
+                }
+            }
+            //Evitar & o multiValueToken finales
+            if (retorno !== '') {
+                if (remote) {
+                    retorno = retorno.substring(0, retorno.length - 1);
+                } else {
+                    retorno = retorno.substring(0, retorno.length - multiValueTokenAux.length);
                 }
             }
             return retorno;
@@ -1134,9 +1072,14 @@
 
             //Tipo de combo
             if (!settings.multiselect) {
-            	// Simple > selectmenu
-            	$('#' + settings.id).selectmenu(settings);
-                $('#' + settings.id).rup_combo('setRupValue', settings.selected ?? '');
+                //Simple > selectmenu
+                $('#' + settings.id).selectmenu(settings);
+                if (settings.selected !== undefined && settings.selected !== '') {
+                    $('#' + settings.id).rup_combo('setRupValue', settings.selected);
+                } else {
+                    $('#' + settings.id).rup_combo('setRupValue', '');
+                }
+
             } else {
                 //Multiple > multiselect
                 $('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
@@ -1419,9 +1362,6 @@
 
             //Cargar combo (si se reciben datos)
             if (data.length > 0) {
-            	// Se guardan los datos para poder obtener siempre el elemento original cifrado por Hdiv
-            	$('#' + settings.id).data('values', data);
-            	
                 if (settings.source) {
                     if (settings.blank != null && $('#' + settings.id +' option[value="'+settings.blank+'"]').length == 0) {
                         $('#' + settings.id).prepend($('<option>').attr('value', settings.blank).text(this._getBlankLabel(settings.id)));
@@ -1658,43 +1598,6 @@
 	                    attrsJson = {},
 	                    attrs;
 	
-	                // Cargar el identificador del padre del patrón.
-	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
-	                settings.name = $(this).attr('name');
-	                
-	                // Comprobar en caso de ser enlazado, que los combos sobre los que depende hayan sido inicializados.
-	                if (settings.parent && Array.isArray(settings.parent) && !settings.parentsInitialized) {
-	                	let parentsDeferred = [];
-	                	let parentsInitialized = true;
-	                	$.each(settings.parent, function (key, id) {
-	                		if (!$('#' + id).rup_combo("isInitialized")) {
-	                			const parentDeferred = $.Deferred();
-	                			parentsDeferred.push(parentDeferred);
-	                			
-	                			// Inicializarse cuando el padre o padres lo hayan hecho. El evento se adjunta al label en vez de al combo porque este último es convertido más adelante y pierde el evento.
-	                			$('label[for="' + id + '"]').on('comboIsInitialized', function () {
-	                				// Desligar evento del elemento.
-	                				$(this).off('comboIsInitialized');
-	                				// Resolver promesa.
-	                				parentDeferred.resolve();
-	                			});
-		                		
-	                			parentsInitialized = false;
-	                		}
-	                	});
-	                	
-	                	if (!parentsInitialized) {
-	                		$.when(...parentsDeferred).done(function() { 
-	                			// Añadir parámetro para indicar que la inicialización del componente ya puede llevarse a cabo de manera segura.
-	                			settings.parentsInitialized = true;
-	                			// Inicializar componente.
-	                			$('#' + settings.id).rup_combo(settings);
-	                		});
-	                		
-	                		return false;
-	                	}
-	                }
-	
 	                // Se sobreescribe el change:
 	                if (settings.change) {
 	                    settings.userChange = settings.change;
@@ -1712,16 +1615,10 @@
 	
 	                //Sobreescribir literales por defecto para multicombo
 	                $.extend($.ech.multiselect.prototype.options, $.rup.i18n.base.rup_combo.multiselect);
-	                
-	                // Definir el elemento del DOM sobre el que se añadirá el componente siempre y cuando no se haya definido ya en los parámetros de inicialización
-	                if (settings.appendTo != undefined) {
-	                	if (settings.appendTo.length == 0 || settings.appendTo.length == undefined) {
-	                		console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_combo.appendToError'), settings.id));
-	                		settings.appendTo = $('#' + settings.id).parent();
-	                	}
-	                } else {
-	                	settings.appendTo = $('#' + settings.id).parent();
-	                }
+	
+	                //Se carga el identificador del padre del patron
+	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
+	                settings.name = $(this).attr('name');
 	
 	                //Si no se recibe identificador para el acceso a literales se usa el ID del objeto
 	                if (!settings.i18nId) {
@@ -1803,7 +1700,7 @@
 	
 	                    //Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
 	                    if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
-	                        $('#' + settings.id).rup_combo('reload');
+	                        $('#' + settings.id).rup_combo('reload', settings.id);
 	                    }
 	                    multiChange(settings);
 	                    $('#' + settings.id).addClass('inited');
@@ -1936,7 +1833,7 @@
 	                    var hijos = $(this).data('childs');
 	                    if (hijos !== undefined) {
 	                        for (let i = 0; i < hijos.length; i = i + 1) {
-	                            $('#' + hijos[i]).rup_combo('reload');
+	                            $('#' + hijos[i]).rup_combo('reload', hijos[i]);
 	                        }
 	                    }
 	                });
@@ -1951,9 +1848,6 @@
 	
 	                //Se audita el componente
 	                $.rup.auditComponent('rup_combo', 'init');
-	                
-	                // Comunicar la inicialización del componente.
-	                $('label[for="' + settings.id + '"]').triggerHandler('comboIsInitialized');
 	            }
         	}).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
@@ -2021,8 +1915,6 @@
      * @property {boolean} [loadFromSelect=false] - Determina si se debe de utilizar los elementos option del elemento html sobre el que se inicializa el componente para inicializar los datos del elemento.
      * @property {boolean} [multiselect=false] - Indica si el combo permite la selección múltiple.
      * @property {boolean} [multiOptgroupIconText=false] - Indica si se desea que en la selección múltiple con grupos, el nombre del grupo tenga descripción en los iconos para seleccionar/deseleccionar los elementos del grupo.
-     * @property {object} [position={my: 'left top', at: 'left bottom', of: $("#comboMulti")}] - Define la posición del menú. La tercera opción hace referencia al elemento sobre el que se posicionará el menú y su uso es opcional (se usará el botón del combo por defecto si no se define). Más información en https://github.com/ehynds/jquery-ui-multiselect-widget/wiki/Options#available-options.
-     * @property {boolean} [positionMenuByOffset=false] - Ofrece la posibilidad de posicionar el menú del combo con multiselección a partir del método .offset() en caso de ser 'true' o por el método .position() en caso de ser 'false'. Esta propiedad sólo será usada si la propiedad 'position' es definida con un valor vacío.
      * @property {boolean} [submitAsString=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un literal separados por coma.
      * @property {boolean} [submitAsJSON=false] - Indica si el envío de los elementos seleccionados en la selección múltiple se realiza como un array JSON donde el nombre del mapa será el nombre del combo. En el caso de que el nombre contenga notación dot se tomará el último literal. Ej: [{id:1}, {id:2}, …].
      * @property {boolean} [readAsString=false] - Determina si la asignación de un valor inicial se va a realizar a partir de un string con los ids de los elementos separados por comas en vez de un array de json.
@@ -2031,7 +1923,7 @@
      * @property {number} [legacyWrapMode=false] - Determina si se emplea el método obsoleto a la hora de empaquetar en objetos json los elementos seleccionados. Su propósito es mantener la retrocompatibilidad.
      * @property {function} [open=function( event, ui )] - Calcula el ancho del combo y se lo aplica al menú que despliega al pulsar sobre el.
      */
-    $.fn.rup_combo.defaults = {
+    $.fn.rup_select.defaults = {
         onLoadError: null,
         width: 200,
         blank: null,
@@ -2046,28 +1938,24 @@
         loadFromSelect: false,
         multiselect: false,
         multiOptgroupIconText: true,
-        position: {my: 'left top', at: 'left bottom'},
-        positionMenuByOffset: false,
         submitAsString: false,
         submitAsJSON: false,
         readAsString: false,
         rowStriping: false,
         typeAhead: 1000,
         legacyWrapMode: false,
-        open: function (event) {
-        	const comboId = $.rup_utils.escapeId(this.id);
-        	var anchoCombo = $('#' + comboId + '-button').outerWidth();
+        open: function () {
+            var anchoCombo = $('#' + this.id + '-button').outerWidth();
 
             // Si es un combo multiselect
             if (this.multiple) {
-                $('#rup-multiCombo_' + comboId).outerWidth(anchoCombo);
+                $('#rup-multiCombo_' + this.id).outerWidth(anchoCombo);
             }
             // Si es un combo normal
             else {
-                $('#' + comboId + '-menu').parent('div').outerWidth(anchoCombo);
-                $('#' + comboId + '-menu').outerWidth(anchoCombo);
+                $('#' + this.id + '-menu').parent('div').attr('id', 'ui-selectmenu-menu').outerWidth(anchoCombo);
+                $('#' + this.id + '-menu').outerWidth(anchoCombo);
             }
-            event.stopPropagation();
         }
     };
 

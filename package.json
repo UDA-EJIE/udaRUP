@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "5.0.0",
+  "version": "5.0.3",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
@@ -47,7 +47,7 @@
     "@babel/polyfill": "7.8.7",
     "@babel/preset-env": "7.8.7",
     "@mdi/font": "4.9.95",
-    "acorn": "7.1.0",
+    "acorn": "7.1.1",
     "autoprefixer": "7.2.6",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-es2015-modules-amd": "6.24.1",
@@ -103,8 +103,8 @@
     "jasmine-ajax": "4.0.0",
     "jasmine-core": "3.5.0",
     "jasmine-jquery": "2.1.1",
-    "jquery": "3.4.1",
-    "jquery-migrate": "3.0.1",
+    "jquery": "3.6.0",
+    "jquery-migrate": "3.4.0",
     "jquery-validation": "1.19.3",
     "jsdoc-to-markdown": "5.0.2",
     "karma": "4.4.1",
@@ -170,6 +170,7 @@
     "modernizr": "3.7.1",
     "natives": "1.1.6",
     "printd": "1.4.1",
-    "qtip2": "3.0.3"
+    "qtip2": "3.0.3",
+    "select2": "~4.0"
   }
 }

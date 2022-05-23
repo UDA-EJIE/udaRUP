@@ -15,6 +15,7 @@
 -   [8  Internacionalización (i18n)](#8-internacionalización-i18n)   
 -   [9 Integración con UDA](#9-integración-con-uda)   
 -   [10 Autocompletes enlazados](#10-autocompletes-enlazados)
+-   [11 Aspectos a tener en cuenta](#11-aspectos-a-tener-en-cuenta)
 
 <!-- /MDTOC -->
 
@@ -268,3 +269,6 @@ Cabe decir que en el atributo name de los campos definidos como parents de un au
 ```xml
 <input id="padre" name="provincia" />
 ```
+
+## 11 Aspectos a tener en cuenta
+Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `menuAppendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.

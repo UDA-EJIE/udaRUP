@@ -200,4 +200,10 @@ select.rup_combo ~ button.select-material {
 			display: none;
 		}
 	}
+	
+	& + div label, + label + div label {
+		position: initial;
+		pointer-events: initial;
+		color: initial;
+	}
 }

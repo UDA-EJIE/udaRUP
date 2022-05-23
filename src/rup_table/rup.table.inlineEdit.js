@@ -172,7 +172,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	                return $.rup.i18nParse($.rup.i18n.base, 'rup_table.save');
 	         },
 	         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave',
+	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave order-5',
 	         icon: 'mdi-content-save',
 	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
 	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -191,7 +191,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 				return $.rup.i18nParse($.rup.i18n.base, 'rup_table.cancel');
 			},
 			id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
-			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel',
+			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel order-6',
 			icon: 'mdi-cancel',
 			displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
@@ -501,8 +501,8 @@ function _editInline ( dt,ctx, idRow ){
 	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
         if (!$rowSelect.hasClass('editable')) {
 		_changeInputsToRup(ctx,idRow);
-		//se deshabilitan los botones de la tabla.
-		DataTable.Api().buttons.disableAllButtons(ctx);
+		// Se deshabilitan los botones predefinidos de la tabla.
+		DataTable.Api().buttons.disableAllButtons(ctx, ctx.ext.buttons.custom);
 	}
 	
 	// Habilitamos en la botonera y contextMenu
@@ -808,7 +808,7 @@ function _restaurarFila(ctx,limpiar){
 			ctx.multiselection.selectedRowsPerPage = [];
 		}
 		//se habilitan los botones.
-		ctx._buttons[0].inst.s.disableAllButttons = undefined;
+		ctx._buttons[0].inst.s.disableAllButtons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
 	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
@@ -889,9 +889,15 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 		var celda = $(this);
 		var $celda = $(celda);
 		
-            if (!$celda.hasClass('select-checkbox')) {
+		if (!$celda.hasClass('select-checkbox')) {
+			// Si la columna a usar está oculta, se aumenta el contador para usar la siguiente que no lo esté
+			while (colModel[cont].hidden) {
+				cont++;
+			}
+			
 			var cellColModel = colModel[cont];
-			if(cellColModel.editable===true || !edicion){
+			
+			if (cellColModel.editable === true || !edicion) {
 				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
                     $input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
@@ -913,7 +919,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				//Convertir a input.
-				var searchRupType = (cellColModel.searchoptions!==undefined && cellColModel.searchoptions.rupType!==undefined)?cellColModel.searchoptions.rupType:cellColModel.rupType;
+				var searchRupType = (cellColModel.editoptions !== undefined && cellColModel.editoptions.rupType !== undefined) ? cellColModel.editoptions.rupType : cellColModel.rupType;
 				var colModelName = cellColModel.name;
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
@@ -933,10 +939,17 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					'class': 'editable customelement form-control-customer'
 				}).removeAttr('readOnly');
 				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-				if(searchRupType!==undefined) {
-					var searchEditOptions = cellColModel.searchoptions || cellColModel.editoptions;
+				if(searchRupType !== undefined && cellColModel.editoptions) {
+					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.inlineEditFieldName = cellColModel.name;
+					} else if (searchRupType === 'autocomplete') {
+						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
+						searchEditOptions.loadValue = cellValue;
+						if(cellValue != null){
+							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
+						}
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.
@@ -946,19 +959,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					
 					// Invocación al componente RUP
 					$elem['rup_'+searchRupType](searchEditOptions);
-					if(searchRupType === 'combo'){//asignar el valor
-						global.initRupI18nPromise.then(() => {
-							$('#' + $elem.attr('id')).rup_combo('setRupValue', ctx.inlineEdit.lastRow.cellValues[cont - 1]);
-						}).catch((error) => {
-							console.error('Error al establecer el valor:\n', error);
-						});
-					}
 				}else if(cellColModel.edittype === 'checkbox'){
 					$elem
 						.prop('type', 'checkbox')
-						.addClass('select-material')
-						.parent().toggleClass('form-groupMaterial checkbox-material')
-						.append('<label for="' + $elem.attr('name') + '"></label>');
+						.parent().toggleClass('form-groupMaterial checkbox-material checkbox-material-inline')
+						.append('<label for="' + $elem.attr('name') + '"></label>')
+						.closest('td').addClass('text-center');
 					
 					var valueCelda = ctx.inlineEdit.lastRow.cellValues[cont];
 					
@@ -1002,22 +1008,26 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 * @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} ctx - Es el contexto de cada tabla.
-* @param {object} $fila - fila que se está editando.
+* @param {object} $fila - Fila que se está editando.
 * @param {object} $celdas - Todas las celdas a recorrer.
 * @param {integer} contRest - Contador para saber en que celda nos movemos, sobre todo en el responsive.
 *
 */
-function _restaurarCeldas(ctx,$fila,$celdas,contRest){
-
-        if ($fila.hasClass('editable')) {
-		var colModel = ctx.oInit.colModel;
-            $fila.removeClass('editable');
-		
+function _restaurarCeldas(ctx, $fila, $celdas, contRest) {
+    if ($fila.hasClass('editable')) {
+    	var colModel = ctx.oInit.colModel;
+        $fila.removeClass('editable');
+	
 		$celdas.each( function() {
 			var celda = $(this);
 			var $celda = $(celda);
 	
-                if (!$celda.hasClass('select-checkbox')) {
+			if (!$celda.hasClass('select-checkbox')) {
+				// Si la columna a usar está oculta, se aumenta el contador para usar la siguiente que no lo esté
+				while (colModel[contRest].hidden) {
+					contRest++;
+				}
+    			
 				var cellColModel = colModel[contRest];
 				if(cellColModel.editable===true){
 					$celda.html(ctx.inlineEdit.lastRow.cellValues[contRest]);
@@ -1044,10 +1054,15 @@ function _restaurarCeldas(ctx,$fila,$celdas,contRest){
 						}
 					}
 				}
+				
+				if (cellColModel.edittype === 'checkbox') {
+					$celda.closest('td').removeClass('text-center');
+				}
+				
 				contRest++;
 			}
 		});
-	}
+    }
 	
 	return contRest;
 }
@@ -1276,8 +1291,14 @@ function _guardar(ctx,$fila,child){
 	    		return false;
 	    	}
 		}
-		
 		let url = actionType == 'POST' ? '/add' : '/edit';
+    	
+    	// Comprobar si se ha definido otra URL en las propiedades, en caso afirmativo, se aplica.
+		const property = url.substring(1) + 'Url';
+    	if (ctx.oInit.inlineEdit[property]) {
+    		url = ctx.oInit.inlineEdit[property];
+    	}
+    	
 		_callSaveAjax(actionType, ctx, $fila, row, url, false);
 		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
     }
@@ -1394,7 +1415,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				}
 				ctx.inlineEdit.row = undefined;
 				ctx.inlineEdit.lastRow = undefined;
-				ctx._buttons[0].inst.s.disableAllButttons = undefined;
+				ctx._buttons[0].inst.s.disableAllButtons = undefined;
 	
 				DataTable.Api().seeker.disabledButtons(ctx);
 			
@@ -1965,7 +1986,7 @@ $(document).on( 'plugin-init.dt', function (e, ctx) {
 		return;
 	}
 
-	if(ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.activate !== false){
+	if(!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.oInit.inlineEdit.activate !== false){
 		DataTable.inlineEdit.init( new DataTable.Api( ctx ) );
 		
 		if (ctx.oInit.inlineEdit.cancelDeleteFunction === undefined) {

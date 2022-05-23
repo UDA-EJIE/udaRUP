@@ -3,7 +3,7 @@ window.AUDIT_PATH = 'http://localhost:8081/audit';
 window.CTX_PATH = '/x21aResponsive/';
 window.STATICS = '';
 window.RESOURCES_PATH = '../../i18n/';
-window.RUP = '/x21aStatics/4x/rup/';
+window.RUP = '/x21aStatics/rup/';
 window.WAR_NAME = 'x21aPilotoPatrones';
 //model
 window.LAYOUT = 'horizontal';

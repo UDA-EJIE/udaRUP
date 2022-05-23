@@ -135,6 +135,11 @@
         jQuery.validator.addMethod('letterswithbasicpunc', function (value, element) {
             return this.optional(element) || /^[a-z-.,()'"\s]+$/i.test(value);
         });
+        
+        // Letras (unicode), tildes y caracteres de puntuación.
+        jQuery.validator.addMethod('lettersunicodewithbasicpunc', function (value, element) {
+        	return this.optional(element) || /^[\p{L}.,()'"\s]+$/iu.test(value);
+        });
 
         // Letras, numeros, espacios o guiones bajos
         jQuery.validator.addMethod('alphanumeric', function (value, element) {
@@ -144,6 +149,21 @@
         // Solo letras
         jQuery.validator.addMethod('lettersonly', function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
+        });
+
+        // Solo letras (unicode) y tildes.
+        jQuery.validator.addMethod('lettersunicodeonly', function (value, element) {
+            return this.optional(element) || /^[\p{L}]+$/iu.test(value);
+        });
+
+        // Solo letras y permite espacios.
+        jQuery.validator.addMethod('letters', function (value, element) {
+            return this.optional(element) || /^[a-z\s]+$/i.test(value);
+        });
+
+        // Solo letras (unicode), tildes y permite espacios.
+        jQuery.validator.addMethod('lettersunicode', function (value, element) {
+            return this.optional(element) || /^[\p{L}\s]+$/iu.test(value);
         });
 
         // Espacios no permitidos
@@ -315,12 +335,18 @@
              * $("#formValidaciones").rup_validate("resetForm");
              */
             resetForm: function () {
-                var self = this,
-                    settings = self.data('settings');
+            	const self = this,
+                	settings = self.data('settings'),
+                    combos = $('[ruptype=\'combo\']', self);
 
                 // En caso de mostrarse el feedback de error se oculta.
                 if (settings != null && settings.feedback !== undefined && settings.showErrorsInFeedback) {
-                    settings.feedback.rup_feedback('hide');
+                	settings.feedback.rup_feedback('hide');
+                }
+                
+                // Limpiar los combos por completo. Es importante hacerlo antes de la llamada a "resetForm" porque si no la limpieza de los labels no es llevada a cabo.
+                if (combos.length > 0) {
+                	combos.rup_combo('clear');
                 }
 
                 // Se reinician los mensajes de error.
@@ -339,6 +365,27 @@
 
                 validator.resetElements(validator.elements());
             }
+        });
+        
+        // Corrección para el establecimiento del foco tras las validaciones del combo y autocomplete.
+        $.extend($.validator.prototype, {
+        	focusInvalid: function focusInvalid() {
+        		if (this.settings.focusInvalid) {
+        			try {
+        				let $element = $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []);
+
+        				if ($element.attr('rupType') === 'combo') {
+        					$element = $('#' + $element.attr('id') + '-button');
+        				} else if ($element.attr('rupType') === 'autocomplete') {
+        					$element = $('#' + $element.attr('id') + '_label');
+        				}
+        				// Manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+        				$element.filter(":visible").focus().trigger("focusin");
+        			} catch (e) {
+        				// Ignore IE throwing errors when focusing hidden elements
+        			}
+        		}
+        	}
         });
 
         //********************************

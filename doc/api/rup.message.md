@@ -6,7 +6,7 @@ Tiene como objetivo mostrar al usuario de forma homogénea, clara y llamativa, l
 **Summary**: Componente RUP Message.  
 **Example**  
 ```js
-$.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK."});
+$.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK.",		buttonText: $.rup.i18nParse($.rup.i18n.app, "message.acceptOK")	});
 ```
 
 * [rup_messages](#module_rup_messages)
@@ -41,11 +41,12 @@ Muestra un mensaje de error.
 | properties | <code>Object</code> | Objeto de configuración del mensaje de error. |
 | properties.title | <code>String</code> | Función a ejecutar justo antes de que se cierre la ventana. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
+| properties.buttonText | <code>String</code> | Literal a mostrar como texto del botón. |
 | properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Texto que aparecerá en la barra del titulo del mensaje. |
 
 **Example**  
 ```js
-// Mostrar un mensaje de error.$.rup_messages("msgError", {     title: "Error grave",     message: "<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>"});
+// Mostrar un mensaje de error.	$.rup_messages("msgError", {		title: "Error grave",		message: "<p>Se ha producido un error a la hora de intentar guardar el registro.<br>Consulte con el administrador.</p>",		buttonText: $.rup.i18nParse($.rup.i18n.app, "message.acceptError")	});
 ```
 <a name="module_rup_messages..msgConfirm"></a>
 
@@ -59,13 +60,15 @@ Muestra un mensaje de confirmación.
 | properties | <code>Object</code> | Objeto de configuración del mensaje de error. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
+| properties.OKText | <code>String</code> | Literal a mostrar como texto del botón de aceptar. |
+| properties.CANCELText | <code>String</code> | Literal a mostrar como texto del botón de cancelar. |
 | properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
 | properties.OKFunction | [<code>OKFunctionCallback</code>](#jQuery.rup_messages..OKFunctionCallback) | Función a ejecutar cuando el usuario pulsa el botón de Aceptar. |
 | properties.CANCELFunction | [<code>CANCELFunctionCallback</code>](#jQuery.rup_messages..CANCELFunctionCallback) | Función a ejecutar cuando el usuario pulsa el enlace de Cancelar. |
 
 **Example**  
 ```js
-// funciones de callback.function acceptClicked() { alert("Ha pulsado aceptar."); }function cancelClicked() { alert("Ha pulsado cancelar."); }// Mostrar un mensaje de error.$.rup_messages("msgConfirm", {     title: "Confirmación",     message: "¿Está seguro que desea cancelar?",     OKFunction : acceptClicked,     CANCELFunction : cancelClicked});
+// funciones de callback.	function acceptClicked() { alert("Ha pulsado aceptar."); }	function cancelClicked() { alert("Ha pulsado cancelar."); }	// Mostrar un mensaje de error.	$.rup_messages("msgConfirm", {		title: "Confirmación",		message: "¿Está seguro que desea cancelar?",		OKFunction : acceptClicked,		OKText: $.rup.i18nParse($.rup.i18n.app, "message.OK"),		CANCELFunction : cancelClicked,		CANCELText: $.rup.i18nParse($.rup.i18n.app, "message.CANCEL")	});
 ```
 <a name="module_rup_messages..msgOK"></a>
 
@@ -79,11 +82,12 @@ Muestra un mensaje de aviso.
 | properties | <code>Object</code> | Objeto de configuración del mensaje de aviso. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
+| properties.buttonText | <code>String</code> | Literal a mostrar como texto del botón. |
 | properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
 
 **Example**  
 ```js
-// Mostrar un mensaje de aviso.$.rup_messages("msgOK", {     title: "Correcto",     message: "Todo ha ido OK."});
+// Mostrar un mensaje de aviso.	$.rup_messages("msgOK", {		title: "Correcto",		message: "Todo ha ido OK.",		buttonText: $.rup.i18nParse($.rup.i18n.app, "message.acceptOK")	});
 ```
 <a name="module_rup_messages..msgAlert"></a>
 
@@ -97,9 +101,10 @@ Muestra un mensaje de alerta.
 | properties | <code>Object</code> | Objeto de configuración del mensaje de alerta. |
 | properties.title | <code>String</code> | Texto que aparecerá en la barra del titulo del mensaje. |
 | properties.message | <code>String</code> | El mensaje de error que se quiere mostrar. Dicho mensaje se situará a la derecha de la imagen de error. El mensaje puede ser texto plano o contener etiquetas HTML que se reflejarán en el mismo. |
+| properties.buttonText | <code>String</code> | Literal a mostrar como texto del botón. |
 | properties.beforeClose | [<code>beforeCloseCallback</code>](#jQuery.rup_messages..beforeCloseCallback) | Función a ejecutar justo antes de que se cierre la ventana. |
 
 **Example**  
 ```js
-// Mostrar un mensaje de aviso.$.rup_messages("msgAlert", {     title: "Alerta",     message: "Esto es una alerta."});
+// Mostrar un mensaje de aviso.	$.rup_messages("msgAlert", {		title: "Alerta",		message: "Esto es una alerta.",		buttonText: $.rup.i18nParse($.rup.i18n.app, "message.acceptAlert")	});
 ```

@@ -2,7 +2,7 @@
 /* eslint-env jasmine, jquery */
 
 describe('Test Combo > ', () => {
-    var $combo, $comboPadre, $comboHijo, $comboMulti, $comboGroup;
+    var $combo, $comboPadre, $comboHijo, $comboMulti, $comboGroup, $comboGroupVacio;
     var selectedLiteral;
 
     beforeAll((done) => {
@@ -17,6 +17,7 @@ describe('Test Combo > ', () => {
         $comboPadre = $('#comboPadre');
         $comboHijo = $('#comboHijo');
         $comboGroup = $('#comboGroup');
+        $comboGroupVacio = $('#comboGroupVacio');
         selectedLiteral = $.rup.i18n.base.rup_combo.multiselect.selectedText;
         selectedLiteral = selectedLiteral.split('#')[1].trim();
     });
@@ -845,6 +846,7 @@ function setupCombos() {
 		<select id="comboMulti"></select>\
 		<select id="comboPadre"></select>\
 		<select id="comboHijo"></select>\
+    	<select id="comboGroupVacio"></select>\
 		<select id="comboGroup"></select>';
 
     $('#content').append(html);
@@ -961,12 +963,22 @@ function setupCombos() {
         blank: '0',
         selected: '2.1'
     };
+    
+    let optionsGroupVacio = {
+            change: () => {
+                $('#comboGroupVacio').addClass('randomClass');
+            },
+            sourceGroup: sourceGroup,
+            blank: '',
+            selected: '2.1'
+        };
 
     $('#comboSimple').rup_combo(optionsSimple);
     $('#comboMulti').rup_combo(optionsMulti);
     $('#comboPadre').rup_combo(optionsPadre);
     $('#comboHijo').rup_combo(optionsHijo);
     $('#comboGroup').rup_combo(optionsGroup);
+    $('#comboGroupVacio').rup_combo(optionsGroupVacio);
 
 
     //Mete automaticamente randomClass asi que lo quitamos
@@ -975,4 +987,5 @@ function setupCombos() {
     $('#comboPadre').removeClass('randomClass');
     $('#comboHijo').removeClass('randomClass');
     $('#comboGroup').removeClass('randomClass');
+    $('#comboGroupVacio').removeClass('randomClass');
 }

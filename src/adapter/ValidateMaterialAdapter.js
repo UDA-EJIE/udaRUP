@@ -49,19 +49,19 @@
 	};
 	
 	function clearValidation(element) {
-		if($(element)[0].type === "checkbox" || $(element)[0].type === "radio") {
-			var name = $(element).prop('name'),
-				$container = $(element).parents(".form-row").find("label[data-title='" + name + "']");
-			
-			if ($container.hasClass('rup-validate-field-error')) {
-				$container.removeClass('rup-validate-field-error');
-				$container.find('i.mdi').remove();
-				$container.find('span.error').remove();
-			}
-		} else if ($(element).parent().hasClass('rup-validate-field-error')) {
-			$(element).parent().removeClass('rup-validate-field-error');
-			$(element).parent().find('i.mdi').remove();
-			$(element).parent().find('span.error').remove();
+		const $element = $(element);
+		let $container = $element.parent();
+		
+		if ($element[0].type === 'checkbox' || $element[0].type === 'radio') {
+			$container = $element.parents('.form-row').find('label[data-title="' + $element.prop('name') + '"]');
+		} else if ($element.attr('ruptype') === 'date') {
+			$container = $element.closest('.rup-validate-field-error');
+		}
+		
+		if ($container.hasClass('rup-validate-field-error')) {
+			$container.removeClass('rup-validate-field-error');
+			$container.find('i.mdi.error').remove();
+			$container.find('span.error').remove();
 		}
 	}
 	ValidateMaterialAdapter.prototype.errorElement = 'span';
