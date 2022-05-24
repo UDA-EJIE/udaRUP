@@ -1712,6 +1712,8 @@
 	                });
                }
                 tabla.on('draw', function (e, settingsTable) {
+                    var ctx = tabla.context[0];
+                    
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
                         // Deshabilitamos los botones de paginacion si es necesario
@@ -1738,7 +1740,6 @@
                             if (settingsTable.select !== undefined && settingsTable.select.selectedRowsPerPage !== undefined) {
                                 //viene de la navegacion buscar el id.
                                 var line = 0;
-                                var ctx = tabla.context[0];
                                 if (settingsTable.select.selectedRowsPerPage.cambio === 'prev' || settingsTable.select.selectedRowsPerPage.cambio === 'last') {
                                     line = ctx.json.rows.length - 1;
                                 }
@@ -1767,7 +1768,6 @@
                         }
                         if (settingsTable.seeker !== undefined &&
                             settingsTable.seeker.search !== undefined) {
-                            let ctx = tabla.context[0];
                             if (settingsTable.seeker.search.funcionParams !== undefined && settingsTable.seeker.search.funcionParams.length > 0 && //Paginar para el seek y que siempre selecione
                                 ctx.json.page !== settingsTable.seeker.search.funcionParams[settingsTable.seeker.search.pos].page && ctx.fnRecordsTotal() > 0) { //ver si hay cambio de pagina.
                                 DataTable.Api().seeker.selectSearch(tabla, ctx, settingsTable.seeker.search.funcionParams);
@@ -1783,8 +1783,6 @@
                     }
 
                     if (settingsTable.inlineEdit !== undefined) {
-                        let ctx = $('#' + settingsTable.sTableId).rup_table('getContext');
-
                         DataTable.Api().inlineEdit.drawInlineEdit(tabla, ctx);
                         if (ctx.oInit.inlineEdit.rowDefault !== undefined) { //editando cuando se pagina
                             if (ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE') {
