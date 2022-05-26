@@ -1343,6 +1343,10 @@
             _hideOnNav(dt, linkType, function () {
                 if (Number(rowSelected.page) !== page) {
                     var table = $('#' + ctx.sTableId).DataTable();
+                    // Ejecutar _fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
+                    table.on('draw', function(event, ctx) {
+                    	_fixComboAutocompleteOnEditForm(ctx);
+                    });
                     table.page(rowSelected.page - 1).draw('page');
                     // Se añaden los parámetros para luego ejecutar la función del dialog
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
@@ -1351,29 +1355,14 @@
                 	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, ctx.oInit.formEdit.customTitle)).then(function () {
                         _showOnNav(dt, linkType);
                     });
+                    // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
+                    _fixComboAutocompleteOnEditForm(ctx);
                 }
                 let tableId = ctx.sTableId;
                 $('#first_' + tableId+'_detail_navigation' + 
                 		', #back_' + tableId+'_detail_navigation' +
                 		', #forward_' + tableId+'_detail_navigation' +
                 		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
-                
-                // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
-                if (ctx.oInit.colModel !== undefined) {
-                	$.each(ctx.oInit.colModel, function (key, column) {
-                		if (column.editable) {
-                			if (column.rupType === 'combo') {
-                				// Realizar una limpieza total para asegurar un buen funcionamiento.
-                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
-                			} else if (column.rupType === 'autocomplete') {
-                				// Establecer el valor por defecto del componente.
-                				const newDefaultValue = ctx.json.rows.find(row => row.id === rowSelected.id)[column.name];
-                				column.editoptions.defaultValue = newDefaultValue;
-                				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
-                			}
-                		}
-                	});
-                }
             });
 
             // Actualizar la última posición movida
@@ -1386,6 +1375,25 @@
 
         var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation, ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
+    }
+    
+    function _fixComboAutocompleteOnEditForm(ctx) {
+    	// Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
+        if (ctx.oInit.colModel !== undefined) {
+        	$.each(ctx.oInit.colModel, function (key, column) {
+        		if (column.editable) {
+        			if (column.rupType === 'combo') {
+        				// Realizar una limpieza total para asegurar un buen funcionamiento.
+        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
+        			} else if (column.rupType === 'autocomplete') {
+        				// Establecer el valor por defecto del componente.
+        				const newDefaultValue = ctx.json.rows.find(row => $.fn.getStaticHdivID(row.id) === $.fn.getStaticHdivID(ctx.oInit.formEdit.$navigationBar.currentPos.id))[column.name];
+        				column.editoptions.defaultValue = newDefaultValue;
+        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
+        			}
+        		}
+        	});
+        }
     }
 
     function _hideOnNav(dt, linkType, callback) {
