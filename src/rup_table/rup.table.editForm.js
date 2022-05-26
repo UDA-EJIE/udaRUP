@@ -1338,8 +1338,9 @@
             }
 
             _hideOnNav(dt, linkType, function () {
+                const tableId = ctx.sTableId;
                 if (Number(rowSelected.page) !== page) {
-                    var table = $('#' + ctx.sTableId).DataTable();
+                    var table = $('#' + tableId).DataTable();
                     // Ejecutar _fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
                     table.on('draw', function(event, ctx) {
                     	_fixComboAutocompleteOnEditForm(ctx);
@@ -1355,7 +1356,6 @@
                     // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
                     _fixComboAutocompleteOnEditForm(ctx);
                 }
-                let tableId = ctx.sTableId;
                 $('#first_' + tableId+'_detail_navigation' + 
                 		', #back_' + tableId+'_detail_navigation' +
                 		', #forward_' + tableId+'_detail_navigation' +
