@@ -108,7 +108,7 @@
             }
             // Propiedad que no genera el evento de doble click en caso de existir y tener un valor true
             if (!sel.deleteDoubleClick) {
-                rowsBody.on('dblclick.DT keypress', 'tr[role="row"]', function (e) {
+                rowsBody.on('dblclick.DT keypress', 'tr:not(.group)', function (e) {
                     // Sólo selecciona si se pulsa sobre el enter o se hace click izquierdo con el ratón
                     if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
                         idRow = this._DT_RowIndex;

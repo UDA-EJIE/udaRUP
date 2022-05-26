@@ -86,7 +86,7 @@
         var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
 
         //Se edita el row/fila.
-        rowsBody.on('click.DT', 'tr[role="row"]', function () {
+        rowsBody.on('click.DT', 'tr:not(.group)', function () {
             //var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
             var rowSelected = tableMaster.rows('.selected').indexes();
             if (rowSelected[0] !== undefined) { //Se ha deseleccionado, no entrar.
