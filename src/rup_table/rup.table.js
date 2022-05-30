@@ -30,13 +30,14 @@
             './rup.table.request',
             'datatables.net',
             'datatables.net-bs4',
+            'datatables.net-colreorder',
+            'datatables.net-colreorder-bs4',
             './rup.table.responsive',
             './rup.table.multiSelect',
             './rup.table.seeker',
             './rup.table.inlineEdit',
             './rup.table.editForm',
             './rup.table.buttons',
-            './rup.table.colReorder',
             './rup.table.select',
             './rup.table.rowGroup',
             './rup.table.masterDetail',
@@ -1842,6 +1843,15 @@
                     }
                     $('#' + settingsTable.sTableId + '_detail_navigation').empty();
 
+                });
+                
+                // En caso de reordenación se revisa para mantener los iconos.
+                tabla.on('column-reorder', function (e, settings, details) {
+                	if (settings._multiSelect !== undefined && settings.multiselection.numSelected > 0) {
+                		tabla.ajax.reload();
+                	} else {
+                		DataTable.Api().editForm.addchildIcons(settings);
+                	}		
                 });
 
                 if (options.inlineEdit !== undefined) {
