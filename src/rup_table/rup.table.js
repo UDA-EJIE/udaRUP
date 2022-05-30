@@ -1703,6 +1703,12 @@
                 var tabla = $self.DataTable(options);
 
                 options.sTableId = $self[0].id;
+                
+                // Cuando el seeker esté activo, se mueve bajo la cabecera de la tabla (necesario desde DataTables 1.10.25).
+                if (options.seeker?.activate) {
+                	$('#' + options.sTableId + ' tfoot').insertBefore('#' + options.sTableId + ' tbody');
+                }
+                
                 $self._initializeMultiselectionProps(tabla.context[0]);
                 
                if(options.createTooltipHead !== false){
