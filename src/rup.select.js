@@ -701,7 +701,7 @@
 		    	{// Require id y text, podemos permitir que no venga.
 		    	if(settings.placeholder != undefined && !settings.multiple){
 		    		let elBlank = response.find(x => x.id == settings.blank);
-		    		if(elBlank == undefined){
+		    		if(elBlank == undefined && !settings.autocomplete){
 		                response.unshift({
 		                    id: settings.blank,
 		                    text: settings.placeholder
@@ -750,7 +750,12 @@
 				let __lastQuery = null;
 		    	settings.ajax.transport = function(params, success, failure) {
 					// retrieve the cached key or default to _ALL_
-			        var __cachekey = params.data || '_ALL_';
+			        let __cachekey = params.data || '_ALL_';
+			        let mySelect = $('#' + settings.id).data('select2');
+			        if(settings.autocomplete){
+			        	params.data.q = mySelect.$container.find('input').val();
+			        	__cachekey = params.data.q;
+			        }
 			        if (__lastQuery !== __cachekey) {
 			          // remove caches not from last query
 			          __cache = [];
@@ -761,9 +766,22 @@
 			          success(__cache[__cachekey]);
 			          return; 
 			        }
-			        let mySelect = $('#' + settings.id).data('select2');
+			        
 			        mySelect.$results.find('li').addClass('disabledButtonsTable');
+			        mySelect.$selection.find('input').addClass('disabledButtonsTable');
 			        let $request = undefined;
+			        if (settings.autocomplete) {
+			            var term = '';
+
+			            term = params.data.q;
+
+
+			            term = term.replace(/%/g, '\\%').replace(/_/g, '\\_');
+			            params.data = $.extend({
+			              q: term,
+			              c: settings.contains
+			            }, settings.extraParams);
+			        }
 			        if (settings.parent) {
 			        	var datosParent = _this._getParentsValues(settings, true);
 			        	if(datosParent != ''){
@@ -851,6 +869,24 @@
 												// busqueda
 		    		settings.ajax.data = settings.data;
 		    	}
+		    	
+		    	if(settings.autocomplete){
+		    		let term = '';
+		    		let mySelect = $('#' + settings.id).data('select2');
+		    		if($('input.select2-search__field') != undefined && $('input.select2-search__field').val() != undefined){
+		    			term = $('input.select2-search__field').val();
+		    		}
+		    		if(settings.contains == undefined){
+		    			settings.contains = true;
+		    		}
+
+		    		term = term.replace(/%/g, '\\%').replace(/_/g, '\\_');
+		    		settings.ajax.data = $.extend({
+		    	          q: term,
+		    	          c: settings.contains
+		    	        }, settings.extraParams);
+		    	}
+		    	
 		    	if(settings.sourceParam){// modifica el header para parsear
 											// la response
 		    		settings.ajax.headers = {'RUP':$.toJSON(settings.sourceParam)};
@@ -866,7 +902,11 @@
                 }
         		$('#' + settings.id).select2MultiCheckboxes(settings);
         	}else{
-        		$('#' + settings.id).select2(settings);
+        		if(settings.autocomplete){
+        			$('#' + settings.id).select2MultiCheckboxes(settings);
+        		}else{
+        			$('#' + settings.id).select2(settings);
+        		}
         	}
 			
     	 	if(settings.firstLoad){// ejecutar los datos
@@ -1234,7 +1274,12 @@
 	                        }
 	                        $('#' + settings.id).select2MultiCheckboxes(settings);
 	                	}else{
-	                		$('#' + settings.id).select2(settings);
+	                		if(settings.autocomplete){
+	                			$('#' + settings.id).select2MultiCheckboxes(settings);
+	                		}else{
+	                			$('#' + settings.id).select2(settings);
+	                		}
+	                		
 	                		if(settings.deleteOnDeselect){
 			                	let mySelect2 = $('#' + settings.id).data('select2');
 			                
