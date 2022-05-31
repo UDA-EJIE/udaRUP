@@ -1168,7 +1168,7 @@
     			prop = propSplit[1];
     		}
     		
-    		if(row[name] === undefined || !$.isArray(row[name])){//si no existe se crea o // si no es de tipo array
+    		if(row[name] === undefined || !Array.isArray(row[name])){//si no existe se crea o // si no es de tipo array
     			row[name] = [];
     		}
     		let array = {};

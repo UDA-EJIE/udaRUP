@@ -761,7 +761,7 @@
 				} while (swapped);
 			}
 
-			if (!$.isArray(array)) {
+			if (!Array.isArray(array)) {
 				return undefined;
 			}
 
@@ -777,7 +777,7 @@
 				return obj2 - obj1;
 			}
 
-			if (!$.isArray(array)) {
+			if (!Array.isArray(array)) {
 				return undefined;
 			}
 

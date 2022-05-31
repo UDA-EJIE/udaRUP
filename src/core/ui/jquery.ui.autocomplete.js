@@ -157,7 +157,7 @@ $.widget( "ui.autocomplete", {
 	_initSource: function() {
 		var array,
 			url;
-		if ( $.isArray(this.options.source) ) {
+		if ( Array.isArray(this.options.source) ) {
 			array = this.options.source;
 			this.source = function( request, response ) {
 				// escape regex characters

@@ -470,7 +470,7 @@
                         if (self.errorList[i].element === undefined) {
                             alert('El campo validado no existe en el formulario');
                         }
-                        if ($.isArray(self.errorList[i].message)) {
+                        if (Array.isArray(self.errorList[i].message)) {
                             // En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
                             var newMessage = '';
                             for (var j = 0; j < self.errorList[i].message.length; j++) {
@@ -669,7 +669,7 @@
                      * no es posible indicarle varios mensajes de error para un campo.
                      * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
                      */
-                    if ($.isArray(errorMsg)) {
+                    if (Array.isArray(errorMsg)) {
                         // En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
                         var baseUl = $('<ul>');
                         for (var i = 0; i < errorMsg.length; i++) {
