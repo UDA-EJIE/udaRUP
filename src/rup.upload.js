@@ -52,7 +52,7 @@
             },
 
             getFilesFromResponse: function (data) {
-                if (data.result && $.isArray(data.result)) {
+                if (data.result && Array.isArray(data.result)) {
                     // return data.result;
                     return data.result.map(function (elem) {
                         return $.extend(elem, {

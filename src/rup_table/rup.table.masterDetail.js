@@ -167,7 +167,7 @@
             }
         }
         //Inicio compatibilidad con masterPrimaryKey compuestas
-        if ($.isArray(masterPkName) && masterPkName.length > 0 && (masterPkValue !== undefined)) {
+        if (Array.isArray(masterPkName) && masterPkName.length > 0 && (masterPkValue !== undefined)) {
             var multiplePkToken = ctx.oInit.masterDetail.multiplePkToken;
             var splitedMasterPkValue = masterPkValue.split(multiplePkToken);
             var retPkObj = {};
