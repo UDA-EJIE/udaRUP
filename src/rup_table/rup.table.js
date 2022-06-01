@@ -1368,7 +1368,7 @@
 
 
                     //Si no tiene NAME ni VALUE omitir
-                    if (fieldName === '' && $.trim(fieldValue) === '') {
+                    if (fieldName === '' && fieldValue.trim() === '') {
                         continue;
                     }
                     searchString = searchString + fieldName + fieldValue + '; ';

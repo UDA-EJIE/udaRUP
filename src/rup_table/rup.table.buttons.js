@@ -1481,7 +1481,7 @@
                     process(input.split(','));
                 } else {
                     // String selector individual name
-                    var idx = $.inArray($.trim(input), names);
+                    var idx = $.inArray(input.trim(), names);
 
                     if (idx !== -1) {
                         ret.push(buttons[idx].inst);
@@ -1578,7 +1578,7 @@
                     var a = selector.split(',');
 
                     for (i = 0, ien = a.length; i < ien; i++) {
-                        run($.trim(a[i]), inst);
+                        run(a[i].trim(), inst);
                     }
                 } else if (selector.match(/^\d+(\-\d+)*$/)) {
                     // Sub-button index selector
@@ -2307,7 +2307,7 @@
         }
 
         if (filename.indexOf('*') !== -1) {
-            filename = $.trim(filename.replace('*', $('head > title').text()));
+            filename = filename.replace('*', $('head > title').text()).trim();
         }
 
         // Strip characters which the OS will object to

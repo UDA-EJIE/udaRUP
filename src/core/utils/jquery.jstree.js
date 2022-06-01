@@ -3441,7 +3441,7 @@
 		},
 		_fn : {
 			search : function (str, skip_async) {
-				if($.trim(str) === "") { this.clear_search(); return; }
+				if(str.trim() === "") { this.clear_search(); return; }
 				var s = this.get_settings().search, 
 					t = this,
 					error_func = function () { },
