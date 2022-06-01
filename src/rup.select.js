@@ -738,7 +738,7 @@
 		    }		
     	};
         	 	
-        	 	if(settings.selected){
+        	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
         	 	}
         	 	if(settings.parent != undefined 
@@ -910,13 +910,18 @@
         	}
 			
     	 	if(settings.firstLoad){// ejecutar los datos
-    	 		var $el = $('#' + settings.id);
-    	 		let $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
+    	 		
+    	 		let $el = $('#' + settings.id);
+    	 		let mySelect = $el.data('select2');
+    	 		let $search = mySelect.dropdown.$search || mySelect.selection.$search;
+    	 		if(settings.autocomplete && settings.defaultValue != undefined){
+    	 			mySelect.$container.find('input').val(settings.defaultValue);
+    	 		}
     	 		if($search != undefined){
     	 			$search.trigger('keyup');
     	 			$el.select2('close');
     	 		}else{
-    	 			$el.data('select2').selection.trigger('toggle');
+    	 			mySelect.selection.trigger('toggle');
     	 			$el.select2('close');
     	 		}
     	 	}
@@ -1273,18 +1278,23 @@
 	                          settings.placeholder = _this._getBlankLabel(settings.id);
 	                        }
 	                        $('#' + settings.id).select2MultiCheckboxes(settings);
-	                	}else{
+	                	}else{	                		
 	                		if(settings.autocomplete){
 	                			$('#' + settings.id).select2MultiCheckboxes(settings);
+	                			if(settings.defaultValue != undefined){
+	                				let mySelect2 = $('#' + settings.id).data('select2');
+	                				mySelect2.$selection.find('input').val(settings.defaultValue);
+	                			}
 	                		}else{
 	                			$('#' + settings.id).select2(settings);
 	                		}
-	                		
+	                		//Propiedad para deselecionar una mismo en simple.
 	                		if(settings.deleteOnDeselect){
-			                	let mySelect2 = $('#' + settings.id).data('select2');
-			                
+			                	
+	                			let mySelect2 = $('#' + settings.id).data('select2');
 			                	mySelect2.on('close', function (e) {
 				                	if (Object.keys(e).length === 1) {
+				                	  mySelect2.$selection.find('input').val('');
 					                  $('#' + settings.id).val(null).trigger('change');
 					                  if(!settings.closeOnSelect){
 					                	  $('#' + settings.id).select2('open');
@@ -1301,6 +1311,22 @@
 		                // cargar los options
 		                settings.options = settings.data;
 		                
+	                }else{//Remotos
+                		//Propiedad para deselecionar una mismo en simple.
+                		if(settings.deleteOnDeselect){
+		                	
+                			let remotoSelect = $('#' + settings.id).data('select2');
+                			remotoSelect.on('close', function (e) {
+			                	if (Object.keys(e).length === 1) {
+			                		remotoSelect.$selection.find('input').val('');
+				                  $('#' + settings.id).val(null).trigger('change');
+				                  if(!settings.closeOnSelect){
+				                	  $('#' + settings.id).select2('open');
+				                  }
+				                }
+		                	});
+
+                		}
 	                }
 	                if(settings.parent){// si dependen de otros selects
 	                	// Mirar si es simple o no

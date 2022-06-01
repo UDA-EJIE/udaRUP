@@ -163,12 +163,11 @@
 				  if($('#' + $options.options.id).select2('isOpen')){
 					  openLast = true;
 				  }
-				  console.log('entro buscar ,, open');
+				 
 				  $('#'+$options.options.id).select2('open');
 				  $('input.select2-search__field').addClass('d-none');
 				  $('input.select2-search__field').val(this.value);
 				  if($options.options.url == null || ($options.options.url != null && openLast)){//Si es local
-					  console.log('entro buscar ,, input' + $('input.select2-search__field').length);
 					  $('input.select2-search__field').trigger('keyup');
 				  }
 				  
