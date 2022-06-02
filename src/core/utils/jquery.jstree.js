@@ -139,7 +139,7 @@
 				// store the jstree instance id to the container element
 				$.data(this, "jstree_instance_id", instance_id);
 				// clean up all plugins
-				b.plugins = $.isArray(b.plugins) ? b.plugins : $.jstree.defaults.plugins.slice();
+				b.plugins = Array.isArray(b.plugins) ? b.plugins : $.jstree.defaults.plugins.slice();
 				b.plugins.unshift("core");
 				// only unique plugins
 				b.plugins = b.plugins.sort().join(",,").replace(/(,|^)([^,]+)(,,\2)+(,|$)/g,"$1$2$4").replace(/,,+/g,",").replace(/,$/,"").split(",");
@@ -255,7 +255,7 @@
 		},
 		rollback : function (rb) {
 			if(rb) {
-				if(!$.isArray(rb)) { rb = [ rb ]; }
+				if(!Array.isArray(rb)) { rb = [ rb ]; }
 				$.each(rb, function (i, val) {
 					instances[val.i].set_rollback(val.h, val.d);
 				});
@@ -741,7 +741,7 @@
 				if(js.metadata) { d.data(js.metadata); }
 				if(js.state) { d.addClass("jstree-" + js.state); }
 				if(!js.data) { js.data = this._get_string("new_node"); }
-				if(!$.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
+				if(!Array.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
 				$.each(js.data, function (i, m) {
 					tmp = $("<a></a>");
 					if($.isFunction(m)) { m = m.call(this, js); }
@@ -1742,7 +1742,7 @@
 						success_func = function (d, t, x) {
 							var sf = this.get_settings().json_data.ajax.success; 
 							if(sf) { d = sf.call(this,d,t,x) || d; }
-							if(d === "" || (d && d.toString && d.toString().replace(/^[\s\n]+$/,"") === "") || (!$.isArray(d) && !$.isPlainObject(d))) {
+							if(d === "" || (d && d.toString && d.toString().replace(/^[\s\n]+$/,"") === "") || (!Array.isArray(d) && !$.isPlainObject(d))) {
 								return error_func.call(this, x, t, "");
 							}
 							d = this._parse_json(d, obj);
@@ -1790,7 +1790,7 @@
 				if(s.progressive_unload && obj && obj !== -1) { 
 					obj.data("jstree_children", d);
 				}
-				if($.isArray(js)) {
+				if(Array.isArray(js)) {
 					d = $();
 					if(!js.length) { return false; }
 					for(i = 0, j = js.length; i < j; i++) {
@@ -1805,7 +1805,7 @@
 					if(js.attr) { d.attr(js.attr); }
 					if(js.metadata) { d.data(js.metadata); }
 					if(js.state) { d.addClass("jstree-" + js.state); }
-					if(!$.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
+					if(!Array.isArray(js.data)) { tmp = js.data; js.data = []; js.data.push(tmp); }
 					$.each(js.data, function (i, m) {
 						tmp = $("<a></a>");
 						if($.isFunction(m)) { m = m.call(this, js); }
@@ -1831,7 +1831,7 @@
 						}
 						else {
 							if(s.progressive_unload) { d.data("jstree_children", js.children); }
-							if($.isArray(js.children) && js.children.length) {
+							if(Array.isArray(js.children) && js.children.length) {
 								tmp = this._parse_json(js.children, obj, true);
 								if(tmp.length) {
 									ul2 = $("<ul></ul>");
@@ -1856,9 +1856,9 @@
 					tmp1, tmp2, li, a, t, lang;
 				obj = this._get_node(obj);
 				if(!obj || obj === -1) { obj = this.get_container().find("> ul > li"); }
-				li_attr = $.isArray(li_attr) ? li_attr : [ "id", "class" ];
+				li_attr = Array.isArray(li_attr) ? li_attr : [ "id", "class" ];
 				if(!is_callback && this.data.types) { li_attr.push(s.types.type_attr); }
-				a_attr = $.isArray(a_attr) ? a_attr : [ ];
+				a_attr = Array.isArray(a_attr) ? a_attr : [ ];
 
 				obj.each(function () {
 					li = $(this);
@@ -1883,7 +1883,7 @@
 							(t.children("ins").get(0).className && t.children("ins").get(0).className.replace(/jstree[^ ]*|$/ig,'').length)
 						) { 
 							lang = false;
-							if($.inArray("languages", s.plugins) !== -1 && $.isArray(s.languages) && s.languages.length) {
+							if($.inArray("languages", s.plugins) !== -1 && Array.isArray(s.languages) && s.languages.length) {
 								$.each(s.languages, function (l, lv) {
 									if(t.hasClass(lv)) {
 										lang = lv;
@@ -1895,7 +1895,7 @@
 							$.each(a_attr, function (k, z) {
 								tmp2.attr[z] = (" " + (t.attr(z) || "")).replace(/ jstree[^ ]*/ig,'').replace(/\s+$/ig," ").replace(/^ /,"").replace(/ $/,"");
 							});
-							if($.inArray("languages", s.plugins) !== -1 && $.isArray(s.languages) && s.languages.length) {
+							if($.inArray("languages", s.plugins) !== -1 && Array.isArray(s.languages) && s.languages.length) {
 								$.each(s.languages, function (k, z) {
 									if(t.hasClass(z)) { tmp2.language = z; return true; }
 								});
@@ -1940,7 +1940,7 @@
 				var langs = this._get_settings().languages,
 					st = false,
 					selector = ".jstree-" + this.get_index() + ' a';
-				if(!$.isArray(langs) || langs.length === 0) { return false; }
+				if(!Array.isArray(langs) || langs.length === 0) { return false; }
 				if($.inArray(i,langs) == -1) {
 					if(!!langs[i]) { i = langs[i]; }
 					else { return false; }
@@ -1960,7 +1960,7 @@
 			_get_string : function (key, lang) {
 				var langs = this._get_settings().languages,
 					s = this._get_settings().core.strings;
-				if($.isArray(langs) && langs.length) {
+				if(Array.isArray(langs) && langs.length) {
 					lang = (lang && $.inArray(lang,langs) != -1) ? lang : this.data.languages.current_language;
 				}
 				if(s[lang] && s[lang][key]) { return s[lang][key]; }
@@ -1972,7 +1972,7 @@
 				if(!obj.size()) { return false; }
 				var langs = this._get_settings().languages,
 					s = this._get_settings().core.html_titles;
-				if($.isArray(langs) && langs.length) {
+				if(Array.isArray(langs) && langs.length) {
 					lang = (lang && $.inArray(lang,langs) != -1) ? lang : this.data.languages.current_language;
 					obj = obj.children("a." + lang);
 				}
@@ -1993,7 +1993,7 @@
 				var langs = this._get_settings().languages,
 					s = this._get_settings().core.html_titles,
 					tmp;
-				if($.isArray(langs) && langs.length) {
+				if(Array.isArray(langs) && langs.length) {
 					lang = (lang && $.inArray(lang,langs) != -1) ? lang : this.data.languages.current_language;
 					obj = obj.children("a." + lang);
 				}
@@ -2015,7 +2015,7 @@
 					str = "/* languages css */",
 					selector = ".jstree-" + this.get_index() + ' a',
 					ln;
-				if($.isArray(langs) && langs.length) {
+				if(Array.isArray(langs) && langs.length) {
 					this.data.languages.current_language = langs[0];
 					for(ln = 0; ln < langs.length; ln++) {
 						str += selector + "." + langs[ln] + " {";
@@ -2030,7 +2030,7 @@
 					var langs = this._get_settings().languages,
 						a = t.children("a"),
 						ln;
-					if($.isArray(langs) && langs.length) {
+					if(Array.isArray(langs) && langs.length) {
 						for(ln = 0; ln < langs.length; ln++) {
 							if(!a.is("." + langs[ln])) {
 								t.append(a.eq(0).clone().removeClass(langs.join(" ")).addClass(langs[ln]));
@@ -3322,10 +3322,10 @@
 				if(!is_callback) { is_callback = 0; }
 				obj = this._get_node(obj);
 				if(!obj || obj === -1) { obj = this.get_container().find("> ul > li"); }
-				li_attr = $.isArray(li_attr) ? li_attr : [ "id", "class" ];
+				li_attr = Array.isArray(li_attr) ? li_attr : [ "id", "class" ];
 				if(!is_callback && this.data.types && $.inArray(s.types.type_attr, li_attr) === -1) { li_attr.push(s.types.type_attr); }
 
-				a_attr = $.isArray(a_attr) ? a_attr : [ ];
+				a_attr = Array.isArray(a_attr) ? a_attr : [ ];
 
 				if(!is_callback) { 
 					if(s.xml_data.get_include_preamble) { 
@@ -3441,7 +3441,7 @@
 		},
 		_fn : {
 			search : function (str, skip_async) {
-				if($.trim(str) === "") { this.clear_search(); return; }
+				if(str.trim() === "") { this.clear_search(); return; }
 				var s = this.get_settings().search, 
 					t = this,
 					error_func = function () { },
@@ -3943,7 +3943,7 @@
 					ch = 0, d = 1, t;
 
 				if(vc === "none") { return false; } 
-				if($.isArray(vc) && m.ot && m.ot._get_type) {
+				if(Array.isArray(vc) && m.ot && m.ot._get_type) {
 					m.o.each(function () {
 						if($.inArray(m.ot._get_type(this), vc) === -1) { d = false; return false; }
 					});
@@ -3980,7 +3980,7 @@
 					if(typeof js === "string") { js = { data : js }; }
 					if(!js) { js = {}; }
 					if(vc === "none") { return false; } 
-					if($.isArray(vc)) {
+					if(Array.isArray(vc)) {
 						if(!js.attr || !js.attr[s.type_attr]) { 
 							if(!js.attr) { js.attr = {}; }
 							js.attr[s.type_attr] = vc[0]; 
@@ -4536,13 +4536,13 @@
 					s = this._get_settings(),
 					_this = this;
 
-				if(!$.isArray(data)) { data = [data]; }
+				if(!Array.isArray(data)) { data = [data]; }
 				$.each(data, function (i, nd) {
 					var r = nd.getProps() || {};
 					r.attr = nd.getAttr() || {};
 					if(nd.getChildrenCount()) { r.state = "closed"; }
 					r.data = nd.getName();
-					if(!$.isArray(r.data)) { r.data = [r.data]; }
+					if(!Array.isArray(r.data)) { r.data = [r.data]; }
 					if(_this.data.types && $.isFunction(nd.getType)) {
 						r.attr[s.types.type_attr] = nd.getType();
 					}

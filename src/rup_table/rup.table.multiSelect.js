@@ -560,7 +560,7 @@ handler that will select the items using the API methods.
             // If the element that contains the selection is not in the table, we can ignore it
             // This can happen if the developer selects text from the click event
             if (!selection.anchorNode || $(selection.anchorNode).closest('table')[0] === dt.table().node()) {
-                if ($.trim(selection.toString()) !== '') {
+                if (selection.toString().trim() !== '') {
                     return;
                 }
             }

@@ -987,7 +987,7 @@ describe('Test rup_calendar (alternative)', () => {
                                     }
                                 } else {
                                     // Los meses impares tienen 31 días
-                                    expect(cal2.rup_calendar('geStartDate').getDate()).toBe(31);
+                                    expect(cal2.rup_calendar('getStartDate').getDate()).toBe(31);
                                 }
                             } else {
                                 expect(cal2.rup_calendar('getStartDate').getDate() + 1).toBe(initialDay);
