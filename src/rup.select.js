@@ -1469,6 +1469,8 @@
 	 * @property {jQuery.rup_select~onLoadError} [onLoadError] - Función de
 	 *           callback a ejecutar en caso de que se produzca un error en la
 	 *           petición de obtención de la lista de elementos a mostrar.
+	 * @property {string} [width='100%'] - Determina el tamaño del componente 
+	 *           tanto en píxeles como en porcentaje. Su valor por defecto es '100%'.
 	 * @property {string} [blank=null] - Se utiliza para declarar un valor
 	 *           independiente de la lógica de negocio y en ocasiones se
 	 *           representa como "Seleccione un elemento". Permite establecer un
@@ -1522,6 +1524,7 @@
 	 */
     $.fn.rup_select.defaults = {
         onLoadError: null,
+        width: '100%',
         customClasses: ['select-material'],
         blank: "-1",
         minimumResultsForSearch: Infinity,
