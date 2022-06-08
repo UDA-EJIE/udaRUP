@@ -621,7 +621,7 @@
   "sInfoPostFix": "",
   "sSearch": "Aurkitu:",
   "sUrl": "",
-  "sInfoThousands": ",",
+  "sInfoThousands": ".",
   "sLoadingRecords": "Abiarazten...",
   "oPaginate": {
     "sFirst": "Lehena",
