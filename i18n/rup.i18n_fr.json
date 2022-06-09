@@ -618,7 +618,7 @@
   "sInfoPostFix": "",
   "sSearch": "[FR]Buscar:",
   "sUrl": "",
-  "sInfoThousands": ",",
+  "sInfoThousands": " ",
   "sLoadingRecords": "[FR]Cargando...",
   "oPaginate": {
     "sFirst": "[FR]Primero",
