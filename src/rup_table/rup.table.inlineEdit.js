@@ -69,7 +69,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	var idRow;
 	// Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
-	rowsBody.on( 'dblclick.DT keypress','tr[role="row"]',  function (e) {
+	rowsBody.on( 'dblclick.DT keypress','tr:not(.group)',  function (e) {
 		// Solo selecciona si se pulsa sobre el enter o se hace click izquierdo col raton
             if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
 			if($(this).hasClass('editable')){

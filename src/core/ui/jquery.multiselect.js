@@ -573,7 +573,7 @@
 				pos = o.positionMenuByOffset ? button.offset() : button.position();
 
 			// figure out opening effects/speeds
-			if( $.isArray(o.show) ){
+			if( Array.isArray(o.show) ){
 				effect = o.show[0];
 				speed = o.show[1] || self.speed;
 			}
@@ -632,7 +632,7 @@
 		    args = [];
 
 			// figure out opening effects/speeds
-			if( $.isArray(o.hide) ){
+			if( Array.isArray(o.hide) ){
 				effect = o.hide[0];
 				speed = o.hide[1] || this.speed;
 			}
