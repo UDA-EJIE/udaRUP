@@ -619,7 +619,7 @@
   "sInfoPostFix": "",
   "sSearch": "[EN]Buscar:",
   "sUrl": "",
-  "sInfoThousands": ".",
+  "sInfoThousands": ",",
   "sLoadingRecords": "[EN]Cargando...",
   "oPaginate": {
     "sFirst": "[EN]Primero",
