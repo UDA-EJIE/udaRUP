@@ -635,7 +635,7 @@
       "emptyrecords": "Ez dago erregistrorik erakusteko",
       "loadtext": "Kargatzen...",
       "pgtext": "{1} orrialdetik {0}",
-      "recordtext": "{0} - {2}(e)tik {1} erakusten"
+      "recordtext": "{1}(e)tik {0} - {2} erakusten"
     },
     "del": {
       "bCancel": "Ezeztatu",
@@ -965,7 +965,7 @@
   "sLengthMenu": "_MENU_",
   "sZeroRecords": "Ez da emaitzarik aurkitu",
   "sEmptyTable": "Taula hontan ez dago inongo datu erabilgarririk",
-  "sInfo": "_START_ _END_ -(e)tik _TOTAL_ erakusten",
+  "sInfo": "_TOTAL_(e)tik _START_ - _END_ erakusten",
   "sInfoEmpty": "0 - 0(e)tik 0 erakusten",
   "sInfoFiltered": "(guztira _MAX_ erregistro iragazten)",
   "sInfoPostFix": "",
