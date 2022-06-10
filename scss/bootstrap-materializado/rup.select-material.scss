@@ -1,0 +1,78 @@
+.form-groupMaterial {
+	label.select-material {
+		left: 19px;
+	}
+	
+	select[ruptype="select"] + span {
+		&:hover span.select2-selection {
+			border-color: $black-color;
+		}
+		
+		&.select2-container--focus span.select2-selection {
+			outline: none;
+			border-color: $primary-color;
+			border-width: 2px;
+			box-shadow: none;
+			
+			span.select2-selection__rendered {
+				padding-left: 17px;
+				padding-right: 19px;
+				line-height: 1.65;
+			}
+		}
+
+		&.select2-container--focus + label {
+			top: -10px;
+			font-size: .9rem;
+			color: $primary-color;
+			padding: 0 5px;
+			background-color: $white-color;
+			background-image: none;
+		}
+		
+		&.select2-container--open span.select2-selection--single span.select2-selection__arrow b {
+			border-color: transparent transparent #555555 transparent;
+		}
+
+		span.select2-selection--single {
+			height: 2rem;
+			
+			span.select2-selection__arrow {
+				height: 2rem;
+				
+				b {
+					border-color: #555555 transparent transparent transparent;
+				}
+			}
+		}
+		
+		span.select2-selection {
+			border: 1px solid $grey-color-light;
+		}
+		
+		span.select2-selection__rendered {
+			padding-left: 18px;
+			line-height: 1.8;
+		}
+	}
+	
+	&[class*="col-"] {
+		select[ruptype="select"] {
+			~ label.select-material {
+				left: 19px;
+			}
+		}
+	}
+}
+
+.row .form-groupMaterial[class*="col-"] {
+	label.select-material {
+		left: 29px;
+	}
+	
+	select[ruptype="select"] {
+		~ label.select-material {
+			left: 29px;
+		}
+	}
+}
