@@ -453,7 +453,7 @@
     function _checkLabel(ctx) {
         var settings = ctx.oInit;
 
-        if ($.trim(settings.multiFilter.$comboLabel.val()) === '') {
+        if (settings.multiFilter.$comboLabel.val().trim() === '') {
 
             settings.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.emptyName, 'error');
             return false;

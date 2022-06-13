@@ -719,7 +719,7 @@ if(!String.prototype.formatNum) {
             cls = this.options.classes.months.outmonth;
         }
 
-        cls = $.trim(cls + ' ' + this._getDayClass('months', curdate));
+        cls = (cls + ' ' + this._getDayClass('months', curdate)).trim();
 
         if(day <= 0) {
             var daysinprevmonth = (new Date(this.options.position.start.getFullYear(), this.options.position.start.getMonth(), 0)).getDate();

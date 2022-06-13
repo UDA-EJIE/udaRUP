@@ -92,7 +92,7 @@
         setRupValue: function (value) {
             var $self = this;
 
-            if ($.isArray(value)) {
+            if (Array.isArray(value)) {
                 $self.slider('values', value);
             } else {
                 $self.slider('value', value);

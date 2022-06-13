@@ -513,7 +513,7 @@
 			if (document.cookie && document.cookie != '') {
 				var cookies = document.cookie.split(';');
 				for (var i = 0; i < cookies.length; i++) {
-					var cookie = $.trim(cookies[i]);
+					var cookie = cookies[i].trim();
 					if (cookie.substring(0, name.length + 1) == (name + '=')) {
 						cookieValue = json ? $.JSON.decode(decodeURIComponent(cookie.substring(name.length + 1))) : decodeURIComponent(cookie.substring(name.length + 1));
 						break;
@@ -761,7 +761,7 @@
 				} while (swapped);
 			}
 
-			if (!$.isArray(array)) {
+			if (!Array.isArray(array)) {
 				return undefined;
 			}
 
@@ -777,7 +777,7 @@
 				return obj2 - obj1;
 			}
 
-			if (!$.isArray(array)) {
+			if (!Array.isArray(array)) {
 				return undefined;
 			}
 

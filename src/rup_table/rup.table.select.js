@@ -68,7 +68,7 @@
         ctx.select = [];
         var rowsBody = $(ctx.nTBody);
         // Se selecciona una fila
-        rowsBody.on('click.DT keydown', 'tr[role="row"]', function (e) {
+        rowsBody.on('click.DT keydown', 'tr:not(.group)', function (e) {
             // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
             if (e.which == 1 || e.which == 32) {
                 if (e.target.className.indexOf('openResponsive') > -1 ||

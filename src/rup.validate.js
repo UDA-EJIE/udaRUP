@@ -135,6 +135,11 @@
         jQuery.validator.addMethod('letterswithbasicpunc', function (value, element) {
             return this.optional(element) || /^[a-z-.,()'"\s]+$/i.test(value);
         });
+        
+        // Letras (unicode), tildes y caracteres de puntuación.
+        jQuery.validator.addMethod('lettersunicodewithbasicpunc', function (value, element) {
+        	return this.optional(element) || /^[\p{L}.,()'"\s]+$/iu.test(value);
+        });
 
         // Letras, numeros, espacios o guiones bajos
         jQuery.validator.addMethod('alphanumeric', function (value, element) {
@@ -144,6 +149,21 @@
         // Solo letras
         jQuery.validator.addMethod('lettersonly', function (value, element) {
             return this.optional(element) || /^[a-z]+$/i.test(value);
+        });
+
+        // Solo letras (unicode) y tildes.
+        jQuery.validator.addMethod('lettersunicodeonly', function (value, element) {
+            return this.optional(element) || /^[\p{L}]+$/iu.test(value);
+        });
+
+        // Solo letras y permite espacios.
+        jQuery.validator.addMethod('letters', function (value, element) {
+            return this.optional(element) || /^[a-z\s]+$/i.test(value);
+        });
+
+        // Solo letras (unicode), tildes y permite espacios.
+        jQuery.validator.addMethod('lettersunicode', function (value, element) {
+            return this.optional(element) || /^[\p{L}\s]+$/iu.test(value);
         });
 
         // Espacios no permitidos
@@ -346,6 +366,27 @@
                 validator.resetElements(validator.elements());
             }
         });
+        
+        // Corrección para el establecimiento del foco tras las validaciones del combo y autocomplete.
+        $.extend($.validator.prototype, {
+        	focusInvalid: function focusInvalid() {
+        		if (this.settings.focusInvalid) {
+        			try {
+        				let $element = $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []);
+
+        				if ($element.attr('rupType') === 'combo') {
+        					$element = $('#' + $element.attr('id') + '-button');
+        				} else if ($element.attr('rupType') === 'autocomplete') {
+        					$element = $('#' + $element.attr('id') + '_label');
+        				}
+        				// Manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+        				$element.filter(":visible").focus().trigger("focusin");
+        			} catch (e) {
+        				// Ignore IE throwing errors when focusing hidden elements
+        			}
+        		}
+        	}
+        });
 
         //********************************
         // DEFINICIÓN DE MÉTODOS PRIVADOS
@@ -429,7 +470,7 @@
                         if (self.errorList[i].element === undefined) {
                             alert('El campo validado no existe en el formulario');
                         }
-                        if ($.isArray(self.errorList[i].message)) {
+                        if (Array.isArray(self.errorList[i].message)) {
                             // En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
                             var newMessage = '';
                             for (var j = 0; j < self.errorList[i].message.length; j++) {
@@ -628,7 +669,7 @@
                      * no es posible indicarle varios mensajes de error para un campo.
                      * Por ello deberemos concatenar estos mensajes de error en caso de que se de el caso.
                      */
-                    if ($.isArray(errorMsg)) {
+                    if (Array.isArray(errorMsg)) {
                         // En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
                         var baseUl = $('<ul>');
                         for (var i = 0; i < errorMsg.length; i++) {

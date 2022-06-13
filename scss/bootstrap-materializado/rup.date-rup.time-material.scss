@@ -29,8 +29,9 @@ div.rup-time-input-group-material {
 				&:focus {
 					background-color: $primary-color;
 					
-					i.mdi {
-						color: $white-color;
+					img {
+						// HEX: #FFFFFF
+						filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(241deg) brightness(115%) contrast(100%);
 					}
 				}
 			}
@@ -48,8 +49,9 @@ div.rup-time-input-group-material {
 				background-color: $disabled-background-color;
 			}
 			
-			i.mdi {
-				color: $grey-color-light;
+			img {
+				// HEX: #757575
+				filter: invert(45%) sepia(0%) saturate(5%) hue-rotate(199deg) brightness(101%) contrast(90%);
 			}
 		}
 	}
@@ -68,7 +70,7 @@ div.rup-time-input-group-material {
  		outline: none;
  		position: absolute;
 
- 		i.mdi {
+ 		img {
  			vertical-align: initial;
  			line-height: 1;
  		}

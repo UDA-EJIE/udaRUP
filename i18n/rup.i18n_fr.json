@@ -83,7 +83,7 @@
     }
   },
   "rup_date": {
-    "buttonText": "Abrir calendario",
+    "buttonText": "Ouvrir le calendrier",
     "closeText": "Cerrar",
     "currentText": "Hoy",
     "dateFormat": "dd/mm/yy",
@@ -227,8 +227,12 @@
       "email": "Veuillez entrer une adresse email valide.",
       "equalTo": "Veuillez entrer une nouvelle fois la même valeur.",
       "integer": "fr_Por favor, introduzca un número entero positivo o negativo.",
-      "lettersonly": "Veuillez entrer (seulement) lettres.",
+      "letters": "fr_Por favor, únicamente introduzca letras (espacios en blanco permitidos).",
+      "lettersunicode": "fr_Por favor, introduzca únicamente letras y tildes (espacios en blanco permitidos).",
+      "lettersonly": "fr_Por favor, únicamente introduzca letras.",
+      "lettersunicodeonly": "fr_Por favor, introduzca únicamente letras y tildes.",
       "letterswithbasicpunc": "fr_Por favor, introduzca únicamente letras y signos de puntuación.",
+      "lettersunicodewithbasicpunc": "fr_Por favor, introduzca únicamente letras, tildes y signos de puntuación.",
       "max": "Veuillez entrer une valeur inférieure ou égale à {0}.",
       "maxWords": "Veuillez ne pas entrer plus de {0} mots.",
       "maxlength": "Veuillez ne pas entrer plus de {0} caractères.",
