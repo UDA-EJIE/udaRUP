@@ -414,25 +414,46 @@
 		 *            mostrar.
 		 * @example $("#idSelect").rup_select("setSource", source);
 		 */
-        setSource: function (source) {
+        setSource: function (source,sourceParam) {
         	if (source !== undefined && source !== '') {
             	let $self = $(this);
             	let settings = $self.data().settings;
             	if($self.data().settings.data === undefined){// remoto
-            		settings.url = source;
-            		settings.ajax = undefined;
+            		let data = $self.data('select2');
+            		data.dataAdapter.ajaxOptions.url = source;
+            		if(sourceParam != undefined){
+            			data.dataAdapter.ajaxOptions.headers =  $.toJSON(sourceParam);
+            		}
             	}else{// local
             		settings.data = source;
-            	}
-            	settings.options = undefined;
-            	$self.data('settings',settings);
+                   	settings.options = undefined;
+                	$self.data('settings',settings);
 
-            	$self.empty();
-            	$self.select2({
-            	    data: settings.data
-            	});
+                	$self.empty();
+                	$self.select2({
+                	    data: settings.data
+                	});
+            	}
+ 
         	}
-    	}
+    	},
+        /**
+		 * Método que devuelve los datos, de los elementos seleccionados.
+		 * 
+		 * @function getDataSelected
+		 * @return {string | string[]} - Texto del elemento o elementos
+		 *         seleccionado.
+		 * @example $("#idSelect").rup_select("label");
+		 */
+    	getDataSelected: function () {
+            // Tipo de select
+        	let data = $(this).select2('data');
+            if (!$(this).data('settings').multiple) {
+            	 return data[0];
+            } else {
+                return data;
+            }
+        },
     });
 
     // *******************************
@@ -769,8 +790,10 @@
 			        
 			        mySelect.$results.find('li').addClass('disabledButtonsTable');
 			        mySelect.$selection.find('input').addClass('disabledButtonsTable');
+			        mySelect.$selection.find('input').blur();
 			        let $request = undefined;
 			        if (settings.autocomplete) {
+			        	//Meter busqueda accentFolding
 			            var term = '';
 
 			            term = params.data.q;
@@ -855,6 +878,21 @@
 				          }
 				          $('#' + settings.id).data('settings', settings);
 	              		  $('#' + settings.id).triggerHandler('selectAjaxSuccess', [data]);
+	              		  if(settings.firstLoad){
+	              			if(settings.autocomplete && settings.selected == undefined && settings.defaultValue != undefined && data != undefined &&
+	              					($('#' + settings.id).rup_select('getRupValue') == '' || $('#' + settings.id).rup_select('getRupValue') == settings.blank)){
+	              				//setear el valor para el defaultValue
+	                            var datos2 = $.grep(data, function (v) {
+	                                return v.text.toUpperCase() === settings.defaultValue.toUpperCase();
+	                              });
+
+	                              if (datos2[0] != undefined) {
+	                            	  $('#' + settings.id).rup_select('setRupValue',datos2[0].id);
+	                              }
+	              			}
+	              			settings.firstLoad = false;
+	              			settings.selected = '';
+	              		  }
 				        });
 				        $request.fail(failure);
 			        }else{// cerrar
@@ -871,6 +909,7 @@
 		    	}
 		    	
 		    	if(settings.autocomplete){
+		    		//busqueda accentFolding
 		    		let term = '';
 		    		let mySelect = $('#' + settings.id).data('select2');
 		    		if($('input.select2-search__field') != undefined && $('input.select2-search__field').val() != undefined){
@@ -1233,10 +1272,6 @@
 	                // Init eventos: El resto van en el propio subyacente
 	                // Change
 	                if(settings.change){
-	                	$('#' + settings.id).off('select2:select');
-	                	$('#' + settings.id).on('select2:select', function (e) {
-	                		settings.change(e);
-	                	});
 	                	if(!settings.clean){
 	                		$('#' + settings.id).off('select2:clearing');
 		                	$('#' + settings.id).on('select2:clearing', function (e) {
@@ -1251,6 +1286,23 @@
 	                		settings.clean(e);
 	                	});
 	                }
+	                // event select
+	
+                	$('#' + settings.id).off('select2:select');
+                	$('#' + settings.id).on('select2:select', function (e) {
+                        if(settings.autocomplete){//Change input
+                        	let mySelect2 = $('#' + settings.id).data('select2');
+                        	let data = $(this).select2('data')[0];
+                            mySelect2.$selection.find('input').val(data.text);
+                        }
+                        if(settings.select){
+                        	settings.select(e);
+    	                }
+                        if(settings.change){
+                        	settings.change(e);
+    	                }
+                		
+                	});
 	                if (settings.data) {// local y groups
 	                	if(settings.parent){// si depende de otro selects.
 	                		// Si es uno meterlo como string - local
@@ -1265,10 +1317,16 @@
 																	// fijos.
 	                			settings.dataParents = settings.data;
 	                		}
-	                		let valores = _this._getParentsValues(settings,false,settings.multiValueToken);
-	                		if(valores != ''){	                			
-	                			valores = settings.dataParents[valores] || settings.dataParents[0][valores];	                			
-	                			settings.data = valores;
+	                		let valorValue = _this._getParentsValues(settings,false,settings.multiValueToken);
+	                		if(valorValue != ''){	                			
+	                			valoresParent = settings.dataParents[valorValue];
+	                			if(valoresParent == undefined && settings.dataParents[0] != undefined){
+	                				valoresParent = settings.dataParents[0][valorValue]
+	                			}
+	                			settings.data = valoresParent;
+	                			if(settings.data == undefined){
+	                				settings.data = [];
+	                			}
 	                		}
 	                	}
 	                	
@@ -1279,12 +1337,24 @@
 	                        }
 	                        $('#' + settings.id).select2MultiCheckboxes(settings);
 	                	}else{	                		
-	                		if(settings.autocomplete){
+	                		if(settings.autocomplete){//local y autocomplete
+	                			if(settings.matcher == undefined && settings.accentFolding == false){
+	                				settings.matcher = udaMatcher;
+	                			}
+	        
 	                			$('#' + settings.id).select2MultiCheckboxes(settings);
 	                			if(settings.defaultValue != undefined){
 	                				let mySelect2 = $('#' + settings.id).data('select2');
 	                				mySelect2.$selection.find('input').val(settings.defaultValue);
-	                			}
+	                				if(settings.selected == undefined && mySelect2.dataAdapter._dataToConvert != undefined && mySelect2.dataAdapter._dataToConvert.length > 0){
+		                			    let data = $.grep(mySelect2.dataAdapter._dataToConvert, function (v) {
+		                			        return v.text.toUpperCase() === settings.defaultValue.toUpperCase();
+		                			    });
+		                			    if(data[0] != undefined){
+		                			    	settings.selected = data[0].id;
+		                			    }
+	                				}
+	                   			}
 	                		}else{
 	                			$('#' + settings.id).select2(settings);
 	                		}
@@ -1546,3 +1616,44 @@ function chargedStyles(data){
 		}
 	}
 }
+
+function udaMatcher(params, data) {
+    // Always return the object if there is nothing to compare
+    if ($.trim(params.term) === '') {
+      return data;
+    } // Do a recursive check for options with children
+
+
+    if (data.children && data.children.length > 0) {
+      // Clone the data object if there are children
+      // This is required as we modify the object to remove any non-matches
+      var match = $.extend(true, {}, data); // Check each child of the option
+
+      for (var c = data.children.length - 1; c >= 0; c--) {
+        var child = data.children[c];
+        var matches = matcher(params, child); // If there wasn't a match, remove the object in the array
+
+        if (matches == null) {
+          match.children.splice(c, 1);
+        }
+      } // If any children matched, return the new object
+
+
+      if (match.children.length > 0) {
+        return match;
+      } // If there were no matching children, check just the plain object
+
+
+      return matcher(params, match);
+    }
+
+    var original = data.text.toUpperCase();
+    var term = params.term.toUpperCase(); // Check if the text contains the term
+
+    if (original.indexOf(term) > -1) {
+      return data;
+    } // If it doesn't contain the term, don't return anything
+
+
+    return null;
+  }

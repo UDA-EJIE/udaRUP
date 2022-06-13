@@ -151,7 +151,7 @@
    			  placeholder: $options.options.placeholder,
    			  class: "border-0"
 			});
-		  if(textoSearch != undefined && textoSearch != '' && formatted == ''){
+		  if(textoSearch != undefined && textoSearch != ''){
 			  input.val(textoSearch);
 		  }else{
 			  input.val(formatted);
@@ -199,7 +199,7 @@
 	    	  };
 	    	  options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
 	      }else if(options.autocomplete){
-	    	  if(options.minimumResultsForSearch == undefined){
+	    	  if(options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity){
 	    		  options.minimumResultsForSearch = 3;
 	      	  }
 	    	  options.selectionAdapter = $.fn.select2.amd.require("AutocompleteSelectionAdapter"); 
