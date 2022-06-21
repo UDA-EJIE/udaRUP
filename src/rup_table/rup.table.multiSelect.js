@@ -1186,6 +1186,7 @@ handler that will select the items using the API methods.
         $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
 
         ctx.multiselection.lastSelectedIsRange = false;
+        ctx.multiselection.selectedAll = false;
     }
 
     /**
@@ -1428,9 +1429,7 @@ handler that will select the items using the API methods.
                     ctx.multiselection.lastSelectedId = '';
                 }
                 DataTable.Api().rupTable.selectPencil(ctx, -1);
-                if (ctx.multiselection.numSelected === 0) {
-                    ctx.multiselection.selectedAll = false;
-                }
+                ctx.multiselection.selectedAll = false;               
             }
             //Se mete el id para mantener el selectAll o no.
             if (id !== undefined && ctx.multiselection.deselectedIds.indexOf(id) < 0) {
