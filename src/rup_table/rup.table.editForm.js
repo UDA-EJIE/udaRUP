@@ -1525,12 +1525,7 @@
         	};
         var lastSelectedId = ctx.multiselection.lastSelectedId;
         if (!ctx.multiselection.selectedAll) {
-            // Si no hay un último señalado, obtiene el último
-        	if (lastSelectedId === undefined || lastSelectedId === '') {
-                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
-            }
-        	
-            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
+        	$.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
                 if (p.id == ctx.multiselection.lastSelectedId) {
                     rowDefault.id = p.id;
                     rowDefault.page = p.page;

@@ -573,11 +573,6 @@ function _getRowSelected(dt, actionType){
 		};
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
 	if (!ctx.multiselection.selectedAll) {
-		// Si no hay un último señalado, obtiene el último
-		if (lastSelectedId === undefined || lastSelectedId === '') {
-			ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
-		}
-		
 		let staticID = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
 		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
 			// Obtener el último seleccionado para tener el identificador actualizado (solamente es necesario cuando se usa Hdiv porque cambia el cifrado entre peticiones)
