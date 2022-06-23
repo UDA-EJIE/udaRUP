@@ -30,6 +30,7 @@ Módulo que permite toda la multiseleción
     * [~clear(ctx, [force])](#module_rup.table.multiSelect..clear)
     * [~initializeMultiselectionProps()](#module_rup.table.multiSelect..initializeMultiselectionProps)
     * [~maintIdsRows(DataTable, id, select, pagina, line)](#module_rup.table.multiSelect..maintIdsRows)
+    * [~getLastSelectedId(selectedRowsPerPage)](#module_rup.table.multiSelect..getLastSelectedId) ⇒ <code>string</code>
 
 <a name="module_rup.table.multiSelect..init"></a>
 
@@ -293,4 +294,17 @@ Metodo que añade y quita los seleccionados.
 | select | <code>boolean</code> | si es seleccionado o no |
 | pagina | <code>integer</code> | página en la que se encuentra el seleccionado |
 | line | <code>integer</code> | linea en la que se encuentra el seleccionado |
+
+<a name="module_rup.table.multiSelect..getLastSelectedId"></a>
+
+### rup.table.multiSelect~getLastSelectedId(selectedRowsPerPage) ⇒ <code>string</code>
+Devuelve el identificador de la última fila seleccionada.
+
+**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
+**Returns**: <code>string</code> - Identificador del último registro seleccionado.  
+**Since**: UDA 5.0.4  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selectedRowsPerPage | <code>Array.&lt;Object&gt;</code> | Array de las filas seleccionadas. |
 
