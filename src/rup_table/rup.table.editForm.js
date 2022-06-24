@@ -632,8 +632,7 @@
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
-	                var identy = idRow + 1;
-	                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
 	            $.rup_utils.populateForm(rowArray, idForm);
