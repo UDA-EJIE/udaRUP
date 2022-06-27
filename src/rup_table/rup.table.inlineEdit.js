@@ -93,7 +93,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		_restaurarFila(ctx,true);
 	    		_editInline(dt,ctx,row.index());
 	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
-	    			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+	    			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
 	    			DataTable.Api().rupTable.selectPencil(ctx,0);
 	    		}
 	    	}
@@ -396,7 +396,7 @@ function _add(dt,ctx){
 				ctx.oInit.inlineEdit.alta = true;
 				dt.ajax.reload( function (  ) {
 					ctx.oInit.inlineEdit.alta = undefined;
-					$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+					$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
 					_editInline(dt,ctx,0);
 				} );
 				
@@ -407,7 +407,7 @@ function _add(dt,ctx){
 		ctx.oInit.inlineEdit.alta = true;
 		dt.ajax.reload( function (  ) {
 			ctx.oInit.inlineEdit.alta = undefined;
-			$('#'+ctx.sTableId+' tbody tr:eq(0)').addClass('new');
+			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
 			_editInline(dt,ctx,0);
 		} );
 
