@@ -498,7 +498,7 @@ function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la misma fila.
 		_restaurarFila(ctx,false);
 	}
-	var $rowSelect = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
+	const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
         if (!$rowSelect.hasClass('editable')) {
 		_changeInputsToRup(ctx,idRow);
 		// Se deshabilitan los botones predefinidos de la tabla.
@@ -520,10 +520,9 @@ function _editInline ( dt,ctx, idRow ){
 	
 	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit',ctx);
 	var selectores = {};
-	var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:not(".child"):eq('+idRow+')'); 
-	selectores[0] = $selectorTr;
-        if ($selectorTr.next().find('.child').length === 1) {
-            selectores[1] = $selectorTr.next().find('.child');
+	selectores[0] = $rowSelect;
+        if ($rowSelect.next().find('.child').length === 1) {
+            selectores[1] = $rowSelect.next().find('.child');
 	}
 	
 	$.each(selectores,function() {//se crea evento para los selectores creados.
@@ -546,7 +545,7 @@ function _editInline ( dt,ctx, idRow ){
 	
 	dt.responsive.recalc();
         if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined &&
-            ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $selectorTr.find('span.openResponsive').length === 0) { //revisar cuando es clone por si el responsive falla
+            ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $rowSelect.find('span.openResponsive').length === 0) { //revisar cuando es clone por si el responsive falla
 		 _addChildIcons(ctx);
 	}
 }
@@ -772,7 +771,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+positionLastRow+')');
+		var $fila = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -784,7 +783,7 @@ function _restaurarFila(ctx,limpiar){
 		_restaurarCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),contRest);
 	}
 	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
-		var $selectorTr = $('#'+ctx.sTableId+' > tbody > tr:eq('+positionLastRow+')');
+		const $selectorTr = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
 		ctx.inlineEdit.lastRow = undefined;
             if ($selectorTr.data('events') !== undefined) {
 			$selectorTr.off('keydown');
@@ -794,7 +793,7 @@ function _restaurarFila(ctx,limpiar){
 		
 		ctx.oInit.feedback.$feedbackContainer.rup_feedback('hide');
 		
-            if ($fila !== undefined && $fila.hasClass('new')) { // se elimna el tr, porque no se guardo
+		if ($fila !== undefined && $fila.hasClass('new')) { // se elimna el tr, porque no se guardo
 			$fila.next('.child').remove();
 			$fila.remove();
 			//se asegura resturar multiselection
@@ -826,26 +825,25 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
+		ctx.inlineEdit.lastRow = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
 		ctx.inlineEdit.lastRow.idx = idRow;
 		
 		ctx.inlineEdit.lastRow.ponerFocus = false;
-		var $fila = $('#'+ctx.sTableId+' tbody tr:not(".child"):eq('+idRow+')');
 		//Si existe el responsive
 		//Campos sin responsive
-		var $target = $fila.find(ctx.oInit.responsive.details.target);
-            if ($target.length > 0 && $fila.next().find('.child').length === 0) {
+		var $target = ctx.inlineEdit.lastRow.find(ctx.oInit.responsive.details.target);
+            if ($target.length > 0 && ctx.inlineEdit.lastRow.next().find('.child').length === 0) {
 			$target.click();
 		}
-		cont = _recorrerCeldas(ctx,$fila,$fila.find('td'),cont);
-		if(!$fila.hasClass('new') && !ctx.oInit.inlineEdit.alta){
+		cont = _recorrerCeldas(ctx,ctx.inlineEdit.lastRow,ctx.inlineEdit.lastRow.find('td'),cont);
+		if(!ctx.inlineEdit.lastRow.hasClass('new') && !ctx.oInit.inlineEdit.alta){
 			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline');
 		}
 		//Mirar los campos que estan en responsive.
-		var $filaChild = $fila.next('.child');
+		var $filaChild = ctx.inlineEdit.lastRow.next('.child');
 		_recorrerCeldas(ctx,$filaChild,$filaChild.find(ctx.oInit.responsive.selectorResponsive),cont);
 		if($filaChild.length > 0 && !$filaChild.hasClass('new') && !ctx.oInit.inlineEdit.alta){
 			DataTable.Api().rupTable.blockPKEdit(ctx, 'PUT', '_inline_child');
