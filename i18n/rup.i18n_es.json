@@ -228,7 +228,8 @@
     "summary": "Resumen"
   },
   "rup_button": {
-    "new": "Nuevo"
+    "new": "Nuevo",
+    "mbuttonsIdError": "El atributo ID es obligatorio en los MButtons."
   },
   "rup_table": {
     "seleccionada": "seleccionada",

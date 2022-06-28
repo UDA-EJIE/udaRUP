@@ -228,7 +228,8 @@
     "summary": "Laburpena"
   },
   "rup_button": {
-    "new": "Nuevo_eu"
+    "new": "Nuevo_eu",
+    "mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
   },
   "rup_table": {
     "seleccionada": "aukeratutako",
