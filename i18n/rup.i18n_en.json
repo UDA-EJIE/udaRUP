@@ -497,7 +497,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "en_Criterios de filtrado"
+        "filterCriteria": "en_Criterios de filtrado",
+        "filterContainerError": "en_El identificador especificado para el formulario de búsqueda no existe.",
+        "filterToolbarError": "en_El identificador especificado para la barra de controles del formulario de filtrado no existe."
       },
       "jerarquia": {
         "deselectChild": "en_Deseleccionar hijos",

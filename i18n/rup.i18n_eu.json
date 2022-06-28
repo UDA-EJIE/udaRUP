@@ -498,7 +498,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "Iragazketa irizpideak"
+        "filterCriteria": "Iragazketa irizpideak",
+        "filterContainerError": "Ez da bilaketa-formularioren identifikatzailea zehaztu.",
+        "filterToolbarError": "Iragazpen-formularioko kontrol-barraren identifikatzailea ez dago zehaztuta."
       },
       "jerarquia": {
         "deselectChild": "Hautaketatik kendu semeak",
