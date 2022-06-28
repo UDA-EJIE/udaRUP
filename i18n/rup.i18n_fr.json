@@ -746,5 +746,8 @@
     "quitarCampoOrden": "fr_Dejar de ordenar por este campo",
     "ariaSummary": "fr_Las opciones de ordenación actuales son: ",
     "ariaSummaryEmpty": "fr_No se han seleccionado opciones de ordenación"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "fr_El atributo ID es obligatorio en los MButtons."
   }
 }

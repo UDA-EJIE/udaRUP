@@ -749,5 +749,8 @@
     "quitarCampoOrden": "Eremu honen arabera bilatzeari utzi",
     "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
     "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
   }
 }
