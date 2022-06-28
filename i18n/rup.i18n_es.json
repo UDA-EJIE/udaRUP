@@ -184,6 +184,8 @@
       "date": "dd/mm/yyyy"
     },
     "messages": {
+      "validationErrorTitle": "Error en la validación",
+      "fieldError": "El campo validado no existe en el formulario.",
       "accept": "Por favor, escribe un valor con una extensión aceptada.",
       "alphanumeric": "Por favor, introduzca letras, números, espacios o guiones bajos.",
       "creditcard": "Por favor, escribe un número de tarjeta válido.",

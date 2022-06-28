@@ -184,6 +184,8 @@
       "date": "yyyy/mm/dd"
     },
     "messages": {
+      "validationErrorTitle": "Errorea baliozkotzean",
+      "fieldError": "Balioztatutako zelaia ez dago formularioan.",
       "accept": "Mesedez, idatzi onartutako telefono-luzapen zuzen bat.",
       "alphanumeric": "Mesedez, idatzi letrak, zenbakiak, hutsuneak edo azpi-marrak.",
       "creditcard": "Mesedez, idatzi txartel zenbaki zuzen bat.",

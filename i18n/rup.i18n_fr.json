@@ -183,6 +183,8 @@
       "date": "dd/mm/yyyy"
     },
     "messages": {
+      "validationErrorTitle": "Erreur de validation",
+      "fieldError": "Le champ validé n'existe pas dans le formulaire.",
       "accept": "Veuillez entrer une valeur avec une extension valide.",
       "alphanumeric": "fr_Por favor, introduzca letras, números, espacios o guiones bajos.",
       "creditcard": "Veuillez entrer un numéro de carte de crédit valide.",

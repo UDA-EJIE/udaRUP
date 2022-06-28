@@ -183,6 +183,8 @@
       "date": "dd/mm/yyyy"
     },
     "messages": {
+      "validationErrorTitle": "Validation error",
+      "fieldError": "The validated field does not exist in the form.",
       "accept": "Please enter a value with a valid extension.",
       "alphanumeric": "Please enter letters, numbers, whitespaces or underscores.",
       "creditcard": "Please enter a valid credit card number.",

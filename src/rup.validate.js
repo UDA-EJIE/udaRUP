@@ -468,7 +468,7 @@
                      */
                     for (let i = 0; i < self.errorList.length; i++) {
                         if (self.errorList[i].element === undefined) {
-                            alert('El campo validado no existe en el formulario');
+                        	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_validate.messages.fieldError'), $.rup.i18nParse($.rup.i18n.base, 'rup_validate.messages.validationErrorTitle'));
                         }
                         if (Array.isArray(self.errorList[i].message)) {
                             // En caso de que el mensaje de error sea un array de mensajes, se debera de recorrer y concatenar
