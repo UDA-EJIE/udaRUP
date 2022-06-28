@@ -170,6 +170,7 @@
     "maxFileSizeError": "Fitxategiak tamaina muga handiena gainditzen da",
     "maxNumberOfFilesError": "Fitxategi zenbaki muga handiena gainditzen da",
     "minFileSizeError": "Fitxategiak ez da tamaina muga txikiena gainditzen",
+    "pifError": "RUP_UPLOAD - Ez da zehaztu folderPath parametroaren balioa PIFa erabiltzeko.",
     "openUploaded": "Ireki",
     "startUpload": "Igo"
   },

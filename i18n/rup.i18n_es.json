@@ -170,6 +170,7 @@
     "maxFileSizeError": "El fichero supera el límite máximo de tamaño",
     "maxNumberOfFilesError": "Se ha excedido el número máximo de ficheros",
     "minFileSizeError": "El fichero no supera el límite mínimo de tamaño",
+    "pifError": "RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF.",
     "openUploaded": "Abrir",
     "startUpload": "Subir"
   },
