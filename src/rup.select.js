@@ -119,7 +119,7 @@
             if (this.length === 0 || (settings !== undefined && !settings.multiple)) {
             	param = $.fn.getStaticHdivID(param);// si no viene cifrado el
 													// comportamiento es el
-													// normal.
+				let texto = undefined;									// normal.
                 // Simple
             	 if (settings.data === undefined && settings.options !== undefined){// si
 																					// es
@@ -142,10 +142,25 @@
  	              	   data = data[0];
  	              	   _this._createOption(settings,data);
  	              	   param = data.id;// mantenga el cifrado
+ 	              	   texto = data.text;
  	              	 }else{
  	              		param = data[0].id;// mantenga el cifrado
+ 	              		texto = data[0].text;
  	              	 }
  	              	}
+            	}
+            	let dataSelect2 = $self.data('select2');
+            	if(dataSelect2.$selection.find('input').length == 1){
+            		dataSelect2.$selection.find('input').val('');
+            	}
+            	let $search = dataSelect2.dropdown.$search || dataSelect2.selection.$search;
+            	if($search != undefined && texto !== undefined){//sifnifica que esta abierto
+            		let lis = dataSelect2.dropdown.$dropdown.find('li');
+            		let selectedDate = $.grep(lis, function (v) {
+	                    return $(v).text() === texto;
+            			});
+            		lis.attr('aria-selected', false);
+            		$(selectedDate).attr('aria-selected',true);
             	}
             	$self.val(param).trigger('change');
             	$('#' + settings.id).rup_select('change');
@@ -184,6 +199,7 @@
             	}
             	
             }
+            
         },
         /**
 		 * Método que limpia el valor seleccionado en el select. En el caso de
@@ -410,29 +426,40 @@
 		 * 
 		 * @function setSource
 		 * @param {string}
-		 *            source - Source desde el cual se obtendran los datos a
-		 *            mostrar.
-		 * @example $("#idSelect").rup_select("setSource", source);
+		 *    source - Source desde el cual se obtendran los datos a
+		 *    sourceParam  - Se puede cambiar los parámetros de la cabecera..
+		 * @example $("#idSelect").rup_select("setSource", source, sourceParam);
 		 */
         setSource: function (source,sourceParam) {
         	if (source !== undefined && source !== '') {
             	let $self = $(this);
             	let settings = $self.data().settings;
+            	let dataSelect2 = $self.data('select2');
             	if($self.data().settings.data === undefined){// remoto
-            		let data = $self.data('select2');
-            		data.dataAdapter.ajaxOptions.url = source;
+            		
+            		dataSelect2.dataAdapter.ajaxOptions.url = source;
             		if(sourceParam != undefined){
-            			data.dataAdapter.ajaxOptions.headers =  $.toJSON(sourceParam);
+            			dataSelect2.dataAdapter.ajaxOptions.headers =  $.toJSON(sourceParam);
             		}
             	}else{// local
             		settings.data = source;
                    	settings.options = undefined;
                 	$self.data('settings',settings);
-
+                	if(dataSelect2.$selection != undefined){
+                		dataSelect2.$selection.find('input').val('');
+                	}
                 	$self.empty();
-                	$self.select2({
-                	    data: settings.data
-                	});
+                	if(settings.data !== undefined && settings.autocomplete){
+                		 $.each(settings.data, function () {
+                			 _this._createOption(settings, this);
+                		});
+                		
+                	}else{
+                        $self.select2({
+                        	data: settings.data
+                        }); 
+                	}
+
             	}
  
         	}
@@ -585,8 +612,11 @@
             let text;
             let array = data;
             if(isParent){// Si es padre llamar a la recursividad
+            	if($.isArray(data)){
+            		data = data[0];
+            	}
             	$.each(data, function (key, value) {
-            		 _this._parseLOCAL(data[key],i18nId,false);
+            		data[key] = _this._parseLOCAL(data[key],i18nId,false);
             	});
             }else{
             	data = [];
@@ -753,7 +783,9 @@
 		               if (settings.onLoadError !== null) {
 		                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 		               } else {
-		               	 rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		            	 if(textStatus != 'abort'){//Si se hacen 2 llamadas se cancela la primera.
+		            		 rupSelect._ajaxError(xhr, textStatus, errorThrown);
+		            	 }
 		            	 console.log(textStatus);
 		               }
 		    }		
@@ -782,6 +814,7 @@
 			          __cache = [];
 			        }
 			        __lastQuery = __cachekey;
+			        //Si esta cacheado, no busca
 			        if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
 			          // display the cached results
 			          success(__cache[__cachekey]);
@@ -791,6 +824,12 @@
 			        mySelect.$results.find('li').addClass('disabledButtonsTable');
 			        mySelect.$selection.find('input').addClass('disabledButtonsTable');
 			        mySelect.$selection.find('input').blur();
+			        //Si tiene padres deshabilitarlos
+			        if(settings.parent){
+	                   $.each(settings.parent, function (ind, elem) {
+	                	 $('#' + elem).rup_select("disable"); 
+                      });
+			        }
 			        let $request = undefined;
 			        if (settings.autocomplete) {
 			        	//Meter busqueda accentFolding
@@ -808,6 +847,18 @@
 			        if (settings.parent) {
 			        	var datosParent = _this._getParentsValues(settings, true);
 			        	if(datosParent != ''){
+			        		if(settings.autocomplete){//añadir el data del padre
+			        			let padres = datosParent.split('&');//split por si tiene varios padres	
+			        			$.each(padres, function () {
+			        				if(this !== undefined){
+					        			let cad = this.split('=');
+					        			if(cad != undefined && cad.length > 0){
+					        				params.data[cad[0]] = cad[1];
+					        				__cachekey = __cachekey + $.fn.getStaticHdivID(cad[1]);//se añade la parte del padre
+					        			}
+			        				}
+			        			});
+			        		}
 			        		$request = $.ajax(params);
 			        	}
 			        }else{
@@ -820,6 +871,12 @@
 				          __cache[__cachekey] = data;
 				          // display the results
 				          $('#' + settings.id).rup_select("enable");
+					      //Si tiene padres deshabilitarlos
+					       if(settings.parent){
+			                 $.each(settings.parent, function (ind, elem) {
+			                	  $('#' + elem).rup_select("enable"); 
+		                     });
+					       }
 				          success(__cache[__cachekey]);
 				          // Actualizar seleccionado en la lista//css
 				          let positions = [];
@@ -1433,17 +1490,23 @@
 																			// un
 																			// padre
 			                			let clave = '';
+			                			let ClaveNoCifrar = '';
 			                			if(settings.multiValueToken == undefined){
 			                				settings.multiValueToken = '';
 			                			}
 			                			$.each(settings.parent, function (ind, elem) {
 			                				let val = $('#' + elem).rup_select('getRupValue');
-			                		          clave = clave + val + settings.multiValueToken  ;
-			                		        });
+			                		        clave = clave + val + settings.multiValueToken  ;
+			                		        if($('#'+elem).rup_select("getDataSelected") !== undefined){
+			                		        	val = $('#'+elem).rup_select("getDataSelected").nid;
+			                		        	ClaveNoCifrar = ClaveNoCifrar + val + settings.multiValueToken  ;
+			                		        }
+			                		    });
 			                			clave = clave.substring(0,clave.length - settings.multiValueToken.length);
-			                			if(settings.dataParents[0][clave] != undefined){// Datos
+			                			ClaveNoCifrar = ClaveNoCifrar.substring(0,ClaveNoCifrar.length - settings.multiValueToken.length);
+			                			if(settings.dataParents[0][clave] != undefined || settings.dataParents[0][ClaveNoCifrar] != undefined){// Datos
 																						// Cargados
-			                				let valores = settings.dataParents[0][clave];
+			                				let valores = settings.dataParents[0][clave] || settings.dataParents[0][ClaveNoCifrar];
 			                				settings.data = settings.dataParents;
 			                				$('#'+settings.id).rup_select("setSource", valores);
 			                			}
@@ -1451,6 +1514,10 @@
 				                		let val = $('#'+settings.parent).rup_select('getRupValue');
 				                		if(val != settings.blank && val != ''){
 					                		let valores = settings.dataParents[val];
+					                		if(valores == undefined && $('#'+settings.parent).rup_select("getDataSelected") !== undefined){
+					                			let nid = $('#'+settings.parent).rup_select("getDataSelected").nid;
+					                			valores = settings.dataParents[nid];//si vine cifrado de un remoto.
+					                		}
 					                		settings.data = settings.dataParents;
 					                		if(valores == undefined){// Si no
 																		// hay
@@ -1476,6 +1543,10 @@
 	                		          // ejecutar los datos
 	                		          let $el = $('#' + settings.id);
 	                		          let $search = $el.data('select2').dropdown.$search || $el.data('select2').selection.$search;
+	                		          if(settings.autocomplete){
+	                		        	  $el.data('select2').$container.find('input').val('');  
+	                		          }
+	                		          
 	                		          if($search != undefined){
 	                		        	  $search.trigger('keyup');
 	                		        	  $el.select2('close');
@@ -1601,7 +1672,8 @@
         submitAsJSON: false,
         dataType: 'json',
         cache: true,
-        multiple: false
+        multiple: false,
+        multiValueToken:'##'
         };
 
 
