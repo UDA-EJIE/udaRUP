@@ -84,6 +84,7 @@
     "error": "Errorea",
     "initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
     "metodError": "Metodoan Errorea:",
+	"functionNotSupportedError": "Funtzioa ez dago jasanduta.",
     "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
     "parametro": "eu_Parametro: ",
     "charError": "eu_Caracter no aceptable",

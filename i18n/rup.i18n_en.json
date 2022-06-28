@@ -84,6 +84,7 @@
     "error": "en_Error",
     "initError": "en_Se ha especificado más de un elemento en el constructor.<br> Por favor revise la función de creación para el objeto con ID:",
     "metodError": "en_Error en el método:",
+	"functionNotSupportedError": "en_Función no soportada.",
     "parameterError": "en_Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
     "parametro": "Parameter: ",
     "charError": "en_Caracter no aceptable",

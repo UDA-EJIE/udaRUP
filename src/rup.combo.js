@@ -211,7 +211,7 @@
                 $(this).multiselect('checkAll');
             } else {
                 //Simple > selectmenu
-                alert('Función no soportada.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
             }
         },
         /**
@@ -508,7 +508,7 @@
 
                 }
             } else {
-                alert('Función no soportada.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
             }
         },
         /**
@@ -525,7 +525,7 @@
                     $(this).rup_combo('disableOpt', optValueArr[i]);
                 }
             } else {
-                alert('Función no soportada.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
             }
         },
         /**
@@ -562,7 +562,7 @@
 
                 }
             } else {
-                alert('Función no soportada.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
             }
         },
         /**
@@ -579,7 +579,7 @@
                     $(this).rup_combo('enableOpt', optValueArr[i]);
                 }
             } else {
-                alert('Función no soportada.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
             }
         },
         /**
