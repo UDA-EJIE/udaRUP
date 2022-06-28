@@ -254,7 +254,7 @@
                 },
                 error: function (XMLHttpRequest, textStatus) {
                     //tratamiento de error
-                    alert('Se ha producido un error en el parseo del fichero JSON de literales => ' + textStatus + '.\n\n' + 'Error devuelto:\n' + textStatus + ': ' + XMLHttpRequest.status + ' - ' + XMLHttpRequest.statusText);
+                	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.i18nRupJsonParseError', textStatus, textStatus, XMLHttpRequest.status, XMLHttpRequest.statusText));
                 }
             });
         },
@@ -271,7 +271,7 @@
                     $.rup.i18n.app = data;
                 },
                 error: function (XMLHttpRequest, textStatus) {
-                    alert('Se ha producido un error en el parseo del fichero JSON de literales de la aplicación => ' + textStatus + '.\n\n' + 'Error devuelto:\n' + textStatus + ': ' + XMLHttpRequest.status + ' - ' + XMLHttpRequest.statusText);
+                	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.i18nAppJsonParseError', textStatus, textStatus, XMLHttpRequest.status, XMLHttpRequest.statusText));
                 }
             });
         },
@@ -418,12 +418,12 @@
                     this.lang = cookie;
                 } else {
                     //retrocompatibilidad (MvcInterceptor genera correctamente la cookie, pero en versiones anteriores no)
-                    alert('La \'cookie\' de idioma (' + $.rup.LOCALE_COOKIE_NAME + ') no se corresponde con los idiomas soportados.\n\nLa página no se mostrará correctamente.');
+                	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME), $.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
                     $.rup._avoidRUPFails();
                     return false;
                 }
             } else {
-                alert('No se ha encontrado la \'cookie\' de idioma (' + $.rup.LOCALE_COOKIE_NAME + ') requerida por UDA.\nRevise la configuración del navegador.\n\nLa página no se mostrará correctamente.');
+            	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME), $.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
                 $.rup._avoidRUPFails();
                 return false;
             }
