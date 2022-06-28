@@ -135,7 +135,9 @@
     "waitTitle": "Descargar informe"
   },
   "rup_tabs": {
-    "serverError": "Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
+    "serverError": "Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:",
+    "tabLimitError": "Límite de pestañas alcanzado.",
+    "resizeError": "No es posible redimensionar porque el plugin 'jQuery.resizable' no está disponible."
   },
   "rup_time": {
     "buttonText": "Abrir hora",

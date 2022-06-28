@@ -135,7 +135,9 @@
     "waitTitle": "Behera kargatu txostena"
   },
   "rup_tabs": {
-    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
+    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:",
+    "tabLimitError": "Erlaitzen gehieneko mugara iritsi da.",
+    "resizeError": "Ezin da birdimentsionatu 'jQuery.resizable' plugin-a ez dagoelako erabilgarri."
   },
   "rup_time": {
     "buttonText": "Ordua zabaldu",
