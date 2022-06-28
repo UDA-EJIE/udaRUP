@@ -338,9 +338,9 @@
         /**********/
 
         //Funcion encargada de presentar los errores
-        errorGestor: function (message, title = 'rup_global.developerError') {
+        errorGestor: function (message, title = $.rup.i18nParse($.rup.i18n.base, 'rup_global.developerError')) {
             $.rup_messages('msgError', {
-                title: $.rup.i18nParse($.rup.i18n.base, title),
+                title: title,
                 message: '<p>' + message + '</p>'
             });
 
