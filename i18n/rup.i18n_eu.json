@@ -84,6 +84,7 @@
     "error": "Errorea",
     "initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
     "metodError": "Metodoan Errorea:",
+	"functionNotSupportedError": "Funtzioa ez dago jasanduta.",
     "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
     "parametro": "eu_Parametro: ",
     "charError": "eu_Caracter no aceptable",
@@ -484,7 +485,9 @@
     }
   },
   "rup_tabs": {
-    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
+    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:",
+    "tabLimitError": "Erlaitzen gehieneko mugara iritsi da.",
+    "resizeError": "Ezin da birdimentsionatu 'jQuery.resizable' plugin-a ez dagoelako erabilgarri."
   },
   "rup_time": {
     "buttonText": "Ordua zabaldu",
@@ -519,6 +522,7 @@
     "maxFileSizeError": "Fitxategiak tamaina muga handiena gainditzen da",
     "maxNumberOfFilesError": "Fitxategi zenbaki muga handiena gainditzen da",
     "minFileSizeError": "Fitxategiak ez da tamaina muga txikiena gainditzen",
+    "pifError": "RUP_UPLOAD - Ez da zehaztu folderPath parametroaren balioa PIFa erabiltzeko.",
     "openUploaded": "Ireki",
     "startUpload": "Igo"
   },
@@ -533,6 +537,8 @@
       "date": "yyyy/mm/dd"
     },
     "messages": {
+      "validationErrorTitle": "Errorea baliozkotzean",
+      "fieldError": "Balioztatutako zelaia ez dago formularioan.",
       "accept": "Mesedez, idatzi onartutako telefono-luzapen zuzen bat.",
       "alphanumeric": "Mesedez, idatzi letrak, zenbakiak, hutsuneak edo azpi-marrak.",
       "creditcard": "Mesedez, idatzi txartel zenbaki zuzen bat.",
@@ -575,7 +581,8 @@
     "summary": "Laburpena"
   },
   "rup_button": {
-    "new": "Nuevo_eu"
+    "new": "Nuevo_eu",
+    "mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
   },
   "rup_table": {
     "seleccionada": "aukeratutako",
@@ -848,7 +855,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "Iragazketa irizpideak"
+        "filterCriteria": "Iragazketa irizpideak",
+        "filterContainerError": "Ez da bilaketa-formularioren identifikatzailea zehaztu.",
+        "filterToolbarError": "Iragazpen-formularioko kontrol-barraren identifikatzailea ez dago zehaztuta."
       },
       "jerarquia": {
         "deselectChild": "Hautaketatik kendu semeak",
@@ -1097,5 +1106,16 @@
     "quitarCampoOrden": "Eremu honen arabera bilatzeari utzi",
     "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
     "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
+  },
+  "rup_base": {
+  	"i18nRupJsonParseError": "Errorea gertatu da literalen JSON fitxategiaren analisian = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
+  	"i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
+  	"cookieLanguageNotSupportedErrorTitle": "'Cookie'-a ez dago jasanduta",
+  	"cookieLanguageNotSupportedError": "Hizkuntzaren 'cookie' ({0}) ez dator bat jasandako hizkuntzekin.\n\nOrria ez da behar bezala erakutsiko.",
+  	"cookieLanguageNotFoundErrorTitle": "Hizkuntzaren 'cookie' a falta da",
+  	"cookieLanguageNotFoundError": "Ez da aurkitu UDAk eskatutako hizkuntza-cookiea ({0}).\nBerrikusi nabigatzailearen konfigurazioa.\n\nOrrialdea ez da behar bezala erakutsiko."
   }
 }
