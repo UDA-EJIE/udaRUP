@@ -150,7 +150,7 @@ define(['marionette',
     }
 
     function fncDropdownElementClick (){
-        alert('Seleccionado elemento 1');
+        window.alert('Seleccionado elemento 1');
     }
 
     return ButtonTestView;
