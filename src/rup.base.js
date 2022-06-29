@@ -418,12 +418,16 @@
                     this.lang = cookie;
                 } else {
                     //retrocompatibilidad (MvcInterceptor genera correctamente la cookie, pero en versiones anteriores no)
-                	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME), $.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
+                	$.rup.errorGestor(
+                			$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME),
+                			$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
                     $.rup._avoidRUPFails();
                     return false;
                 }
             } else {
-            	$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME), $.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
+            	$.rup.errorGestor(
+            			$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME),
+            			$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
                 $.rup._avoidRUPFails();
                 return false;
             }

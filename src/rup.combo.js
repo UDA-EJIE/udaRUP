@@ -61,6 +61,8 @@
 
 
     var rup_combo = {};
+    const FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE = $.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError');
+    const FUNCTION_NOT_SUPPORTED_ERROR_TITLE = $.rup.i18nParse($.rup.i18n.base, 'rup_global.error');
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
     $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_combo', rup_combo));
@@ -211,7 +213,7 @@
                 $(this).multiselect('checkAll');
             } else {
                 //Simple > selectmenu
-            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
             }
         },
         /**
@@ -508,7 +510,7 @@
 
                 }
             } else {
-            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
             }
         },
         /**
@@ -525,7 +527,7 @@
                     $(this).rup_combo('disableOpt', optValueArr[i]);
                 }
             } else {
-            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
             }
         },
         /**
@@ -562,7 +564,7 @@
 
                 }
             } else {
-            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
             }
         },
         /**
@@ -579,7 +581,7 @@
                     $(this).rup_combo('enableOpt', optValueArr[i]);
                 }
             } else {
-            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError'), $.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
             }
         },
         /**
