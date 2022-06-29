@@ -37,7 +37,7 @@ define(['marionette',
 			}
 		});
 		$view.ui.btnGetValue.click(function() {
-			alert( $view.ui.spinner.rup_spinner( 'getRupValue' ) );
+			window.alert( $view.ui.spinner.rup_spinner( 'getRupValue' ) );
 		});
 		$view.ui.btnSetValue.click(function() {
 			$view.ui.spinner.rup_spinner( 'setRupValue', 5 );

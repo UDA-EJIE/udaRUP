@@ -48,7 +48,7 @@ define(['marionette',
 			labelMaskId: 'intervalo-mask',
 			numberOfMonths: 3,
 			onSelect: function () {
-				/*alert("La fecha seleccionada es: " + selectedDate);*/
+				/*window.alert("La fecha seleccionada es: " + selectedDate);*/
 			}
 		});
 
@@ -67,7 +67,7 @@ define(['marionette',
 			dateFormat: 'dd/mm/yy',
 			timeFormat: 'hh:mm',
 			onSelect: function () {
-				/*alert("La fecha seleccionada es: " + selectedDate);*/
+				/*window.alert("La fecha seleccionada es: " + selectedDate);*/
 			}
 		});
 
@@ -83,15 +83,15 @@ define(['marionette',
 	}
 
 	function fncOpenDate() {
-		alert('Fecha: ' + this.ui.date.rup_date('getDate'));
+		window.alert('Fecha: ' + this.ui.date.rup_date('getDate'));
 	}
 
 	function fncOpenDateMultiple() {
-		alert('Fechas: ' + this.ui.dateMultiple.rup_date('getDate'));
+		window.alert('Fechas: ' + this.ui.dateMultiple.rup_date('getDate'));
 	}
 
 	function fncOpenDateInline() {
-		alert('Fecha: ' + this.ui.dateInline.rup_date('getDate'));
+		window.alert('Fecha: ' + this.ui.dateInline.rup_date('getDate'));
 	}
 
 	return DateTestView;
