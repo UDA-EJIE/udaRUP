@@ -573,7 +573,7 @@ function testDatatable() {
                         var btnObj = {
                             text: 'addedBtn',
                             action: () => {
-                                alert('action');
+                            	window.alert('action');
                                 setTimeout(done, 300);
                             },
                             classname: 'btn-material-primary-high-emphasis',
