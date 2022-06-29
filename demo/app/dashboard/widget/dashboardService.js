@@ -54,7 +54,7 @@
         })
 
       }).pipe(function(data){
-        debugger;
+        console.log(data);
       })
     );
   }
@@ -74,7 +74,7 @@
         })
 
       }).pipe(function(data){
-        debugger;
+        console.log(data);
       })
     );
   }
