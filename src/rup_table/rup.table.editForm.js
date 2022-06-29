@@ -642,8 +642,7 @@
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
-	                var identy = idRow + 1;
-	                $('#' + ctx.sTableId + ' > tbody > tr:nth-child(' + identy + ') > td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
 	            $.rup_utils.populateForm(rowArray, idForm);
@@ -1532,12 +1531,7 @@
         	};
         var lastSelectedId = ctx.multiselection.lastSelectedId;
         if (!ctx.multiselection.selectedAll) {
-            // Si no hay un último señalado, obtiene el último
-        	if (lastSelectedId === undefined || lastSelectedId === '') {
-                ctx.multiselection.lastSelectedId = ctx.multiselection.selectedRowsPerPage[0].id;
-            }
-        	
-            $.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
+        	$.each(ctx.multiselection.selectedRowsPerPage, function (index, p) {
                 if (p.id == ctx.multiselection.lastSelectedId) {
                     rowDefault.id = p.id;
                     rowDefault.page = p.page;

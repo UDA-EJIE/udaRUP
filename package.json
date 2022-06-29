@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
@@ -105,7 +105,7 @@
     "jasmine-jquery": "^2.1.1",
     "jquery": "^3.6.0",
     "jquery-migrate": "^3.4.0",
-    "jquery-validation": "^1.19.3",
+    "jquery-validation": "^1.19.4",
     "jsdoc-to-markdown": "^5.0.2",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^2.2.0",

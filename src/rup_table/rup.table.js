@@ -1071,10 +1071,10 @@
             
             if (filterOpts.$filterContainer.length === 0) {
                 if (options.filterMessage === true) {
-                    alert('El identificador especificado para el fomulario de búsqueda no existe.');
+                	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.filter.filterContainerError'));
                 }
             } else if (filterOpts.$filterToolbar.length === 0) {
-                alert('El identificador especificado para la barra de controles del formulario de filtrado no existe.');
+            	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.filter.filterToolbarError'));
             } else {
                 filterOpts.collapsableLayerId = (filterOpts.collapsableLayerId !== undefined ? filterOpts.collapsableLayerId : tableId + '_filter_fieldset');
                 filterOpts.toggleIcon1Id = (filterOpts.toggleIcon1 !== undefined ? filterOpts.toggleIcon1 : tableId + '_filter_toggle_icon1');

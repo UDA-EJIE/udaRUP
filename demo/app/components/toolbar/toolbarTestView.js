@@ -228,11 +228,11 @@ define(['marionette',
 
 
         function handlerBoton(){
-            alert ('Se ha pulsado el boton');
+        	window.alert ('Se ha pulsado el boton');
         }
         function handlerMButtons(event){
-            //alert ('MButton:' + event.data.i18nCaption);
-            alert('MButton');
+            //window.alert ('MButton:' + event.data.i18nCaption);
+        	window.alert('MButton');
         }
     }
 
