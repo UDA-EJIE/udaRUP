@@ -84,6 +84,7 @@
     "error": "en_Error",
     "initError": "en_Se ha especificado más de un elemento en el constructor.<br> Por favor revise la función de creación para el objeto con ID:",
     "metodError": "en_Error en el método:",
+	"functionNotSupportedError": "en_Función no soportada.",
     "parameterError": "en_Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
     "parametro": "Parameter: ",
     "charError": "en_Caracter no aceptable",
@@ -134,7 +135,9 @@
     "waitTitle": "en_Descargar informe"
   },
   "rup_tabs": {
-    "serverError": "Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
+    "serverError": "Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:",
+    "tabLimitError": "Tab limit reached.",
+    "resizeError": "Cannot be resizable because 'jQuery.resizable' plugin is not available."
   },
   "rup_time": {
     "buttonText": "en_Abrir hora",
@@ -169,6 +172,7 @@
     "maxFileSizeError": "El fichero supera el límite máximo de tamaño_en",
     "maxNumberOfFilesError": "Se ha excedido el número máximo de ficheros_en",
     "minFileSizeError": "El fichero no supera el límite mínimo de tamaño_en",
+    "pifError": "RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF._en",
     "openUploaded": "Abrir_en",
     "startUpload": "Subir_en"
   },
@@ -182,6 +186,8 @@
       "date": "dd/mm/yyyy"
     },
     "messages": {
+      "validationErrorTitle": "Validation error",
+      "fieldError": "The validated field does not exist in the form.",
       "accept": "Please enter a value with a valid extension.",
       "alphanumeric": "Please enter letters, numbers, whitespaces or underscores.",
       "creditcard": "Please enter a valid credit card number.",
@@ -224,7 +230,8 @@
     "summary": "Resumen_en"
   },
   "rup_button": {
-    "new": "New"
+    "new": "New",
+    "mbuttonsIdError": "en_El atributo ID es obligatorio en los MButtons."
   },
   "rup_table": {
     "seleccionada": "selected",
@@ -497,7 +504,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "en_Criterios de filtrado"
+        "filterCriteria": "en_Criterios de filtrado",
+        "filterContainerError": "en_El identificador especificado para el formulario de búsqueda no existe.",
+        "filterToolbarError": "en_El identificador especificado para la barra de controles del formulario de filtrado no existe."
       },
       "jerarquia": {
         "deselectChild": "en_Deseleccionar hijos",
@@ -745,5 +754,16 @@
     "quitarCampoOrden": "en_Dejar de ordenar por este campo",
     "ariaSummary": "en_Las opciones de ordenación actuales son: ",
     "ariaSummaryEmpty": "en_No se han seleccionado opciones de ordenación"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "en_El atributo ID es obligatorio en los MButtons."
+  },
+  "rup_base": {
+  	"i18nRupJsonParseError": "en_Se ha producido un error en el análisis del fichero JSON de literales => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
+  	"i18nAppJsonParseError": "en_Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
+  	"cookieLanguageNotSupportedErrorTitle": "en_'Cookie' de idioma no soportada",
+  	"cookieLanguageNotSupportedError": "en_La 'cookie' de idioma ({0}) no se corresponde con los idiomas soportados.\n\nLa página no se mostrará correctamente.",
+  	"cookieLanguageNotFoundErrorTitle": "en_Falta la 'cookie' de idioma",
+  	"cookieLanguageNotFoundError": "en_No se ha encontrado la 'cookie' de idioma ({0}) requerida por UDA.\nRevise la configuración del navegador.\n\nLa página no se mostrará correctamente."
   }
 }

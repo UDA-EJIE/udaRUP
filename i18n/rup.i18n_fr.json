@@ -84,6 +84,7 @@
     "error": "fr_Error",
     "initError": "fr_Se ha especificado más de un elemento en el constructor.<br> Por favor revise la función de creación para el objeto con ID:",
     "metodError": "fr_Error en el método:",
+	"functionNotSupportedError": "fr_Función no soportada.",
     "parameterError": "fr_Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
     "parametro": "fr_Parametro: ",
     "charError": "fr_Caracter no aceptable",
@@ -134,7 +135,9 @@
     "waitTitle": "fr_Descargar informe"
   },
   "rup_tabs": {
-    "serverError": "fr_Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:"
+    "serverError": "fr_Se ha producido un error en la llamada de la pestaña.<br>El error devuelto por el servidor es:",
+    "tabLimitError": "fr_Límite de pestañas alcanzado.",
+    "resizeError": "fr_No es posible redimensionar porque el plugin 'jQuery.resizable' no está disponible."
   },
   "rup_time": {
     "buttonText": "Abrir hora",
@@ -169,6 +172,7 @@
     "maxFileSizeError": "El fichero supera el límite máximo de tamaño_fr",
     "maxNumberOfFilesError": "Se ha excedido el número máximo de ficheros_fr",
     "minFileSizeError": "El fichero no supera el límite mínimo de tamaño_fr",
+    "pifError": "RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF._fr",
     "openUploaded": "Abrir_fr",
     "startUpload": "Subir_fr"
   },
@@ -182,6 +186,8 @@
       "date": "dd/mm/yyyy"
     },
     "messages": {
+      "validationErrorTitle": "Erreur de validation",
+      "fieldError": "Le champ validé n'existe pas dans le formulaire.",
       "accept": "Veuillez entrer une valeur avec une extension valide.",
       "alphanumeric": "fr_Por favor, introduzca letras, números, espacios o guiones bajos.",
       "creditcard": "Veuillez entrer un numéro de carte de crédit valide.",
@@ -224,7 +230,8 @@
     "summary": "Resumen_fr"
   },
   "rup_button": {
-    "new": "Nuevo_fr"
+    "new": "Nuevo_fr",
+    "mbuttonsIdError": "fr_El atributo ID es obligatorio en los MButtons."
   },
   "rup_table": {
     "seleccionada": "[FR]seleccionada",
@@ -496,7 +503,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "fr_Criterios de filtrado"
+        "filterCriteria": "fr_Criterios de filtrado",
+        "filterContainerError": "fr_El identificador especificado para el formulario de búsqueda no existe.",
+        "filterToolbarError": "fr_El identificador especificado para la barra de controles del formulario de filtrado no existe."
       },
       "jerarquia": {
         "deselectChild": "fr_Deseleccionar hijos",
@@ -744,5 +753,16 @@
     "quitarCampoOrden": "fr_Dejar de ordenar por este campo",
     "ariaSummary": "fr_Las opciones de ordenación actuales son: ",
     "ariaSummaryEmpty": "fr_No se han seleccionado opciones de ordenación"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "fr_El atributo ID es obligatorio en los MButtons."
+  },
+  "rup_base": {
+  	"i18nRupJsonParseError": "fr_Se ha producido un error en el análisis del fichero JSON de literales => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
+  	"i18nAppJsonParseError": "fr_Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
+  	"cookieLanguageNotSupportedErrorTitle": "fr_'Cookie' de idioma no soportada",
+  	"cookieLanguageNotSupportedError": "fr_La 'cookie' de idioma ({0}) no se corresponde con los idiomas soportados.\n\nLa página no se mostrará correctamente.",
+  	"cookieLanguageNotFoundErrorTitle": "fr_Falta la 'cookie' de idioma",
+  	"cookieLanguageNotFoundError": "fr_No se ha encontrado la 'cookie' de idioma ({0}) requerida por UDA.\nRevise la configuración del navegador.\n\nLa página no se mostrará correctamente."
   }
 }

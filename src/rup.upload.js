@@ -304,7 +304,7 @@
                 var pifSettings = jQuery.extend(true, $.fn.rup_upload.pif.defaults, settings.pif);
 
                 if (pifSettings.userFolder !== true && pifSettings.folderPath === undefined) {
-                    alert('RUP_UPLOAD - No se ha especificado el valor del parámetro folderPath para el uso del PIF.');
+                	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_upload.pifError'));
                     return -1;
                 }
 

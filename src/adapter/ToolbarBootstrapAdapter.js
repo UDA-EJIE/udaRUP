@@ -87,7 +87,7 @@
         var botonGrp, boton = '',
             buttonId;
         if (obj.id === undefined) {
-            alert('El atributo ID es obligatorio en los MButtons.');
+        	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_toolbar.mbuttonsIdError'));
             boton = null;
         } else {
             buttonId = obj.id;
