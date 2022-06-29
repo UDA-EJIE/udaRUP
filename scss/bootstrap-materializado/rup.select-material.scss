@@ -18,6 +18,10 @@
 				padding-left: 17px;
 				padding-right: 19px;
 				line-height: 1.65;
+			
+				input {
+					height: calc(2rem - 4px);
+				}
 			}
 		}
 
