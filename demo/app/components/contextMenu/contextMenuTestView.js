@@ -23,7 +23,7 @@ define(['marionette',
 		this.ui.contextMenu.rup_contextMenu({
 			selector: '#contextMenu',
 			callback: function (key) {
-				alert('clicked: ' + key);
+				window.alert('clicked: ' + key);
 			},
 			items: {
 				'edit': {
@@ -43,7 +43,7 @@ define(['marionette',
 			selector: '.contextMenu-left',
 			trigger: 'left',
 			callback: function (key) {
-				alert('clicked: ' + key);
+				window.alert('clicked: ' + key);
 			},
 			items: {
 				'edit': {
@@ -84,7 +84,7 @@ define(['marionette',
 			selector: '#contextMenu-hover',
 			trigger: 'hover',
 			callback: function (key) {
-				alert('clicked: ' + key);
+				window.alert('clicked: ' + key);
 			},
 			items: {
 				'edit': {
@@ -149,7 +149,7 @@ define(['marionette',
 			build: function () {
 				return {
 					callback: function (key) {
-						alert('clicked: ' + key);
+						window.alert('clicked: ' + key);
 					},
 					items: {
 						'edit': {

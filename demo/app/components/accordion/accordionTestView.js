@@ -45,7 +45,9 @@ define(['marionette',
 						$('#maintGroup').append(data);
 					},
 					error: function (){
-						alert('Se ha producido un error al recuperar los datos del servidor');
+						$.rup.errorGestor(
+								'Se ha producido un error al recuperar los datos del servidor',
+								$.rup.i18nParse($.rup.i18n.base, 'rup_global.error'));
 					}
 				});
 			} else if (ui.options.active === 2){

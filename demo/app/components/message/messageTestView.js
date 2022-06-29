@@ -58,11 +58,11 @@ define(['marionette',
 	}
 
 	function fncClickBtnAlertJS(){
-		alert('esto es un alert de javascript puro');
+		window.alert('esto es un alert de javascript puro');
 	}
 
 	function fncConfirmAcceptCallback(){
-		alert('Aceptar');
+		window.alert('Aceptar');
 	}
 
 	return MessageTestView;
