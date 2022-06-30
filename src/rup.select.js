@@ -826,9 +826,13 @@
 			        mySelect.$selection.find('input').blur();
 			        //Si tiene padres deshabilitarlos
 			        if(settings.parent){
-	                   $.each(settings.parent, function (ind, elem) {
-	                	 $('#' + elem).rup_select("disable"); 
-                      });
+			        	if(typeof settings.parent === 'string'){
+			        		$('#' + settings.parent).rup_select("disable"); 
+			        	}else{
+		                   $.each(settings.parent, function (ind, elem) {
+		                	 $('#' + elem).rup_select("disable"); 
+	                      });
+			        	}
 			        }
 			        let $request = undefined;
 			        if (settings.autocomplete) {
@@ -871,12 +875,16 @@
 				          __cache[__cachekey] = data;
 				          // display the results
 				          $('#' + settings.id).rup_select("enable");
-					      //Si tiene padres deshabilitarlos
-					       if(settings.parent){
-			                 $.each(settings.parent, function (ind, elem) {
-			                	  $('#' + elem).rup_select("enable"); 
-		                     });
-					       }
+					        //Si tiene padres deshabilitarlos
+					        if(settings.parent){
+					        	if(typeof settings.parent === 'string'){
+					        		$('#' + settings.parent).rup_select("enable"); 
+					        	}else{
+				                   $.each(settings.parent, function (ind, elem) {
+				                	 $('#' + elem).rup_select("enable"); 
+			                      });
+					        	}
+					        }
 				          success(__cache[__cachekey]);
 				          // Actualizar seleccionado en la lista//css
 				          let positions = [];
