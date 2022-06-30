@@ -42,7 +42,9 @@
 			height: 2rem;
 			
 			span.select2-selection__arrow {
-				height: 2rem;
+				height: calc(2rem - 2px);
+				border: none;
+				background-position: center;
 				
 				b {
 					border-color: #555555 transparent transparent transparent;
