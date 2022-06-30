@@ -60,8 +60,9 @@
 			padding-left: 18px;
 			line-height: 1.8;
 			
-			input {
+			input, input:focus:enabled {
 				height: calc(2rem - 2px);
+				padding: 0;
 			}
 		}
 	}
