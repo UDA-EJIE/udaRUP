@@ -1,6 +1,6 @@
 .form-groupMaterial {
 	label.select-material {
-		left: 19px;
+		left: 14px;
 	}
 	
 	select[ruptype="select"] + span {
@@ -67,11 +67,29 @@
 		}
 	}
 	
+	select[ruptype="select"] {
+		~ label.select-material {
+			left: 14px;
+		}
+	}
+	
 	&[class*="col-"] {
 		select[ruptype="select"] {
 			~ label.select-material {
 				left: 19px;
 			}
+		}
+	}
+}
+
+.form-groupMaterial[class*="col-"] {
+	label.select-material {
+		left: 19px;
+	}
+	
+	select[ruptype="select"] {
+		~ label.select-material {
+			left: 19px;
 		}
 	}
 }
