@@ -4,11 +4,11 @@
 	}
 	
 	select[ruptype="select"] + span {
-		&:hover span.select2-selection {
+		&:hover:enabled span.select2-selection {
 			border-color: $black-color;
 		}
 		
-		&.select2-container--focus span.select2-selection {
+		&.select2-container--focus:enabled span.select2-selection {
 			outline: none;
 			border-color: $primary-color;
 			border-width: 2px;
@@ -25,7 +25,7 @@
 			}
 		}
 
-		&.select2-container--focus + label {
+		&.select2-container--focus:enabled + label {
 			top: -10px;
 			font-size: .9rem;
 			color: $primary-color;
@@ -36,6 +36,17 @@
 		
 		&.select2-container--open span.select2-selection--single span.select2-selection__arrow b {
 			border-color: transparent transparent #555555 transparent;
+		}
+		
+		&.select2-container--disabled {
+			span.select2-selection--single {
+				background-color: $disabled-background-color;
+			}
+			
+			& ~ label {
+				color: $grey-color-very-light;
+				background: linear-gradient(to top, $disabled-background-color 0%, $disabled-background-color 40%, $no-color 40%, $no-color 100%);
+			}
 		}
 
 		span.select2-selection--single {
@@ -63,6 +74,7 @@
 			input, input:focus:enabled {
 				height: calc(2rem - 2px);
 				padding: 0;
+				background-color: initial;
 			}
 		}
 	}
