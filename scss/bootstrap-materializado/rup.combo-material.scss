@@ -185,6 +185,10 @@ select.rup_combo ~ button.select-material {
 		outline: none;
 		padding-left: 17px;
 	}
+	
+	&.ui-multiselect:focus:enabled {
+		padding-left: 17px;
+	}
 
 	span {
 		&.rup-combo_loading {
