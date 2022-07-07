@@ -999,12 +999,13 @@
 		    		settings.ajax.processResults = settings.processResults;
 		    	}
 			}
+			
+            if (settings.placeholder == undefined || settings.placeholder == '') {
+                // si es vació se asigna el label
+                settings.placeholder = rupSelect._getBlankLabel(settings.id);
+             }
         	if(settings.multiple){
-                if (settings.placeholder == undefined || settings.placeholder == '') {
-                   // si es vació se asigna el label
-                   settings.placeholder = rupSelect._getBlankLabel(settings.id);
-                }
-        		$('#' + settings.id).select2MultiCheckboxes(settings);
+         		$('#' + settings.id).select2MultiCheckboxes(settings);
         	}else{
         		if(settings.autocomplete){
         			$('#' + settings.id).select2MultiCheckboxes(settings);
@@ -1395,12 +1396,12 @@
 	                		}
 	                	}
 	                	
+	                     if (settings.placeholder == undefined || settings.placeholder == '') {
+		                         // si es vació se asigna el label
+		                         settings.placeholder = _this._getBlankLabel(settings.id);
+		                 }
 	                	if(settings.multiple){
-	                        if (settings.placeholder == undefined || settings.placeholder == '') {
-	                          // si es vació se asigna el label
-	                          settings.placeholder = _this._getBlankLabel(settings.id);
-	                        }
-	                        $('#' + settings.id).select2MultiCheckboxes(settings);
+	 	                        $('#' + settings.id).select2MultiCheckboxes(settings);
 	                	}else{	                		
 	                		if(settings.autocomplete){//local y autocomplete
 	                			if(settings.matcher == undefined && settings.accentFolding == false){
@@ -1521,6 +1522,7 @@
 			                		}else{// si tiene un solo padre
 				                		let val = $('#'+settings.parent).rup_select('getRupValue');
 				                		if(val != settings.blank && val != ''){
+				                			$('#'+settings.id).rup_select("enable");
 					                		let valores = settings.dataParents[val];
 					                		if(valores == undefined && $('#'+settings.parent).rup_select("getDataSelected") !== undefined){
 					                			let nid = $('#'+settings.parent).rup_select("getDataSelected").nid;
@@ -1535,6 +1537,8 @@
 					                			valores =[];
 					                		}
 					                		$('#'+settings.id).rup_select("setSource", valores);
+				                		}else{//deshabilitamos el hijo
+				                			$('#'+settings.id).rup_select("disable");
 				                		}
 			                		}
 	

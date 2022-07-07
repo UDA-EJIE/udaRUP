@@ -42,7 +42,7 @@
       "optGroupDeselectTitle": "Uncheck all elements within this group",
       "optGroupSelect": "Check group",
       "optGroupSelectTitle": "Check all elements within this group",
-      "selectedText": "# selected",
+      "selectedText": "Selected {0} of {1}",
       "uncheckAllText": "Uncheck all",
       "uncheckAllTitle": "Uncheck all elements"
     }
@@ -52,23 +52,6 @@
     "blankNotDefined": "en_[Falta literal]",
     "loadingText": "en_Cargando...",
 	"appendToError": "en_En el combo con identificador {0}, es necesario especificar un selector válido para la propiedad appendTo.",
-    "multiselect": {
-      "checkAllText": "Check all",
-      "checkAllTitle": "Check all elements",
-      "noneSelectedText": "Select options",
-      "optGroupDeselect": "Uncheck group",
-      "optGroupDeselectTitle": "Uncheck all elements within this group",
-      "optGroupSelect": "Check group",
-      "optGroupSelectTitle": "Check all elements within this group",
-      "selectedText": "# selected",
-      "uncheckAllText": "Uncheck all",
-      "uncheckAllTitle": "Uncheck all elements"
-    }
-  },
-    "rup_combo": {
-    "ajaxError": "en_Se ha producido un error al recuperar los datos del servidor",
-    "blankNotDefined": "en_[Falta literal]",
-    "loadingText": "en_Cargando...",
     "multiselect": {
       "checkAllText": "Check all",
       "checkAllTitle": "Check all elements",
