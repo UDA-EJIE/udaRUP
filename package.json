@@ -54,7 +54,7 @@
     "babel-plugin-transform-remove-strict-mode": "^0.0.2",
     "backbone.marionette": "^2.4.7",
     "body-parser": "^1.19.0",
-    "bootstrap": "^4.5.1",
+    "bootstrap": "^4.6.1",
     "bootstrap-calendar": "^0.2.4",
     "cookie-parser": "^1.4.3",
     "css-loader": "^2.1.1",
