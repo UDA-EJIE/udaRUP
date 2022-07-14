@@ -5,7 +5,6 @@ import 'jasmine-jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'rup.tooltip';
 import 'rup.select';
-import 'rup.select';
 
 describe('Test Select > ', () => {
     var $select, $selectPadre, $selectHijo, $selectMulti, $selectGroup, $selectGroupVacio;
@@ -108,8 +107,8 @@ describe('Test Select > ', () => {
                     expect($selectPadre.rup_select('getRupValue')).toBe('2');
                 });
                 it('El cambio debe reflejarse en el select hijo:', () => {
-                    expect($selectHijo.children()[0].value).toBe('2.1');
-                    expect($selectHijo.children()[1].value).toBe('2.2');
+                    expect($selectHijo.children()[1].value).toBe('2.1');
+                    expect($selectHijo.children()[2].value).toBe('2.2');
                 });
             });
             describe('select hijo > ', () => {
@@ -129,7 +128,7 @@ describe('Test Select > ', () => {
                 });
                 it('Debe actualizarse ', () => {
                 	selectedLiteral = selectedLiteral.replace('{0}','2').replace('{1}','6');
-                    expect($('#selectMulti').next('span').text()).toBe(' ' + selectedLiteral);
+                    expect($('#selectMulti').next('span').text()).toBe('' + selectedLiteral);
                 });
                 it('El método getRupValue debe devolver el valor establecido', () => {
                     expect($selectMulti.rup_select('getRupValue')).toEqual(['3', '4']);
@@ -172,7 +171,7 @@ describe('Test Select > ', () => {
                     expect($selectPadre.rup_select('getRupValue')).toEqual('');
                 });
                 it('El select hijo debe deshabilitarse:', () => {
-                    expect($selectHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+                    expect($selectHijo.attr('disabled')).toBe('disabled');
                 });
             });
             describe('select hijo > ', () => {
@@ -191,11 +190,12 @@ describe('Test Select > ', () => {
                     $selectMulti.rup_select('clear');
                 });
                 it('Debe actualizar la ui ', () => {
+                	selectedLiteral = selectedLiteral.replace('{0}','0').replace('{1}','0');
                     expect($('#selectMulti').next('span').text())
-                        .toBe($.rup.i18n.base.rup_select.multiselect.noneSelectedText);
+                        .toBe(selectedLiteral);
                 });
-                it('El método getRupValue debe devolver el valor establecido', () => {
-                    expect($selectMulti.rup_select('getRupValue')).toEqual([]);
+                it('El método getRupValue debe devolver el valor establecido', () => {//si crea placeHolder es '0' sino ''
+                    expect($selectMulti.rup_select('getRupValue')).toEqual('');
                 });
             });
             describe('select optGroup vacío > ', () => {
@@ -204,7 +204,7 @@ describe('Test Select > ', () => {
                 });
                 it('Debe actualizar la ui:', () => {
                     expect($('#select2-selectGroupVacio-container').text().trim())
-                        .toBe('');
+                        .toBe('[Falta literal]');
                 });
                 it('El método getRupValue debe devolver vacio', () => {
                     expect($selectGroupVacio.rup_select('getRupValue')).toBe('');
@@ -217,10 +217,10 @@ describe('Test Select > ', () => {
                 });
                 it('Debe actualizar la ui:', () => {
                     expect($('#select2-selectGroup-container').text())
-                        .toBe('0');
+                        .toBe('[Falta literal]');
                 });
                 it('El método getRupValue debe devolver 0', () => {
-                    expect($selectGroup.rup_select('getRupValue')).toBe('0');
+                    expect($selectGroup.rup_select('getRupValue')).toBe('');//si crea placeHolder es '0' sino ''
                 });
             });
         });
@@ -271,7 +271,8 @@ describe('Test Select > ', () => {
                 $selectMulti.rup_select('checkAll');
             });
             it('Debe modificar el ui ', () => {
-                expect($('#selectMulti').next('span').text()).toBe('6 ' + selectedLiteral);
+            	selectedLiteral = selectedLiteral.replace('{0}','6').replace('{1}','6');
+                expect($('#selectMulti').next('span').text()).toBe(selectedLiteral);
             });
             it('Debe reflejarse en el getRupValue ', () => {
                 expect($selectMulti.rup_select('getRupValue')).toEqual(['1', '2', '3', '4', '5', '6']);
@@ -281,7 +282,7 @@ describe('Test Select > ', () => {
             describe('select simple > ', () => {
                 describe('Selección por valor > ', () => {
                     beforeEach(() => {
-                        $select.rup_select('select', '1');
+                        $select.rup_select('selectByLabel', 'Opcion1');
                     });
                     it('Debe modificar la ui ', () => {
                         expect($('#select2-selectSimple-container').text()).toBe('Opcion1');
@@ -292,7 +293,7 @@ describe('Test Select > ', () => {
                 });
                 describe('Selección por índice > ', () => {
                     beforeEach(() => {
-                        $select.rup_select('select', 1);
+                        $select.rup_select('select', 0);
                     });
                     it('Debe modificar la ui ', () => {
                         expect($('#select2-selectSimple-container').text()).toBe('Opcion1');
@@ -305,7 +306,7 @@ describe('Test Select > ', () => {
             describe('select padre > ', () => {
                 describe('Selección por valor > ', () => {
                     beforeEach(() => {
-                        $selectPadre.rup_select('select', '2');
+                        $selectPadre.rup_select('selectByLabel', 'Opt2');
                     });
                     it('Debe modificar la ui ', () => {
                         expect($('#select2-selectPadre-container').text()).toBe('Opt2');
@@ -314,13 +315,13 @@ describe('Test Select > ', () => {
                         expect($selectPadre.rup_select('getRupValue')).toBe('2');
                     });
                     it('Debe reflejarse en el select Hijo:', () => {
-                        expect($selectHijo.children()[2].value).toBe('2.1');
-                        expect($selectHijo.children()[3].value).toBe('2.2');
+                        expect($selectHijo.children()[1].value).toBe('2.1');
+                        expect($selectHijo.children()[2].value).toBe('2.2');
                     });
                 });
                 describe('Selección por índice > ', () => {
                     beforeEach(() => {
-                        $selectPadre.rup_select('select', 2);
+                        $selectPadre.rup_select('select', 1);
                     });
                     it('Debe modificar la ui ', () => {
                         expect($('#select2-selectPadre-container').text()).toBe('Opt2');
@@ -329,15 +330,15 @@ describe('Test Select > ', () => {
                         expect($selectPadre.rup_select('getRupValue')).toBe('2');
                     });
                     it('Debe reflejarse en el select Hijo:', () => {
-                        expect($selectHijo.children()[2].value).toBe('2.1');
-                        expect($selectHijo.children()[3].value).toBe('2.2');
+                        expect($selectHijo.children()[1].value).toBe('2.1');
+                        expect($selectHijo.children()[2].value).toBe('2.2');
                     });
                 });
             });
             describe('select hijo > ', () => {
                 describe('Selección por valor > ', () => {
                     beforeEach(() => {
-                        $selectHijo.rup_select('select', '1.2');
+                        $selectHijo.rup_select('selectByLabel', 'Subopt12');
                     });
                     it('Debe modificar la ui ', () => {
                         expect($('#select2-selectHijo-container').text()).toBe('Subopt12');
@@ -361,13 +362,14 @@ describe('Test Select > ', () => {
             describe('select multiple > ', () => {
                 describe('Selección por valor > ', () => {
                     beforeEach(() => {
-                        $selectMulti.rup_select('select', ['3', '4']);
+                        $selectMulti.rup_select('selectByLabel', ['Opcion4', 'Opcion5']);
                     });
                     it('Debe modificar la ui ', () => {
-                        expect($('#selectMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
+                    	selectedLiteral = selectedLiteral.replace('{0}','2').replace('{1}','6');
+                        expect($('#selectMulti').next('span').text()).toBe(selectedLiteral);
                     });
                     it('Debe reflejarse en el método getRupValue', () => {
-                        expect($selectMulti.rup_select('getRupValue')).toEqual(['2', '3', '4']);
+                        expect($selectMulti.rup_select('getRupValue')).toEqual(['4', '5']);
                     });
                 });
                 describe('Selección por índice > ', () => {
@@ -375,17 +377,18 @@ describe('Test Select > ', () => {
                         $selectMulti.rup_select('select', [2, 3]);
                     });
                     it('Debe modificar la ui ', () => {
-                        expect($('#selectMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
+                    	selectedLiteral = selectedLiteral.replace('{0}','2').replace('{1}','6');
+                        expect($('#selectMulti').next('span').text()).toBe(selectedLiteral);
                     });
                     it('Debe reflejarse en el método getRupValue', () => {
-                        expect($selectMulti.rup_select('getRupValue')).toEqual(['2', '3', '4']);
+                        expect($selectMulti.rup_select('getRupValue')).toEqual(['3', '4']);
                     });
                 });
             });
             describe('select optGroup > ', () => {
                 describe('Selección por valor > ', () => {
                     beforeEach(() => {
-                        $selectGroup.rup_select('select', '1.1');
+                        $selectGroup.rup_select('selectByLabel', 'Opt11');
                     });
                     it('Debe cambiar la ui:', () => {
                         expect($('#select2-selectGroup-container').text()).toBe('Opt11');
@@ -396,7 +399,7 @@ describe('Test Select > ', () => {
                 });
                 describe('Selección por índice > ', () => {
                     beforeEach(() => {
-                        $selectGroup.rup_select('select', 1);
+                        $selectGroup.rup_select('select', 0);
                     });
                     it('Debe cambiar la ui:', () => {
                         expect($('#select2-selectGroup-container').text()).toBe('Opt11');
@@ -407,91 +410,30 @@ describe('Test Select > ', () => {
                 });
             });
         });
-        describe('Método selectLabel > ', () => {
-            describe('select simple > ', () => {
-                beforeEach(() => {
-                    $select.rup_select('selectLabel', 'Opcion1');
-                });
-                it('Debe modificar la ui ', () => {
-                    expect($('#select2-selectSimple-container').text()).toBe('Opcion1');
-                });
-                it('Debe reflejarse en el método getRupValue', () => {
-                    expect($select.rup_select('getRupValue')).toBe('1');
-                });
-            });
-            describe('select padre > ', () => {
-                beforeEach(() => {
-                    $selectPadre.rup_select('selectLabel', 'Opt2');
-                });
-                it('Debe modificar la ui ', () => {
-                    expect($('#select2-selectPadre-container').text()).toBe('Opt2');
-                });
-                it('Debe reflejarse en el método getRupValue', () => {
-                    expect($selectPadre.rup_select('getRupValue')).toBe('2');
-                });
-                it('Debe reflejarse en el select Hijo:', () => {
-                    expect($selectHijo.children()[2].value).toBe('2.1');
-                    expect($selectHijo.children()[3].value).toBe('2.2');
-                });
-            });
-            describe('select hijo > ', () => {
-                beforeEach(() => {
-                    $selectHijo.rup_select('selectLabel', 'Subopt12');
-                });
-                it('Debe modificar la ui ', () => {
-                    expect($('#selectHijo-button > span.ui-selectmenu-status').text()).toBe('Subopt12');
-                });
-                it('Debe reflejarse en el método getRupValue', () => {
-                    expect($selectHijo.rup_select('getRupValue')).toBe('1.2');
-                });
-            });
-            describe('select multiple > ', () => {
-                beforeEach(() => {
-                    $selectMulti.rup_select('selectLabel', ['Opcion3', 'Opcion4']);
-                });
-                it('Debe modificar la ui ', () => {
-                    expect($('#selectMulti-button > span:not(class)').text()).toBe('3 ' + selectedLiteral);
-                });
-                it('Debe reflejarse en el método getRupValue', () => {
-                    expect($selectMulti.rup_select('getRupValue')).toEqual(['2', '3', '4']);
-                });
-            });
-            describe('select optGroup > ', () => {
-                beforeEach(() => {
-                    $selectGroup.rup_select('selectLabel', 'Opt11');
-                });
-                it('Debe cambiar la ui:', () => {
-                    expect($('#select2-selectGroup-container').text()).toBe('Opt11');
-                });
-                it('Debe reflejarse en getRupValue:', () => {
-                    expect($selectGroup.rup_select('getRupValue')).toBe('1.1');
-                });
-            });
-        });
         describe('Método value > ', () => {
             describe('select simple > ', () => {
                 it('Debe devolver el valor del componente', () => {
-                    expect($select.rup_select('value')).toBe('2');
+                    expect($select.rup_select('getRupValue')).toBe('2');
                 });
             });
             describe('select padre > ', () => {
                 it('Debe devolver el valor del componente', () => {
-                    expect($selectPadre.rup_select('value')).toBe('1');
+                    expect($selectPadre.rup_select('getRupValue')).toBe('1');
                 });
             });
             describe('select hijo > ', () => {
                 it('Debe devolver el valor del componente', () => {
-                    expect($selectHijo.rup_select('value')).toBe('1.1');
+                    expect($selectHijo.rup_select('getRupValue')).toBe('1.1');
                 });
             });
             describe('select multiple > ', () => {
-                it('Debe devolver el valor del componente', () => {
-                    expect($selectMulti.rup_select('value')).toEqual(['2']);
+                it('Debe devolver el valor del componente', () => {//Si es unico se devuelve tipo String
+                    expect($selectMulti.rup_select('getRupValue')).toEqual('2');
                 });
             });
             describe('select optGroup > ', () => {
                 it('Debe devolver el valor del componente', () => {
-                    expect($selectGroup.rup_select('value')).toEqual('2.1');
+                    expect($selectGroup.rup_select('getRupValue')).toEqual('2.1');
                 });
             });
         });
@@ -540,7 +482,7 @@ describe('Test Select > ', () => {
             });
             describe('select multiple > ', () => {
                 it('Debe devolver el indice de la seleccion', () => {
-                    expect($selectMulti.rup_select('index')).toEqual([1]);
+                    expect($selectMulti.rup_select('index')).toEqual([2]);
                 });
             });
             describe('select optGroup > ', () => {
@@ -555,7 +497,7 @@ describe('Test Select > ', () => {
                     $select.rup_select('disable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($select.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+                    expect($select.attr('disabled')).toBe('disabled');
                 });
                 it('El metodo isDisabled debe devolver true', () => {
                     expect($select.rup_select('isDisabled')).toBe(true);
@@ -566,7 +508,7 @@ describe('Test Select > ', () => {
                     $selectPadre.rup_select('disable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($selectPadre.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+                    expect($selectPadre.attr('disabled')).toBe('disabled');
                 });
                 it('El metodo isDisabled debe devolver true', () => {
                     expect($selectPadre.rup_select('isDisabled')).toBe(true);
@@ -577,7 +519,7 @@ describe('Test Select > ', () => {
                     $selectHijo.rup_select('disable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($selectHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(true);
+                    expect($selectHijo.attr('disabled')).toBe('disabled');
                 });
                 it('El metodo isDisabled debe devolver true', () => {
                     expect($selectHijo.rup_select('isDisabled')).toBe(true);
@@ -599,7 +541,7 @@ describe('Test Select > ', () => {
                     $selectGroup.rup_select('disable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($selectGroup.attr('aria-disabled')).toBe('true');
+                    expect($selectGroup.attr('disabled')).toBe('disabled');
                 });
                 it('El metodo isDisabled debe devolver true', () => {
                     expect($selectGroup.rup_select('isDisabled')).toBe(true);
@@ -613,7 +555,7 @@ describe('Test Select > ', () => {
                     $select.rup_select('enable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($select.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+                    expect($select.attr('disabled')).toBe(undefined);
                 });
                 it('El metodo isDisabled debe devolver false', () => {
                     expect($select.rup_select('isDisabled')).toBe(false);
@@ -625,7 +567,7 @@ describe('Test Select > ', () => {
                     $selectPadre.rup_select('enable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($selectPadre.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+                    expect($selectPadre.attr('disabled')).toBe(undefined);
                 });
                 it('El metodo isDisabled debe devolver false', () => {
                     expect($selectPadre.rup_select('isDisabled')).toBe(false);
@@ -637,7 +579,7 @@ describe('Test Select > ', () => {
                     $selectHijo.rup_select('enable');
                 });
                 it('Debe tener las clases de deshabilitado', () => {
-                    expect($selectHijo.hasClass('ui-selectmenu-disabled ui-state-disabled')).toBe(false);
+                    expect($selectHijo.attr('disabled')).toBe(undefined);
                 });
                 it('El metodo isDisabled debe devolver false', () => {
                     expect($selectHijo.rup_select('isDisabled')).toBe(false);
@@ -668,73 +610,56 @@ describe('Test Select > ', () => {
                 });
             });
         });
-        describe('Método disableChild > ', () => {
-            beforeEach(() => {
-                $selectPadre.rup_select('disableChild');
-            });
-            it('Debe deshabilitar el select padre', () => {
-                expect($selectPadre.rup_select('isDisabled')).toBe(true);
-            });
-            it('Debe deshabilitar el select hijo', () => {
-                expect($selectHijo.rup_select('isDisabled')).toBe(true);
-            });
-        });
+
         describe('Método disableOpt > ', () => {
             beforeEach(() => {
                 $selectMulti.rup_select('disableOpt', '4');
+                $selectMulti.select2('open');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                let context = $('#rup-multiselect_selectMulti > ul > li > label:contains("Opcion4")');
-                expect($('input[disabled="disabled"]', context).length).toBe(1);
+                expect($('li:contains("Opcion4")[aria-disabled=true]').length).toBe(1);
             });
         });
         describe('Método disableOptArr > ', () => {
             beforeEach(() => {
                 $selectMulti.rup_select('disableOptArr', ['4', '5']);
+                $selectMulti.select2('open');
             });
             it('Deben deshabilitarse las opciones especificadas', () => {
-                let labels = ['Opcion4', 'Opcion5'];
-                labels
-                    .map(x => $('#rup-multiselect_selectMulti > ul > li > label:contains("' + x + '")'))
-                    .forEach(cur => {
-                        expect($('input[disabled="disabled"]', cur).length).toBe(1);
-                    });
+            	expect($('li:contains("Opcion4")[aria-disabled=true]').length).toBe(1);
+            	expect($('li:contains("Opcion5")[aria-disabled=true]').length).toBe(1);
             });
         });
         describe('Método enableOpt > ', () => {
             beforeEach(() => {
                 $selectMulti.rup_select('disableOpt', '4');
                 $selectMulti.rup_select('enableOpt', '4');
+                $selectMulti.select2('open');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                let context = $('#rup-multiselect_selectMulti > ul > li > label:contains("Opcion4")');
-                expect($('input[disabled="disabled"]', context).length).toBe(0);
+            	expect($('li:contains("Opcion4")[aria-disabled=true]').length).toBe(0);
             });
         });
         describe('Método enableOptArr > ', () => {
             beforeEach(() => {
                 $selectMulti.rup_select('disableOptArr', ['4', '5']);
                 $selectMulti.rup_select('enableOptArr', ['4', '5']);
+                $selectMulti.select2('open');
             });
             it('Deben deshabilitarse las opciones especificadas: ', () => {
-                let labels = ['Opcion4', 'Opcion5'];
-
-                labels
-                    .map(x => $('#rup-multiselect_selectMulti > ul > li > label:contains("' + x + '")'))
-                    .forEach(cur => {
-                        expect($('input[disabled="disabled"]', cur).length).toBe(0);
-                    });
+            	expect($('li:contains("Opcion4")[aria-disabled=true]').length).toBe(0);
+            	expect($('li:contains("Opcion5")[aria-disabled=true]').length).toBe(0);
             });
         });
         describe('Método refresh > ', () => {
             describe('select simple > ', () => {
                 beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $select.append(newOpt);
+                    $select.rup_select('addOption','Intruso', 'intruso_value');
                     $select.rup_select('refresh');
+                    $select.select2('open');
                 });
                 it('Debe haber metido el elemento:', () => {
-                    expect($('#selectSimple-menu > li > a:contains("Intruso")').length).toBe(1);
+                    expect($('#select2-selectSimple-results li:contains("Intruso")').length).toBe(1);
                 });
             });
             describe('select padre > ', () => {
@@ -742,9 +667,10 @@ describe('Test Select > ', () => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectPadre.append(newOpt);
                     $selectPadre.rup_select('refresh');
+                    $selectPadre.select2('open');
                 });
                 it('Debe haber metido el elemento:', () => {
-                    expect($('#selectPadre-menu > li > a:contains("Intruso")').length).toBe(1);
+                    expect($('#select2-selectPadre-results li:contains("Intruso")').length).toBe(1);
                 });
             });
             describe('select hijo > ', () => {
@@ -752,9 +678,10 @@ describe('Test Select > ', () => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectHijo.append(newOpt);
                     $selectHijo.rup_select('refresh');
+                    $selectHijo.select2('open');
                 });
                 it('Debe haber metido el elemento:', () => {
-                    expect($('#selectHijo-menu > li > a:contains("Intruso")').length).toBe(1);
+                    expect($('#select2-selectHijo-results li:contains("Intruso")').length).toBe(1);
                 });
             });
             describe('select multiple > ', () => {
@@ -762,19 +689,23 @@ describe('Test Select > ', () => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectMulti.append(newOpt);
                     $selectMulti.rup_select('refresh');
+                    $selectMulti.select2('open');
                 });
                 it('Debe haber metido el elemento:', () => {
-                    expect($('#rup-multiselect_selectMulti > ul > li > label > span:contains("Intruso")').length).toBe(1);
+                    expect($('#select2-selectMulti-results li:contains("Intruso")').length).toBe(1);
                 });
             });
             describe('select optGroup > ', () => {
                 beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $('optgroup[label="Opt1"]', $selectGroup).append(newOpt);
+                	$selectGroup.rup_select('addOption','Intruso', 'intruso_value','Opt1');
                     $selectGroup.rup_select('refresh');
+                    $selectGroup.select2('open');
                 });
                 it('Debe introducir el elemento', () => {
-                    expect($($('#selectGroup-menu > li > ul > li')[2]).text()).toBe('Intruso');
+                	expect($('#select2-selectGroup-results li:contains("intruso_value")').not('[role=group]').length).toBe(1);
+                });
+                it('Debe introducir el elemento en el label padre indicado', () => {
+                	expect($('#select2-selectGroup-results li').eq(3).text()).toBe('intruso_value');
                 });
             });
         });
@@ -783,24 +714,32 @@ describe('Test Select > ', () => {
                 let html = '<select id="selectRemoto"></select>';
                 $('body').append(html);
                 var callback = () => {
-                    $('#selectRemoto').data('settings').onLoadSuccess = () => { done(); };
+                    $('#selectRemoto').on('selectFinish', () => {
+                    	$('#selectRemoto').select2('open');
+                    	done(); 
+                    });
                     $('#selectRemoto').append('<option class="intruso">intruso</option>');
-                    $('#selectRemoto').rup_select('refresh');
-                    $('#selectRemoto').rup_select('reload');
+                    $('#selectRemoto').data('settings').selected = ''
+                    $('#selectRemoto').rup_select('reload');                    
                 };
                 $('#selectRemoto').rup_select({
-                    source: testutils.DEMO + '/selectSimple/remote',
+                    url: 'demo/selectSimple/remote',
                     sourceParam: {
-                        label: 'descEu',
-                        value: 'value',
+                        text: 'descEu',
+                        id: 'value',
                         style: 'css'
                     },
                     onLoadError: () => { fail('No se ha cargado el select'); },
-                    onLoadSuccess: () => { callback(); }
+                    onLoadSuccess: () => { callback(); },
+                    selected:"1",
                 });
+               });
+            it('Debe recuperar su estado anterior a los cambios, en li:', () => {
+                expect($('#select2-selectRemoto-results li:contains("intruso_value")').not('[role=group]').length).toBe(0);
             });
-            it('Debe recuperar su estado anterior a los cambios:', () => {
-                expect($('#selectRemoto-menu > li > a:contains("intruso")').length).toBe(0);
+            
+            it('Debe recuperar su estado anterior a los cambios, en options:', () => {
+            	expect($('#selectRemoto option:contains("intruso")').length).toBe(1);
             });
         });
         describe('Método order > ', () => {
@@ -808,55 +747,55 @@ describe('Test Select > ', () => {
                 beforeEach(() => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $select.append(newOpt);
-                    $select.rup_select('refresh');
                     $select.rup_select('order');
-                });
+                    $select.select2('open');                    
+                    
+                   });
                 it('Intruso debe ser la primera opcion', () => {
-                    expect($('#selectSimple-menu > li').eq(1).text()).toBe('Intruso');
+                    expect($('#select2-selectSimple-results li').eq(0).text()).toBe('Intruso');
                 });
             });
             describe('select padre > ', () => {
                 beforeEach(() => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectPadre.append(newOpt);
-                    $selectPadre.rup_select('refresh');
                     $selectPadre.rup_select('order');
+                    $selectPadre.select2('open'); 
                 });
                 it('Intruso debe ser la primera opcion', () => {
-                    expect($('#selectPadre-menu > li').eq(1).text()).toBe('Intruso');
+                    expect($('#select2-selectPadre-results li').eq(0).text()).toBe('Intruso');
                 });
             });
             describe('select hijo > ', () => {
                 beforeEach(() => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectHijo.append(newOpt);
-                    $selectHijo.rup_select('refresh');
                     $selectHijo.rup_select('order');
+                    $selectHijo.select2('open');
                 });
                 it('Intruso debe ser la primera opcion', () => {
-                    expect($('#selectHijo-menu > li').eq(1).text()).toBe('Intruso');
+                    expect($('#select2-selectHijo-results li').eq(1).text()).toBe('Intruso');
                 });
             });
             describe('select multiple > ', () => {
                 beforeEach(() => {
                     let newOpt = new Option('Intruso', 'intruso_value');
                     $selectMulti.append(newOpt);
-                    $selectMulti.rup_select('refresh');
                     $selectMulti.rup_select('order');
+                    $selectMulti.select2('open');
                 });
                 it('Intruso debe ser la primera opcion', () => {
-                    expect($('#rup-multiselect_selectMulti > ul > li').eq(0).text()).toBe('Intruso');
+                    expect($('#select2-selectMulti-results li').eq(0).text()).toBe('Intruso');
                 });
             });
             describe('select optGroup > ', () => {
                 beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $('optgroup[label="Opt1"]', $selectGroup).append(newOpt);
-                    $selectGroup.rup_select('refresh');
-                    $selectGroup.rup_select('order');
+                    $selectGroup.rup_select('addOption','intruso_value', 'Intruso','Opt1');
+                    $selectGroup.rup_select('order',true);
+                    $selectGroup.select2('open');
                 });
                 it('Debe introducir el elemento', () => {
-                    expect($($('#selectGroup-menu > li > ul > li')[0]).text()).toBe('Intruso');
+                    expect($('#select2-selectGroup-results li').not('[role="group"]').eq(0).text()).toBe('Intruso');
                 });
             });
         });
@@ -977,6 +916,7 @@ function setupselects(done) {
             }]
         },
         blank:'0',
+        placeholder: '[Selecciona Hijo]',
         selected: '1.1'
     };
     let optionsGroup = {
@@ -986,7 +926,8 @@ function setupselects(done) {
         dataGroups: sourceGroup,
         blank: '0',
         selected: '2.1',
-        groups:true
+        groups:true,
+        tags:true
     };
     
     let optionsGroupVacio = {
