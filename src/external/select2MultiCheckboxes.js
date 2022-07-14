@@ -194,7 +194,7 @@
 	  	        searchMatchOptGroups: true
 	  	      }, arguments[0]);
 	    	  options.templateSelection = function(datos, span) {
-	    		  let cadena = getBlankLabel(options.id);
+	    		  let cadena = getBlankLabel(options.id,options);
 	    		  return cadena.replace('{0}',datos.selected.length).replace('{1}',datos.all.length);
 	    	  };
 	    	  options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
