@@ -54,6 +54,8 @@
 
 
     var rup_select = {};
+    const FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE = $.rup.i18nParse($.rup.i18n.base, 'rup_global.functionNotSupportedError');
+    const FUNCTION_NOT_SUPPORTED_ERROR_TITLE = $.rup.i18nParse($.rup.i18n.base, 'rup_global.error');
 
     // Se configura el arranque de UDA para que alberge el nuevo patrón
     $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_select', rup_select));
@@ -213,7 +215,11 @@
             // init de select
             if (this.length > 0) {
                 // Simple y multi
-            	$self.val(null).trigger('change');
+            	if($self.data('settings').blank !== undefined){
+            		$self.val($self.data('settings').blank).trigger('change')
+            	}else{
+            		$self.val(null).trigger('change');
+            	}
             } 
         },
         /**
@@ -292,6 +298,37 @@
 	                  });
 	            	$(this).rup_select('setRupValue', datos);
 	            }
+        	}
+        },
+        /**
+         * Selecciona el elemento enviado como parámetro. En caso de ser un numérico se selecciona por la posición (comenzando en 0) y si es un literal se selecciona por el valor. En el caso de selección múltiple el parámetro será un array.
+         *
+         * @function  select
+         * @param {string | number | string[] | number[]} param - Parámetro utilzado para determinar los elementos a seleccionar.
+         * @example
+         * // Simple
+         * $("#idSelect").rup_select("select", 2);
+         * // Multiple
+         * $("#idSelect").rup_select("select", [0,2]);
+         */
+        select: function (param) {
+        	let settings = $(this).data().settings;
+        	let datas = settings.data;
+    		if(settings.groups){
+    			datas = settings.optionsGroups;
+    		}
+        	if(settings.multiple){
+            	let datos = [];
+            	$.each(param, function (key, value) {
+              		if(datas.length >= value){
+              			datos.push(datas[value].id);
+             		}
+                });
+            	$(this).rup_select('setRupValue', datos);
+        	}else{
+        		if(datas.length >= param){
+        			$(this).rup_select('setRupValue', datas[param].id);
+        		}
         	}
         },
         /**
@@ -413,11 +450,13 @@
 		 * @function reload
 		 * @example $("#idSelect").rup_select("reload");
 		 */
-        reload: function () {
+        reload: function (removeOptions) {
         	let settings = $(this).data('settings');
 
         	$(this).select2("destroy");
-
+        	if(removeOptions){
+        		$(this).find('option').remove();
+        	}
         	$(this).rup_select(settings);
         },
         /**
@@ -480,6 +519,185 @@
             } else {
                 return data;
             }
+        },
+        /**
+		 * Método que añade un option al select en local
+		 * 
+		 * @function addOption
+		 * id:	identificador del nuevo option
+		 * text: texto del nuevo option
+		 * label: en Caso de ser grupos, el label donde se va a meter(obligatorio)
+		 * @example $("#idSelect").rup_select("label");
+		 */
+    	addOption: function (id,text,label) {
+            // Tipo de select
+  
+        	let newOpt = new Option(id, text);
+            if ($(this).data('settings').groups && label != undefined) {
+            	let options = $(this).data('select2').options.options;
+            	$(this).find('optgroup[label="'+label+'"]').append(newOpt);
+		        let seleccionado = $.grep(options.data, function (v,index) {
+                    return v.text === label;
+	            });
+		        if(seleccionado != undefined && seleccionado.length == 1){
+		        	seleccionado[0].children[seleccionado[0].children.length] = {id:id,text:text};
+		        }
+            	
+            }else{
+            	$(this).append(newOpt);
+            }
+        },
+        /**
+         * Deshabilita una opción de un select multiselección.
+         *
+         * @function  disableOpt
+         * @param {string} optValue - Value del option que queremos deshabilitar.
+         * @example
+         * $("#idSelect").rup_select("disableOpt", "opt1");
+         */
+        disableOpt: function (optValue) {
+            if ($(this).data('settings').multiple) {
+                //Deshabilitar select
+                this.find('[value=\'' + optValue + '\']').attr('disabled', 'disabled');
+
+                //Si pertenece a OptGroup y es el último en deshabilitarse > Cambiar estilos optGroupLabel
+                if ($(this).data('settings').sourceGroup != undefined) {
+                    //Obtener inicio optGroup
+                    var li = obj.parentsUntil('ul').last().prevAll('li.ui-multiselect-optgroup-label').first(),
+                        inputs = li.nextUntil('li.ui-multiselect-optgroup-label').find('input'),
+                        allDisabled = true;
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (!inputs[i].disabled) {
+                            allDisabled = false;
+                            break;
+                        }
+                    }
+                    if (allDisabled) {
+                        //Estilos optGroup
+                        li.css('color', 'grey');
+                        li.children('a').remove();
+                        li.children('span').not('.rup-combo_multiOptgroupLabel').remove();
+                    }
+
+                }
+            } else {
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
+            }
+        },
+        /**
+         * Deshabilita varias opciones del select. Las opciones se identifican mediante un array.
+         *
+         * @function disableOptArr
+         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a deshabilitar.
+         * @example
+         * $("#idSelect").rup_select("disableOptArr", ["opt1","opt2"]);
+         */
+        disableOptArr: function (optValueArr) {
+            if ($(this).data('settings').multiple) {
+                for (let i = 0; i < optValueArr.length; i++) {
+                    $(this).rup_select('disableOpt', optValueArr[i]);
+                }
+            } else {
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
+            }
+        },
+        /**
+         * Habilita una opción de un select multiselección.
+         *
+         * @function enableOpt
+         * @param {string} enableOpt - Value del option que queremos habilitar.
+         * @example
+         * $("#idSelect").rup_select("enableOpt", "opt1");
+         */
+        enableOpt: function (optValue) {
+            if ($(this).data('settings').multiple) {
+                //Habilitar select
+                this.find('[value=\'' + optValue + '\']').removeAttr('disabled');
+
+                var obj = $('#rup-multiCombo_' + $(this).attr('id')).find('[value=\'' + optValue + '\']');
+
+                //Habilitar input
+                obj.removeAttr('disabled');
+
+                //Estilos línea (label)
+                obj.parent().css('color', 'black');
+
+                //Si pertenece a OptGroup y es el primero en habilitarse > Cambiar estilos optGroupLabel
+                if ($(this).data('settings').sourceGroup != undefined) {
+                    //Obtener inicio optGroup
+                    var li = obj.parentsUntil('ul').last().prevAll('li.ui-multiselect-optgroup-label').first();
+
+                    //Estilos optGroup
+                    if (li.children('a').length === 0) {
+                        li.css('color', 'black');
+                        this._generateOptGroupLabel(li, $(this).data('settings').multiOptgroupIconText);
+                    }
+
+                }
+            } else {
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
+            }
+        },
+        /**
+         * Habilita varias opciones del select. Las opciones se identifican mediante un array.
+         *
+         * @function enableOptArr
+         * @param {string[]} optValueArr - Array en el que se indican los values de las opciones a habilitar.
+         * @example
+         * $("#idSelect").rup_select("enableOptArr", ["opt1","opt2"]);
+         */
+        enableOptArr: function (optValueArr) {
+            if ($(this).data('settings').multiple) {
+                for (let i = 0; i < optValueArr.length; i++) {
+                    $(this).rup_select('enableOpt', optValueArr[i]);
+                }
+            } else {
+            	$.rup.errorGestor(FUNCTION_NOT_SUPPORTED_ERROR_MESSAGE, FUNCTION_NOT_SUPPORTED_ERROR_TITLE);
+            }
+        },
+        /**
+         * Ordena alfanumericamente y en orden ascendente el combo sobre el que se aplica. Se invoca por defecto al cargarse los combos a no ser que se cambie el valor del atributo ordered en la creación.
+         *
+         * @function  order
+         * @param {boolean} orderedByValue - Indica si la búsqueda es por texto (por defecto) o si la búsqueda es por el valor.
+         * @param {boolean} orderAsNumber - Indica si se debe ordenar como valores numéricos en vez de alfabéticos.
+         * @param {boolean} skipFirst - Determina si se debe obviar el primer elemento.
+         * @example
+         * $("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
+         */
+        order: function (groups,orderedByValue, orderAsNumber) {
+        	/* Get options */
+        	let selector = $(this).data('select2') || $(this).parent().data('select2');
+        	let settings = selector.options.options;
+        	if(groups){
+        		$(this).find('optgroup').each(function () {
+        			$(this).rup_select('order', false,orderedByValue,orderAsNumber);
+        		});
+        		//Order children
+        		if(settings.data != undefined){
+	        		$(settings.data).each(function () {
+	        			if(this.children != undefined && this.children.length > 0){
+	        				this.children = this.children.sort(
+	      		  	        	  (a, b) => a.text.localeCompare(b.text)
+	      		  	        	);
+	        			}
+	        		});
+        		}
+
+        	}else{
+	        	let selectList = $(this).find('option').not('[value='+settings.blank+']');
+	        	let option = $(this).find('option[value='+settings.blank+']');
+	        	/* Order by innerText (case insensitive) */
+	        	selectList.sort(
+	        	  (a, b) => a.innerText.localeCompare(b.innerText)
+	        	);
+	
+	        	/* Re-do select HTML */
+	        	$(this).html(selectList)
+	        	if(option.length == 1){
+	        		$(this).prepend(option);
+	        	}
+        	}
         },
     });
 
@@ -1000,13 +1218,14 @@
 		    	}
 			}
 			
-            if (settings.placeholder == undefined || settings.placeholder == '') {
-                // si es vació se asigna el label
-                settings.placeholder = rupSelect._getBlankLabel(settings.id);
-             }
+
         	if(settings.multiple){
          		$('#' + settings.id).select2MultiCheckboxes(settings);
         	}else{
+                if (settings.placeholder == undefined || settings.placeholder == '') {
+                    // si es vació se asigna el label
+                    settings.placeholder = rupSelect._getBlankLabel(settings.id);
+                 }
         		if(settings.autocomplete){
         			$('#' + settings.id).select2MultiCheckboxes(settings);
         		}else{
@@ -1396,13 +1615,14 @@
 	                		}
 	                	}
 	                	
-	                     if (settings.placeholder == undefined || settings.placeholder == '') {
-		                         // si es vació se asigna el label
-		                         settings.placeholder = _this._getBlankLabel(settings.id);
-		                 }
+
 	                	if(settings.multiple){
 	 	                        $('#' + settings.id).select2MultiCheckboxes(settings);
-	                	}else{	                		
+	                	}else{	  
+	                        if (settings.placeholder == undefined || settings.placeholder == '') {
+	                            // si es vació se asigna el label
+	                            settings.placeholder = _this._getBlankLabel(settings.id);
+	                         }
 	                		if(settings.autocomplete){//local y autocomplete
 	                			if(settings.matcher == undefined && settings.accentFolding == false){
 	                				settings.matcher = udaMatcher;
@@ -1579,6 +1799,8 @@
 		                // Fin funcion evento padre
 	                }
 	                $('#' + settings.id).data('settings', settings);
+	                //Si es remoto, el último evento es: selectAjaxSuccess
+	                $('#' + settings.id).triggerHandler('selectFinish', settings);
 	            }
         	}).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);

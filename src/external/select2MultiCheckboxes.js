@@ -194,10 +194,14 @@
 	  	        searchMatchOptGroups: true
 	  	      }, arguments[0]);
 	    	  options.templateSelection = function(datos, span) {
-	    		  return  ' Seleccionado(s) '+datos.selected.length + ' de ' + datos.all.length;
-	          
+	    		  let cadena = getBlankLabel(options.id);
+	    		  return cadena.replace('{0}',datos.selected.length).replace('{1}',datos.all.length);
 	    	  };
 	    	  options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
+	          if (options.placeholder == undefined || options.placeholder == '') {
+	               // si es vació se asigna el label
+	        	  options.placeholder = options.templateSelection({selected:[],all:[]});
+	          }
 	      }else if(options.autocomplete){
 	    	  if(options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity){
 	    		  options.minimumResultsForSearch = 3;
@@ -224,6 +228,25 @@
 	      callback.apply(context, args);
 	    }, ms || 0);
 	  };
-	}  
+	} 
+  
+  function getBlankLabel(id, options) {
+      var app = $.rup.i18n.app;
+      // Comprueba si el select tiene su propio texto personalizado
+      if (app[id] && app[id]._blank) {
+          return app[id]._blank;
+      }
+      // Comprueba si la aplicacion tiene un texto definido para todos los
+		// blank
+      else if (app.rup_select && app.rup_select.blank) {
+          return app.rup_select.blank;
+      }
+      // Si no hay textos definidos para los blank obtiene el por defecto
+		// de UDA
+      if(options != undefined && options.multiple){
+    	  return $.rup.i18n.base.rup_select.multiselect.selectedText;
+      }
+      return $.rup.i18n.base.rup_select.blankNotDefined;
+  }
   
 })(jQuery);
