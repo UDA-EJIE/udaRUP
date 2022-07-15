@@ -699,6 +699,23 @@
 	        	}
         	}
         },
+		/**
+         * Lanza una búsqueda en el autocomplete con el parámetro indicado y el foco va a parar al
+    input.
+         *
+         * @param {string} term - Cadena de texto utilizada para realizar la búsqueda.
+         * @function search
+         * @example
+         * $("#idAutocomplete").rup_autocomplete("search", "java");
+         */
+    	search: function (term) {
+    		let $search = $(this).data('select2').dropdown.$search ||$(this).data('select2').mySelect.selection.$search;
+	          
+	        if($search != undefined){
+	          $search.val(term);	
+	          $search.trigger('keyup');
+	        }
+    	},
     });
 
     // *******************************
