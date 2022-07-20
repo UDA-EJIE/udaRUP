@@ -704,18 +704,74 @@
     input.
          *
          * @param {string} term - Cadena de texto utilizada para realizar la búsqueda.
+         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
          * @function search
+         * 
          * @example
          * $("#idAutocomplete").rup_autocomplete("search", "java");
          */
-    	search: function (term) {
+    	search: function (term,notOthersClose) {
     		let $search = $(this).data('select2').dropdown.$search ||$(this).data('select2').mySelect.selection.$search;
+           	if(!notOthersClose){
+        		$('.select2-hidden-accessible').select2('close');
+        	}
 	          
 	        if($search != undefined){
 	          $search.val(term);	
 	          $search.trigger('keyup');
 	        }
     	},
+    	/**
+         * Permite consultar y modificar la configuración del componente.
+         *
+         * @param {string | object} optionName - Nombre de la propiedad que se desea gestionar o objeto de compuesto de varias propiedades.
+         * @param {*} [value] - Corresponde al valor de la propiedad en caso de haberse especificado el nombre de la misma en el primér parámetro.
+         * @param {*} aux - Parámetro extra de confirguración para la propiedad "source".
+         * @function option
+         * @example
+         * // Establecer una propiedad
+         * $("#idSelect").rup_select("option", "minLegth", 2);
+         * // Establecer varias propiedad
+         * $("#idSelect").rup_select("option", {minLegth:2, delay:1000});
+         */
+		option: function (optionName, value, removeOptions) {
+        	let settings = $(this).data('settings');
+        	settings[optionName] = value;
+        	$(this).select2("destroy");
+        	if(removeOptions){
+        		$(this).find('option').remove();
+        	}
+        	$(this).rup_select(settings);
+		},
+    	/**
+         * Permite abrir el componente.
+         *
+         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
+         * @function open
+         * @example
+         * // Establecer una propiedad
+         * $("#idSelect").rup_select("option", true);
+         */
+		open: function (notOthersClose) {
+        	if(!notOthersClose){
+        		$('.select2-hidden-accessible').select2('close');
+        	}
+        	$(this).select2('close');
+        	
+		},
+		/**
+         * Elimina el autocomplete.
+         *
+         * @function destroy
+         * @example
+         * $("#idAutocomplete").rup_autocomplete("destroy");
+         */
+		destroy: function (notRemoveOptions) {
+			$(this).select2("destroy");
+        	if(!notRemoveOptions){
+        		$(this).find('option').remove();
+        	}
+		},
     });
 
     // *******************************

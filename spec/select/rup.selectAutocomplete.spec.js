@@ -115,43 +115,60 @@ describe('Test Autocomplete > ', () => {
                 beforeEach(() => {
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
-                    $autocomplete3.rup_select('search', 'u');
+                    $autocomplete3.rup_select('search', 'ul');
                 });
                 it('No deben mostrarse el menu', () => {
-                    expect($autocomplete3.data('select2').$results).toBeFalsy();
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(0);
+                });
+                
+            });
+            
+            describe('Autocomplete3 > ', () => {
+                beforeEach(() => {
+                    $autocomplete3.rup_select('off');
+                    $autocomplete3.rup_select('on');
+                    $autocomplete3.rup_select('search', 'o');
+                });
+                it('deben mostrarse el menu', () => {
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(4);
                 });
                 
             });
         });
-        describe('Método off > ', () => {
-            beforeEach(() => {
-                $('body').trigger('mousedown');
-                $autocompleteLabel.rup_select('off');
-                $autocompleteLabel.rup_select('search', 'u');
 
-                $autocomplete2.rup_select('off');
-                $autocomplete2.rup_select('search', 'u');
-
-                $autocomplete3.rup_select('off');
-                $autocomplete3.rup_select('search', 'u');
-            });
-            it('Debe mostrarse el menu', () => {
-                expect($('#exampleAutocomplete_menu').is(':visible')).toBeFalsy();
-                expect($('#exampleAutocompleteDos_menu').is(':visible')).toBeFalsy();
-                expect($('#exampleAutocompleteTres_menu').is(':visible')).toBeFalsy();
-            });
-        });
         describe('Método option > ', () => {
-            beforeEach(() => {
-                $('body').trigger('mousedown');
-                $autocomplete.rup_select('option', 'combobox', true);
-                $autocomplete2.rup_select('option', 'combobox', true);
-                $autocomplete3.rup_select('option', 'combobox', true);
+            describe('Autocomplete 1 > ', () => {
+                beforeEach((done) => {
+                    $autocomplete.on('selectFinish', () => {
+                    	done(); 
+                    });
+                    $autocomplete.rup_select('option', 'combo', true);
+                });
+                it('No Debe tener la clase de combobox', () => {
+                	expect($('#exampleAutocomplete').data('select2').$selection.find('span').hasClass('ui-autocomplete-input')).toBeFalsy();
+                });
             });
-            it('Debe tener la clase de combobox', () => {
-                expect($autocompleteLabel.hasClass('rup-combobox-input')).toBeTruthy();
-                expect($autocompleteLabel2.hasClass('rup-combobox-input')).toBeTruthy();
-                expect($autocompleteLabel3.hasClass('rup-combobox-input')).toBeTruthy();
+            describe('Autocomplete 2 > ', () => {
+                beforeEach((done) => {
+                    $autocomplete2.on('selectFinish', () => {
+                    	done(); 
+                    });
+                    $autocomplete2.rup_select('option', 'combo', true);
+                });
+                it('No Debe tener la clase de combobox', () => {
+                	expect($('#exampleAutocompleteDos').data('select2').$selection.find('span').hasClass('ui-autocomplete-input')).toBeFalsy();
+                });
+            });
+            describe('Autocomplete 3 > ', () => {
+                beforeEach((done) => {
+                    $autocomplete3.on('selectFinish', () => {
+                    	done(); 
+                    });
+                    $autocomplete3.rup_select('option', 'combo', true);
+                });
+                it('No Debe tener la clase de combobox', () => {
+                	expect($('#exampleAutocompleteTres').data('select2').$selection.find('span').hasClass('ui-autocomplete-input')).toBeFalsy();
+                });
             });
         });
         describe('Método search > ', () => {
@@ -176,10 +193,10 @@ describe('Test Autocomplete > ', () => {
 
                 describe('Autocomplete3 > ', () => {
                     beforeEach(() => {
-                        $autocomplete3.rup_select('search', 'u');
+                        $autocomplete3.rup_select('search', 'ul');
                     });
                     it('Deben no mostrarse autocomplete', () => {
-                        expect($autocomplete3.data('select2').$results.is(':visible')).toBe(false);
+                    	expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(0);
                     });
                 });
             });
@@ -204,25 +221,7 @@ describe('Test Autocomplete > ', () => {
                 expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
             });
         });
-        describe('Método val > ', () => {
-            beforeEach(() => {
-                $('body').trigger('mousedown');
-                $autocompleteLabel.rup_select('search', 'ui');
-                $autocompleteLabel.blur();
-            });
-            it('Debe devolver el valor seleccionado', () => {
-                expect($('#exampleAutocomplete').rup_select('val')).toBe('ui_value');
-            });
-        });
-        describe('Método set > ', () => {
-            beforeEach(() => {
-                $('body').trigger('mousedown');
-                $autocomplete.rup_select('set', 'ui_value', 'ui');
-            });
-            it('Debe devolver el valor seleccionado', () => {
-                expect($autocomplete.rup_select('val')).toBe('ui_value');
-            });
-        });
+
         describe('Método setRupValue y getRupValue > ', () => {
             beforeEach(() => {
                 $('body').trigger('mousedown');
@@ -237,7 +236,7 @@ describe('Test Autocomplete > ', () => {
                 $autocomplete.rup_select('disable');
             });
             it('Debe tener el atributo de deshabilitado', () => {
-                expect($autocompleteLabel.attr('disabled')).toBe('disabled');
+                expect($autocomplete.attr('disabled')).toBe('disabled');
             });
         });
         describe('Método enable > ', () => {
