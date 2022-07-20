@@ -560,7 +560,7 @@ handler that will select the items using the API methods.
             // If the element that contains the selection is not in the table, we can ignore it
             // This can happen if the developer selects text from the click event
             if (!selection.anchorNode || $(selection.anchorNode).closest('table')[0] === dt.table().node()) {
-                if ($.trim(selection.toString()) !== '') {
+                if (selection.toString().trim() !== '') {
                     return;
                 }
             }
@@ -1425,7 +1425,7 @@ handler that will select the items using the API methods.
                 ctx.multiselection.selectedIds.splice(indexInArray, 1);
                 ctx.multiselection.selectedRowsPerPage.splice(indexInArray, 1);
                 if (ctx.multiselection.lastSelectedId === id) {
-                    ctx.multiselection.lastSelectedId = '';
+                    ctx.multiselection.lastSelectedId = getLastSelectedId(ctx.multiselection.selectedRowsPerPage);
                 }
                 DataTable.Api().rupTable.selectPencil(ctx, -1);
                 if (ctx.multiselection.numSelected === 0) {
@@ -1477,8 +1477,19 @@ handler that will select the items using the API methods.
             }
         }
     }
-
-
+    
+    /**
+     * Devuelve el identificador de la última fila seleccionada.
+     *
+     * @function getLastSelectedId
+     * @since UDA 5.0.4
+     * @param {Object[]} selectedRowsPerPage - Array de las filas seleccionadas.
+     * @return {string} Identificador del último registro seleccionado.
+     */
+    function getLastSelectedId(selectedRowsPerPage) {
+    	const lastElementId = selectedRowsPerPage[0]?.id;
+    	return lastElementId ? lastElementId : '';
+    }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * DataTables selectors

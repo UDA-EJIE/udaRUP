@@ -84,6 +84,7 @@
     "error": "Errorea",
     "initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
     "metodError": "Metodoan Errorea:",
+	"functionNotSupportedError": "Funtzioa ez dago jasanduta.",
     "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
     "parametro": "eu_Parametro: ",
     "charError": "eu_Caracter no aceptable",
@@ -134,7 +135,9 @@
     "waitTitle": "Behera kargatu txostena"
   },
   "rup_tabs": {
-    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:"
+    "serverError": "Erlaitz deiaren errore bat gertatu da.<br>Itzulitako errorea:",
+    "tabLimitError": "Erlaitzen gehieneko mugara iritsi da.",
+    "resizeError": "Ezin da birdimentsionatu 'jQuery.resizable' plugin-a ez dagoelako erabilgarri."
   },
   "rup_time": {
     "buttonText": "Ordua zabaldu",
@@ -169,6 +172,7 @@
     "maxFileSizeError": "Fitxategiak tamaina muga handiena gainditzen da",
     "maxNumberOfFilesError": "Fitxategi zenbaki muga handiena gainditzen da",
     "minFileSizeError": "Fitxategiak ez da tamaina muga txikiena gainditzen",
+    "pifError": "RUP_UPLOAD - Ez da zehaztu folderPath parametroaren balioa PIFa erabiltzeko.",
     "openUploaded": "Ireki",
     "startUpload": "Igo"
   },
@@ -183,6 +187,8 @@
       "date": "yyyy/mm/dd"
     },
     "messages": {
+      "validationErrorTitle": "Errorea baliozkotzean",
+      "fieldError": "Balioztatutako zelaia ez dago formularioan.",
       "accept": "Mesedez, idatzi onartutako telefono-luzapen zuzen bat.",
       "alphanumeric": "Mesedez, idatzi letrak, zenbakiak, hutsuneak edo azpi-marrak.",
       "creditcard": "Mesedez, idatzi txartel zenbaki zuzen bat.",
@@ -193,8 +199,12 @@
       "email": "Mesedez, idatzi baliozko posta helbide bat.",
       "equalTo": "Mesedez, idatzi berdina berriro ere.",
       "integer": "Mesedez, idatzi positibo edo negatibo zenbaki osoa.",
-      "lettersonly": "Mesedez, idatzi letrak bakarrik.",
-      "letterswithbasicpunc": "Mesedez, idatzi letrak eta puntuazio-markak bakarrik.",
+      "letter": "Mesedez, bakarrik letrak idatzi (hutsuneak baimenduta daude).",
+      "lettersunicode": "Mesedez, bakarrik letrak eta azentu-markak idatzi (hutsuneak baimenduta daude).",
+      "lettersonly": "Mesedez, bakarrik letrak idatzi.",
+      "lettersunicodeonly": "Mesedez, bakarrik letrak eta azentu-markak idatzi.",
+      "letterswithbasicpunc": "Mesedez, bakarrik letrak eta puntuazio-markak idatzi.",
+      "lettersunicodewithbasicpunc": "Mesedez, bakarrik letrak, azentu eta puntuazio-markak idatzi.",
       "max": "Mesedez, idatzi {0} edo txikiagoa den balio bat.",
       "maxWords": "Mesedez, ez idatzi {0} hitz baino gehiago.",
       "maxlength": "Mesedez, ez idatzi {0} karaktere baino gehiago.",
@@ -221,7 +231,8 @@
     "summary": "Laburpena"
   },
   "rup_button": {
-    "new": "Nuevo_eu"
+    "new": "Nuevo_eu",
+    "mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
   },
   "rup_table": {
     "seleccionada": "aukeratutako",
@@ -281,7 +292,7 @@
       "emptyrecords": "Ez dago erregistrorik erakusteko",
       "loadtext": "Kargatzen...",
       "pgtext": "{1} orrialdetik {0}",
-      "recordtext": "{0} - {2}(e)tik {1} erakusten"
+      "recordtext": "{1}(e)tik {0} - {2} erakusten"
     },
     "del": {
       "bCancel": "Ezeztatu",
@@ -494,7 +505,9 @@
     },
     "plugins": {
       "filter": {
-        "filterCriteria": "Iragazketa irizpideak"
+        "filterCriteria": "Iragazketa irizpideak",
+        "filterContainerError": "Ez da bilaketa-formularioren identifikatzailea zehaztu.",
+        "filterToolbarError": "Iragazpen-formularioko kontrol-barraren identifikatzailea ez dago zehaztuta."
       },
       "jerarquia": {
         "deselectChild": "Hautaketatik kendu semeak",
@@ -611,13 +624,13 @@
   "sLengthMenu": "_MENU_",
   "sZeroRecords": "Ez da emaitzarik aurkitu",
   "sEmptyTable": "Taula hontan ez dago inongo datu erabilgarririk",
-  "sInfo": "_START_ _END_ -(e)tik _TOTAL_ erakusten",
+  "sInfo": "_TOTAL_(e)tik _START_ - _END_ erakusten",
   "sInfoEmpty": "0 - 0(e)tik 0 erakusten",
   "sInfoFiltered": "(guztira _MAX_ erregistro iragazten)",
   "sInfoPostFix": "",
   "sSearch": "Aurkitu:",
   "sUrl": "",
-  "sInfoThousands": ",",
+  "sInfoThousands": ".",
   "sLoadingRecords": "Abiarazten...",
   "oPaginate": {
     "sFirst": "Lehena",
@@ -743,5 +756,16 @@
     "quitarCampoOrden": "Eremu honen arabera bilatzeari utzi",
     "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
     "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu"
+  },
+  "rup_toolbar": {
+  	"mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
+  },
+  "rup_base": {
+  	"i18nRupJsonParseError": "Errorea gertatu da literalen JSON fitxategiaren analisian = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
+  	"i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
+  	"cookieLanguageNotSupportedErrorTitle": "'Cookie'-a ez dago jasanduta",
+  	"cookieLanguageNotSupportedError": "Hizkuntzaren 'cookie' ({0}) ez dator bat jasandako hizkuntzekin.\n\nOrria ez da behar bezala erakutsiko.",
+  	"cookieLanguageNotFoundErrorTitle": "Hizkuntzaren 'cookie' a falta da",
+  	"cookieLanguageNotFoundError": "Ez da aurkitu UDAk eskatutako hizkuntza-cookiea ({0}).\nBerrikusi nabigatzailearen konfigurazioa.\n\nOrrialdea ez da behar bezala erakutsiko."
   }
 }

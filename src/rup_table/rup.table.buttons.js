@@ -411,7 +411,7 @@
         }
 
         // For easy configuration of buttons an array can be given
-        if ($.isArray(config)) {
+        if (Array.isArray(config)) {
             config = {
                 buttons: config
             };
@@ -902,7 +902,7 @@
         _expandButton: function (attachTo, button, inCollection, attachPoint) {
             var dt = this.s.dt;
             var buttonCounter = 0;
-            var buttons = !$.isArray(button) ? [button] :
+            var buttons = !Array.isArray(button) ? [button] :
                 button;
 
             for (var i = 0, ien = buttons.length; i < ien; i++) {
@@ -914,7 +914,7 @@
 
                 // If the configuration is an array, then expand the buttons at this
                 // point
-                if ($.isArray(conf)) {
+                if (Array.isArray(conf)) {
                     this._expandButton(attachTo, conf, inCollection, attachPoint);
                     continue;
                 }
@@ -1295,7 +1295,7 @@
                 // Loop until we have resolved to a button configuration, or an
                 // array of button configurations (which will be iterated
                 // separately)
-                while (!$.isPlainObject(base) && !$.isArray(base)) {
+                while (!$.isPlainObject(base) && !Array.isArray(base)) {
                     if (base === undefined) {
                         return;
                     }
@@ -1321,7 +1321,7 @@
                     }
                 }
 
-                return $.isArray(base) ?
+                return Array.isArray(base) ?
                     base :
                     $.extend({}, base);
             };
@@ -1336,7 +1336,7 @@
                 }
 
                 var objArray = toConfObject(_dtButtonsTable[conf.extend]);
-                if ($.isArray(objArray)) {
+                if (Array.isArray(objArray)) {
                     return objArray;
                 } else if (!objArray) {
                     // This is a little brutal as it might be possible to have a
@@ -1468,7 +1468,7 @@
 
         // Flatten the group selector into an array of single options
         var process = function (input) {
-            if ($.isArray(input)) {
+            if (Array.isArray(input)) {
                 for (var i = 0, ien = input.length; i < ien; i++) {
                     process(input[i]);
                 }
@@ -1481,7 +1481,7 @@
                     process(input.split(','));
                 } else {
                     // String selector individual name
-                    var idx = $.inArray($.trim(input), names);
+                    var idx = $.inArray(input.trim(), names);
 
                     if (idx !== -1) {
                         ret.push(buttons[idx].inst);
@@ -1551,7 +1551,7 @@
                 return v.node;
             });
 
-            if ($.isArray(selector) || selector instanceof $) {
+            if (Array.isArray(selector) || selector instanceof $) {
                 for (i = 0, ien = selector.length; i < ien; i++) {
                     run(selector[i], inst);
                 }
@@ -1578,7 +1578,7 @@
                     var a = selector.split(',');
 
                     for (i = 0, ien = a.length; i < ien; i++) {
-                        run($.trim(a[i]), inst);
+                        run(a[i].trim(), inst);
                     }
                 } else if (selector.match(/^\d+(\-\d+)*$/)) {
                     // Sub-button index selector
@@ -1834,8 +1834,8 @@
         },
         pageLength: function (dt) {
             var lengthMenu = dt.settings()[0].aLengthMenu;
-            var vals = $.isArray(lengthMenu[0]) ? lengthMenu[0] : lengthMenu;
-            var lang = $.isArray(lengthMenu[0]) ? lengthMenu[1] : lengthMenu;
+            var vals = Array.isArray(lengthMenu[0]) ? lengthMenu[0] : lengthMenu;
+            var lang = Array.isArray(lengthMenu[0]) ? lengthMenu[1] : lengthMenu;
             var text = function (dt) {
                 return dt.i18n('rup_table.pageLength', {
                     '-1': 'Show all rows',
@@ -2307,7 +2307,7 @@
         }
 
         if (filename.indexOf('*') !== -1) {
-            filename = $.trim(filename.replace('*', $('head > title').text()));
+            filename = filename.replace('*', $('head > title').text()).trim();
         }
 
         // Strip characters which the OS will object to

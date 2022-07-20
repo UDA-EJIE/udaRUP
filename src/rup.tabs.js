@@ -466,7 +466,7 @@
 
                 //evento limite de numero de pestañas
                 $('#' + settings.id).on('limitTabs', function () {
-                    alert('limite de pestañas alcanzado');
+                	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_tabs.tabLimitError'));
                 });
 
                 //Deshabilitar las pestanyas indicadas
@@ -968,7 +968,7 @@
                         //stop: function(){ $tabs.trigger('scrollToTab',$tabsNav.find('li.ui-tabs-active')); }
                     });
                 } else {
-                    alert('Error:\nCannot be resizable because "jQuery.resizable" plugin is not available.');
+                	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_tabs.resizeError'));
                 }
             }
 

@@ -91,12 +91,12 @@ define(['marionette',
   		source: this.departamentoList,
   		blank:"-1",
   		selected:1,
-  		change : function() { alert("my own change"); }
+  		change : function() { window.alert("my own change"); }
   	});
 
   	$view.ui.comboProvincia.rup_combo({
   		source: this.provinciaList,
-  		change : function() { alert("my own change2"); }
+  		change : function() { window.alert("my own change2"); }
   	});
 
   	$view.ui.comboDptoProv.rup_combo({
