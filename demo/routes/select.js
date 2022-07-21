@@ -1,6 +1,7 @@
 exports.selectSimple = {};
 exports.comboEnlazadoSimple = {};
 exports.comboEnlazadoMultiple = {};
+exports.autocomplete = {};
 
 exports.selectSimple.remote = function(req, res) {
   var json = require('./json/selectSimple.remote.json');
@@ -88,4 +89,42 @@ exports.comboEnlazadoMultiple.dptoProvRemote = function(req, res) {
   }
 
   res.status(200).json(retArray);
+};
+
+exports.autocomplete.remote = function(req, res) {
+	var retArray = [];
+	var q = req.query.q;
+	var c = req.query.c;
+    var json = [
+        {'id':1,'text':'Ayuntamiento de Álava'},
+        {'id':2,'text':'Ayuntamiento de Vizcaya'},
+        {'id':3,'text':'Ayuntamiento de Gipuzcoa'},
+        {'id':4,'text':'Diputación de Álava'},
+        {'id':5,'text':'Diputación de Vizcaya'},
+        {'id':6,'text':'Diputación de Gipuzcoa'},
+        {'id':7,'text':'Policia de Álava'},
+        {'id':8,'text':'Policia de Vizcaya'},
+        {'id':9,'text':'Policia de Gipuzcoa'},
+        {'id':10,'text':'Bomberos de Álava'},
+        {'id':11,'text':'Bomberos de Vizcaya'},
+        {'id':12,'text':'Bomberos de Gipuzcoa'}
+    ];
+    
+    if (q !== undefined){
+    	for (var i=0;i<json.length;i++){
+    		if(c){
+	    	    if (json[i].text.toUpperCase().indexOf(q) == 0){
+		    	      retArray.push(json[i]);
+		    	    }
+    		}else{
+	    	    if (json[i].text.toUpperCase().indexOf(q) >= 0){
+	    	      retArray.push(json[i]);
+	    	    }
+    		}
+    	}    	
+    }else{
+    	retArray = json;
+    }
+
+    res.status(200).json(retArray);
 };

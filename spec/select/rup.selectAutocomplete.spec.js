@@ -44,13 +44,13 @@ function createAutocomplete(done) {
         delay: 0
     });
     $('#exampleAutocompleteTres').rup_select({
-        data: 'demo/autocomplete/remote',
+        url: 'demo/selectAutocomplete/remote',
         sourceParam: {
-            label: 'label',
-            value: 'value'
+            id: 'id',
+            text: 'text'
         },
         autocomplete:true,
-        minLength: 4
+        minLength: 2
     });
     $autocomplete = $('#exampleAutocomplete');
     $autocomplete2 = $('#exampleAutocompleteDos');
@@ -115,19 +115,23 @@ describe('Test Autocomplete > ', () => {
                 beforeEach(() => {
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
-                    $autocomplete3.rup_select('search', 'ul');
+                    $autocomplete3.rup_select('search', 'al');
                 });
                 it('No deben mostrarse el menu', () => {
-                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(0);
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(1);
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').text()).toBe('Searching…');
                 });
                 
             });
             
             describe('Autocomplete3 > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
+                    $autocomplete3.on('selectAjaxSuccess', () => {
+                    	done(); 
+                    });
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
-                    $autocomplete3.rup_select('search', 'o');
+                    $autocomplete3.rup_select('search', 'al');
                 });
                 it('deben mostrarse el menu', () => {
                     expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(4);
@@ -192,7 +196,10 @@ describe('Test Autocomplete > ', () => {
                 });
 
                 describe('Autocomplete3 > ', () => {
-                    beforeEach(() => {
+                    beforeEach((done) => {
+                        $autocomplete3.on('selectAjaxSuccess', () => {
+                        	done(); 
+                        });
                         $autocomplete3.rup_select('search', 'ul');
                     });
                     it('Deben no mostrarse autocomplete', () => {

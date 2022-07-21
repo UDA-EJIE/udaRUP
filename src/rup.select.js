@@ -715,11 +715,12 @@
            	if(!notOthersClose){
         		$('.select2-hidden-accessible').select2('close');
         	}
-	          
+           	$(this).data('select2').$container.find('input').val(term);  
 	        if($search != undefined){
 	          $search.val(term);	
 	          $search.trigger('keyup');
 	        }
+	        
     	},
     	/**
          * Permite consultar y modificar la configuración del componente.

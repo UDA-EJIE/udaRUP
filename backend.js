@@ -73,6 +73,7 @@ module.exports = (PORT) => {
     app.get('/demo/comboEnlazadoMultiple/dptoProvRemote', routesCombo.comboEnlazadoMultiple.dptoProvRemote);
 	// Select
     app.get('/demo/selectSimple/remote', routesSelect.selectSimple.remote);
+    app.get('/demo/selectAutocomplete/remote', routesSelect.autocomplete.remote);
     // Form
     app.get('/demo/nora/pais', routesNora.pais);
     app.get('/demo/nora/autonomia', routesNora.autonomia);
