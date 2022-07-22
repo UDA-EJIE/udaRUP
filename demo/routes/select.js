@@ -94,7 +94,7 @@ exports.comboEnlazadoMultiple.dptoProvRemote = function(req, res) {
 exports.autocomplete.remote = function(req, res) {
 	var retArray = [];
 	var q = req.query.q;
-	var c = req.query.c;
+	var c = req.query.c; //contains
     var json = [
         {'id':1,'text':'Ayuntamiento de Álava'},
         {'id':2,'text':'Ayuntamiento de Vizcaya'},
@@ -112,12 +112,12 @@ exports.autocomplete.remote = function(req, res) {
     
     if (q !== undefined){
     	for (var i=0;i<json.length;i++){
-    		if(c){
-	    	    if (json[i].text.toUpperCase().indexOf(q) == 0){
+    		if(c === 'false'){
+	    	    if (json[i].text.toUpperCase().indexOf(q.toUpperCase()) == 0){
 		    	      retArray.push(json[i]);
 		    	    }
     		}else{
-	    	    if (json[i].text.toUpperCase().indexOf(q) >= 0){
+	    	    if (json[i].text.toUpperCase().indexOf(q.toUpperCase()) >= 0){
 	    	      retArray.push(json[i]);
 	    	    }
     		}

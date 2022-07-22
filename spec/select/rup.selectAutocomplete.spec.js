@@ -115,7 +115,7 @@ describe('Test Autocomplete > ', () => {
                 beforeEach(() => {
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
-                    $autocomplete3.rup_select('search', 'al');
+                    $autocomplete3.rup_select('search', 'ali');
                 });
                 it('No deben mostrarse el menu', () => {
                     expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(1);
@@ -129,12 +129,24 @@ describe('Test Autocomplete > ', () => {
                     $autocomplete3.on('selectAjaxSuccess', () => {
                     	done(); 
                     });
-                    $autocomplete3.rup_select('off');
-                    $autocomplete3.rup_select('on');
-                    $autocomplete3.rup_select('search', 'al');
+                    $autocomplete3.rup_select('search', 'ál');
                 });
                 it('deben mostrarse el menu', () => {
                     expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(4);
+                });
+                
+            });
+            
+            describe('Autocomplete3 > contains false ', () => {
+                beforeEach((done) => {
+                    $autocomplete3.on('selectAjaxSuccess', () => {
+                    	done(); 
+                    });
+                    $autocomplete3.data('settings').contains = false;
+                    $autocomplete3.rup_select('search', 'ál');
+                });
+                it('No deben mostrarse el menu', () => {
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(0);
                 });
                 
             });
@@ -220,12 +232,64 @@ describe('Test Autocomplete > ', () => {
                 });
             });
         });
-        describe('Método close > ', () => {
-            beforeEach(() => {
-                $autocomplete.rup_select('close');
+        describe('Método close autocomplete1 > ', () => {
+            beforeEach((done) => {
+            	$autocomplete.rup_select('open');
+            	if($autocomplete.data('select2').$results.is(':visible')){
+            		$autocomplete.rup_select('close');
+            		done();
+            	}
             });
             it('Deben mostrarse la opciones', () => {
-                expect($('#autocomplete_menu').is(':visible')).toBeFalsy();
+                expect($autocomplete.data('select2').$results.is(':visible')).toBeFalsy();
+            });
+        });
+        
+        describe('Método close autocomplete2 > ', () => {
+            beforeEach((done) => {
+            	$autocomplete2.rup_select('open');
+            	if($autocomplete2.data('select2').$results.is(':visible')){
+            		$autocomplete2.rup_select('close');
+            		done();
+            	}
+             });
+            it('Deben mostrarse la opciones', () => {
+                expect($autocomplete2.data('select2').$results.is(':visible')).toBeFalsy();
+            });
+        });
+        
+        describe('Método close autocomplete3 > ', () => {
+            beforeEach((done) => {
+            	$autocomplete3.rup_select('open');
+            	if($autocomplete3.data('select2').$results.is(':visible')){
+            		$autocomplete3.rup_select('close');
+            		done();
+            	}
+            });
+            it('Deben mostrarse la opciones', () => {
+                expect($autocomplete3.data('select2').$results.is(':visible')).toBeFalsy();
+            });
+        });
+        
+        describe('Método open los 2 abiertos > ', () => {
+            beforeEach(() => {
+            	$autocomplete.rup_select('open',false);
+            	$autocomplete2.rup_select('open',true)
+            });
+            it('Deben mostrarse la opciones', () => {
+                expect($autocomplete.data('select2').$results.is(':visible')).toBeTruthy();
+                expect($autocomplete.data('select2').$results.is(':visible')).toBeTruthy();
+            });
+        });
+        
+        describe('Método open los 1 abierto > ', () => {
+            beforeEach(() => {
+            	$autocomplete.rup_select('open');
+            	$autocomplete2.rup_select('open')
+            });
+            it('Deben mostrarse la opciones', () => {
+                expect($autocomplete.data('select2').$results.is(':visible')).toBeFalsy();
+                expect($autocomplete2.data('select2').$results.is(':visible')).toBeTruthy();
             });
         });
 
@@ -238,6 +302,21 @@ describe('Test Autocomplete > ', () => {
                 expect($autocomplete.rup_select('getRupValue')).toBe('ui_value');
             });
         });
+        
+        describe('Método setRupValue y getRupValue Remoto > ', () => {
+            beforeEach((done) => {
+                $autocomplete3.on('selectAjaxSuccess', () => {
+                	$autocomplete3.rup_select('setRupValue', '2');
+                	done(); 
+                });
+                $autocomplete3.rup_select('open');
+                
+            });
+            it('Debe devolver el valor seleccionado', () => {
+                expect($autocomplete3.rup_select('getRupValue')).toBe('2');
+            });
+        });
+        
         describe('Método disable > ', () => {
             beforeEach(() => {
                 $autocomplete.rup_select('disable');
@@ -259,6 +338,7 @@ describe('Test Autocomplete > ', () => {
             beforeEach(() => {
                 $autocomplete.rup_select('destroy');
                 $autocomplete2.rup_select('destroy');
+                $autocomplete3.rup_select('destroy');
             });
             it('Intentar volver a destruir el objeto debe dar error', () => {
                 expect(() => {
@@ -266,6 +346,9 @@ describe('Test Autocomplete > ', () => {
                 }).toThrowError();
                 expect(() => {
                     $autocomplete2.rup_select('destroy');
+                }).toThrowError();
+                expect(() => {
+                    $autocomplete3.rup_select('destroy');
                 }).toThrowError();
             });
         });

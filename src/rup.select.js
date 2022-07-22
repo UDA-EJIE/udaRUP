@@ -757,8 +757,23 @@
         	if(!notOthersClose){
         		$('.select2-hidden-accessible').select2('close');
         	}
-        	$(this).select2('close');
+        	$(this).select2('open');
         	
+		},
+    	/**
+         * Permite cerrar el componente.
+         *
+         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
+         * @function close
+         * @example
+         * // Establecer una propiedad
+         * $("#idSelect").rup_select("option", true);
+         */
+		close: function (notOthersClose) {
+        	if(!notOthersClose){
+        		$('.select2-hidden-accessible').select2('close');
+	       	}
+	        $(this).select2('close');      	
 		},
 		/**
          * Elimina el autocomplete.
