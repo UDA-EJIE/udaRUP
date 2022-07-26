@@ -700,11 +700,10 @@
         	}
         },
 		/**
-         * Lanza una búsqueda en el autocomplete con el parámetro indicado y el foco va a parar al
-    input.
+         * Lanza una búsqueda en el autocomplete con el parámetro indicado y el foco va a parar al input.
          *
          * @param {string} term - Cadena de texto utilizada para realizar la búsqueda.
-         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
+         * @param {boolean} notOthersClose - Si deseas cerrar el resto de componentes.
          * @function search
          * 
          * @example
@@ -747,7 +746,7 @@
     	/**
          * Permite abrir el componente.
          *
-         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
+         * @param {boolean} notOthersClose - Si deseas cerrar el resto de componentes.
          * @function open
          * @example
          * // Establecer una propiedad
@@ -763,7 +762,7 @@
     	/**
          * Permite cerrar el componente.
          *
-         * @param {true/false} notOthersClose - Si deseas cerrar el resto de componentes.
+         * @param {boolean} notOthersClose - Si deseas cerrar el resto de componentes.
          * @function close
          * @example
          * // Establecer una propiedad
