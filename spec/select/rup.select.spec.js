@@ -940,6 +940,30 @@ function setupselects(done) {
             groups:true
         };
     
+    //REMOTO
+    let optionsAbueloRemoto = {
+        url: '/demo/remoteEnlazadoProvincia/remote',
+        placeholder: '[Seleccionar]',
+      //  selected: '2',
+        change: function () {
+            console.log('selectAbueloRemoto:::Changed');
+        }
+    };
+    
+    let optionsPadreRemoto = {
+        parent: ['selectAbueloRemoto'],
+        url: '/demo/remoteEnlazadoComarca/remote',
+        placeholder: '[Seleccionar]',
+        selected: '7'
+    };
+
+    let optionsHijoRemoto = {
+        parent: 'selectPadreRemoto',
+        url: '/demo/remoteEnlazadoLocalidad/remote',
+        placeholder: '[Seleccionar]',
+        selected: '8'
+    };
+    
     $('#selectSimple').rup_select(optionsSimple);
     $('#selectMulti').rup_select(optionsMulti);
     $('#selectPadre').rup_select(optionsPadre);
@@ -954,6 +978,10 @@ function setupselects(done) {
     $('#selectHijo').removeClass('randomClass');
     $('#selectGroup').removeClass('randomClass');
     $('#selectGroupVacio').removeClass('randomClass');
+    
+    $('#selectAbueloRemoto').rup_select(optionsAbueloRemoto);
+    $('#selectPadreRemoto').rup_select(optionsPadreRemoto);
+    $('#selectHijoRemoto').rup_select(optionsHijoRemoto);
     
     setTimeout(done, 100);
 }

@@ -1,5 +1,5 @@
 exports.selectSimple = {};
-exports.comboEnlazadoSimple = {};
+exports.selectEnlazadoSimple = {};
 exports.comboEnlazadoMultiple = {};
 exports.autocomplete = {};
 
@@ -20,9 +20,9 @@ exports.selectSimple.remoteGroup = function(req, res) {
 
 exports.selectSimple.remoteGroupEnlazado = function(req, res) {
   var retArray = [],
-      jsonProvincias = require('./json/comboEnlazadoSimple.remoteEnlazadoProvincia.json'),
-      jsonComarcas = require('./json/comboEnlazadoSimple.remoteEnlazadoComarca.json'),
-      jsonLocalidades = require('./json/comboEnlazadoSimple.remoteEnlazadoLocalidad.json'),
+      jsonProvincias = require('./json/selectEnlazadoSimple.remoteEnlazadoProvincia.json'),
+      jsonComarcas = require('./json/selectEnlazadoSimple.remoteEnlazadoComarca.json'),
+      jsonLocalidades = require('./json/selectEnlazadoSimple.remoteEnlazadoLocalidad.json'),
       localidadAux = [],
       comarcasProvincia= [],
       localidadesProvincia = [];
@@ -50,19 +50,19 @@ exports.selectSimple.remoteGroupEnlazado = function(req, res) {
   res.status(200).json(retArray);
 };
 
-exports.comboEnlazadoSimple.remoteEnlazadoProvincia = function(req, res) {
-  var json = require('./json/comboEnlazadoSimple.remoteEnlazadoProvincia.json');
+exports.selectEnlazadoSimple.remoteEnlazadoProvincia = function(req, res) {
+  var json = require('./json/selectEnlazadoSimple.remoteEnlazadoProvincia.json');
 
   res.status(200).json(json);
 };
 
-exports.comboEnlazadoSimple.remoteEnlazadoComarca = function(req, res) {
-  var json = require('./json/comboEnlazadoSimple.remoteEnlazadoComarca.json');
+exports.selectEnlazadoSimple.remoteEnlazadoComarca = function(req, res) {
+  var json = require('./json/selectEnlazadoSimple.remoteEnlazadoComarca.json');
   res.status(200).json(json[req.query.provincia+""]);
 };
 
-exports.comboEnlazadoSimple.remoteEnlazadoLocalidad = function(req, res) {
-  var json = require('./json/comboEnlazadoSimple.remoteEnlazadoLocalidad.json');
+exports.selectEnlazadoSimple.remoteEnlazadoLocalidad = function(req, res) {
+  var json = require('./json/selectEnlazadoSimple.remoteEnlazadoLocalidad.json');
   res.status(200).json(json[req.query.comarca+""]);
 };
 
@@ -72,7 +72,7 @@ exports.comboEnlazadoMultiple.departamentoRemote = function(req, res) {
 };
 
 exports.comboEnlazadoMultiple.provinciaRemote = function(req, res) {
-  var json = require('./json/comboEnlazadoSimple.remoteEnlazadoProvincia.json');
+  var json = require('./json/selectEnlazadoSimple.remoteEnlazadoProvincia.json');
   res.status(200).json(json);
 };
 

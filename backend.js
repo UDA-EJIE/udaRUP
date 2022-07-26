@@ -74,6 +74,9 @@ module.exports = (PORT) => {
 	// Select
     app.get('/demo/selectSimple/remote', routesSelect.selectSimple.remote);
     app.get('/demo/selectAutocomplete/remote', routesSelect.autocomplete.remote);
+    app.get('/demo/remoteEnlazadoProvincia/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoProvincia);
+    app.get('/demo/remoteEnlazadoComarca/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoComarca);
+    app.get('/demo/remoteEnlazadoLocalidad/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoLocalidad);
     // Form
     app.get('/demo/nora/pais', routesNora.pais);
     app.get('/demo/nora/autonomia', routesNora.autonomia);
