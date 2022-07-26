@@ -663,7 +663,7 @@
          * @param {boolean} orderAsNumber - Indica si se debe ordenar como valores numéricos en vez de alfabéticos.
          * @param {boolean} skipFirst - Determina si se debe obviar el primer elemento.
          * @example
-         * $("#idCombo").rup_combo("order", orderedByValue, orderAsNumber, skipFirst);
+         * $("#idCombo").rup_select("order", orderedByValue, orderAsNumber, skipFirst);
          */
         order: function (groups,orderedByValue, orderAsNumber) {
         	/* Get options */
@@ -707,7 +707,7 @@
          * @function search
          * 
          * @example
-         * $("#idAutocomplete").rup_autocomplete("search", "java");
+         * $("#idAutocomplete").rup_select("search", "java");
          */
     	search: function (term,notOthersClose) {
     		let $search = $(this).data('select2').dropdown.$search ||$(this).data('select2').mySelect.selection.$search;
@@ -779,7 +779,7 @@
          *
          * @function destroy
          * @example
-         * $("#idAutocomplete").rup_autocomplete("destroy");
+         * $("#idAutocomplete").rup_select("destroy");
          */
 		destroy: function (notRemoveOptions) {
 			$(this).select2("destroy");
