@@ -91,7 +91,7 @@
             	}); 
             }
 
-            if (settings.submitAsJSON !== undefined && settings.submitAsJSON) {
+            if (settings !== undefined && settings.submitAsJSON !== undefined && settings.submitAsJSON) {
             	let name = $self.attr('name');
             	if(name == undefined){
             		name = $self.attr('id');
@@ -123,7 +123,7 @@
 													// comportamiento es el
 				let texto = undefined;									// normal.
                 // Simple
-            	 if (settings.data === undefined && settings.options !== undefined){// si
+            	 if (settings !== undefined && settings.data === undefined && settings.options !== undefined){// si
 																					// es
 																					// remoto
 																					// crear
@@ -152,20 +152,23 @@
  	              	}
             	}
             	let dataSelect2 = $self.data('select2');
-            	if(dataSelect2.$selection.find('input').length == 1){
-            		dataSelect2.$selection.find('input').val('');
+            	if(dataSelect2 !== undefined){
+	            	if(dataSelect2.$selection.find('input').length == 1){
+	            		dataSelect2.$selection.find('input').val('');
+	            	}
+	            	let $search = dataSelect2.dropdown.$search || dataSelect2.selection.$search;
+	            	if($search != undefined && texto !== undefined){//sifnifica que esta abierto
+	            		let lis = dataSelect2.dropdown.$dropdown.find('li');
+	            		let selectedDate = $.grep(lis, function (v) {
+		                    return $(v).text() === texto;
+	            			});
+	            		lis.attr('aria-selected', false);
+	            		$(selectedDate).attr('aria-selected',true);
+	            	}
+	            	$self.val(param).trigger('change');
+	            	$('#' + settings.id).rup_select('change');
             	}
-            	let $search = dataSelect2.dropdown.$search || dataSelect2.selection.$search;
-            	if($search != undefined && texto !== undefined){//sifnifica que esta abierto
-            		let lis = dataSelect2.dropdown.$dropdown.find('li');
-            		let selectedDate = $.grep(lis, function (v) {
-	                    return $(v).text() === texto;
-            			});
-            		lis.attr('aria-selected', false);
-            		$(selectedDate).attr('aria-selected',true);
-            	}
-            	$self.val(param).trigger('change');
-            	$('#' + settings.id).rup_select('change');
+
             } else {
                 // Multiple > multiselect - falta
             	if (typeof(param) === 'object' && settings.options !== undefined){// si
@@ -313,7 +316,7 @@
          */
         select: function (param) {
         	let settings = $(this).data().settings;
-        	let datas = settings.data;
+        	let datas = settings.data || settings.options;
     		if(settings.groups){
     			datas = settings.optionsGroups;
     		}
@@ -1268,6 +1271,15 @@
 				        $request.fail(failure);
 			        }else{// cerrar
 			        	$('#' + settings.id).select2('close');
+			            if (settings.parent) {
+			                if (typeof settings.parent === 'string') {
+			                  $('#' + settings.parent).rup_select("enable");
+			                } else {
+			                  $.each(settings.parent, function (ind, elem) {
+			                    $('#' + elem).rup_select("enable");
+			                  });
+			                }
+			              }
 			        }
 			        return $request;
 				}
@@ -1432,6 +1444,9 @@
 	
 	                // Se carga el identificador del padre del patron
 	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
+	                if($(this).attr('name') === undefined){
+	                	$(this).attr('name',settings.id);
+	                }
 	                settings.name = $(this).attr('name');
 	                $('#' + settings.id).attr('ruptype', 'select');
 	
@@ -1875,10 +1890,12 @@
 	                		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
 	                		        	  $("#" + settings.id).val(null).trigger('change');
 	                		          }
+	                		          setTimeout($('#' + settings.id).rup_select("enable"), 200);
 	                		          
 			                		}else if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
 			                			// Se llama al cambio del trigger.
 			                			$("#" + settings.id).val(null).trigger('change');
+			                			$('#'+settings.id).rup_select("disable");
 			                		}
 			                	}
 			                	
