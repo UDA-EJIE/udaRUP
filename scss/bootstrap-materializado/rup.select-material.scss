@@ -133,3 +133,8 @@
 	font-size: 1.2rem;
 	text-align: center;
 }
+
+// Desactivar buscador del menú.
+.select2-search--dropdown {
+	display: none;
+}
