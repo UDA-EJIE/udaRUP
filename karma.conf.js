@@ -210,7 +210,7 @@ module.exports = function (config) {
         autoWatch: true,
 
         // start these browsers
-        browsers: ['ChromeHeadless'],
+        browsers: ['Chrome'],
         browserDisconnectTolerance: 8,
         browserNoActivityTimeout: 6000000,
         browserDisconnectTimeout: 2000000,
