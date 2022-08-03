@@ -45,9 +45,15 @@ module.exports = {
                 '/demo/api': '/demo'
             }
         }],
-        open: true,
-        progress: true,
-        openPage: 'webpack-dev-server/demo/',
+        open: {
+        	target: ["demo/index.html"],
+        	app: {
+        		name: "firefox",
+        	},
+        },
+        client: {
+        	progress: true
+        },
     },
     plugins: [
         new webpack.ProvidePlugin({
