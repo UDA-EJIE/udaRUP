@@ -114,7 +114,6 @@
     "karma-handlebars-preprocessor": "^0.3.0",
     "karma-html-reporter": "^0.2.7",
     "karma-htmlfile-reporter": "^0.3.8",
-    "karma-ie-launcher": "^1.0.0",
     "karma-jasmine": "^4.0.2",
     "karma-jasmine-html-reporter": "^1.7.0",
     "karma-requirejs": "^1.1.0",
