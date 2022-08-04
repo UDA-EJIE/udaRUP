@@ -45,9 +45,15 @@ module.exports = {
                 '/demo/api': '/demo'
             }
         }],
-        open: true,
-        progress: true,
-        openPage: 'webpack-dev-server/demo/',
+        open: {
+        	target: ["demo/index.html"],
+        	app: {
+        		name: "firefox",
+        	},
+        },
+        client: {
+        	progress: true
+        },
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -107,12 +113,14 @@ module.exports = {
                 }, {
                     loader: 'postcss-loader', // Run post css actions
                     options: {
-                        plugins: function () { // post css plugins, can be exported to postcss.config.js
-                            return [
-                                require('precss'),
-                                require('autoprefixer')
-                            ];
-                        }
+                    	postcssOptions: {
+                    		plugins: function () { // post css plugins, can be exported to postcss.config.js
+                            	return [
+                                	require('precss'),
+                                	require('autoprefixer')
+                                ];
+                        	}
+                    	}
                     }
                 }, {
                     loader: 'sass-loader',

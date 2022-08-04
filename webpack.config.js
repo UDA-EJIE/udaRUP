@@ -6,7 +6,7 @@ var path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const env = require('yargs').argv.env; // use --env with webpack 2
 
@@ -41,19 +41,18 @@ if (env === 'build') {
                     safari10: false,
                 },
             }),
-            new OptimizeCssAssetsPlugin({
-                assetNameRegExp: /\.css$/,
-                cssProcessor: require('cssnano'),
-                cssProcessorOptions: {
-                    discardComments: {
-                        removeAll: true
-                    }
+            new CssMinimizerPlugin({
+            	test: /\.css$/,
+                minimizerOptions: {
+                	preset: [
+                		'default',
+                		{
+                			discardComments: { removeAll: true },
+                		},
+                	],
                 },
-                canPrint: true
-            }, {
-                copyUnmodified: true
-            })
-        ]
+            }),
+        ],
     };
 } else {
     mode = 'development';
