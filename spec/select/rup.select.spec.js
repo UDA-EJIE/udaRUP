@@ -1442,10 +1442,7 @@ function setupSelectsRemoto(done) {
     let optionsAbueloRemoto = {
         url: '/demo/remoteEnlazadoProvincia/remote',
         placeholder: '[Seleccionar]',
-        selected: '2',
-        change: function () {
-            console.log('selectAbueloRemoto:::Changed');
-        }
+        selected: '2'
     };
     
     let optionsPadreRemoto = {

@@ -1,4 +1,4 @@
-//@ sourceURL=select2Multicheckboxes.js
+//# sourceURL=select2Multicheckboxes.js
 /**
  * jQuery Select2 Multi checkboxes
  * - allow to select multi values via normal dropdown control
