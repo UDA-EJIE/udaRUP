@@ -217,7 +217,6 @@ module.exports = [{
             'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
 
             // CSS ROUTES
-            'images': path.join(__dirname, '/assets/images'),
             './images': path.join(__dirname, '/assets/images'),
             './cursors': path.join(__dirname, '/assets/cursors'),
             '../css/images/table': path.join(__dirname, '/assets/images/datatable'),
