@@ -26,10 +26,6 @@ describe('Test Select > ', () => {
                 $selectGroupVacio = $('#selectGroupVacio');
                 selectedLiteral = $.rup.i18n.base.rup_select.multiselect.selectedText;
                 
-                $selectAbueloRemoto = $('#selectAbueloRemoto');
-                $selectPadreRemoto = $('#selectPadreRemoto');
-                $selectHijoRemoto = $('#selectHijoRemoto');
-                
                 resolve();
             });
     	});
@@ -826,9 +822,15 @@ describe('Test Select Remoto> ', () => {
                 $selectAbueloRemoto = $('#selectAbueloRemoto');
                 $selectPadreRemoto = $('#selectPadreRemoto');
                 $selectHijoRemoto = $('#selectHijoRemoto');
-                $selectHijoRemoto.on('selectAjaxSuccess', () => {
-                	resolve();
+                var isChrome = window.chrome;
+                $selectHijoRemoto.on('selectAjaxSuccess', () => {                	 
+                	if(isChrome){
+                		resolve();
+                	}
                 });
+                if(isChrome === undefined){
+                	resolve();
+                }
             });
     	});
     });
