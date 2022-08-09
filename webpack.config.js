@@ -24,15 +24,13 @@ if (env === 'build') {
                 // https://github.com/terser/terser#minify-options
                 terserOptions: {
                     ecma: 6,
-                    cache: true,
-                    parallel: true,
-                    sourceMap: true,
-                    warnings: false,
+                    enclose: false,
                     parse: {},
                     compress: {},
                     mangle: true, // Note `mangle.properties` is `false` by default.
                     module: false,
                     output: null,
+                    sourceMap: false,
                     toplevel: false,
                     nameCache: null,
                     ie8: false,
@@ -67,8 +65,8 @@ let plugins = [
         jQuery: 'jquery'
     }),
     new MiniCssExtractPlugin({
-        filename: '/css/' + outputFileCSS,
-        chunkFilename: '/css/' + outputFileCSS
+        filename: 'css/' + outputFileCSS,
+        chunkFilename: 'css/' + outputFileCSS
     }),
 ];
 
@@ -86,7 +84,15 @@ module.exports = [{
     module: {
         rules: [{
             test: require.resolve('jquery-migrate'),
-            use: 'imports-loader?define=>false',
+            use: [
+            	{
+            		loader: 'imports-loader',
+            		options: {
+            			// Disable AMD for misbehaving libraries
+            			additionalCode: 'var define = false;'
+            		}
+            	}
+            ]
         }, {
             test: /\.js$/,
             // exclude: '/node_modules/',
@@ -102,7 +108,7 @@ module.exports = [{
             test: /\.hbs$/,
             use: {
                 loader: 'handlebars-loader',
-                query: {
+                options: {
                     helperDirs: [
                         __dirname + '/src/helper'
                     ]
@@ -110,13 +116,38 @@ module.exports = [{
             }
         },
         {
-            test: /(\.css|\.scss|\.sass)$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            test: /\.(scss)$/,
+            use: [
+            	{
+            		loader: MiniCssExtractPlugin.loader
+            	},
+            	{
+            		loader: 'style-loader'
+            	},
+            	{
+            		loader: 'css-loader'
+            	},
+            	{
+                    loader: 'postcss-loader',
+                    options: {
+                    	postcssOptions: {
+                    		plugins: function () {
+                            	return [
+                                	require('autoprefixer')
+                                ];
+                        	}
+                    	}
+                    }
+                },
+            	{
+            		loader: 'sass-loader'
+            	}
+            ]
         },
         {
             test: /\.(cur)\??.*$/,
+            type: 'asset/inline',
             use: {
-                loader: 'url-loader',
                 options: {
                     name: '[name].[ext]',
                     publicPath: 'cursors/',
@@ -126,8 +157,8 @@ module.exports = [{
         },
         {
             test: /\.(gif|jpg|png|ico|svg)\??.*$/,
+            type: 'asset',
             use: {
-                loader: 'url-loader',
                 options: {
                     limit: 1024,
                     name: '[name].[ext]',
@@ -138,8 +169,8 @@ module.exports = [{
         },
         {
             test: /\.(woff|otf|ttf|eot)\??.*$/,
+            type: 'asset',
             use: {
-                loader: 'url-loader',
                 options: {
                     limit: 1024,
                     name: '[name].[ext]',
@@ -164,10 +195,8 @@ module.exports = [{
         ]
     },
     stats: {
-        colors: true
-    },
-    node: {
-        fs: 'empty'
+        colors: true,
+        errorDetails: true
     },
     devServer: {
         compress: true,
@@ -177,6 +206,8 @@ module.exports = [{
     resolve: {
         modules: ['node_modules', path.resolve(__dirname, 'src')],
         alias: {
+            'handlebars': 'handlebars/dist/handlebars.js',
+            
             'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
             
             'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
@@ -186,12 +217,15 @@ module.exports = [{
             'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
 
             // CSS ROUTES
+            'images': path.join(__dirname, '/assets/images'),
             './images': path.join(__dirname, '/assets/images'),
             './cursors': path.join(__dirname, '/assets/cursors'),
             '../css/images/table': path.join(__dirname, '/assets/images/datatable'),
             './fonts': path.join(__dirname, '/assets/fonts'),
             '../fonts': '@mdi/font/fonts/',
+        },
+        fallback: {
+        	fs: false
         }
-
     }
 }];

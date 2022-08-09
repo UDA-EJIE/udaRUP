@@ -24,9 +24,6 @@ module.exports = {
     stats: {
         colors: true
     },
-    node: {
-        fs: 'empty'
-    },
     devServer: {
         port: 8080,
         proxy: [{
@@ -79,7 +76,15 @@ module.exports = {
         rules: [
             {
                 test: require.resolve('jquery-migrate'),
-                use: 'imports-loader?define=>false',
+                use: [
+                	{
+                		loader: 'imports-loader',
+                		options: {
+                			// Disable AMD for misbehaving libraries
+                			additionalCode: 'var define = false;'
+                		}
+                	}
+                ]
             }, {
                 test: /\.js$/,
                 use: {
@@ -92,7 +97,7 @@ module.exports = {
             {
                 test: /\.hbs$/,
                 loader: 'handlebars-loader',
-                query: {
+                options: {
                     knownHelpers: ['i18n'],
                     helperDirs: [
                         path.join(__dirname, '../src/helper'),
@@ -116,7 +121,6 @@ module.exports = {
                     	postcssOptions: {
                     		plugins: function () { // post css plugins, can be exported to postcss.config.js
                             	return [
-                                	require('precss'),
                                 	require('autoprefixer')
                                 ];
                         	}
@@ -128,21 +132,19 @@ module.exports = {
                 }]
             }, {
                 test: /\.png$|\.gif$|\.cur$|\.svg$/,
+                type: 'asset/resource',
                 use: [{
-                    loader: 'file-loader',
                     options: {
                         publicPath: '/'
                     }
                 }]
             }, {
                 test: /\.woff2?$|\.ttf$|\.eot$/,
-                use: [{
-                    loader: 'url-loader'
-                }]
+                type: 'asset/inline'
             }, {
                 test: /\.html$/,
+                type: 'asset/resource',
                 use: {
-                    loader: 'file-loader',
                     options: {
                         limit: 1024,
                         name: '[name].[ext]',
@@ -178,7 +180,9 @@ module.exports = {
             './externals/icons': '@mdi/font/fonts',
             './fonts': path.join(__dirname, '../assets/fonts'),
             '../fonts': '@mdi/font/fonts/'
+        },
+        fallback: {
+        	fs: false
         }
-
     }
 };
