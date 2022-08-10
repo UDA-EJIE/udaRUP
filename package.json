@@ -47,7 +47,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "@mdi/font": "^4.9.95",
-    "acorn": "^7.1.1",
+    "acorn": "^8.8.0",
     "autoprefixer": "^7.2.6",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
