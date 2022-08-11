@@ -65,7 +65,7 @@
     "del": "^2.2.1",
     "dummy-json": "^3.0.5",
     "es5-shim": "^4.5.9",
-    "es6-shim": "^0.35.1",
+    "es6-shim": "^0.35.6",
     "eslint": "^8.21.0",
     "exports-loader": "^0.6.4",
     "expose-loader": "^0.7.5",
