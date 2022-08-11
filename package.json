@@ -96,7 +96,7 @@
     "gulp-wrap": "^0.15.0",
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.1",
-    "highlight.js": "^9.6.0",
+    "highlight.js": "^11.6.0",
     "html": "^1.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.5.2",

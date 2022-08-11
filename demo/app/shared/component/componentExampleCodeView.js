@@ -40,7 +40,7 @@ define(['marionette',
                 block.innerHTML = block.innerHTML.replace(/</g, '&lt');
             }
 
-            hljs.highlightBlock(block);
+            hljs.highlightElement(block);
 
         });
 
