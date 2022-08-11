@@ -173,7 +173,7 @@
     "jquery.scrollto": "^2.1.2",
     "modernizr": "^3.7.1",
     "natives": "^1.1.6",
-    "printd": "^1.4.1",
+    "printd": "^1.5.1",
     "qtip2": "^3.0.3",
     "select2": "^4.0.13"
   }
