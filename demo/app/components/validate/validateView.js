@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.validate'], function(Marionette, ComponentLayoutTemplate, ValidateHtmlCodeTemplate, ValidateJsCodeTemplate, ValidateBodyView, ValidateTestView, ComponentExampleCodeView){
 
-	var ValidateView = Marionette.LayoutView.extend({
+	var ValidateView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ValidateBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ValidateBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ValidateHtmlCodeTemplate,
 			templateJs: ValidateJsCodeTemplate
 		}));
-		$view.Test.show(new ValidateTestView());
+		$view.showChildView('Test', new ValidateTestView());
 	}
 
 

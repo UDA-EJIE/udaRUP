@@ -4,7 +4,7 @@ define(['marionette',
 	],
 	function (Marionette, UploadTestTemplate) {
 
-		var UploadTestView = Marionette.LayoutView.extend({
+		var UploadTestView = Marionette.View.extend({
 			template: UploadTestTemplate,
 			ui: {
 				basicFileuploadContext: '#basicFileuploadContext'

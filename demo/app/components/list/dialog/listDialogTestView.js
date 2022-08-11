@@ -5,7 +5,7 @@ define(['jquery', 'marionette',
     'rup.combo',
     'rup.dialog'
 ], function ($, Marionette, ListDialogTestTemplate) {
-    var ListDialogTestView = Marionette.LayoutView.extend({
+    var ListDialogTestView = Marionette.View.extend({
         template: ListDialogTestTemplate,
         ui: {
             list: '#listDialog'

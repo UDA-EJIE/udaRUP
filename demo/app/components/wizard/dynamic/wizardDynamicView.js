@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, WizardDynamicHtmlCodeTemplate, WizardDynamicJsCodeTemplate, WizardDynamicBodyView, WizardDynamicTestView, ComponentExampleCodeView){
 
-	var WizardDynamicView = Marionette.LayoutView.extend({
+	var WizardDynamicView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -22,12 +22,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new WizardDynamicBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new WizardDynamicBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: WizardDynamicHtmlCodeTemplate,
 			templateJs: WizardDynamicJsCodeTemplate
 		}));
-		$view.Test.show(new WizardDynamicTestView());
+		$view.showChildView('Test', new WizardDynamicTestView());
 	}
 
 

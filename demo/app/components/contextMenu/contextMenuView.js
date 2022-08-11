@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.contextMenu','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, ContextMenuHtmlCodeTemplate, ContextMenuJsCodeTemplate, ContextMenuBodyView, ContextMenuTestView, ComponentExampleCodeView){
 
-	var ContextMenuView = Marionette.LayoutView.extend({
+	var ContextMenuView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -22,12 +22,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ContextMenuBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ContextMenuBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ContextMenuHtmlCodeTemplate,
 			templateJs: ContextMenuJsCodeTemplate
 		}));
-		$view.Test.show(new ContextMenuTestView());
+		$view.showChildView('Test', new ContextMenuTestView());
 	}
 
 

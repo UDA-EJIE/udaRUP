@@ -2,7 +2,7 @@ define(['marionette',
 	'./messageBodyTemplate.hbs',
 	'rup.message'], function(Marionette, MessageBodyTemplate){
 
-	var MessageBodyView = Marionette.LayoutView.extend({
+	var MessageBodyView = Marionette.View.extend({
 		template: MessageBodyTemplate,
 	});
 

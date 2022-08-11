@@ -2,7 +2,7 @@
 define(['marionette',
     './listDialogBodyTemplate.hbs'], function(Marionette, ListDialogBodyTemplate){
 
-    var ListDialogBodyView = Marionette.LayoutView.extend({
+    var ListDialogBodyView = Marionette.View.extend({
         template: ListDialogBodyTemplate
     });
 

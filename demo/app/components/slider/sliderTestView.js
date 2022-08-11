@@ -2,7 +2,7 @@ define(['marionette',
 	'./sliderTestTemplate.hbs',
 	'rup.slider','rup.button'], function(Marionette, SliderTestTemplate){
 
-	var SliderTestView = Marionette.LayoutView.extend({
+	var SliderTestView = Marionette.View.extend({
 		template: SliderTestTemplate,
 		ui:{
 			slider: '#slider',

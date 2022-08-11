@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.form'], function(Marionette, ComponentLayoutTemplate, FormHtmlCodeTemplate, FormJsCodeTemplate, FormBodyView, FormTestView, ComponentExampleCodeView){
 
-	var FormView = Marionette.LayoutView.extend({
+	var FormView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new FormBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new FormBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: FormHtmlCodeTemplate,
 			templateJs: FormJsCodeTemplate
 		}));
-		$view.Test.show(new FormTestView());
+		$view.showChildView('Test', new FormTestView());
 	}
 
 

@@ -3,7 +3,7 @@ define(['marionette',
     'rup.calendar', 'rup.button'
 ], function (Marionette, CalendarTestTemplate) {
 
-    var CalendarTestView = Marionette.LayoutView.extend({
+    var CalendarTestView = Marionette.View.extend({
         template: CalendarTestTemplate,
         ui: {
             calendar: '#calendar'

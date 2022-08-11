@@ -3,7 +3,7 @@ define(['marionette',
 
 	'rup.tree'], function (Marionette, TreeDragDropCodeTemplate) {
 
-	var TreeDragDropCodeView = Marionette.LayoutView.extend({
+	var TreeDragDropCodeView = Marionette.View.extend({
 		template: TreeDragDropCodeTemplate
 	});
 

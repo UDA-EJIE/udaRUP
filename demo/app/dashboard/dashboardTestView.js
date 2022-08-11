@@ -2,7 +2,7 @@ define(['marionette',
         'templates',
         'rup.dashboard'], function(Marionette, App){
 
-  var DashboardTestView = Marionette.LayoutView.extend({
+  var DashboardTestView = Marionette.View.extend({
       template: App.Templates.demo.app.dashboard.dashboardTestTemplate,
       gridOptions: {
           cell_height: 80,

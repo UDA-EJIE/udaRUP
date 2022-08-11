@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.progressbar','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, ProgressbarHtmlCodeTemplate, ProgressbarJsCodeTemplate, ProgressbarBodyView, ProgressbarTestView, ComponentExampleCodeView){
 
-	var ProgressbarView = Marionette.LayoutView.extend({
+	var ProgressbarView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ProgressbarBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ProgressbarBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ProgressbarHtmlCodeTemplate,
 			templateJs: ProgressbarJsCodeTemplate
 		}));
-		$view.Test.show(new ProgressbarTestView());
+		$view.showChildView('Test', new ProgressbarTestView());
 	}
 
 

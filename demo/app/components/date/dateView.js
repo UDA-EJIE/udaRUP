@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.date'], function(Marionette, ComponentLayoutTemplate, DateHtmlCodeTemplate, DateJsCodeTemplate, DateBodyView, DateTestView, ComponentExampleCodeView){
 
-	var DateView = Marionette.LayoutView.extend({
+	var DateView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new DateBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new DateBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: DateHtmlCodeTemplate,
 			templateJs: DateJsCodeTemplate
 		}));
-		$view.Test.show(new DateTestView());
+		$view.showChildView('Test', new DateTestView());
 	}
 
 	return DateView;

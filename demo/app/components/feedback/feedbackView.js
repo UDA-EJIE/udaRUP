@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.feedback','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, FeedbackHtmlCodeTemplate, FeedbackJsCodeTemplate, FeedbackBodyView, FeedbackTestView, ComponentExampleCodeView){
 
-	var FeedbackView = Marionette.LayoutView.extend({
+	var FeedbackView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -21,12 +21,12 @@ define(['marionette',
 
 	function fncOnRender(){
 		var $view = this;
-		$view.Main.show(new FeedbackBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new FeedbackBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: FeedbackHtmlCodeTemplate,
 			templateJs: FeedbackJsCodeTemplate
 		}));
-		//$view.Test.show(new FeedbackTestView());
+		//$view.showChildView('Test', new FeedbackTestView());
 	}
 
 

@@ -2,7 +2,7 @@ define(['marionette',
 	'./spinnerTestTemplate.hbs',
 	'rup.spinner','rup.button'], function(Marionette, SpinnerTestTemplate){
 
-	var SpinnerTestView = Marionette.LayoutView.extend({
+	var SpinnerTestView = Marionette.View.extend({
 		template: SpinnerTestTemplate,
 		ui:{
 			spinner: '#spinner',

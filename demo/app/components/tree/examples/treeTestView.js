@@ -4,7 +4,7 @@ define(['marionette',
 	'./treeTestTemplate.hbs',
 	'rup.tree', 'rup.button'], function (Marionette, TreeTestTemplate) {
 
-	var TreeTestView = Marionette.LayoutView.extend({
+	var TreeTestView = Marionette.View.extend({
 		template: TreeTestTemplate,
 		ui: {
 			treeCodeDialog: '#treeCodeDialog'

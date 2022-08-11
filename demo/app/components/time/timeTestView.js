@@ -2,7 +2,7 @@ define(['marionette',
 	'./timeTestTemplate.hbs',
 	'rup.time','rup.button'], function(Marionette, TimeTestTemplate){
 
-	var TimeTestView = Marionette.LayoutView.extend({
+	var TimeTestView = Marionette.View.extend({
 		template: TimeTestTemplate,
 		ui:{
 			timeFull: '#hora',

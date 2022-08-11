@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.message','rup.tabs'], function(Marionette, ComponentLayoutTemplate, ButtonHtmlCodeTemplate, ButtonJsCodeTemplate, ButtonBodyView, ButtonTestView, ComponentExampleCodeView){
 
-	var ButtonView = Marionette.LayoutView.extend({
+	var ButtonView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ButtonBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ButtonBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ButtonHtmlCodeTemplate,
 			templateJs: ButtonJsCodeTemplate
 		}));
-		$view.Test.show(new ButtonTestView());
+		$view.showChildView('Test', new ButtonTestView());
 	}
 
 	return ButtonView;

@@ -2,7 +2,7 @@ define(['marionette',
 	'./tabsScrollableTemplate.hbs',
 	'rup.tabs'], function(Marionette, TabsScrollableTemplate){
 
-	var TabsScrollableView = Marionette.LayoutView.extend({
+	var TabsScrollableView = Marionette.View.extend({
 		template: TabsScrollableTemplate,
 		ui:{
 			tabs: '#tabsScrollableExample'

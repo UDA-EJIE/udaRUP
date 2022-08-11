@@ -2,7 +2,7 @@ define(['marionette',
 	'./menuJQueryUITemplate.hbs',
 	'rup.menu'], function (Marionette, MenuJQueryUITemplate) {
 
-	var MenuView = Marionette.LayoutView.extend({
+	var MenuView = Marionette.View.extend({
 		template: MenuJQueryUITemplate,
 		redirectNavLink: fncRedirectNavLink,
 		ui: {

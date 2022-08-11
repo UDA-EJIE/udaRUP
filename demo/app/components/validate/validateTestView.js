@@ -3,7 +3,7 @@ define(['marionette',
     'rup.validate', 'rup.button'
 ], function (Marionette, ValidateTestTemplate) {
 
-    var ValidateTestView = Marionette.LayoutView.extend({
+    var ValidateTestView = Marionette.View.extend({
         template: ValidateTestTemplate,
         listaDias: [],
         configuracionBasicaValidate: {},

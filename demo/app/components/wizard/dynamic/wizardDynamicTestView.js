@@ -2,7 +2,7 @@ define(['marionette',
 	'./wizardDynamicTestTemplate.hbs',
 	'rup.wizard','rup.button'], function(Marionette, WizardDynamicTestTemplate){
 
-	var WizardDynamicTestView = Marionette.LayoutView.extend({
+	var WizardDynamicTestView = Marionette.View.extend({
 		template: WizardDynamicTestTemplate,
 
 		onAttach: fncOnAttach

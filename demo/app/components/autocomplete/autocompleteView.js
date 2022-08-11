@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.autocomplete','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, AutocompleteHtmlCodeTemplate, AutocompleteJsCodeTemplate, AutocompleteBodyView, AutocompleteTestView, ComponentExampleCodeView){
 
-	var AutocompleteView = Marionette.LayoutView.extend({
+	var AutocompleteView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -22,12 +22,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new AutocompleteBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new AutocompleteBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: AutocompleteHtmlCodeTemplate,
 			templateJs: AutocompleteJsCodeTemplate,
 		}));
-		$view.Test.show(new AutocompleteTestView());
+		$view.showChildView('Test', new AutocompleteTestView());
 		window.$ = $;
 	}
 

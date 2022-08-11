@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.chart'], function(Marionette, ComponentLayoutTemplate, ChartHtmlCodeTemplate, ChartJsCodeTemplate,  ChartBodyView, ChartTestView, ComponentExampleCodeView){
 
-	var ChartView = Marionette.LayoutView.extend({
+	var ChartView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ChartBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ChartBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ChartHtmlCodeTemplate,
 			templateJs: ChartJsCodeTemplate
 		}));
-		$view.Test.show(new ChartTestView());
+		$view.showChildView('Test', new ChartTestView());
 	}
 
 

@@ -2,7 +2,7 @@ define(['marionette',
 	'./formTestTemplate.hbs',
 	'rup.form','rup.button'], function(Marionette, FormTestTemplate){
 
-	var FormTestView = Marionette.LayoutView.extend({
+	var FormTestView = Marionette.View.extend({
 		template: FormTestTemplate,
 		reconfigureForm: fncReconfigureForm,
 		exampleFormSerialize: fncExampleFormSerialize,

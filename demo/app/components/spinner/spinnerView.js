@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.spinner','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, SpinnerHtmlCodeTemplate, SpinnerJsCodeTemplate, SpinnerBodyView, SpinnerTestView, ComponentExampleCodeView){
 
-	var SpinnerView = Marionette.LayoutView.extend({
+	var SpinnerView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -22,12 +22,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new SpinnerBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new SpinnerBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: SpinnerHtmlCodeTemplate,
 			templateJs: SpinnerJsCodeTemplate
 		}));
-		$view.Test.show(new SpinnerTestView());
+		$view.showChildView('Test', new SpinnerTestView());
 	}
 
 

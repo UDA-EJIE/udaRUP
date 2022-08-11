@@ -2,7 +2,7 @@ define(['marionette',
 	'./menuTemplate.hbs',
 	'rup.menu','rup.lang','rup.navbar'], function(Marionette, MenuTemplate){
 
-	var MenuView = Marionette.LayoutView.extend({
+	var MenuView = Marionette.View.extend({
 		template: MenuTemplate,
 		redirectNavLink: fncRedirectNavLink,
 		ui:{

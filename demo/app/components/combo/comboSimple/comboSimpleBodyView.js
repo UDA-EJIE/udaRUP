@@ -4,7 +4,7 @@ define(['marionette',
 	'./comboSimpleBodyTemplate.hbs',
 	'rup.combo'], function(Marionette, ComboSimpleBodyTemplate){
 
-	var ComboSimpleBodyView = Marionette.LayoutView.extend({
+	var ComboSimpleBodyView = Marionette.View.extend({
 		template: ComboSimpleBodyTemplate
 	});
 
