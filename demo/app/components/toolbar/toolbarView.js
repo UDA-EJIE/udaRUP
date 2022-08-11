@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.message','rup.tabs'], function(Marionette, ComponentLayoutTemplate, ToolbarHtmlCodeTemplate, ToolbarJsCodeTemplate, ToolbarBodyView, ToolbarTestView, ComponentExampleCodeView){
 
-	var ToolbarView = Marionette.LayoutView.extend({
+	var ToolbarView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ToolbarBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ToolbarBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ToolbarHtmlCodeTemplate,
 			templateJs: ToolbarJsCodeTemplate
 		}));
-		$view.Test.show(new ToolbarTestView());
+		$view.showChildView('Test', new ToolbarTestView());
 	}
 
 	return ToolbarView;

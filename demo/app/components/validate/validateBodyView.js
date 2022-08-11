@@ -2,7 +2,7 @@ define(['marionette',
 	'./validateBodyTemplate.hbs',
 	'rup.validate'], function(Marionette, ValidateBodyTemplate){
 
-	var ValidateBodyView = Marionette.LayoutView.extend({
+	var ValidateBodyView = Marionette.View.extend({
 		template: ValidateBodyTemplate
 	});
 

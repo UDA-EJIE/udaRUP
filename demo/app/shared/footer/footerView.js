@@ -2,7 +2,7 @@
 define(['marionette',
 	'./footerTemplate.hbs'], function(Marionette, FooterTemplate){
 
-	var FooterView = Marionette.LayoutView.extend({
+	var FooterView = Marionette.View.extend({
 		template: FooterTemplate
 	});
 

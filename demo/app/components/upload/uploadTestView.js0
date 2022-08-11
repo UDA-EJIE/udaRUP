@@ -2,7 +2,7 @@ define(['marionette',
         'templates',
         'rup.upload','rup.button'], function(Marionette, App){
 
-  var UploadTestView = Marionette.LayoutView.extend({
+  var UploadTestView = Marionette.View.extend({
       template: App.Templates.demo.app.components.upload.uploadTestTemplate,
 
       onAttach: fncOnAttach

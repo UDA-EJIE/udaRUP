@@ -2,7 +2,7 @@ define(['marionette',
 	'./wizardDynamicBodyTemplate.hbs',
 	'rup.wizard'], function(Marionette, WizardDynamicBodyTemplate){
 
-	var WizardDynamicBodyView = Marionette.LayoutView.extend({
+	var WizardDynamicBodyView = Marionette.View.extend({
 		template: WizardDynamicBodyTemplate
 
 	});

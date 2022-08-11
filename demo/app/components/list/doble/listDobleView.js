@@ -8,7 +8,7 @@ define(['marionette',
     '../../../shared/component/componentExampleCodeView',
     'rup.list'], function(Marionette, ListDobleLayoutTemplate, ListDobleTemplate, ListDobleJsTemplate, ListDobleBody, ListDobleTestView, ComponentExampleCodeView){
 
-    var ListDobleView = Marionette.LayoutView.extend({
+    var ListDobleView = Marionette.View.extend({
         template: ListDobleLayoutTemplate,
         regions:{
             Main: '#listDobleMainBody',
@@ -21,12 +21,12 @@ define(['marionette',
     function fncOnRender() {
         var $view = this;
 
-        $view.Main.show(new ListDobleBody());
-        $view.Example.show(new ComponentExampleCodeView({
+        $view.showChildView('Main', new ListDobleBody());
+        $view.showChildView('Example', new ComponentExampleCodeView({
             templateHtml: ListDobleTemplate,
             templateJs: ListDobleJsTemplate
         }));
-        $view.Test.show(new ListDobleTestView());
+        $view.showChildView('Test', new ListDobleTestView());
     }
 
     return ListDobleView;

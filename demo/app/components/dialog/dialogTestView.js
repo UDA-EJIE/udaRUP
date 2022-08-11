@@ -2,7 +2,7 @@ define(['marionette',
 	'./dialogTestTemplate.hbs',
 	'rup.dialog','rup.button'], function(Marionette, DialogTestTemplate){
 
-	var DialogTestView = Marionette.LayoutView.extend({
+	var DialogTestView = Marionette.View.extend({
 		template: DialogTestTemplate,
 		openDialog: fncOpenDialog,
 		openAjaxDialogWar: fncOpenAjaxDialogWar,

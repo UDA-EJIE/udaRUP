@@ -1,6 +1,7 @@
 /* global Backbone */
 
 import * as Marionette from 'marionette';
+import AppRouter from 'approuter';
 import MainView from 'shared/main/mainView';
 import IndexView from 'pages/index/indexView';
 import StyleGuideView from 'styleGuide/styleGuideView';
@@ -41,7 +42,7 @@ import ListDialogView from 'components/list/dialog/listDialogView';
 
 var RupResponsiveDemoApp = new Marionette.Application();
 
-var MyRouter = Marionette.AppRouter.extend({
+var MyRouter = AppRouter.extend({
     appRoutes: {
         '' : 'index',
         'styleGuide' : 'styleGuide',
@@ -82,114 +83,114 @@ var MyRouter = Marionette.AppRouter.extend({
     }
 });
 
-var RouteController = Marionette.Controller.extend({
+var RouteController = Marionette.MnObject.extend({
     index: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new IndexView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new IndexView());
     },
     styleGuide: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new StyleGuideView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new StyleGuideView());
     },
     bt4StyleGuide: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new Bt4StyleGuideView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new Bt4StyleGuideView());
     },
     autocomplete: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new AutocompleteView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new AutocompleteView());
     },
     feedback: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new FeedbackView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new FeedbackView());
     },
     tooltip: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new TooltipView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TooltipView());
     },
     tableEditInline: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new TableEditInlineView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TableEditInlineView());
     },
     tableEditForm: function() {
-        RupResponsiveDemoApp.mainView.Container.show(new TableEditFormView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TableEditFormView());
     },
     button: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ButtonView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ButtonView());
     },
     toolbar: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ToolbarView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ToolbarView());
     },
     date: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new DateView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new DateView());
     },
     form: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new FormView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new FormView());
     },
     time: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new TimeView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TimeView());
     },
     message: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new MessageView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new MessageView());
     },
     dialog: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new DialogView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new DialogView());
     },
     progressbar: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ProgressbarView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ProgressbarView());
     },
     contextMenu: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ContextMenuView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ContextMenuView());
     },
     accordion: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new AccordionView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new AccordionView());
     },
     slider: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new SliderView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new SliderView());
     },
     spinner: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new SpinnerView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new SpinnerView());
     },
     upload: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new UploadView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new UploadView());
     },
     validate: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ValidateView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ValidateView());
     },
     chart: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ChartView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ChartView());
     },
     treeExamples: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new TreeView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TreeView());
     },
     treeDragDrop: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new TreeDragDropView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TreeDragDropView());
     },
     tabsStatic: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new TabsStaticView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new TabsStaticView());
     },
     wizardSimple: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new WizardSimpleView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new WizardSimpleView());
     },
     wizardDynamic: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new WizardDynamicView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new WizardDynamicView());
     },
     comboSimple: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new ComboSimpleView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ComboSimpleView());
     },
     stackedHorizontal: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new StackedHorizontalView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new StackedHorizontalView());
     },
     mobileDesktop: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new MobileDesktopView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new MobileDesktopView());
     },
     mobileTabletDesktop: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new MobileTabletDesktopView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new MobileTabletDesktopView());
     },
     calendar: function () {
-        RupResponsiveDemoApp.mainView.Container.show(new CalendarView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new CalendarView());
     },
     list: function () {
-        RupResponsiveDemoApp.mainView.Container.show(new ListView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ListView());
     },
     listDoble: function () {
-        RupResponsiveDemoApp.mainView.Container.show(new ListDobleView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ListDobleView());
     },
     listDialog: function () {
-        RupResponsiveDemoApp.mainView.Container.show(new ListDialogView());
+        RupResponsiveDemoApp.mainView.showChildView('Container', new ListDialogView());
     }
 });
 

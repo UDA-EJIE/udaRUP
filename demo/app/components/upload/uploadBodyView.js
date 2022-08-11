@@ -2,7 +2,7 @@ define(['marionette',
 	'./uploadBodyTemplate.hbs',
 	'rup.upload'], function(Marionette, UploadBodyTemplate){
 
-	var UploadBodyView = Marionette.LayoutView.extend({
+	var UploadBodyView = Marionette.View.extend({
 		template: UploadBodyTemplate
 	});
 

@@ -1,7 +1,7 @@
 define(['marionette',
 	'./headerTemplate.hbs'], function(Marionette, HeaderTemplate){
 
-	var HeaderView = Marionette.LayoutView.extend({
+	var HeaderView = Marionette.View.extend({
 		template: HeaderTemplate
 	});
 

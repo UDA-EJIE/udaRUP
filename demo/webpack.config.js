@@ -159,6 +159,7 @@ module.exports = {
         alias: {
             'handlebars': 'handlebars/dist/handlebars.js',
             'marionette': 'backbone.marionette/lib/backbone.marionette.js',
+            'approuter': 'marionette.approuter/lib/marionette.approuter.js',
 
             'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
 

@@ -44,7 +44,8 @@ gulp.task('build:resources', function (callback) {
     // resources
     console.log('dist/resources');
     gulp.src(['./i18n/*.json'])
-        .pipe(gulp.dest('./dist/resources'));
+        .pipe(gulp.dest('./dist/resources'))
+        .pipe(gulp.dest('./demo/rup/resources'));
 
     // externals
     console.log('externals ');

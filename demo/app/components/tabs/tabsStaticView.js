@@ -2,7 +2,7 @@ define(['marionette',
 	'./tabsStaticTemplate.hbs',
 	'rup.tabs'], function(Marionette, TabsStaticTemplate){
 
-	var TabsStaticView = Marionette.LayoutView.extend({
+	var TabsStaticView = Marionette.View.extend({
 		template: TabsStaticTemplate,
 		ui:{
 			tabs: '#tabsStatic'

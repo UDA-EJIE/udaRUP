@@ -4,7 +4,7 @@ define(['jquery', 'marionette',
     'rup.list',
     'rup.combo'
 ], function ($, Marionette, ListDobleTestTemplate) {
-    var ListDobleTestView = Marionette.LayoutView.extend({
+    var ListDobleTestView = Marionette.View.extend({
         template: ListDobleTestTemplate,
         ui: {
             list: '#listDoble'

@@ -1,7 +1,7 @@
 define(['marionette',
         'templates'], function(Marionette, App){
 
-  var DashboardBodyView = Marionette.LayoutView.extend({
+  var DashboardBodyView = Marionette.View.extend({
       template: App.Templates.demo.app.dashboard.dashboardBodyTemplate,
   });
 

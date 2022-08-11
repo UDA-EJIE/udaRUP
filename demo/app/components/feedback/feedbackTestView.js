@@ -2,7 +2,7 @@ define(['marionette',
 	'./feedbackTestTemplate.hbs',
 	'rup.feedback','rup.button'], function(Marionette, FeedbackTestTemplate){
 
-	var FeedbackTestView = Marionette.LayoutView.extend({
+	var FeedbackTestView = Marionette.View.extend({
 		template: FeedbackTestTemplate,
 		create: fncCreate,
 		destroy: fncDestroy,

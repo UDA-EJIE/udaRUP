@@ -2,7 +2,7 @@
 define(['marionette',
     './listBodyTemplate.hbs'], function(Marionette, ListBodyTemplate){
 
-    var ListBodyView = Marionette.LayoutView.extend({
+    var ListBodyView = Marionette.View.extend({
         template: ListBodyTemplate
     });
 

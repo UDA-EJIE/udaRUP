@@ -2,7 +2,7 @@ define(['marionette',
 	'./tabsAjaxTemplate.hbs',
 	'rup.tabs', 'rup.tooltip'], function(Marionette, TabsAjaxTemplate){
 
-	var TabsAjaxView = Marionette.LayoutView.extend({
+	var TabsAjaxView = Marionette.View.extend({
 		template: TabsAjaxTemplate,
 		ui:{
 			tabs: '#tabs',

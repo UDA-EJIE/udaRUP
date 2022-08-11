@@ -19,12 +19,12 @@ define(['marionette',
      *
      *
      * @class
-     * @augments Backbone.LayoutView
+     * @augments Backbone.View
      * @constructor
      * @name MainView
      *
      */
-    var MainView = Marionette.LayoutView.extend({/** @lends MainView.prototype */
+    var MainView = Marionette.View.extend({/** @lends MainView.prototype */
         el: "body",
         template: App.Templates.demo.app.shared.main.mainJQueryUITemplate,
         regions:{

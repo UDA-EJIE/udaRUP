@@ -2,9 +2,9 @@
 define(['marionette',
 	'./styleGuideTemplate.hbs', 'rup.button','rup.combo'], function(Marionette, StyleGuideTemplate){
 
-	var StyleGuideView = Marionette.LayoutView.extend({
+	var StyleGuideView = Marionette.View.extend({
 		template: StyleGuideTemplate,
-		bt4BaseUrl: 'https://v4-alpha.getbootstrap.com/components/',
+		bt4BaseUrl: 'https://getbootstrap.com/docs/4.6/components/',
 		btComponents:[
 			'alerts',
 			'badge',

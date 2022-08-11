@@ -3,7 +3,7 @@ define(['marionette',
 	'rup.contextMenu', 'rup.button'
 ], function (Marionette, ContextMenuTestTemplate) {
 
-	var ContextMenuTestView = Marionette.LayoutView.extend({
+	var ContextMenuTestView = Marionette.View.extend({
 		template: ContextMenuTestTemplate,
 		ui: {
 			contextMenu: '#contextMenu',
@@ -21,7 +21,7 @@ define(['marionette',
 
 	function fncOnAttach() {
 		this.ui.contextMenu.rup_contextMenu({
-			selector: '#contextMenu',
+			el: '#contextMenu',
 			callback: function (key) {
 				window.alert('clicked: ' + key);
 			},
@@ -40,7 +40,7 @@ define(['marionette',
 		});
 
 		this.ui.contextMenuLeft.rup_contextMenu({
-			selector: '.contextMenu-left',
+			el: '.contextMenu-left',
 			trigger: 'left',
 			callback: function (key) {
 				window.alert('clicked: ' + key);
@@ -81,7 +81,7 @@ define(['marionette',
 		});
 
 		this.ui.contextMenuHover.rup_contextMenu({
-			selector: '#contextMenu-hover',
+			el: '#contextMenu-hover',
 			trigger: 'hover',
 			callback: function (key) {
 				window.alert('clicked: ' + key);
@@ -144,7 +144,7 @@ define(['marionette',
 		});
 
 		this.ui.contextMenuOther.rup_contextMenu({
-			selector: '.contextMenu-other',
+			el: '.contextMenu-other',
 			trigger: 'none',
 			build: function () {
 				return {

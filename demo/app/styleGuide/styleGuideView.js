@@ -2,7 +2,7 @@
 define(['marionette',
 	'./styleGuideTemplate.hbs', 'rup.button','rup.combo'], function(Marionette, StyleGuideTemplate){
 
-	var StyleGuideView = Marionette.LayoutView.extend({
+	var StyleGuideView = Marionette.View.extend({
 		template: StyleGuideTemplate,
 		ui:{
 			rupButtons: '.rup-button',

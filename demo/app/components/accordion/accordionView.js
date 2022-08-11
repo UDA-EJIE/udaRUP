@@ -9,7 +9,7 @@ define(['marionette',
 	// 'highlight-html',
 	'rup.accordion','rup.tabs','rup.button'], function(Marionette, ComponentLayoutTemplate, AccordionHtmlCodeTemplate, AccordionJsCodeTemplate, AccordionBodyView, AccordionTestView, ComponentExampleCodeView){
 
-	var AccordionView = Marionette.LayoutView.extend({
+	var AccordionView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -22,12 +22,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new AccordionBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new AccordionBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: AccordionHtmlCodeTemplate,
 			templateJs: AccordionJsCodeTemplate
 		}));
-		$view.Test.show(new AccordionTestView());
+		$view.showChildView('Test', new AccordionTestView());
 	}
 
 
