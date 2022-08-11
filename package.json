@@ -171,7 +171,7 @@
     "jquery-ui": "^1.13.2",
     "jquery-ui-dist": "^1.13.1",
     "jquery.scrollto": "^2.1.2",
-    "modernizr": "^3.7.1",
+    "modernizr": "^3.12.0",
     "natives": "^1.1.6",
     "printd": "^1.5.1",
     "qtip2": "^3.0.3",
