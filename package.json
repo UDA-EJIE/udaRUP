@@ -78,7 +78,7 @@
     "gulp-batch": "^1.0.5",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
-    "gulp-concat": "^2.6.0",
+    "gulp-concat": "^2.6.1",
     "gulp-css-wrap": "^0.1.2",
     "gulp-csslint": "^1.0.1",
     "gulp-declare": "^0.3.0",
