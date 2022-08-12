@@ -27,7 +27,7 @@
     "watch:fast": "gulp watch:fast",
     "demo": "webpack-dev-server --config=./demo/webpack.config.js",
     "test:karma": "karma start --single-run --no-auto-watch karma.conf.js",
-    "test:karma:dev": "karma start --reporters html,kjhtml karma.conf.js",
+    "test:karma:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
     "test": "run-s build test:karma",
     "test:dev": "run-s build test:karma:dev"
   },
