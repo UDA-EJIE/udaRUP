@@ -10,7 +10,7 @@
   "sasslintConfig": ".sasslintrc",
   "scripts": {
     "gulp:build": "gulp build",
-    "webpack:watch": "webpack --progress --colors --watch --env dev",
+    "webpack:watch": "webpack --progress --watch --env dev",
     "webpack:build": "webpack --env build",
     "webpack:dev": "webpack --env dev",
     "build": "run-s gulp:build webpack:dev webpack:build",
