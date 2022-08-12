@@ -4,37 +4,42 @@ const cleanCSS = require('gulp-clean-css');
 const cssWrap = require('gulp-css-wrap');
 const rename = require('gulp-rename');
 
-gulp.task('dist:x21a:clean', function () {
-    return gulp.src('../udaDemoApp/x21aStatics/WebContent/rup/', {allowEmpty: true})
-        .pipe(clean({force: true}));
-});
-
-gulp.task('dist:x21a:copy', function () {
-    return gulp.src('./dist/**/*.*')
-        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
-});
-
 gulp.task('dist:x21a', gulp.series(
-    'dist:x21a:clean',
-    'dist:x21a:copy'
+	dist_x21a_clean,
+	dist_x21a_copy
 ));
-
-gulp.task('dist:templates:clean', function () {
-    return gulp.src('../udaTemplates/templates/statics/rup/', {allowEmpty: true})
-        .pipe(clean({force: true}));
-});
-
-gulp.task('dist:templates:copy', function () {
-    return gulp.src('./dist/**/*.*')
-        .pipe(gulp.dest('../udaTemplates/templates/statics/rup/'));
-});
 
 gulp.task('dist:templates', gulp.series(
-    'dist:templates:clean',
-    'dist:templates:copy'
+	dist_templates_clean,
+	dist_templates_copy
 ));
 
-gulp.task('dist:portal', function (callback) {
+function dist_clean() {
+    return gulp.src('./dist/', {allowEmpty: true})
+        .pipe(clean({force: true}));
+};
+
+function dist_x21a_clean() {
+    return gulp.src('../udaDemoApp/x21aStatics/WebContent/rup/', {allowEmpty: true})
+        .pipe(clean({force: true}));
+};
+
+function dist_x21a_copy() {
+    return gulp.src('./dist/**/*.*')
+        .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
+};
+
+function dist_templates_clean() {
+    return gulp.src('../udaTemplates/templates/statics/rup/', {allowEmpty: true})
+        .pipe(clean({force: true}));
+};
+
+function dist_templates_copy() {
+    return gulp.src('./dist/**/*.*')
+        .pipe(gulp.dest('../udaTemplates/templates/statics/rup/'));
+};
+
+function dist_portal(callback) {
     gulp.src('./dist/css/rup.css')
         .pipe(cssWrap({
             selector: '.r01gContainer'
@@ -46,4 +51,13 @@ gulp.task('dist:portal', function (callback) {
     gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portal/cursors'));
     gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
     callback();
-});
+};
+
+module.exports = {
+	dist_clean,
+	dist_x21a_clean,
+	dist_x21a_copy,
+	dist_templates_clean,
+	dist_templates_copy,
+	dist_portal
+}

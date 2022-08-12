@@ -91,3 +91,45 @@ gulp.task('build:resources', function (callback) {
 
     callback();
 });
+
+function build_resources(callback) {
+    // Generamos la carpeta de distribuibles
+    console.log('Generando la carpeta de distribuibles...');
+
+    // dist/html
+    console.log('dist/html');
+    gulp.src(['./assets/html/**/*.*'])
+        .pipe(gulp.dest('dist/html'));
+
+    // dist/css/images
+    console.log('dist/css/images');
+    gulp.src(['./assets/images/**/*.*'])
+        .pipe(gulp.dest('./dist/css/images'));
+
+    // dist/css/cursors
+    console.log('dist/css/cursors');
+    gulp.src(['./assets/cursors/**/*.*'])
+        .pipe(gulp.dest('./dist/css/cursors'));
+
+    // dist/css/fonts
+    console.log('dist/css/fonts');
+    gulp.src(['./assets/fonts/*.*'])
+        .pipe(gulp.dest('./dist/css/fonts'))
+        .pipe(gulp.dest('./dist/portal/fonts'));
+
+    // resources
+    console.log('dist/resources');
+    gulp.src(['./i18n/*.json'])
+        .pipe(gulp.dest('./dist/resources'))
+        .pipe(gulp.dest('./demo/rup/resources'));
+
+    // Archivos fuentes
+    gulp.src(['./src/**/*'])
+        .pipe(gulp.dest('./dist/js/src'));
+
+    callback();
+};
+
+module.exports = {
+	build_resources
+}

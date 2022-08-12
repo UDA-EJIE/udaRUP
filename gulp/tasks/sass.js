@@ -8,7 +8,8 @@ const config = require('../config.js').config;
 gulp.task('sass:all', gulp.series(
 		sass_rupBase, 
 		sass_rupTheme, 
-		sass_rupJqueryuiTheme
+		sass_rupJqueryuiTheme,
+		sass_rupBootstrapMaterializado
 	));
 
 function sass_rupTheme(callback) {
@@ -35,6 +36,17 @@ function sass_rupJqueryuiTheme(callback) {
 
 function sass_rupBase(callback) {
 	gulp.src(config.dirs.sass + config.files.sass.rupClassicScss)
+		.pipe(sass.sync({
+			outputStyle: 'nested ',
+			precision: 8,
+		}).on('error', sass.logError))
+		.pipe(gulp.dest(config.dirs.buildCss));
+
+	callback();
+}
+
+function sass_rupBootstrapMaterializado(callback) {
+	gulp.src(config.dirs.sass + 'bootstrap-materializado/*.scss')
 		.pipe(sass.sync({
 			outputStyle: 'nested ',
 			precision: 8,

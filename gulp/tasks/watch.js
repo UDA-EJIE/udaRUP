@@ -1,5 +1,7 @@
 const gulp = require('gulp');
 const { sass_rupTheme, sass_rupJqueryuiTheme, sass_rupBase } = require('./sass.js');
+const { build_resources } = require('./build.js');
+const { dist_clean, dist_x21a_clean, dist_x21a_copy } = require('./dist.js');
 
 // WATCHES:sass
 
@@ -8,15 +10,12 @@ const { sass_rupTheme, sass_rupJqueryuiTheme, sass_rupBase } = require('./sass.j
 // });
 
 
-gulp.task('watch:src', gulp.series(
-		// 'watch:sass:bootstrap',
+gulp.task('watch:src', gulp.series([
 		watch_sass_rupBase,
 		watch_sass_rupTheme,
 		watch_sass_rupJqueryuiTheme,
-		watch_table,
-		watch_templates_rup
-		// 'watch:minimize:js:rup-classic'
-	));
+		watch_sass_rupBootstrapMaterializado
+	]));
 
 // Watches css
 
@@ -30,6 +29,10 @@ function watch_sass_rupTheme() {
 
 function watch_sass_rupJqueryuiTheme() {
 	gulp.watch(['./scss/rup-jqueryui-theme.scss', './scss/jquery-ui/*.scss'], gulp.series(sass_rupJqueryuiTheme));
+};
+
+function watch_sass_rupBootstrapMaterializado() {
+	gulp.watch('./scss/bootstrap-materializado/*.scss', gulp.series(sass_rupBootstrapMaterializado));
 };
 
 
@@ -98,12 +101,14 @@ gulp.task('watch:uglify:js:rup', function () {
 });
 
 // WATHCES: Dist
-gulp.task('watch:dist', function () {
-	gulp.watch(['./build/**/*.*'], gulp.series('dist:copy'));
+//gulp.task('watch:dist', function () {
+//	gulp.watch(['./build/**/*.*'], gulp.series('dist:copy'));
+//});
 
+gulp.task('watch:dist', async function() {
+	gulp.watch(['./src/**/*', './assets/*', './i18n/*.json'], gulp.series(dist_clean, build_resources));
 });
 
-gulp.task('watch:x21a', function () {
-	gulp.watch(['./dist/**/*.*'], gulp.series('dist:x21a'));
-
+gulp.task('watch:x21a', async function () {
+	gulp.watch(['./dist/**/*'], gulp.series(dist_x21a_clean, dist_x21a_copy));
 });
