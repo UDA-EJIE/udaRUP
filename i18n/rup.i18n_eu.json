@@ -528,6 +528,7 @@
   },
   "rup_utils": {
     "paramsError": "Aukeratutako parametroren bat 'null' edo 'undefined' da",
+    "illegalChar": "Karaktereren bat ez dago baimenduta.",
     "relToAbsUrlParamError": "<b style='color:red'>&#34",
     "relToAbsUrlParamErrorEnd": "&#34</b><br/> &#34$.rup_utils.relToAbsUrl&#34; funtzioaren url-a ez da zuzena",
     "relToAbsUrlParamFormatError": "&#34$.rup_utils.relToAbsUrl&#34; funtzioaren parametroa ez da zuzena.<br/>Url-a string-mota izan behar da."

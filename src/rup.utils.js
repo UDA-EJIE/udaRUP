@@ -336,7 +336,7 @@
 						pair[pair.length -1] = encodeURIComponent(pair[pair.length -1]);
 					}
 					else if (!allowAllCharacters) {
-						return false;
+						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_utils.illegalChar'));
 					}
 				}
 				value = decodeURIComponent(pair[pair.length -1]);
