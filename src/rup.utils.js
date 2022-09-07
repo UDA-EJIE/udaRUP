@@ -260,12 +260,13 @@
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
 		 * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
+		 * @param {boolean} [allowAllCharacters=false] - Habilita la posibilidad de incluir cualquier carácter en los campos.
 		 * @returns {object} - Objeto JSON creado a partir de la query string indicada.
 		 * @example
 		 * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
 		 * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
 		 */
-		queryStringToJson: function (queryString, serializerSplitter = '&') {
+		queryStringToJson: function (queryString, serializerSplitter = '&', allowAllCharacters = false) {
 
 			function setValue(root, path, value) {
 				if (path.length > 1) {
@@ -330,8 +331,13 @@
 				}
 				
 				name = decodeURIComponent(pair[0]);
-				if(pair[pair.length -1].includes("%")) {
-					return false;
+				if (pair[pair.length -1].includes("%")) {
+					if (allowAllCharacters && !pair[pair.length -1].includes("%25")) {
+						pair[pair.length -1] = encodeURIComponent(pair[pair.length -1]);
+					}
+					else if (!allowAllCharacters) {
+						return false;
+					}
 				}
 				value = decodeURIComponent(pair[pair.length -1]);
 

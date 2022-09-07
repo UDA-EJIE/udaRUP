@@ -732,7 +732,7 @@
 	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -795,7 +795,7 @@
 	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
