@@ -86,9 +86,9 @@
             } else if (typeof args.position === 'undefined') {
                 //deshabilitacion de toda la pestanya del nivel (de momento no se aplica por errores en el plug-in subyacente).
                 $('#' + args.idTab).tabs('disable');
-                var lengthTab = $('#' + args.idTab).find('.ui-tabs-nav li').size();
+                var lengthTab = $('#' + args.idTab).find('.ui-tabs-nav li').length;
                 for (var j = 1; j <= lengthTab; j++) {
-                    tab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + j + ')');
+                    tab = $('#' + args.idTab).find('.ui-tabs-nav li').eq(j);
                     this.trigger('disable', null, tab, $('#' + args.idTab));
 
                 }
@@ -116,14 +116,14 @@
             var tab;
 
             if (typeof args.position === 'number') {
-                tab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + args.position + ')');
+                tab = $('#' + args.idTab).find('.ui-tabs-nav li').eq(args.position);
 
 
                 $('#' + args.idTab).tabs('enable', args.position);
                 this.trigger('enable', null, tab, $('#' + args.idTab));
             } else if (typeof args.position === 'object') {
                 for (var i in args.position) {
-                    tab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + args.position[i] + ')');
+                    tab = $('#' + args.idTab).find('.ui-tabs-nav li').eq(args.position[i]);
 
                     $('#' + args.idTab).tabs('enable', args.position[i]);
                     this.trigger('enable', null, tab, $('#' + args.idTab));
@@ -131,9 +131,9 @@
             } else if (typeof args.position === 'undefined') {
                 //deshabilitacion de toda la pestanya del nivel (de momento no se aplica por errores en el plug-in subyacente).
                 $('#' + args.idTab).tabs('enable');
-                var lengthTab = $('#' + args.idTab).find('.ui-tabs-nav li').size();
+                var lengthTab = $('#' + args.idTab).find('.ui-tabs-nav li').length;
                 for (var j = 1; j <= lengthTab; j++) {
-                    tab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + j + ')');
+                    tab = $('#' + args.idTab).find('.ui-tabs-nav li').eq(j);
                     this.trigger('enable', null, tab, $('#' + args.idTab));
 
                 }
@@ -188,7 +188,7 @@
         changeUrlTab: function (args) {
             //$("#" + args.idTab).tabs("url", args.position, $.rup_utils.setNoPortalParam(args.url));
 
-            // $("#" + args.idTab + ' > ul > li:eq('+ args.position +')').attr('href',$.rup_utils.setNoPortalParam(args.url));
+            // $("#" + args.idTab + ' > ul > li').eq(args.position).attr('href',$.rup_utils.setNoPortalParam(args.url));
             // $("#" + args.idTab).tabs('load', args.position);
             this._changeUrlTab({
                 idTab: args.idTab,
@@ -251,7 +251,7 @@
 
             //limitacion de numero de pestañas abiertas
             if (args.maxNumberTabs !== undefined) {
-                var numPestanas = $('#' + args.idTab + ' li').size();
+                var numPestanas = $('#' + args.idTab + ' li').length;
                 //si sobrepasamos numero de pestañas lanzamos limitTabs
                 if (numPestanas + 1 > args.maxNumberTabs) {
                     $('#' + args.idTab).trigger('limitTabs');
@@ -329,11 +329,11 @@
 
             }
 
-            $('#' + args.idTab + ' ul:first li:nth-child(' + (args.position + 1) + ') a').attr('title', title).rup_tooltip({});
+            $('#' + args.idTab + ' ul').first().find('li:nth-child(' + (args.position + 1) + ') a').attr('title', title).rup_tooltip({});
 
 
             if (args.tabsAtBottom) {
-                var loadLi = $('#' + args.idTab + ' ul li:last').not('.rup-tabs_loading');
+                var loadLi = $('#' + args.idTab + ' ul li').last().not('.rup-tabs_loading');
                 loadLi.removeClass('ui-corner-top').addClass('ui-corner-botttom');
             }
 
@@ -341,7 +341,7 @@
             if (args.orientation !== undefined) {
                 pos = pos - 1;
             }
-            var loadSpan = $('#' + args.idTab + ' ul li a:eq(' + pos + ')');
+            var loadSpan = $('#' + args.idTab + ' ul li a').eq(pos);
             if (args.close === true) {
                 loadSpan.text('');
                 var texto = $.rup.i18nParse($.rup.i18n.app[$(this).attr('id')], args.label);
@@ -1061,11 +1061,11 @@
                     if ($('.stWidthChecker').children().length > 5) {
                         $nav.show();
                         //añade cierto margen  a la primera pestaña para hacerla visible si esta seleccionada
-                        $tabsNav.find('li:first').css('margin-left', $nav.find('.stPrev').outerWidth(true));
+                        $tabsNav.find('li').first().css('margin-left', $nav.find('.stPrev').outerWidth(true));
                     } else {
                         $nav.hide();
                         //elima el margen del primer elemento
-                        $tabsNav.find('li:first').css('margin-left', 0);
+                        $tabsNav.find('li').first().css('margin-left', 0);
                     }
                 })
             //Bind el evento de mover el scroll
@@ -1076,7 +1076,7 @@
                     var navWidth = $nav.is(':visible') ? $nav.find('.stPrev').outerWidth(true) : 0;
                     //debug($tabToScrollTo.prevAll().length)
 
-                    var offsetLeft = -($tabs.width() - ($tabToScrollTo.outerWidth(true) + navWidth + parseInt($tabsNav.find('li:last').css('margin-right'), 10)));
+                    var offsetLeft = -($tabs.width() - ($tabToScrollTo.outerWidth(true) + navWidth + parseInt($tabsNav.find('li').last().css('margin-right'), 10)));
                     offsetLeft = (clickedFrom == 'tabClicked' && hiddenOnSide == 'left') ? -navWidth : offsetLeft;
                     offsetLeft = (clickedFrom == 'tabClicked' && hiddenOnSide == 'right') ? offsetLeft : offsetLeft;
                     //debug(offsetLeft);
@@ -1125,7 +1125,7 @@
             if (args.url === undefined) {
                 args.url = '#';
             }
-            var previousTab = $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + (args.position - 1) + ')');
+            var previousTab = $('#' + args.idTab).find('.ui-tabs-nav li').eq(args.position - 1);
             if (args.orientation !== undefined) {
                 $('<li><a href=\'' + args.url + '\'>' + args.label + '</a></li>').insertBefore(previousTab);
             } else {
@@ -1139,7 +1139,7 @@
              * */
         _removeTab: function (args) {
             // Remove the tab
-            $('#' + args.idTab).find('.ui-tabs-nav li:eq(' + (args.position - 1) + ')').remove();
+            $('#' + args.idTab).find('.ui-tabs-nav li').eq(args.position - 1).remove();
 
             // Refresh the tabs widget
             $('#' + args.idTab).tabs('refresh');
@@ -1152,7 +1152,7 @@
             // if(args.idTab == 'mockTab') {
             // 	debugger;
             // }
-            var tab = $('#' + args.idTab).find('ul > li:eq(' + args.position + ') > a');
+            var tab = $('#' + args.idTab).find('ul > li').eq(args.position).find('> a');
             $(tab).attr('href', args.url);
         }
     }

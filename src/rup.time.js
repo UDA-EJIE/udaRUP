@@ -282,7 +282,7 @@
                 //$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
 
                 //Añadir imagen
-                $.proxy(self._ADAPTER.initIconTrigger, $self)(settings);
+                self._ADAPTER.initIconTrigger.bind($self)(settings);
 
                 //Ajuste para el comportamiento de portales
                 if ($.rup_utils.aplicatioInPortal() && !$self.is('div')) {

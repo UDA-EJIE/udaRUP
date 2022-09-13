@@ -2214,7 +2214,7 @@
             break;
         case 'delete':
         	let customEliminar = ctx.oInit.validarEliminar;
-        	if($.isFunction(customEliminar) && customEliminar(ctx)){
+        	if(typeof customEliminar === "function" && customEliminar(ctx)){
         		return false;
         	}
         	ctx.oInit.buttons.myLastAction = 'delete'

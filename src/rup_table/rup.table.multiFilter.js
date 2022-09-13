@@ -567,7 +567,7 @@
                 }
             });
             if (objeto !== undefined) {
-                var link = $('#' + ctx.sTableId + '_multifilter_combo_menu a:eq(' + count + ')');
+                var link = $('#' + ctx.sTableId + '_multifilter_combo_menu a').eq(count);
                 link.css('font-weight', 'bold');
             }
 
@@ -763,7 +763,7 @@
                     }
                 });
                 if (objeto !== undefined) {
-                    var link = $('#' + ctx.sTableId + '_multifilter_combo_menu a:eq(' + count + ')');
+                    var link = $('#' + ctx.sTableId + '_multifilter_combo_menu a').eq(count);
                     link.css('font-weight', 'bold');
                 }
             }
@@ -834,7 +834,7 @@
                 async: false,
                 success: function (data) {
                     // Añadimos a la lista todos los filtros del usuario
-                    listaFiltros = $.parseJSON(data);
+                    listaFiltros = JSON.parse(data);
                 }
             });
         }
@@ -867,13 +867,13 @@
         // por defecto"
         if (objFiltro.length !== 0) {
             settings.multiFilter.$defaultCheck.attr('checked', objFiltro[0].value);
-            var valorFiltro = $.parseJSON(objFiltro[0].data);
+            var valorFiltro = JSON.parse(objFiltro[0].data);
             var xhrArray = $.rup_utils.jsontoarray(valorFiltro);
         }
 
         if (valorFiltro === undefined && settings.multiFilter.$savedFilterName !== undefined &&
             settings.multiFilter.$savedFilterName === name) {
-            valorFiltro = $.parseJSON(settings.multiFilter.$savedFilterValue);
+            valorFiltro = JSON.parse(settings.multiFilter.$savedFilterValue);
         }
         
         // Si Hdiv está activado, incluye el parámetro _HDIV_STATE_ dentro del filtro

@@ -148,7 +148,7 @@
 
                             //función encargada de poner el icono y el literal de salida
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
@@ -162,7 +162,7 @@
 
                             //función encargada de poner el icono y el literal de desconexion
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
@@ -206,11 +206,11 @@
                 
                 //se le añade al ultimo elemento el estilo current
                 //$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
-                //$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
+                //$(ulBreadCrumb).find("li").last().addClass("rup-breadCrumb_current");
                 $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).addClass('rup-breadCrumb_current').find('img.rup-icon, span.mdi').remove();
                 //el último elemento no es navegable
-                //lastCrum = $("li:last a", ulBreadCrumb);
-                lastCrum = $('a:first', $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]));
+                //lastCrum = $(ulBreadCrumb).find("li").last().find("a");
+                lastCrum = $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).find('a').first();
 
                 lastCrum.replaceWith($('<span>').text(lastCrum.text()).css({
                     'font-weight': 'bold',
@@ -304,10 +304,10 @@
                 }
                 //añadimos al li padre el nuevo ul con todos li de los sublevels
                 createdLI.append(subLevelUL);
-                $(createdLI).bind('mouseover', function () {
-                    $(this).find('a:eq(1)').focus();
+                $(createdLI).on('mouseover', function () {
+                    $(this).find('a').eq(1).focus();
                 });
-                createdLI.bind('keydown', function (event) {
+                createdLI.on('keydown', function (event) {
                     switch (event.keyCode) {
                     case $.ui.keyCode.UP:
                         var enlaces = $(this).find('li > a');

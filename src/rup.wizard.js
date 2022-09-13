@@ -252,7 +252,7 @@
                 //Texto
                     .text($.rup.i18nParse($.rup.i18n.base, 'rup_wizard.prev'))
                 //Evento 'click'
-                    .unbind('click').click(function (event) {
+                    .off('click').click(function (event) {
                         //Paso anterior
                         rupWizard._gotoPrevStep(rupWizard, settings, event);
                     });
@@ -262,7 +262,7 @@
                 //Texto
                     .text($.rup.i18nParse($.rup.i18n.base, 'rup_wizard.next'))
                 //Evento 'click'
-                    .unbind('click').click(function (event) {
+                    .off('click').click(function (event) {
                         //Siguiente paso
                         rupWizard._gotoNextStep(rupWizard, settings, event);
                     });
@@ -274,13 +274,13 @@
                 }
 
                 //Estilos firstStep y finalStep
-                $('#steps li:first').addClass('rup-wizard_firstStepDesc');
-                $('#steps li:last').addClass('rup-wizard_lastStepDesc');
+                $('#steps li').first().addClass('rup-wizard_firstStepDesc');
+                $('#steps li').last().addClass('rup-wizard_lastStepDesc');
 
                 //Paso de RESUMEN
                 if (settings.summary) {
                     //Cabecera
-                    $('#steps li:last').removeClass('rup-wizard_lastStepDesc');
+                    $('#steps li').last().removeClass('rup-wizard_lastStepDesc');
                     var stepNumber = $('#steps').children().length,
                         stepDesc = $('<li>')
                             .attr('id', 'stepDesc' + stepNumber)
@@ -304,7 +304,7 @@
                             .attr('id', 'step' + (stepNumber - 1) + 'Next')
                             .html($.rup.i18nParse($.rup.i18n.base, 'rup_wizard.next'))
                             .addClass('rup-wizard_next')
-                            .unbind('click').click(function (event) {
+                            .off('click').click(function (event) {
                                 //Siguiente paso
                                 rupWizard._gotoNextStep(rupWizard, settings, event);
                                 //Resumen
@@ -439,12 +439,12 @@
             $('#step' + stepNumber + ' p[id$=\'commands\']').remove();
 
             //Botón anterior
-            $('div[id=\'step' + (stepNumber) + '\'] fieldset:last').append('<p id=\'step' + stepNumber + 'commands\'></p>');
+            $('div[id=\'step' + (stepNumber) + '\'] fieldset').last().append('<p id=\'step' + stepNumber + 'commands\'></p>');
             var prevButton = $('<a>')
                 .attr('id', 'step' + stepNumber + 'Prev')
                 .html($.rup.i18nParse($.rup.i18n.base, 'rup_wizard.prev'))
                 .addClass('rup-wizard_prev')
-                .unbind('click').click(function (event) {
+                .off('click').click(function (event) {
                     //Paso anterior
                     rupWizard._gotoPrevStep(rupWizard, settings, event);
                 });
@@ -844,7 +844,7 @@
                 var stepName = 'step' + i;
                 $('#' + stepName + 'commands').append('<a id=\'' + stepName + 'Prev\' class=\'prev\'>< Back</a>');
 
-                $('#' + stepName + 'Prev').bind('click', function (e) {
+                $('#' + stepName + 'Prev').on('click', function (e) {
                     $('#' + stepName).hide();
                     $('#step' + (i - 1)).show();
                     $(submmitButtonName).hide();
@@ -857,7 +857,7 @@
                 var stepName = 'step' + i;
                 $('#' + stepName + 'commands').append('<a id=\'' + stepName + 'Next\' class=\'next\'>Next ></a>');
 
-                $('#' + stepName + 'Next').bind('click', function (e) {
+                $('#' + stepName + 'Next').on('click', function (e) {
                     $('#' + stepName).hide();
                     $('#step' + (i + 1)).show();
                     if (i + 2 == count)

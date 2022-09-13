@@ -184,7 +184,7 @@
 		// $pagina
 
 		function doLinkNavigation(linkId, $link) {
-			$.proxy(settings.fncGetNavigationParams, $self)(linkId);
+			settings.fncGetNavigationParams.bind($self)(linkId);
 		}
 
 		$firstPaginationLink.on('click', function () {

@@ -810,8 +810,8 @@
         _selectLabel: function (selector, param) {
             var $option;
             for (let i = 0; i < $('option', selector).length; i = i + 1) {
-                $option = jQuery('option:eq(' + i + ')', selector);
-                if (jQuery('option:eq(' + i + ')', selector).text() === param) {
+                $option = jQuery(selector).find('option').eq(i);
+                if (jQuery(selector).find('option').eq(i).text() === param) {
                     $(selector).selectmenu('index', $option.prop('index'));
                     return true;
                 }
@@ -921,7 +921,7 @@
             let text;
             let array = data;
             if(isParent){// Si es padre llamar a la recursividad
-            	if($.isArray(data)){
+            	if(Array.isArray(data)){
             		data = data[0];
             	}
             	$.each(data, function (key, value) {
@@ -1469,7 +1469,7 @@
 	                
 	
 	                // Asociar evento CHANGE para propagar cambios a los hijos
-	                $('#' + settings.id).bind('change', function () {
+	                $('#' + settings.id).on('change', function () {
 	                    
 	                });
 	                

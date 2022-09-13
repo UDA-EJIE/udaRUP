@@ -72,11 +72,11 @@
                 }
 
                 // highlight active parent menu item, if any
-                this.active.parent().closest('.ui-menu-item').children('a:first').addClass('ui-state-active');
+                this.active.parent().closest('.ui-menu-item').children('a').first().addClass('ui-state-active');
 
                 if (this.active.children('a').hasClass('ui-state-active')) {
                     this.active.children('a').removeClass('ui-state-active');
-                    if (this.active.find('[aria-expanded = \'true\']').size() > 1) {
+                    if (this.active.find('[aria-expanded = \'true\']').length > 1) {
                         this._close(lastActive);
                     }
                 } else {
@@ -107,11 +107,11 @@
                     })
                     // need to catch all clicks on disabled menu
                     // not possible through _bind
-                    .bind('click.menu', $.proxy(function (event) {
+                    .on('click.menu', function (event) {
                         if (this.options.disabled) {
                             event.preventDefault();
                         }
-                    }, this));
+                    }.bind(this));
 
                 if (this.options.disabled) {
                     this.element.addClass('ui-state-disabled');
@@ -130,7 +130,7 @@
                         var target = $(event.currentTarget);
                         // Don't select disabled menu items
                         if ((target.attr('rupMenu_firsLevel') === 'true')) {
-                            if (target.children('[aria-expanded = \'true\']').size() > 0) {
+                            if (target.children('[aria-expanded = \'true\']').length > 0) {
                                 this._close(target);
                             } else {
                                 this.focus(event, target);
@@ -180,7 +180,7 @@
 
                 var position = $.extend({}, {
                     of: this.active
-                }, $.type(this.options.position) === 'function' ?
+                }, typeof this.options.position === 'function' ?
                     this.options.position(this.active) :
                     this.options.position
                 );
@@ -259,7 +259,7 @@
                 $(event.currentTarget).attr('rup_menu_click', 'true');
 
                 event.stopPropagation();
-                var horizontal = (($(event.currentTarget).hasClass('rup_menu_horizontal')) && ($(event.currentTarget).find('.ui-state-focus').size() === 0)) || ($(event.currentTarget).find('.ui-state-focus').children().hasClass('rup_menu_horizontal_children_entry'));
+                var horizontal = (($(event.currentTarget).hasClass('rup_menu_horizontal')) && ($(event.currentTarget).find('.ui-state-focus').length === 0)) || ($(event.currentTarget).find('.ui-state-focus').children().hasClass('rup_menu_horizontal_children_entry'));
 
                 function escape(value) {
                     return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -384,10 +384,10 @@
                             event.stopImmediatePropagation();
                             event.preventDefault();
                             var grandParent = principalParent.parent();
-                            var nextObject = grandParent.nextAll('[role=\'presentation\']:not(.ui-state-disabled):first');
+                            var nextObject = grandParent.nextAll('[role=\'presentation\']:not(.ui-state-disabled)').first();
                             while (nextObject.length === 0) {
                                 grandParent = grandParent.parent();
-                                nextObject = grandParent.parent().nextAll('[role=\'presentation\']:not(.ui-state-disabled):first');
+                                nextObject = grandParent.parent().nextAll('[role=\'presentation\']:not(.ui-state-disabled)').first();
                             }
                             nextObject.children('a').focus();
                         }
@@ -493,7 +493,7 @@
                         target.siblings().children('.ui-state-active').removeClass('ui-state-active');
 
                         if ((target.offset().left + target.width() > event.pageX) && ((target.offset().top + $('#' + this.menuId).height() > event.pageY) || (target.offset().top + target.height() > event.pageY))) {
-                            if (($('#' + target.children('a').attr('id') + ':focus').size() <= 0)) {
+                            if (($('#' + target.children('a').attr('id') + ':focus').length <= 0)) {
                                 $('#' + target.children('a').attr('id')).focus();
                                 $('#' + target.children('a').attr('id')).focus();
                             } else {
@@ -537,7 +537,7 @@
                     delete event.target;
                     event.type = 'click';
                     if (this.data.ui.hovered) {
-                        this.data.ui.hovered.children('a:eq(0)').trigger(event);
+                        this.data.ui.hovered.children('a').eq(0).trigger(event);
                     }
                     return false;
                 },
@@ -545,7 +545,7 @@
                     delete event.target;
                     event.type = 'click';
                     if (this.data.ui.hovered) {
-                        this.data.ui.hovered.children('a:eq(0)').trigger(event);
+                        this.data.ui.hovered.children('a').eq(0).trigger(event);
                     }
                     return false;
                 }

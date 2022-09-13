@@ -239,7 +239,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      * @property {boolean | number | String | Object}   [animate ={}]   - Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico).
      * @property {boolean }[collapsible=false] - Parámetro que habilita la posibilidad de que todas las secciones del Accordion estén cerradas a la vez.
      * @property {String} [event='click'] - Determina el tipo de evento necesario para que cada una de las secciones sea habilitada o deshabilitada.
-     * @property {selector}[header="> li > :first-child,> :not(li):even"] -  Selector que determina el objeto cabecera de cada una de las secciones del Accordion. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el Accordion.
+     * @property {selector}[header=function( elem ) { return elem.find( "> li > :first-child" ).add( elem.find( "> :not(li)" ).even() ); }] -  Selector que determina el objeto cabecera de cada una de las secciones del Accordion. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el Accordion.
      * @property {Object} [icons='{"header": "ui-icon-triangle-1-e","activeHeader": "ui-icon-triangle-1-s"}'] - Parámetro estructural que determina el icono utilizado para indicar el estado de sección abierta o cerrada. Se puede especificar tanto uno como otro como los dos. Por defecto se usan los iconos nativos del propio de JQuery-UI.
      *
      */

@@ -82,8 +82,8 @@
             var returnArray = jQuery.map(selectedItems, function (item) {
                 var $item = jQuery(item);
 
-                if (jQuery.isFunction(settings.core.getValue)) {
-                    return jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
+                if (typeof settings.core.getValue === "function") {
+                    return settings.core.getValue.bind($self)($item, $item.data());
                 }
 
                 tmpId = $item.attr('id');
@@ -125,8 +125,8 @@
 
                 jQuery.each($items, function (index, item) {
                     $item = jQuery(item);
-                    if (jQuery.isFunction(settings.core.getValue)) {
-                        itemValue = jQuery.proxy(settings.core.getValue, $self)($item, $item.data());
+                    if (typeof settings.core.getValue === "function") {
+                        itemValue = settings.core.getValue.bind($self)($item, $item.data());
                     } else {
                         tmpId = $item.attr('id');
                         itemValue = tmpId ? tmpId : $item.text();
@@ -411,28 +411,28 @@
                     settings.plugins[settings.plugins.length] = 'crrm';
 
                     //Se añaden los evento para gestionar el objeto cortado
-                    selectorSelf.bind('cut.jstree', $.proxy(function (event, eventArgs) {
+                    selectorSelf.on('cut.jstree', function (event, eventArgs) {
                         $(this).find('.rup_tree_cutNode.ui-state-disabled').removeClass('rup_tree_cutNode ui-state-disabled');
                         eventArgs.args[0].children('a').addClass('rup_tree_cutNode ui-state-disabled');
-                    }, this));
-                    selectorSelf.bind('copy.jstree', $.proxy(function () {
+                    }.bind(this));
+                    selectorSelf.on('copy.jstree', function () {
                         $(this).find('.rup_tree_cutNode.ui-state-disabled').removeClass('rup_tree_cutNode ui-state-disabled');
-                    }, this));
-                    selectorSelf.bind('paste.jstree', $.proxy(function () {
+                    }.bind(this));
+                    selectorSelf.on('paste.jstree', function () {
                         $(this).find('.rup_tree_cutNode.ui-state-disabled').removeClass('rup_tree_cutNode ui-state-disabled');
-                    }, this));
+                    }.bind(this));
                 }
 
                 if (settings.hotkeys === undefined || settings.hotkeys.enable !== false) {
                     settings.plugins[settings.plugins.length] = 'hotkeys';
 
                     if (settings.crrm === undefined || settings.crrm.enable !== false) {
-                        jQuery.jstree.defaults.hotkeys.esc = $.proxy(function (event) {
+                        jQuery.jstree.defaults.hotkeys.esc = function (event) {
                             if (event.target.tagName === 'BODY') {
                                 $(this).jstree('cleanCut');
                                 $(this).find('.rup_tree_cutNode.ui-state-disabled').removeClass('rup_tree_cutNode ui-state-disabled');
                             }
-                        }, this);
+                        }.bind(this);
                     }
                 }
 
@@ -500,9 +500,9 @@
 
                     //Se ajusta el jsTree a la convivencia con portales
                     if ($.rup_utils.aplicatioInPortal()) {
-                        this.get_container().bind('loaded.jstree', $.proxy(function () {
+                        this.get_container().on('loaded.jstree', function () {
                             $(this).jstree('types_portal_css');
-                        }, this));
+                        }.bind(this));
                     }
                 }
 
@@ -535,10 +535,10 @@
                 selectorSelf.jstree(settings);
 
                 //Evento de inicializacion
-                selectorSelf.bind('loaded.jstree', $.proxy(function () {
+                selectorSelf.on('loaded.jstree', function () {
                     //Una vez creado, se libera la visualización del componente
                     this.removeClass('rup_tree');
-                }, this));
+                }.bind(this));
 
                 //Se ajustan los estilos por defecto
                 if (settings.themeroller === undefined && !settings.themes.theme) {
@@ -583,7 +583,7 @@
             for (var i in settings) {
                 aux = i.split('_event');
                 if (aux.length > 1) {
-                    this.bind(aux[0] + '.jstree', settings[i]);
+                    this.on(aux[0] + '.jstree', settings[i]);
                 }
             }
         }
@@ -668,7 +668,7 @@
                 delete event.target;
                 event.type = 'click';
                 if (this.data.ui.hovered) {
-                    this.data.ui.hovered.children('a:eq(0)').trigger(event);
+                    this.data.ui.hovered.children('a').eq(0).trigger(event);
                 }
                 return false;
             },
@@ -676,7 +676,7 @@
                 delete event.target;
                 event.type = 'click';
                 if (this.data.ui.hovered) {
-                    this.data.ui.hovered.children('a:eq(0)').trigger(event);
+                    this.data.ui.hovered.children('a').eq(0).trigger(event);
                 }
                 return false;
             }

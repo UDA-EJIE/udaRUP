@@ -175,7 +175,7 @@
                         primary: 'ui-icon-circle-arrow-e'
                     }
                 })
-                .bind('click.' + ns, function (e) {
+                .on('click.' + ns, function (e) {
                     e.preventDefault();
                     filesList.find('.start button').click();
                 });
@@ -185,7 +185,7 @@
                         primary: 'ui-icon-cancel'
                     }
                 })
-                .bind('click.' + ns, function (e) {
+                .on('click.' + ns, function (e) {
                     e.preventDefault();
                     filesList.find('.cancel button').click();
                 });
@@ -195,14 +195,14 @@
                         primary: 'ui-icon-trash'
                     }
                 })
-                .bind('click.' + ns, function (e) {
+                .on('click.' + ns, function (e) {
                     e.preventDefault();
                     //	                filesList.find('.delete input:checked')
                     //	                    .siblings('button').click();
                     filesList.find('.delete button').click();
                 });
             fileUploadButtonBar.find('.toggle')
-                .bind('change.' + ns, function () {
+                .on('change.' + ns, function () {
                     filesList.find('.delete input').prop(
                         'checked',
                         $(this).is(':checked')
@@ -336,7 +336,7 @@
                 fileuploadadd: function () {
                     if (settings.submitInForm) {
                         $(this).find('.template-upload').hide();
-                        $(this).find('.template-upload .cancel button').unbind('click');
+                        $(this).find('.template-upload .cancel button').off('click');
                         $(this).find('.template-upload .cancel button').click();
                     }
                 },
@@ -374,10 +374,10 @@
         uploadTemplateId: false,
         downloadTemplateId: false,
         uploadTemplate: function (o) {
-            return $.proxy(o.options.self._ADAPTER.uploadTemplate, this)(o);
+            return o.options.self._ADAPTER.uploadTemplate.bind(this)(o);
         },
         downloadTemplate: function (o) {
-            return $.proxy(o.options.self._ADAPTER.downloadTemplate, this)(o);
+            return o.options.self._ADAPTER.downloadTemplate.bind(this)(o);
         },
         // By default, the file input field is replaced with a clone after
         // each input field change event. This is required for iframe transport

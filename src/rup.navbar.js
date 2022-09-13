@@ -211,7 +211,7 @@
                 $(this).parent().siblings().each(function (i, e) {
                     if (i < end) {
                         if ($(e).children('.dropdown-menu').length > 0) {
-                            menuScrollPos += $(e).children('.dropdown-item:first').outerHeight(true);
+                            menuScrollPos += $(e).children('.dropdown-item').first().outerHeight(true);
                         } else {
                             menuScrollPos += $(e).outerHeight(true);
                         }

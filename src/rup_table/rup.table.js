@@ -537,7 +537,7 @@
 
                             // Devolvemos el foco al elemento
                             input.on('mousedown', function (event) {
-                                $(this).unbind(event.preventDefault());
+                                $(this).off(event.preventDefault());
                                 input.focus();
                             });
                         });
@@ -565,7 +565,7 @@
 
                     var value = data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"></ul>').append(data) : false;
                     var ctx = api.context[0];
-                    var $row = $('#' + ctx.sTableId + ' tbody tr:not(.child):eq(' + rowIdx + ')');
+                    var $row = $('#' + ctx.sTableId + ' tbody tr:not(.child)').eq(rowIdx);
                     if ($row.hasClass('editable')) {
                         DataTable.Api().inlineEdit.inResponsiveChangeInputsValues(ctx, $row);
                         if (ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'cambioEstado') {
@@ -785,7 +785,7 @@
                     }
 
                     if (ctx.oInit.inlineEdit !== undefined) {
-                        if (ctx.oInit.inlineEdit.alta && !$('#' + ctx.sTableId + ' tbody tr:eq(0)').hasClass('new')) {
+                        if (ctx.oInit.inlineEdit.alta && !$('#' + ctx.sTableId + ' tbody tr').eq(0).hasClass('new')) {
                             ret.data = DataTable.Api().inlineEdit.createTr(table, ctx, ret.data);
                         } else {
                             ctx.oInit.inlineEdit.alta = undefined;
@@ -911,7 +911,7 @@
                     if (e.which === 13) // the enter key code
                     {
                         var page = parseInt(this.value);
-                        if ($.isNumeric(page) && page > 0) {
+                        if ($.rup_utils.isNumeric(page) && page > 0) {
                             tabla.dataTable().fnPageChange(page - 1);
                         }
                         return false;
@@ -1085,7 +1085,7 @@
                 filterOpts.$filterButton = filterOpts.$filterContainer.find('#' + tableId + '_filter_filterButton');
                 filterOpts.$filterButton.on('click', function () {
                     let customFiltrar = options.validarFiltrar;
-                    if ($.isFunction(customFiltrar) && customFiltrar(options)) {
+                    if (typeof customFiltrar === "function" && customFiltrar(options)) {
                         return false;
                     }
                     $self._doFilter(options);
@@ -1121,10 +1121,10 @@
                 filterOpts.$toggleIcon2 = $toggleIcon2;
                 
                 // Se asigna a la tecla ENTER la función de búsqueda
-                filterOpts.$collapsableLayer.bind('keydown', function (evt) {
+                filterOpts.$collapsableLayer.on('keydown', function (evt) {
                     if (evt.keyCode === 13) {
                         let customFiltrar = options.validarFiltrar;
-                        if ($.isFunction(customFiltrar) && customFiltrar(options)) {
+                        if (typeof customFiltrar === "function" && customFiltrar(options)) {
                             return false;
                         }
                         $self._doFilter(options);
@@ -1376,8 +1376,8 @@
             }
 
             //Añadir criterios
-            if (settings.multiFilter !== undefined && jQuery.isFunction(settings.multiFilter.fncFilterName)) {
-                searchString = jQuery.proxy(settings.multiFilter.fncFilterName, $self, searchString)();
+            if (settings.multiFilter !== undefined && typeof settings.multiFilter.fncFilterName === "function") {
+                searchString = settings.multiFilter.fncFilterName.bind($self, searchString)();
             }
 
             settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
@@ -1597,8 +1597,7 @@
                         },
                         success: function (data) {
                             if (data != null) {
-                                var valorFiltro = $
-                                    .parseJSON(data.filterValue);
+                                var valorFiltro = JSON.parse(data.filterValue);
 
 
                                 DataTable.Api().multiFilter.fillForm(valorFiltro, ctx);

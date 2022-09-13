@@ -138,8 +138,8 @@
                         window.open(encodeURI(settings.alternateDownloadURL), '_blank');
                     }
 
-                    if (jQuery.isFunction(settings.fncErrorOnEditOnline)){
-                        jQuery.proxy(settings.fncErrorOnEditOnline)(settings);
+                    if (typeof settings.fncErrorOnEditOnline === "function"){
+                        settings.fncErrorOnEditOnline.bind(settings);
                     }
                 }
             }
@@ -158,8 +158,8 @@
                     window.open(encodeURI(settings.alternateDownloadURL), '_blank');
                 }
 
-                if (jQuery.isFunction(settings.fncErrorOnEditOnline)){
-                    jQuery.proxy(settings.fncErrorOnEditOnline)(settings);
+                if (typeof settings.fncErrorOnEditOnline === "function"){
+                    settings.fncErrorOnEditOnline.bind(settings);
                 }
 
             }
