@@ -15,6 +15,7 @@ gulp.task('clean', function () {
 
 gulp.task('build', gulp.series(
     'clean',
+    'modernizr',
     'build:resources',
     'build:js'
 ));

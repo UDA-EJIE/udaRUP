@@ -7,34 +7,31 @@ const deleteLines = require('gulp-delete-lines');
 const fs = require('fs');
 const concat = require('gulp-concat');
 const wrap = require('gulp-wrap');
-const minimizeConf = JSON.parse(fs.readFileSync('./minimizeConf.json'));
+const modernizr = require('gulp-modernizr');
 
-gulp.task('rup:build:table', function () {
-    console.log('Minimizando RUP Table...');
-    return gulp.src(minimizeConf.rupTableFiles, {
-        cwd: 'src'
-    })
-        .pipe(concat('rup.jqtable.js'))
-        .pipe(wrap(`
-        ( function( factory ) {
-         if ( typeof define === "function" && define.amd ) {
-
-            // AMD. Register as an anonymous module.
-            define( ["jquery","./rup.base","./rup.form", "./rup.contextMenu", "./rup.toolbar","./rup.report","./core/utils/form2object"], factory );
-         } else {
-
-            // Browser globals
-            factory( jQuery );
-         }
-        } ( 
-            function( $ ) {
-               initRupI18nPromise.then(() => {
-                  <%= contents %>
-               });
-            })
-        );
-        `))
-        .pipe(gulp.dest('src'));
+gulp.task('modernizr', function() {
+	return gulp.src('./src/**/*.js')
+		.pipe(modernizr('modernizr.js', {
+			minify: false,
+			options: [
+				'addTest',
+				'atRule',
+				'domPrefixes',
+				'hasEvent',
+				'html5shiv',
+				'html5printshiv',
+				'load',
+				'mq',
+				'prefixed',
+				'prefixes',
+				'prefixedCSS',
+				'setClasses',
+				'testAllProps',
+				'testProp',
+				'testStyles'
+			]
+		}))
+		.pipe(gulp.dest('./src/external'))
 });
 
 gulp.task('build:js', gulp.series(

@@ -24,7 +24,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.utils','./adapter/rup.adapter'], factory);
+        define(['jquery', './rup.utils','./adapter/rup.adapter', './external/modernizr'], factory);
     } else {
 
         // Browser globals
