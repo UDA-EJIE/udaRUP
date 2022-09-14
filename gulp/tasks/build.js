@@ -7,6 +7,32 @@ const deleteLines = require('gulp-delete-lines');
 const fs = require('fs');
 const concat = require('gulp-concat');
 const wrap = require('gulp-wrap');
+const modernizr = require('gulp-modernizr');
+
+gulp.task('modernizr', function() {
+	return gulp.src('./src/**/*.js')
+		.pipe(modernizr('modernizr.js', {
+			minify: false,
+			options: [
+				'addTest',
+				'atRule',
+				'domPrefixes',
+				'hasEvent',
+				'html5shiv',
+				'html5printshiv',
+				'load',
+				'mq',
+				'prefixed',
+				'prefixes',
+				'prefixedCSS',
+				'setClasses',
+				'testAllProps',
+				'testProp',
+				'testStyles'
+			]
+		}))
+		.pipe(gulp.dest('./src/external'))
+});
 
 gulp.task('build:js', gulp.series(
     'templates',
