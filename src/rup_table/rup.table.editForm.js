@@ -483,7 +483,9 @@
     						}
     					} else if (column.rupType == 'autocomplete') {
     						// Establece el valor por defecto.
-    						column.editoptions.defaultValue = row[column.name];
+    						if (row !== undefined) {
+    							column.editoptions.defaultValue = row[column.name];
+    						}
     						
     						if (column.editoptions.menuAppendTo === undefined) {
     							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
