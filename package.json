@@ -143,7 +143,7 @@
     "requirejs": "^2.3.2",
     "run-sequence": "^1.2.2",
     "sass-lint": "^1.13.1",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^10.3.1",
     "sass-module-importer": "^1.2.1",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^2.3.8",
