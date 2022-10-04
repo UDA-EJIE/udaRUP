@@ -51,7 +51,7 @@
     "@babel/preset-env": "^7.18.10",
     "@mdi/font": "^4.9.95",
     "acorn": "^8.8.0",
-    "autoprefixer": "^8.6.5",
+    "autoprefixer": "^10.4.12",
     "babel-loader": "^8.2.5",
     "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
     "babel-plugin-transform-remove-strict-mode": "^0.0.2",
