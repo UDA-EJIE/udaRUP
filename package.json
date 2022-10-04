@@ -138,7 +138,7 @@
     "postcss": "^8.4.14",
     "postcss-loader": "^4.3.0",
     "precss": "^2.0.0",
-    "pump": "^1.0.1",
+    "pump": "^3.0.0",
     "require-dir": "^0.3.2",
     "requirejs": "^2.3.2",
     "run-sequence": "^1.2.2",
