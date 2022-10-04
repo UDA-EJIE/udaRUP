@@ -4,7 +4,7 @@ define(['marionette',
     './toolbarTestTemplate.hbs',
     'rup.toolbar'], function(Marionette, ToolbarTestTemplate){
 
-    var ToolbarTestView = Marionette.LayoutView.extend({
+    var ToolbarTestView = Marionette.View.extend({
         template: ToolbarTestTemplate,
         ui:{
             toolbar: '#toolbar',

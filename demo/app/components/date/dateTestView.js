@@ -2,7 +2,7 @@ define(['marionette',
 	'./dateTestTemplate.hbs',
 	'rup.date'], function (Marionette, DateTestTemplate) {
 
-	var DateTestView = Marionette.LayoutView.extend({
+	var DateTestView = Marionette.View.extend({
 		template: DateTestTemplate,
 		openDate: fncOpenDate,
 		openDateMultiple: fncOpenDateMultiple,

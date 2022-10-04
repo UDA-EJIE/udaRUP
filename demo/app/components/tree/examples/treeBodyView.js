@@ -2,7 +2,7 @@ define(['marionette',
 	'./treeBodyTemplate.hbs',
 	'rup.tree'], function(Marionette, TreeBodyTemplate){
 
-	var TreeBodyView = Marionette.LayoutView.extend({
+	var TreeBodyView = Marionette.View.extend({
 		template: TreeBodyTemplate
 	});
 

@@ -2,7 +2,7 @@ define(['marionette',
 	'./accordionTestTemplate.hbs',
 	'rup.accordion','rup.button'], function(Marionette, AccordionTestTemplate){
 
-	var AccordionTestView = Marionette.LayoutView.extend({
+	var AccordionTestView = Marionette.View.extend({
 		template: AccordionTestTemplate,
 		ui:{
 			accordion: '.rup_accordion',

@@ -4,7 +4,7 @@ define(['marionette',
 
 	'rup.dashboard','rup.button','rup.message' ], function(Marionette, App, DashboardService){
 
-	var DashboardView = Marionette.LayoutView.extend({
+	var DashboardView = Marionette.View.extend({
 		template: App.Templates.demo.app.dashboard.dashboardTemplate,
 		gridOptions: {
 			verticalMargin: 10,
@@ -325,7 +325,7 @@ define(['marionette',
 //         '../shared/component/componentExampleCodeView',
 //         'rup.message','rup.tabs'], function(Marionette, App, DashboardBodyView, DashboardTestView, ComponentExampleCodeView){
 //
-//   var DashboardView = Marionette.LayoutView.extend({
+//   var DashboardView = Marionette.View.extend({
 //       template: App.Templates.demo.app.shared.component.componentLayoutTemplate,
 //       regions:{
 //         Main: "#componentMainBody",
@@ -338,12 +338,12 @@ define(['marionette',
 //   function fncOnRender(){
 //     var $view = this;
 //
-//     $view.Main.show(new DashboardBodyView());
-//     $view.Example.show(new ComponentExampleCodeView({
+//     $view.showChildView('Main', new DashboardBodyView());
+//     $view.showChildView('Example', new ComponentExampleCodeView({
 //       templateHtml: App.Templates.demo.app.dashboard.dashboardHtmlCodeTemplate,
 //       templateJs: App.Templates.demo.app.dashboard.dashboardJsCodeTemplate
 //     }));
-//     $view.Test.show(new DashboardTestView());
+//     $view.showChildView('Test', new DashboardTestView());
 //   }
 //
 //   return DashboardView;

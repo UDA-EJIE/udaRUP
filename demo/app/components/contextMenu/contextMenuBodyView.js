@@ -2,7 +2,7 @@ define(['marionette',
 	'./contextMenuBodyTemplate.hbs',
 	'rup.contextMenu'], function(Marionette, ContextMenuBodyTemplate){
 
-	var ContextMenuBodyView = Marionette.LayoutView.extend({
+	var ContextMenuBodyView = Marionette.View.extend({
 		template: ContextMenuBodyTemplate
 
 	});

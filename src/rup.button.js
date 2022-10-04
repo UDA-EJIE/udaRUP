@@ -180,7 +180,7 @@
             return boton;
         },
         _setKeyDown: function (boton) {
-            boton.bind('keydown', function (event) {
+            boton.on('keydown', function (event) {
                 var object = $(event.currentTarget),
                     objectParent = object.parent(),
                     nextObject;
@@ -192,11 +192,11 @@
                             nextObject = object.next(':focusable');
                         } else {
                             //Primer botón de los alineados derecha
-                            nextObject = object.next().children(':focusable:first');
+                            nextObject = object.next().children(':focusable').first();
                         }
 
                         //Navegar entre botones
-                        if (nextObject.size() === 1) {
+                        if (nextObject.length === 1) {
                             nextObject.focus();
                             $.rup_toolbar.focusedExternally[objectParent.attr('id')] = true;
                             return false;
@@ -273,7 +273,7 @@
                 }
 
                 // Se gestiona el evento del click
-                if (settings.click && $.isFunction(settings.click)) {
+                if (settings.click && typeof settings.click === "function") {
                     $self.on('click', settings.click);
                 }
 
@@ -324,7 +324,7 @@
                     $self.addClass('rup-dropdown');
 
 
-                    var $dropdownButton = $.proxy(self._ADAPTER.createDropdownButton, $self)(settings);
+                    var $dropdownButton = self._ADAPTER.createDropdownButton.bind($self)(settings);
 
                     $self.after($dropdownButton);
 

@@ -2,7 +2,7 @@ define(['marionette',
 	'./autocompleteTestTemplate.hbs',
 	'rup.autocomplete','rup.button'], function(Marionette, AutocompleteTestTemplate){
 
-	var AutocompleteTestView = Marionette.LayoutView.extend({
+	var AutocompleteTestView = Marionette.View.extend({
 		template: AutocompleteTestTemplate,
 		ui:{
 			autocompleteLocal: '#autocomplete',

@@ -15,7 +15,7 @@ $.fn.numeric = function(decimal, callback)
 	callback = typeof callback == "function" ? callback : function(){};
 	var campo = $(this);
 
-	this.bind('paste', function(e) {
+	this.on('paste', function(e) {
 		setTimeout(function() {
 			var valorCampo = campo.val();
 			if (decimal===""){
@@ -131,7 +131,7 @@ $.fn.numeric.blur = function()
 
 $.fn.removeNumeric = function()
 {
-	return this.data("numeric.decimal", null).data("numeric.callback", null).unbind("keypress", $.fn.numeric.keypress).unbind("blur", $.fn.numeric.blur);
+	return this.data("numeric.decimal", null).data("numeric.callback", null).off("keypress", $.fn.numeric.keypress).off("blur", $.fn.numeric.blur);
 };
 
 }));

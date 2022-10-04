@@ -144,7 +144,7 @@
                 jQuery('#prvButton').hide();
             }
             //bindings de los clicks
-            jQuery('#ui-carousel-next').bind('click', function () {
+            jQuery('#ui-carousel-next').on('click', function () {
                 jQuery('#' + settings.id).rcarousel('next');
                 var pagActual = jQuery('#' + settings.id).rcarousel('getCurrentPage');
                 var pagTotal = jQuery('#' + settings.id).rcarousel('getTotalPages');
@@ -155,7 +155,7 @@
                 jQuery('#prvButton').show();
             });
 
-            jQuery('#ui-carousel-prev').bind('click', function () {
+            jQuery('#ui-carousel-prev').on('click', function () {
                 jQuery('#' + settings.id).rcarousel('prev');
 
                 var pagActual = jQuery('#' + settings.id).rcarousel('getCurrentPage');
@@ -182,7 +182,7 @@
         _calculatePageOfActualTab: function (settings) {
             var item = 0;
             var page = 0;
-            var menuSize = $('#' + settings.id + ' li').size();
+            var menuSize = $('#' + settings.id + ' li').length;
             var maxItemVisible = item + settings.visible;
             var auxItem;
             while (maxItemVisible <= menuSize) {

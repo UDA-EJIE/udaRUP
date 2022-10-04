@@ -2,7 +2,7 @@ define(['marionette',
 	'./chartTestTemplate.hbs',
 	'rup.chart', 'rup.button'], function (Marionette, ChartTestTemplate) {
 
-	var ChartTestView = Marionette.LayoutView.extend({
+	var ChartTestView = Marionette.View.extend({
 		template: ChartTestTemplate,
 		ui: {
 

@@ -20,12 +20,12 @@ define(['marionette',
      *
      *
      * @class
-     * @augments Backbone.LayoutView
+     * @augments Backbone.View
      * @constructor
      * @name MainView
      *
      */
-	var MainView = Marionette.LayoutView.extend({/** @lends MainView.prototype */
+	var MainView = Marionette.View.extend({/** @lends MainView.prototype */
 		el: 'body',
 		template: MainTemplate,
 		regions:{
@@ -49,10 +49,10 @@ define(['marionette',
 		var $mainView = this;
 
 		// Header
-		$mainView.Header.show(new HeaderView());
-		$mainView.Language.show(new LanguageView());
-		$mainView.Menu.show(new MenuView());
-		$mainView.Footer.show(new FooterView());
+		$mainView.showChildView('Header', new HeaderView());
+		$mainView.showChildView('Language', new LanguageView());
+		$mainView.showChildView('Menu', new MenuView());
+		$mainView.showChildView('Footer', new FooterView());
 
 		//  window.history.pushState({
 		//  	urlPath: '/x21aResponsive/patrones/ptrUno'

@@ -129,7 +129,7 @@
 
                 } else if (this.options.modo === 'portal') {
                     let ul = $('<ul>').addClass('rup-language_portal'),
-                        lng_lenght = $(this.options.languages).size();
+                        lng_lenght = $(this.options.languages).length;
 
                     $.each(this.options.languages, function (key, value) {
                         value = value.replace(/^\s*|\s*$/g, '');
@@ -253,7 +253,7 @@
                         });
                     });
 
-                    self.bind('keydown', function (event) {
+                    self.on('keydown', function (event) {
                         switch (event.keyCode) {
                         case $.ui.keyCode.UP:
                             if ($(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').length > 0) {

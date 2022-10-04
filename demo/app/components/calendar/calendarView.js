@@ -8,7 +8,7 @@ define(['marionette',
     'rup.calendar', 'rup.button'
 ], function (Marionette, ComponentLayoutTemplate, CalendarHtmlCodeTemplate, CalendarJsCodeTemplate, CalendarBodyView, CalendarTestView, ComponentExampleCodeView) {
 
-    var CalendarView = Marionette.LayoutView.extend({
+    var CalendarView = Marionette.View.extend({
         template: ComponentLayoutTemplate,
         regions: {
             Main: '#componentMainBody',
@@ -21,12 +21,12 @@ define(['marionette',
     function fncOnRender() {
         var $view = this;
 
-        $view.Main.show(new CalendarBodyView());
-        $view.Example.show(new ComponentExampleCodeView({
+        $view.showChildView('Main', new CalendarBodyView());
+        $view.showChildView('Example', new ComponentExampleCodeView({
             templateHtml: CalendarHtmlCodeTemplate,
             templateJs: CalendarJsCodeTemplate
         }));
-        $view.Test.show(new CalendarTestView());
+        $view.showChildView('Test', new CalendarTestView());
         window.$ = $;
         window.actions = (param) => {
             console.log('Se ha seleccionado el evento "' + param + '"');

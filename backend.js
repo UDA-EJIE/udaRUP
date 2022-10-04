@@ -10,6 +10,7 @@ var express = require('express'),
     routesAutocomplete = require('./demo/routes/autocomplete'),
     routesTree = require('./demo/routes/tree'),
     routesCombo = require('./demo/routes/combo'),
+	routesSelect = require('./demo/routes/select'),
     routesTable = require('./demo/routes/table'),
     routesUpload = require('./demo/routes/upload'),
     dashboardTable = require('./demo/routes/dashboard'),
@@ -70,6 +71,12 @@ module.exports = (PORT) => {
     app.get('/demo/comboEnlazadoMultiple/departamentoRemote', routesCombo.comboEnlazadoMultiple.departamentoRemote);
     app.get('/demo/comboEnlazadoMultiple/provinciaRemote', routesCombo.comboEnlazadoMultiple.provinciaRemote);
     app.get('/demo/comboEnlazadoMultiple/dptoProvRemote', routesCombo.comboEnlazadoMultiple.dptoProvRemote);
+	// Select
+    app.get('/demo/selectSimple/remote', routesSelect.selectSimple.remote);
+    app.get('/demo/selectAutocomplete/remote', routesSelect.autocomplete.remote);
+    app.get('/demo/remoteEnlazadoProvincia/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoProvincia);
+    app.get('/demo/remoteEnlazadoComarca/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoComarca);
+    app.get('/demo/remoteEnlazadoLocalidad/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoLocalidad);
     // Form
     app.get('/demo/nora/pais', routesNora.pais);
     app.get('/demo/nora/autonomia', routesNora.autonomia);

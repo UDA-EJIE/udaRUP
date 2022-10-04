@@ -2,7 +2,7 @@ define(['marionette',
         'templates',
         'rup.combo'], function(Marionette, App){
 
-  var ComboEnlazadoMultipleView = Marionette.LayoutView.extend({
+  var ComboEnlazadoMultipleView = Marionette.View.extend({
     template: App.Templates.demo.app.components.combo.comboEnlazadoMultipleTemplate,
     ui:{
       feedback: "#x21aPilotoPatronesWar_feedback",

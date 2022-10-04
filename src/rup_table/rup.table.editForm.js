@@ -93,7 +93,7 @@
 
         // Añade el botón de cancelar
         ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_cancel');
-        ctx.oInit.formEdit.buttoCancel.bind('click', function () {
+        ctx.oInit.formEdit.buttoCancel.on('click', function () {
             _cancelPopup(ctx);
             // Cierra el dialog
             ctx.oInit.formEdit.detailForm.rup_dialog('close');
@@ -128,7 +128,7 @@
         }
         
         // Establece el valor de las propiedades del formulario de edición.
-        ctx.oInit.formEdit.loadSpinner = $.type(ctx.oInit.formEdit.loadSpinner) === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
+        ctx.oInit.formEdit.loadSpinner = typeof ctx.oInit.formEdit.loadSpinner === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
         
         ctx.oInit.formEdit.detailForm.settings = {
             type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
@@ -483,11 +483,20 @@
     						}
     					} else if (column.rupType == 'autocomplete') {
     						// Establece el valor por defecto.
-    						column.editoptions.defaultValue = row[column.name];
+    						if (row !== undefined) {
+    							column.editoptions.defaultValue = row[column.name];
+    						}
     						
     						if (column.editoptions.menuAppendTo === undefined) {
     							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
     							column.editoptions.menuAppendTo = 'body';
+    						}
+    					} else if (column.rupType === 'select') {
+    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
+    						if (row !== undefined) {
+    							let rowName = $.fn.getStaticHdivID(row[column.name]);
+    							let flatter	= $.fn.getStaticHdivID($.fn.flattenJSON(row)[column.name]);
+    							column.editoptions.selected = column.name.includes('.') ? flatter : rowName;    							
     						}
     					}
     					// Inicializar componente.
@@ -698,25 +707,25 @@
 	
 	        // Establecemos el foco al primer elemento input o select que se
 	        // encuentre habilitado en el formulario
-	        $(idForm[0]).find('input,select').filter(':not([readonly]):first').focus();
+	        $(idForm[0]).find('input,select').filter(':not([readonly])').first().focus();
 	
 	        // Se guardan los datos originales
 	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	        ctx.oInit.formEdit.okCallBack = false;
 	
 	
-	        button.unbind('click');
-	        button.bind('click', function () {
+	        button.off('click');
+	        button.on('click', function () {
 	        	//Funcion de validacion
 	        	if (actionType === 'PUT') {
 		        	let customModificar = ctx.oInit.validarModificar;
-		        	if($.isFunction(customModificar) && customModificar(ctx)){
+		        	if(typeof customModificar === "function" && customModificar(ctx)){
 		        		return false;
 		        	}
 	        	}else if (actionType === 'POST') {
 	        	
 		        	let customAlta = ctx.oInit.validarAlta;
-		        	if($.isFunction(customAlta) && customAlta(ctx)){
+		        	if(typeof customAlta === "function" && customAlta(ctx)){
 		        		return false;
 		        	}
 	        	}
@@ -725,7 +734,7 @@
 	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -766,18 +775,18 @@
 	
 	        ctx.oInit.formEdit.detailForm.buttonSaveContinue = buttonContinue;
 	        ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType = actionType;
-	        buttonContinue.unbind('click');
-	        buttonContinue.bind('click', function () {
+	        buttonContinue.off('click');
+	        buttonContinue.on('click', function () {
 	        	//Funcion de validacion
 	        	if (actionType === 'PUT') {
 		        	let customModificar = ctx.oInit.validarModificarContinuar;
-		        	if($.isFunction(customModificar) && customModificar(ctx)){
+		        	if(typeof customModificar === "function" && customModificar(ctx)){
 		        		return false;
 		        	}
 	        	}else if (actionType === 'POST') {
 	        	
 		        	let customAlta = ctx.oInit.validarAltaContinuar;
-		        	if($.isFunction(customAlta) && customAlta(ctx)){
+		        	if(typeof customAlta === "function" && customAlta(ctx)){
 		        		return false;
 		        	}
 	        	}
@@ -788,7 +797,7 @@
 	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
 	            // Se transforma
-	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -1052,7 +1061,7 @@
                     
     				if (xhr.status === 406 && xhr.responseText !== '') {
     					try {
-    						let responseJSON = jQuery.parseJSON(xhr.responseText);
+    						let responseJSON = JSON.parse(xhr.responseText);
     						if (responseJSON.rupErrorFields) {
     							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
     								let $form = ctx.oInit.formEdit.idForm;
@@ -1191,7 +1200,7 @@
     	//Se buscan los array para que sean listas.combos con multiselect
     	$.each(row, function (name) {
     		if(this !== undefined && this.toString() === '[object Object]'){
-    			if($.isNumeric( Object.keys(this)[0] )){//se asegura, que no es una lista de objetos.
+    			if($.rup_utils.isNumeric(Object.keys(this)[0])){//se asegura, que no es una lista de objetos.
     				row[name] = Object.values(this);
     			}
     		}
@@ -1372,7 +1381,7 @@
 
         ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 
-        var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation, ctx.oInit.formEdit.$navigationBar);
+        var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation.bind(ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
     }
     
@@ -1498,7 +1507,7 @@
 
         ctx.oInit.formEdit.$navigationBar.data('settings', settings);
 
-        var barraNavegacion = $.proxy(ctx.oInit._ADAPTER.createDetailNavigation, ctx.oInit.formEdit.$navigationBar);
+        var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation.bind(ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
     }
 
@@ -1875,8 +1884,8 @@
             });
             // se borra el icono
 
-            $('#' + ctx.sTableId + ' tbody tr:eq(' + idRow + ') td.select-checkbox i.filtered-row').remove();
-            $('#' + ctx.sTableId + ' tbody tr:eq(' + idRow + ') td i.filtered-row').remove();
+            $('#' + ctx.sTableId + ' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
+            $('#' + ctx.sTableId + ' tbody tr').eq(idRow).find('td i.filtered-row').remove();
             DataTable.Api().seeker.updateDetailSeekPagination(1, ctx.seeker.search.funcionParams.length, ctx);
         }
     }
@@ -1907,6 +1916,8 @@
                         input.rup_date('disable');
                     } else if (input.attr('ruptype') === 'combo' && !input.rup_combo('isDisabled')) {
                         input.rup_combo('disable');
+                    } else if (input.attr('ruptype') === 'select' && !input.rup_select('isDisabled')) {
+                        input.rup_select('disable');
                     } else if (input.attr('ruptype') === 'time' && !input.rup_time('isDisabled')) {
                         input.rup_time('disable');
                     } else if (input.attr('type') === 'checkbox') {
@@ -1949,6 +1960,8 @@
                         input.rup_date('enable');
                     } else if (input.attr('ruptype') === 'combo' && input.rup_combo('isDisabled')) {
                         input.rup_combo('enable');
+                    } else if (input.attr('ruptype') === 'select' && input.rup_select('isDisabled')) {
+                        input.rup_select('enable');
                     } else if (input.attr('ruptype') === 'time' && input.rup_time('isDisabled')) {
                         input.rup_time('enable');
                     } else if (input.attr('type') === 'checkbox') {
@@ -1960,7 +1973,7 @@
 
                     // Devolvemos el foco al elemento
                     input.on('mousedown', function (event) {
-                        $(this).unbind(event.preventDefault());
+                        $(this).off(event.preventDefault());
                         input.focus();
                     });
                 });

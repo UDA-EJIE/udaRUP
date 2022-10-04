@@ -79,6 +79,33 @@ i.mdi.error {
 				right: 25px;
 			}
 		}
+		
+		/* SELECT2 */
+		label.select-material {
+			color: $validation-error-color-light;
+		}
+		
+		select[ruptype="select"] + span {
+			span.select2-selection {
+				border-color: $validation-error-color-light;
+			}
+			
+			&:hover span.select2-selection {
+				border-color: $validation-error-color;
+			}
+			
+			&.select2-container--focus span.select2-selection {
+				border: 2px solid $validation-error-color;
+			}
+	
+			&.select2-container--focus ~ label {
+				color: $validation-error-color-light;
+			}
+			
+			+ i.mdi.error {
+				right: 45px;
+			}
+		}
 
 		/* TEXTAREA */
 		textarea {
@@ -164,5 +191,20 @@ i.mdi.error {
 			}
 		}
 
+	}
+}
+
+/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR DE RUP_SELECT */
+.form-groupMaterial.rup-validate-field-error[class*="col-"] {		
+	select[ruptype="select"] ~ i.mdi.error {
+		right: 35px;
+	}
+}
+
+:not(.form-row) {
+	> .form-groupMaterial.rup-validate-field-error[class*="col-"] {
+		select[ruptype="select"] ~ i.mdi.error {
+			right: 45px;
+		}
 	}
 }

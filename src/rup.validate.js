@@ -325,7 +325,7 @@
                 // Se elimina la informacion almacenada en el objeto.
                 $.removeData(self[0]);
                 // Se eliminan los eventos asociados al objeto.
-                self.unbind();
+                self.off();
             },
             /**
              * Se realiza un reset del formulario y se eliminan los mensajes de error de las reglas de validacion.
@@ -588,7 +588,7 @@
 
                 // Si se ha configurado el componente para que no se realicen validaciones al vuelo de los campos, se eliminan los eventos correspondientes.
                 if (!settings.liveCheckingErrors) {
-                    self.unbind('click').unbind('focusin').unbind('focusout').unbind('keyup');
+                    self.off('click').off('focusin').off('focusout').off('keyup');
                 }
 
                 // Se captura el evento invalid-form del plugin subyacente para generar un evento propio

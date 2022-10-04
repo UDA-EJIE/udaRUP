@@ -2,7 +2,7 @@ define(['marionette',
 	'./messageTestTemplate.hbs',
 	'rup.message'], function(Marionette, MessageTestTemplate){
 
-	var MessageTestView = Marionette.LayoutView.extend({
+	var MessageTestView = Marionette.View.extend({
 		template: MessageTestTemplate,
 		ui:{
 			btnError: '#btnError',

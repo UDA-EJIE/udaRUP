@@ -2,7 +2,7 @@ define(['marionette',
         'templates',
         'rup.combo'], function(Marionette, App){
 
-  var ComboMultiseleccionView = Marionette.LayoutView.extend({
+  var ComboMultiseleccionView = Marionette.View.extend({
     template: App.Templates.demo.app.components.combo.comboMultiseleccionTemplate,
     ui:{
       multicombo: "#multicombo",

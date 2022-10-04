@@ -180,7 +180,7 @@
 	                    this.focus();
 	                    if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
 	                    	let customBuscar = ctx.oInit.validarBuscar;
-	                    	if($.isFunction(customBuscar) && customBuscar(ctx)){
+	                    	if(typeof customBuscar === "function" && customBuscar(ctx)){
 	                    		return false;
 	                    	}
 	                        ctx.seeker.ajaxOption.data = _getDatos(ctx);
@@ -296,7 +296,7 @@
         $navSearchButton.on('click', function () {
             $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
         	let customBuscar = ctx.oInit.validarBuscar;
-        	if($.isFunction(customBuscar) && customBuscar(ctx)){
+        	if(typeof customBuscar === "function" && customBuscar(ctx)){
         		return false;
         	}
             ctx.seeker.ajaxOption.data = _getDatos(ctx);
@@ -528,7 +528,7 @@
             searchEditOptions;
         if (colModel !== undefined) {
         	var idTabla = ctx.sTableId;
-            $('#' + idTabla + ' tfoot tr:eq(1) th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
 
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');

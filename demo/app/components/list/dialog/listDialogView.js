@@ -8,7 +8,7 @@ define(['marionette',
     '../../../shared/component/componentExampleCodeView',
     'rup.list'], function(Marionette, ListDialogLayoutTemplate, ListDialogTemplate, ListDialogJsTemplate, ListDialogBody, ListDialogTestView, ComponentExampleCodeView){
 
-    var ListDialogView = Marionette.LayoutView.extend({
+    var ListDialogView = Marionette.View.extend({
         template: ListDialogLayoutTemplate,
         regions:{
             Main: '#listDialogMainBody',
@@ -21,12 +21,12 @@ define(['marionette',
     function fncOnRender() {
         var $view = this;
 
-        $view.Main.show(new ListDialogBody());
-        $view.Example.show(new ComponentExampleCodeView({
+        $view.showChildView('Main', new ListDialogBody());
+        $view.showChildView('Example', new ComponentExampleCodeView({
             templateHtml: ListDialogTemplate,
             templateJs: ListDialogJsTemplate
         }));
-        $view.Test.show(new ListDialogTestView());
+        $view.showChildView('Test', new ListDialogTestView());
     }
 
     return ListDialogView;

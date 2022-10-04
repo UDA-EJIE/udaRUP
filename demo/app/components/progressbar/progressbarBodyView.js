@@ -2,7 +2,7 @@ define(['marionette',
 	'./progressbarBodyTemplate.hbs',
 	'rup.progressbar'], function(Marionette, ProgressbarBodyTemplate){
 
-	var ProgressbarBodyView = Marionette.LayoutView.extend({
+	var ProgressbarBodyView = Marionette.View.extend({
 		template: ProgressbarBodyTemplate
 
 	});

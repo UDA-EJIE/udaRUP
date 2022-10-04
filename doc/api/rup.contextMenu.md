@@ -14,7 +14,7 @@ var properties = { items : {      "edit": {name: "Edit", icon: "edit"},      
     * [~show()](#module_rup_contextMenu..show)
     * [~enable()](#module_rup_contextMenu..enable)
     * [~disable()](#module_rup_contextMenu..disable)
-    * [~destroy()](#module_rup_contextMenu..destroy)
+    * [~destroy(selector)](#module_rup_contextMenu..destroy)
 
 <a name="module_rup_contextMenu..defaults"></a>
 
@@ -77,11 +77,16 @@ $("#contextMenu").rup_contextMenu("disable");
 ```
 <a name="module_rup_contextMenu..destroy"></a>
 
-### rup_contextMenu~destroy()
+### rup_contextMenu~destroy(selector)
 Elimina el menú contextual.
 
 **Kind**: inner method of [<code>rup\_contextMenu</code>](#module_rup_contextMenu)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>string</code> | Selector a usar en la eliminación del componente. |
+
 **Example**  
 ```js
-$("#contextMenu").rup_contextMenu("destroy");
+$("#contextMenu").rup_contextMenu("destroy", "#contextMenu");
 ```

@@ -2,7 +2,7 @@ define(['marionette',
 	'./menuHorizontalTemplate.hbs',
 	'rup.menu'], function(Marionette, MenuHorizontalTemplate){
 
-	var MenuHorizontalView = Marionette.LayoutView.extend({
+	var MenuHorizontalView = Marionette.View.extend({
 		template: MenuHorizontalTemplate
 
 	});

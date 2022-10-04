@@ -4,7 +4,7 @@ define(['jquery', 'marionette',
     'rup.list',
     'rup.combo'
 ], function ($, Marionette, ListTestTemplate) {
-    var ListTestView = Marionette.LayoutView.extend({
+    var ListTestView = Marionette.View.extend({
         template: ListTestTemplate,
         ui: {
             list: '#list'
@@ -39,7 +39,7 @@ define(['jquery', 'marionette',
             key: 'codigoPK',
             selectable: {
                 multi: true,
-                selector: '.list-item'
+                el: '.list-item'
             },
             sidx: {
                 source: [{

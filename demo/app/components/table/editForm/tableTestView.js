@@ -3,7 +3,7 @@ define(['jquery', 'marionette',
     'rup_table/rup.table',
     'rup.validate'
 ], function ($, Marionette, TableTestTemplate) {
-    var TableTestView = Marionette.LayoutView.extend({
+    var TableTestView = Marionette.View.extend({
         template: TableTestTemplate,
         onAttach: fncOnAttach,
         initialize: function () {}
@@ -18,7 +18,7 @@ define(['jquery', 'marionette',
                 footer: false,
                 header: true
             },
-            selector: 'td',
+            el: 'td',
             filter: {
                 id: 'example_filter_form',
                 filterToolbar: 'example_filter_toolbar',

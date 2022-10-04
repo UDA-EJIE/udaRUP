@@ -1,7 +1,7 @@
 define(['marionette',
 	'./dateBodyTemplate.hbs'], function(Marionette, DateBodyTemplate){
 
-	var DateBodyView = Marionette.LayoutView.extend({
+	var DateBodyView = Marionette.View.extend({
 		template: DateBodyTemplate,
 	});
 

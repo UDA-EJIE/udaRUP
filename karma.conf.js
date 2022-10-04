@@ -45,9 +45,9 @@ module.exports = function (config) {
             templatePath: null, // set if you moved jasmine_template.html
             focusOnFailures: false, // reports show failures on start
             namedFiles: true, // name files instead of creating sub-directories
-            pageTitle: 'Karma Report 5.0.1', // page title for reports; browser info by default
+            pageTitle: 'Karma Report 5.1.0', // page title for reports; browser info by default
             urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
-            reportName: 'karma_report_5.0.1', // report summary filename; browser info by default
+            reportName: 'karma_report_5.1.0', // report summary filename; browser info by default
 
             // experimental
             preserveDescribeNesting: false, // folded suites stay folded 
@@ -204,7 +204,7 @@ module.exports = function (config) {
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_DISABLE,
+        logLevel: config.LOG_INFO,
 
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,

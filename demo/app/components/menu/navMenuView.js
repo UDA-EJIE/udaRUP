@@ -2,7 +2,7 @@ define(['marionette',
 	'./navMenuTemplate.hbs',
 	'rup.navMenu'], function (Marionette, NavMenuTemplate) {
 
-	var NavMenuView = Marionette.LayoutView.extend({
+	var NavMenuView = Marionette.View.extend({
 		template: NavMenuTemplate,
 		ui: {
 			navMenuExample: '#example',

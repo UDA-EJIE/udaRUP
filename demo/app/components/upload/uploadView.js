@@ -7,7 +7,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 	'rup.upload'], function(Marionette, ComponentLayoutTemplate, UploadHtmlCodeTemplate, UploadJsCodeTemplate, UploadBodyView, UploadTestView, ComponentExampleCodeView){
 
-	var UploadView = Marionette.LayoutView.extend({
+	var UploadView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new UploadBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new UploadBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: UploadHtmlCodeTemplate,
 			templateJs: UploadJsCodeTemplate
 		}));
-		$view.Test.show(new UploadTestView());
+		$view.showChildView('Test', new UploadTestView());
 	}
 
 

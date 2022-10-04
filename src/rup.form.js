@@ -138,7 +138,7 @@
             $self.removeClass('rup_form');
             $.removeData($self[0]);
             $self.ajaxFormUnbind();
-            $self.unbind();
+            $self.off();
         },
         /**
          * Serializa el contenido del formulario en un query string.
@@ -317,7 +317,7 @@
             beforeSendUserEvent = settings.beforeSend;
             settings.beforeSend = function (xhr, ajaxOptions) {
                 var ret = true;
-                if ($.isFunction(beforeSendUserEvent)) {
+                if (typeof beforeSendUserEvent === "function") {
                     ret = beforeSendUserEvent.call(this, xhr, ajaxOptions);
                 }
 
@@ -342,7 +342,7 @@
             beforeSubmitUserEvent = settings.beforeSubmit;
             settings.beforeSubmit = function (arr, $form, options) {
                 var httpMethod, error_user, hasFileInputs;
-                if ($.isFunction(beforeSubmitUserEvent)) {
+                if (typeof beforeSubmitUserEvent === "function") {
                     if (beforeSubmitUserEvent.call(this, arr, $form, options) === false) {
                         return false;
                     }
@@ -392,7 +392,7 @@
                 if (settings.error === undefined) {
                     settings.error = function (a) {
                         try {
-                            var json = jQuery.parseJSON(a.responseText);
+                            var json = JSON.parse(a.responseText);
                             $self.validate().invalid = json.rupErrorFields;
                             $self.validate().submited = json.rupErrorFields;
                             $self.validate().showErrors(json.rupErrorFields);

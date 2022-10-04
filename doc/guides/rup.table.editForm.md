@@ -83,6 +83,15 @@ formEdit: {
 ```
 &nbsp;
 
+Propiedad que habilita la posibilidad de incluir cualquier carácter en los campos:
+```js
+formEdit: {
+    // Desactivado por defecto
+    allowAllCharacters: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {

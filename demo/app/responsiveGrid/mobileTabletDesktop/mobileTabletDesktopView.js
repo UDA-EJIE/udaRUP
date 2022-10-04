@@ -6,7 +6,7 @@ define(['marionette',
 	'../../shared/component/componentExampleCodeView',
 ], function(Marionette, RwdGridLayoutTemplate, MobileTabletDesktopExampleTemplate, MobileTabletDesktopDescView, MobileTabletDesktopExampleView, ComponentExampleCodeView){
 
-	var MobileTabletDesktopView = Marionette.LayoutView.extend({
+	var MobileTabletDesktopView = Marionette.View.extend({
 		template: RwdGridLayoutTemplate,
 		regions:{
 			Description: '#description',
@@ -20,7 +20,7 @@ define(['marionette',
 		var $view = this;
 
 		$view.Description.show(new MobileTabletDesktopDescView());
-		$view.Example.show(new MobileTabletDesktopExampleView());
+		$view.showChildView('Example', new MobileTabletDesktopExampleView());
 		$view.Code.show(new ComponentExampleCodeView({
 			templateHtml: MobileTabletDesktopExampleTemplate
 			// templateJs: App.Templates.demo.app.components.feedback.feedbackJsCodeTemplate

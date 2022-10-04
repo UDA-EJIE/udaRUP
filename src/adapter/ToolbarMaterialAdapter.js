@@ -75,7 +75,7 @@
         this._setKeyDown(boton);
 
         // Al perder el foco se elimina el estilo de disponer del foco
-        boton.bind('focusout',function(){
+        boton.on('focusout',function(){
             $(this).removeClass('ui-state-focus');
         });
         return boton;

@@ -166,7 +166,7 @@
 
 			var json = {};
 			for (var key in array) {
-				if (!$.isFunction(array[key])) {
+				if (typeof array[key] !== "function") {
 					json[key] = array[key];
 				}
 			}
@@ -260,12 +260,13 @@
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
 		 * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
+		 * @param {boolean} [allowAllCharacters=false] - Habilita la posibilidad de incluir cualquier carácter en los campos.
 		 * @returns {object} - Objeto JSON creado a partir de la query string indicada.
 		 * @example
 		 * // Obtene un json a partir del query string "keyA=valueA&keyB=valueB&keyC=valueC" -> "{keyA:'valueA', keyB:'valueB', keyC:'valueC'}"
 		 * $.rup_utils.queryStringToJson("keyA=valueA&keyB=valueB&keyC=valueC");
 		 */
-		queryStringToJson: function (queryString, serializerSplitter = '&') {
+		queryStringToJson: function (queryString, serializerSplitter = '&', allowAllCharacters = false) {
 
 			function setValue(root, path, value) {
 				if (path.length > 1) {
@@ -330,8 +331,13 @@
 				}
 				
 				name = decodeURIComponent(pair[0]);
-				if(pair[pair.length -1].includes("%")) {
-					return false;
+				if (pair[pair.length -1].includes("%")) {
+					if (allowAllCharacters && !pair[pair.length -1].includes("%25")) {
+						pair[pair.length -1] = encodeURIComponent(pair[pair.length -1]);
+					}
+					else if (!allowAllCharacters) {
+						$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_utils.illegalChar'));
+					}
 				}
 				value = decodeURIComponent(pair[pair.length -1]);
 
@@ -765,7 +771,7 @@
 				return undefined;
 			}
 
-			if ($.isFunction(sortFnc)) {
+			if (typeof sortFnc === "function") {
 				bubbleSort(array, sortFnc);
 			} else {
 				bubbleSort(array, defaultSortFnc);
@@ -783,7 +789,7 @@
 
 			array.push(elem);
 
-			if ($.isFunction(sortFnc)) {
+			if (typeof sortFnc === "function") {
 				$.rup_utils.sortArray(array, sortFnc);
 			} else {
 				$.rup_utils.sortArray(array, defaultSortFnc);
@@ -907,10 +913,25 @@
 				return objtmp;
 			};
 			return fnc(obj);
+		},
+		/**
+	     * Comprueba si el parámetro es un número. 
+	     * Sustituye al método isNumeric de jQuery que fue deprecado en la versión 3.3.
+	     *
+	     * @name isNumeric
+	     * @function
+	     * @since UDA 5.1.0
+	     *
+	     * @param {number|string|boolean|object} field - Campo a comprobar.
+	     *
+	     * @return {boolean} Parámetro HDIV_STATE.
+	     * 
+	     * @example
+		 * $.rup_utils.isNumeric(6);
+	     */
+		isNumeric: function (field) {
+			return !isNaN(parseFloat(field)) && isFinite(field);
 		}
-
-
-
 	});
 
 	//Utilidades de los formularios

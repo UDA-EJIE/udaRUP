@@ -6,7 +6,7 @@ define(['marionette',
 	'./treeDragDropTestView',
 	'rup.tree'], function (Marionette, TreeDragDropLayoutTemplate, TreeDragDropBodyView, ComponentExampleCodeView, TreeDragDropCodeView, TreeDragDropTestView) {
 
-	var TreeView = Marionette.LayoutView.extend({
+	var TreeView = Marionette.View.extend({
 		template: TreeDragDropLayoutTemplate,
 		regions: {
 			Main: '#componentMainBody',
@@ -20,13 +20,13 @@ define(['marionette',
 	function fncOnRender() {
 		var $view = this;
 
-		$view.Main.show(new TreeDragDropBodyView());
-		/*  $view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new TreeDragDropBodyView());
+		/*  $view.showChildView('Example', new ComponentExampleCodeView({
               templateHtml: App.Templates.demo.app.components.tree.dragDrop.treeDragDropHtmlCodeTemplate,
               templateJs: App.Templates.demo.app.components.tree.dragDrop.treeDragDropJsCodeTemplate
           }));*/
 		$view.Code.show(new TreeDragDropCodeView());
-		$view.Test.show(new TreeDragDropTestView());
+		$view.showChildView('Test', new TreeDragDropTestView());
 
 	}
 

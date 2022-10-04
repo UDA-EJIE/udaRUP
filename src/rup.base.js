@@ -24,7 +24,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.utils','./adapter/rup.adapter'], factory);
+        define(['jquery', './rup.utils','./adapter/rup.adapter', './external/modernizr'], factory);
     } else {
 
         // Browser globals
@@ -33,7 +33,7 @@
 }(function ($) {
 
     // NO MODIFICAR: (AUTOGENERADO)
-    var rup_version = '5.0.4';
+    var rup_version = '5.1.0';
 
     jQuery.migrateMute = true;
 
@@ -224,7 +224,7 @@
         },
         browser: {
             version: $.rup._browser.version,
-            versionNumber: $.isNumeric($.rup._browser.version) ? parseInt($.rup._browser.version) : undefined,
+            versionNumber: $.rup_utils.isNumeric($.rup._browser.version) ? parseInt($.rup._browser.version) : undefined,
             isIE: (/Trident\//).test(navigator.userAgent),
             isSafari: $.rup._browser.safari && $.rup._browser.webkit ? true : false,
             isChrome: $.rup._browser.safari && $.rup._browser.webkit ? true : false,
@@ -374,6 +374,7 @@
             $.rup.AVAILABLE_LANGS_ARRAY = $.map($.rup.AVAILABLE_LANGS.split(','), function (elem) {
                 return elem.replace(/^\s*|\s*$/g, '');
             });
+            $.rup.DEFAULT_LANG = window.DEFAULT_LANG;
             $.rup.LAYOUT = window.LAYOUT;
             //mvc-config.xml
             $.rup.LOCALE_COOKIE_NAME = window.LOCALE_COOKIE_NAME;
@@ -411,30 +412,15 @@
             //mvc-config.xml
             // delete LOCALE_COOKIE_NAME;
             // delete LOCALE_PARAM_NAME;
-
+            
+            // Obtención de la cookie de idioma.
             var cookie = $.rup_utils.get($.rup.LOCALE_COOKIE_NAME);
-            if (cookie !== null && cookie !== '') { //si tenemos cookie con el lenguaje
-                if ($.inArray(cookie, $.rup.AVAILABLE_LANGS_ARRAY) !== -1) {
-                    this.lang = cookie;
-                } else {
-                    //retrocompatibilidad (MvcInterceptor genera correctamente la cookie, pero en versiones anteriores no)
-                	$.rup.errorGestor(
-                			$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME),
-                			$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
-                    $.rup._avoidRUPFails();
-                    return false;
-                }
-            } else {
-            	$.rup.errorGestor(
-            			$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME),
-            			$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
-                $.rup._avoidRUPFails();
-                return false;
-            }
+            const validCookieValue = $.inArray(cookie, $.rup.AVAILABLE_LANGS_ARRAY) !== -1 ? true : false;
+            this.lang = validCookieValue ? cookie : $.rup.DEFAULT_LANG;
 
-            //Se cargan los literales por defecto
+            // Carga de los literales por defecto.
             $.rup.setLiterals().then(() => {
-                //Carga de ficheros de literales de la apliaccion
+                // Carga de ficheros de literales de la aplicación.
                 if (jQuery.rup.WAR_NAME !== '') {
                     $.rup.getFile_i18n().then(()=>{
                         global.initRupI18nPromise.resolve();
@@ -442,6 +428,26 @@
                 } else {
                     global.initRupI18nPromise.resolve();
                 }
+            });
+            
+            // Esperar a que los recursos idiomáticos estén disponibles.
+            global.initRupI18nPromise.then(() => {
+            	// Si la cookie no es válida o no existe, se lanzarán los mensajes de error correspondientes.
+            	if (!validCookieValue) {
+            		if (cookie) {
+            			$.rup.errorGestor(
+            					$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME),
+            					$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
+            			$.rup._avoidRUPFails();
+            			return false;
+            		} else {
+            			$.rup.errorGestor(
+            					$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME),
+            					$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
+            			$.rup._avoidRUPFails();
+            			return false;
+            		}
+            	}
             });
         },
         //Función encargada de cargar variables por defecto si no se han cargado los literales (ej. cookies deshabilitadas)
@@ -534,7 +540,7 @@
                     if (isMethodCall) {
                         if (options !== 'extend') {
                             let instance = ($.isEmptyObject($.data(object)) ? $.data(object, object) : $.data(object)),
-                                methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : 'no-function';
+                                methodValue = instance && typeof instance[options] === "function" ? instance[options].apply(instance, args) : 'no-function';
 
                             if (methodValue === 'no-function') {
                                 return false;
@@ -575,7 +581,7 @@
                     if (isMethodCall) {
                         if (options !== 'extend') {
                             let instance = $.extend(this, object),
-                                methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : 'no-function';
+                                methodValue = instance && typeof instance[options] === "function" ? instance[options].apply(instance, args) : 'no-function';
 
                             if (methodValue === 'no-function') {
                                 return false;
@@ -638,14 +644,14 @@
             this.each(function () {
                 $(this).data('storedEvents', $.extend(true, {}, $._data($(this)[0], 'events')));
             });
-            $(this).unbind();
+            $(this).off();
             return this;
         },
         restoreEvents: function () {
             this.each(function () {
                 var events = $.data(this, 'storedEvents');
                 if (events) {
-                    $(this).unbind();
+                    $(this).off();
                     for (var type in events) {
                         for (var handler in events[type]) {
                             if(typeof events[type][handler] === 'object'){

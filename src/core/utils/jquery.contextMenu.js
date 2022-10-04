@@ -724,10 +724,10 @@ var // currently active contextMenu trigger
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            if ($.isFunction(root.callbacks[key]) && Object.prototype.hasOwnProperty.call(root.callbacks, key)) {
+            if (typeof root.callbacks[key] === "function" && Object.prototype.hasOwnProperty.call(root.callbacks, key)) {
                 // item-specific callback
                 callback = root.callbacks[key];
-            } else if ($.isFunction(root.callback)) {
+            } else if (typeof root.callback === "function") {
                 // default callback
                 callback = root.callback;                
             } else {
@@ -970,7 +970,7 @@ var // currently active contextMenu trigger
                     // register commands
                     $.each([opt, root], function(i,k){
                         k.commands[key] = item;
-                        if ($.isFunction(item.callback)) {
+                        if (typeof item.callback === "function") {
                             k.callbacks[key] = item.callback;
                         }
                     });
@@ -1054,7 +1054,7 @@ var // currently active contextMenu trigger
                         default:
                             $.each([opt, root], function(i,k){
                                 k.commands[key] = item;
-                                if ($.isFunction(item.callback)) {
+                                if (typeof item.callback === "function") {
                                     k.callbacks[key] = item.callback;
                                 }
                             });
@@ -1124,7 +1124,7 @@ var // currently active contextMenu trigger
             // reset and apply changes in the end because nested
             // elements' widths wouldn't be calculatable otherwise
             if (!nested) {
-                $menu.find('ul').andSelf().css({
+                $menu.find('ul').addBack().css({
                     position: '', 
                     display: '',
                     minWidth: '',
@@ -1145,7 +1145,7 @@ var // currently active contextMenu trigger
                 var $item = $(this),
                     key = $item.data('contextMenuKey'),
                     item = opt.items[key],
-                    disabled = ($.isFunction(item.disabled) && item.disabled.call($trigger, key, root)) || item.disabled === true;
+                    disabled = (typeof item.disabled === "function" && item.disabled.call($trigger, key, root)) || item.disabled === true;
 
                 // dis- / enable item
                 $item[disabled ? 'addClass' : 'removeClass']('disabled');

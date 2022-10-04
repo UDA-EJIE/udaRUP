@@ -7,7 +7,7 @@ define(['marionette',
     '../../../shared/component/componentExampleCodeView',
     'rup_table/rup.table'], function(Marionette, TableLayoutTemplate, TableTemplate, TableJsTemplate, TableBody, TableTestView, ComponentExampleCodeView){
 
-    var TableView = Marionette.LayoutView.extend({
+    var TableView = Marionette.View.extend({
         template: TableLayoutTemplate,
         regions:{
             Main: '#tableMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
     function fncOnRender() {
         var $view = this;
 
-        $view.Main.show(new TableBody());
-        $view.Example.show(new ComponentExampleCodeView({
+        $view.showChildView('Main', new TableBody());
+        $view.showChildView('Example', new ComponentExampleCodeView({
             templateHtml: TableTemplate,
             templateJs: TableJsTemplate
         }));
-        $view.Test.show(new TableTestView());
+        $view.showChildView('Test', new TableTestView());
     }
 
     return TableView;

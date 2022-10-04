@@ -2,7 +2,7 @@ define(['marionette',
 	'./tooltipTestTemplate.hbs',
 	'rup.tooltip','rup.button'], function(Marionette, TooltipTestTemplate){
 
-	var TooltipTestView = Marionette.LayoutView.extend({
+	var TooltipTestView = Marionette.View.extend({
 		template: TooltipTestTemplate,
 		ui:{
 			pageTitles: '[title]',

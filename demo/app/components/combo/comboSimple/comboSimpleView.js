@@ -7,7 +7,7 @@ define(['marionette',
 	'../../../shared/component/componentExampleCodeView',
 	'rup.combo'], function(Marionette, ComponentLayoutTemplate, ComboSimpleHtmlCodeTemplate, ComboSimpleJsCodeTemplate, ComboSimpleBodyView, ComboSimpleTestView, ComponentExampleCodeView){
 
-	var ComboSimpleView = Marionette.LayoutView.extend({
+	var ComboSimpleView = Marionette.View.extend({
 		template: ComponentLayoutTemplate,
 		regions:{
 			Main: '#componentMainBody',
@@ -20,12 +20,12 @@ define(['marionette',
 	function fncOnRender(){
 		var $view = this;
 
-		$view.Main.show(new ComboSimpleBodyView());
-		$view.Example.show(new ComponentExampleCodeView({
+		$view.showChildView('Main', new ComboSimpleBodyView());
+		$view.showChildView('Example', new ComponentExampleCodeView({
 			templateHtml: ComboSimpleHtmlCodeTemplate,
 			templateJs: ComboSimpleJsCodeTemplate
 		}));
-		$view.Test.show(new ComboSimpleTestView());
+		$view.showChildView('Test', new ComboSimpleTestView());
 	}
 
 

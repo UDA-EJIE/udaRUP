@@ -219,7 +219,7 @@
             self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
 
             //Le ponemos el foco al botón aceptar en vez de al enlace
-            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button:last').focus();
+            $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button').last().focus();
 
             //Se audita el componente
             $.rup.auditComponent('rup_message', 'init');

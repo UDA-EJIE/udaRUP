@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.19.0]
+        node-version: [14.20.0]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -21,4 +21,4 @@ jobs:
       - name: Install dependencies
         run: npm install --no-progress
       - name: Run tests
-        run: npm run test --if-present
+        run: npm run test:karma --if-present

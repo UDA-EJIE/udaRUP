@@ -3,40 +3,36 @@ define(['marionette',
     'highlight.js','rup.tabs'], function(Marionette, ComponentExampleCodeTemplate, hljs){
 
 
-    var ComponentCodeView = Marionette.LayoutView.extend({
+    var ComponentCodeView = Marionette.View.extend({
     });
 
-    var ComponentExampleCodeView = Marionette.LayoutView.extend({
-        template: ComponentExampleCodeTemplate,
-        ui:{
+    var ComponentExampleCodeView = Marionette.View.extend({
+        'template': ComponentExampleCodeTemplate,
+        'ui': {
             codeTabs: '#exampleTabs',
             codeSnippets: 'pre code'
         },
-        regions:{
+        'regions': {
             HtmlCode: '#componentHtmlExample',
             JsCode: '#componentJsExample'
         },
-        onBeforeShow: fncOnBeforeShow,
-        onShow: fncOnShow,
+        onRender: fncOnShow,
         onAttach: fncOnAttach
 
     });
 
-    function fncOnBeforeShow(){
+    function fncOnShow(){
         var $view = this;
-
-        $view.HtmlCode.show(new ComponentCodeView({
+        
+        $view.showChildView('HtmlCode', new ComponentCodeView({
             template: $view.options.templateHtml
         }));
+        
         if ($view.options.templateJs){
-            $view.JsCode.show(new ComponentCodeView({
+            $view.showChildView('JsCode', new ComponentCodeView({
                 template: $view.options.templateJs
             }));
         }
-    }
-
-    function fncOnShow(){
-        var $view = this;
 
         $view.ui.codeSnippets.each(function(i, block) {
 
@@ -44,7 +40,7 @@ define(['marionette',
                 block.innerHTML = block.innerHTML.replace(/</g, '&lt');
             }
 
-            hljs.highlightBlock(block);
+            hljs.highlightElement(block);
 
         });
 

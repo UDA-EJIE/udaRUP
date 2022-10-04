@@ -2,7 +2,7 @@ define(['marionette',
 	'./treeDragDropTestTemplate.hbs',
 	'rup.tree', 'rup.button'], function (Marionette, TreeDragDropTestTemplate) {
 
-	var TreeDragDropTestView = Marionette.LayoutView.extend({
+	var TreeDragDropTestView = Marionette.View.extend({
 		template: TreeDragDropTestTemplate,
 		ui: {
 			pageTitles: '[title]',
