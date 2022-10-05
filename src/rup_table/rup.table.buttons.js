@@ -1090,7 +1090,7 @@
                     config.icon = 'mdi-file';
                     break;
                 default:
-                    config.icon = 'mdi-settings';
+                    config.icon = 'mdi-cog';
                 }
             }
 

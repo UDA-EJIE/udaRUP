@@ -359,7 +359,7 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["bootstrap"] = Handlebars.
     + alias4(((helper = (helper = lookupProperty(helpers,"groupClasses") || (depth0 != null ? lookupProperty(depth0,"groupClasses") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data,"loc":{"start":{"line":1,"column":50},"end":{"line":1,"column":66}}}) : helper)))
     + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":2,"column":48},"end":{"line":2,"column":54}}}) : helper)))
-    + "\" data-mbutton=\"true\" class=\"ui-button ui-corner-all ui-widget rup-button\">\r\n			<i class=\"mdi mdi-settings\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
+    + "\" data-mbutton=\"true\" class=\"ui-button ui-corner-all ui-widget rup-button\">\r\n			<i class=\"mdi mdi-cog\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":4,"column":36},"end":{"line":4,"column":45}}}) : helper)))
     + "</span>\r\n		</button>\r\n		<ul id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":6,"column":10},"end":{"line":6,"column":16}}}) : helper)))
@@ -381,7 +381,7 @@ this["Rup"]["Templates"]["rup"]["toolbar"]["mbutton"]["material"] = Handlebars.t
     + alias4(((helper = (helper = lookupProperty(helpers,"groupClasses") || (depth0 != null ? lookupProperty(depth0,"groupClasses") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupClasses","hash":{},"data":data,"loc":{"start":{"line":1,"column":50},"end":{"line":1,"column":66}}}) : helper)))
     + "\">\r\n		<button type=\"button\" data-mbutton=\"true\" id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":2,"column":48},"end":{"line":2,"column":54}}}) : helper)))
-    + "\" data-mbutton=\"true\" class=\"btn-material btn-material-primary-high-emphasis rup-button\">\r\n			<i class=\"mdi mdi-settings\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
+    + "\" data-mbutton=\"true\" class=\"btn-material btn-material-primary-high-emphasis rup-button\">\r\n			<i class=\"mdi mdi-cog\" aria-hidden=\"true\"></i>\r\n			<span class=\"rup-ui-button-text\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":4,"column":36},"end":{"line":4,"column":45}}}) : helper)))
     + "</span>\r\n		</button>\r\n		<ul id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":6,"column":10},"end":{"line":6,"column":16}}}) : helper)))
@@ -556,7 +556,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["base"] = Handlebars.template({"1":fun
 
   return "          <span id=\"widgetConfig-"
     + alias3(((helper = (helper = lookupProperty(helpers,"uuid") || (depth0 != null ? lookupProperty(depth0,"uuid") : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"uuid","hash":{},"data":data,"loc":{"start":{"line":18,"column":33},"end":{"line":18,"column":41}}}) : helper)))
-    + "\" class=\"widget-icon widget-icon-right mdi mdi-settings\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
+    + "\" class=\"widget-icon widget-icon-right mdi mdi-cog\" data-toggle=\"tooltip\" data-placement=\"top\" title=\""
     + alias3((lookupProperty(helpers,"i18n")||(depth0 && lookupProperty(depth0,"i18n"))||alias2).call(alias1,"title.configuracion",{"name":"i18n","hash":{},"data":data,"loc":{"start":{"line":18,"column":148},"end":{"line":18,"column":178}}}))
     + "\" ></span>\r\n";
 },"9":function(container,depth0,helpers,partials,data) {
@@ -639,7 +639,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["configRequired"] = Handlebars.templat
     + "\" class=\"config-required-modal\">\r\n    <div>\r\n        <div>\r\n            <span>"
     + alias4(((helper = (helper = lookupProperty(helpers,"titulo") || (depth0 != null ? lookupProperty(depth0,"titulo") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titulo","hash":{},"data":data,"loc":{"start":{"line":4,"column":18},"end":{"line":4,"column":28}}}) : helper)))
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"urlConsulta") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":28},"end":{"line":4,"column":76}}})) != null ? stack1 : "")
-    + "</span><br>\r\n            <button id=\"btnConfigRequired\" type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n                <span class=\"mdi mdi-settings\" aria-hidden=\"true\"></span>"
+    + "</span><br>\r\n            <button id=\"btnConfigRequired\" type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n                <span class=\"mdi mdi-cog\" aria-hidden=\"true\"></span>"
     + alias4((lookupProperty(helpers,"i18n")||(depth0 && lookupProperty(depth0,"i18n"))||alias2).call(alias1,"title.configuracion",{"name":"i18n","hash":{},"data":data,"loc":{"start":{"line":6,"column":73},"end":{"line":6,"column":103}}}))
     + "</button>\r\n            <button id=\"btnDelete\" type=\"button\" class=\"btn-material btn-material-warning-dark-high-emphasis\">\r\n                <span class=\"mdi mdi-delete\" aria-hidden=\"true\"></span>"
     + alias4((lookupProperty(helpers,"i18n")||(depth0 && lookupProperty(depth0,"i18n"))||alias2).call(alias1,"title.eliminar",{"name":"i18n","hash":{},"data":data,"loc":{"start":{"line":8,"column":71},"end":{"line":8,"column":96}}}))
@@ -730,7 +730,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["search"] = Handlebars.template({"comp
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldId") || (depth0 != null ? lookupProperty(depth0,"fieldId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldId","hash":{},"data":data,"loc":{"start":{"line":4,"column":52},"end":{"line":4,"column":63}}}) : helper)))
     + "\" placeholder=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldPlaceholder") || (depth0 != null ? lookupProperty(depth0,"fieldPlaceholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldPlaceholder","hash":{},"data":data,"loc":{"start":{"line":4,"column":78},"end":{"line":4,"column":98}}}) : helper)))
-    + "\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-settings\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
+    + "\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-cog\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"]["welcome"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {

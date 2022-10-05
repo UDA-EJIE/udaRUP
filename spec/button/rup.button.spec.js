@@ -18,26 +18,26 @@ describe('TEST Button', () => {
         var html = '<button id="exampleButton">Btn</button>\
                   <div class="rup-mbutton">\
                        <button type="button" id="exampleMButton" data-mbutton="true">\
-                           <i class="mdi mdi-settings" aria-hidden="true"></i> <span\
+                           <i class="mdi mdi-cog" aria-hidden="true"></i> <span\
                               class="rup-ui-button-text hidden-md-down">MButton</span>\
                        </button>\
                        <ul id="mbuttonContainer" class="rup-mbutton-container"\
                             aria-labelledby="exampleMButton">\
                             <li>\
                                 <button type="button" id="mbutton-buttonNew">\
-                                    <i class="mdi mdi-settings" aria-hidden="true"></i> <span\
+                                    <i class="mdi mdi-cog" aria-hidden="true"></i> <span\
                                         class="rup-ui-button-text hidden-md-down">Nuevo</span>\
                                 </button>\
                             </li>\
                             <li>\
                                 <button type="button" id="mbutton-buttonEdit">\
-                                    <i class="mdi mdi-settings" aria-hidden="true"></i> <span\
+                                    <i class="mdi mdi-cog" aria-hidden="true"></i> <span\
                                         class="rup-ui-button-text hidden-md-down">Editar</span>\
                                 </button>\
                             </li>\
                             <li>\
                                 <button type="button" id="mbutton-buttonCancel">\
-                                    <i class="mdi mdi-settings" aria-hidden="true"></i> <span\
+                                    <i class="mdi mdi-cog" aria-hidden="true"></i> <span\
                                         class="rup-ui-button-text hidden-md-down">Cancelar</span>\
                                 </button>\
                             </li>\
