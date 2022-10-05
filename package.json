@@ -170,7 +170,7 @@
     "datatables.net-responsive": "^2.3.0",
     "datatables.net-responsive-bs4": "^2.3.0",
     "flexibility": "^2.0.1",
-    "jquery-contextmenu": "^2.8.0",
+    "jquery-contextmenu": "^2.9.2",
     "jquery-form": "^3.50.0",
     "jquery-ui": "^1.13.2",
     "jquery-ui-dist": "^1.13.1",
