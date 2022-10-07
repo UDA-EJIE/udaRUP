@@ -46,7 +46,7 @@
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
     "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.10",
+    "@babel/core": "^7.19.3",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.19.3",
     "@mdi/font": "^4.9.95",
