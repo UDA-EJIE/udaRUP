@@ -7,7 +7,12 @@ Tiene como objetivo presentar un contenido donde conceptos relacionados pueden a
 **See**: El componente está basado en el plugin [jQuery UI Accordion](https://jqueryui.com/accordion/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/accordion/).  
 **Example**  
 ```js
-$(".rup_accordion").rup_accordion({  animate: "bounceslide",	active: false,	autoHeight: false,	collapsible: true});
+$(".rup_accordion").rup_accordion({
+  animated: "bounceslide",
+	active: false,
+	autoHeight: false,
+	collapsible: true
+});
 ```
 
 * [rup_accordion](#module_rup_accordion)
@@ -33,7 +38,7 @@ Opciones por defecto de configuración del componente.
 | [validation] | <code>boolean</code> | <code>true</code> | Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del Accordion. |
 | [disabled] | <code>boolean</code> | <code>false</code> | Parámetro de configuración que determina si está habilitado (false) o deshabilitado (true) el componente Accordion. Por defecto el valor de este parámetro es false. |
 | [active] | <code>boolean</code> \| <code>number</code> | <code>0</code> | Determina la sección que está activa. Si se le especifica el valor false, el Accordion permanecerá totalmente cerrado (este caso requiere del parámetro collapsible true). Por defecto, su valor es la primera sección del Accordion. |
-| [animate] | <code>boolean</code> \| <code>number</code> \| <code>String</code> \| <code>Object</code> | <code>{}</code> | Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico). |
+| [animated] | <code>boolean</code> \| <code>number</code> \| <code>String</code> \| <code>Object</code> | <code>{}</code> | Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico). |
 | [collapsible] | <code>boolean</code> | <code>false</code> | Parámetro que habilita la posibilidad de que todas las secciones del Accordion estén cerradas a la vez. |
 | [event] | <code>String</code> | <code>&#x27;click&#x27;</code> | Determina el tipo de evento necesario para que cada una de las secciones sea habilitada o deshabilitada. |
 | [header] | <code>selector</code> | <code>&quot;&gt; li &gt; :first-child,&gt; :not(li):even&quot;</code> | Selector que determina el objeto cabecera de cada una de las secciones del Accordion. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el Accordion. |
@@ -84,7 +89,12 @@ Dependiendo de si se informa un valor asociado a una parámetro o se introduce u
 
 **Example**  
 ```js
-// Asignar el valor "bounceslide" a la propiedad "animate"$("#idAccordion").rup_accordion("option", "animate", "bounceslide");// Se asignan valores a varias propiedades por medio de un objeto json.$("#idAccordion").rup_accordion("option",{active: false, collapsible : true});// Se recupera el valor de la propiedad "animate"$("#idAccordion").rup_accordion("option", "animate");
+// Asignar el valor "bounceslide" a la propiedad "animated"
+$("#idAccordion").rup_accordion("option", "animated", "bounceslide");
+// Se asignan valores a varias propiedades por medio de un objeto json.
+$("#idAccordion").rup_accordion("option",{active: false, collapsible : true});
+// Se recupera el valor de la propiedad "animated"
+$("#idAccordion").rup_accordion("option", "animated");
 ```
 <a name="module_rup_accordion..widget"></a>
 
@@ -110,7 +120,12 @@ Activación programática de la sección especificada por parámetro.
 
 **Example**  
 ```js
-// Activar la seción tercera.$("#idAccordion").rup_accordion("activate", 3);// Activar la seción identificada con el selector seccion3.$("#idAccordion").rup_accordion("activate", "#seccion3");// Colapsar todas las secciones.$("#idAccordion").rup_accordion("activate", false);
+// Activar la seción tercera.
+$("#idAccordion").rup_accordion("activate", 3);
+// Activar la seción identificada con el selector seccion3.
+$("#idAccordion").rup_accordion("activate", "#seccion3");
+// Colapsar todas las secciones.
+$("#idAccordion").rup_accordion("activate", false);
 ```
 <a name="module_rup_accordion..resize"></a>
 
