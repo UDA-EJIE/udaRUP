@@ -85,7 +85,6 @@
     "gulp-css-wrap": "^0.1.2",
     "gulp-csslint": "^1.0.1",
     "gulp-declare": "^0.3.0",
-    "gulp-define-module": "^0.1.5",
     "gulp-delete-lines": "^0.0.7",
     "gulp-handlebars": "^5.0.2",
     "gulp-jsdoc3": "^3.0.0",
