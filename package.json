@@ -145,7 +145,7 @@
     "sass-loader": "^10.3.1",
     "sass-module-importer": "^1.4.0",
     "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^2.3.8",
+    "terser-webpack-plugin": "^4.2.3",
     "tether": "^1.4.6",
     "uglify-js": "^3.5.11",
     "underscore": "^1.13.3",
