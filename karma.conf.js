@@ -107,7 +107,10 @@ module.exports = function (config) {
             module: {
                 rules: [{
                     test: require.resolve('jquery-migrate'),
-                    use: 'imports-loader?define=>false',
+                    loader: 'imports-loader',
+                    options: {
+                    	additionalCode: 'var define = false;',
+                    }
                 }, {
                     test: /spec\.js$/,
                     enforce: 'pre',
