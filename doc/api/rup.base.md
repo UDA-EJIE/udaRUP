@@ -6,6 +6,17 @@
 </dd>
 </dl>
 
+## Functions
+
+<dl>
+<dt><a href="#i18nParse">i18nParse(properties, i18nCaption, defaultValue)</a> ⇒ <code>string</code></dt>
+<dd><p>Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).</p>
+</dd>
+<dt><a href="#i18nTemplate">i18nTemplate(properties, i18nCaption)</a> ⇒ <code>string</code></dt>
+<dd><p>Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).</p>
+</dd>
+</dl>
+
 ## Typedefs
 
 <dl>
@@ -53,6 +64,33 @@ jQuery definition to anchor JsDoc comments.
 jQuery object type
 
 **Kind**: static namespace of [<code>jQuery</code>](#jQuery)  
+<a name="i18nParse"></a>
+
+## i18nParse(properties, i18nCaption, defaultValue) ⇒ <code>string</code>
+Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).
+
+**Kind**: global function  
+**Returns**: <code>string</code> - Recurso idiomático.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| properties | <code>Object.&lt;string, \*&gt;</code> | Objeto que contiene el recurso idiomático a obtener. |
+| i18nCaption | <code>string</code> | Clave del recurso a obtener. |
+| defaultValue | <code>string</code> | Valor por defecto a usar cuando no se pueda devolver el recurso solicitado. |
+
+<a name="i18nTemplate"></a>
+
+## i18nTemplate(properties, i18nCaption) ⇒ <code>string</code>
+Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).
+
+**Kind**: global function  
+**Returns**: <code>string</code> - Recurso idiomático.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| properties | <code>Object.&lt;string, \*&gt;</code> | Objeto que contiene el recurso idiomático a procesar. |
+| i18nCaption | <code>string</code> | Clave del recurso a procesar. |
+
 <a name="File"></a>
 
 ## File
