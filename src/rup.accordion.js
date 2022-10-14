@@ -236,7 +236,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      * @property {boolean} [validation=true] - Parámetro de configuración que determina la aplicación de la validación estructural asociada a las necesidades estructurales del Accordion.
      * @property {boolean} [disabled=false]- Parámetro de configuración que determina si está habilitado (false) o deshabilitado (true) el componente Accordion. Por defecto el valor de este parámetro es false.
      * @property { boolean| number} [active=0] - Determina la sección que está activa. Si se le especifica el valor false, el Accordion permanecerá totalmente cerrado (este caso requiere del parámetro collapsible true). Por defecto, su valor es la primera sección del Accordion.
-     * @property {boolean | number | String | Object}   [animate ={}]   - Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (por ejemplo bounceslide). Con un valor false se deshabilita la animación. El valor por defecto es slide (deslizable básico).
+     * @property {boolean | number | String | Object}   [animate ={}]   - Elemento de configuración que determina el tipo de animación aplicada al pliegue y despliegue de las secciones del Accordion. Puede aceptar los distintos tipos de animaciones asociados a JQuery–Ui (https://api.jqueryui.com/easings/). Con un valor false se deshabilita la animación. El valor por defecto es linear.
      * @property {boolean }[collapsible=false] - Parámetro que habilita la posibilidad de que todas las secciones del Accordion estén cerradas a la vez.
      * @property {String} [event='click'] - Determina el tipo de evento necesario para que cada una de las secciones sea habilitada o deshabilitada.
      * @property {selector}[header=function( elem ) { return elem.find( "> li > :first-child" ).add( elem.find( "> :not(li)" ).even() ); }] -  Selector que determina el objeto cabecera de cada una de las secciones del Accordion. Por defecto recoge como cabeceras los primeros elementos de cada pareja integrada en el Accordion.
@@ -244,6 +244,7 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
      *
      */
     $.fn.rup_accordion.defaults = {
+    	animate: 'linear',
         validation: true,
         heightStyle: "content",
         icons: {
