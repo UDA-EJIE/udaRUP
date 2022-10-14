@@ -319,7 +319,7 @@
         },
 
         //Funcion encargada de devolver el literal obtenido de estructura JSON (en caso de error devuelve el literal con formato especial)
-        i18nParse: function (properties, i18nCaption, defaultValue) {
+        i18nParse: function (properties, i18nCaption, defaultValue = 'Error') {
             if (i18nCaption !== undefined && i18nCaption !== null && i18nCaption !== '') {
                 var i18nCaptionArr = i18nCaption.split('.'),
                     i18nValue = properties;
