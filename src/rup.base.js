@@ -317,8 +317,15 @@
                 }
             }
         },
-
-        //Funcion encargada de devolver el literal obtenido de estructura JSON (en caso de error devuelve el literal con formato especial)
+        /**
+         * Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).
+         *
+         * @method i18nParse
+         * @param {Object.<string, *>} properties - Objeto que contiene el recurso idiomático a obtener.
+         * @param {string} i18nCaption - Clave del recurso a obtener.
+         * @param {string} defaultValue - Valor por defecto a usar cuando no se pueda devolver el recurso solicitado.
+         * @return {string} Recurso idiomático.
+         */
         i18nParse: function (properties, i18nCaption, defaultValue = 'Error') {
             if (i18nCaption !== undefined && i18nCaption !== null && i18nCaption !== '') {
                 var i18nCaptionArr = i18nCaption.split('.'),
@@ -340,7 +347,14 @@
                 return 'null_i18nCaption'; //retorno si no se recibe clave a buscar
             }
         },
-        //Funcion encargada de devolver el literal obtenido de estructura JSON (en caso de error devuelve el literal con formato especial)
+        /**
+         * Método encargado de devolver el literal obtenido de estructura JSON (en caso de error devuelve el recurso establecido por defecto).
+         *
+         * @method i18nTemplate
+         * @param {Object.<string, *>} properties - Objeto que contiene el recurso idiomático a procesar.
+         * @param {string} i18nCaption - Clave del recurso a procesar.
+         * @return {string} Recurso idiomático.
+         */
         i18nTemplate: function (properties, i18nCaption) {
             var template = jQuery.rup.i18nParse(properties, i18nCaption),
                 args = $.makeArray(arguments).slice(2);
