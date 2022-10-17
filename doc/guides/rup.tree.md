@@ -159,7 +159,7 @@ Al no obtener los datos a partir de un html el objeto sobre el que se inicializa
 <div id="tree_example" class="tree_example_code"></div>
 ```
 
-El objeto JSON se indicaría en la inicialización del componente árbol:
+El objeto JSON se indicaría en la inicialización del componente árbol (las claves "**data**" y "**children**" han de llamarse obligatoriamente así):
 
 ```javascript
 $("#tree_example").rup_tree({
