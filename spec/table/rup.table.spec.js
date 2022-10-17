@@ -96,28 +96,28 @@ function testDatatable() {
                 });
 
                 it('Debe mostrarse el menú contextual:', () => {
-                    expect($('#contextMenu2').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1').is(':visible')).toBeTruthy();
                 });
 
                 it('Debe tener los items esperados y solamente add e informes deben de estar habilitados:', () => {
-                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').length)
+                    expect($('#contextMenu1 > #exampleaddButton_1_contextMenuToolbar').length)
                         .toBe(1);
-                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
+                    expect($('#contextMenu1 > #exampleeditButton_1_contextMenuToolbar.disabledButtonsTable').length)
                         .toBe(1);
-                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar.disabledButtonsTable').length)
+                    expect($('#contextMenu1 > #examplecloneButton_1_contextMenuToolbar.disabledButtonsTable').length)
                         .toBe(1);
-                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
+                    expect($('#contextMenu1 > #exampledeleteButton_1_contextMenuToolbar.disabledButtonsTable').length)
                         .toBe(1);
-                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').length)
+                    expect($('#contextMenu1 > #examplecopyButton_1_contextMenuToolbar').length)
                         .toBe(1);
                 });
 
                 it('Los items deben ser visibles:', () => {
-                    expect($('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
-                    expect($('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1 > #exampleaddButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1 > #exampleeditButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1 > #examplecloneButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1 > #exampledeleteButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
+                    expect($('#contextMenu1 > #examplecopyButton_1_contextMenuToolbar').is(':visible')).toBeTruthy();
                 });
 
                 describe('Funcionalidades de los items de contextMenu > ', () => {
@@ -126,7 +126,7 @@ function testDatatable() {
                         	$('#example').on('tableEditFormAddEditAfterShowForm', () => {
                                 done();
                             });
-                            $('#contextMenu2 > #exampleaddButton_1_contextMenuToolbar').mouseup();
+                            $('#contextMenu1 > #exampleaddButton_1_contextMenuToolbar').mouseup();
                         });
 
                         it('Debe aparecer el formulario:', () => {
@@ -140,7 +140,7 @@ function testDatatable() {
                                 done();
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #exampleeditButton_1_contextMenuToolbar').mouseup();
+                            $('#contextMenu1 > #exampleeditButton_1_contextMenuToolbar').mouseup();
                         });
 
                         it('Debe aparecer el formulario:', () => {
@@ -154,7 +154,7 @@ function testDatatable() {
                     describe('Item clone > ', () => {
                         beforeEach((done) => {
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #examplecloneButton_1_contextMenuToolbar').mouseup();
+                            $('#contextMenu1 > #examplecloneButton_1_contextMenuToolbar').mouseup();
                         	$('#example').on('tableEditFormAddEditAfterShowForm', () => {
                                 done();
                             });
@@ -174,7 +174,7 @@ function testDatatable() {
                                 done();
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
+                            $('#contextMenu1 > #exampledeleteButton_1_contextMenuToolbar').mouseup();
                             $('.ui-dialog-buttonset > button.btn-material:contains(Aceptar)').click();
                         });
 
@@ -209,7 +209,7 @@ function testDatatable() {
                                 $('div.ui-dialog-buttonset > button:contains("' + $.rup.i18n.base.rup_global.aceptar + '")').click();
                             });
                             $('#example > tbody > tr:eq(0) > td:eq(0)').click();
-                            $('#contextMenu2 > #examplecopyButton_1_contextMenuToolbar').mouseup();
+                            $('#contextMenu1 > #examplecopyButton_1_contextMenuToolbar').mouseup();
                         });
                         afterEach(() => {
                             document.execCommand = document.exC;
@@ -593,7 +593,7 @@ function testDatatable() {
                         expect($('.rup-message-alert > .ui-dialog-content').text()).toBe('action');
                     });
                     it('Se añade la opcion al contextMenu: ', () => {
-                        expect($('#contextMenu3 > li:contains(addedBtn)').length).toBe(1);
+                        expect($('#contextMenu1 > li:contains(addedBtn)').length).toBe(1);
                     });
                 });
             });
