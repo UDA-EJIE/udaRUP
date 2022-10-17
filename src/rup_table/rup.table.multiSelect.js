@@ -988,7 +988,7 @@ handler that will select the items using the API methods.
                 }
 
                 if (ctx.oInit.headerContextMenu.show) { //Se mira si se quiere mostrar el menuContext
-                    _createContexMenuSelect($('#' + link[0].id), ctx);
+                    _createContexMenuSelect(link[0].id, ctx);
                 }
 
             }
@@ -1097,8 +1097,8 @@ handler that will select the items using the API methods.
             });
         }
 
-        id.rup_contextMenu({
-            selector: '#' + id.attr('id'),
+        $('#' + id).rup_contextMenu({
+            selector: '#' + id,
             trigger: 'left',
             items: items,
             position: function (contextMenu) {
