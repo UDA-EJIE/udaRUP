@@ -1097,16 +1097,18 @@ handler that will select the items using the API methods.
             });
         }
 
-        $('#' + id).rup_contextMenu({
-            selector: '#' + id,
-            trigger: 'left',
-            items: items,
-            position: function (contextMenu) {
-                contextMenu.$menu.css({
-                    top: this.parent().offset().top + this.parent().height(),
-                    left: this.parent().parent().offset().left
-                });
-            }
+        dt.on('init.dt', function () {
+        	$('#' + id).rup_contextMenu({
+        		selector: '#' + id,
+        		trigger: 'left',
+        		items: items,
+        		position: function (contextMenu) {
+        			contextMenu.$menu.css({
+        				top: this.parent().offset().top + this.parent().height(),
+        				left: this.parent().parent().offset().left
+        			});
+        		}
+        	});
         });
     }
 
