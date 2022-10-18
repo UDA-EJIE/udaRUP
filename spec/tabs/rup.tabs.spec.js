@@ -15,7 +15,7 @@ describe('Test Tabs > ', () => {
     });
 
     beforeEach(() => {
-        var html = '<div id="exampleTabs">\
+        var html = '<div id="tabs">\
                         <div id="cont1" style="display:none;">Contenido 1</div>\
                         <div id="cont2" style="display:none;">Contenido 2</div>\
                         <div id="cont3" style="display:none;">Contenido 3</div>\
@@ -23,17 +23,17 @@ describe('Test Tabs > ', () => {
         $('#content').append(html);
         var opts = {
             tabs: [{
-                i18nCaption: 'Tab1',
+                i18nCaption: 'pestana1',
                 layer: '#cont1'
             },
             {
-                i18nCaption: 'Tab2',
+                i18nCaption: 'pestana2',
                 layer: '#cont2'
             }
             ]
         };
-        $('#exampleTabs').rup_tabs(opts);
-        $tabs = $('#exampleTabs');
+        $('#tabs').rup_tabs(opts);
+        $tabs = $('#tabs');
     });
 
     afterEach(() => {
@@ -46,8 +46,8 @@ describe('Test Tabs > ', () => {
             expect($tabs.hasClass('rup-tabs_container ui-tabs ui-corner-all ui-widget ui-widget-content')).toBeTruthy();
         });
         it('Por defecto debe estar seleccionado el primer tab', () => {
-            let context = $('#exampleTabs > ul > li.ui-tabs-active.ui-state-active');
-            expect($('a > div.rup-tabs_title', context).text()).toBe('Tab1');
+            let context = $('#tabs > ul > li.ui-tabs-active.ui-state-active');
+            expect($('a > div.rup-tabs_title', context).text()).toBe('Tab 1');
         });
     });
     describe('Callback load > ', () => {
@@ -60,7 +60,7 @@ describe('Test Tabs > ', () => {
             });
             $('#mockTab').rup_tabs({
                 tabs: [{
-                    i18nCaption: 'Tab1',
+                    i18nCaption: 'pestana1',
                     layer: '#cont1'
                 }]
             });
@@ -74,126 +74,118 @@ describe('Test Tabs > ', () => {
             describe('Método disableTabs > ', () => {
                 beforeEach(() => {
                     $tabs.rup_tabs('enableTabs', {
-                        idTab: 'exampleTabs',
+                        idTab: 'tabs',
                         position: 1
                     });
                     $tabs.rup_tabs('disableTabs', {
-                        idTab: 'exampleTabs',
+                        idTab: 'tabs',
                         position: 1
                     });
                 });
                 it('Debe tener la clase que deshabilita la pestaña', () => {
-                    expect($('li[aria-labelledby="Tab2"]').hasClass('ui-state-disabled')).toBeTruthy();
+                    expect($('li[aria-labelledby="pestana2"]').hasClass('ui-state-disabled')).toBeTruthy();
                 });
             });
             describe('Método enableTabs > ', () => {
                 beforeEach(() => {
                     $tabs.rup_tabs('disableTabs', {
-                        idTab: 'exampleTabs',
+                        idTab: 'tabs',
                         position: 1
                     });
                     $tabs.rup_tabs('enableTabs', {
-                        idTab: 'exampleTabs',
+                        idTab: 'tabs',
                         position: 1
                     });
                 });
                 it('No debe tener la clase que deshabilita la pestaña', () => {
-                    expect($('li[aria-labelledby="Tab2"]').hasClass('ui-state-disabled')).toBeFalsy();
+                    expect($('li[aria-labelledby="pestana2"]').hasClass('ui-state-disabled')).toBeFalsy();
                 });
             });
         });
         describe('Método loadTab > ', () => {
             beforeEach((done) => {
-                let html = '<div id="mockTab"></div>';
+                let html = '<div id="tabs"></div>';
                 $('#content').append(html);
-                $('#mockTab').rup_tabs({
+                $('#tabs').rup_tabs({
                     tabs: [{
-                        i18nCaption: 'Tab1',
+                        i18nCaption: 'pestana1',
                         layer: '#cont1'
                     }]
                 });
-                $('#mockTab').rup_tabs('addTab', {
-                    idTab: 'mockTab',
+                $('#tabs').rup_tabs('addTab', {
+                    idTab: 'tabs',
                     label: 'Tab3',
                     position: 1,
                     url: testutils.DEMO + '/fragmento3'
                 });
-                $('#mockTab > ul > li > a:contains(Tab3)').click();
-                $('#mockTab').on('afterTabDataLoad', () => {
-                    $('#mockTab').on('afterTabDataLoad', () => {
-                        done();
-                    });
-                    $('#mockTab > ul > li > a:contains(Tab1)').click();
-                    $('#mockTab').rup_tabs('loadTab', {
-                        idTab: 'mockTab',
-                        position: 1,
-                        url: testutils.DEMO + '/tab3Fragment'
-                    });
-                    $('#mockTab > ul > li > a:contains(Tab3)').click();
+                $('#tabs').on('afterTabDataLoad', () => {
+                    done();
                 });
+                $('#tabs').rup_tabs('loadTab', {
+                    idTab: 'tabs',
+                    position: 1,
+                    url: testutils.DEMO + '/tab3Fragment'
+                });
+                $('#tabs > ul > li > a:contains(Tab3)').click();
             });
             it('Debe añadir contenido a la tab:', () => {
-                let tabContent = $('[aria-labelledby = "'+$('#mockTab > ul > li > a:contains(Tab3)').attr('id')+'"]');
+                let tabContent = $('[aria-labelledby = "'+$('#tabs > ul > li > a:contains(Tab3)').attr('id')+'"]');
                 expect($('div.jvc0w1.clearfix', tabContent).length).toBe(1);
             });
         });
         describe('Método changeUrlTab > ', () => {
             beforeEach((done) => {
-                let html = '<div id="mockTab"></div>';
+                let html = '<div id="tabs"></div>';
                 $('#content').append(html);
-                $('#mockTab').rup_tabs({
+                $('#tabs').rup_tabs({
                     tabs: [{
-                        i18nCaption: 'Tab1',
+                        i18nCaption: 'pestana1',
                         layer: '#cont1'
                     }]
                 });
-                $('#mockTab').rup_tabs('addTab', {
-                    idTab: 'mockTab',
+                $('#tabs').rup_tabs('addTab', {
+                    idTab: 'tabs',
                     label: 'Tab3',
                     position: 1,
                     url: testutils.DEMO + '/fragmento3'
                 });
-                $('#mockTab > ul > li > a:contains(Tab3)').click();
-                $('#mockTab').on('afterTabDataLoad', () => {
-                    $('#mockTab').on('afterTabDataLoad', () => {
-                        done();
-                    });
-                    $('#mockTab > ul > li > a:contains(Tab1)').click();
-                    $('#mockTab').rup_tabs('changeUrlTab', {
-                        idTab: 'mockTab',
-                        position: 1,
-                        url: testutils.DEMO + '/tab3Fragment'
-                    });
-                    $('#mockTab > ul > li > a:contains(Tab3)').click();
+                $('#tabs').on('afterTabDataLoad', () => {
+                    done();
                 });
+                $('#tabs').rup_tabs('changeUrlTab', {
+                    idTab: 'tabs',
+                    position: 1,
+                    url: testutils.DEMO + '/tab3Fragment'
+                });
+                $('#tabs > ul > li > a:contains(Tab3)').click();
             });
             it('Debe añadir contenido a la tab:', () => {
-                let tabContent = $('[aria-labelledby = "'+$('#mockTab > ul > li > a:contains(Tab3)').attr('id')+'"]');
+                let tabContent = $('[aria-labelledby = "'+$('#tabs > ul > li > a:contains(Tab3)').attr('id')+'"]');
                 expect($('div.jvc0w1.clearfix', tabContent).length).toBe(1);
             });
         });
         describe('Método changeLayerTab > ', () => {
             beforeEach(() => {
                 $tabs.rup_tabs('changeLayerTab', {
-                    idTab: 'exampleTabs',
+                    idTab: 'tabs',
                     position: 0,
                     layer: '#cont3'
                 });
             });
-            it('Debe cambiar el contenido de Tab1', () => {
-                expect($('div[aria-labelledBy="Tab1"] > div').text()).toBe('Contenido 3');
+            it('Debe cambiar el contenido de Tab 1', () => {
+                expect($('div[aria-labelledBy="pestana1"] > div').text()).toBe('Contenido 3');
             });
         });
         describe('Método selectTab > ', () => {
             beforeEach(() => {
                 $tabs.rup_tabs('selectTab', {
-                    idTab: 'exampleTabs',
+                    idTab: 'tabs',
                     position: 1
                 });
             });
             it('Debe cambiar la selección', () => {
-                let context = $('#exampleTabs > ul > li.ui-tabs-active.ui-state-active');
-                expect($('a > div.rup-tabs_title', context).text()).toBe('Tab2');
+                let context = $('#tabs > ul > li.ui-tabs-active.ui-state-active');
+                expect($('a > div.rup-tabs_title', context).text()).toBe('Tab 2');
             });
         });
         describe('Método addTab > ', () => {
@@ -205,7 +197,7 @@ describe('Test Tabs > ', () => {
                 });
                 $('#mockTab').rup_tabs({
                     tabs: [{
-                        i18nCaption: 'Tab1',
+                        i18nCaption: 'pestana1',
                         layer: '#cont1'
                     }]
                 });
