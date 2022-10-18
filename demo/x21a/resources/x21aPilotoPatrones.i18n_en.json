@@ -186,6 +186,30 @@
     "sabado": "Saturday",
     "viernes": "Friday"
   },
+  "exampleAutocomplete": {
+    "ab": "ab",
+    "tc": "tc",
+    "ud": "ud",
+    "le": "le",
+    "af": "af",
+    "mg": "mg",
+    "ah": "ah",
+    "ui": "ui",
+    "uj": "uj",
+    "ak": "ak"
+  },
+  "exampleAutocompleteDos": {
+    "ab": "ab",
+    "tc": "tc",
+    "ud": "ud",
+    "le": "le",
+    "af": "af",
+    "mg": "mg",
+    "ah": "ah",
+    "ui": "ui",
+    "uj": "uj",
+    "ak": "ak"
+  },
   "grid##ejie": {
     "0": "No",
     "1": "Yes"
