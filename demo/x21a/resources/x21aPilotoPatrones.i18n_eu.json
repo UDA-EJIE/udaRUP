@@ -318,6 +318,11 @@
   "simpelMaint": {
     "actualizar": "Botoi pertsonalizatuen adibidea"
   },
+  "subLeveledBreadCrumb": {
+    "ptrUno": "ptrUno",
+    "ptrDos": "ptrDos",
+    "ptrTres": "ptrTres"
+  },
   "table": {
     "apellido1": "Primer apellido_eu",
     "apellido2": "Segundo apellido_eu",

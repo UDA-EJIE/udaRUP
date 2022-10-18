@@ -281,6 +281,11 @@
   "simpelMaint": {
     "actualizar": "Ejemplo de botón personalizado_en"
   },
+  "subLeveledBreadCrumb": {
+    "ptrUno": "ptrUno",
+    "ptrDos": "ptrDos",
+    "ptrTres": "ptrTres"
+  },
   "table": {
     "apellido1": "Primer apellido_en",
     "apellido2": "Segundo apellido_en",
