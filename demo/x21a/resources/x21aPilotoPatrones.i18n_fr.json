@@ -124,6 +124,22 @@
   "comboAbueloRemoto": {
     "_blank": "[Selecciona Abuelo Remoto_fr]"
   },
+  "comboGroup": {
+    "Opt1": "Opt1",
+    "Opt11": "Opt11",
+    "Opt12": "Opt12",
+    "Opt2": "Opt2",
+    "Opt21": "Opt21",
+    "Opt22": "Opt22"
+  },
+  "comboGroupVacio": {
+    "Opt1": "Opt1",
+    "Opt11": "Opt11",
+    "Opt12": "Opt12",
+    "Opt2": "Opt2",
+    "Opt21": "Opt21",
+    "Opt22": "Opt22"
+  },
   "comboGrupos": {
     "alaves": "Alaves_fr",
     "ath": "Athletic_fr",
@@ -147,6 +163,14 @@
     "joseph_doe": "Joseph Doe - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)",
     "mad_doe": "Mad Doe Kiiid - 78 West Main St Apt 3A | Bloomsburg, PA 12345 (footer text)"
   },
+  "comboMulti": {
+    "Opcion1": "Opcion1",
+    "Opcion2": "Opcion2",
+    "Opcion3": "Opcion3",
+    "Opcion4": "Opcion4",
+    "Opcion5": "Opcion5",
+    "Opcion6": "Opcion6"
+  },
   "comboMunicipios": {
     "_blank": "Seleccione un elemento_fr"
   },
@@ -169,6 +193,14 @@
   },
   "comboProvinciasAPI": {
     "_blank": "Seleccione un elemento_fr"
+  },
+  "comboSimple": {
+    "Opcion1": "Opcion1",
+    "Opcion2": "Opcion2",
+    "Opcion3": "Opcion3",
+    "Opcion4": "Opcion4",
+    "Opcion5": "Opcion5",
+    "Opcion6": "Opcion6"
   },
   "contextmenuDemo": {
     "exampleEntry": "Ejemplo de entrada(rename)_fr",
