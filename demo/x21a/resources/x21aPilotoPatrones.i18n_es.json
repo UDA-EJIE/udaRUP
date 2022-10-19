@@ -382,12 +382,58 @@
     "maint2": "Mantenimiento 2",
     "maint3": "Mantenimiento 3"
   },
+  "selectGroup": {
+    "Opt1": "Opt1",
+    "Opt11": "Opt11",
+    "Opt12": "Opt12",
+    "Opt2": "Opt2",
+    "Opt21": "Opt21",
+    "Opt22": "Opt22"
+  },
+  "selectGroupVacio": {
+    "Opt1": "Opt1",
+    "Opt11": "Opt11",
+    "Opt12": "Opt12",
+    "Opt2": "Opt2",
+    "Opt21": "Opt21",
+    "Opt22": "Opt22"
+  },
+  "selectHijo": {
+    "_blank": "[Selecciona Hijo]"
+  },
+  "selectPadre": {
+    "a1": "A-Zona1",
+    "a2": "A-Zona2",
+    "a3": "A-Zona3",
+    "b1": "Gran Bilbao",
+    "b2": "Margen Derecha",
+    "b3": "Margen Izquierda",
+    "g1": "G-Zona1",
+    "g2": "G-Zona2",
+    "g3": "G-Zona3"
+  },
+  "selectSimple": {
+    "Opcion1": "Opcion1",
+    "Opcion2": "Opcion2",
+    "Opcion3": "Opcion3",
+    "Opcion4": "Opcion4",
+    "Opcion5": "Opcion5",
+    "Opcion6": "Opcion6"
+  },
   "sexo": {
     "femenino": "Femenino",
     "masculino": "Masculino"
   },
   "simpelMaint": {
     "actualizar": "Ejemplo de botón personalizado"
+  },
+  "selectMulti": {
+    "Opcion1": "Opcion1",
+    "Opcion2": "Opcion2",
+    "Opcion3": "Opcion3",
+    "Opcion4": "Opcion4",
+    "Opcion5": "Opcion5",
+    "Opcion6": "Opcion6"
   },
   "subLeveledBreadCrumb": {
     "ptrUno": "ptrUno",
