@@ -192,6 +192,8 @@ module.exports = [{
             './images': path.join(__dirname, '/assets/images'),
             './cursors': path.join(__dirname, '/assets/cursors'),
             '../css/images/table': path.join(__dirname, '/assets/images/datatable'),
+            '../jstree/default': path.join(__dirname, '/assets/images/jstree/default'),
+            '../jstree/default-dark': path.join(__dirname, '/assets/images/jstree/default-dark'),
             './fonts': path.join(__dirname, '/assets/fonts'),
             '../fonts': '@mdi/font/fonts/',
         }
