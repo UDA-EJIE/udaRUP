@@ -1747,16 +1747,232 @@
 
 	/**
 	 * @description Propiedades de configuración del componente.
-	 * @name options
-	 * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link https://www.jstree.com/api/|jstree}.
+	 * @see Para mas información consulte la documentación acerca de las opciones de configuración del plugin {@link https://www.jstree.com/api|jsTree}.
+	 * @name defaults
+	 * @property {Object} defaults - Preferencias por defecto ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults|API jsTree}).
+	 * @property {Object<Array<string>>} [defaults.plugins=[]] - Plugins del componente 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.plugins|API jsTree}).
+	 * @property {Object} defaults.core - Preferencias del núcleo ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core|API jsTree}).
+	 * @property {*} [defaults.core.data=false] - Configuración de los datos ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.data|API jsTree}).
+	 * @property {boolean|Object} [defaults.core.strings=false] - Configura las múltiples cadenas que son usados en el componente 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.strings|API jsTree}).
+	 * @property {boolean} [defaults.core.check_callback=false] - Determina qué sucede cuando un usuario trata de modificar la estructura del árbol 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.check_callback|API jsTree}).
+	 * @property {function} defaults.core.error - Callback llamado con un único argumento compuesto por un objecto simple cuando algo falla  
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.error|API jsTree}).
+	 * @property {number|boolean} [defaults.core.animation=200] - Duración en milisegundos de la acción de apertura y cierre. Es posible deshabilitar la 
+	 * animación si se define a `false` ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.animation|API jsTree}).
+	 * @property {boolean} [defaults.core.multiple=false] - Indica si es posible seleccionar múltiples nodos 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.multiple|API jsTree}).
+	 * @property {Object} defaults.core.themes - Preferencias del tema ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes|API jsTree}).
+	 * @property {boolean|string} [defaults.core.themes.name=false] - Nombre del tema a usar 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.name|API jsTree}).
+	 * @property {boolean|string} [defaults.core.themes.url=false] - Ubicación del CSS del tema a aplicar. Si el fichero es incluido manualmente, 
+	 * se debe definir a `false`. Para cargarlo automáticamente del directorio establecido en `defaults.core.themes.dir`, será necesario fijarlo a `true`. 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.url|API jsTree}).
+	 * @property {boolean|string} [defaults.core.themes.dir=false] - Ubicación de los temas del componente. Solamente se debe usar si `defaults.core.themes.dir` 
+	 * es definido a `true` ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.dir|API jsTree}).
+	 * @property {boolean} [defaults.core.themes.dots=false] - Permite mostrar los puntos conectores entre nodos 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.dots|API jsTree}).
+	 * @property {boolean} [defaults.core.themes.icons=true] - Permite mostrar los iconos en los nodos 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.icons|API jsTree}).
+	 * @property {boolean} [defaults.core.themes.ellipsis=false] - Indica si se debe mostrar la elipsis de los nodos 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.ellipsis|API jsTree}).
+	 * @property {boolean} [defaults.core.themes.stripes=false] - Indica si se deben mostrar las líneas de fondo en el contenedor 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.stripes|API jsTree}).
+	 * @property {boolean|string} [defaults.core.themes.variant='default'] - Especifica la variante a usar del tema actual 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.variant|API jsTree}).
+	 * @property {boolean} [defaults.core.themes.responsive=true] - Especifica si se debería usar la versión responsiva de los temas en las pantallas pequeñas 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.responsive|API jsTree}).
+	 * @property {boolean} [defaults.core.expand_selected_onload=false] - Si se define a `true` todos los padres de nodos seleccionados serán desplegados 
+	 * una vez el árbol haya sido cargado ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.expand_selected_onload|API jsTree}).
+	 * @property {boolean} [defaults.core.worker=true] - Permite utilizar "web workers" para parsear el JSON recibido sin bloquear la interfaz 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.worker|API jsTree}).
+	 * @property {boolean} [defaults.core.force_text=false] - Fuerza el texto del nodo a texto plano y a escapar el HTML 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.force_text|API jsTree}).
+	 * @property {boolean} [defaults.core.dblclick_toggle=true] - Indica si el nodo tendría que ser alternado entre abierto y cerrado si se hace una doble 
+	 * pulsación sobre él ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.dblclick_toggle|API jsTree}).
+	 * @property {boolean} [defaults.core.loaded_state=false] - Indica si los nodos cargados deberían formar parte del estado 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.loaded_state|API jsTree}).
+	 * @property {boolean} [defaults.core.restore_focus=true] - Permite devolver el foco al último nodo que lo tuvo antes de perderlo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.restore_focus|API jsTree}).
+	 * @property {boolean} [defaults.core.compute_elements_positions=false] - Fuerza la computación y el establecimiento de `aria-setsize` y `aria-posinset` de manera 
+	 * explícita para cada ítem del árbol ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.compute_elements_positions|API jsTree}).
+	 * @property {Object} defaults.core.keyboard - Permite definir atajos de teclado 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.keyboard|API jsTree}).
+	 * @property {Object} defaults.checkbox - Preferencias para los checkbox ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.visible=true] - Define la visibilidad de los checkbox 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.three_state=true] - Define si al seleccionar un nodo padre deberían de marcarse también sus hijos y dejarlos con un 
+	 * estado indeterminado ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.three_state|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.whole_node=true] - Permite seleccionar el nodo cuando se pulsa sobre cualquier parte de él, haciéndolo actuar como 
+	 * si se pulsara sobre el checkbox ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.whole_node|API jsTree}).
+	 * @property {string} [defaults.checkbox.cascade=''] - Controla cómo se aplican los cambios en cascada y la indeterminación 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.cascade|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.tie_selection=true] - Controla si los checkbox están vinculados a la selección general del árbol o a un array interno 
+	 * mantenido por el plugin del checkbox ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.tie_selection|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.cascade_to_disabled=true] - Controla si los cambios en cascada afectan a los checkbox deshabilitados 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.cascade_to_disabled|API jsTree}).
+	 * @property {boolean} [defaults.checkbox.cascade_to_hidden=true] - Controla si los cambios en cascada afectan a los checkbox ocultos 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.checkbox.cascade_to_hidden|API jsTree}).
+	 * @property {boolean} [defaults.conditionalselect=true] - Define un callback que recibe dos parámetros (el nodo y el evento) para permitir o prevenir la interacción con 
+	 * los nodos por parte del usuario. También es posible definirlo a `false` para prevenir la interacción del usuario con los nodos o a `true` para permitirlo a través 
+	 * de la invocación a `activate_node`.
+	 * @property {Object} defaults.contextmenu - Preferencias del menú contextual ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.contextmenu|API jsTree}).
+	 * @property {boolean} [defaults.contextmenu.select_node=true] - Indica si el nodo puede ser seleccionado cuando el menú contextual ha sido invocado sobre él 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.contextmenu.select_node|API jsTree}).
+	 * @property {boolean} [defaults.contextmenu.show_at_node=true] - Indica si el menú contextual debería de ser mostrado alineado con el nodo. Si no se habilita, se usan 
+	 * las coordenadas del ratón para ubicarlo ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.contextmenu.show_at_node|API jsTree}).
+	 * @property {Object} defaults.contextmenu.items - Permite definir múltiples características del menú contextual 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.contextmenu.items|API jsTree}).
+	 * @property {Object} defaults.dnd - Preferencias de "drag'n'drop" ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd|API jsTree}).
+	 * @property {boolean} [defaults.dnd.copy=true] - Habilita la copia mientras se mueve un nodo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.copy|API jsTree}).
+	 * @property {number} [defaults.dnd.open_timeout=500] - Número que indica cuánto tiempo es necesario para empezar a mover un nodo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.open_timeout|API jsTree}).
+	 * @property {boolean|function} [defaults.dnd.is_draggable=true] - Función invocada cada vez que un nodo vaya a ser movido. Recibe como parámetros el nodo 
+	 * a mover (en un array) y el evento que comenzó el movimiento ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.is_draggable|API jsTree}).
+	 * @property {boolean} [defaults.dnd.check_while_dragging=true] - Indica si se deberían de realizar comprobaciones de manera constante mientras el usuario esté 
+	 * moviendo un nodo ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.check_while_dragging|API jsTree}).
+	 * @property {boolean} [defaults.dnd.always_copy=false] - Indica si los nodos de un árbol solo pueden ser copiados mediante el movimiento de arrastre 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.always_copy|API jsTree}).
+	 * @property {number|string} [defaults.dnd.inside_pos=0] - Este ajuste indica cuando se mueve un nodo dentro de otro, en qué posición debería de ir el nuevo nodo. 
+	 * Además de marcar la posición números, también se pueden usar las cadenas `first` (primera posición) y `last` (última posición) 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.inside_pos|API jsTree}).
+	 * @property {boolean} [defaults.dnd.drag_selection=true] - Cuando se comienza a mover un nodo que está seleccionado, este ajuste controla si se deberían mover todos 
+	 * los nodos seleccionados o únicamente el que se está moviendo ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.drag_selection|API jsTree}).
+	 * @property {boolean|string} [defaults.dnd.touch=true] - Permite habilitar el movimiento de nodos en pantallas táctiles y también cómo se comporta en caso de 
+	 * habilitiarlo ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.touch|API jsTree}).
+	 * @property {boolean} [defaults.dnd.large_drop_target=false] - Controla si los items pueden ser soltados en cualquier parte del nodo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.large_drop_target|API jsTree}).
+	 * @property {boolean} [defaults.dnd.large_drag_target=false] - Controla si el movimiento de un nodo puede ser comenzado desde cualquier parte de él o únicamente 
+	 * desde el texto o icono ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.large_drag_target|API jsTree}).
+	 * @property {boolean} [defaults.dnd.use_html5=true] - Permite usar la API de HTML5 en lugar de la clásica 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.dnd.use_html5|API jsTree}).
+	 * @property {Object|function} defaults.massload - Configuración de carga masiva ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.massload|API jsTree}).
+	 * @property {Object} defaults.search - Configuración de la búsqueda ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search|API jsTree}).
+	 * @property {boolean|Object|function} [defaults.search.ajax=false] - Permite configurar AJAX 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.ajax|API jsTree}).
+	 * @property {boolean} [defaults.search.fuzzy=false] - Indica si la búsqueda debería ser menos estricta 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.fuzzy|API jsTree}).
+	 * @property {boolean} [defaults.search.case_sensitive=false] - Indica si la búsqueda debe distinguir entre mayúsculas y minúsculas 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.case_sensitive|API jsTree}).
+	 * @property {boolean} [defaults.search.show_only_matches=false] - Indica si el árbol debería de ser filtrado por defecto para que solo muestre los nodos que 
+	 * coinciden ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.show_only_matches|API jsTree}).
+	 * @property {boolean} [defaults.search.show_only_matches_children=false] - Permite indicar si los hijos de los nodos coincidentes serán mostrados 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.show_only_matches_children|API jsTree}).
+	 * @property {boolean} [defaults.search.close_opened_onclear=true] - Indica si todos los nodos que se encuentren abiertos mostrando el resultado de la búsqueda 
+	 * deberían de ser cerrados una vez la búsqueda haya sido borrada o realizada de nuevo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.close_opened_onclear|API jsTree}).
+	 * @property {boolean} [defaults.search.search_leaves_only=false] - Configura si los nodos hoja deberían de ser los únicos nodos mostrados en las búsquedas 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.search_leaves_only|API jsTree}).
+	 * @property {boolean} [defaults.search.search_callback=false] - Permite lanzar un callback por cada nodo que haya en la estructura una vez se realiza 
+	 * una búsqueda ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.search.search_callback|API jsTree}).
+	 * @property {number} defaults.sort - Configuración de la ordenación ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.sort|API jsTree}).
+	 * @property {Object} defaults.state - Preferencias del estado ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state|API jsTree}).
+	 * @property {string} [defaults.state.key='jstree'] - Cadena a usar en la clave cuando se guarde el estado del árbol. Debería cambiarse cuando se utilicen 
+	 * múltiples árboles en una misma vista ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state.key|API jsTree}).
+	 * @property {string} [defaults.state.events='changed.jstree open_node.jstree close_node.jstree check_node.jstree uncheck_node.jstree'] - Lista de eventos separados 
+	 * por un espacio que desencadenan un guardado de estado ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state.events|API jsTree}).
+	 * @property {boolean|number} [defaults.state.ttl=false] - Tiempo en milisegundos hasta que el estado expire 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state.ttl|API jsTree}).
+	 * @property {boolean|function} [defaults.state.filter=false] - Función que se ejecuta antes de restaurar el estado y recibe el estado como parámetro 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state.filter|API jsTree}).
+	 * @property {boolean} [defaults.state.preserve_loaded=false] - Indica si los nodos cargados deberían de ser restaurados 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.state.preserve_loaded|API jsTree}).
+	 * @property {Object} defaults.types - Preferencias de tipos ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.types|API jsTree}).
+	 * @property {Object} defaults.unique - Preferencias de exclusividad ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.unique|API jsTree}).
+	 * @property {boolean} [defaults.unique.case_sensitive=false] - Indica si la comparación debe distinguir entre mayúsculas y minúsculas 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.unique.case_sensitive|API jsTree}).
+	 * @property {boolean} [defaults.unique.trim_whitespace=false] - Indica si se deben eliminar los espacios en blanco antes de la comparación 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.unique.trim_whitespace|API jsTree}).
+	 * @property {function} defaults.unique.duplicate - Callback a ejecutar cuando un nuevo nodo es creado y el nombre ya está siendo usado por otro nodo 
+	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.unique.duplicate|API jsTree}).
 	 */
 	jQuery.fn.rup_tree.defaults = {
-			"core" : {
-				"multiple" : false,
-				"themes" : {
-					"icons": true,
-					"dots" : false
+			'plugins': [],
+			'core': {
+				'data': false,
+				'strings': false,
+				'check_callback': false,
+				'animation': 200,
+				'multiple': false,
+				'themes': {
+					'name': false,
+					'url': false,
+					'dir': false,
+					'dots': false,
+					'icons': true,
+					'ellipsis': false,
+					'stripes': false,
+					'variant': 'default',
+					'responsive': true
+				},
+				'expand_selected_onload': false,
+				'worker': true,
+				'force_text': false,
+				'dblclick_toggle': true,
+				'loaded_state': false,
+				'restore_focus': true,
+				'compute_elements_positions': false
+			},
+			'checkbox': {
+				'visible': true,
+				'three_state': true,
+				'whole_node': true,
+				'keep_selected_style': true,
+				'cascade': '',
+				'tie_selection': true,
+				'cascade_to_disabled': true,
+				'cascade_to_hidden': true
+			},
+			'conditionalselect': true,
+			'contextmenu': {
+				'select_node': true,
+				'show_at_node': true,
+				'items': {
+					'create.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.create'),
+					'rename.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.rename'),
+					'remove.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.remove'),
+					'ccp.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.ccp.label'),
+					'ccp.submenu.cut.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.ccp.cut'),
+					'ccp.submenu.copy.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.ccp.copy'),
+					'ccp.submenu.paste.label': $.rup.i18nParse($.rup.i18n.base, 'rup_tree.ccp.paste'),
 				}
+			},
+			'dnd': {
+				'copy': true,
+				'open_timeout': 500,
+				'is_draggable': true,
+				'check_while_dragging': true,
+				'always_copy': false,
+				'inside_pos': 0,
+				'drag_selection': true,
+				'touch': true,
+				'large_drop_target': false,
+				'large_drag_target': false,
+				'use_html5': true
+			},
+			'search': {
+				'ajax': false,
+				'fuzzy': false,
+				'case_sensitive': false,
+				'show_only_matches': false,
+				'show_only_matches_children': false,
+				'close_opened_onclear': true,
+				'search_leaves_only': false,
+				'search_callback': false
+			},
+			'state': {
+				'key': 'jstree',
+				'events': 'changed.jstree open_node.jstree close_node.jstree check_node.jstree uncheck_node.jstree',
+				'ttl': false,
+				'filter': false,
+				'preserve_loaded': false
+			},
+			'unique': {
+				'case_sensitive': false,
+				'trim_whitespace': false
 			}
 	};
 
