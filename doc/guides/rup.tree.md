@@ -64,7 +64,7 @@ Por la naturaleza de desarrollo de los componentes (patrones) como plugins basad
 •	**jQuery UI 1.12.0**: http://jqueryui.com/
 	Las distintas funcionalidades que aporta el componente y las prestaciones generales del mismo, se apoyan en el plugin jsTree. Para el correcto funcionamiento del componente Arbol, se precisa de la inclusión de dicho plugin.
 
-•	**jsTree 1.x**: http://old.jstree.com/
+•	**jsTree 3.x**: https://www.jstree.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 	- jquery-3.4.1.js
@@ -149,7 +149,7 @@ $("#tree_example").rup_tree({
 
 El componente toma como opción por defecto la inicialización del árbol a partir del html del objeto sobre el que se inicializa, de modo que no sería necesario indicar ningún parámetro adicional.
 
-Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante html se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
+Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante html se detallan en la [API](https://www.jstree.com/docs/html) del plugin subyacente jsTree.
 
 ###	6.2 JSON
 El componente permite inicializar los datos que se muestran en el árbol a partir de la información existente en un objeto JSON.
@@ -188,7 +188,7 @@ $("#tree_example").rup_tree({
 });
 ```
 
-Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante json se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
+Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante json se detallan en la [API](https://www.jstree.com/docs/html) del plugin subyacente jsTree.
 
 ###	6.3 XML
 El componente permite inicializar los datos que se muestran en el árbol a partir de la información existente en un XML.
@@ -234,7 +234,7 @@ $("#xmlTreeDemo").rup_tree({
 });
 ```
 
-Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante xml se detallan en la [API](http://old.jstree.com/documentation/html_data) del plugin subyacente jsTree.
+Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante xml se detallan en la [API](https://www.jstree.com/docs/html) del plugin subyacente jsTree.
 
 ###	6.4 Carga mediante Ajax
 El componente permite inicializar los datos del árbol a partir de la respuesta de una petición AJAX. En la API del plugin jsTree se detalla la configuración necesaria para inicializar el árbol mediante una petición AJAX que devuelva datos en formato html, json o xml.
@@ -305,7 +305,7 @@ $(selector).rup_autocomplete("getRupValue");
 ```javascript
 $(selector).rup_autocomplete("setRupValue",value);:
 ```
-El resto de propiedades y funciones de configuración del plugin core pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
+El resto de propiedades y funciones de configuración del plugin core pueden consultarse en la [API](https://www.jstree.com/docs/html)  del plugin jsTree.
 
 ###	7.2 Checkbox
 
@@ -320,7 +320,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin checkbox pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
+Las propiedades de configuración del plugin checkbox pueden consultarse en la [API](https://www.jstree.com/docs/html)  del plugin jsTree.
 
 ###	7.3	Menú contextual
 Añade un menú contextual a cada nodo que se visualiza en el árbol.
@@ -334,7 +334,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin contextmenu pueden consultarse en la  [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
+Las propiedades de configuración del plugin contextmenu pueden consultarse en la  [API](https://www.jstree.com/docs/html)  del plugin jsTree.
 
 ###	7.4 Ordenación
 Ordena automáticamente los nodos que se muestran en la tabla.
@@ -348,7 +348,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin sort pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
+Las propiedades de configuración del plugin sort pueden consultarse en la [API](https://www.jstree.com/docs/html) del plugin jsTree.
 
 ###	7.5 Selección UI
 El plugin UI gestiona la selección, deselección y resaltado de nodos.
@@ -361,7 +361,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin ui pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
+Las propiedades de configuración del plugin ui pueden consultarse en la [API](https://www.jstree.com/docs/html) del plugin jsTree.
 
 ###	7.6 Theme
 El plugin Theme controla la apariencia del componente árbol.
@@ -375,7 +375,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin ui pueden consultarse en la [API](http://old.jstree.com/documentation/html_data)  del plugin jsTree.
+Las propiedades de configuración del plugin ui pueden consultarse en la [API](https://www.jstree.com/docs/html)  del plugin jsTree.
 
 ###	7.7 Nodos únicos
 El plugin unique se encarga de evitar que existan dos nodos del mismo padre que tengan el mismo nombre.
@@ -388,7 +388,7 @@ $("#ejemploArbolDiv").rup_tree({
 	}
 });
 ```
-Las propiedades de configuración del plugin unique pueden consultarse en la [API](http://old.jstree.com/documentation/html_data) del plugin jsTree.
+Las propiedades de configuración del plugin unique pueden consultarse en la [API](https://www.jstree.com/docs/html) del plugin jsTree.
 
 ##	8 Sobreescritura del theme
 El componente árbol se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.tree-x.y.z.css**.
