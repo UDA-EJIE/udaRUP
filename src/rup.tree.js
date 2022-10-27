@@ -20,7 +20,7 @@
  *
  * @summary Componente RUP Tree.
  * @module rup_tree
- * @see El componente está basado en el plugin {@link https://www.jstree.com/|jstree}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link https://www.jstree.com/api/|aquí}.
+ * @see El componente está basado en el plugin {@link https://www.jstree.com|jsTree}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link https://www.jstree.com/api|aquí}.
  * @example
  * $("#ejemploArbolDiv").rup_tree(properties);
  *
@@ -842,9 +842,9 @@
 		 * @name createNode
 		 * @since UDA 5.1.0
 		 * @param {?string} par - El nodo padre. Para crear un nodo raíz se puede utilizar tanto `#` como `null`.
-		 * @param {Object|string} node - Los datos para el nuevo nodo. Tiene que ser un objeto JSON válido, o un string simple que contenga el nombre.
+		 * @param {Object|string} node - Los datos para el nuevo nodo. Tiene que ser un objeto JSON válido, o una cadena simple que contenga el nombre.
 		 * @param {number|string} [pos="last"] - Índice en el que insertar el nodo. Además de soportar la posición de forma numérica (integer), 
-		 * también es posible usar los string `first` y `last` o `before` y `after`.
+		 * también es posible usar las cadenas `first` y `last` o `before` y `after`.
 		 * @param {function} callback - Función a ejecutar cuando el nodo haya sido creado.
 		 * @param {boolean} is_loaded - Argumento interno del componente subyacente que indica si la carga del nodo padre es satisfactoria.
 		 * @return {string} - El identificador del nodo recién creado.
@@ -908,7 +908,7 @@
 		 * @param {*} obj - Nodo a mover. Es posible utilizar un array para mover múltiples nodos a la vez.
 		 * @param {*} par - El nuevo padre.
 		 * @param {number|string} [pos=0] - Índice en el que insertar el nodo. Además de soportar la posición de forma numérica (integer), 
-		 * también es posible usar los string `first` y `last` o `before` y `after`.
+		 * también es posible usar las cadenas `first` y `last` o `before` y `after`.
 		 * @param {function} callback - Función a ejecutar cuando la migración haya sido completada. Recibe tres parámetros, el nodo,
 		 * el nuevo padre y la posición.
 		 * @param {boolean} is_loaded - Parámetro interno que indica si el nodo padre ha sido cargado.
@@ -930,7 +930,7 @@
 		 * @param {*} obj - Nodo a copiar. Es posible utilizar un array para copiar múltiples nodos a la vez.
 		 * @param {*} par - El nuevo padre.
 		 * @param {number|string} [pos=0] - Índice en el que insertar el nodo. Además de soportar la posición de forma numérica (integer), 
-		 * también es posible usar los string `first` y `last` o `before` y `after`.
+		 * también es posible usar las cadenas `first` y `last` o `before` y `after`.
 		 * @param {function} callback - Función a ejecutar cuando la migración haya sido completada. Recibe tres parámetros, el nodo,
 		 * el nuevo padre y la posición.
 		 * @param {boolean} is_loaded - Parámetro interno que indica si el nodo padre ha sido cargado.
@@ -1006,7 +1006,7 @@
 		 * @since UDA 5.1.0
 		 * @param {*} obj - El nuevo padre.
 		 * @param {number|string} [pos=0] - Índice en el que insertar el nodo. Además de soportar la posición de forma numérica (integer), 
-		 * también es posible usar los string `first` y `last`.
+		 * también es posible usar las cadenas `first` y `last`.
 		 * @fires paste.jstree
 		 * @example
 		 * $("#selector").rup_tree("paste", obj, pos);
@@ -1139,7 +1139,7 @@
 			$(this).jstree('toggle_stripes');
 		},
 		/**
-		 * Muestra los puntos conectores de nodos (solo si el tema en uso lo soporta).
+		 * Muestra los puntos conectores entre nodos (solo si el tema en uso lo soporta).
 		 *
 		 * @method
 		 * @name showDots
@@ -1152,7 +1152,7 @@
 			$(this).jstree('show_dots');
 		},
 		/**
-		 * Oculta los puntos conectores de nodos.
+		 * Oculta los puntos conectores entre nodos.
 		 *
 		 * @method
 		 * @name hideDots
@@ -1165,7 +1165,7 @@
 			$(this).jstree('hide_dots');
 		},
 		/**
-		 * Alterna entre mostrar u ocultar los puntos conectores de nodos.
+		 * Alterna entre mostrar u ocultar los puntos conectores entre nodos.
 		 *
 		 * @method
 		 * @name toggleDots
@@ -1566,12 +1566,12 @@
 		// Métodos públicos del search.
 
 		/**
-		 * Busca entre los nodos del árbol el string proporcionado.
+		 * Busca entre los nodos del árbol la cadena proporcionada.
 		 *
 		 * @method
 		 * @name search
 		 * @since UDA 5.1.0
-		 * @param {string} str - El string a usar para la búsqueda.
+		 * @param {string} str - La cadena a usar para la búsqueda.
 		 * @param {boolean} skip_async - Si se define a `true`, no se hará la petición al servidor, aunque así esté configurado.
 		 * @param {boolean} show_only_matches - Si se define a `true`, solo se mostrarán los nodos que coincidan (hay que tener en cuenta 
 		 * que esta opción puede ser muy lenta en árboles grandes o navegadores antiguos).
@@ -1660,7 +1660,7 @@
 		 * @name getType
 		 * @since UDA 5.1.0
 		 * @param {*} obj - Nodo a tratar. Permite usar el elemento del DOM, el identificador, el selector, etc.
-		 * @param {boolean|string} rules -  Si se pasa un booleano con valor `true` en vez de un string, se devolerá 
+		 * @param {boolean|string} rules -  Si se pasa un booleano con valor `true` en vez de una cadena, se devolerá 
 		 * un objecto que contenga los ajustes.
 		 * @return {string|Object} - Contiene las reglas obtenidas.
 		 * @example
