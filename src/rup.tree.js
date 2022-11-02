@@ -1756,7 +1756,7 @@
 	 * @property {*} [defaults.core.data=false] - Configuración de los datos ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.data|API jsTree}).
 	 * @property {boolean|Object} [defaults.core.strings=false] - Configura las múltiples cadenas que son usados en el componente 
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.strings|API jsTree}).
-	 * @property {boolean} [defaults.core.check_callback=false] - Determina qué sucede cuando un usuario trata de modificar la estructura del árbol 
+	 * @property {boolean} [defaults.core.check_callback=true] - Determina qué sucede cuando un usuario trata de modificar la estructura del árbol 
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.check_callback|API jsTree}).
 	 * @property {function} defaults.core.error - Callback llamado con un único argumento compuesto por un objecto simple cuando algo falla  
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.error|API jsTree}).
@@ -1786,7 +1786,7 @@
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.themes.responsive|API jsTree}).
 	 * @property {boolean} [defaults.core.expand_selected_onload=false] - Si se define a `true` todos los padres de nodos seleccionados serán desplegados 
 	 * una vez el árbol haya sido cargado ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.expand_selected_onload|API jsTree}).
-	 * @property {boolean} [defaults.core.worker=true] - Permite utilizar "web workers" para parsear el JSON recibido sin bloquear la interfaz 
+	 * @property {boolean} [defaults.core.worker=false] - Permite utilizar "web workers" para parsear el JSON recibido sin bloquear la interfaz 
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.worker|API jsTree}).
 	 * @property {boolean} [defaults.core.force_text=false] - Fuerza el texto del nodo a texto plano y a escapar el HTML 
 	 * ({@link https://www.jstree.com/api/#/?f=$.jstree.defaults.core.force_text|API jsTree}).
@@ -1894,7 +1894,7 @@
 			'core': {
 				'data': false,
 				'strings': false,
-				'check_callback': false,
+				'check_callback': true,
 				'animation': 200,
 				'multiple': false,
 				'themes': {
@@ -1909,7 +1909,7 @@
 					'responsive': true
 				},
 				'expand_selected_onload': false,
-				'worker': true,
+				'worker': false,
 				'force_text': false,
 				'dblclick_toggle': true,
 				'loaded_state': false,
