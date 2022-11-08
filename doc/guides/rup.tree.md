@@ -1,36 +1,31 @@
 # Componentes RUP – Árbol
-
-<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
-
    - [1 Introducción](#1-introducción)
    - [2 Ejemplo](#2-ejemplo)
    - [3 Casos de uso](#3-casos-de-uso)
    - [4 Infraestructura](#4-infraestructura)
-      - [4.1 Ficheros](#4.1-ficheros)
-      - [4.2 Dependencias](#4.2-dependencias)
-      - [4.3 Versión minimizada](#4.3-versión-minimizada)
+      - [4.1 Ficheros](#41-ficheros)
+      - [4.2 Dependencias](#42-dependencias)
+      - [4.3 Versión minimizada](#43-versión-minimizada)
    - [5 Invocación](#5-invocación)
    - [6 Obtención de los datos](#6-obtención-de-los-datos)
-      - [6.1 HTML](#6.1-html)
-      - [6.2 JSON](#6.2-json)
-      - [6.3 Carga mediante Ajax](#6.3-carga-mediante-ajax)
+      - [6.1 HTML](#61-html)
+      - [6.2 JSON](#62-json)
+      - [6.3 Carga mediante Ajax](#63-carga-mediante-ajax)
    - [7 Plugins](#7-plugins)
-      - [7.1 Core](#7.1-core)
-      - [7.2 Changed](#7.2-changed)
-      - [7.3 Checkbox](#7.3-checkbox)
-      - [7.4 Conditionalselect](#7.4-conditionalselect)
-      - [7.5 Contextmenu](#7.5-contextmenu)
-      - [7.6 Drag'n'drop](#7.6-drag'n'drop)
-      - [7.7 Massload](#7.7-massload)
-      - [7.8 Search](#7.8-search)
-      - [7.9 Sort](#7.9-sort)
-      - [7.10 State](#7.10-state)
-      - [7.11 Types](#7.11-types)
-      - [7.12 Unique](#7.12-unique)
-      - [7.13 Wholerow](#7.13-wholerow)
+      - [7.1 Core](#71-core)
+      - [7.2 Changed](#72-changed)
+      - [7.3 Checkbox](#73-checkbox)
+      - [7.4 Conditionalselect](#74-conditionalselect)
+      - [7.5 Contextmenu](#75-contextmenu)
+      - [7.6 Drag'n'drop](#76-dragndrop)
+      - [7.7 Massload](#77-massload)
+      - [7.8 Search](#78-search)
+      - [7.9 Sort](#79-sort)
+      - [7.10 State](#710-state)
+      - [7.11 Types](#711-types)
+      - [7.12 Unique](#712-unique)
+      - [7.13 Wholerow](#713-wholerow)
    - [8 Sobreescritura del theme](#8-sobreescritura-del-theme)
-
-<!-- /MDTOC -->
 
 ## 1 Introducción
 La descripción del **Componente Árbol**, visto desde el punto de vista de RUP, es la siguiente:
@@ -53,12 +48,12 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 - Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
 
 ### 4.1 Ficheros
-Ruta Javascript: rup/scripts/
-Fichero de plugin: **rup.tree-x.y.z.js**
-Ruta theme: rup/css/
-Fichero CSS del theme: **theme.rup.tree-x.y.z.css**
+- Ruta Javascript: rup/scripts/
+- Plugin: **rup.tree-x.y.z.js**
+- Ruta theme: rup/css/
+- CSS del theme: **theme.rup.tree-x.y.z.css**
 
-### 4.2	Dependencias
+### 4.2 Dependencias
 Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión del esta.
 
 •	**jQuery 3.6.1**: http://jquery.com/
@@ -67,21 +62,21 @@ Por la naturaleza de desarrollo de los componentes (patrones) como plugins basad
 •	**jsTree 3.3.12**: https://www.jstree.com/
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
-	- jquery-3.6.1.js
-	- jstree.js
-	- rup.tree-x.y.z.js
+- jquery-3.6.1.js
+- jstree.js
+- rup.tree-x.y.z.js
 
-###	4.3 Versión minimizada
+### 4.3 Versión minimizada
 A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
 
 Los ficheros minimizados de RUP son los siguientes:
-	- rup/scripts/min/rup.min-x.y.z.js
-	- rup/css/rup.min-x.y.z.css
+- rup/scripts/min/rup.min-x.y.z.js
+- rup/css/rup.min-x.y.z.css
 
 Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
 
 ## 5 Invocación
-El componente árbol se invoca sobre un elemento html existente en la jsp. Dicho elemento servirá de contenedor del arbol.
+El componente árbol se invoca sobre un elemento HTML existente en la JSP. Dicho elemento servirá de contenedor del arbol.
 Un contenedor válido puede ser un simple tag div:
 
 ```html
@@ -89,6 +84,7 @@ Un contenedor válido puede ser un simple tag div:
 ```
 
 La invocación del componente sobre el contenedor se realiza del siguiente modo:
+
 ```javascript
 var properties = {
 	// Propiedades de configuración		
@@ -99,11 +95,12 @@ $('#ejemploArbolDiv').rup_tree(properties);
 Como ya se profundizará mas adelante, mediante las propiedades indicadas en la invocación del componente, se realiza la configuración del mismo.
 
 ## 6 Obtención de los datos
-El componente permite inicializar los nodos que componen el árbol a partir de diferentes tipos de datos. Es posible utilizar información en formato html, xml o json.
+El componente permite inicializar los nodos que componen el árbol a partir de diferentes tipos de datos. Es posible utilizar información en formato HTML, XML o JSON.
 
-###	6.1 HTML
-El componente permite inicializar los datos del árbol a partir de una lista html compuesta por los elementos ul y li.
-Un ejemplo de una estructura html sería la siguiente:
+### 6.1 HTML
+El componente permite inicializar los datos del árbol a partir de una lista HTML compuesta por los elementos ul y li.
+
+Un ejemplo de una estructura HTML sería la siguiente:
 
 ```html
 <div id="tree_example" class="tree_example_code">
@@ -139,18 +136,19 @@ Un ejemplo de una estructura html sería la siguiente:
 </div>
 ```
 
-La invocación necesaria al componente para la creación del árbol a partir del html anterior sería:
+La invocación necesaria al componente para la creación del árbol a partir del HTML anterior sería:
+
 ```javascript
 $('#tree_example').rup_tree({});
 ```
 
-El componente toma como opción por defecto la inicialización del árbol a partir del html del objeto sobre el que se inicializa, de modo que no sería necesario indicar ningún parámetro adicional.
+El componente toma como opción por defecto la inicialización del árbol a partir del HTML del objeto sobre el que se inicializa, de modo que no sería necesario indicar ningún parámetro adicional.
 
-Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante html se detallan en la [API](https://www.jstree.com/api) del plugin subyacente jsTree.
+Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante HTML se detallan en la [API](https://www.jstree.com/api) del plugin subyacente jsTree.
 
-###	6.2 JSON
+### 6.2 JSON
 El componente permite inicializar los datos que se muestran en el árbol a partir de la información existente en un objeto JSON.
-Al no obtener los datos a partir de un html el objeto sobre el que se inicializa se simplifica:
+Al no obtener los datos a partir de un HTML el objeto sobre el que se inicializa se simplifica:
 
 ```html
 <div id="tree_example" class="tree_example_code"></div>
@@ -183,19 +181,21 @@ $('#tree_example').rup_tree({
 });
 ```
 
-Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante json se detallan en la [API](https://www.jstree.com/api) del plugin subyacente jsTree.
+Las propiedades con las que se puede parametrizar la inicialización del componente árbol mediante JSON se detallan en la [API](https://www.jstree.com/api) del plugin subyacente jsTree.
 
-###	6.3 Carga mediante Ajax
-El componente permite inicializar los datos del árbol a partir de la respuesta de una petición AJAX. En la API del plugin jsTree se detalla la configuración necesaria para inicializar el árbol mediante una petición AJAX que devuelva datos en formato html, json o xml.
+### 6.3 Carga mediante Ajax
+El componente permite inicializar los datos del árbol a partir de la respuesta de una petición AJAX. En la API del plugin jsTree se detalla la configuración necesaria para inicializar el árbol mediante una petición AJAX que devuelva datos en formato HTML, JSON o XML.
 
-Como ejemplo, vamos a detallar la implementación necesaria para inicializar un árbol mediante un objeto json que es devuelto por una petición AJAX.
+Como ejemplo, vamos a detallar la implementación necesaria para inicializar un árbol mediante un objeto JSON que es devuelto por una petición AJAX.
 
-El contenedor del árbol definido en la jsp sería:
+El contenedor del árbol definido en la JSP sería:
+
 ```html
 <div id="tree_example" class="tree_example_code" name="nombre_de_la_propiedad"></div>
 ```
 
 El objeto JSON se indicaría en la inicialización del componente árbol:
+
 ```javascript
 $('#tree_example').rup_tree({
 	'core': {
@@ -205,23 +205,24 @@ $('#tree_example').rup_tree({
 	}
 });
 ```
-Desde el controller que escucha la petición se devolverá el json correspondiente a la representación de elementos que se quiere visualizar en el árbol.
+Desde el controller que escucha la petición se devolverá el JSON correspondiente a la representación de elementos que se quiere visualizar en el árbol.
 
 ```java
 @RequestMapping(value = "url_peticion_ajax", method = RequestMethod.GET)
 public Object getTreeAjax(Model model, HttpServletResponse response) {
-	// Se crea y retorna el objeto json
+	// Se crea y retorna el objeto JSON
 }
 ```
-El formato del objeto json es idéntico que en el caso de proporcionarse en la inicialización del componente.
+El formato del objeto JSON es idéntico que en el caso de proporcionarse en la inicialización del componente.
 
 ## 7 Plugins
 El diseño del componente árbol sigue el mismo modelo modular que el plugin subyacente en el que se basa. De este modo las diferentes funcionalidades se implementan en forma de módulos o plugins.
 
 Los plugins existentes son los siguientes:
 
-###	7.1 Core
+### 7.1 Core
 Proporciona las propiedades de configuración para las funcionalidades comunes:
+
 ```javascript
 $('#ejemploArbolDiv').rup_tree({
 	'core': {
@@ -252,8 +253,9 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.2 Changed
+### 7.2 Changed
 Añade más información al evento `changed.jstree`. Los nuevos datos están contenidos en la propiedad de datos del evento `changed`, y contiene una lista de nodos `selected` y `deselected`:
+
 ```javascript
 $('#ejemploArbolDiv').rup_tree({
 	'plugins': ['changed'],
@@ -295,7 +297,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.3 Checkbox
+### 7.3 Checkbox
 Muestra iconos de casillas de verificación delante de cada nodo, lo que facilita la selección múltiple. También soporta el comportamiento de tri-estado, lo que significa que, si un nodo tiene algunos de sus hijos marcados, se renderizará como indeterminado, propagándose su estado hacia arriba:
 
 ![checkbox](img/rup.tree_2.png)
@@ -316,7 +318,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.4	Conditionalselect
+### 7.4 Conditionalselect
 Define un callback para permitir o denegar la selección de nodos mediante la entrada del usuario (método de activación de nodos):
 
 ```javascript
@@ -328,7 +330,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.5	Contextmenu
+### 7.5 Contextmenu
 Muestra un menú contextual cuando se hace clic con el botón derecho en un nodo:
 
 ![contextmenu](img/rup.tree_3.png)
@@ -451,8 +453,9 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.6	Drag'n'drop
+### 7.6 Drag'n'drop
 Permite arrastrar y soltar nodos en el árbol, dando lugar a operaciones de movimiento o copia:
+
  ```javascript
 $('#ejemploArbolDiv').rup_tree({
 	'plugins': ['dnd'],
@@ -472,7 +475,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.7	Massload
+### 7.7 Massload
 Añade la funcionalidad de carga masiva para que se puedan cargar varios nodos en una sola petición (solo es útil con la carga diferida):
 
 ```javascript
@@ -575,7 +578,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.8	Search
+### 7.8 Search
 Añade la función de búsqueda:
 
 ```javascript
@@ -594,7 +597,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.9 Sort
+### 7.9 Sort
 Ordena automáticamente todos los nodos del árbol según una función de ordenación:
 
 ![sort](img/rup.tree_4.png)
@@ -634,7 +637,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.10 State
+### 7.10 State
 Guarda el estado del árbol (nodos seleccionados, nodos abiertos) en el ordenador del usuario utilizando las opciones disponibles (localStorage, cookies, etc.):
 
 ```javascript
@@ -650,7 +653,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.11 Types
+### 7.11 Types
 Permite añadir tipos predefinidos para grupos de nodos, que permiten controlar fácilmente las reglas de anidamiento y el icono de cada grupo:
 
 ```javascript
@@ -690,7 +693,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.12 Unique
+### 7.12 Unique
 Se encarga de que no puedan coexistir nodos hermanos con el mismo nombre:
 
 ![unique](img/rup.tree_5.png)
@@ -705,7 +708,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-###	7.13 Wholerow
+### 7.13 Wholerow
 Provoca que cada nodo aparezca a nivel de bloque. Facilita la selección. Puede causar una ralentización de los árboles grandes en los navegadores antiguos:
 
 ```javascript
@@ -806,7 +809,7 @@ $('#ejemploArbolDiv').rup_tree({
 });
 ```
 
-##	8 Sobreescritura del theme
+## 8 Sobreescritura del theme
 El componente árbol se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.tree-x.y.z.css**.
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos *(codAppStatics/WebContent/codApp/styles)*.
