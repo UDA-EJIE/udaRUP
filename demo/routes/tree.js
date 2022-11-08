@@ -1,11 +1,11 @@
 exports.json = function(req, res) {
     var json = [
         {
-            data: 'Padre1',
-            attr:{id:'node1'},
+            text: 'Padre1',
+            id: 'node1',
             children: [
-                {data:'Hijo1', attr:{id:'node11'}},
-                {data:'Hijo2', attr:{id:'node12'}},
+                {text:'Hijo1', id:'node11'},
+                {text:'Hijo2', id:'node12'},
             ]
         }
     ];

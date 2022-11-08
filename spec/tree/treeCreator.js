@@ -33,7 +33,7 @@ export function treeHtml(callback) {
             override_ui: true
         }
     });
-    $tree.on('loaded.jstree', function () {
+    $tree.on('ready.jstree', function () {
         callback();
     });
 }
@@ -42,8 +42,8 @@ export function treeJson(callback) {
     $('#content').append(html);
     var $tree = $('#exampleTree');
     $tree.rup_tree({
-        json_data: {
-            ajax: {
+        core: {
+            data: {
                 url: testutils.DEMO + '/tree/remote/json'
             }
         },
@@ -52,7 +52,7 @@ export function treeJson(callback) {
             override_ui: true
         }
     });
-    $tree.on('loaded.jstree', function () {
+    $tree.on('ready.jstree', function () {
         callback();
     });
 }
@@ -81,7 +81,7 @@ export function treeXML (callback) {
             override_ui: true
         }
     });
-    $tree.on('loaded.jstree', function () {
+    $tree.on('ready.jstree', function () {
         testutils.testTrace('html',$('#content').html());
         callback();
     });
