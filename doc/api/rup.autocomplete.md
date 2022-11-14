@@ -1,6 +1,8 @@
 <a name="module_rup_autocomplete"></a>
 
-## rup\_autocomplete
+## ~~rup\_autocomplete~~
+***Deprecated***
+
 Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
 
 **Summary**: Componente RUP Autocomplete.  
@@ -10,7 +12,7 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o de var
 $("#idAutocomplete").rup_autocomplete({	source : "autocomplete/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code"}});
 ```
 
-* [rup_autocomplete](#module_rup_autocomplete)
+* ~~[rup_autocomplete](#module_rup_autocomplete)~~
     * [~defaults](#module_rup_autocomplete..defaults)
     * [~getRupValue()](#module_rup_autocomplete..getRupValue) ⇒ <code>string</code> \| <code>number</code>
     * [~setRupValue(param)](#module_rup_autocomplete..setRupValue)

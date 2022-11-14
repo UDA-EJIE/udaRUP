@@ -30,6 +30,7 @@
 /**
  * Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
  *
+ * @deprecated since version 5.1.0
  * @summary Componente RUP Combo.
  * @module rup_combo
  * @see El componente está basado en el plugin {@link http://jqueryui.com/selectmenu/|jQuery UI Selectmenu}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://api.jqueryui.com/selectmenu/|aquí}.

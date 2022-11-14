@@ -1,6 +1,8 @@
 <a name="module_rup_combo"></a>
 
-## rup\_combo
+## ~~rup\_combo~~
+***Deprecated***
+
 Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
 
 **Summary**: Componente RUP Combo.  
@@ -10,7 +12,7 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o de var
 $("#idCombo").rup_combo({	source : "comboSimple/remote",	sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(), value:"code", style:"css"}});
 ```
 
-* [rup_combo](#module_rup_combo)
+* ~~[rup_combo](#module_rup_combo)~~
     * [~defaults](#module_rup_combo..defaults)
     * [~getRupValue()](#module_rup_combo..getRupValue) ⇒ <code>string</code> \| <code>number</code>
     * [~setRupValue(param)](#module_rup_combo..setRupValue)

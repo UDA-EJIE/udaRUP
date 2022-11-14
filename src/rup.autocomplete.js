@@ -17,6 +17,7 @@
 /**
  * Permite al usuario recuperar un elemento de una gran lista de elementos o de varias listas dependientes de forma sencilla y ocupando poco espacio en la interfaz.
  *
+ * @deprecated since version 5.1.0
  * @summary Componente RUP Autocomplete.
  * @module rup_autocomplete
  * @see El componente está basado en el plugin {@link https://jqueryui.com/autocomplete/|jQuery UI Autocomplete}. Para mas información acerca de las funcionalidades y opciones de configuración pinche {@link http://api.jqueryui.com/autocomplete/|aquí}.
