@@ -878,8 +878,8 @@
 
             if (ctx.oInit.masterDetail !== undefined) { //Asegurar que se recoge el idPadre
                 var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
-                jQuery.extend(true, masterPkObject, row);
-                row = masterPkObject;
+                $('#' + ctx.sTableId+'_detail_masterPK').val($('#' + ctx.sTableId + '_filter_masterPK').val());
+                row = jQuery.extend(true, row,masterPkObject);
             }
             if (ctx.oInit.formEdit.multiPart) { //si es multiPart el row se coje solo.
                 row = {};
