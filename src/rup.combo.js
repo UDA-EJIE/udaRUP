@@ -231,21 +231,8 @@
         select: function (param) {
         	const data = $(this).data();
         	
-        	// Cuando el identificador está cifrado por Hdiv, hay que asegurarse de tener siempre el valor obtenido a partir de la fuente definida en la inicialización del componente
-        	if (data.values != undefined && $.fn.isHdiv(param) && (data.selectedValueKey == undefined || param != data.values[data.selectedValueKey].value)) {
-        		$.each(data.values, function (key, obj) {
-        			if ($.fn.getStaticHdivID(obj.value) === $.fn.getStaticHdivID(param)) {
-        				data.setRupValue = obj.value;
-        				data.settings.selected = obj.value;
-        				param = obj.value;
-        				
-        				// Para evitar iteraciones innecesarias en el futuro, se guarda la posición del valor en el array para facilitar su comprobación
-        				data.selectedValueKey = key;
-            		}
-        		});
-        	}
         	// Asigna el valor recibido como el seleccionado (evita problemas con los enlazados).
-        	else if (param != undefined && param != '') {
+        	if (param != undefined && param != '') {
         		data.setRupValue = param;
         		data.settings.selected = param;
         	}

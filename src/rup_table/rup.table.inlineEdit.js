@@ -572,13 +572,7 @@ function _getRowSelected(dt, actionType){
 		};
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
 	if (!ctx.multiselection.selectedAll) {
-		let staticID = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
-		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
-			// Obtener el último seleccionado para tener el identificador actualizado (solamente es necesario cuando se usa Hdiv porque cambia el cifrado entre peticiones)
-			if ($.fn.isHdiv(p.id) && staticID === $.fn.getStaticHdivID(p.id)) {
-				ctx.multiselection.lastSelectedId = p.id;
-			}
-			
+		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {			
 			if (p.id == ctx.multiselection.lastSelectedId) {
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;

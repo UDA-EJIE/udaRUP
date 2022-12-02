@@ -119,9 +119,7 @@
             
             // Tipo de select
             if (this.length === 0 || (settings !== undefined && !settings.multiple)) {
-            	param = $.fn.getStaticHdivID(param);// si no viene cifrado el
-													// comportamiento es el
-				let texto = undefined;									// normal.
+            	let texto = undefined;									// normal.
                 // Simple
             	 if (settings !== undefined && settings.data === undefined && settings.options !== undefined){// si
 																					// es
@@ -132,11 +130,11 @@
             		 let data = {};
             		 if(settings.groups){
             			 data = $.grep(settings.optionsGroups, function (v) {
-	                    return v.nid === param || $.fn.getStaticHdivID(v.id) == param;
+	                    return v.nid === param || v.id == param;
             			 });
             		}else{
             			data = $.grep(settings.options, function (v) {
-	                    return v.nid === param || $.fn.getStaticHdivID(v.id) == param;
+	                    return v.nid === param || v.id == param;
             			});
             		}
  	              	if(data[0] !== undefined){
@@ -181,14 +179,13 @@
             		
 	            	$.each(param, function (key, value) {
 	            		 let data = {};
-	            		 value = $.fn.getStaticHdivID(value);// si no viene cifrado el comportamiento es normal
 	            		 if(settings.groups){
 	            			 data = $.grep(settings.optionsGroups, function (v) {
-		                    return v.nid === value || $.fn.getStaticHdivID(v.id) == value;
+		                    return v.nid === value || v.id == value;
 	            			 });
 	            		}else{
 	            			data = $.grep(settings.options, function (v) {
-		                    return v.nid === value || $.fn.getStaticHdivID(v.id) == value;
+		                    return v.nid === value || v.id == value;
 	            			});
 	            		}
 	            		if(data[0] != undefined && $('#'+ settings.id).find("option[value='" + data[0] .id + "']").length == 0){
@@ -1167,7 +1164,7 @@
 					        			let cad = this.split('=');
 					        			if(cad != undefined && cad.length > 0){
 					        				params.data[cad[0]] = cad[1];
-					        				__cachekey = __cachekey + $.fn.getStaticHdivID(cad[1]);//se añade la parte del padre
+					        				__cachekey = __cachekey + cad[1];//se añade la parte del padre
 					        			}
 			        				}
 			        			});
@@ -1219,14 +1216,14 @@
 				          }
 				         
 				          let seleccionado = $.grep(data, function (v,index) {
-				        	  	if($.fn.getStaticHdivID(v.id) ==  $.fn.getStaticHdivID(valueSelect)){
+				        	  	if(v.id == valueSelect){
 				        	  		positions.push(index);
 				        	  	}
-			                    return v.nid == settings.selected || $.fn.getStaticHdivID(v.id) == settings.selected;
+			                    return v.nid == settings.selected || v.id == settings.selected;
 			                  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
-				                    return $.fn.getStaticHdivID(v.id) == $.fn.getStaticHdivID($('#' + settings.id).rup_select('getRupValue'));
+				                    return v.id == $('#' + settings.id).rup_select('getRupValue');
 				                  });
 				          }
 				          // Si es el mismo, no cambia porque esta abirendo

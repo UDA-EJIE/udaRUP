@@ -494,9 +494,7 @@
     					} else if (column.rupType === 'select') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
     						if (row !== undefined) {
-    							let rowName = $.fn.getStaticHdivID(row[column.name]);
-    							let flatter	= $.fn.getStaticHdivID($.fn.flattenJSON(row)[column.name]);
-    							column.editoptions.selected = column.name.includes('.') ? flatter : rowName;    							
+    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
     						}
     					}
     					// Inicializar componente.
@@ -1395,7 +1393,7 @@
         				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
         			} else if (column.rupType === 'autocomplete') {
         				// Establecer el valor por defecto del componente.
-        				const newDefaultValue = ctx.json.rows.find(row => $.fn.getStaticHdivID(row.id) === $.fn.getStaticHdivID(ctx.oInit.formEdit.$navigationBar.currentPos.id))[column.name];
+        				const newDefaultValue = ctx.json.rows.find(row => row.id === ctx.oInit.formEdit.$navigationBar.currentPos.id)[column.name];
         				column.editoptions.defaultValue = newDefaultValue;
         				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
         			}

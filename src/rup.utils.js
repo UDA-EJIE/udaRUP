@@ -1134,13 +1134,15 @@
      * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
      */
 	$.fn.isHdiv = function (id) {
-		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(id);
+		return /^([a-zA-Z0-9]*-){4}[a-zA-Z0-9]*-:\$:-[a-zA-Z0-9]{1,}$/.test(id);
 	};
 	
 	/**
      * Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.
-     * Es útil cuando se necesita comparar identificadores cifrados.
+     * Es útil cuando se necesita comparar identificadores cifrados. Nota: desde la versión 5.2.0, los identificadores
+     * no alteran su cifrado entre peticiones, por lo que ha dejado de ser necesario usar este método.
      *
+     * @deprecated since version 5.2.0
      * @name getStaticHdivID
      * @function
      * @since UDA 5.0.0
@@ -1149,13 +1151,7 @@
      *
      * @return {string} Identificador de la entidad con la parte dinámica del cifrado eliminada.
      */
-	$.fn.getStaticHdivID = function (id) {
-		let regex = /([0-9a-fA-F]+)-([0-9a-fA-F]+)-([0-9a-fA-F]+)$/;
-		
-		if (regex.test(id)) {
-			id = id.replace(regex, '');
-		}
-		
+	$.fn.getStaticHdivID = function (id) {		
 		return id;
 	};
 	
