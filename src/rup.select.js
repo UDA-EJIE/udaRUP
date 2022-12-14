@@ -1052,7 +1052,7 @@
         _loadRemote: function (settings,first) {
         	var rupSelect = this;
         	 	settings.ajax = {
-		    url: settings.url,
+		    url: rupSelect._generateUrl($('#' + settings.id).closest('form'), settings, _this._getParentsValues(settings, true)),
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{// Require id y text, podemos permitir que no venga.
@@ -1083,8 +1083,9 @@
 		    	},
 		    cache: false,
 		    data: function () {
-		    			return _this._getParentsValues(settings, true);
-		    		},
+		    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra que Hdiv bloqueará.
+		    	return '';
+		    },
 		    error: function (xhr, textStatus, errorThrown) {
 		               if (settings.onLoadError !== null) {
 		                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
@@ -1410,6 +1411,26 @@
             }
 
             $('#' + settings.id).append(newOption);
+        },
+        /**
+         * Gestiona los parámetros a añadir en la URL para que Hdiv permita la llamada.
+         *
+         * @function _generateUrl
+         * @since UDA 5.2.0
+         * @private
+         * @param {object} $form - Formulario.
+         * @param {object} settings - Configuración del componente.
+         * @param {?object} data - Valores de los padres.
+         */
+        _generateUrl: function ($form, settings, data) {
+        	let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+        	
+        	if (data) {
+        		// Escapa los caracteres '#' para evitar problemas en la petición.
+        		url += "&" + data.replaceAll('#', '%23');
+        	}
+        	
+        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
         },
         /**
 		 * Método de inicialización del componente.
