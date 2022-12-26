@@ -393,7 +393,7 @@
     	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
 		if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
 			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType.
-			let defaultData = {'actionType': actionType};
+			const defaultData = {'actionType': actionType};
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
