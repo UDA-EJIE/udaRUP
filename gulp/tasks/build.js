@@ -35,7 +35,6 @@ gulp.task('modernizr', function() {
 });
 
 gulp.task('build:js', gulp.series(
-    'rup:build:table',
     'templates',
     function (done) {
         // build:js code here
