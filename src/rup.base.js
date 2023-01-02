@@ -237,7 +237,7 @@
         },
         browser: {
             version: $.rup._browser.version,
-            versionNumber: $.isNumeric($.rup._browser.version) ? parseInt($.rup._browser.version) : undefined,
+            versionNumber: $.rup_utils.isNumeric($.rup._browser.version) ? parseInt($.rup._browser.version) : undefined,
             isIE: (/Trident\//).test(navigator.userAgent),
             isSafari: $.rup._browser.safari && $.rup._browser.webkit ? true : false,
             isChrome: $.rup._browser.safari && $.rup._browser.webkit ? true : false,
@@ -551,7 +551,7 @@
                     if (isMethodCall) {
                         if (options !== 'extend') {
                             let instance = ($.isEmptyObject($.data(object)) ? $.data(object, object) : $.data(object)),
-                                methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : 'no-function';
+                                methodValue = instance && typeof instance[options] === "function" ? instance[options].apply(instance, args) : 'no-function';
 
                             if (methodValue === 'no-function') {
                                 return false;
@@ -592,7 +592,7 @@
                     if (isMethodCall) {
                         if (options !== 'extend') {
                             let instance = $.extend(this, object),
-                                methodValue = instance && $.isFunction(instance[options]) ? instance[options].apply(instance, args) : 'no-function';
+                                methodValue = instance && typeof instance[options] === "function" ? instance[options].apply(instance, args) : 'no-function';
 
                             if (methodValue === 'no-function') {
                                 return false;
@@ -655,14 +655,14 @@
             this.each(function () {
                 $(this).data('storedEvents', $.extend(true, {}, $._data($(this)[0], 'events')));
             });
-            $(this).unbind();
+            $(this).off();
             return this;
         },
         restoreEvents: function () {
             this.each(function () {
                 var events = $.data(this, 'storedEvents');
                 if (events) {
-                    $(this).unbind();
+                    $(this).off();
                     for (var type in events) {
                         for (var handler in events[type]) {
                             if(typeof events[type][handler] === 'object'){

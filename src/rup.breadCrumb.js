@@ -121,10 +121,8 @@
                     lastCrum = null,
                     initURL = (this.options.initUrl !== undefined) ? $.rup.CTX_PATH + this.options.initUrl : $.rup.CTX_PATH,
                     i18nId = (this.options.i18nId === undefined) ? this.element.attr('id') : this.options.i18nId,
-                    idBreadCrumb = this.element[0].id;
-                    
-                // Obtener el parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío)
-                var hdivStateParam = $.fn.getHDIV_STATE(false);
+                    idBreadCrumb = this.element[0].id,
+                    logoutUrl = $("div.rup-breadCrumb_root").data("logoutUrl");
                 
                 this.element.append("<div class='row'></div>");
                     
@@ -144,13 +142,13 @@
                 }
                 if (LOGGED_USER !== '') {
                 	//Se añade el boton de desconexion si este fuera necesario
-                    if (this.options.logOutUrl !== undefined) {
+                    if (logoutUrl !== undefined) {
 
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
                             //función encargada de poner el icono y el literal de salida
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl + hdivStateParam).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
@@ -164,7 +162,7 @@
 
                             //función encargada de poner el icono y el literal de desconexion
                         	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
-                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', this.options.logOutUrl + hdivStateParam).bind('click',
+                                .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
@@ -202,17 +200,17 @@
                     //Si encontramos dentro del fichero de estructura de las migas el parte de la url
                     if (breadCrumbStruct[breadCrumbElems[i]]) {
                         //Generamos su miga de actualimos la estructura en la que buscar, devolviendo las estructura del nivel que se ha añadido
-                        breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId, hdivStateParam);
+                        breadCrumbStruct = this._createBreadCrumb(breadCrumbStruct[breadCrumbElems[i]], breadCrumbElems[i], ulBreadCrumb, i18nId);
                     }
                 }
                 
                 //se le añade al ultimo elemento el estilo current
                 //$("li:last-child", ulBreadCrumb).addClass("rup-breadCrumb_current");
-                //$("li:last", ulBreadCrumb).addClass("rup-breadCrumb_current");
+                //$(ulBreadCrumb).find("li").last().addClass("rup-breadCrumb_current");
                 $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).addClass('rup-breadCrumb_current').find('img.rup-icon, span.mdi').remove();
                 //el último elemento no es navegable
-                //lastCrum = $("li:last a", ulBreadCrumb);
-                lastCrum = $('a:first', $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]));
+                //lastCrum = $(ulBreadCrumb).find("li").last().find("a");
+                lastCrum = $(ulBreadCrumb.children()[ulBreadCrumb.children().length - 1]).find('a').first();
 
                 lastCrum.replaceWith($('<span>').text(lastCrum.text()).css({
                     'font-weight': 'bold',
@@ -264,10 +262,9 @@
          * @param {object} elem - Elemento actual que se está procesando.
          * @param {object} parentUl - Referencia al ul padre donde insertar la li correspondiente.
          * @param {string} i18nId - Key del recurso i18n a buscar en los ficheros idiomáticos correspondientes.
-         * @param {string} hdivStateParam - Parámetro HDIV_STATE (en caso de no estar disponible estará vacío).
          * @return {object} - Devuelve la nueva entructura en la que seguir iterando.
          */
-        _createBreadCrumb: function (breadCrumbStruct, elem, parentUl, i18nId, hdivStateParam) { //nos recorremos la entrada correspondiente
+        _createBreadCrumb: function (breadCrumbStruct, elem, parentUl, i18nId) { //nos recorremos la entrada correspondiente
             var createdLI, subLevelUL = $('<ul>');
             if (breadCrumbStruct.i18nCaption) { //si tengo i18nCaption es que es elemento final
                 createdLI = this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.i18nCaption), (breadCrumbStruct.url ? $.rup.CTX_PATH + breadCrumbStruct.url : '#'));
@@ -276,15 +273,41 @@
             if (breadCrumbStruct.subLevel) {
                 //nos recorremos todos los submenus
                 for (var i = 0; i < breadCrumbStruct.subLevel.length; i++) {
+                	// Definir URL a usar en los enlaces
+                	let breadCrumbLinkURL = '#';
+                	if (breadCrumbStruct.subLevel[i].url) {
+                    	breadCrumbLinkURL = breadCrumbStruct.subLevel[i].url;
+                		
+                    	let menuLinkURL = $('nav.rup-navbar ul.nav a[href^="' + breadCrumbStruct.subLevel[i].url + '"]');
+                    	
+                    	// Comprobar si más de un elemento contiene la URL buscada. Se busca al comienzo para evitar que no encuentre nada cuando las URLs contienen parámetros
+                    	if (menuLinkURL.length > 1) {
+                    		$.each(menuLinkURL, function (key, element) {
+                    			let elementURL = $(element).attr('href');
+                    			
+                    			// Comprobar la URL obtenida con la definida por el usuario. Cuando la URL obtenida contiene parámetros, se eliminan para poder hacer una correcta comparación
+                    			if ((elementURL.indexOf('?') != -1 ? elementURL.substring(0, elementURL.indexOf('?')) : elementURL) === breadCrumbLinkURL) {
+                    				menuLinkURL = elementURL;
+                        			return false;
+                    			}
+                    		});
+                    	} else {
+                    		menuLinkURL = menuLinkURL.attr('href');
+                    	}
+                    	
+                		if (menuLinkURL != undefined) {
+                			breadCrumbLinkURL = menuLinkURL;
+                		}
+                	}
                     //creamos cada li y se lo añadimos al ul nuevo
-                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), (breadCrumbStruct.subLevel[i].url ? breadCrumbStruct.subLevel[i].url + hdivStateParam : '#'), false).css('background', 'none'));
+                    subLevelUL.append(this._createLI($.rup.i18nParse($.rup.i18n.app[i18nId], breadCrumbStruct.subLevel[i].i18nCaption), breadCrumbLinkURL, false).css('background', 'none'));
                 }
                 //añadimos al li padre el nuevo ul con todos li de los sublevels
                 createdLI.append(subLevelUL);
-                $(createdLI).bind('mouseover', function () {
-                    $(this).find('a:eq(1)').focus();
+                $(createdLI).on('mouseover', function () {
+                    $(this).find('a').eq(1).focus();
                 });
-                createdLI.bind('keydown', function (event) {
+                createdLI.on('keydown', function (event) {
                     switch (event.keyCode) {
                     case $.ui.keyCode.UP:
                         var enlaces = $(this).find('li > a');

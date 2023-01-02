@@ -31,7 +31,7 @@ $.widget( "ui.autocomplete", {
 				"aria-autocomplete": "list",
 				"aria-haspopup": "true"
 			})
-			.bind( "keydown.autocomplete", function( event ) {
+			.on( "keydown.autocomplete", function( event ) {
 				var keyCode = $.ui.keyCode;
 				switch( event.keyCode ) {
 				case keyCode.PAGE_UP:
@@ -80,10 +80,10 @@ $.widget( "ui.autocomplete", {
 					break;
 				}
 			})
-			.bind( "focus.autocomplete", function() {
+			.on( "focus.autocomplete", function() {
 				self.previous = self.element.val();
 			})
-			.bind( "blur.autocomplete", function( event ) {
+			.on( "blur.autocomplete", function( event ) {
 				clearTimeout( self.searching );
 				// clicks on the menu (or a button to trigger a search) will cause a blur event
 				// TODO try to implement this without a timeout, see clearTimeout in search()

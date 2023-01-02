@@ -193,14 +193,14 @@
 
 			overrides = {
 				beforeShow: function (input, dp_inst) {
-					if ($.isFunction(tp_inst._defaults.evnts.beforeShow)) {
+					if (typeof tp_inst._defaults.evnts.beforeShow === "function") {
 						return tp_inst._defaults.evnts.beforeShow.call($input[0], input, dp_inst, tp_inst);
 					}
 				},
 				onChangeMonthYear: function (year, month, dp_inst) {
 					// Update the time as well : this prevents the time from disappearing from the $input field.
 					// tp_inst._updateDateTime(dp_inst);
-					if ($.isFunction(tp_inst._defaults.evnts.onChangeMonthYear)) {
+					if (typeof tp_inst._defaults.evnts.onChangeMonthYear === "function") {
 						tp_inst._defaults.evnts.onChangeMonthYear.call($input[0], year, month, dp_inst, tp_inst);
 					}
 				},
@@ -208,7 +208,7 @@
 					if (tp_inst.timeDefined === true && $input.val() !== '') {
 						tp_inst._updateDateTime(dp_inst);
 					}
-					if ($.isFunction(tp_inst._defaults.evnts.onClose)) {
+					if (typeof tp_inst._defaults.evnts.onClose === "function") {
 						tp_inst._defaults.evnts.onClose.call($input[0], dateText, dp_inst, tp_inst);
 					}
 				}
@@ -310,7 +310,7 @@
 			if (tp_inst._defaults.maxDateTime !== undefined && tp_inst._defaults.maxDateTime instanceof Date) {
 				tp_inst._defaults.maxDate = new Date(tp_inst._defaults.maxDateTime.getTime());
 			}
-			tp_inst.$input.bind('focus', function () {
+			tp_inst.$input.on('focus', function () {
 				tp_inst._onFocus();
 			});
 
@@ -368,7 +368,7 @@
 		*/
 		_afterInject: function() {
 			var o = this.inst.settings;
-			if ($.isFunction(o.afterInject)) {
+			if (typeof o.afterInject === "function") {
 				o.afterInject.call(this);
 			}
 		},
@@ -563,7 +563,7 @@
 							$tp.find('.ui-slider:visible').sliderAccess(sliderAccessArgs);
 
 							// fix any grids since sliders are shorter
-							var sliderAccessWidth = $tp.find('.ui-slider-access:eq(0)').outerWidth(true);
+							var sliderAccessWidth = $tp.find('.ui-slider-access').eq(0).outerWidth(true);
 							if (sliderAccessWidth) {
 								$tp.find('table:visible').each(function () {
 									var $g = $(this),

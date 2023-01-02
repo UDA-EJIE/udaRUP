@@ -69,7 +69,7 @@
         disable: function (entryMenuId) {
             var entryMenu = $('#' + entryMenuId);
             entryMenu.addClass('ui-state-disabled');
-            //			entryMenu.bind("click", function(event){event.preventDefault(); event.stopImmediatePropagation();});
+            //			entryMenu.on("click", function(event){event.preventDefault(); event.stopImmediatePropagation();});
         },
         /**
          * Habilita una opción de menú.
@@ -83,7 +83,7 @@
         enable: function (entryMenuId) {
             var entryMenu = $('#' + entryMenuId);
             entryMenu.removeClass('ui-state-disabled');
-            //			entryMenu.unbind("click");
+            //			entryMenu.off("click");
         }
     });
 
@@ -373,7 +373,7 @@
                         selectorSelf.children().each(function (position, object) {
                             var iconsWidth = 0;
                             $(object).children('.rup_menu_horizontal_children_entry:has(span:not(.rup-menu_horizontalIcon))').each(function (position, object) {
-                                if ($(object).find('span').size() === 1) {
+                                if ($(object).find('span').length === 1) {
                                     iconsWidth = $(object).find('span').width();
                                 } else {
                                     iconsWidth = $(object).find('span:not(.rup-menu_horizontalIcon)').width() / 2;
@@ -464,7 +464,7 @@
                     //						$("#"+menuId+" [role = 'menuitem']").not($("[aria-haspopup = 'true']")).css("text-decoration","underline");
 
                     //Se deshabilitan los botones desconectados
-                    selectorSelf.find('a').bind('click', function (event) {
+                    selectorSelf.find('a').on('click', function (event) {
                         if ($(event.currentTarget).hasClass('ui-state-disabled')) {
                             event.preventDefault();
                             event.stopImmediatePropagation();

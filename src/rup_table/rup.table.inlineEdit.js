@@ -667,7 +667,7 @@ function _cloneLine(dt, ctx, line){
 	}
         
 	// Añadir clase necesaria para su futura gestión a la hora de guardar el registro
-	$('#' + ctx.sTableId + ' tbody tr:eq(0)').addClass('new');
+	$('#' + ctx.sTableId + ' tbody tr').eq(0).addClass('new');
 }
 
 /**
@@ -1274,13 +1274,13 @@ function _guardar(ctx,$fila,child){
 		
 		if (actionType === 'PUT') {
 	    	let customModificar = ctx.oInit.validarModificar;
-	    	if($.isFunction(customModificar) && customModificar(ctx)){
+	    	if(typeof customModificar === "function" && customModificar(ctx)){
 	    		return false;
 	    	}
 		}else if (actionType === 'POST') {
 		
 	    	let customAlta = ctx.oInit.validarAlta;
-	    	if($.isFunction(customAlta) && customAlta(ctx)){
+	    	if(typeof customAlta === "function" && customAlta(ctx)){
 	    		return false;
 	    	}
 		}
@@ -1423,7 +1423,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 			error: function (xhr) {
 				if (xhr.status === 406 && xhr.responseText !== '') {
 					try {
-						let responseJSON = jQuery.parseJSON(xhr.responseText);
+						let responseJSON = JSON.parse(xhr.responseText);
 						if (responseJSON.rupErrorFields) {
 							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
 								//se transforma a inline
@@ -1604,7 +1604,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 	var table = $('#'+ctx.sTableId).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
 	table.columns().responsiveHidden().each( function(valor,i) {
-		if(!$fila.find('td:eq('+i+')').hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
+		if(!$fila.find('td').eq(i).hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
 			if(valor !== ctx.inlineEdit.lastRow.columnsHidden[i] && ctx.oInit.columns[i].editable){//Si hay cambio meter el valor al input
                     var value = '';
 				if(valor){//se coge el valor del child.
@@ -1613,7 +1613,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
                         }, 0);
 					var total = ctx.inlineEdit.lastRow.columnsHidden.length;
 					cont = cont + i - total;
-					var $inputChild = $fila.next('.child').find('li:eq('+cont+')').find('select,input');
+					var $inputChild = $fila.next('.child').find('li').eq(cont).find('select,input');
 					value = $inputChild.val();
 					if($inputChild.length > 0){
                             $('#' + $inputChild[0].id.replace('_child', '')).prop('disabled', false);
@@ -1627,7 +1627,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 					} 
 	
 				}else{//se coge el valor de los inputs ocultos.
-					var $input = $fila.find('td:eq('+i+')').find('select,input');
+					var $input = $fila.find('td').eq(i).find('select,input');
 					value = $input.val();
 					$input.prop('disabled', true);
 					if($input.is(':checkbox')){//x si es checkbox
@@ -1647,8 +1647,8 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 				contar = contar + i - totalContar;
 				// se asigna valor normal
 				
-				if(valor || $fila.next('.child').find('li:eq('+contar+')').find('select,input').length === 0){
-					var $input2 = $fila.find('td:eq('+i+')').find('select,input');
+				if(valor || $fila.next('.child').find('li').eq(contar).find('select,input').length === 0){
+					var $input2 = $fila.find('td').eq(i).find('select,input');
 					value = $input2.val();
 					if($input2.is(':checkbox')){//x si es checkbox
 						if($input2.prop('checked')){
@@ -1658,7 +1658,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 						}
 					}
 				}else{
-					var $inputChild2 = $fila.next('.child').find('li:eq('+contar+')').find('select,input');
+					var $inputChild2 = $fila.next('.child').find('li').eq(contar).find('select,input');
 					value = $inputChild2.val();
 					if($inputChild2.is(':checkbox')){//x si es checkbox
 						if($inputChild2.prop('checked')){
@@ -1695,28 +1695,28 @@ function _asignarInputsValues(ctx,$fila){
 	$.each(ctx.inlineEdit.lastRow.rupValues,function(i,celda) {
 		if(celda.value !== undefined ){
 			if(celda.visible){// se asignan a los inputs ocultos
-				if($fila.find('td:eq('+celda.idCell+')').find('select').length > 0){
-					$fila.find('td:eq('+celda.idCell+')').find('select').rup_combo('setRupValue',celda.value);
+				if($fila.find('td').eq(celda.idCell).find('select').length > 0){
+					$fila.find('td').eq(celda.idCell).find('select').rup_combo('setRupValue',celda.value);
 				}else{
-					$fila.find('td:eq('+celda.idCell+') input').val(celda.value);
-					if($fila.find('td:eq('+celda.idCell+') input').is(':checkbox')){
+					$fila.find('td').eq(celda.idCell).find('input').val(celda.value);
+					if($fila.find('td').eq(celda.idCell).find('input').is(':checkbox')){
 						if(celda.value){
-							$fila.find('td:eq('+celda.idCell+') input').prop('checked',true);
+							$fila.find('td').eq(celda.idCell).find('input').prop('checked',true);
 						}else{
-							$fila.find('td:eq('+celda.idCell+') input').prop('checked',false);
+							$fila.find('td').eq(celda.idCell).find('input').prop('checked',false);
 						}
 					}
 				}
 			}else{//se asignan alos child
-				if($fila.next('.child').find('li:eq('+contChild+')').find('select').length > 0){
-					$fila.next('.child').find('li:eq('+contChild+')').find('select').rup_combo('setRupValue',celda.value);
+				if($fila.next('.child').find('li').eq(contChild).find('select').length > 0){
+					$fila.next('.child').find('li').eq(contChild).find('select').rup_combo('setRupValue',celda.value);
 				}else{
-					$fila.next('.child').find('li:eq('+contChild+') input').val(celda.value);
-					if($fila.next('.child').find('li:eq('+contChild+') input').is(':checkbox')){
+					$fila.next('.child').find('li').eq(contChild).find('input').val(celda.value);
+					if($fila.next('.child').find('li').eq(contChild).find('input').is(':checkbox')){
 						if(celda.value){
-							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',true);
+							$fila.next('.child').find('li').eq(contChild).find('input').prop('checked',true);
 						}else{
-							$fila.next('.child').find('li:eq('+contChild+') input').prop('checked',false);
+							$fila.next('.child').find('li').eq(contChild).find('input').prop('checked',false);
 						}
 					}
 				}
@@ -1883,8 +1883,8 @@ function _comprobarSeeker(row,ctx,idRow){
 			});
 		// se borra el icono
 		
-		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td.select-checkbox i.filtered-row').remove();
-		$('#'+ctx.sTableId+' tbody tr:eq('+idRow+') td i.filtered-row').remove();
+		$('#'+ctx.sTableId+' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
+		$('#'+ctx.sTableId+' tbody tr').eq(idRow).find('td i.filtered-row').remove();
 		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
 	}
 }

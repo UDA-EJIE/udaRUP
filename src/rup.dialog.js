@@ -171,7 +171,7 @@
                 }
             }
 
-            $('div.ui-dialog-buttonpane button:last').trigger('focus');
+            $('div.ui-dialog-buttonpane button').last().trigger('focus');
         },
         /**
          * Borra el dialogo si este estubiera oculto o visible.
@@ -546,7 +546,7 @@
                             if (settings.type !== $.rup.dialog.AJAX) {
                                 $self.rup_dialog('open');
                                 //le establecemos el foco
-                                $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                                $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button').last().focus();
                             } else {
                                 settings.autoOpen = true;
                             }
@@ -596,7 +596,7 @@
                     if (settings.autoOpen === true) {
                         $('#' + settings.id).rup_dialog('open');
                         //le establecemos el foco
-                        $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button:last').focus();
+                        $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button').last().focus();
                     }
                 }
                 if (settings.ajaxOptions && settings.ajaxOptions.success !== undefined && settings.ajaxOptions.success !== null && typeof settings.ajaxOptions.success === 'function') {

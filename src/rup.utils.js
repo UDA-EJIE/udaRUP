@@ -166,7 +166,7 @@
 
 			var json = {};
 			for (var key in array) {
-				if (!$.isFunction(array[key])) {
+				if (typeof array[key] !== "function") {
 					json[key] = array[key];
 				}
 			}
@@ -771,7 +771,7 @@
 				return undefined;
 			}
 
-			if ($.isFunction(sortFnc)) {
+			if (typeof sortFnc === "function") {
 				bubbleSort(array, sortFnc);
 			} else {
 				bubbleSort(array, defaultSortFnc);
@@ -789,7 +789,7 @@
 
 			array.push(elem);
 
-			if ($.isFunction(sortFnc)) {
+			if (typeof sortFnc === "function") {
 				$.rup_utils.sortArray(array, sortFnc);
 			} else {
 				$.rup_utils.sortArray(array, defaultSortFnc);
@@ -913,10 +913,25 @@
 				return objtmp;
 			};
 			return fnc(obj);
+		},
+		/**
+	     * Comprueba si el parámetro es un número. 
+	     * Sustituye al método isNumeric de jQuery que fue deprecado en la versión 3.3.
+	     *
+	     * @name isNumeric
+	     * @function
+	     * @since UDA 5.1.0
+	     *
+	     * @param {number|string|boolean|object} field - Campo a comprobar.
+	     *
+	     * @return {boolean} Parámetro HDIV_STATE.
+	     * 
+	     * @example
+		 * $.rup_utils.isNumeric(6);
+	     */
+		isNumeric: function (field) {
+			return !isNaN(parseFloat(field)) && isFinite(field);
 		}
-
-
-
 	});
 
 	//Utilidades de los formularios

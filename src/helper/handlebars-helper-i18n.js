@@ -33,7 +33,7 @@
 
     Handlebars.registerHelper('i18nLanguage', function (options) {
         var langJSON = {};
-        langJSON[options.hash.lang] = $.parseJSON('{' + options.fn(this) + '}');
+        langJSON[options.hash.lang] = JSON.parse('{' + options.fn(this) + '}');
 
         options.data.languages = $.extend(true, {}, options.data.languages, langJSON);
     });

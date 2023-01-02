@@ -227,7 +227,7 @@
 			if( numChecked === 0 ){
 				value = o.noneSelectedText;
 			} else {
-				if($.isFunction( o.selectedText )){
+				if(typeof o.selectedText === "function"){
 					value = o.selectedText.call(this, numChecked, $inputs.length, $checked.get());
 				} else if( /\d/.test(o.selectedList) && o.selectedList > 0 && numChecked <= o.selectedList){
 					value = $checked.map(function(){ return $(this).next().html(); }).get().join(', ');
@@ -252,10 +252,10 @@
 			// webkit doesn't like it when you click on the span :(
 			button
 				.find('span')
-				.bind('click.multiselect', clickHandler);
+				.on('click.multiselect', clickHandler);
 
 			// button events
-			button.bind({
+			button.on({
 				click: clickHandler,
 				keypress: function( e ){
 					switch(e.which){
@@ -290,7 +290,7 @@
 
 			// header links
 			this.header
-				.delegate('a', 'click.multiselect', function( e ){
+				.on('a', 'click.multiselect', function( e ){
 				// close link
 					if( $(this).hasClass('ui-multiselect-close') ){
 						self.close();
@@ -305,7 +305,7 @@
 
 			// optgroup label toggle support
 			this.menu
-				.delegate('li.ui-multiselect-optgroup-label a', 'click.multiselect', function( e ){
+				.on('li.ui-multiselect-optgroup-label a', 'click.multiselect', function( e ){
 					e.preventDefault();
 
 					var $this = $(this),
@@ -332,7 +332,7 @@
 				    checked: nodes[0].checked
 					});
 				})
-				.delegate('label', 'mouseenter.multiselect', function(){
+				.on('label', 'mouseenter.multiselect', function(){
 					if( !$(this).hasClass('ui-state-disabled') ){
 						self.labels.removeClass('ui-state-hover');
 						//$(this).addClass('ui-state-hover').find('input').focus();
@@ -340,7 +340,7 @@
 						$(this).addClass('ui-state-hover').find('input:not(:disabled)').focus();
 					}
 				})
-				.delegate('label', 'keydown.multiselect', function( e ){
+				.on('label', 'keydown.multiselect', function( e ){
 					e.preventDefault();
 
 					switch(e.which){
@@ -359,7 +359,7 @@
 						break;
 					}
 				})
-				.delegate('input[type="checkbox"], input[type="radio"]', 'click.multiselect', function( e ){
+				.on('input[type="checkbox"], input[type="radio"]', 'click.multiselect', function( e ){
 					var $this = $(this),
 						val = this.value,
 						checked = this.checked,
@@ -401,11 +401,11 @@
 
 					// setTimeout is to fix multiselect issue #14 and #47. caused by jQuery issue #3827
 					// http://bugs.jquery.com/ticket/3827
-					setTimeout($.proxy(self.update, self), 10);
+					setTimeout(self.update.bind(self), 10);
 				});
 
 			// close each widget when clicking on any other element/anywhere else on the page
-			$(document).bind('mousedown.multiselect', function( e ){
+			$(document).on('mousedown.multiselect', function( e ){
 				if(self._isOpen && !$.contains(self.menu[0], e.target) && !$.contains(self.button[0], e.target) && e.target !== self.button[0]){
 					self.close();
 				}
@@ -415,8 +415,8 @@
 			// restored to their defaultValue prop on form reset, and the reset
 			// handler fires before the form is actually reset.  delaying it a bit
 			// gives the form inputs time to clear.
-			$(this.element[0].form).bind('reset.multiselect', function(){
-				setTimeout($.proxy(self.refresh, self), 10);
+			$(this.element[0].form).on('reset.multiselect', function(){
+				setTimeout(self.refresh.bind(self), 10);
 			});
 		},
 

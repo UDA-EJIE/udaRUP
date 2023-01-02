@@ -47,7 +47,7 @@
 		this.maxWidth = node.max_width;
 		this.maxHeight = node.max_height;
 		this.type = type;
-		this.widgetOptions = $.proxy($el.find('.grid-stack-item-content'), widgetName)('getOptions');
+		this.widgetOptions = $el.find('.grid-stack-item-content').bind(widgetName)('getOptions');
 	}
 
 	var DashboardItem = function DashboardItem(obj){

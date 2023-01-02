@@ -119,7 +119,7 @@
          * $("#idToolbar").rup_date("addButton", button);
          */
         addButton: function (obj, json_i18n) {
-            return $.proxy(this[0]._ADAPTER.addButton, this)(obj, json_i18n);
+            return this[0]._ADAPTER.addButton.bind(this)(obj, json_i18n);
         },
         /**
          * Añade un nuevo menu button a la botonera. Las características del mButton se especifican en los parámetros del método.
@@ -146,7 +146,7 @@
             if (!obj.click) {
                 obj.click = this.showMButton;
             }
-            return $.proxy(this[0]._ADAPTER.addMButton, this)(obj, json_i18n);
+            return this[0]._ADAPTER.addMButton.bind(this)(obj, json_i18n);
         },
 
 
@@ -169,7 +169,7 @@
          */
 
         addButtonsToMButton: function (buttons, menuButton, json_i18n) {
-            return $.proxy(this[0]._ADAPTER.addButtonsToMButton, this)(buttons, menuButton, json_i18n);
+            return this[0]._ADAPTER.addButtonsToMButton.bind(this)(buttons, menuButton, json_i18n);
         },
 
         /**
@@ -300,7 +300,7 @@
          * @param {object} boton - Referencia al button.
          */
         _setKeyDown: function (boton) {
-            boton.bind('keydown', function (event) {
+            boton.on('keydown', function (event) {
                 var object = $(event.currentTarget),
                     objectParent = object.parent(),
                     nextObject;
@@ -312,11 +312,11 @@
                             nextObject = object.next(':focusable');
                         } else {
                             //Primer botón de los alineados derecha
-                            nextObject = object.next().children(':focusable:first');
+                            nextObject = object.next().children(':focusable').first();
                         }
 
                         //Navegar entre botones
-                        if (nextObject.size() === 1) {
+                        if (nextObject.length === 1) {
                             nextObject.focus();
                             $.rup_toolbar.focusedExternally[objectParent.attr('id')] = true;
                             return false;

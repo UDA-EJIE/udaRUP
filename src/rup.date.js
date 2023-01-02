@@ -461,7 +461,7 @@
                     });
                 }
 
-                $.proxy(this._ADAPTER.postConfigure, $(this))(settings);
+                this._ADAPTER.postConfigure.bind($(this))(settings);
 
                 //Ajuste para el comportamiento de portales
                 if ($.rup_utils.aplicatioInPortal() && !$('#' + settings.id).is('div')) {

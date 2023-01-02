@@ -110,11 +110,12 @@
        *
        * @name destroy
        * @function
+       * @param {string} selector - Selector a usar en la eliminación del componente.
        * @example
-       * $("#contextMenu").rup_contextMenu("destroy");
+       * $("#contextMenu").rup_contextMenu("destroy", "#contextMenu");
        */
-        destroy: function () {
-            $.contextMenu('destroy', this.selector);
+        destroy: function (selector) {
+            $.contextMenu('destroy', selector);
         }
     });
 

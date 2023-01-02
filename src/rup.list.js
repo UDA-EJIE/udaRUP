@@ -1739,9 +1739,12 @@ import Printd from 'printd';
                 opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').button('enable');
                 opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').attr('aria-disabled', 'false');
                 opciones._multiSortDialog.find('.rup_list-mord-up, .rup_list-mord-down').attr('tabindex', '0');
-                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').button('disable');
-                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('aria-disabled', 'true');
-                opciones._multiSortDialog.find('.rup_list-mord-up:first, .rup_list-mord-down:last').attr('tabindex', '-1');
+                opciones._multiSortDialog.find('.rup_list-mord-up').first().button('disable');
+                opciones._multiSortDialog.find('.rup_list-mord-down').last().button('disable');
+                opciones._multiSortDialog.find('.rup_list-mord-up').first().attr('aria-disabled', 'true');
+                opciones._multiSortDialog.find('.rup_list-mord-down').last().attr('aria-disabled', 'true');
+                opciones._multiSortDialog.find('.rup_list-mord-up').first().attr('tabindex', '-1');
+                opciones._multiSortDialog.find('.rup_list-mord-down').last().attr('tabindex', '-1');
 
                 let ariaSummary = $('.rup_list-ord-line').toArray()
                     .map((e) => {
@@ -2134,15 +2137,15 @@ import Printd from 'printd';
                     $page.attr('role', 'button');
                     $page.attr('aria-controls', self.element.attr('id'));
                     $page.attr('aria-label', $.rup.i18nTemplate($.rup.i18n.base.rup_list, 'paginaLabel', 1, numPages));
-                    $pagenavH.find('.page-separator:first').before($page);
-                    $pagenavF.find('.page-separator:first').before($page.clone());
+                    $pagenavH.find('.page-separator').first().before($page);
+                    $pagenavF.find('.page-separator').first().before($page.clone());
 
                     if (opciones.page - opciones.visiblePages > 0) {
                         // Mostrar el separador de inicio
-                        $pagenavH.find('.page-separator:first').show();
-                        $pagenavH.find('.page-separator:first').attr('aria-hidden', 'false');
-                        $pagenavF.find('.page-separator:first').show();
-                        $pagenavF.find('.page-separator:first').attr('aria-hidden', 'false');
+                        $pagenavH.find('.page-separator').first().show();
+                        $pagenavH.find('.page-separator').first().attr('aria-hidden', 'false');
+                        $pagenavF.find('.page-separator').first().show();
+                        $pagenavF.find('.page-separator').first().attr('aria-hidden', 'false');
                     }
                 }
                 endPage = initPage + opciones.visiblePages < numPages ? initPage + opciones.visiblePages : numPages + 1;
@@ -2153,16 +2156,16 @@ import Printd from 'printd';
                     $page.attr('role', 'button');
                     $page.attr('aria-controls', self.element.attr('id'));
                     $page.attr('aria-label', $.rup.i18nTemplate($.rup.i18n.base.rup_list, 'paginaLabel', i, numPages));
-                    $pagenavH.find('.page-separator:last').before($page);
-                    $pagenavF.find('.page-separator:last').before($page.clone());
+                    $pagenavH.find('.page-separator').last().before($page);
+                    $pagenavF.find('.page-separator').last().before($page.clone());
                 }
 
                 if (opciones.page + opciones.visiblePages - 1 < numPages) {
                     // Mostrar el separador de fin
-                    $pagenavH.find('.page-separator:last').show();
-                    $pagenavH.find('.page-separator:last').attr('aria-hidden', 'false');
-                    $pagenavF.find('.page-separator:last').show();
-                    $pagenavF.find('.page-separator:last').attr('aria-hidden', 'false');
+                    $pagenavH.find('.page-separator').last().show();
+                    $pagenavH.find('.page-separator').last().attr('aria-hidden', 'false');
+                    $pagenavF.find('.page-separator').last().show();
+                    $pagenavF.find('.page-separator').last().attr('aria-hidden', 'false');
                 }
 
                 if (endPage < numPages) {
@@ -2173,8 +2176,8 @@ import Printd from 'printd';
                     $page.attr('role', 'button');
                     $page.attr('aria-controls', self.element.attr('id'));
                     $page.attr('aria-label', $.rup.i18nTemplate($.rup.i18n.base.rup_list, 'paginaLabel', numPages, numPages));
-                    $pagenavH.find('.page-separator:last').after($page);
-                    $pagenavF.find('.page-separator:last').after($page.clone());
+                    $pagenavH.find('.page-separator').last().after($page);
+                    $pagenavF.find('.page-separator').last().after($page.clone());
                 }
             } else {
                 // Añadir todas las páginas al nav

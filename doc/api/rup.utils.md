@@ -7,6 +7,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 
 * [rup_utils](#jQuery.module_rup_utils)
     * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
+    * [~isNumeric(field)](#jQuery.module_rup_utils..isNumeric) ⇒ <code>boolean</code>
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
     * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
@@ -31,6 +32,23 @@ Devuelve un string con los caracteres sencillos.
 **Example**  
 ```js
 // Convierte los caracteres de la cadena "áéíóu" a "aeiou"$.rup_utils.normalize("áéíóu");
+```
+<a name="jQuery.module_rup_utils..isNumeric"></a>
+
+### rup_utils~isNumeric(field) ⇒ <code>boolean</code>
+Comprueba si el parámetro es un número. Sustituye al método isNumeric de jQuery que fue deprecado en la versión 3.3.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>boolean</code> - Parámetro HDIV_STATE.  
+**Since**: UDA 5.1.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| field | <code>number</code> \| <code>string</code> \| <code>boolean</code> \| <code>object</code> | Campo a comprobar. |
+
+**Example**  
+```js
+$.rup_utils.isNumeric(6);
 ```
 <a name="jQuery.module_rup_utils..deleteMulticomboLabelFromObject"></a>
 
