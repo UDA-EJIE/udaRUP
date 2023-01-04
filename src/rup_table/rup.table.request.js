@@ -47,6 +47,8 @@
         if (data.order.length == 1){
             sidx = data.columns[data.order[0].column].colSidx ||  data.columns[data.order[0].column].data;
             sord = data.order[0].dir;
+            
+            delete data.columns[data.order[0].column].colSidx;
         }else if (data.order.length > 1){
         	for (let i = 0; i<data.order.length; i++) {
         			sidx += data.columns[data.order[i].column].colSidx || data.columns[data.order[i].column].data;
@@ -55,6 +57,8 @@
         			sidx += ' ,';
         			sord += ' ,';
         		}
+                
+                delete data.columns[data.order[i].column].colSidx;
         	}
         }
 

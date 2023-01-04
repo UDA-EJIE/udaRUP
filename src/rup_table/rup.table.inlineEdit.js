@@ -1325,8 +1325,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 		
 		if(ctx.oInit.masterDetail !== undefined){//Asegurar que se recoge el idPadre
 			var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
-			jQuery.extend(true,masterPkObject,row);
-			row = masterPkObject;
+			row = jQuery.extend(true, row, masterPkObject);
 		}
 	
 		var ajaxOptions = {

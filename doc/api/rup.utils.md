@@ -39,7 +39,7 @@ Devuelve un string con los caracteres sencillos.
 Comprueba si el parámetro es un número. Sustituye al método isNumeric de jQuery que fue deprecado en la versión 3.3.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
-**Returns**: <code>boolean</code> - Parámetro HDIV_STATE.  
+**Returns**: <code>boolean</code> - Indica si es un número.  
 **Since**: UDA 5.1.0  
 
 | Param | Type | Description |

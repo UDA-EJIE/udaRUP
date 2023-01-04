@@ -924,7 +924,7 @@
 	     *
 	     * @param {number|string|boolean|object} field - Campo a comprobar.
 	     *
-	     * @return {boolean} Parámetro HDIV_STATE.
+	     * @return {boolean} Indica si es un número.
 	     * 
 	     * @example
 		 * $.rup_utils.isNumeric(6);
