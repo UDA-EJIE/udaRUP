@@ -370,8 +370,7 @@ Por defecto *Spring* no tiene habilitada la gestión de subidas de ficheros *(mu
 Para habilitarlo se debe de añadir un MultipartResolver al contexto de aplicación de *Spring*. Esto se realiza editando la configuración del fichero *mvc.config.xml* e incluyendo la siguiente definición:
 
 ```xml
-<bean id="multipartResolver"  
-class="com.ejie.x38.util.UdaMultipartResolver">
+<bean id="multipartResolver" class="org.hdiv.web.multipart.HdivCommonsMultipartResolver">
 
 	<!-- Tamano maximo del archivo -->
 	<property name="maxUploadSize" value="10000000"/>
