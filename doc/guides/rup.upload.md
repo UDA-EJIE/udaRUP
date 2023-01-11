@@ -17,10 +17,9 @@
    - [6 API](#6-api)   
    - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
    - [8   Interacción con el servidor de aplicaciones](#8-interacción-con-el-servidor-de-aplicaciones)
-   - [9  Integración con UDA](#9-integración-con-uda)   
-   - [10  Integración con PIF](#10-integración-con-pif)   
-      - [10.1    Configuración](#10.1-configuración)   
-      - [10.2    Invocación](#10.2-invocación)   
+   - [9  Integración con PIF](#9-integración-con-pif)   
+      - [9.1    Configuración](#91-configuración)   
+      - [9.2    Invocación](#92-invocación)   
 
 <!-- /MDTOC -->
 
@@ -501,12 +500,7 @@ File file = uploadService.getFromDisk(URL_UPLOAD_BASE_DIR, fileName);
 
 ```
 
-##	9	Integración con UDA
-
->**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador.
-La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings, http error code, validaciones…) se detalla en el anexo Anexo-Emulacion_xhr_iframes.doc**
-
-##	10	Integración con PIF
+##	9	Integración con PIF
 A partir de la versión v2.4.2 del componente se ha mejorado la integración con el PIF permitiendo una subida directa.
 
 El objetivo es facilitar al desarrollador el realizar subidas de ficheros al PIF mediante el componente **RUP Upload** sin necesidad de implementar código propio.
@@ -518,7 +512,7 @@ Por este motivo, se proporcionan desde la x38 una serie de clases que implementa
 
 A continuación se explica los pasos a seguir para configurar los diferentes componentes en la aplicación.
 
-###	10.1	Configuración
+###	9.1	Configuración
 Para hacer uso de la subida directa al PIF desde la aplicación se debe de realizar la siguiente configuración en la aplicación:
 
 +	Añadir la dependencia en el pom.xml
@@ -603,7 +597,7 @@ Se deberá de incluir en dicho fichero la referencia al nuevo fichero de configu
 </beans>
 ```
 
-###	10.2	Invocación
+###	9.2	Invocación
 
 La invocación del componente se realiza del mismo modo que se indica en el apartado [5.1-Invocación](5.1-invocación).
 
