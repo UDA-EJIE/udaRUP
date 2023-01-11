@@ -16,12 +16,11 @@
       - [5.3 Varios componentes upload integrados en formuario](#5.3-varios-componentes-upload-integrados-en-formuario)   
    - [6 API](#6-api)   
    - [7   Sobreescritura del theme](#7-sobreescritura-del-theme)   
-   - [8   Interacción con el servidor de aplicaciones](#8-interacción-con-el-servidor-de-aplicaciones)   
-   - [9   Internet Explorer 8](#9-internet-explorer-8)   
-   - [10  Integración con UDA](#10-integración-con-uda)   
-   - [11  Integración con PIF](#11-integración-con-pif)   
-      - [11.1    Configuración](#11.1-configuración)   
-      - [11.2    Invocación](#11.2-invocación)   
+   - [8   Interacción con el servidor de aplicaciones](#8-interacción-con-el-servidor-de-aplicaciones)
+   - [9  Integración con UDA](#9-integración-con-uda)   
+   - [10  Integración con PIF](#10-integración-con-pif)   
+      - [10.1    Configuración](#10.1-configuración)   
+      - [10.2    Invocación](#10.2-invocación)   
 
 <!-- /MDTOC -->
 
@@ -502,50 +501,12 @@ File file = uploadService.getFromDisk(URL_UPLOAD_BASE_DIR, fileName);
 
 ```
 
-##	9	Internet Explorer 8
-
-El componente *upload* presenta varias particularidades al ser utilizado desde *Internet Explorer 8*. Estas son debidas a ciertas carencias del navegador. Estos son los aspectos a tener en cuenta sobre el uso del navegador:
-
-
-+	**No se permite selección múltiple**: IE8 no permite la selección de múltiples ficheros desde el díalogo que abre el campo file.
-
-+	**No se permite la subida de ficheros por XHR**: IE8 no permite la subida de ficheros a través de una petición XHR. Debido a esto el componente automáticamente realiza la subida del fichero mediante iframe.
-Esta limitación ocasiona el problema de que el iframe no acepta como respuesta una de tipo *application/json*, sino que debe ser text/plain o text/html.
-
-Para poder utilizar *jackson* en la respuesta al subir un archivo al servidor es necesario realizar una modificación en la configuración del mismo en el fichero *jackson-config.xml*.
-
-```xml
-<bean id="udaMappingJacksonHttpMessageConverter" class="com.ejie.x38.serialization.UdaMappingJacksonHttpMessageConverter">
-	<property name="supportedMediaTypes" ref="jacksonSupportedMediaTypes" />
-	<property name="udaModule" ref="udaModule" />
-</bean>
-
-
-<util:list id="jacksonSupportedMediaTypes">
-	<bean class="org.springframework.http.MediaType">
-		<constructor-arg value="text" />
-		<constructor-arg value="plain" />
-		<constructor-arg
-			value="#{T(org.springframework.http.converter.json.MappingJacksonHttpMessageConverter).DEFAULT_CHARSET}" />
-	</bean>
-	<bean class="org.springframework.http.MediaType">
-		<constructor-arg value="application" />
-		<constructor-arg value="json" />
-		<constructor-arg
-			value="#{T(org.springframework.http.converter.json.MappingJacksonHttpMessageConverter).DEFAULT_CHARSET}" />
-	</bean>
-</util:list>
-```
-Mediante esta configuración, *jackson* enviará las respuestas en formato *text/plain* en los casos en los que no se acepte las de tipo *application/json*.
-
-+	**No se muestra la información completa del fichero**: Al añadir un fichero a la lista de archivos seleccionados, no se muestra el tipo de archivo ni el tamaño del mismo. Esto es debido a que IE8 no es capaz de acceder a estos metadatos del archivo seleccionado.
-
-##	10	Integración con UDA
+##	9	Integración con UDA
 
 >**IMPORTANTE: En el caso de utilizar el navegador Internet Explorer 8, la subida de ficheros mediante un formulario se realiza mediante el uso de iframe. Esto es debido a que la subida de ficheros mediante peticiones AJAX no está soportada en este navegador.
 La configuración que se ha de realizar para permitir la interacción correcta entre los iframes y el resto de la infraestructura (request mappings, http error code, validaciones…) se detalla en el anexo Anexo-Emulacion_xhr_iframes.doc**
 
-##	11	Integración con PIF
+##	10	Integración con PIF
 A partir de la versión v2.4.2 del componente se ha mejorado la integración con el PIF permitiendo una subida directa.
 
 El objetivo es facilitar al desarrollador el realizar subidas de ficheros al PIF mediante el componente **RUP Upload** sin necesidad de implementar código propio.
@@ -557,7 +518,7 @@ Por este motivo, se proporcionan desde la x38 una serie de clases que implementa
 
 A continuación se explica los pasos a seguir para configurar los diferentes componentes en la aplicación.
 
-###	11.1	Configuración
+###	10.1	Configuración
 Para hacer uso de la subida directa al PIF desde la aplicación se debe de realizar la siguiente configuración en la aplicación:
 
 +	Añadir la dependencia en el pom.xml
@@ -642,7 +603,7 @@ Se deberá de incluir en dicho fichero la referencia al nuevo fichero de configu
 </beans>
 ```
 
-###	11.2	Invocación
+###	10.2	Invocación
 
 La invocación del componente se realiza del mismo modo que se indica en el apartado [5.1-Invocación](5.1-invocación).
 
