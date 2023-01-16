@@ -101,9 +101,9 @@ formEdit: {
     addUrl: '/addMultipart',
     // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
     editUrl: '/editMultipart',
-    // Por defecto, el componente siempre enviará el method (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
+    // Por defecto, el componente siempre enviará el method (puede sobrescribirse) aunque pueden añadirse más parámetros mediante el objeto data, ahora bien, han de ser validados como parámetros de cliente por Hdiv (configurarlo en la clase UDA4HdivConfig).
     data: {
-        'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envío de parámetros desde editForm :)'
+        'actionType': 'POST'
     }
 }
 ```
@@ -153,9 +153,6 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}">
 		<!-- Feedback del formulario de detalle -->
 		<div id="example_detail_feedback"></div>
-		<c:if test="${not empty fixedMessage}">
-			<p><c:out value="${fixedMessage}"/></p>
-		</c:if>
 		<!-- Campos del formulario de detalle -->
 		<div class="form-row">
 			<div class="form-groupMaterial col-sm">

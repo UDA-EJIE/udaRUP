@@ -231,21 +231,8 @@
         select: function (param) {
         	const data = $(this).data();
         	
-        	// Cuando el identificador está cifrado por Hdiv, hay que asegurarse de tener siempre el valor obtenido a partir de la fuente definida en la inicialización del componente
-        	if (data.values != undefined && $.fn.isHdiv(param) && (data.selectedValueKey == undefined || param != data.values[data.selectedValueKey].value)) {
-        		$.each(data.values, function (key, obj) {
-        			if ($.fn.getStaticHdivID(obj.value) === $.fn.getStaticHdivID(param)) {
-        				data.setRupValue = obj.value;
-        				data.settings.selected = obj.value;
-        				param = obj.value;
-        				
-        				// Para evitar iteraciones innecesarias en el futuro, se guarda la posición del valor en el array para facilitar su comprobación
-        				data.selectedValueKey = key;
-            		}
-        		});
-        	}
         	// Asigna el valor recibido como el seleccionado (evita problemas con los enlazados).
-        	else if (param != undefined && param != '') {
+        	if (param != undefined && param != '') {
         		data.setRupValue = param;
         		data.settings.selected = param;
         	}
@@ -694,8 +681,7 @@
                     } //Se para la petición porque algún padre no tiene el dato cargado
                     if (settings.ultimaLlamada === undefined || settings.ultimaLlamada === '' || settings.ultimaLlamada !== data || settings.disabledCache) { //si es la misma busqueda, no tiene sentido volver a intentarlo.
                         $.rup_ajax({
-                            url: settings.source ? settings.source : settings.sourceGroup,
-                            data: data,
+                            url: rupCombo._generateUrl($('#' + settings.id).closest('form'), settings, data),
                             dataType: 'json',
                             contentType: 'application/json',
                             beforeSend: function (xhr) {
@@ -1643,6 +1629,26 @@
             }, settings.typeAhead);
         },
         /**
+         * Gestiona los parámetros a añadir en la URL para que Hdiv permita la llamada.
+         *
+         * @function _generateUrl
+         * @since UDA 5.2.0
+         * @private
+         * @param {object} $form - Formulario.
+         * @param {object} settings - Configuración del componente.
+         * @param {?object} data - Valores de los padres.
+         */
+        _generateUrl: function ($form, settings, data) {
+        	let url = (settings.source ? settings.source : settings.sourceGroup) + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+        	
+        	if (data) {
+        		// Escapa los caracteres '#' para evitar problemas en la petición.
+        		url += "&" + data.replaceAll('#', '%23');
+        	}
+        	
+        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+        },
+        /**
          * Método de inicialización del componente.
          *
          * @function  _init
@@ -1863,11 +1869,10 @@
 	
 	                } else if (typeof settings.source === 'string' || typeof settings.sourceGroup === 'string') {
 	                    //REMOTO
-	                    var url = settings.source ? settings.source : settings.sourceGroup,
-	                        rupCombo = this,
+	                    var rupCombo = this,
 	                        self = this;
 	                    $.rup_ajax({
-	                        url: url,
+	                        url: rupCombo._generateUrl($('#' + settings.id).closest('form'), settings),
 	                        dataType: 'json',
 	                        contentType: 'application/json',
 	                        beforeSend: function (xhr) {
