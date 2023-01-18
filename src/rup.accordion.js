@@ -143,17 +143,6 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
          */
         activate: function (index) {
             $(this).accordion('option', 'active', index);
-        },
-        /**
-         * La función provoca el reajuste de los height (tamaño vertical) de las distintas secciones del Accordion. La ejecución de esta función solo tiene sentido si la opción fillSpace está activada y el height del contenedor cambia.
-         *
-         * @function resize
-         * @deprecated desde la version 2.5.0. Utilizar en su lugar el método refresh.
-         * @example
-         * $("#idAccordion").rup_accordion("resize");
-         */
-        resize: function () {
-            $(this).accordion('resize');
         }
     });
 

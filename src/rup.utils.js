@@ -1138,24 +1138,6 @@
 	};
 	
 	/**
-     * Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.
-     * Es útil cuando se necesita comparar identificadores cifrados. Nota: desde la versión 5.2.0, los identificadores
-     * no alteran su cifrado entre peticiones, por lo que ha dejado de ser necesario usar este método.
-     *
-     * @deprecated since version 5.2.0
-     * @name getStaticHdivID
-     * @function
-     * @since UDA 5.0.0
-     *
-     * @param {string} id - Identificador de la entidad.
-     *
-     * @return {string} Identificador de la entidad con la parte dinámica del cifrado eliminada.
-     */
-	$.fn.getStaticHdivID = function (id) {		
-		return id;
-	};
-	
-	/**
      * Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
      *
      * @name getHDIV_STATE
