@@ -292,7 +292,7 @@
         // delete
         $.rup_ajax({
             url: settings.urlBase + settings.multiFilter.url + '/delete',
-            type: 'POST',
+            type: 'DELETE',
             data: $.toJSON(filter),
             dataType: 'json',
             showLoading: false,
