@@ -1831,25 +1831,18 @@
         	if (ultimo != obj.name) {
         		count = 0;
     		}
-        	let element = idForm.find('[name="' + obj.name + '"]');
-        	let ruptype = element.attr('ruptype');
-        	if (ruptype === undefined) {
-        		ruptype = element.data('ruptype');
-        	}
-        	if ((obj.type === 'hidden' && element.attr('id') !== undefined) || obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
-        		let valor = '';
-        		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
-        			valor = '[' + count++ + ']';
-        		}
-        		else if (ultimo === obj.name) {//Se mete como lista
-        			//se hace replace del primer valor
-        			serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
-        			valor = '[' + count++ + ']'; //y se mete el array
-        		}
-	            serializedForm += (obj.name + valor + '=' + obj.value);
-                serializedForm += serializerSplitter;
-                ultimo = obj.name;
-        	}
+			let valor = '';
+			if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
+				valor = '[' + count++ + ']';
+			}
+			else if (ultimo === obj.name) {//Se mete como lista
+				//se hace replace del primer valor
+				serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
+				valor = '[' + count++ + ']'; //y se mete el array
+			}
+			serializedForm += (obj.name + valor + '=' + obj.value);
+			serializedForm += serializerSplitter;
+			ultimo = obj.name;
         });
         // Evitar que el último carácter sea "&" o el separador definido por el usuario.
         serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
