@@ -1205,11 +1205,16 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	}
 	//Se vacian las reglas.
 	$.each(selectores,function() {
-		//añadir las columnas parents y child
-		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input:not([disabled]),td:not([style*="display: none"]):not(".select-checkbox") select:not([disabled])';
-            if (this.hasClass('child')) { //si es el hijo solo buscar los select e inputs que hay.
-                busqueda = 'select,input';
+		// Añadir las columnas parent y child.
+		let busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input:not([disabled]),' +
+			'td:not([style*="display: none"]):not(".select-checkbox") select:not([disabled]),' +
+			'td:not([style*="display: none"]):not(".select-checkbox") textarea:not([disabled])';
+
+		// Si es el hijo, solo buscar los select, input y textarea que haya.
+		if (this.hasClass('child')) {
+			busqueda = 'select,input,textarea';
 		}
+		
 		$.each( this.find(busqueda), function( i, obj ) {
 			var nombre = obj.id.replace('_inline','').replace('_child','');
 			var value = $(obj).val();
