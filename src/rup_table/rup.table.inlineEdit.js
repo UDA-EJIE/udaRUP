@@ -1206,7 +1206,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	//Se vacian las reglas.
 	$.each(selectores,function() {
 		//añadir las columnas parents y child
-		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input,td:not([style*="display: none"]):not(".select-checkbox") select';
+		var busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input:not([disabled]),td:not([style*="display: none"]):not(".select-checkbox") select:not([disabled])';
             if (this.hasClass('child')) { //si es el hijo solo buscar los select e inputs que hay.
                 busqueda = 'select,input';
 		}
