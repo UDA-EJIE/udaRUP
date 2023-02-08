@@ -106,7 +106,8 @@ inlineEdit: {
     addUrl: '/addMultipart',
     // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
     editUrl: '/editMultipart',
-    // Por defecto, el componente siempre enviará el método además del valor de la clave primaria, siempre y cuando alguna fila haya sido seleccionada. También pueden añadirse más parámetros mediante el objeto data, incluso para sobrescribir,
+    // Por defecto, el componente siempre enviará el método además del valor de la clave primaria, siempre y cuando alguna fila haya sido seleccionada.
+	// También pueden añadirse más parámetros mediante el objeto data, incluso para sobrescribir,
     // aunque todo parámetro que se envíe de esta forma, ha de ser validado como parámetro de cliente por Hdiv (configurable en la clase UDA4HdivConfig).
     data: {
         'nombreUsuario': 'Este es el nombre del usuario'
