@@ -1529,13 +1529,19 @@ function _loadAuxForm(ctx, actionType) {
 	
 	// Servirá para saber si la última llamada a inlineEdit fue para añadir, editar o si aún no ha sido inicializado
 	let lastAction = ctx.oInit.inlineEdit.actionType;
+    	
+	// Obtiene del formulario el valor del campo que forme la clave primaria. Puede ser undefined.
+	const lastFormPkValue = idForm?.find('input[name="' + ctx.oInit.primaryKey[0] + '"]').val();
 	
-	// Si el usuario ha activado los formularios dinámicos y la última acción no es la misma que la actual, es necesario volver a obtener el formulario
-	if (ctx.oInit.enableDynamicForms && lastAction !== actionType) {
-		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType y el identificador de la tabla.
-		let defaultData = {
+	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
+	// es necesario volver a obtener el formulario.
+	if (ctx.oInit.enableDynamicForms && (lastAction !== actionType || lastFormPkValue !== ctx.multiselection.lastSelectedId)) {
+		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, 
+		// el identificador de la tabla y el valor de la clave primaria siempre y cuando no contenga un string vacío.
+		const defaultData = {
 				'actionType': actionType,
-				'tableID': ctx.sTableId
+				'tableID': ctx.sTableId,
+				...(ctx.multiselection.lastSelectedId != "" && {'pkValue': ctx.multiselection.lastSelectedId})
 			};
 		let data = ctx.oInit.inlineEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.inlineEdit.data) : defaultData;
 		
