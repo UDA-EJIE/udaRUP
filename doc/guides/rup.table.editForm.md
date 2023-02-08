@@ -109,7 +109,7 @@ formEdit: {
 ```
 Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
 * Ponerle el identificador **XXX_detail_form_container** al elemento **div** que contiene la clase **dialog-content-material**. Cabe decir que las tres equises hay que sustituirlas por el identificador de la tabla, por ejemplo, en una tabla con identificador *example*, el identificador a usar en el *div* sería *example_detail_form_container*. Esto sería un ejemplo real: 
-    ```html
+    ```jsp
     <!-- Formulario de detalle -->
     <div id="example_detail_div" class="rup-table-formEdit-detail d-none">
     	<!-- Barra de navegación del detalle -->
@@ -138,11 +138,11 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
     	</div>
     </div>
     ```
-* Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente, también puede usarse cualquier otra lógica gracias a que los parámetros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
-    ```html
+* Una nueva JSP que contenga únicamente el formulario a usar, pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente. Es posible usar cualquier otra lógica gracias a que los parámetros enviados al controlador, son totalmente personalizables, ahora bien, es necesario incluirlos como atributo del Model para su uso desde la JSP además de crear la validación de cliente pertinente en la clase de configuración de Hdiv. La siguiente JSP puede ayudar a entender lo anteriormente descrito:
+    ```jsp
     <!-- Formulario -->
 	<c:choose>
-		<c:when test="${enableMultipart eq true}">
+		<c:when test="${enableMultipart}">
 			<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
 		</c:when>
 		<c:when test="${!enableMultipart}">
@@ -154,6 +154,9 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 		<!-- Feedback del formulario de detalle -->
 		<div id="example_detail_feedback"></div>
 		<!-- Campos del formulario de detalle -->
+		<c:if test="${!actionType.equals('POST')}">
+			<form:hidden path="id" value="${pkValue.id}" id="id_detail_table" />
+		</c:if>
 		<div class="form-row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="nombre" id="nombre_detail_table" />
@@ -186,11 +189,11 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 		</div>
 		<div class="form-row">
 			<div class="form-groupMaterial col-sm">
-				<form:input path="rol" id="rol_detail_table" />
+				<form:select path="rol" id="rol_detail_table" />
 				<label for="rol_detail_table"><spring:message code="rol" /></label>
 			</div>
 		</div>
-		<c:if test="${enableMultipart eq true}">
+		<c:if test="${enableMultipart}">
 		<div class="form-row">	
 			<div class="form-groupMaterial col-sm">
 				<form:input path="imagenAlumno" type="file" id="imagenAlumno_detail_table" />
@@ -248,7 +251,7 @@ formEdit: {
 &nbsp;
 
 Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deben tener la siguiente estructura:
-```xml
+```jsp
 <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
     <div class="form-row">      
         <div class="checkbox-material col-sm">
@@ -259,7 +262,7 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deb
 </c:forEach>
 ```		
 Destacan cuatro elementos:
-1. **PATH**: es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+1. **PATH**: lugar donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
 2. **DATA-LISTA**: nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
 3. **DATA-CLAVE**: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
 4. **DATA-VALOR**: recoge el valor del identificador, la clave primaria.
