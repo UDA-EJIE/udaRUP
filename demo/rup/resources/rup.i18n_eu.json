@@ -642,7 +642,7 @@
   "sProcessing": "<span class='sProcessingText'>Prozesatzen...</span>",
   "sLengthMenu": "_MENU_",
   "sZeroRecords": "Ez da emaitzarik aurkitu",
-  "sEmptyTable": "Taula hontan ez dago inongo datu erabilgarririk",
+  "sEmptyTable": "Taula honetan ez dago daturik",
   "sInfo": "_TOTAL_(e)tik _START_ - _END_ erakusten",
   "sInfoEmpty": "0 - 0(e)tik 0 erakusten",
   "sInfoFiltered": "(guztira _MAX_ erregistro iragazten)",
