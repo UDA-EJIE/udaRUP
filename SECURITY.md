@@ -4,8 +4,8 @@
 
 | Versión | Soportada          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 4.3.x   | :white_check_mark: |
+| 5.2.x   | :white_check_mark: |
+| 4.4.x   | :white_check_mark: |
 | 3.x.x   | :x:                |
 | 2.x.x   | :x:                |
 | 1.x.x   | :x:                |
