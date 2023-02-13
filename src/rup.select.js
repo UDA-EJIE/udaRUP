@@ -1420,7 +1420,7 @@
          * @private
          * @param {object} $form - Formulario.
          * @param {object} settings - Configuración del componente.
-         * @param {?object} data - Valores de los padres.
+         * @param {string} [data] - Valores de búsqueda cuando tiene autocompletado e identificador de los padres en caso de ser enlazados.
          */
         _generateUrl: function ($form, settings, data) {
         	let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
