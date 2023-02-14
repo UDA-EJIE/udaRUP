@@ -691,10 +691,8 @@ input.
 				settings.data = bckData;
 
 			} else {
-
 				$.rup_ajax({
-					url: settings.data,
-					data: data,
+					url: settings._generateUrl($('#' + settings.id).closest('form'), settings, $.param(data)),
 					dataType: 'json',
 					contentType: 'application/json',
 					//Cabecera RUP
@@ -898,6 +896,24 @@ input.
 			
 			return selectedSource;
 		},
+        /**
+         * Gestiona los parámetros a añadir en la URL para que Hdiv permita la llamada.
+         *
+         * @function _generateUrl
+         * @since UDA 5.2.0
+         * @private
+         * @param {object} $form - Formulario.
+         * @param {object} settings - Configuración del componente.
+         * @param {string} data - Valores de búsqueda e identificador de los padres en caso de ser enlazados.
+         */
+        _generateUrl: function ($form, settings, data) {
+        	let url = settings.data + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+        	
+        	// Concatena los datos a enviar.
+        	url += "&" + data;
+        	
+        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+        },
 		/**
          * Método de inicialización del componente.
          *
@@ -916,13 +932,17 @@ input.
 
 				$(this).attr('ruptype', 'autocomplete');
 
-				//Recopilar datos necesarios
+				// Recopilar datos necesarios.
+				settings.$self = this;
 				settings.id = $(this).attr('id');
+				settings.name = $(this).attr('name');
 				settings.loadObjects = settings.id;
-				settings.data = settings.source; //Guardar los datos en "data" ya que source la emplea autocomplete internamente
-				settings._parseResponse = this._parseResponse; //Guardar referencia a rup.autocomplete para invocar las funciones privadas
-				settings._sourceLOCAL = this._sourceLOCAL; //Guardar referencia a rup.autocomplete para invocar las funciones privadas
-				settings.$self = this; //Guardar referencia a rup.autocomplete para invocar las funciones privadas
+				// Guardar los datos en "data" porque "source" lo usa el subyacente.
+				settings.data = settings.source;
+				// Guardar referencias a algunas funciones privadas.
+				settings._parseResponse = this._parseResponse;
+				settings._sourceLOCAL = this._sourceLOCAL;
+				settings._generateUrl = this._generateUrl;
 
 				//Guardar valor del INPUT
 				settings.loadValue = settings.loadValue ?? $('#' + settings.id).attr('value');
