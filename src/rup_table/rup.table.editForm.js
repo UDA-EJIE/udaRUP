@@ -886,9 +886,7 @@
                 $('#' + ctx.sTableId+'_detail_masterPK').val($('#' + ctx.sTableId + '_filter_masterPK').val());
                 row = jQuery.extend(true, row,masterPkObject);
             }
-            if (ctx.oInit.formEdit.multiPart) { //si es multiPart el row se coje solo.
-                row = {};
-            }
+            
             var ajaxOptions = {
                 url: ctx.oInit.urlBase + url,
                 accepts: {
@@ -1101,22 +1099,48 @@
                 delete ajaxOptions.data;
                 $.rup_ajax(ajaxOptions);
             } else if (isDeleting || ctx.oInit.formEdit.idForm.valid()) {
-            	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-                if (url.indexOf('deleteAll') === -1) {
-                	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
-                    $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
-                    
-                    // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
-                    $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
-                    
-                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
-                    if (hdivStateParamValue !== '') {
-                    	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-                    }
-                }
-                
-                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-                $.rup_ajax(ajaxOptions);
+				// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
+				if (url.indexOf('deleteAll') === -1) {
+					// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
+					$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
+
+					// Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
+					$.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
+
+					var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
+					if (hdivStateParamValue !== '') {
+						ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+					}
+
+					// Comprueba si debe enviarse como multipart.
+					if (ctx.oInit.formEdit.multiPart || ctx.oInit.formEdit.idForm.attr('enctype') == 'multipart/form-data') {
+						ajaxOptions.enctype = 'multipart/form-data';
+						ajaxOptions.processData = false;
+						ajaxOptions.contentType = false;
+
+						let formData = new FormData();
+
+						$.each(ajaxOptions.data, function(key, value) {
+							const field = ctx.oInit.formEdit.idForm.find('input[type="file"][name="' + key + '"]');
+
+							// Gestiona el guardado de ficheros.
+							if (field.length != 0 && field.prop('files').length > 0) {
+								$.each(field.prop('files'), function(fileIndex, fileValue) {
+									formData.append(key, fileValue);
+								});
+							} else {
+								formData.append(key, value);
+							}
+						});
+
+						ajaxOptions.data = formData;
+					}
+				}
+
+				if (ajaxOptions.enctype != 'multipart/form-data') {
+					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+				}
+				$.rup_ajax(ajaxOptions);
             }
         }
         
