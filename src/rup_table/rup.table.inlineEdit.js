@@ -1487,8 +1487,32 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
             	
             	$.when(_loadAuxForm(ctx, actionType)).then(function () {
-					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-	                $.rup_ajax(ajaxOptions);
+					// Comprueba si debe enviarse como multipart.
+					if (ctx.oInit.inlineEdit.multiPart || ctx.oInit.inlineEdit.idForm.attr('enctype') == 'multipart/form-data') {
+						ajaxOptions.enctype = 'multipart/form-data';
+						ajaxOptions.processData = false;
+						ajaxOptions.contentType = false;
+
+						let formData = new FormData();
+
+						$.each(ajaxOptions.data, function(key, value) {
+							const field = $fila.find('input[type="file"][name="' + key + '_inline"]');
+
+							// Gestiona el guardado de ficheros.
+							if (field.length != 0 && field.prop('files').length > 0) {
+								$.each(field.prop('files'), function(fileIndex, fileValue) {
+									formData.append(key, fileValue);
+								});
+							} else {
+								formData.append(key, value);
+							}
+						});
+
+						ajaxOptions.data = formData;
+					} else {
+						ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+					}
+					$.rup_ajax(ajaxOptions);
             	});
             } else {
             	ajaxOptions.data = JSON.stringify(ajaxOptions.data);
