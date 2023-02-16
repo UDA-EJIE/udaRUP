@@ -379,8 +379,10 @@
     	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
     	let lastAction = ctx.oInit.formEdit.actionType;
     	
-    	// Obtiene del formulario el valor del campo que forme la clave primaria. Puede ser undefined.
-    	const lastFormPkValue = idForm?.find('input[name="' + ctx.oInit.primaryKey[0] + '"]').val();
+		// Obtiene del formulario el valor del campo que forme la clave primaria. Se utiliza la condición ternaria para garantizar que al menos, siempre
+		// contenga un string vacío al igual que hace "lastSelectedId". Esto evita problemas con la condición previa a la descarga del formulario.
+		const pkFieldValue = idForm?.find('input[name="' + ctx.oInit.primaryKey[0] + '"]').val();
+		const lastFormPkValue = pkFieldValue != undefined ? pkFieldValue : '';
 		
 		// Botón de guardar y continuar
         let buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');

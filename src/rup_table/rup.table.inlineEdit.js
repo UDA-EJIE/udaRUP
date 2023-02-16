@@ -1555,8 +1555,10 @@ function _loadAuxForm(ctx, actionType) {
 	// Servirá para saber si la última llamada a inlineEdit fue para añadir, editar o si aún no ha sido inicializado
 	let lastAction = ctx.oInit.inlineEdit.actionType;
     	
-	// Obtiene del formulario el valor del campo que forme la clave primaria. Puede ser undefined.
-	const lastFormPkValue = idForm?.find('input[name="' + ctx.oInit.primaryKey[0] + '"]').val();
+	// Obtiene del formulario el valor del campo que forme la clave primaria. Se utiliza la condición ternaria para garantizar que al menos, siempre
+	// contenga un string vacío al igual que hace "lastSelectedId". Esto evita problemas con la condición previa a la descarga del formulario.
+	const pkFieldValue = idForm?.find('input[name="' + ctx.oInit.primaryKey[0] + '"]').val();
+	const lastFormPkValue = pkFieldValue != undefined ? pkFieldValue : '';
 	
 	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
 	// es necesario volver a obtener el formulario.
