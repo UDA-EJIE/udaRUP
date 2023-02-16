@@ -147,20 +147,12 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 * Una nueva JSP que contenga únicamente el formulario a usar, pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente. Es posible usar cualquier otra lógica gracias a que los parámetros enviados al controlador, son totalmente personalizables, ahora bien, es necesario incluirlos como atributo del Model para su uso desde la JSP además de crear la validación de cliente pertinente en la clase de configuración de Hdiv. La siguiente JSP puede ayudar a entender lo anteriormente descrito:
     ```jsp
     <!-- Formulario -->
-	<c:choose>
-		<c:when test="${enableMultipart}">
-			<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
-		</c:when>
-		<c:when test="${!enableMultipart}">
-			<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
-		</c:when>
-	</c:choose>	
 	<spring:url value="/table/${endpoint}" var="url"/>
-	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}">
+	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}" enctype="${enctype}">
 		<!-- Feedback del formulario de detalle -->
 		<div id="example_detail_feedback"></div>
 		<!-- Campos del formulario de detalle -->
-		<c:if test="${!actionType.equals('POST')}">
+		<c:if test="${not empty pkValue}">
 			<form:hidden path="id" value="${pkValue.id}" id="id_detail_table" />
 		</c:if>
 		<div class="form-row">
@@ -199,7 +191,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 				<label for="rol_detail_table"><spring:message code="rol" /></label>
 			</div>
 		</div>
-		<c:if test="${enableMultipart}">
+		<c:if test="${isMultipart}">
 		<div class="form-row">	
 			<div class="form-groupMaterial col-sm">
 				<form:input path="imagenAlumno" type="file" id="imagenAlumno_detail_table" />

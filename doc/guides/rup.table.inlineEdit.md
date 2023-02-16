@@ -121,17 +121,9 @@ inlineEdit: {
 Para que esto funcione correctamente, hay que crear una JSP que deberá ser recreada para todos aquellos mantenimientos que lo requieran, es decir, **ya no podrá ser genérica como lo fue hasta la versión 5.1.0 de UDA, porque a diferencia de antes, es necesario declarar los campos que forman el formulario**. A continuación, un ejemplo del contenido que puede contener este archivo:
 ```jsp
 <!-- Formulario -->
-<c:choose>
-	<c:when test="${enableMultipart}">
-		<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
-	</c:when>
-	<c:when test="${!enableMultipart}">
-		<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
-	</c:when>
-</c:choose>
 <spring:url value="/table/${endpoint}" var="url"/>
-<form:form modelAttribute="usuario" id="example_inlineEdit_aux_form" class="d-none" action="${url}" method="${actionType}">
-	<c:if test="${!actionType.equals('POST')}">
+<form:form modelAttribute="usuario" id="example_inlineEdit_aux_form" class="d-none" action="${url}" method="${actionType}" enctype="${enctype}">
+	<c:if test="${not empty pkValue}">
 		<form:hidden path="id" value="${pkValue.id}" id="id_example_inlineEdit_aux_form" />
 	</c:if>
 	<form:input path="nombre" id="nombre_example_inlineEdit_aux_form" />
@@ -140,7 +132,7 @@ Para que esto funcione correctamente, hay que crear una JSP que deberá ser recr
 	<form:input path="fechaBaja" id="fechaBaja_example_inlineEdit_aux_form" />
 	<form:input path="fechaAlta" id="fechaAlta_example_inlineEdit_aux_form" />
 	<form:input path="ejie" id="ejie_example_inlineEdit_aux_form" />
-	<form:select path="rol" id="rol_example_inlineEdit_aux_form" />
+	<form:select path="rol" id="rol_example_inlineEdit_aux_form" items="${comboRol}" />
 </form:form>
 ```
 &nbsp;
