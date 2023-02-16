@@ -1113,7 +1113,7 @@
 					}
 
 					// Comprueba si debe enviarse como multipart.
-					if (ctx.oInit.formEdit.multiPart || ctx.oInit.formEdit.idForm.attr('enctype') == 'multipart/form-data') {
+					if (ctx.oInit.formEdit.multipart === true) {
 						ajaxOptions.enctype = 'multipart/form-data';
 						ajaxOptions.processData = false;
 						ajaxOptions.contentType = false;

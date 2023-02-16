@@ -1484,7 +1484,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 					}
 
 					// Comprueba si debe enviarse como multipart.
-					if (ctx.oInit.inlineEdit.multiPart || ctx.oInit.inlineEdit.idForm.attr('enctype') == 'multipart/form-data') {
+					if (ctx.oInit.inlineEdit.multipart === true) {
 						ajaxOptions.enctype = 'multipart/form-data';
 						ajaxOptions.processData = false;
 						ajaxOptions.contentType = false;
