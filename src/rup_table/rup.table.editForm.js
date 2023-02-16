@@ -396,10 +396,12 @@
     	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
     	// es necesario volver a obtener el formulario.
 		if (ctx.oInit.enableDynamicForms && (lastAction !== actionType || lastFormPkValue !== ctx.multiselection.lastSelectedId)) {
-			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType y el valor de la clave primaria siempre y cuando no contenga un string vacío.
+			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
+			// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 			const defaultData = {
 				'actionType': actionType,
-				...(ctx.multiselection.lastSelectedId != "" && {'pkValue': ctx.multiselection.lastSelectedId})
+				'isMultipart': ctx.oInit.formEdit.multipart === true ? true : false,
+				...(ctx.multiselection.lastSelectedId != "" && { 'pkValue': ctx.multiselection.lastSelectedId })
 			};
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			

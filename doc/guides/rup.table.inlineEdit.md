@@ -106,6 +106,9 @@ inlineEdit: {
     addUrl: '/addMultipart',
     // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
     editUrl: '/editMultipart',
+    // Indica al componente que la codificación del formulario es de tipo multipart. Por defecto,
+    // se tratará como falso.
+    isMultipart: true,
     // Por defecto, el componente siempre enviará el método además del valor de la clave primaria,
     // siempre y cuando alguna fila haya sido seleccionada. También pueden añadirse más parámetros
     // mediante el objeto data, incluso para sobrescribir, aunque todo parámetro que se envíe de esta forma,
