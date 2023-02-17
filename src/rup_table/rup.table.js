@@ -391,7 +391,7 @@
                 $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);
             });
 
-            apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
+            apiRegister('rupTable.getIdPk()', function (json = {}, optionsParam) {
                 var opts = options;
                 if (optionsParam !== undefined) {
                     opts = optionsParam;
