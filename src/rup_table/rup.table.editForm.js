@@ -398,7 +398,7 @@
 			const defaultData = {
 				'actionType': actionType,
 				'isMultipart': ctx.oInit.formEdit.multipart === true ? true : false,
-				...(ctx.multiselection.lastSelectedId != "" && { 'pkValue': ctx.multiselection.lastSelectedId })
+				...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 			};
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			

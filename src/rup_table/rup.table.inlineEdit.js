@@ -1563,7 +1563,7 @@ function _loadAuxForm(ctx, actionType) {
 		const defaultData = {
 			'actionType': actionType,
 			'isMultipart': ctx.oInit.inlineEdit.multipart === true ? true : false,
-			...(ctx.multiselection.lastSelectedId != "" && { 'pkValue': ctx.multiselection.lastSelectedId })
+			...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 		};
 		let data = ctx.oInit.inlineEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.inlineEdit.data) : defaultData;
 		
