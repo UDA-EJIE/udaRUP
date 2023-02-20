@@ -1638,16 +1638,21 @@
          * @param {object} settings - Configuración del componente.
          * @param {string} [data] - Valores de los identificadores de los padres en caso de ser enlazados.
          */
-        _generateUrl: function ($form, settings, data) {
-        	let url = (settings.source ? settings.source : settings.sourceGroup) + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-        	
-        	if (data) {
-        		// Escapa los caracteres '#' para evitar problemas en la petición.
-        		url += "&" + data.replaceAll('#', '%23');
-        	}
-        	
-        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
-        },
+		_generateUrl: function($form, settings, data) {
+			const source = settings.source ? settings.source : settings.sourceGroup;
+			if ($form.length === 1) {
+				let url = source + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+
+				if (data) {
+					// Escapa los caracteres '#' para evitar problemas en la petición.
+					url += "&" + data.replaceAll('#', '%23');
+				}
+
+				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+			} else {
+				return source;
+			}
+		},
         /**
          * Método de inicialización del componente.
          *

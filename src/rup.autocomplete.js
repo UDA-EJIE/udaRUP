@@ -906,14 +906,19 @@ input.
          * @param {object} settings - Configuración del componente.
          * @param {string} data - Valores de búsqueda e identificador de los padres en caso de ser enlazados.
          */
-        _generateUrl: function ($form, settings, data) {
-        	let url = settings.data + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-        	
-        	// Concatena los datos a enviar.
-        	url += "&" + data;
-        	
-        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
-        },
+		_generateUrl: function($form, settings, data) {
+			if ($form.length === 1) {
+				let url = settings.data + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+
+				// Concatena los datos a enviar.
+				url += "&" + data;
+
+				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+			} else {
+				return settings.data;
+			}
+
+		},
 		/**
          * Método de inicialización del componente.
          *

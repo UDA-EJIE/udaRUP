@@ -1422,16 +1422,20 @@
          * @param {object} settings - Configuración del componente.
          * @param {string} [data] - Valores de búsqueda cuando tiene autocompletado e identificador de los padres en caso de ser enlazados.
          */
-        _generateUrl: function ($form, settings, data) {
-        	let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-        	
-        	if (data) {
-        		// Escapa los caracteres '#' para evitar problemas en la petición.
-        		url += "&" + data.replaceAll('#', '%23');
-        	}
-        	
-        	return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
-        },
+		_generateUrl: function($form, settings, data) {
+			if ($form.length === 1) {
+				let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+
+				if (data) {
+					// Escapa los caracteres '#' para evitar problemas en la petición.
+					url += "&" + data.replaceAll('#', '%23');
+				}
+
+				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+			} else {
+				return settings.url;
+			}
+		},
         /**
 		 * Método de inicialización del componente.
 		 * 
