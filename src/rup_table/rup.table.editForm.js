@@ -916,9 +916,11 @@
                             _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                         }
 
+                    	// Sobrescribir valores anteriores con los recibidos desde el servidor
+                    	row = $.extend({}, row, valor);
+                    	
                         if (actionType === 'PUT') { //Modificar
-                        	// Sobrescribir valores anteriores con los recibidos desde el servidor
-                        	row = $.extend({}, row, valor);
+
                         	dt.row(idRow).data(row); // se actualiza al editar
                             ctx.json.rows[idRow] = row;
                             // Actualizamos el ultimo id seleccionado (por si ha sido editado)
