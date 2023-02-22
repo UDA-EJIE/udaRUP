@@ -367,8 +367,16 @@
                 	let idEntity = DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit);
                 	if(ctx.oInit.formEdit !== undefined){                	
 	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
-	                    if (hdivStateParamValue !== '' && index == 0) {
-	                    	ctx.multiselection.lastSelectedId = idEntity;
+	                	if(ctx.multiselection.lastSelectedId != '' && idEntity != ''){
+	                		let idLastHdiv = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
+	                		let idEntityHdiv = $.fn.getStaticHdivID(idEntity);
+	                		if(idLastHdiv === idEntityHdiv){//Se actualiza el last, con el id de hdiv cifrado.
+	                			ctx.multiselection.lastSelectedId = idEntity;
+	                		}
+	                	}
+	                	//Se marcaría el primero, en caso de no encontrar.
+	                	if (hdivStateParamValue !== '' && index == 0) {
+	                		posibleLastselection = idEntity;
 	                    }
                 	}
                     var arra = {
@@ -379,6 +387,10 @@
                     ctx.multiselection.selectedIds.splice(index, 0, arra.id);
                     ctx.multiselection.selectedRowsPerPage.splice(index, 0, arra);
                 });
+                //Si viene reordenación, debe de tener un último seleccionado.                
+                if(json.reorderedSelection != null && json.reorderedSelection.length > 0 && ctx.multiselection.lastSelectedId == ''){
+                	ctx.multiselection.lastSelectedId = posibleLastselection;
+                }
                 if (ctx.multiselection !== undefined && !ctx.multiselection.selectedAll) {
                     ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
                 }
