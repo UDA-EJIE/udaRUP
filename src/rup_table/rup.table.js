@@ -368,11 +368,8 @@
                 	if(ctx.oInit.formEdit !== undefined){                	
 	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
 	                	if(ctx.multiselection.lastSelectedId != '' && idEntity != ''){
-	                		let idLastHdiv = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
-	                		let idEntityHdiv = $.fn.getStaticHdivID(idEntity);
-	                		if(idLastHdiv === idEntityHdiv){//Se actualiza el last, con el id de hdiv cifrado.
-	                			ctx.multiselection.lastSelectedId = idEntity;
-	                		}
+	                		//Se actualiza el last, con el id de hdiv cifrado.
+	                		ctx.multiselection.lastSelectedId = idEntity;
 	                	}
 	                	//Se marcaría el primero, en caso de no encontrar.
 	                	if (hdivStateParamValue !== '' && index == 0) {
