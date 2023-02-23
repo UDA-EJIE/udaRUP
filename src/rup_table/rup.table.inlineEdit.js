@@ -1477,7 +1477,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
             	
-            	$.when(_loadAuxForm(ctx, actionType)).then(function () {
+            	$.when(_loadAuxForm(ctx, actionType, ajaxOptions.data)).then(function () {
 					var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
 					if (hdivStateParamValue !== '') {
 						ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
@@ -1546,10 +1546,11 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
  *
  * @param {object} ctx - Contexto del Datatable.
  * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
+ * @param {object} row - Valores de los campos del formulario.
  *
  * @return {object}
  */
-function _loadAuxForm(ctx, actionType) {
+function _loadAuxForm(ctx, actionType, row) {
 	var idForm = ctx.oInit.inlineEdit !== undefined ? ctx.oInit.inlineEdit.idForm : undefined;
 	
 	// Servirá para saber si la última llamada a inlineEdit fue para añadir, editar o si aún no ha sido inicializado
