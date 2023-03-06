@@ -515,6 +515,15 @@
             // Tipo de select
         	let data = $(this).select2('data');
             if (!$(this).data('settings').multiple) {
+            	//Validar que venga el nid
+            	if(data[0].nid == undefined && $(this).data('settings').options != undefined){
+            	   let seleccionado = $.grep($(this).data('settings').options, function (v, index) {
+            	        return v.id === data[0].id;
+            	   });
+            	   if (seleccionado != undefined && seleccionado.length == 1) {
+            		   data[0].nid = seleccionado[0].nid;
+            	   }
+            	}
             	 return data[0];
             } else {
                 return data;
@@ -1052,7 +1061,9 @@
         _loadRemote: function (settings,first) {
         	var rupSelect = this;
         	 	settings.ajax = {
-		    url: rupSelect._generateUrl($('#' + settings.id).closest('form'), settings, _this._getParentsValues(settings, true)),
+		    url: function () {
+    			return rupSelect._generateUrl($('#' + settings.id).closest('form'), settings, _this._getParentsValues(settings, true));
+    		},
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{// Require id y text, podemos permitir que no venga.
@@ -1084,7 +1095,8 @@
 		    cache: false,
 		    data: function () {
 		    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra que Hdiv bloqueará.
-		    	return '';
+		    	//se hará en el transport
+		    	return  _this._getParentsValues(settings, true);
 		    },
 		    error: function (xhr, textStatus, errorThrown) {
 		               if (settings.onLoadError !== null) {
@@ -1109,8 +1121,13 @@
 				let __cache = [];
 				let __lastQuery = null;
 		    	settings.ajax.transport = function(params, success, failure) {
+
 					// retrieve the cached key or default to _ALL_
 			        let __cachekey = params.data || '_ALL_';
+		    		//Se actualiza el data, para mantener la misma función, con hdiv ya no se mandan los data
+			        if(!settings.autocomplete){
+			        	params.data = "" ;
+			        }
 			        let mySelect = $('#' + settings.id).data('select2');
 			        if(settings.autocomplete){
 			        	params.data.q = mySelect.$container.find('input').val();
@@ -1677,6 +1694,23 @@
 	                	this._loadRemote(settings,true);
 		           } else {// por si viene cargado de un select
 		        	   settings.data = true;
+		        	   if(settings.parent){//convertir el data, formato parent	
+		        		   settings.data = [];
+		        		   $('#'+settings.id).find('option').each(function () {
+		        			   let idPadre = $(this).data('idpadre');
+		        			   if(idPadre != undefined){
+		        				   //si no existe
+		        				   if(settings.data[idPadre] === undefined){
+		        					   settings.data[idPadre] = []; 
+		        					   if (settings.placeholder != undefined || settings.placeholder != '') {
+		        						   settings.data[idPadre].push({id:settings.blank, text:settings.placeholder});
+		        					   }
+		        				   }
+		        				   settings.data[idPadre].push({id:$(this).val(), text:$(this).text()});
+		        			   }
+		        	            
+		        	          });
+		        	   }
 		           }
 	                
 	                // Init eventos: El resto van en el propio subyacente
@@ -1825,8 +1859,8 @@
 	                	}
 	                	// Bucle para eventos Padres
 	                	$.each(parent, function (idx, eventoPadre) {
-		                	$('#' + eventoPadre).off('change.parent');
-			                $('#' + eventoPadre).on('change.parent', function (){// Cambios
+		                	$('#' + eventoPadre).off('change.parent'+ settings.id);
+			                $('#' + eventoPadre).on('change.parent'+  settings.id, function (){// Cambios
 																					// para
 																					// los
 																					// hijos,onchange
