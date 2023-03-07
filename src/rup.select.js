@@ -516,7 +516,7 @@
         	let data = $(this).select2('data');
             if (!$(this).data('settings').multiple) {
             	//Validar que venga el nid
-            	if(data[0].nid == undefined && $(this).data('settings').options != undefined){
+            	if(data[0] != undefined && data[0].nid == undefined && $(this).data('settings').options != undefined){
             	   let seleccionado = $.grep($(this).data('settings').options, function (v, index) {
             	        return v.id === data[0].id;
             	   });
@@ -1885,17 +1885,19 @@
 			                			$.each(settings.parent, function (ind, elem) {
 			                				let val = $('#' + elem).rup_select('getRupValue');
 			                		        clave = clave + val + settings.multiValueToken  ;
-			                		        if($('#'+elem).rup_select("getDataSelected") !== undefined){
-			                		        	val = $('#'+elem).rup_select("getDataSelected").nid;
+			                		        let dataSelected = $('#'+elem).rup_select("getDataSelected");
+			                		        if(dataSelected !== undefined){
+			                		        	val = dataSelected.nid || dataSelected.id;
 			                		        	ClaveNoCifrar = ClaveNoCifrar + val + settings.multiValueToken  ;
 			                		        }
 			                		    });
 			                			clave = clave.substring(0,clave.length - settings.multiValueToken.length);
 			                			ClaveNoCifrar = ClaveNoCifrar.substring(0,ClaveNoCifrar.length - settings.multiValueToken.length);
-			                			if(settings.dataParents[0][clave] != undefined || settings.dataParents[0][ClaveNoCifrar] != undefined){// Datos
+			                			let datosParents = settings.dataParents[0] || settings.dataParents;
+			                			if(datosParents[clave] != undefined || datosParents[ClaveNoCifrar] != undefined){// Datos
 																						// Cargados
-			                				let valores = settings.dataParents[0][clave] || settings.dataParents[0][ClaveNoCifrar];
-			                				settings.data = settings.dataParents;
+			                				let valores = datosParents[clave] || datosParents[ClaveNoCifrar];
+			                				settings.data = datosParents;
 			                				$('#'+settings.id).rup_select("setSource", valores);
 			                			}
 			                		}else{// si tiene un solo padre
