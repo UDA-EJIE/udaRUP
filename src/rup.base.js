@@ -309,7 +309,7 @@
          * @param {string} defaultValue - Valor por defecto a usar cuando no se pueda devolver el recurso solicitado.
          * @return {string} Recurso idiomático.
          */
-        i18nParse: function (properties, i18nCaption, defaultValue = 'Error') {
+        i18nParse: function (properties, i18nCaption, defaultValue = 'Error de i18n: ' + i18nCaption + ' no encontrado') {
             if (i18nCaption !== undefined && i18nCaption !== null && i18nCaption !== '') {
                 var i18nCaptionArr = i18nCaption.split('.'),
                     i18nValue = properties;
