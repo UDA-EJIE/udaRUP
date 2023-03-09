@@ -1245,13 +1245,14 @@
 				                  });
 				          }
 				          // Si es el mismo, no cambia porque esta abirendo
+				          let mySelect = $('#' + settings.id).data('select2');
 				          if(seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id){
 				        	  if(settings.multiple){// Revisar varios selects
 				        		  $('#' + settings.id).rup_select('setRupValue',[seleccionado[0].id]);
 				        	  }else{
 				        		  $('#' + settings.id).rup_select('setRupValue',seleccionado[0].id);
 				        	  }
-				        	  let mySelect = $('#' + settings.id).data('select2');
+				        	  
 			                  $.each(positions, function (index,valor) {
 			                	  let $option = mySelect.$results.find('li')[valor];
 			                	  if($option != undefined){
@@ -1259,7 +1260,14 @@
 			                	  }
 			                    });
 				          }else{
-				        	  $('#' + settings.id).rup_select('setRupValue',settings.blank);
+				        	  if(settings.autocomplete){
+				        		  let valorInput = mySelect.selection.$selection.find('input').val() 
+				        		  $('#' + settings.id).rup_select('setRupValue',settings.blank);
+				        		  mySelect.selection.$selection.find('input').val(valorInput); 
+				        		  mySelect.selection.$selection.find('input').focus();
+				        	  }else{
+				        		  $('#' + settings.id).rup_select('setRupValue',settings.blank);
+				          	  }
 				          }
 				          
 				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
