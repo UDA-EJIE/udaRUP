@@ -481,7 +481,7 @@
     					if (column.rupType === 'combo') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el combo.
     						if (row !== undefined) {
-    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
+    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
     						}
     						// Cuando no se haya definido un elemento al que hacer el append del menú del combo, se hace al "body" para evitar problemas de CSS.
     						if (column.editoptions.appendTo === undefined) {
@@ -490,7 +490,7 @@
     					} else if (column.rupType == 'autocomplete') {
     						// Establece el valor por defecto.
     						if (row !== undefined) {
-    							column.editoptions.defaultValue = row[column.name];
+    							column.editoptions.defaultValue = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
     						}
     						
     						if (column.editoptions.menuAppendTo === undefined) {
@@ -500,7 +500,7 @@
     					} else if (column.rupType === 'select') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
     						if (row !== undefined) {
-    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
+    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
     						}
     					}
     					// Inicializar componente.
