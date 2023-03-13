@@ -1802,7 +1802,7 @@
                             if (ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE') {
                                 DataTable.Api().inlineEdit.cloneLine(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line);
                             } //else{
-                            DataTable.Api().inlineEdit.editInline(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line);
+                            DataTable.Api().inlineEdit.editInline(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line, ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE' ? 'POST' : ctx.oInit.inlineEdit.rowDefault.actionType);
                             var count = tabla.columns().responsiveHidden().reduce(function (a, b) {
                                 return b === false ? a + 1 : a;
                             }, 0);

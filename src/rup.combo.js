@@ -681,7 +681,7 @@
                     } //Se para la petición porque algún padre no tiene el dato cargado
                     if (settings.ultimaLlamada === undefined || settings.ultimaLlamada === '' || settings.ultimaLlamada !== data || settings.disabledCache) { //si es la misma busqueda, no tiene sentido volver a intentarlo.
                         $.rup_ajax({
-                            url: rupCombo._generateUrl($('#' + settings.id).closest('form'), settings, data),
+                            url: rupCombo._generateUrl(settings, data),
                             dataType: 'json',
                             contentType: 'application/json',
                             beforeSend: function (xhr) {
@@ -1634,12 +1634,14 @@
          * @function _generateUrl
          * @since UDA 5.2.0
          * @private
-         * @param {object} $form - Formulario.
          * @param {object} settings - Configuración del componente.
          * @param {string} [data] - Valores de los identificadores de los padres en caso de ser enlazados.
          */
-		_generateUrl: function($form, settings, data) {
+		_generateUrl: function(settings, data) {
+			const $form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
+			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			const source = settings.source ? settings.source : settings.sourceGroup;
+			
 			if ($form.length === 1) {
 				let url = source + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
@@ -1648,7 +1650,7 @@
 					url += "&" + data.replaceAll('#', '%23');
 				}
 
-				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
 			} else {
 				return source;
 			}
@@ -1877,7 +1879,7 @@
 	                    var rupCombo = this,
 	                        self = this;
 	                    $.rup_ajax({
-	                        url: rupCombo._generateUrl($('#' + settings.id).closest('form'), settings),
+	                        url: rupCombo._generateUrl(settings),
 	                        dataType: 'json',
 	                        contentType: 'application/json',
 	                        beforeSend: function (xhr) {

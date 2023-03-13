@@ -1062,7 +1062,7 @@
         	var rupSelect = this;
         	 	settings.ajax = {
 		    url: function () {
-    			return rupSelect._generateUrl($('#' + settings.id).closest('form'), settings, _this._getParentsValues(settings, true));
+    			return rupSelect._generateUrl(settings, _this._getParentsValues(settings, true));
     		},
 		    dataType: settings.dataType,
 		    processResults: function (response) 
@@ -1443,11 +1443,13 @@
          * @function _generateUrl
          * @since UDA 5.2.0
          * @private
-         * @param {object} $form - Formulario.
          * @param {object} settings - Configuración del componente.
          * @param {string} [data] - Valores de búsqueda cuando tiene autocompletado e identificador de los padres en caso de ser enlazados.
          */
-		_generateUrl: function($form, settings, data) {
+		_generateUrl: function(settings, data) {
+			const $form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
+			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
+			
 			if ($form.length === 1) {
 				let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
@@ -1456,7 +1458,7 @@
 					url += "&" + data.replaceAll('#', '%23');
 				}
 
-				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
 			} else {
 				return settings.url;
 			}

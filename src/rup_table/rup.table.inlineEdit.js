@@ -76,7 +76,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 				return false;
 			}
 			idRow = this._DT_RowIndex;
-			_editInline(dt,ctx,idRow);
+			_editInline(dt, ctx, idRow, 'PUT');
 			$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow',ctx);
 		}
 	} );
@@ -85,13 +85,13 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    if(showHide && row.child() !== undefined){
 	    	row.child().on( 'dblclick.DT',  function () {
 	    		idRow = row.index();
-	    		_editInline(dt,ctx,idRow);
+	    		_editInline(dt, ctx, idRow, 'PUT');
 	    	} );
 	 
 	    	if(ctx.oInit.inlineEdit.rowDefault !== undefined && ctx.oInit.inlineEdit.rowDefault === 'estadoFinal'){
 	    		ctx.oInit.inlineEdit.rowDefault = undefined;
 	    		_restaurarFila(ctx,true);
-	    		_editInline(dt,ctx,row.index());
+	    		_editInline(dt, ctx, row.index(), 'PUT');
 	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
 	    			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
 	    			DataTable.Api().rupTable.selectPencil(ctx,0);
@@ -397,7 +397,7 @@ function _add(dt,ctx){
 				dt.ajax.reload( function (  ) {
 					ctx.oInit.inlineEdit.alta = undefined;
 					$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
-					_editInline(dt,ctx,0);
+					_editInline(dt, ctx, 0, 'POST');
 				} );
 				
 			}
@@ -408,7 +408,7 @@ function _add(dt,ctx){
 		dt.ajax.reload( function (  ) {
 			ctx.oInit.inlineEdit.alta = undefined;
 			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
-			_editInline(dt,ctx,0);
+			_editInline(dt, ctx, 0, 'POST');
 		} );
 
 	}
@@ -485,69 +485,73 @@ function _addChildIcons(ctx){
 /**
 * Método principal para la edición en línea.
 *
-* @name _add
+* @name _editInline
 * @function
 * @since UDA 3.7.0 // Table 1.0.0
 *
 * @param {object} dt - Es el objeto table.
 * @param {object} ctx - Contexto del Datatable.
 * @param {integer} idRow - Número con la posición de la fila que hay que obtener.
+* @param {string} [actionType='POST'] - Método del formulario a obtener.
 *
 */
-function _editInline ( dt,ctx, idRow ){
+function _editInline (dt, ctx, idRow, actionType = 'POST'){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la misma fila.
 		_restaurarFila(ctx,false);
 	}
-	const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
+	
+	$.when(_loadAuxForm(ctx, actionType, ctx.json.rows[idRow])).then(function () {
+		const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
         if (!$rowSelect.hasClass('editable')) {
-		_changeInputsToRup(ctx,idRow);
-		// Se deshabilitan los botones predefinidos de la tabla.
-		DataTable.Api().buttons.disableAllButtons(ctx, ctx.ext.buttons.custom);
-	}
+			_changeInputsToRup(ctx,idRow);
+			// Se deshabilitan los botones predefinidos de la tabla.
+			DataTable.Api().buttons.disableAllButtons(ctx, ctx.ext.buttons.custom);
+		}
+		
+		// Habilitamos en la botonera y contextMenu
+		$('#' + ctx.sTableId+'saveButton_1').prop('disabled', false);
+		$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
+		$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', false);
+		$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
+		
+		// Cuando sea añadir registro no hay que habilitar el boton de informes
+	        if (!$rowSelect.hasClass('odd new')) {
+			$('#' + ctx.sTableId+'informes_01').prop('disabled', false);
+		}
 	
-	// Habilitamos en la botonera y contextMenu
-	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', false);
-	$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
-	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', false);
-	$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
-	
-	// Cuando sea añadir registro no hay que habilitar el boton de informes
-        if (!$rowSelect.hasClass('odd new')) {
-		$('#' + ctx.sTableId+'informes_01').prop('disabled', false);
-	}
-
-	DataTable.Api().seeker.enabledButtons(ctx);
-	
-	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit',ctx);
-	var selectores = {};
-	selectores[0] = $rowSelect;
-        if ($rowSelect.next().find('.child').length === 1) {
-            selectores[1] = $rowSelect.next().find('.child');
-	}
-	
-	$.each(selectores,function() {//se crea evento para los selectores creados.
-		_crearEventos(ctx,this);
-	});
-	
-	if(ctx.oInit.inlineEdit.clone !== true){
-		//Añadir la seleccion del mismo.
-		if (ctx.oInit.multiSelect !== undefined) {
-			dt['row'](idRow).multiSelect();
-		}else{
-			var rowsBody = $( ctx.nTBody);
-			$('tr',rowsBody).removeClass('selected tr-highlight');
-			DataTable.Api().select.selectRowIndex(dt,idRow,true);
-			if(ctx.multiselection.selectedIds == ""){//es nuevo
-				ctx.multiselection.selectedIds = [];
+		DataTable.Api().seeker.enabledButtons(ctx);
+		
+		$('#'+ctx.sTableId).triggerHandler('tableInlineEdit',ctx);
+		var selectores = {};
+		selectores[0] = $rowSelect;
+	        if ($rowSelect.next().find('.child').length === 1) {
+	            selectores[1] = $rowSelect.next().find('.child');
+		}
+		
+		$.each(selectores,function() {//se crea evento para los selectores creados.
+			_crearEventos(ctx,this);
+		});
+		
+		if(ctx.oInit.inlineEdit.clone !== true){
+			//Añadir la seleccion del mismo.
+			if (ctx.oInit.multiSelect !== undefined) {
+				dt['row'](idRow).multiSelect();
+			}else{
+				var rowsBody = $( ctx.nTBody);
+				$('tr',rowsBody).removeClass('selected tr-highlight');
+				DataTable.Api().select.selectRowIndex(dt,idRow,true);
+				if(ctx.multiselection.selectedIds == ""){//es nuevo
+					ctx.multiselection.selectedIds = [];
+				}
 			}
 		}
-	}
-	
-	dt.responsive.recalc();
-        if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined &&
-            ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $rowSelect.find('span.openResponsive').length === 0) { //revisar cuando es clone por si el responsive falla
-		 _addChildIcons(ctx);
-	}
+		
+		dt.responsive.recalc();
+	        if (ctx.oInit.inlineEdit.currentPos !== undefined && ctx.oInit.inlineEdit.currentPos.actionType !== undefined &&
+	            ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE' && $rowSelect.find('span.openResponsive').length === 0) { //revisar cuando es clone por si el responsive falla
+			 _addChildIcons(ctx);
+		}
+	});
 }
 
 /**
@@ -627,7 +631,7 @@ function _getRowSelected(dt, actionType){
 		}
 	} else {
 		if (actionType === 'PUT') {
-			_editInline(dt, ctx, rowDefault.line);
+			_editInline(dt, ctx, rowDefault.line, actionType);
 		} else if (actionType === 'CLONE') {
 			dt.ajax.reload(undefined, false);
 			rowDefault.actionType = actionType;
@@ -937,6 +941,13 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 						if(cellValue != null){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
+					}
+					
+					if (searchRupType === 'select' || searchRupType === 'combo' || searchRupType === 'autocomplete') {
+						// Permite inicializar el componente con el source correcto.
+						searchEditOptions.inlineEdit = {};
+						searchEditOptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
+						searchEditOptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.
@@ -1476,40 +1487,38 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 
                 // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
-            	
-            	$.when(_loadAuxForm(ctx, actionType, ajaxOptions.data)).then(function () {
-					var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
-					if (hdivStateParamValue !== '') {
-						ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-					}
-
-					// Comprueba si debe enviarse como multipart.
-					if (ctx.oInit.inlineEdit.multipart === true) {
-						ajaxOptions.enctype = 'multipart/form-data';
-						ajaxOptions.processData = false;
-						ajaxOptions.contentType = false;
-
-						let formData = new FormData();
-
-						$.each(ajaxOptions.data, function(key, value) {
-							const field = $fila.find('input[type="file"][name="' + key + '_inline"]');
-
-							// Gestiona el guardado de ficheros.
-							if (field.length != 0 && field.prop('files').length > 0) {
-								$.each(field.prop('files'), function(fileIndex, fileValue) {
-									formData.append(key, fileValue);
-								});
-							} else {
-								formData.append(key, value);
-							}
-						});
-
-						ajaxOptions.data = formData;
-					} else {
-						ajaxOptions.data = JSON.stringify(ajaxOptions.data);
-					}
-					$.rup_ajax(ajaxOptions);
-            	});
+                
+                var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
+				if (hdivStateParamValue !== '') {
+					ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
+				}
+		
+				// Comprueba si debe enviarse como multipart.
+				if (ctx.oInit.inlineEdit.multipart === true) {
+					ajaxOptions.enctype = 'multipart/form-data';
+					ajaxOptions.processData = false;
+					ajaxOptions.contentType = false;
+		
+					let formData = new FormData();
+		
+					$.each(ajaxOptions.data, function(key, value) {
+						const field = $fila.find('input[type="file"][name="' + key + '_inline"]');
+		
+						// Gestiona el guardado de ficheros.
+						if (field.length != 0 && field.prop('files').length > 0) {
+							$.each(field.prop('files'), function(fileIndex, fileValue) {
+								formData.append(key, fileValue);
+							});
+						} else {
+							formData.append(key, value);
+						}
+					});
+		
+					ajaxOptions.data = formData;
+				} else {
+					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+				}
+				$.rup_ajax(ajaxOptions);
             } else {
             	ajaxOptions.data = JSON.stringify(ajaxOptions.data);
             	$.rup_ajax(ajaxOptions);
@@ -1930,8 +1939,8 @@ apiRegister( 'inlineEdit.add()', function ( dt,ctx ) {
 	_add(dt,ctx);
 } );
 
-apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow ) {
-	_editInline(dt,ctx,idRow);
+apiRegister( 'inlineEdit.editInline()', function (dt, ctx, idRow, actionType) {
+	_editInline(dt, ctx, idRow, actionType);
 } );
 
 apiRegister( 'inlineEdit.restaurarFila()', function (ctx, limpiar ) {

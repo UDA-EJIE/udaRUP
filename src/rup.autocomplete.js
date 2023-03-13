@@ -692,7 +692,7 @@ input.
 
 			} else {
 				$.rup_ajax({
-					url: settings._generateUrl($('#' + settings.id).closest('form'), settings, $.param(data)),
+					url: settings._generateUrl(settings, $.param(data)),
 					dataType: 'json',
 					contentType: 'application/json',
 					//Cabecera RUP
@@ -902,18 +902,20 @@ input.
          * @function _generateUrl
          * @since UDA 5.2.0
          * @private
-         * @param {object} $form - Formulario.
          * @param {object} settings - Configuración del componente.
          * @param {string} data - Valores de búsqueda e identificador de los padres en caso de ser enlazados.
          */
-		_generateUrl: function($form, settings, data) {
+		_generateUrl: function(settings, data) {
+			const $form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
+			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
+			
 			if ($form.length === 1) {
 				let url = settings.data + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
 				// Concatena los datos a enviar.
 				url += "&" + data;
 
-				return url + '&MODIFY_FORM_FIELD_NAME=' + settings.name;
+				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
 			} else {
 				return settings.data;
 			}
