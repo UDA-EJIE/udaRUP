@@ -443,7 +443,11 @@
                 }
             }
             //Vaciar combo, deshabilitarlo
-            $(this).empty().append('<option></option>').rup_combo('disable');
+            $(this).empty();
+            if ($(this).data('settings').blank) {
+				$(this).append('<option></option>')
+			}
+			$(this).rup_combo('disable');
             // Eliminar valor seleccionado.
             $(this).data('settings').selected = undefined;
             //Eliminar texto que se muestra
