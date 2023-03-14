@@ -392,7 +392,7 @@
     	
     	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
     	// es necesario volver a obtener el formulario.
-		if (_validarFormulario(ctx,lastAction, actionType)) {
+		if (_validarFormulario(ctx,lastAction, actionType, row)) {
 			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
 			// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 			const defaultData = {
@@ -473,11 +473,12 @@
       * @param {object} lastAction - última accion realizado.
      * @param {object} actionType - Tipo de acción.
      */
-    function _validarFormulario(ctx,lastAction, actionType){    	
+    function _validarFormulario(ctx,lastAction, actionType, row){    	
     	if(ctx.oInit.enableDynamicForms){ 
     		let lastSelectedIdUsed = ctx.oInit.formEdit.lastSelectedIdUsed;
-    		ctx.oInit.formEdit.lastSelectedIdUsed = ctx.multiselection.lastSelectedId ;
-    		if(lastAction !== actionType || lastSelectedIdUsed === undefined || ctx.multiselection.lastSelectedId !== lastSelectedIdUsed){
+    		let lastSelected = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+    		ctx.oInit.formEdit.lastSelectedIdUsed = lastSelected ;
+    		if(lastAction !== actionType || lastSelectedIdUsed === undefined || lastSelected !== lastSelectedIdUsed){
     			return true
     		}
     	}
