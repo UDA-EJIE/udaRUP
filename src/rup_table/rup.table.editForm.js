@@ -392,7 +392,7 @@
     	
     	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
     	// es necesario volver a obtener el formulario.
-		if (ctx.oInit.enableDynamicForms && (lastAction !== actionType || ctx.multiselection.lastSelectedId !== DataTable.Api().rupTable.getIdPk(row, ctx.oInit))) {
+		if (_validarFormulario(ctx,lastAction, actionType)) {
 			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
 			// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 			const defaultData = {
@@ -400,6 +400,8 @@
 				'isMultipart': ctx.oInit.formEdit.multipart === true ? true : false,
 				...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 			};
+			$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterData', ctx);
+			
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
@@ -458,6 +460,28 @@
         	deferred.resolve();
     		return deferred.promise();
         }
+    }
+    
+    /**
+     * Valida los formularios para no, buscarlos.
+     *
+     * @name formInitializeRUP
+     * @function
+     * @since UDA 5.0.2 // Table 1.0.0
+     *
+     * @param {object} ctx - Contexto de la tabla.
+      * @param {object} lastAction - última accion realizado.
+     * @param {object} actionType - Tipo de acción.
+     */
+    function _validarFormulario(ctx,lastAction, actionType){    	
+    	if(ctx.oInit.enableDynamicForms){ 
+    		let lastSelectedIdUsed = ctx.oInit.formEdit.lastSelectedIdUsed;
+    		ctx.oInit.formEdit.lastSelectedIdUsed = ctx.multiselection.lastSelectedId ;
+    		if(lastAction !== actionType || lastSelectedIdUsed === undefined || ctx.multiselection.lastSelectedId !== lastSelectedIdUsed){
+    			return true
+    		}
+    	}
+    	return false;
     }
     
     /**

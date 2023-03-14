@@ -889,7 +889,11 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 			var cellColModel = colModel[cont];
 			
 			if (cellColModel.editable === true || !edicion) {
-				var $input = $('<input />').val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
+				let $input = $('<input />');
+				if(cellColModel.rupType !== undefined && cellColModel.rupType === 'select'){
+					$input = $('<select />');
+				}
+				$input.val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
                     $input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
 				
@@ -941,6 +945,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 						if(cellValue != null){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
+					} else if(searchRupType === 'select'){
+						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					}
 					
 					if (searchRupType === 'select' || searchRupType === 'combo' || searchRupType === 'autocomplete') {
@@ -1567,7 +1574,7 @@ function _loadAuxForm(ctx, actionType, row) {
 	
 	// Si el usuario ha activado los formularios dinámicos, la última acción no es la misma que la actual o el valor del identificador ha cambiado,
 	// es necesario volver a obtener el formulario.
-	if (ctx.oInit.enableDynamicForms && (lastAction !== actionType || ctx.multiselection.lastSelectedId !== DataTable.Api().rupTable.getIdPk(row, ctx.oInit))) {
+	if (_validarFormulario(ctx,lastAction, actionType)) {
 		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
 		// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 		const defaultData = {
@@ -1601,6 +1608,28 @@ function _loadAuxForm(ctx, actionType, row) {
     	deferred.resolve();
 		return deferred.promise();
     }
+}
+
+/**
+ * Valida los formularios para no, buscarlos.
+ *
+ * @name formInitializeRUP
+ * @function
+ * @since UDA 5.0.2 // Table 1.0.0
+ *
+ * @param {object} ctx - Contexto de la tabla.
+  * @param {object} lastAction - última accion realizado.
+ * @param {object} actionType - Tipo de acción.
+ */
+function _validarFormulario(ctx,lastAction, actionType){    	
+	if(ctx.oInit.enableDynamicForms){ 
+		let lastSelectedIdUsed = ctx.oInit.inlineEdit.lastSelectedIdUsed;
+		ctx.oInit.inlineEdit.lastSelectedIdUsed = ctx.multiselection.lastSelectedId ;
+		if(lastAction !== actionType || lastSelectedIdUsed === undefined || ctx.multiselection.lastSelectedId !== lastSelectedIdUsed){
+			return true
+		}
+	}
+	return false;
 }
 
 /**
