@@ -196,6 +196,7 @@
         	
         	settings.disabled = undefined;
         	settings.selected = undefined;
+        	settings.inputValue = undefined;
         	settings.ultimaLlamada = undefined;
         	settings.ultimosValores = undefined;
         	$self.rup_combo('select', '');
