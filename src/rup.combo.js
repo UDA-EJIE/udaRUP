@@ -631,7 +631,7 @@
                 if (typeof settings.source === 'object' || typeof settings.sourceGroup === 'object') {
                     //LOCAL
                     $('#' + settings.id).removeClass('inited');
-                    source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken)];
+                    source = settings.source[this._getParentsValues(settings.parent, false, settings.multiValueToken, settings.loadFromSelect)];
                     if (source !== undefined) {
 
                         if (settings.blank != null) {
@@ -664,7 +664,7 @@
                         }
 
                         //Lanzar cambio para que se recarguen hijos
-                        $('#' + settings.id).rup_combo('change');
+                        $('#' + settings.id).trigger('change');
 
                         setRupValue = $.data($('#' + settings.id)[0], 'setRupValue');
                         if (setRupValue) {
@@ -1034,9 +1034,10 @@
          * @param {object[]} array - Array con los elementos a mostrar.
          * @param {boolean} remote - Determina si la fuente de datos es remota o no.
          * @param {string} multiValueToken - Caracter separador en el caso de devolver varios elementos.
+         * @param {boolean} isSonLoadFromSelect - Indica si el hijo es cargado a partir de los datos del HTML.
          * @return {string} - Devuelve los values seleccionados de los combos padres.
          */
-        _getParentsValues: function (array, remote, multiValueToken) {
+        _getParentsValues: function (array, remote, multiValueToken, isSonLoadFromSelect) {
             var retorno = '',
                 id, texto, multiValueTokenAux = multiValueToken != null ? multiValueToken : '',
                 parentBlankValue;
@@ -1072,6 +1073,12 @@
                 // Cuando el componente se use en la edición en línea de la tabla, se utilizará el campo definido por esta. También se evita la inserción de "&" o "multiValueTokenAux" en el último bucle.
                 if (remote) {
                 	retorno += (settings.inlineEditFieldName ?? $('#' + id).attr('name')) + '=' + $('#' + id).val() + (lastLoop ? '' : '&');
+                } else if (isSonLoadFromSelect) {
+                	$.each($('#' + settings.id).data('values'), function(index, option) {
+						if (option.value === $('#' + id).val()) {
+							retorno += option.nid + (lastLoop ? '' : multiValueTokenAux);
+						}
+					})
                 } else {
                 	retorno += $('#' + id).val() + (lastLoop ? '' : multiValueTokenAux);
                 }
@@ -1130,7 +1137,7 @@
             if (!settings.multiselect) {
             	// Simple > selectmenu
             	$('#' + settings.id).selectmenu(settings);
-                $('#' + settings.id).rup_combo('setRupValue', settings.selected ?? '');
+                $('#' + settings.id).rup_combo('setRupValue', settings.selected ?? settings.inputValue ?? 0);
             } else {
                 //Multiple > multiselect
                 $('#' + settings.id).width('0'); //Iniciar a tamaño cero para que el multiselect calcule el tamaño
@@ -1660,6 +1667,34 @@
 				return source;
 			}
 		},
+		/**
+         * Generar source local a partir del HTML.
+         *
+         * @function _generateLocalSource
+         * @since UDA 5.2.0
+         * @private
+         * @param {object} settings - Ajustes del componente.
+         */
+		_generateLocalSource: function(settings) {
+			let optionData = {};
+			$.each($("#" + this[0].id + ' option'), function(index, option) {
+				const idPadre = $(option).data('idpadre');
+				let optionDataLength = optionData[idPadre]?.length;
+				
+				if (!optionDataLength > 0) {
+					optionData[idPadre] = [];
+					optionDataLength = 0;
+				}
+				
+				optionData[idPadre][optionDataLength] = {};
+				optionData[idPadre][optionDataLength].label = $(option).text();
+				optionData[idPadre][optionDataLength].value = option.value;
+			});
+			
+			settings.source = optionData;
+			// Vaciar el combo para evitar problemas de duplicidad.
+			$('#' + settings.id).empty();
+		},
         /**
          * Método de inicialización del componente.
          *
@@ -1750,7 +1785,8 @@
 	                }
 	
 	                //Guardar valor del INPUT
-	                settings.inputValue = $('#' + settings.id).val() === null ? $('#' + settings.id).prop('value') : $('#' + settings.id).val();
+	                const savedInputValue = $('#' + settings.id).val() ?? $('#' + settings.id).prop('value');
+	                settings.inputValue = savedInputValue == "" ? undefined : savedInputValue;
 	
 	                attrs = $(this).prop('attributes');
 	
@@ -1799,6 +1835,10 @@
 	                        if (isValidableElem) {
 	                            $('#' + settings.id).removeClass().addClass('validableElem');
 	                        }
+	                        // Generar source local a partir del HTML (solo dependientes).
+	                        if (settings.parent) {
+	                        	this._generateLocalSource(settings);
+							}
 	                    }
 	
 	                    this._makeCombo(settings);
@@ -1864,6 +1904,10 @@
 	                        if (isValidableElem) {
 	                            $('#' + settings.id).removeClass().addClass('validableElem');
 	                        }
+	                        // Generar source local a partir del HTML (solo dependientes).
+	                        if (settings.parent) {
+	                        	this._generateLocalSource(settings);
+							}
 	                    }
 	
 	                    //Crear combo
