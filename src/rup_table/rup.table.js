@@ -1424,7 +1424,6 @@
                       
                     $.when(DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], ctx.oInit.formEdit.customTitle)).then(function () {
                     	var row = ctx.json.rows[params[2]];
-                    	ctx.oInit.formEdit.$navigationBar.funcionParams = {};
         	            var multiselection = ctx.multiselection;
         	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
         	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.

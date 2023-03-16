@@ -664,6 +664,8 @@
 	                        if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
 	                            _showOnNav(dt, ctx.oInit.formEdit.$navigationBar.funcionParams[3]);
 	                        }
+	                        // Reiniciarlo para las próximas acciones.
+							ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 	                    }
 	                };
 	                loadPromise = $.rup_ajax(ajaxOptions);
