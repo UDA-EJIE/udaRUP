@@ -560,7 +560,7 @@ input.
 			if (settings.parent) {	
 				let parentsValues = settings.$self._getParentsValues(settings);
 				
-				if (parentsValues.selectedSource in settings.data) {
+				if (settings.source === 'object' && parentsValues.selectedSource in settings.data) {// se asegura que es local
 					dataSource = settings.data[parentsValues.selectedSource];
 				}
 			}
