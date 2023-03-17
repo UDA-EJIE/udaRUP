@@ -1409,10 +1409,7 @@
                 const tableId = ctx.sTableId;
                 if (Number(rowSelected.page) !== page) {
                     var table = $('#' + tableId).DataTable();
-                    // Ejecutar _fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
-                    table.on('draw', function(event, ctx) {
-                    	_fixComboAutocompleteOnEditForm(ctx);
-                    });
+
                     table.page(rowSelected.page - 1).draw('page');
                     // Se añaden los parámetros para luego ejecutar la función del dialog
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
@@ -2128,6 +2125,10 @@
 
     apiRegister('editForm.addchildIcons()', function (ctx) {
         _addChildIcons(ctx);
+    });
+    
+    apiRegister('editForm.fixComboAutocompleteOnEditForm()', function (ctx) {
+        _fixComboAutocompleteOnEditForm(ctx);
     });
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
