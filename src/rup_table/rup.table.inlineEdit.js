@@ -204,6 +204,14 @@ DataTable.inlineEdit.init = function ( dt ) {
 					$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 					ctx.inlineEdit.lastRow = undefined;
 					ctx.oInit.inlineEdit.alta = undefined;
+					
+					// Garantiza la deselección, evitando un error en el filtrado posterior.
+					if (ctx.oInit.multiSelect !== undefined) {
+						DataTable.Api().multiSelect.deselectAll(dt);
+					} else if (ctx.oInit.select !== undefined) {
+						DataTable.Api().select.deselect(ctx);
+					}
+					
 			        dt.ajax.reload(undefined, false);
 				}
 				
