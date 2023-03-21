@@ -1830,7 +1830,7 @@
                     	if(	settingsTable.oInit.responsive !== undefined && settingsTable.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
                     		DataTable.Api().editForm.addchildIcons(settingsTable);
                     	}
-                    	if(typeof settingsTable.oInit.formEdit.detailForm === 'object' && settingsTable.oInit.formEdit.detailForm.parent().css('display') !== 'none' && settingsTable.oInit.formEdit.detailForm.parent().css('display') !== 'block'){//si dialog esta abierto
+                    	if(typeof settingsTable.oInit.formEdit.detailForm === 'object' && ctx.oInit.formEdit.detailForm.isOpen !== undefined && ctx.oInit.formEdit.detailForm.isOpen() ){//si dialog esta abierto
                     		// Ejecutar fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
                     		DataTable.Api().editForm.fixComboAutocompleteOnEditForm(ctx);
                     	}
