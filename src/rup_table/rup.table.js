@@ -830,10 +830,16 @@
          *
          */
         _ajaxRequestData(data, ctx) {
-            //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-        	if (ctx.oInit.ordering && data.order[0] != undefined && data.order[0].column != undefined) {
-        		data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
-        	}
+
+			//Guardar los valores de sidx
+        	if (ctx.oInit.ordering) {
+	        	for (var i = 0; i < data.order.length; i++) {
+	        		if(data.order[i] != undefined && data.order[i].column != undefined){
+						data.columns[data.order[i].column].colSidx = ctx.aoColumns[data.order[i].column].colSidx;
+					}
+				}
+        	}    	
+        	
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
             if (ctx.oInit.filter.$filterContainer) {
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
