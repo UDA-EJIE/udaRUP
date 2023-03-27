@@ -1076,7 +1076,7 @@
                 } else if (isSonLoadFromSelect) {
                 	$.each($('#' + settings.id).data('values'), function(index, option) {
 						if (option.value === $('#' + id).val()) {
-							retorno += option.nid + (lastLoop ? '' : multiValueTokenAux);
+							retorno += (option.nid ?? $($('#' + id + ' option')[index]).data('nid')) + (lastLoop ? '' : multiValueTokenAux);
 						}
 					})
                 } else {
@@ -1679,21 +1679,36 @@
 			let optionData = {};
 			$.each($("#" + this[0].id + ' option'), function(index, option) {
 				const idPadre = $(option).data('idpadre');
-				let optionDataLength = optionData[idPadre]?.length;
+				let optionDataLength = optionData[idPadre]?.length ?? optionData?.length;
 				
-				if (!optionDataLength > 0) {
+				if (idPadre && !optionDataLength > 0) {
 					optionData[idPadre] = [];
+					optionDataLength = 0;
+				} else if (!idPadre && !optionDataLength > 0) {
+					optionData = [];
 					optionDataLength = 0;
 				}
 				
-				optionData[idPadre][optionDataLength] = {};
-				optionData[idPadre][optionDataLength].label = $(option).text();
-				optionData[idPadre][optionDataLength].value = option.value;
+				if (idPadre) {
+					optionData[idPadre][optionDataLength] = {};
+					optionData[idPadre][optionDataLength].label = $(option).text();
+					optionData[idPadre][optionDataLength].value = option.value;
+				} else {
+					optionData[optionDataLength] = {};
+					optionData[optionDataLength].label = $(option).text();
+					optionData[optionDataLength].value = option.value;
+				}
 			});
 			
-			settings.source = optionData;
-			// Vaciar el combo para evitar problemas de duplicidad.
-			$('#' + settings.id).empty();
+			if (settings.parent) {
+				settings.source = optionData;
+				
+				// Vaciar el combo para evitar problemas de duplicidad.
+				$('#' + settings.id).empty();
+			}
+			
+			// Almacenar los valores generados.
+			$('#' + settings.id).data('values', optionData);
 		},
         /**
          * Método de inicialización del componente.
@@ -1836,9 +1851,7 @@
 	                            $('#' + settings.id).removeClass().addClass('validableElem');
 	                        }
 	                        // Generar source local a partir del HTML (solo dependientes).
-	                        if (settings.parent) {
-	                        	this._generateLocalSource(settings);
-							}
+	                        this._generateLocalSource(settings);
 	                    }
 	
 	                    this._makeCombo(settings);
@@ -1905,9 +1918,7 @@
 	                            $('#' + settings.id).removeClass().addClass('validableElem');
 	                        }
 	                        // Generar source local a partir del HTML (solo dependientes).
-	                        if (settings.parent) {
-	                        	this._generateLocalSource(settings);
-							}
+	                        this._generateLocalSource(settings);
 	                    }
 	
 	                    //Crear combo
