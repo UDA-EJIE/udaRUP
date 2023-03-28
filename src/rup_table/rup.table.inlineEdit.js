@@ -901,9 +901,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(cellColModel.rupType !== undefined && cellColModel.rupType === 'select'){
 					$input = $('<select />');
 				}
-				$input.val($celda.text()).attr('name', cellColModel.name+'_inline'+child);
+				$input
+					.val(ctx.oInit.inlineEdit.useLocalValues ? $celda.text() : ctx.json.rows[$fila.idx][cellColModel.name])
+					.attr('name', cellColModel.name+'_inline'+child);
+					
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
-                    $input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
+				$input.attr('id', cellColModel.name + '_inline' + child).attr('oldtitle', title);
 				
 				// Si es el primero dejar el focus
 				if(ctx.inlineEdit.lastRow.cellValues[0] === undefined){

@@ -97,6 +97,14 @@ inlineEdit: {
 ```
 &nbsp;
 
+Define si se usarán los valores mostrados en la tabla (pueden por ejemplo haber sido modificados con `columnDefs`) o los obtenidos desde el servidor:
+```js
+inlineEdit: {
+    useLocalValues: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario necesario para poder llevar a cabo la edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 inlineEdit: {
