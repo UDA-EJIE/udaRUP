@@ -1,13 +1,7 @@
 div.rup-feedback.rup-feedback_image {
 	border: 1px solid $grey-color-ultra-light;
 	color: $grey-color;
-	
-	div.rup-feedback_closeLink{
-      &:before{
-        content: initial;
-      }
-    }
-	
+		
 	> i.mdi {
 		margin-right: 1rem;
 		font-weight: 700;
