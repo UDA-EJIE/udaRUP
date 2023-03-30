@@ -273,6 +273,8 @@ Esta propiedad especifica dónde debe mostrarse el diálogo. Sus posibles valore
 - Un simple `string` representando cualquiera de las siguientes posiciones: 'center', 'left', 'right', 'top', 'bottom'. 
 - Un `array` con las coordenadas x, y en píxeles (ej. [350,100]). 
 - Un `array` con `string` que representan la posición (ej. ['right','top']).
+
+Puede encontrarse más información acerca de esta propiedad en la [API del componente subyacente](https://api.jqueryui.com/dialog/#option-position).
 ```javascript
 resizable: true
 ```
