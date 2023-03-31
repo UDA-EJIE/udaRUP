@@ -5,7 +5,7 @@
     <property name="previousUdaVersion" value="5.1.0"/>
     <property name="udaLibVersion" value="5.2.0"/>
     <property name="previousUdaLibVersion" value="5.1.0"/>
-    <property name="udaLibVersionName" value="${udaLibVersion}-SNAPSHOT"/>
+    <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
     <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
     
     <property name="baseDir" value="../"/>
