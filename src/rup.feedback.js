@@ -215,6 +215,7 @@ de la aplicación pueda cerrar la capa manualmente.
                 } else {
                     element.addClass('rup-feedback_image');
                 }
+                type = type.toLowerCase();
                 element.find('i').not('.mdi.mdi-close').eq(0).remove();
                 element.prepend($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(type));
                 element.addClass('rup-feedback_image_' + type);
