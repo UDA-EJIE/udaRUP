@@ -14,7 +14,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_onResponsiveResize(dt)](#module_rup.table.inlineEdit.._onResponsiveResize)
     * [~_add(dt, ctx)](#module_rup.table.inlineEdit.._add)
     * [~_addChildIcons(ctx)](#module_rup.table.inlineEdit.._addChildIcons)
-    * [~_add(dt, ctx, idRow)](#module_rup.table.inlineEdit.._add)
+    * [~_editInline(dt, ctx, idRow, [actionType])](#module_rup.table.inlineEdit.._editInline)
     * [~getRowSelected(dt, actionType)](#module_rup.table.inlineEdit..getRowSelected) ⇒ <code>object</code>
     * [~cloneLine(dt, ctx, line)](#module_rup.table.inlineEdit..cloneLine)
     * [~getNextPageSelected(ctx, pageInit, orden)](#module_rup.table.inlineEdit..getNextPageSelected) ⇒
@@ -29,7 +29,8 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_inlineEditFormSerialize($fila, ctx, child)](#module_rup.table.inlineEdit.._inlineEditFormSerialize)
     * [~_guardar(ctx, $fila, $child)](#module_rup.table.inlineEdit.._guardar)
     * [~_callSaveAjax(actionType, ctx, $fila, $row, url, isDeleting)](#module_rup.table.inlineEdit.._callSaveAjax)
-    * [~loadAuxForm(ctx, actionType)](#module_rup.table.inlineEdit..loadAuxForm) ⇒ <code>object</code>
+    * [~loadAuxForm(ctx, actionType, row)](#module_rup.table.inlineEdit..loadAuxForm) ⇒ <code>object</code>
+    * [~formInitializeRUP(ctx, lastAction, actionType)](#module_rup.table.inlineEdit..formInitializeRUP)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.inlineEdit..callFeedbackOk)
     * [~_inResponsiveChangeInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._inResponsiveChangeInputsValues)
     * [~_asignarInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._asignarInputsValues)
@@ -100,19 +101,20 @@ Se añaden los iconos al responsive.
 | --- | --- | --- |
 | ctx | <code>object</code> | Contexto del Datatable. |
 
-<a name="module_rup.table.inlineEdit.._add"></a>
+<a name="module_rup.table.inlineEdit.._editInline"></a>
 
-### rup.table.inlineEdit~\_add(dt, ctx, idRow)
+### rup.table.inlineEdit~\_editInline(dt, ctx, idRow, [actionType])
 Método principal para la edición en línea.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Since**: UDA 3.7.0 // Table 1.0.0  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| dt | <code>object</code> | Es el objeto table. |
-| ctx | <code>object</code> | Contexto del Datatable. |
-| idRow | <code>integer</code> | Número con la posición de la fila que hay que obtener. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| dt | <code>object</code> |  | Es el objeto table. |
+| ctx | <code>object</code> |  | Contexto del Datatable. |
+| idRow | <code>integer</code> |  | Número con la posición de la fila que hay que obtener. |
+| [actionType] | <code>string</code> | <code>&quot;&#x27;POST&#x27;&quot;</code> | Método del formulario a obtener. |
 
 <a name="module_rup.table.inlineEdit..getRowSelected"></a>
 
@@ -314,7 +316,7 @@ Llamada al servidor con los datos de edición.
 
 <a name="module_rup.table.inlineEdit..loadAuxForm"></a>
 
-### rup.table.inlineEdit~loadAuxForm(ctx, actionType) ⇒ <code>object</code>
+### rup.table.inlineEdit~loadAuxForm(ctx, actionType, row) ⇒ <code>object</code>
 Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
@@ -324,6 +326,21 @@ Función que gestiona la carga del formulario del que se obtendrá el parámetro
 | --- | --- | --- |
 | ctx | <code>object</code> | Contexto del Datatable. |
 | actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
+| row | <code>object</code> | Valores de los campos del formulario. |
+
+<a name="module_rup.table.inlineEdit..formInitializeRUP"></a>
+
+### rup.table.inlineEdit~formInitializeRUP(ctx, lastAction, actionType)
+Valida los formularios para no, buscarlos.
+
+**Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
+**Since**: UDA 5.0.2 // Table 1.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ctx | <code>object</code> | Contexto de la tabla. |
+| lastAction | <code>object</code> | última accion realizado. |
+| actionType | <code>object</code> | Tipo de acción. |
 
 <a name="module_rup.table.inlineEdit..callFeedbackOk"></a>
 

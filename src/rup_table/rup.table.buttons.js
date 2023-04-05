@@ -111,7 +111,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'copyButton',
             request: {
-	        	url: '/clipboardReport',
+	        	url: '/filter?clipboardReport=true',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'json',

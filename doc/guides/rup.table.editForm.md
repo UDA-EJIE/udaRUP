@@ -101,15 +101,21 @@ formEdit: {
     addUrl: '/addMultipart',
     // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
     editUrl: '/editMultipart',
-    // Por defecto, el componente siempre enviará el method (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
+    // Indica al componente que la codificación del formulario es de tipo multipart. Por defecto,
+    // se tratará como falso.
+    isMultipart: true,
+    // Por defecto, el componente siempre enviará el método además del valor de la clave primaria,
+    // siempre y cuando alguna fila haya sido seleccionada. También pueden añadirse más parámetros
+    // mediante el objeto data, incluso para sobrescribir, aunque todo parámetro que se envíe de esta forma,
+    // ha de ser validado como parámetro de cliente por Hdiv (configurable en la clase UDA4HdivConfig).
     data: {
-        'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envío de parámetros desde editForm :)'
+        'actionType': 'POST'
     }
 }
 ```
 Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
 * Ponerle el identificador **XXX_detail_form_container** al elemento **div** que contiene la clase **dialog-content-material**. Cabe decir que las tres equises hay que sustituirlas por el identificador de la tabla, por ejemplo, en una tabla con identificador *example*, el identificador a usar en el *div* sería *example_detail_form_container*. Esto sería un ejemplo real: 
-    ```html
+    ```jsp
     <!-- Formulario de detalle -->
     <div id="example_detail_div" class="rup-table-formEdit-detail d-none">
     	<!-- Barra de navegación del detalle -->
@@ -138,25 +144,17 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
     	</div>
     </div>
     ```
-* Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente, también puede usarse cualquier otra lógica gracias a que los parámetros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
-    ```html
+* Una nueva JSP que contenga únicamente el formulario a usar, pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente. Es posible usar cualquier otra lógica gracias a que los parámetros enviados al controlador, son totalmente personalizables, ahora bien, es necesario incluirlos como atributo del Model para su uso desde la JSP además de crear la validación de cliente pertinente en la clase de configuración de Hdiv. La siguiente JSP puede ayudar a entender lo anteriormente descrito:
+    ```jsp
     <!-- Formulario -->
-	<c:choose>
-		<c:when test="${enableMultipart eq true}">
-			<c:set value="${actionType == 'POST' ? 'addMultipart': 'editMultipart'}" var="endpoint" />
-		</c:when>
-		<c:when test="${!enableMultipart}">
-			<c:set value="${actionType == 'POST' ? 'add': 'edit'}" var="endpoint" />
-		</c:when>
-	</c:choose>	
 	<spring:url value="/table/${endpoint}" var="url"/>
-	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}">
+	<form:form modelAttribute="usuario" id="example_detail_form" action="${url}" method="${actionType}" enctype="${enctype}">
 		<!-- Feedback del formulario de detalle -->
 		<div id="example_detail_feedback"></div>
-		<c:if test="${not empty fixedMessage}">
-			<p><c:out value="${fixedMessage}"/></p>
-		</c:if>
 		<!-- Campos del formulario de detalle -->
+		<c:if test="${not empty pkValue}">
+			<form:hidden path="id" value="${pkValue.id}" id="id_detail_table" />
+		</c:if>
 		<div class="form-row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="nombre" id="nombre_detail_table" />
@@ -189,11 +187,11 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 		</div>
 		<div class="form-row">
 			<div class="form-groupMaterial col-sm">
-				<form:input path="rol" id="rol_detail_table" />
+				<form:select path="rol" id="rol_detail_table" />
 				<label for="rol_detail_table"><spring:message code="rol" /></label>
 			</div>
 		</div>
-		<c:if test="${enableMultipart eq true}">
+		<c:if test="${isMultipart}">
 		<div class="form-row">	
 			<div class="form-groupMaterial col-sm">
 				<form:input path="imagenAlumno" type="file" id="imagenAlumno_detail_table" />
@@ -251,7 +249,7 @@ formEdit: {
 &nbsp;
 
 Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deben tener la siguiente estructura:
-```xml
+```jsp
 <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
     <div class="form-row">      
         <div class="checkbox-material col-sm">
@@ -262,12 +260,10 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deb
 </c:forEach>
 ```		
 Destacan cuatro elementos:
-1. **PATH**: es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+1. **PATH**: lugar donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
 2. **DATA-LISTA**: nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
 3. **DATA-CLAVE**: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
 4. **DATA-VALOR**: recoge el valor del identificador, la clave primaria.
 
 # 2. Aspectos a tener en cuenta
-Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
-
-En los casos en los que se usen los formularios dinámicos (``enableDynamicForms: true``) se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el `colModel`, leer el documento [rup.table](./rup.table.md).
+En los casos en los que se usen los formularios dinámicos (``enableDynamicForms: true``) se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repite las acción sobre la misma fila). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el `colModel`, leer el documento [rup.table](./rup.table.md).

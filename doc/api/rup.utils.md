@@ -12,7 +12,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
     * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
     * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
-    * [~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>
+    * ~~[~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>~~
     * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
@@ -105,8 +105,10 @@ Comprueba si el parámetro ha sido cifrado por Hdiv.
 
 <a name="jQuery.module_rup_utils..getStaticHdivID"></a>
 
-### rup_utils~getStaticHdivID(id) ⇒ <code>string</code>
-Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.Es útil cuando se necesita comparar identificadores cifrados.
+### ~~rup_utils~getStaticHdivID(id) ⇒ <code>string</code>~~
+***Deprecated***
+
+Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.Es útil cuando se necesita comparar identificadores cifrados. Nota: desde la versión 5.2.0, los identificadoresno alteran su cifrado entre peticiones, por lo que ha dejado de ser necesario usar este método.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - Identificador de la entidad con la parte dinámica del cifrado eliminada.  

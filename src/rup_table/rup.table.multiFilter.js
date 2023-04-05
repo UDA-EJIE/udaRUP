@@ -116,6 +116,7 @@
 	                        text: $.rup.i18n.base.rup_table.plugins.multifilter.save,
 	                        click: function () {
 	                            if (_checkLabel(ctx)) {
+									settings.multiFilter.$dropdownDialogForm = $('#' + ctx.sTableId + '_add_multiFilter_form');
 	                                // creo objeto Filter con los datos del formulario del filtro
 	                                var filter = _createFilterFromForm(ctx);
 
@@ -168,6 +169,7 @@
 	                        text: $.rup.i18n.base.rup_table.plugins.multifilter.remove,
 	                        click: function () {
 	                            if (_checkLabel(ctx)) {
+									settings.multiFilter.$dropdownDialogForm = $('#' + ctx.sTableId + '_delete_multiFilter_form');
 	                                // creo objeto Filter con los datos del formulario del filtro
 	                                var filter = _createFilterFromForm(ctx);
 
@@ -290,7 +292,7 @@
         // delete
         $.rup_ajax({
             url: settings.urlBase + settings.multiFilter.url + '/delete',
-            type: 'POST',
+            type: 'DELETE',
             data: $.toJSON(filter),
             dataType: 'json',
             showLoading: false,
