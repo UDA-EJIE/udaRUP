@@ -48,7 +48,7 @@
 }(function ($) {
 
     // ****************************************************************************************************************
-    // DEFINICIÓN BASE DEL PATRÁN (definición de la variable privada que
+    // DEFINICIÓN BASE DEL PATRÓN (definición de la variable privada que
 	// contendrá los métodos y la función de jQuery)
     // ****************************************************************************************************************
 
