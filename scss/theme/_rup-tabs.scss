@@ -28,7 +28,7 @@
         color: $rup-link-color;
         border-top-right-radius: $rup-border-radius;
         border-top-left-radius: $rup-border-radius;
-        border-bottom-width: 1;
+        border-bottom-width: 1px;
 
         &:hover {
           @extend %tab-color-hover;
