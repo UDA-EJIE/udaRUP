@@ -45,7 +45,7 @@
 						icon: 'mdi-file-excel'
 					},
 					'pdfButton': {
-						icon: 'mdi-file-pdf'
+						icon: 'mdi-file-pdf-box'
 					},
 					'odsButton': {
 						icon: 'mdi-file'

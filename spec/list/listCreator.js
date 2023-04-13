@@ -127,7 +127,7 @@ function getHtml(idLista, idForm) {
                 '<div class="col-md-3" style="display: flex; justify-content:space-around;">' +
                     '<span class="mdi mdi-36px mdi-account-edit"></span>' +
                     '<span class="mdi mdi-36px mdi-account-remove"></span>' +
-                    '<span class="mdi mdi-36px mdi-settings"></span>' +
+                    '<span class="mdi mdi-36px mdi-cog"></span>' +
                 '</div>' +
             '</div>' +
         '</div>';
