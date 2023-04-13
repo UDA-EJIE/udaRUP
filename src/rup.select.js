@@ -500,6 +500,8 @@
                 	}
 
             	}
+            	
+            	$self.rup_select('reload');
  
         	}
     	},
