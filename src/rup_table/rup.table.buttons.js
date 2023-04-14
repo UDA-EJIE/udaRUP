@@ -3326,7 +3326,7 @@
     				} else {
     					row.multiselection.selectedIds = ctx.multiselection.selectedIds;
     				}
-    				_callDelete('POST',dt,ctx,row,'/deleteAll');
+    				_callDelete('POST', dt, ctx, row, '/filter?deleteAll=true');
     			} else {
     				row = ctx.multiselection.selectedIds[0];
     				row = row.replace(regex, '/');

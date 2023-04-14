@@ -1347,7 +1347,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 		// add Filter
 		var feed = ctx.oInit.feedback.$feedbackContainer;
 		var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
-		if(url === '/deleteAll' || actionType === 'DELETE'){
+		if(url === '/filter?deleteAll=true' || actionType === 'DELETE'){
 			msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
 		}
 		
@@ -1381,7 +1381,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				var dt = $('#' + ctx.sTableId).DataTable();
 				var idPk = DataTable.Api().rupTable.getIdPk(data, ctx.oInit);
 				
-				if (url !== '/deleteAll' && actionType !== 'DELETE') {
+				if (url !== '/filter?deleteAll=true' && actionType !== 'DELETE') {
 					// Se informa al feedback de la tabla
 					_callFeedbackOk(ctx, msgFeedBack, 'ok');
 					
@@ -1499,7 +1499,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
             $.rup_ajax(ajaxOptions);
         } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
         	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-            if (url.indexOf('deleteAll') === -1) {
+            if (url.indexOf('filter?deleteAll=true') === -1) {
             	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
             	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
                 
@@ -1911,7 +1911,7 @@ function _deleteAllSelects(dt){
 			} else {
 				row.multiselection.selectedIds = ctx.multiselection.selectedIds;
 			}
-			_callSaveAjax(actionType, ctx, idRow, row, '/deleteAll', true);
+			_callSaveAjax(actionType, ctx, idRow, row, '/filter?deleteAll=true', true);
 		} else {
 			row = ctx.multiselection.selectedIds[0];
 			row = row.replace(regex,'/');

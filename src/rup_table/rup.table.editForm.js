@@ -900,7 +900,7 @@
             var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
             var msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.modifyOK');
             var validaciones = ctx.oInit.formEdit.validate;
-            if (url === '/deleteAll' || actionType === 'DELETE') {
+            if (url === '/filter?deleteAll=true' || actionType === 'DELETE') {
                 msgFeedBack = $.rup.i18nParse($.rup.i18n.base, 'rup_table.deletedOK');
                 if (validaciones !== undefined) {
                     validaciones.rules = {};
@@ -932,7 +932,7 @@
                 success: function (valor) {
                 	ctx.oInit.formEdit.okCallBack = true;
                 	ctx.oInit.formEdit.lastValue = valor;
-                    if (url !== '/deleteAll' && actionType !== 'DELETE') {
+                    if (url !== '/filter?deleteAll=true' && actionType !== 'DELETE') {
                         if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                             var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
                             if (divOkFeedback.length === 0) {
@@ -1128,7 +1128,7 @@
                 $.rup_ajax(ajaxOptions);
             } else if (isDeleting || ctx.oInit.formEdit.idForm.valid()) {
 				// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-				if (url.indexOf('deleteAll') === -1) {
+				if (url.indexOf('filter?deleteAll=true') === -1) {
 					// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
 					$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
 
@@ -1841,7 +1841,7 @@
                 } else {
                     row.multiselection.selectedIds = ctx.multiselection.selectedIds;
                 }
-                _callSaveAjax(actionType, dt, row, idRow, false, ctx.oInit.formEdit.detailForm, '/deleteAll', true);
+                _callSaveAjax(actionType, dt, row, idRow, false, ctx.oInit.formEdit.detailForm, '/filter?deleteAll=true', true);
             } else {
                 row = ctx.multiselection.selectedIds[0];
                 row = row.replace(regex, '/');
