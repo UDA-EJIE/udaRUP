@@ -1446,19 +1446,17 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-                if(opciones.createFooter){
-                	let iden = opciones._header.rowNum[0].id;
-                    if (obj.id == 'rup-list-footer-rowNum') {
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
-                    }
-                    if (obj.id == 'rup-list-header-rowNum') {
-                    	iden = opciones._footer.rowNum[0].id;
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
-                    }
-                }
-                if(change){
-                    self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
-                }
+				if (!$('#' + obj.id).rup_combo('isDisabled')) {
+					let iden = opciones._header.rowNum[0].id;
+					$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+					if(opciones.createFooter){
+						iden = opciones._footer.rowNum[0].id;
+						$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+					}
+					if(change){
+                    	self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
+                	}
+				}
             };
 
 
