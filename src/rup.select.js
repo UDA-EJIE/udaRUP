@@ -1453,7 +1453,7 @@
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			
 			if ($form.length === 1) {
-				let url = settings.url + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+				let url = settings.url + (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
 				if (data) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.

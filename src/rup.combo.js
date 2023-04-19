@@ -1655,7 +1655,7 @@
 			const source = settings.source ? settings.source : settings.sourceGroup;
 			
 			if ($form.length === 1) {
-				let url = source + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+				let url = source + (source.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
 				if (data) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.

@@ -910,7 +910,7 @@ input.
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			
 			if ($form.length === 1) {
-				let url = settings.data + '?_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
+				let url = settings.data + (settings.data.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
 				// Concatena los datos a enviar.
 				url += "&" + data;
