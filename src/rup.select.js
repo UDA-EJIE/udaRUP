@@ -82,7 +82,7 @@
             
             if (values == undefined || values.length == 0) {
             	value = '';
-            }else if (values.length == 1) {
+            }else if (values.length == 1 && !settings.multiple){
                 value = values[0].id;
             }else{
             	value = [];
