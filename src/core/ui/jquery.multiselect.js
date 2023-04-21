@@ -290,7 +290,7 @@
 
 			// header links
 			this.header
-				.on('a', 'click.multiselect', function( e ){
+				.on('click.multiselect', 'a', function( e ){
 				// close link
 					if( $(this).hasClass('ui-multiselect-close') ){
 						self.close();
@@ -305,7 +305,7 @@
 
 			// optgroup label toggle support
 			this.menu
-				.on('li.ui-multiselect-optgroup-label a', 'click.multiselect', function( e ){
+				.on('click.multiselect', 'li.ui-multiselect-optgroup-label a', function( e ){
 					e.preventDefault();
 
 					var $this = $(this),
@@ -332,7 +332,7 @@
 				    checked: nodes[0].checked
 					});
 				})
-				.on('label', 'mouseenter.multiselect', function(){
+				.on('mouseenter.multiselect', 'label', function(){
 					if( !$(this).hasClass('ui-state-disabled') ){
 						self.labels.removeClass('ui-state-hover');
 						//$(this).addClass('ui-state-hover').find('input').focus();
@@ -340,7 +340,7 @@
 						$(this).addClass('ui-state-hover').find('input:not(:disabled)').focus();
 					}
 				})
-				.on('label', 'keydown.multiselect', function( e ){
+				.on('keydown.multiselect', 'label', function( e ){
 					e.preventDefault();
 
 					switch(e.which){

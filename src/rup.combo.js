@@ -1164,7 +1164,7 @@
                     return true;
                 });
                 //						$("#rup-multiCombo_remoteGroup_comboHijo").on('keypress', function(event) {
-                $('#' + settings.id).data('echMultiselect').menu.on('label', 'keydown.multiselect', function (event) {
+                $('#' + settings.id).data('echMultiselect').menu.on('keydown.multiselect', 'label', function (event) {
                     if (event.which > 0) {
                         self._typeAheadMultiselect(event.which, 'focus', settings);
                     }
