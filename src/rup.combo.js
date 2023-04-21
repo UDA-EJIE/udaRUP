@@ -1198,7 +1198,7 @@
                 if (settings.multiselect) {
                     //Convertir inputValue en array
                     if (Array.isArray(settings.inputValue) === false) {
-                        settings.inputValue = settings.inputValue.split('##');
+                        settings.inputValue = settings.inputValue?.split('##');
                     }
 
                 }
