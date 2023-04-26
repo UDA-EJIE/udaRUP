@@ -178,7 +178,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 						let settings = data.$labelField.data('settings');
 						if(labelFound !== ''){
 							$('#' + id + '_label').val(labelFound);
-						}else if(settings.showDefault){
+						}else if(settings?.showDefault){
 							$('#' + id + '_label').val(value);
 						}
 					}
@@ -270,7 +270,7 @@ el resto de componentes RUP para estandarizar la asignación del valor al Autoco
 
 			settings = self.data('settings');
 
-			if (settings.combobox) {
+			if (settings?.combobox) {
 				settings.$comboboxToogle.button('disable');
 			}
 
