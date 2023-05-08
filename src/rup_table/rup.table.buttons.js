@@ -2940,7 +2940,42 @@
         } else {
         	data.multiselection.selectedIds = selectedIds;
         }
-        
+
+		// Añadimos los parámetros para la ordenación de resultados.
+		for (var i = 0; i < ctx.oInit.order.length; i++) {
+
+			const pos = ctx.oInit.order[i][0];
+
+			if (i == 0) {
+				data.sord = ctx.oInit.order[i][1] + ",";
+			} else {
+				data.sord += ctx.oInit.order[i][1] + ",";
+			}
+
+
+			if (ctx.oInit.aoColumns[pos].sidx == null) {
+				if (i == 0) {
+					data.sidx = ctx.oInit.aoColumns[pos].data + ",";
+				} else {
+					data.sidx += ctx.oInit.aoColumns[pos].data + ",";
+				}
+
+			} else {
+
+				if (i == 0) {
+					data.sidx = ctx.oInit.aoColumns[pos].sidx + ",";
+				} else {
+					data.sidx += ctx.oInit.aoColumns[pos].sidx + ",";
+				}
+
+			}
+
+			//ctx.oInit.aoColumns[pos]?.sidx != undefined ? ctx.oInit.aoColumns[pos].sidx : ctx.oInit.aoColumns[pos].data
+			//  data.sidx = ctx.oInit.aoColumns[pos].sidx;
+
+		}
+  
+        //cambio
         data.reportsParams = [];
         // Se añaden los parametros definidos por el usuario (solo en caso de haber definido alguno)
         if (ctx.oInit.buttons.report !== undefined && ctx.oInit.buttons.report.reportsParams !== undefined 
