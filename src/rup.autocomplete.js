@@ -671,7 +671,7 @@ input.
 				});
 			}
 
-			term = request.term.replace(/%/g, '\\%').replace(/_/g, '\\_');
+			term = String(request.term).replace(/%/g, '\\%').replace(/_/g, '\\_');
 			data = $.extend({
 				q: term,
 				c: settings.contains
