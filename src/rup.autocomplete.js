@@ -671,7 +671,7 @@ input.
 				});
 			}
 
-			term = request.term.replace(/%/g, '\\%').replace(/_/g, '\\_');
+			term = String(request.term).replace(/%/g, '\\%').replace(/_/g, '\\_');
 			data = $.extend({
 				q: term,
 				c: settings.contains
@@ -744,7 +744,7 @@ input.
 							}
 							
 							// Limpiar tildes
-							if (settings.accentFolding && labelLimpio !== item.label) {
+							if (settings.accentFolding && labelLimpio !== item.label && (labelLimpio.includes(termLimpio) || item.label.includes(termLimpio))) {
 								// Parte delantera
 								let regex = new RegExp(termLimpio, 'i');
 								var literal = returnValue.label;
