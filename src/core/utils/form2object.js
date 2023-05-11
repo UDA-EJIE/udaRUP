@@ -59,7 +59,7 @@
 
             var name = formValues[i].name;
 
-            if (name && name != "multiselect_rol_filter_table") {
+            if (name) {
 
                 var nameParts = name.split(delimiter);
 
