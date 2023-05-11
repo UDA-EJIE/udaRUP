@@ -1876,7 +1876,7 @@
 	                    $('#' + settings.id).data('settings', settings);
 	
 	                    //Comprobar si los padres ya tienen datos seleccionados (si son LOCALES puede suceder)
-	                    if (this._getParentsValues(settings.parent) !== null && (settings.firstLoad === null && settings.loadFromSelect === false)) {
+	                    if (this._getParentsValues(settings.parent) !== null && settings.firstLoad === null) {
 	                        $('#' + settings.id).rup_combo('reload');
 	                    }
 	                    multiChange(settings);
