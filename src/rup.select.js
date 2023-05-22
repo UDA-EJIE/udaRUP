@@ -501,7 +501,9 @@
 
             	}
             	
-            	$self.rup_select('reload');
+            	 if (settings.multiple == true) {
+          $self.rup_select('reload');
+        }
  
         	}
     	},
