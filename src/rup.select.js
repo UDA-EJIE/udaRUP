@@ -506,6 +506,13 @@
         	}
     	},
         /**
+			 
+				 if(settings.multiple == true) {
+					$self.rup_select('reload');
+				}
+			
+
+			}
 		 * Método que devuelve los datos, de los elementos seleccionados.
 		 * 
 		 * @function getDataSelected
