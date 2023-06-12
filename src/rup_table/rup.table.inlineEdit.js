@@ -1366,7 +1366,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 'text': 'text/plain',
                 'xml': 'application/xml, text/xml'
             },
-			type: actionType,
+			type: ctx.oInit.inlineEdit.multipart ? 'POST' : actionType,
 			data: row,
 			dataType: 'json',
 			showLoading: false,

@@ -923,7 +923,7 @@
                     'text': 'text/plain',
                     'xml': 'application/xml, text/xml'
                 },
-                type: actionType,
+                type: ctx.oInit.formEdit.multipart ? 'POST' : actionType,
                 data: row,
                 dataType: 'json',
                 showLoading: false,
