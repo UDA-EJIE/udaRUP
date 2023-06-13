@@ -1386,6 +1386,11 @@
                     if (fieldName === '' && fieldValue.trim() === '') {
                         continue;
                     }
+                    //Miramos si el elemento es es un checkbox o un radio, en caso de serlo revisamos fieldName para quitar los inputs
+		            if($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio'){
+						let fValue=fieldValue.split('<span>')[1];
+						fieldValue='<span> '+fValue;
+	          		} 
                     searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
