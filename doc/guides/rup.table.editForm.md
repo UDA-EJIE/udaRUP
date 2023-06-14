@@ -92,6 +92,24 @@ formEdit: {
 ```
 &nbsp;
 
+Carga los datos directamente desde la tabla, evitando realizar una petición al servidor:
+```js
+formEdit: {
+    // Desactivado por defecto
+    direct: false
+}
+```
+&nbsp;
+
+Evita la carga de datos desde el servidor y desde la tabla. Es necesario activar esta opción cuando los datos vayan a ser **cargados en el formulario a través del modelo**:
+```js
+formEdit: {
+    // Desactivado por defecto
+    loadFromModel: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {
@@ -104,11 +122,6 @@ formEdit: {
     // Indica al componente que la codificación del formulario es de tipo multipart. Por defecto,
     // se tratará como falso.
     isMultipart: true,
-	// Carga los datos directamente desde la tabla, evitando realizar una petición al servidor.
-	direct: false,
-	// Evita la carga de datos desde el servidor y desde la tabla. Es necesario activar esta opción cuando
-	// los datos vayan a ser cargados en el formulario a través del modelo.
-	loadFromModel: false,
     // Por defecto, el componente siempre enviará el método además del valor de la clave primaria,
     // siempre y cuando alguna fila haya sido seleccionada. También pueden añadirse más parámetros
     // mediante el objeto data, incluso para sobrescribir, aunque todo parámetro que se envíe de esta forma,
