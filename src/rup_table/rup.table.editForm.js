@@ -668,7 +668,11 @@
 	                        ctx.oInit.formEdit.$navigationBar.funcionParams = {};
 	                    }
 	                };
-	                loadPromise = $.rup_ajax(ajaxOptions);
+	                
+					// Estando loadFromModel a true no se lanza la petición ni se cargan los datos de la tabla (se depende de lo cargado a través del modelo).
+					if(!ctx.oInit.formEdit.loadFromModel) {
+						loadPromise = $.rup_ajax(ajaxOptions);
+	                }
 	                //Se carga desde bbdd y se actualiza la fila
 	                dt.row(idRow).data(row);
 	                ctx.json.rows[idRow] = row;
@@ -678,7 +682,12 @@
 	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
-	            $.rup_utils.populateForm(rowArray, idForm);
+	           
+				// Estando loadFromModel a true no se cargan los datos de la fila obtenida a partir de la tabla (se depende de lo cargado a través del modelo).
+				if(!ctx.oInit.formEdit.loadFromModel) {
+					$.rup_utils.populateForm(rowArray, idForm);
+				}
+	            
 	            var multiselection = ctx.multiselection;
 	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
 	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
