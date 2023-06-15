@@ -92,6 +92,24 @@ formEdit: {
 ```
 &nbsp;
 
+Carga los datos directamente desde la tabla, evitando realizar una petición al servidor:
+```js
+formEdit: {
+    // Desactivado por defecto
+    direct: false
+}
+```
+&nbsp;
+
+Evita la carga de datos desde el servidor y desde la tabla. Es necesario activar esta opción cuando los datos vayan a ser **cargados en el formulario a través del modelo**:
+```js
+formEdit: {
+    // Desactivado por defecto
+    loadFromModel: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {

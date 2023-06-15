@@ -669,7 +669,7 @@
 	                    }
 	                };
 	                
-					// Estando loadFromModel a true no se lanza la petición ni se cargan los datos de la tabla (se depende de lo cargado a través del modelo).
+					// Estando loadFromModel a true no se lanza la petición de carga de datos (se depende de lo cargado a través del modelo).
 					if(!ctx.oInit.formEdit.loadFromModel) {
 						loadPromise = $.rup_ajax(ajaxOptions);
 	                }
