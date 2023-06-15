@@ -792,6 +792,10 @@ input.
 				});
 
 			}
+			
+			 if (settings.data.includes("autocomplete/")) {
+        document.getElementById(settings.id + '_label').focus();
+      }
 		},
 		/**
          * Función encargada de crear el control encargado de mostrar todos los resultados cuando el componente tiene activado el modo de funcionamiento combobox.
