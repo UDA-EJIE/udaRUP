@@ -793,7 +793,7 @@ input.
 
 			}
 			
-			 if (settings.data.includes("autocomplete/")) {
+			 if ($self.attr('ruptype') === 'autocomplete') {
         document.getElementById(settings.id + '_label').focus();
       }
 		},
