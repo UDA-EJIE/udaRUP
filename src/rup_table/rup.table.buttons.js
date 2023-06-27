@@ -2942,38 +2942,34 @@
         }
 
 		// Añadimos los parámetros para la ordenación de resultados.
-		for (var i = 0; i < ctx.oInit.order.length; i++) {
+		$.each(ctx.oInit.order, function(iteration, value) {
+			const pos = ctx.oInit.order[iteration][0];
 
-			const pos = ctx.oInit.order[i][0];
-
-			if (i == 0) {
-				data.sord = ctx.oInit.order[i][1] + ",";
+			if (iteration == 0) {
+				data.sord = ctx.oInit.order[iteration][1];
 			} else {
-				data.sord += ctx.oInit.order[i][1] + ",";
+				data.sord += ctx.oInit.order[iteration][1];
 			}
-
-
+			
 			if (ctx.oInit.aoColumns[pos].sidx == null) {
-				if (i == 0) {
-					data.sidx = ctx.oInit.aoColumns[pos].data + ",";
+				if (iteration == 0) {
+					data.sidx = ctx.oInit.aoColumns[pos].data;
 				} else {
-					data.sidx += ctx.oInit.aoColumns[pos].data + ",";
+					data.sidx += ctx.oInit.aoColumns[pos].data;
 				}
-
 			} else {
-
-				if (i == 0) {
-					data.sidx = ctx.oInit.aoColumns[pos].sidx + ",";
+				if (iteration == 0) {
+					data.sidx = ctx.oInit.aoColumns[pos].sidx;
 				} else {
-					data.sidx += ctx.oInit.aoColumns[pos].sidx + ",";
+					data.sidx += ctx.oInit.aoColumns[pos].sidx;
 				}
-
 			}
-
-			//ctx.oInit.aoColumns[pos]?.sidx != undefined ? ctx.oInit.aoColumns[pos].sidx : ctx.oInit.aoColumns[pos].data
-			//  data.sidx = ctx.oInit.aoColumns[pos].sidx;
-
-		}
+			
+			if (iteration < ctx.oInit.order.length - 1) {
+				data.sord += ",";
+				data.sidx += ",";
+			}
+		})
   
         //cambio
         data.reportsParams = [];
