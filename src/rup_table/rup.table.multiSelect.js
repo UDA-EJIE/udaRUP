@@ -1148,7 +1148,7 @@ handler that will select the items using the API methods.
         });
 
         //Se deja marcado el primero de la pagina.
-        ctx.multiselection.lastSelectedId = dt.data()[0].id;
+        ctx.multiselection.lastSelectedId = dt.data()[0][ctx.oInit.primaryKey[0]];
         DataTable.Api().rupTable.selectPencil(ctx, 0);
     }
 
