@@ -396,7 +396,7 @@
 			// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
 			// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 			const defaultData = {
-				'actionType': actionType,
+				'actionType': actionType == 'PUT' && ctx.oInit.formEdit.usePostAsEditActionType ? 'POST' : actionType,
 				'isMultipart': ctx.oInit.formEdit.multipart === true ? true : false,
 				...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 			};
@@ -932,7 +932,7 @@
                     'text': 'text/plain',
                     'xml': 'application/xml, text/xml'
                 },
-                type: ctx.oInit.formEdit.multipart ? 'POST' : actionType,
+                type: ctx.oInit.formEdit.multipart || (actionType == 'PUT' && ctx.oInit.formEdit.usePostAsEditActionType) ? 'POST' : actionType,
                 data: row,
                 dataType: 'json',
                 showLoading: false,

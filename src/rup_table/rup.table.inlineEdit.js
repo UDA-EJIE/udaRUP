@@ -1366,7 +1366,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 'text': 'text/plain',
                 'xml': 'application/xml, text/xml'
             },
-			type: ctx.oInit.inlineEdit.multipart ? 'POST' : actionType,
+			type: ctx.oInit.inlineEdit.multipart || (actionType == 'PUT' && ctx.oInit.inlineEdit.usePostAsEditActionType) ? 'POST' : actionType,
 			data: row,
 			dataType: 'json',
 			showLoading: false,
@@ -1589,7 +1589,7 @@ function _loadAuxForm(ctx, actionType, row) {
 		// Preparar la información a enviar al servidor. Como mínimo se enviará el actionType, un booleano que indique si el formulario es multipart y 
 		// el valor de la clave primaria siempre y cuando no contenga un string vacío.
 		const defaultData = {
-			'actionType': actionType,
+			'actionType': actionType == 'PUT' && ctx.oInit.inlineEdit.usePostAsEditActionType ? 'POST' : actionType,
 			'isMultipart': ctx.oInit.inlineEdit.multipart === true ? true : false,
 			...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 		};

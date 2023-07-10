@@ -110,6 +110,15 @@ formEdit: {
 ```
 &nbsp;
 
+Fuerza el método de las peticiones de edición a **POST**:
+```js
+formEdit: {
+    // Desactivado por defecto
+    usePostAsEditActionType: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {

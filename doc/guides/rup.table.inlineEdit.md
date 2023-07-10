@@ -105,6 +105,15 @@ inlineEdit: {
 ```
 &nbsp;
 
+Fuerza el método de las peticiones de edición a **POST**:
+```js
+inlineEdit: {
+    // Desactivado por defecto
+    usePostAsEditActionType: false
+}
+```
+&nbsp;
+
 Endpoint que devolverá el formulario necesario para poder llevar a cabo la edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
 ```js
 inlineEdit: {
