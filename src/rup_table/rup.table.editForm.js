@@ -378,12 +378,16 @@
     	
     	// Servirá para saber si la última llamada a editForm fue para añadir, editar o si aún no ha sido inicializado
     	let lastAction = ctx.oInit.formEdit.actionType;
+    	
+		// Se usará para diferenciar una petición de clonado del resto de peticiones.
+		let isClone = false;
 		
 		// Botón de guardar y continuar
         let buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
         
         // En caso de ser clonado el method ha de ser POST
         if (actionType === 'CLONE') {
+			isClone = true;
             actionType = 'POST';
             buttonContinue.hide();
         } else {
@@ -398,7 +402,7 @@
 			const defaultData = {
 				'actionType': actionType == 'PUT' && ctx.oInit.formEdit.usePostAsEditActionType ? 'POST' : actionType,
 				'isMultipart': ctx.oInit.formEdit.multipart === true ? true : false,
-				...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
+				...(!isClone && DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 			};
 			$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterData', ctx);
 			

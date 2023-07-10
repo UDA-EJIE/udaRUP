@@ -1591,7 +1591,7 @@ function _loadAuxForm(ctx, actionType, row) {
 		const defaultData = {
 			'actionType': actionType == 'PUT' && ctx.oInit.inlineEdit.usePostAsEditActionType ? 'POST' : actionType,
 			'isMultipart': ctx.oInit.inlineEdit.multipart === true ? true : false,
-			...(DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
+			...(ctx.oInit.inlineEdit.rowDefault?.actionType != "CLONE" && DataTable.Api().rupTable.getIdPk(row, ctx.oInit) != "" && { 'pkValue': DataTable.Api().rupTable.getIdPk(row, ctx.oInit) })
 		};
 		let data = ctx.oInit.inlineEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.inlineEdit.data) : defaultData;
 		
