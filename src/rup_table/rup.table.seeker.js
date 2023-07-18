@@ -163,7 +163,7 @@
                 });
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (colModel != undefined && result.hidden) {
+                if (colModel != undefined && result[0].hidden) {
                     $(this).empty();
                 } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
                     $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
