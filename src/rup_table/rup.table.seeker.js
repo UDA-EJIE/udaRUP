@@ -545,15 +545,10 @@
             searchEditOptions;
         if (colModel !== undefined) {
         	var idTabla = ctx.sTableId;
-            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function () { // El primer tr corresponde al desplegable de filtros
 
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');
-                let flagMultiSelect = 0;
-                if (ctx.oInit.multiSelect !== undefined) {
-                	flagMultiSelect = 1;
-                }
-                let cont = i + flagMultiSelect;
                 
                 let nombre = $(this).find('input, select').attr('name');
                 let cellColModel = $.grep(colModel, function (v) {
