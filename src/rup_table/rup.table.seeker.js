@@ -165,6 +165,8 @@
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
                 if (colModel != undefined && result.hidden) {
                     $(this).empty();
+                } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
+                    $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
                 } else {
                     $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"/>');
                 }
@@ -553,7 +555,7 @@
                 }
                 let cont = i + flagMultiSelect;
                 
-                let nombre = $(this).find('input').attr('name');
+                let nombre = $(this).find('input, select').attr('name');
                 let cellColModel = $.grep(colModel, function (v) {
                     return v.index.toUpperCase() === nombre.toUpperCase();
                 });
@@ -602,9 +604,14 @@
         $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
         jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
         let $form = $('#' + ctx.sTableId + '_search_searchForm');
-        $form.resetForm()
-        jQuery.each($('select.rup_combo',$form), function (index, elem) {
+        $form.resetForm();
+        // Limpia los rup_combo.
+        jQuery.each($('select.rup_combo', $form), function (index, elem) {
 			jQuery(elem).rup_combo('refresh');
+        });
+        // Limpia los rup_select.
+        jQuery.each($('select[rupType=select]', $form), function (index, elem) {
+			jQuery(elem).rup_select('clear');
         });
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
