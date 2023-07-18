@@ -1650,7 +1650,14 @@
          * @param {string} [data] - Valores de los identificadores de los padres en caso de ser enlazados.
          */
 		_generateUrl: function(settings, data) {
-			const $form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
+			let $form;
+			
+			if (settings.$forceForm) {
+				$form = settings.$forceForm;
+			} else {
+				$form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
+			}
+			
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			const source = settings.source ? settings.source : settings.sourceGroup;
 			
