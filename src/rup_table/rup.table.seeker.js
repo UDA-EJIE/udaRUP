@@ -187,8 +187,8 @@
 	                        var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
 	                        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
 	                        if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
-	                            $('#' + idTabla + '_search_searchForm').rup_form();
-	                            $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+								ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+								$.rup_ajax(ajaxOptions);
 	                        }
 	                        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
 	
@@ -303,14 +303,14 @@
             var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
             $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
             if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
-                $('#' + idTabla + '_search_searchForm').rup_form();
                 var tmp = ajaxOptions.success;
                 ajaxOptions.success = function () {
                     tmp(arguments[0], arguments[1], arguments[2]);
                     ajaxOptions.success = tmp;
                     $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
                 };
-                $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+				ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+				$.rup_ajax(ajaxOptions);
             }
         });
 
@@ -505,10 +505,25 @@
      *
      */
     function _getDatos(ctx) {
-        var datos = ctx.aBaseJson;
-        if (datos !== undefined && ctx.seeker.search.$searchForm[0] !== undefined) {
-            datos.search = form2object(ctx.seeker.search.$searchForm[0]);
-        }
+        const datos = ctx.aBaseJson;
+        const $form = $('#' + ctx.sTableId + '_seeker_form');
+        
+        if (datos !== undefined) {
+			if (ctx.seeker.search.$searchForm[0] !== undefined) {
+				datos.search = form2object(ctx.seeker.search.$searchForm[0]);
+			}
+			
+			// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad.
+			$.fn.deleteAutocompleteLabelFromObject(datos.search);
+			
+			// Elimina los campos autogenerados por los multicombos que no forman parte de la entidad.
+			$.fn.deleteMulticomboLabelFromObject(datos.search, ctx.seeker.search.$searchForm);
+			
+			if ($form.length > 0) {
+				datos.search._HDIV_STATE_ = $.fn.getHDIV_STATE(undefined, $form);
+			}
+		}
+		
         return datos;
     }
 
@@ -567,6 +582,11 @@
 	                	// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
 	                		searchEditOptions = cellColModel.searchoptions;
+	                		
+	                		// Permite obtener el HDIV_STATE del formulario del seeker a aquellos componentes que lo necesitan.
+	                		if (new Set(["autocomplete", "combo", "select"]).has(searchRupType)) {
+								searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
+							}
 	                		
 	                		// Invocación al componente RUP
 	                		$elem['rup_' + searchRupType](searchEditOptions);
