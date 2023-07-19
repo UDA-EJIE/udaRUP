@@ -597,17 +597,35 @@
 
     function _limpiarSeeker(dt, ctx) {
         $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
-        jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
-        let $form = $('#' + ctx.sTableId + '_search_searchForm');
+        const $form = $('#' + ctx.sTableId + '_search_searchForm');
+        
+        // Reinicia el formulario.
         $form.resetForm();
-        // Limpia los rup_combo.
-        jQuery.each($('select.rup_combo', $form), function (index, elem) {
-			jQuery(elem).rup_combo('refresh');
+        
+        // Limpia los rup_autocomplete, rup_combo y rup_select.
+        jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select]', $form), function (index, elem) {
+			const elemSettings = jQuery(elem).data('settings');
+			
+			if (elemSettings != undefined) {
+				const elemRuptype = jQuery(elem).attr('ruptype');
+				
+				if (elemSettings.parent == undefined) {
+					if (elemRuptype == 'autocomplete') {
+						jQuery(elem).rup_autocomplete('setRupValue', '');
+					} else if (elemRuptype == 'combo') {
+						jQuery(elem).rup_combo('reload');
+					} else if (elemRuptype == 'select') {
+						jQuery(elem).rup_select('clear');
+					}
+				}
+				
+				if (elemRuptype == 'select') {
+					// Necesario para garantizar que pierda el foco.
+					jQuery(elem).rup_select('reload');
+				}
+			}
         });
-        // Limpia los rup_select.
-        jQuery.each($('select[rupType=select]', $form), function (index, elem) {
-			jQuery(elem).rup_select('clear');
-        });
+        
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
         _processData(dt, ctx, []);
