@@ -107,7 +107,7 @@
             },
             id: idTable + 'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.copy?.displayRegex ? ctx.oInit.buttons.copy.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'copyButton',
             request: {
@@ -139,7 +139,7 @@
             },
             id: idTable + 'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.excel?.displayRegex ? ctx.oInit.buttons.excel.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'excelButton',
             request: {
@@ -170,7 +170,7 @@
             },
             id: idTable + 'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.pdf?.displayRegex ? ctx.oInit.buttons.pdf.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'pdfButton',
             request: {
@@ -200,7 +200,7 @@
             },
             id: idTable + 'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.ods?.displayRegex ? ctx.oInit.buttons.ods.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'odsButton',
             request: {
@@ -231,7 +231,7 @@
             },
             id: idTable + 'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.csv?.displayRegex ? ctx.oInit.buttons.csv.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'csvButton',
             request: {
@@ -262,7 +262,7 @@
             },
             id: idTable + 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd order-1',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.add?.displayRegex ? ctx.oInit.buttons.add.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
             init: function (dt, button, config) {
@@ -281,7 +281,7 @@
             },
             id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
-            displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+            displayRegex: ctx.oInit.buttons.edit?.displayRegex ? ctx.oInit.buttons.edit.displayRegex : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
             init: function (dt, button, config) {
@@ -300,7 +300,7 @@
             },
             id: idTable + 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnClone order-3',
-            displayRegex: /^1$/, // Se muestra solo cuando sea igual a 1
+            displayRegex: ctx.oInit.buttons.clone?.displayRegex ? ctx.oInit.buttons.clone.displayRegex : /^1$/, // Se muestra solo cuando sea igual a 1
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
             init: function (dt, button, config) {
@@ -319,7 +319,7 @@
             },
             id: idTable + 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete order-4',
-            displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+            displayRegex: ctx.oInit.buttons.delete?.displayRegex ? ctx.oInit.buttons.delete.displayRegex : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
             init: function (dt, button, config) {
@@ -341,7 +341,7 @@
             },
             id: idTable + 'informes_01',
             className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
-            displayRegex: /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.informe?.displayRegex ? ctx.oInit.buttons.informe.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             autoClose: true,
             type: 'reports',
             reportsExportAllColumns: false,
