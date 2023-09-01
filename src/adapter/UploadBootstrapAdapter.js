@@ -42,11 +42,15 @@
 			files = o.files,
 			options = o.options;
 
-		return Rup.Templates.rup.upload.uploadTemplate({
+		return Rup.Templates.rup.upload.uploadTemplate([{
 			files:files,
 			submitInForm: options.submitInForm===true?true:undefined,
 			notSubmitInForm: !(options.submitInForm===true?true:undefined)
-		});
+		},
+		{
+			allowProtoMethodsByDefault:true,
+			allowProtoPropertiesByDefault:true
+		}]);
 	};
 
 	$.rup = $.rup || {};
