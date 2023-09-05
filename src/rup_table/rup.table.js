@@ -999,10 +999,43 @@
          *
          */
         _clearFilter(options) {
-            let $self = this;
-            $('#' + options.id).triggerHandler('tableFilterReset',options);
+            let $self = this;                   
+			const $form = document.getElementById("example_filter_form");
+			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), input[rupType=date]', $form), function (index, elem) {
+			const elemSettings = jQuery(elem).data('settings');
+
+			if (elemSettings != undefined) {
+				const elemRuptype = jQuery(elem).attr('ruptype');
+
+				if (elemSettings.parent == undefined) {
+					if (elemRuptype == 'autocomplete') {
+						jQuery(elem).rup_autocomplete('setRupValue', '');
+						elem.defaultValue = "";					
+					} else if (elemRuptype == 'combo') {
+						jQuery(elem).rup_combo('reload');
+						elem.defaulSelected = false;
+					} else if (elemRuptype == 'select') {
+						jQuery(elem).rup_select('clear');
+						elem.defaultValue = "";		
+					} else if(elemRupType == 'date'){
+						jQuery(elem).rup_select('clear');
+						elem.defaultValue = "";	
+					}
+				} 
+				/*else if(elemSettings.parent != undefined) {
+					// Necesario para garantizar que pierda el foco.
+					jQuery(elem).rup_select('reload');
+				}
+*/			} else {
+				elem.defaultValue = "";
+				elem.value = "";	
+				
+}
+			 });
+
+            /*$('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
-            
+            */
             // Reinicia por completo los autocomplete ya que sino siguen filtrando
             $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
             
@@ -1016,7 +1049,7 @@
 	            $hiddenPKMaster.val('' + id);
         	}
             
-            $self.DataTable().ajax.reload();
+         //   $self.DataTable().ajax.reload();
             options.filter.$filterSummary.html(' <i></i>');
 
             // Provoca un mal funcionamiento del filtrado de Maestro-Detalle en la tabla esclava, 
