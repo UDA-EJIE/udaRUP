@@ -1001,7 +1001,7 @@
         _clearFilter(options) {
             let $self = this;                   
 			const $form = document.getElementById("example_filter_form");
-			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), input[rupType=date]', $form), function (index, elem) {
+			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), select:not([rupType]), input[rupType=date]', $form), function (index, elem) {
 			const elemSettings = jQuery(elem).data('settings');
 
 			if (elemSettings != undefined) {
