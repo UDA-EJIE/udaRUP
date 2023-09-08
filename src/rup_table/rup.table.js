@@ -985,69 +985,57 @@
          *
          */
         _clearFilter(options) {
-            let $self = this;                   
-			const $form = document.getElementById("example_filter_form");
-			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), select:not([rupType]), input[rupType=date]', $form), function (index, elem) {
-			const elemSettings = jQuery(elem).data('settings');
+			$('#' + options.sTableId).triggerHandler('tableFilterBeforeReset', options);
 
-			if (elemSettings != undefined) {
-				const elemRuptype = jQuery(elem).attr('ruptype');
+			const $form = $('#' + options.sTableId + '_filter_form');
+			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), select:not([rupType]), input[rupType=date]', $form), function(index, elem) {
+				const elemSettings = jQuery(elem).data('settings');
 
-				if (elemSettings.parent == undefined) {
-					if (elemRuptype == 'autocomplete') {
-						jQuery(elem).rup_autocomplete('setRupValue', '');
-						elem.defaultValue = "";					
-					} else if (elemRuptype == 'combo') {
-						jQuery(elem).rup_combo('reload');
-						elem.defaulSelected = false;
-					} else if (elemRuptype == 'select') {
-						jQuery(elem).rup_select('clear');
-						elem.defaultValue = "";		
-					} else if(elemRupType == 'date'){
-						jQuery(elem).rup_select('clear');
-						elem.defaultValue = "";	
+				if (elemSettings != undefined) {
+					const elemRuptype = jQuery(elem).attr('ruptype');
+
+					if (elemSettings.parent == undefined) {
+						if (elemRuptype == 'autocomplete') {
+							jQuery(elem).rup_autocomplete('setRupValue', '');
+							elem.defaultValue = "";
+						} else if (elemRuptype == 'combo') {
+							jQuery(elem).rup_combo('reload');
+							elem.defaulSelected = false;
+						} else if (elemRuptype == 'select') {
+							jQuery(elem).rup_select('clear');
+							elem.defaultValue = "";
+						} else if (elemRupType == 'date') {
+							jQuery(elem).rup_select('clear');
+							elem.defaultValue = "";
+						}
 					}
-				} 
-				/*else if(elemSettings.parent != undefined) {
-					// Necesario para garantizar que pierda el foco.
-					jQuery(elem).rup_select('reload');
+				} else {
+					elem.defaultValue = "";
+					elem.value = "";
 				}
-*/			} else {
-				elem.defaultValue = "";
-				elem.value = "";	
-				
-}
-			 });
+			});
 
-            /*$('#' + options.id).triggerHandler('tableFilterReset',options);
-            options.filter.$filterContainer.resetForm();
-            */
-            // Reinicia por completo los autocomplete ya que sino siguen filtrando
-            $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
-            
-            //si es Maestro-Detalle restaura el valor del padre.
-            if(options.masterDetail !== undefined){
-	            let tableMaster = $(options.masterDetail.master).DataTable();
-	            let rowSelected = tableMaster.rows('.selected').indexes();
-	            let row = tableMaster.rows(rowSelected).data();
-	            let id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
-	            let $hiddenPKMaster = $('#' + options.id + '_filter_masterPK');
-	            $hiddenPKMaster.val('' + id);
-        	}
-            
-         //   $self.DataTable().ajax.reload();
-            options.filter.$filterSummary.html(' <i></i>');
+			// Reinicia por completo los autocomplete porque sino siguen filtrando.
+			$.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
 
-            // Provoca un mal funcionamiento del filtrado de Maestro-Detalle en la tabla esclava, 
-            // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
-            //jQuery('input,textarea').val('');
+			// Si es Maestro-Detalle restaura el valor del maestro.
+			if (options.masterDetail !== undefined) {
+				const tableMaster = $(options.masterDetail.master).DataTable();
+				const rowSelected = tableMaster.rows('.selected').indexes();
+				const row = tableMaster.rows(rowSelected).data();
+				const id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
+				$('#' + options.id + '_filter_masterPK').val('' + id);
+			}
 
-            jQuery.each($('select.rup_combo',options.filter.$filterContainer), function (index, elem) {
+			options.filter.$filterSummary.html(' <i></i>');
+
+			jQuery.each($('select.rup_combo', options.filter.$filterContainer), function(index, elem) {
 				jQuery(elem).rup_combo('refresh');
-            });
+			});
 
-            $.rup_utils.populateForm([], options.filter.$filterContainer);
+			$.rup_utils.populateForm([], options.filter.$filterContainer);
 
+			$('#' + options.sTableId).triggerHandler('tableFilterAfterReset', options);
         },
         
         /**
