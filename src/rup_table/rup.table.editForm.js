@@ -469,15 +469,16 @@
     /**
      * Valida los formularios para no, buscarlos.
      *
-     * @name formInitializeRUP
+     * @name validarFormulario
      * @function
      * @since UDA 5.0.2 // Table 1.0.0
      *
      * @param {object} ctx - Contexto de la tabla.
-      * @param {object} lastAction - última accion realizado.
+     * @param {object} lastAction - última accion realizado.
      * @param {object} actionType - Tipo de acción.
+     * @param {object} row - Datos de la fila que se cargan.
      */
-    function _validarFormulario(ctx,lastAction, actionType, row){    	
+    function _validarFormulario(ctx, lastAction, actionType, row){    	
     	if(ctx.oInit.enableDynamicForms){ 
     		let lastSelectedIdUsed = ctx.oInit.formEdit.lastSelectedIdUsed;
     		let lastSelected = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
