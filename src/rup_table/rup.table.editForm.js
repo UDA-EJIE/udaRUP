@@ -519,7 +519,7 @@
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
     						}
-    					} else if (rupType == 'autocomplete') {
+    					} else if (rupType === 'autocomplete') {
     						// Establece el valor por defecto.
     						if (row !== undefined) {
     							column.editoptions.defaultValue = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
