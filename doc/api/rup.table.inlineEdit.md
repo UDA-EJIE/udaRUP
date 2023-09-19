@@ -30,7 +30,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_guardar(ctx, $fila, $child)](#module_rup.table.inlineEdit.._guardar)
     * [~_callSaveAjax(actionType, ctx, $fila, $row, url, isDeleting)](#module_rup.table.inlineEdit.._callSaveAjax)
     * [~loadAuxForm(ctx, actionType, row)](#module_rup.table.inlineEdit..loadAuxForm) ⇒ <code>object</code>
-    * [~formInitializeRUP(ctx, lastAction, actionType)](#module_rup.table.inlineEdit..formInitializeRUP)
+    * [~validarFormulario(ctx, lastAction, actionType, row)](#module_rup.table.inlineEdit..validarFormulario)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.inlineEdit..callFeedbackOk)
     * [~_inResponsiveChangeInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._inResponsiveChangeInputsValues)
     * [~_asignarInputsValues(ctx, $fila)](#module_rup.table.inlineEdit.._asignarInputsValues)
@@ -328,9 +328,9 @@ Función que gestiona la carga del formulario del que se obtendrá el parámetro
 | actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
 | row | <code>object</code> | Valores de los campos del formulario. |
 
-<a name="module_rup.table.inlineEdit..formInitializeRUP"></a>
+<a name="module_rup.table.inlineEdit..validarFormulario"></a>
 
-### rup.table.inlineEdit~formInitializeRUP(ctx, lastAction, actionType)
+### rup.table.inlineEdit~validarFormulario(ctx, lastAction, actionType, row)
 Valida los formularios para no, buscarlos.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
@@ -341,6 +341,7 @@ Valida los formularios para no, buscarlos.
 | ctx | <code>object</code> | Contexto de la tabla. |
 | lastAction | <code>object</code> | última accion realizado. |
 | actionType | <code>object</code> | Tipo de acción. |
+| row | <code>object</code> | Datos de la fila que se cargan. |
 
 <a name="module_rup.table.inlineEdit..callFeedbackOk"></a>
 
