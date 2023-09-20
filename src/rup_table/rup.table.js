@@ -1048,6 +1048,8 @@
 			});
 
 			$.rup_utils.populateForm([], options.filter.$filterContainer);
+			
+			$(this).DataTable().ajax.reload();
 
 			$('#' + options.sTableId).triggerHandler('tableFilterAfterReset', options);
         },
