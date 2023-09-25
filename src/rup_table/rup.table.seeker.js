@@ -163,8 +163,10 @@
                 });
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (colModel != undefined && result.hidden) {
+                if (colModel != undefined && result[0].hidden) {
                     $(this).empty();
+                } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
+                    $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
                 } else {
                     $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"/>');
                 }
@@ -534,17 +536,12 @@
             searchEditOptions;
         if (colModel !== undefined) {
         	var idTabla = ctx.sTableId;
-            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function (i) { // El primer tr corresponde al desplegable de filtros
+            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function () { // El primer tr corresponde al desplegable de filtros
 
                 // Se añade la clase necesaria para mostrar los inputs con estilos material
                 $(this).addClass('form-groupMaterial');
-                let flagMultiSelect = 0;
-                if (ctx.oInit.multiSelect !== undefined) {
-                	flagMultiSelect = 1;
-                }
-                let cont = i + flagMultiSelect;
                 
-                let nombre = $(this).find('input').attr('name');
+                let nombre = $(this).find('input, select').attr('name');
                 let cellColModel = $.grep(colModel, function (v) {
                     return v.index.toUpperCase() === nombre.toUpperCase();
                 });
@@ -585,12 +582,35 @@
     }
 
     function _limpiarSeeker(dt, ctx) {
-        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
-        jQuery('input,textarea', '#' + ctx.sTableId + ' tfoot').val('');
-        let $form = $('#' + ctx.sTableId + '_search_searchForm');
-        $form.resetForm()
-        jQuery.each($('select.rup_combo',$form), function (index, elem) {
-			jQuery(elem).rup_combo('refresh');
+    	$('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
+        
+        const $form = $('#' + ctx.sTableId + '_search_searchForm');
+        
+        // Reinicia el formulario.
+        $form.resetForm();
+        
+        // Limpia los rup_autocomplete, rup_combo y rup_select.
+        jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select]', $form), function (index, elem) {
+			const elemSettings = jQuery(elem).data('settings');
+			
+			if (elemSettings != undefined) {
+				const elemRuptype = jQuery(elem).attr('ruptype');
+				
+				if (elemSettings.parent == undefined) {
+					if (elemRuptype == 'autocomplete') {
+						jQuery(elem).rup_autocomplete('setRupValue', '');
+					} else if (elemRuptype == 'combo') {
+						jQuery(elem).rup_combo('reload');
+					} else if (elemRuptype == 'select') {
+						jQuery(elem).rup_select('clear');
+					}
+				}
+				
+				if (elemRuptype == 'select') {
+					// Necesario para garantizar que pierda el foco.
+					jQuery(elem).rup_select('reload');
+				}
+			}
         });
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;

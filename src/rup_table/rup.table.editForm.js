@@ -481,7 +481,7 @@
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
     						}
-    					} else if (column.rupType == 'autocomplete') {
+    					} else if (column.rupType === 'autocomplete') {
     						// Establece el valor por defecto.
     						if (row !== undefined) {
     							column.editoptions.defaultValue = row[column.name];
