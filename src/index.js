@@ -48,6 +48,7 @@ import './rup.validate';
 import './rup.wizard';
 import './rup.list';
 import './rup.calendar';
+import './rup.select';
 import Rup from './templates';
 
 import '../scss/rup-base.scss';
