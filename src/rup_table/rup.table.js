@@ -1262,6 +1262,30 @@
 	
 			aux = nuevoArrayDeObjetos;
 
+
+
+			// Objeto auxiliar para contar repeticiones
+			const repeticiones = {};
+
+			// Crear un nuevo array de objetos manteniendo "value" original para valores únicos y actualizando "value" para valores repetidos
+			const nuevoArrayDeObjetos = aux.reduce((result, objeto) => {
+				const { name, value } = objeto;
+				if (!repeticiones[name]) {
+					repeticiones[name] = { value, count: 0 };
+				}
+				repeticiones[name].count++;
+				if (repeticiones[name].count === 1) {
+					result.push({ name, value });
+				} else {
+					result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+				}
+				return result;
+			}, []);
+	
+				aux = nuevoArrayDeObjetos;
+				
+			console.log(nuevoArrayDeObjetos);
+
             for (var i = 0; i < aux.length; i++) {
                 if (aux[i].value !== '' && $.inArray(aux[i].name, settings.filter.excludeSummary) !== 0) {
                     //CAMPO a tratar
