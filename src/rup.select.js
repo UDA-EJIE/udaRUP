@@ -1236,8 +1236,9 @@
 				        	  data = allFacts;
 				        	  settings.optionsGroups = data;
 				          }
-				         
+				         //Se obliga a que las claves sean String recomendado por select2
 				          let seleccionado = $.grep(data, function (v,index) {
+				        	  	v.id = String(v.id);
 				        	  	if(v.id == valueSelect){
 				        	  		positions.push(index);
 				        	  	}
