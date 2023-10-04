@@ -922,16 +922,14 @@ input.
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			
 			if ($form.length === 1) {
-				let url = settings.data + (settings.data.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-
+				if ($.fn.getHDIV_STATE(undefined, $form) != '') {
+					settings.data += (settings.data.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
+				}
+				
 				// Concatena los datos a enviar.
-				url += "&" + data;
-
-				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
-			} else {
-				return settings.data;
+				settings.data += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data;
 			}
-
+			return settings.data;
 		},
 		/**
          * Método de inicialización del componente.

@@ -1714,20 +1714,19 @@
 			}
 			
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
-			const source = settings.source ? settings.source : settings.sourceGroup;
+			let source = settings.source ? settings.source : settings.sourceGroup;
 			
 			if ($form.length === 1) {
-				let url = source + (source.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-
+				if ($.fn.getHDIV_STATE(undefined, $form) != '') {
+					source += (source.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
+				}
+				
 				if (data) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					url += "&" + data.replaceAll('#', '%23');
+					source += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data.replaceAll('#', '%23');
 				}
-
-				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
-			} else {
-				return source;
 			}
+			return source;
 		},
 		/**
          * Generar source local a partir del HTML.
