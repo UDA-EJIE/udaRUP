@@ -82,9 +82,4 @@ describe('TEST Button', () => {
             });
         });
     });
-    describe('Métodos públicos >', () => {
-        /**
-         * No hay ninguno implementado.
-         */
-    });
 });

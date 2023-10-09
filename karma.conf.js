@@ -6,7 +6,7 @@ var path = require('path');
 const webpack = require('webpack');
 
 const createBackendServer = require('./backend.js');
-createBackendServer(8081);
+createBackendServer(8082);
 
 module.exports = function (config) {
     config.set({
@@ -84,12 +84,12 @@ module.exports = function (config) {
         },
         ],
         proxies: {
-            '/audit': 'http://localhost:8081/audit',
-            '/test': 'http://localhost:8081/test',
-            '/dist': 'http://localhost:8081/dist',
-            '/demo': 'http://localhost:8081/demo',
-            '/fonts': 'http://localhost:8081/dist/css/fonts',
-            '/images': 'http://localhost:8081/dist/css/images',
+            '/audit': 'http://localhost:8082/audit',
+            '/test': 'http://localhost:8082/test',
+            '/dist': 'http://localhost:8082/dist',
+            '/demo': 'http://localhost:8082/demo',
+            '/fonts': 'http://localhost:8082/dist/css/fonts',
+            '/images': 'http://localhost:8082/dist/css/images',
             '/x21aAppWar/': '/',
             '/x21aAppWar/patrones/': '/',
             '/externals/icons/': '/dist/css/externals/icons',
