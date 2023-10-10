@@ -56,76 +56,74 @@ function navBarTest() {
             $('#content').html('');
         });
         describe('Funcionamiento > ', () => {
-            // NO SE PUEDEN EJECUTAR ESTAS PRUEBAS EN PAHNTOM. 
-            // Se pueden probar con el navegador chrome comando : `npm run test:dev`
-            // describe('Cuando se hace click en el elemento del menu el submenu aparece > ', () => {
-            //     beforeEach((done) => {
-            //         $('#navDropdownUno').parent().on('toggleEnd', () => {
-            //             done();
-            //         });
-            //         $('#navDropdownUno').click();
-            //     });
-            //     it('El submenu debe tener la propiedad de estar expandido:', () => {
-            //         expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
-            //     });
-            //     describe('Al hacer click sobre otro elemento de nav > ', () => {
-            //         beforeEach(() => {
-            //             $('#navDropdownDos').click();
-            //         });
-            //         it('Se debe intercambiar la visisbilidad:', () => {
-            //             expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
-            //             expect($('[aria-labelledby="navDropdownDos"]').is(':visible')).toBeTruthy();
-            //         });
-            //     });
-            //     describe('Si se hace click fuera del navbar se debe cerrar > ', () => {
-            //         beforeEach(() => {
-            //             $('body').click();
-            //         });
-            //         it('El submenu debe estar oculto:', () => {
-            //             expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
-            //         });
-            //     });
-            // });
+            //NO SE PUEDEN EJECUTAR ESTAS PRUEBAS EN PAHNTOM. 
+            //Se pueden probar con el navegador chrome comando : `npm run test:dev`
+            describe('Cuando se hace click en el elemento del menu el submenu aparece > ', () => {
+                beforeEach((done) => {
+                    $('#navDropdownUno').click();
+                    done();
+                });
+                it('El submenu debe tener la propiedad de estar expandido:', () => {
+                    expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
+                });
+                describe('Al hacer click sobre otro elemento de nav > ', () => {
+                    beforeEach(() => {
+                        $('#navDropdownDos').click();
+                    });
+                    it('Se debe intercambiar la visisbilidad:', () => {
+                        expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
+                        expect($('[aria-labelledby="navDropdownDos"]').is(':visible')).toBeTruthy();
+                    });
+                });
+                describe('Si se hace click fuera del navbar se debe cerrar > ', () => {
+                    beforeEach(() => {
+                        $('body').click();
+                    });
+                    it('El submenu debe estar oculto:', () => {
+                        expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
+                    });
+                });
+            });
         });
         describe('Métodos públicos > ', () => {
-            // NO SE PUEDEN EJECUTAR ESTAS PRUEBAS EN PAHNTOM. 
-            // Se pueden probar con el navegador chrome comando : `npm run test:dev`
-            // describe('Metodo toggle > ', () => {
-            //     beforeEach((done) => {
-            //         $('#navDropdownUno').parent().on('toggleEnd', () => {
-            //             done();
-            //         });
-            //         $('#navDropdownUno').rup_navbar('toggle');
-            //     });
-            //     it('Se expanden los hijos de padre1:', () => {
-            //         expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
-            //     });
-            // });
-            // describe('Método show > ', () => {
-            //     beforeEach((done) => {
-            //         $('#navDropdownUno').parent().on('toggleEnd', () => {
-            //             done();
-            //         });
-            //         $('#navDropdownUno').rup_navbar('show');
-            //     });
-            //     it('Se expanden los hijos de padre1:', () => {
-            //         expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
-            //     });
-            // });
-            // describe('Método hide > ', () => {
-            //     beforeEach((done) => {
-            //         $('#navDropdownUno').parent().on('toggleEnd', () => {
-            //             $('#navDropdownUno').parent().on('toggleEnd', () => {
-            //                 done();
-            //             });
-            //             $('#navDropdownUno').rup_navbar('hide');
-            //         });
-            //         $('#navDropdownUno').rup_navbar('show');
-            //     });
-            //     it('Se ocultan los hijos de padre1:', () => {
-            //         expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
-            //     });
-            // });
+            //NO SE PUEDEN EJECUTAR ESTAS PRUEBAS EN PAHNTOM. 
+            //Se pueden probar con el navegador chrome comando : `npm run test:dev`
+            describe('Metodo toggle > ', () => {
+                beforeEach((done) => {
+                    $('#navDropdownUno').parent().on('toggleEnd', () => {
+                        done();
+                    });
+                    $('#navDropdownUno').rup_navbar('toggle');
+                });
+                it('Se expanden los hijos de padre1:', () => {
+                    expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
+                });
+            });
+            describe('Método show > ', () => {
+                beforeEach((done) => {
+                    $('#navDropdownUno').parent().on('toggleEnd', () => {
+                        done();
+                    });
+                    $('#navDropdownUno').rup_navbar('show');
+                });
+                it('Se expanden los hijos de padre1:', () => {
+                    expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeTruthy();
+                });
+            });
+            describe('Método hide > ', () => {
+                beforeEach((done) => {
+                    $('#navDropdownUno').parent().on('toggleEnd', () => {
+                        $('#navDropdownUno').parent().on('toggleEnd', () => {
+                            done();
+                        });
+                        $('#navDropdownUno').rup_navbar('hide');
+                    });
+                    $('#navDropdownUno').rup_navbar('show');
+                });
+                it('Se ocultan los hijos de padre1:', () => {
+                    expect($('[aria-labelledby="navDropdownUno"]').is(':visible')).toBeFalsy();
+                });
+            });
             describe('Método setTransitioning > ', () => {
                 beforeEach(() => {
                     $('#navDropdownUno').rup_navbar('setTransitioning', true);
