@@ -35,12 +35,12 @@ describe('Test Upload > ', () => {
         $('#content').html('');
         $('#content').nextAll().remove();
     });
-    describe('Creación > ', () => {
+  /*  describe('Creación > ', () => {
         /**
          * No se crea ningún cambio en el DOM que nos dé pistas de si se crea o no correctamente
          * el elmento rup. Consideramos que se pasa bien si los métodos públicos no fallan
-         */
-    });
+         
+    });*/
     describe('Métodos públicos > ', () => {
         describe('Método disable > ', () => {
             beforeEach(() => {
