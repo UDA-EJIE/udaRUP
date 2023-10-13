@@ -133,7 +133,7 @@ export function createDatatable1(ctx, callback) {
         colModel: [{
             name: 'id',
             index: 'id',
-            editable: true,
+            editable: false,
             width: 80,
             formoptions: {
                 rowpos: 1,

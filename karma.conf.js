@@ -65,6 +65,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [{
             pattern: 'spec/rup.config.js'
+             
         },
         {
             pattern: 'i18n/*.json',
@@ -78,6 +79,9 @@ module.exports = function (config) {
             watched: true,
             served: true,
             included: false
+        },
+        {
+        	pattern: 'node_modules/underscore/underscore.js', included: true, watched: false
         },
         {
             pattern: 'test.webpack.js',

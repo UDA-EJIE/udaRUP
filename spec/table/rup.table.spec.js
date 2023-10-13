@@ -43,16 +43,10 @@ function testDatatable() {
     describe('Test Datatable > ', () => {
         beforeAll((done) => {
             testutils.loadCss(done);
-
-            window.onerror = (event) => {
-                testutils.testTrace('Evento de error detectado en el window',
-                    'namespace: ' + event.namespace +
-                    'target: ' + event.target.id);
-            };
         });
 
         afterEach((done) => {
-            clearDatatable(done);
+            //clearDatatable(done);
         });
 
         describe('Edición inline datatable > ', () => {
@@ -80,6 +74,7 @@ function testDatatable() {
                 });
                 it('Se ha actualizado el valor: ', () => {
                     expect($('#exampleInline > tbody > tr:eq(0) > td:eq(2)').text()).toBe(nameEdit);
+                    done();
                 });
             });
         });

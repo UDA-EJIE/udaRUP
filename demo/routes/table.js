@@ -380,6 +380,33 @@ exports.formEdit = (req, res) => {
     res.status(200).json(json4);
 
 };
+
+exports.formEditInline = (req, res) => {
+    if (req.body.edad === 'asd') {
+        res.status(406);
+        res.send('KABOOM!');
+        return;
+    }
+
+    if (req.body.nombre == 'Ane') {
+        json4.rows[0].nombre = 'Ane';
+    } else {
+        json4.rows[0].edad = req.body.edad;
+    }
+    if (req.body.nombre == 'Adriana' && json4.rows[0].id != 345) {
+        let newReg = {
+            id: req.body.id,
+            nombre: req.body.nombre,
+            apellidos: req.body.apellidos,
+            edad: req.body.edad
+        };
+        json4.rows.pop();
+        json4.rows.splice(0, 0, newReg);
+    }
+    res.status(200).json(json4.rows[0]);
+
+};
+
 exports.delete = (req, res) => {
     json4.rows = json4.rows.filter((e) => {
         return e.id != req.params.id;
