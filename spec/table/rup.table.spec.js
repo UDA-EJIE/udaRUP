@@ -46,7 +46,7 @@ function testDatatable() {
         });
 
         afterEach((done) => {
-            //clearDatatable(done);
+            clearDatatable(done);
         });
 
         describe('Edición inline datatable > ', () => {
@@ -70,11 +70,11 @@ function testDatatable() {
                     buscarAceptar().click();
                 });
                 afterEach((done) => {
-                    $.get('/demo/table/reset', done);
+                    $.get('/demo/table/reset');
+                    done();
                 });
                 it('Se ha actualizado el valor: ', () => {
                     expect($('#exampleInline > tbody > tr:eq(0) > td:eq(2)').text()).toBe(nameEdit);
-                    done();
                 });
             });
         });
@@ -241,7 +241,8 @@ function testDatatable() {
                         });
 
                         afterEach((done) => {
-                            $.get('/demo/table/reset', done);
+                            $.get('/demo/table/reset');
+                            done();
                         });
 
                         it('Se ha actualizado la tabla:', () => {
@@ -257,13 +258,16 @@ function testDatatable() {
                     describe('Funcionalidad del botón "guardar" > ', () => {
                         beforeEach((done) => {
                             $('#edad_detail_table').val(11);
-                            $('#example').on('tableEditFormSuccessCallSaveAjax', done);
+                            $('#example').on('tableEditFormSuccessCallSaveAjax', () => {
+                                done();
+                            });
                             $('#example_detail_button_save').click();
                             buscarAceptar().click();
                         });
 
                         afterEach((done) => {
-                            $.get('/demo/table/reset', done);
+                            $.get('/demo/table/reset');
+                            done();
                         });
 
                         it('Se ha actualizado la tabla:', () => {
@@ -304,7 +308,8 @@ function testDatatable() {
                         });
 
                         afterEach((done) => {
-                            $.get('/demo/table/reset', done);
+                            $.get('/demo/table/reset');
+                            done();
                         });
 
                         it('Se ha actualizado la tabla:', () => {
@@ -333,7 +338,8 @@ function testDatatable() {
                         });
 
                         afterEach((done) => {
-                            $.get('/demo/table/reset', done);
+                            $.get('/demo/table/reset');
+                            done();
                         });
 
                         it('Se ha actualizado la tabla:', () => {
@@ -379,7 +385,9 @@ function testDatatable() {
 
                 describe('Funcionalidad del seeker > ', () => {
                     beforeEach((done) => {
-                        $('#example').on('tableSeekerAfterSearch', done);
+                        $('#example').on('tableSeekerAfterSearch', () => {
+                            done();
+                        });
                         $('#nombre_example_seeker').val('E');
                         $('#search_nav_button_example').click();
                     });
@@ -731,7 +739,8 @@ function testDatatable() {
                 });
 
                 afterEach((done) => {
-                    $.get('/demo/table/reset', done);
+                    $.get('/demo/table/reset');
+                    done();
                 });
 
                 it('Debe mostrar el feedback del formulario:', () => {
@@ -746,7 +755,11 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#id_filter_table').val('6');
                         $('#example_filter_filterButton').click();
-                        setTimeout(done, 350);
+                        $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
+                            console.log(message);
+                            done();
+                        };
+                        
                     });
 
                     it('El feedback debe comportarse de la manera esperada:', () => {
@@ -771,7 +784,8 @@ function testDatatable() {
                     });
 
                     afterEach((done) => {
-                        $.get('/demo/table/reset', done);
+                        $.get('/demo/table/reset');
+                        done();
                     });
 
                     it('El feedback debe mostrarse:', () => {
@@ -787,7 +801,10 @@ function testDatatable() {
                         $('#searchCollapsLabel_example').click();
                         $('#edad_example_seeker').val('asd');
                         $('#search_nav_button_example').click();
-                        $('#example').on('tableSeekerSearchError', done);
+
+                        $('#example').on('tableSeekerSearchError', () => {
+                            done();
+                        });
                     });
                     it('El feedback debe mostrarse:', () => {
                         expect($('#rup_feedback_example').height()).toBeGreaterThan(0);
@@ -806,7 +823,8 @@ function testDatatable() {
                     });
 
                     afterEach((done) => {
-                        $.get('/demo/table/reset', done);
+                        $.get('/demo/table/reset');
+                        done();
                     });
 
                     it('Comprobamos que haya cambiado el orden:', () => {
@@ -834,7 +852,8 @@ function testDatatable() {
                     });
 
                     afterEach((done) => {
-                        $.get('/demo/table/reset', done);
+                        $.get('/demo/table/reset');
+                        done();
                     });
 
                     it('Comprobamos que haya cambiado el orden:', () => {
