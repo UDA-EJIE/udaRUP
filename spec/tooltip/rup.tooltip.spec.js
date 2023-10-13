@@ -49,7 +49,7 @@ describe('TEST Tooltip', () => {
     });
     describe('Creación', () => {
         beforeEach((done) => {
-            $tooltip.data().qtip.options.events.show = done;
+            $tooltip.data().qtip.options.events.show = done();
             $tooltip.rup_tooltip('open');
             $qtip = $('#qtip-' + $tooltip.data('hasqtip') + '.qtip');
         });
