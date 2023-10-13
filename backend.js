@@ -109,8 +109,8 @@ module.exports = (PORT) => {
     app.post('/demo/table/remote/filter', routesTable.filter);
     app.post('/demo/table/remote/search', routesTable.search);
     app.put('/demo/table/remote/simple', routesTable.simple);
-    app.post('/demo/table/remote/edit', routesTable.formEdit);
-    app.put('/demo/table/remote/edit', routesTable.formEdit);
+    app.post('/demo/table/remote/edit', routesTable.formEditInline);
+    app.put('/demo/table/remote/edit', routesTable.formEditInline);
     app.post('/demo/table/remote/add', routesTable.formEdit);
     app.post('/demo/table/remote/deleteEnd', routesTable.deleteEnd);
     app.delete('/demo/table/remote/:id', routesTable.delete);
