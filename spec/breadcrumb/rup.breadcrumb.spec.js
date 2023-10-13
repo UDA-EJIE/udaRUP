@@ -35,41 +35,40 @@ describe('Test BreadCrumb >', () => {
             window.history.pushState({
                 urlPath: '/x21aResponsive/patrones/ptrUno'
             }, '', '/x21aResponsive/patrones/ptrUno');
-
-            $('#subLeveledBreadCrumb').on('afterInit', done);
-
-            $('#subLeveledBreadCrumb').rup_breadCrumb({
-                'breadCrumb': {
-                    'patrones': {
-                        //Literal mostrado:
-                        'i18nCaption': 'Varios patrones',
-                        //Elementos:
-                        'ptrUno': {
-                            'i18nCaption': 'ptrUno'
-                        },
-                        'ptrDos': {
-                            'i18nCaption': 'ptrDos'
-                        },
-                        'ptrTres': {
-                            'i18nCaption': 'ptrTres'
-                        },
-                        //Sublevel
-                        'subLevel': [{
-                            'i18nCaption': 'ptrUno',
-                            'url': './patrones/ptrUno'
-                        },
-                        {
-                            'i18nCaption': 'ptrDos',
-                            'url': './patrones/ptrDos'
-                        },
-                        {
-                            'i18nCaption': 'ptrTres',
-                            'url': './patrones/ptrTres'
-                        }
-                        ]
+            done();
+        });
+        
+        $('#subLeveledBreadCrumb').rup_breadCrumb({
+            'breadCrumb': {
+                'patrones': {
+                    //Literal mostrado:
+                    'i18nCaption': 'Varios patrones',
+                    //Elementos:
+                    'ptrUno': {
+                        'i18nCaption': 'ptrUno'
+                    },
+                    'ptrDos': {
+                        'i18nCaption': 'ptrDos'
+                    },
+                    'ptrTres': {
+                        'i18nCaption': 'ptrTres'
+                    },
+                    //Sublevel
+                    'subLevel': [{
+                        'i18nCaption': 'ptrUno',
+                        'url': './patrones/ptrUno'
+                    },
+                    {
+                        'i18nCaption': 'ptrDos',
+                        'url': './patrones/ptrDos'
+                    },
+                    {
+                        'i18nCaption': 'ptrTres',
+                        'url': './patrones/ptrTres'
                     }
+                    ]
                 }
-            });
+            }
         });
 
         $('#exampleBreadcrumb').rup_breadCrumb({
