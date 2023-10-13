@@ -194,6 +194,10 @@ export function createDatatable1(ctx, callback) {
         },
         colReorder: {
             fixedColumnsLeft: 1
+        },
+        customError: function(error){
+        	alert(error.responseText);
+        	$('#example').triggerHandler('customError');
         }
     };
 

@@ -755,17 +755,20 @@ function testDatatable() {
                     beforeEach((done) => {
                         $('#id_filter_table').val('6');
                         $('#example_filter_filterButton').click();
-                        $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
+                       /* $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
                             console.log(message);
                             done();
-                        };
-                        
+                        };*/
+                        $('#example').on('customError', () => {
+                        	done();
+                        });
                     });
 
                     it('El feedback debe comportarse de la manera esperada:', () => {
                         expect($('.rup-message-alert').height()).toBeGreaterThan(0);
+                        //se personaliza el error con el customError
                         expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                            .toBe('DataTables warning: table id=example - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                            .toBe('"KABOOM!"');
                     });
                 });
 
