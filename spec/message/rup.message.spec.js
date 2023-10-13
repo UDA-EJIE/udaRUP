@@ -32,27 +32,28 @@ function messageTester(msgType) {
                     title: 'Correcto',
                     message: 'Todo ha ido Ok',
                     buttonText: 'Prueba OK',
-                    beforeClose: clsCallback,
-                    open: done
+                    beforeClose: clsCallback
+                    
                 });
+                done();
                 break;
             case 'Alert':
                 $.rup_messages('msgAlert', {
                     title: 'Aviso',
                     message: 'Advertencia',
                     buttonText: 'Prueba alert',
-                    beforeClose: clsCallback,
-                    open: done
+                    beforeClose: clsCallback
                 });
+                done();
                 break;
             case 'Error':
                 $.rup_messages('msgError', {
                     title: 'Error',
                     message: 'Fallo',
                     buttonText: 'Prueba error',
-                    beforeClose: clsCallback,
-                    open: done
+                    beforeClose: clsCallback
                 });
+                done();
                 break;
             case 'Confirm':
                 $.rup_messages('msgConfirm', {
@@ -60,9 +61,9 @@ function messageTester(msgType) {
                     message: '¿Confirma?',
                     OKText: 'Sí',
                     CANCELText: 'No',
-                    beforeClose: clsCallback,
-                    open: done
+                    beforeClose: clsCallback
                 });
+                done();
                 break;
             }
         });
@@ -148,8 +149,9 @@ function messageTester(msgType) {
             describe('Cerrado del message > ', () => {
                 beforeEach((done) => {
                     window.done = done;
-                    $('.ui-dialog').on('dialogclose', done);
+                    $('.ui-dialog').on('dialogclose');
                     $('i.mdi.mdi-close.float-right.pointer').click();
+                    done();
                 });
                 it('Se cierra el message:', (done) => {
                     expect($('.ui-dialog:visible').length).toBe(0);
