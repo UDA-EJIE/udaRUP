@@ -439,30 +439,30 @@ describe('Test rup_list', () => {
                             });
                         });
                         describe('> Y filtramos', () => {
-                            beforeEach((done) => {
-                               	$('#rup-list').on('load', () => {
-                            		done();
-                            	});
+                            beforeEach(() => {
+                               
                                 $('#rup-list').rup_list('filter');
                             });
                             it('> Los elementos deben estar deseleccionados:', () => {
-                                $('#rup-list').children().toArray().forEach((e) => {
-                                    expect($(e).hasClass('rup_list-item-selected')).toBeFalsy();
-                                });
+                            	$('#rup-list').on('load', () => {
+	                                $('#rup-list').children().toArray().forEach((e) => {
+	                                    expect($(e).hasClass('rup_list-item-selected')).toBeFalsy();
+	                                });
+                            	});
                             });
                         });
                     });
                     describe('> Si vamos a la página siguiente', () => {
-                        beforeEach((done) => {
-                           	$('#rup-list').on('load', () => {
-                        		done();
-                        	});
+                        beforeEach(() => {
+
                             $('#rup-list-header-page-next', $('#rup-list-header')).click();
                         });
                         it('> Los elementos no están seleccionados', () => {
-                            $('#rup-list').children().toArray().forEach((elem) => {
-                                expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
-                            });
+                        	$('#rup-list').on('load', () => {
+	                            $('#rup-list').children().toArray().forEach((elem) => {
+	                                expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
+	                            });
+                        	});
                         });
                     });
                 });
@@ -470,7 +470,10 @@ describe('Test rup_list', () => {
                     beforeEach((done) => {
                         $('#rup-list').on('listAfterMultiselection', () => {
                             $('#rup-list').off('listAfterMultiselection');
-                            $('#rup-list').on('listAfterMultiselection', done);
+                            
+                            $('#rup-list').on('listAfterMultiselection', () => {
+                            	done();
+                            });
                             $('.selectable-deselectAll', $('#rup-list-header')).click();
                         });
                         $('.selectable-selectAll', $('#rup-list-header')).click();
@@ -481,16 +484,16 @@ describe('Test rup_list', () => {
                         });
                     });
                     describe('> Si vamos a la página siguiente', () => {
-                        beforeEach((done) => {
-                           	$('#rup-list').on('load', () => {
-                        		done();
-                        	});
+                        beforeEach(() => {
+                         
                             $('#rup-list-header-page-next', $('#rup-list-header')).click();
                         });
                         it('> Los elementos no están seleccionados', () => {
-                            $('#rup-list').children().toArray().forEach((elem) => {
-                                expect($(elem).hasClass('rup_list-item-selected')).toBeFalsy();
-                            });
+                        	$('#rup-list').on('load', () => {
+	                            $('#rup-list').children().toArray().forEach((elem) => {
+	                                expect($(elem).hasClass('rup_list-item-selected')).toBeFalsy();
+	                            });
+                        	});
                         });
                     });
                 });
@@ -500,7 +503,7 @@ describe('Test rup_list', () => {
 
         describe('> Multiordenación', () => {
             beforeEach((done) => {
-            	listGen.createList('rup-list', 'listFilterForm', () => {
+            	listGen.createListMultiorder('rup-list', 'listFilterForm', () => {
             		done();
             	});
             });
@@ -528,11 +531,10 @@ describe('Test rup_list', () => {
             });
             describe('> Funcionamiento del dialogo de edición de la ordenación', () => {
                 beforeEach((done) => {
-                    $('#rup-list').on('rup_list-mord-dialogOpen', () => {
-                        setTimeout(done, 500);
-                    });
+
                     $('#rup-list').on('load', () => {
                         $('.rup_list-mord-dialogbtn:first').click();
+                        done();
                     });
                     $('#rup-list').rup_list('filter');
                 });
@@ -1148,10 +1150,8 @@ describe('Test rup_list', () => {
             });
             describe('> Click al botón dropdown', () => {
                 var spyAjax;
-                beforeEach((done) => {
-                   	$('#rup-list').on('load', () => {
-                		done();
-                	});
+                beforeEach(() => {
+                   	
                     $('#rup-list').rup_list('filter');
                     $('#listFilterForm').find('#listFilterAceptar_dropdown').click();
                 });
@@ -1159,10 +1159,8 @@ describe('Test rup_list', () => {
                     expect($('#rup-list_dropdownDialog').is(':visible')).toBeTruthy();
                 });
                 describe('> Cancelar', () => {
-                    beforeEach((done) => {
-                       	$('#rup-list').on('load', () => {
-                    		done();
-                    	});
+                    beforeEach(() => {
+                       
                         $('#rup-list').rup_list('filter');
                         $('#rup_dialogCancelar').click();
                     });
@@ -1171,10 +1169,8 @@ describe('Test rup_list', () => {
                     });
                 });
                 describe('> Aplicar', () => {
-                    beforeEach((done) => {
-                       	$('#rup-list').on('load', () => {
-                    		done();
-                    	});
+                    beforeEach(() => {
+                       	
                         $('#rup-list').rup_list('filter');
                         spyAjax = spyOn($, 'rup_ajax').and.callThrough();
                         $('#rup-list_dropdownDialog').find('a.rup-combobox-toggle').click();
@@ -1190,10 +1186,8 @@ describe('Test rup_list', () => {
                         expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
                     });
                     describe('Eligir un filtro', () => {
-                        beforeEach((done) => {
-                           	$('#rup-list').on('load', () => {
-                        		done();
-                        	});
+                        beforeEach(() => {
+                           
                             $('#rup-list').rup_list('filter');
                             $('#rup-list_dropdownDialog_combo_label').rup_autocomplete('set', 'Filter 1', 'Filter 1');
                             $('#rup-list_dropdownDialog_btn_apply').click();
