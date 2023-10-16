@@ -39,7 +39,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', 'select2','./external/select2MultiCheckboxes'], factory);
+        define(['jquery', './rup.base', './rup.message', 'select2','./external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -1190,6 +1190,8 @@
 					        			}
 			        				}
 			        			});
+			        		}else if(params.url.indexOf(datosParent) < 0){//Aseguramos que mete el valor del padre.
+			        			params.url = params.url + '?' + datosParent;
 			        		}
 			        		$request = $.ajax(params);
 			        	}

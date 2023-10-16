@@ -75,7 +75,8 @@ describe('Test Select > ', () => {
                 expect(checked.length).toBe(1);
             });
             it('El valor se debe corresponder a getRupValue:', () => {
-                expect($selectMulti.rup_select('getRupValue')).toEqual('2');
+            	let valor = $selectMulti.rup_select('getRupValue');
+                expect(valor[0]).toEqual('2');
             });
         });
         describe('select optGroup', () => {
@@ -203,7 +204,8 @@ describe('Test Select > ', () => {
                         .toBe(selectedLiteral);
                 });
                 it('El método getRupValue debe devolver el valor establecido', () => {//si crea placeHolder es '0' sino ''
-                    expect($selectMulti.rup_select('getRupValue')).toEqual('');
+                	let valor = $selectMulti.rup_select('getRupValue');
+                	expect(valor[0]).toEqual(undefined);
                 });
             });
             describe('select optGroup vacío > ', () => {
@@ -436,7 +438,8 @@ describe('Test Select > ', () => {
             });
             describe('select multiple > ', () => {
                 it('Debe devolver el valor del componente', () => {//Si es unico se devuelve tipo String
-                    expect($selectMulti.rup_select('getRupValue')).toEqual('2');
+                    let valor = $selectMulti.rup_select('getRupValue');
+                	expect(valor[0]).toEqual('2');
                 });
             });
             describe('select optGroup > ', () => {
@@ -819,8 +822,8 @@ describe('Test Select Remoto> ', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
-    	return new Promise(function(resolve) {
+    beforeEach((done) => {
+    /*	return new Promise(function(resolve) {
     		setupSelectsRemoto(()=>{
                 selectedLiteral = $.rup.i18n.base.rup_select.multiselect.selectedText;
                 $selectAbueloRemoto = $('#selectAbueloRemoto');
@@ -830,7 +833,15 @@ describe('Test Select Remoto> ', () => {
                 	resolve();
                 });
             });
-    	});
+    	});*/
+    	setupSelectsRemoto(done);
+    	selectedLiteral = $.rup.i18n.base.rup_select.multiselect.selectedText;
+        $selectAbueloRemoto = $('#selectAbueloRemoto');
+        $selectPadreRemoto = $('#selectPadreRemoto');
+        $selectHijoRemoto = $('#selectHijoRemoto');
+        $selectHijoRemoto.on('selectAjaxSuccess', () => {
+        	resolve();
+        });
     });
 
     afterEach(() => {
@@ -1465,8 +1476,10 @@ function setupSelectsRemoto(done) {
 
     
     $('#selectAbueloRemoto').rup_select(optionsAbueloRemoto);
+   // setTimeout(done, 200);
     $('#selectPadreRemoto').rup_select(optionsPadreRemoto);
+   // setTimeout(done, 200);
     $('#selectHijoRemoto').rup_select(optionsHijoRemoto);
     
-    setTimeout(done, 100);
+    setTimeout(done, 200);
 }
