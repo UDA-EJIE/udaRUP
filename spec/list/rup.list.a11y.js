@@ -20,7 +20,10 @@ export function describes() {
                     if(callback){
                         callback(done);
                     } else {
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
+                        
                         $('#rup-list').rup_list('filter');
                     }
                 });
@@ -32,7 +35,9 @@ export function describes() {
                     if(callback){
                         callback(done);
                     } else {
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('#rup-list').rup_list('filter');
                     }
                 });
@@ -44,7 +49,9 @@ export function describes() {
                     if(callback){
                         callback(done);
                     } else {
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('#rup-list').rup_list('filter');
                     }
                 });
@@ -56,7 +63,9 @@ export function describes() {
                     if(callback){
                         callback(done);
                     } else {
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('#rup-list').rup_list('filter');
                     }
                 });
@@ -68,7 +77,9 @@ export function describes() {
                     if(callback){
                         callback(done);
                     } else {
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('#rup-list').rup_list('filter');
                     }
                 });
@@ -114,7 +125,9 @@ export function describes() {
                 describe('> Se cambia a descendente', () => {
                     beforeEach((done)=>{
                         $('#rup-list').off('load');
-                        $('#rup-list').on('load', done);
+                       	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $(`#rup-list-${v}-sord`).click();
                     });
                     it('Botón de tipo de selección tiene el contexto correcto', () => {
@@ -158,7 +171,9 @@ export function describes() {
                     createListNum(7, (done)=>{
                         $('#rup-list').on('load', ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                           	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list').rup_list('page', 2);
                         });
                         $('#rup-list').rup_list('filter');
@@ -193,7 +208,9 @@ export function describes() {
                     createListNum(3, (done)=>{
                         $('#rup-list').on('load', ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                           	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list').rup_list('page', 4);
                         });
                         $('#rup-list').rup_list('filter');
@@ -228,7 +245,9 @@ export function describes() {
                     createList((done)=>{
                         $('#rup-list').on('load', ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                          	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list').rup_list('page', 7);
                         });
                         $('#rup-list').rup_list('filter');
@@ -265,7 +284,9 @@ export function describes() {
                             $('#rup-list').off('load');
                             $('#rup-list').on('load', ()=>{
                                 $('#rup-list').off('load');
-                                $('#rup-list').on('load', done);
+                              	$('#rup-list').on('load', () => {
+                            		done();
+                            	});
                                 $('#rup-list').rup_list('page', 1);
                             });
                             $('#rup-list').rup_list('page', 7);
@@ -328,7 +349,10 @@ export function describes() {
             });
             describe('> Se añade un campo nuevo a la ordenación', () => {
                 beforeEach((done)=>{
-                    $('#rup-list').on('rup_list-mord-dialogOpen', done);
+                    
+                   	$('#rup-list').on('rup_list-mord-dialogOpen', () => {
+                		done();
+                	});
                     $('#rup-list-header-mord-edit').click();
                 });
                 describe('> Único campo en ordenación', () => {
@@ -338,7 +362,9 @@ export function describes() {
                             $('#rup-list').off('load');
                             $('#rup-list').on('load', ()=>{
                                 $('#rup-list').off('load');
-                                $('#rup-list').on('load', done);
+                              	$('#rup-list').on('load', () => {
+                            		done();
+                            	});
                                 $('.rup_list-mord-field:first').click();
                             });
                             $('.rup_list-mord-remove:first').click();
@@ -381,7 +407,9 @@ export function describes() {
                 describe('> Múltiples campos en ordenación', () => {
                     beforeEach((done)=>{
                         $('#rup-list').off('load');
-                        $('#rup-list').on('load',  done);
+                     	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('.rup_list-mord-field:first').click();
                     });
                     it('Los contextos son correctos', () => {
@@ -471,7 +499,9 @@ export function describes() {
             });
             describe('> Se elimina un campo de la ordenación', () => {
                 beforeEach((done)=>{
-                    $('#rup-list').on('rup_list-mord-dialogOpen', done);
+                 	$('#rup-list').on('rup_list-mord-dialogOpen', () => {
+                		done();
+                	});
                     $('#rup-list-header-mord-edit').click();
                 });
                 describe('> No queden campos en ordenación', () => {
@@ -479,7 +509,9 @@ export function describes() {
                         $('#rup-list').off('load');
                         $('#rup-list').on('load', ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                         	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('.rup_list-mord-remove:first').click();
                         });
                         $('.rup_list-mord-remove:first').click();
@@ -496,7 +528,9 @@ export function describes() {
                 describe('> Quede un campo en ordenación', () => {
                     beforeEach((done)=>{
                         $('#rup-list').off('load');
-                        $('#rup-list').on('load', done);
+                     	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('.rup_list-mord-remove:first').click();
                     });
                     it('Los contextos son correctos', () => {
@@ -537,7 +571,9 @@ export function describes() {
                         $('#rup-list').off('load');
                         $('#rup-list').on('load', ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                        	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('.rup_list-mord-remove:first').click();
                         });
                         $('.rup_list-mord-field:first').click();
@@ -604,13 +640,18 @@ export function describes() {
             });
             describe('> Ordenación de campos', () => {
                 beforeEach((done)=>{
-                    $('#rup-list').on('rup_list-mord-dialogOpen', done);
+                    
+                 	$('#rup-list').on('rup_list-mord-dialogOpen', () => {
+                		done();
+                	});
                     $('#rup-list-header-mord-edit').click();
                 });
                 describe('> Entre dos campos', () => {
                     beforeEach((done)=>{
                         $('#rup-list').off('load');
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('.rup_list-mord-down:first').click();
                     });
                     it('Los contextos son correctos', () => {
@@ -677,7 +718,9 @@ export function describes() {
                         $('#rup-list').off('load');
                         $('#rup-list').on('load',  ()=>{
                             $('#rup-list').off('load');
-                            $('#rup-list').on('load', done);
+                        	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('.rup_list-mord-down:first').click();
                         });
                         $('.rup_list-mord-field:first').click();
@@ -771,7 +814,9 @@ export function describes() {
                 beforeEach((done)=>{
                     $('#rup-list').on('rup_list-mord-dialogOpen', ()=>{
                         $('#rup-list').off('load');
-                        $('#rup-list').on('load', done);
+                    	$('#rup-list').on('load', () => {
+                    		done();
+                    	});
                         $('.rup_list-mord:first').click();
                     });
                     $('#rup-list-header-mord-edit').click();

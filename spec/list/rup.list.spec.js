@@ -78,29 +78,27 @@ describe('Test rup_list', () => {
         describe('> Ordenación', () => {
             beforeEach((done) => {
                 listGen.createList('rup-list', 'listFilterForm', () => {
-                  /*  $('#rup-list').on('load', () => {
+                    $('#rup-list').on('load', () => {
                         $('#rup-list-header-sidx').rup_combo('setRupValue', 'EDAD');
+                        $('#rup-list').off('load');
                         $('#rup-list').on('load', () => {
                         	done();
                         });
                         
-                    });*/
+                    });
                     $('#rup-list').rup_list('filter');
-                    done();
+                    
                 });
             });
             it('> Aparecen ordenados por el campo especificado :', () => {
-                $('#rup-list').on('load', () => {
-	                $('#rup-list-header-sidx').rup_combo('setRupValue', 'EDAD');
-	                $('#rup-list').on('load', () => {
+
 	                    expect($('#rup-list > div:eq(0)').is('#rup-list-itemTemplate_12')).toBeTruthy();
 	                    expect($('#rup-list > div:eq(1)').is('#rup-list-itemTemplate_2')).toBeTruthy();
 	                    expect($('#rup-list > div:eq(2)').is('#rup-list-itemTemplate_1')).toBeTruthy();
 	                    expect($('#rup-list > div:eq(3)').is('#rup-list-itemTemplate_8')).toBeTruthy();
 	                    expect($('#rup-list > div:eq(4)').is('#rup-list-itemTemplate_21')).toBeTruthy();
-	                });
                 
-                });
+
 
             });
             describe('>  Se invierte la ordenación mediante el botón definido para ello', () => {
@@ -230,13 +228,15 @@ describe('Test rup_list', () => {
                 expect($('.page:last', $('#rup-list-header')).attr('data-page')).toBe('4');
             });
             describe('> Navegamos a la última página', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
+                	$('#rup-list').off('load');
+                	$('#rup-list').on('load', () => {
+                		done();
+                	});
                     $('.page[data-page="4"]', $('#rup-list-header')).click();
                 });
                 it('> Hay el número de elementos esperados:', () => {
-                	$('#rup-list').on('load', () => {
-                		expect($('#rup-list').children().length).toBe(2);
-                	});
+               		expect($('#rup-list').children().length).toBe(2);
                 });
             });
         });
@@ -372,26 +372,33 @@ describe('Test rup_list', () => {
                         });
                     });
                     describe('> Si vamos a la página siguiente', () => {
-                        beforeEach(() => {
+                        beforeEach((done) => {
+                        	$('#rup-list').off('load');
+                        	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list-header-page-next', $('#rup-list-header')).click();
                         });
                         it('> Los elementos no están seleccionados', () => {
-                        	$('#rup-list').on('load', () => {
+                        	
 	                            $('#rup-list').children().toArray().forEach((elem) => {
 	                                expect($(elem).hasClass('rup_list-item-selected')).toBeFalsy();
 	                            });
-                        	});
+                        	
                         });
                         describe('> Si volvemos a la pagina anterior', () => {
-                            beforeEach(() => {
-          
+                            beforeEach((done) => {
+                            	$('#rup-list').off('load');
+                            	$('#rup-list').on('load', () => {
+                            		done();
+                            	});
                                 $('#rup-list-header-page-prev', $('#rup-list-header')).click();
                             });
                             it('> Los elementos de la pagina siguen estando seleccionados', () => {
-                            	$('#rup-list').on('load', () => {
+                            	
 	                                $('#rup-list').children().toArray().forEach((elem) => {
-	                                    expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
-	                                });
+	                                expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
+	                               
                             	});
                             });
                         });
@@ -439,29 +446,31 @@ describe('Test rup_list', () => {
                             });
                         });
                         describe('> Y filtramos', () => {
-                            beforeEach(() => {
-                               
+                            beforeEach((done) => {
+                            	$('#rup-list').off('load');
+                            	$('#rup-list').on('load', () => {
+                            		done();
+                            	});
                                 $('#rup-list').rup_list('filter');
                             });
                             it('> Los elementos deben estar deseleccionados:', () => {
-                            	$('#rup-list').on('load', () => {
-	                                $('#rup-list').children().toArray().forEach((e) => {
-	                                    expect($(e).hasClass('rup_list-item-selected')).toBeFalsy();
-	                                });
+                                $('#rup-list').children().toArray().forEach((e) => {
+	                             expect($(e).hasClass('rup_list-item-selected')).toBeFalsy();
                             	});
                             });
                         });
                     });
                     describe('> Si vamos a la página siguiente', () => {
-                        beforeEach(() => {
-
+                        beforeEach((done) => {
+                        	$('#rup-list').off('load');
+                        	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list-header-page-next', $('#rup-list-header')).click();
                         });
                         it('> Los elementos no están seleccionados', () => {
-                        	$('#rup-list').on('load', () => {
-	                            $('#rup-list').children().toArray().forEach((elem) => {
-	                                expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
-	                            });
+                            $('#rup-list').children().toArray().forEach((elem) => {
+                            	expect($(elem).hasClass('rup_list-item-selected')).toBeTruthy();
                         	});
                         });
                     });
@@ -484,16 +493,17 @@ describe('Test rup_list', () => {
                         });
                     });
                     describe('> Si vamos a la página siguiente', () => {
-                        beforeEach(() => {
-                         
+                        beforeEach((done) => {
+                        	$('#rup-list').off('load');
+                        	$('#rup-list').on('load', () => {
+                        		done();
+                        	});
                             $('#rup-list-header-page-next', $('#rup-list-header')).click();
                         });
                         it('> Los elementos no están seleccionados', () => {
-                        	$('#rup-list').on('load', () => {
 	                            $('#rup-list').children().toArray().forEach((elem) => {
 	                                expect($(elem).hasClass('rup_list-item-selected')).toBeFalsy();
 	                            });
-                        	});
                         });
                     });
                 });
@@ -780,6 +790,7 @@ describe('Test rup_list', () => {
                     delay: 1000
                 };
                 beforeEach((done) => {
+                	$('#rup-list').off('load');
                    	$('#rup-list').on('load', () => {
                 		done();
                 	});
@@ -809,6 +820,7 @@ describe('Test rup_list', () => {
                     delay: 1000
                 };
                 beforeEach((done) => {
+                	$('#rup-list').off('load');
                    	$('#rup-list').on('load', () => {
                 		done();
                 	});
@@ -1013,6 +1025,7 @@ describe('Test rup_list', () => {
             });
             describe('> Seleccionar con Shift', () => {
                 beforeEach((done) => {
+                	$('#rup-list').off('load');
                    	$('#rup-list').on('load', () => {
                 		done();
                 	});
@@ -1035,6 +1048,7 @@ describe('Test rup_list', () => {
                 });
                 describe('> Click sin Shift', () => {
                     beforeEach((done) => {
+                    	$('#rup-list').off('load');
                        	$('#rup-list').on('load', () => {
                     		done();
                     	});
@@ -1054,6 +1068,7 @@ describe('Test rup_list', () => {
             });
             describe('> Seleccionar con Control + Shift', () => {
                 beforeEach((done) => {
+                	$('#rup-list').off('load');
                    	$('#rup-list').on('load', () => {
                 		done();
                 	});
@@ -1199,6 +1214,7 @@ describe('Test rup_list', () => {
                 });
                 describe('> Guardar', () => {
                     beforeEach((done) => {
+                    	$('#rup-list').off('load');
                        	$('#rup-list').on('load', () => {
                     		done();
                     	});
@@ -1230,6 +1246,7 @@ describe('Test rup_list', () => {
             });
             describe('> Pasamos a la pagina siguiente para que aparezca el loader', () => {
                 beforeEach((done) => {
+                	$('#rup-list').off('load');
                    	$('#rup-list').on('load', () => {
                 		done();
                 	});
