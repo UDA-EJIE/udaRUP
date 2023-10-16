@@ -43,8 +43,9 @@ describe('RUP Feedback Tests', () => {
         describe('> Asignación de un mensaje al feedback', () => {
 
             beforeEach((done) => {
-                $feedback.on('rupFeedback_afterSet', done);
+                $feedback.on('rupFeedback_afterSet');
                 $feedback.rup_feedback('set', 'Feedback de ejemplo');
+                done();
             });
 
             it('debería de tener controles para cerrar el feedback', () => {
