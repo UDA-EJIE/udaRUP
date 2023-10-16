@@ -602,6 +602,7 @@
 
                 //Se audita el componente
                 $.rup.auditComponent('rup_validate', 'init');
+                self.trigger('load');
             }
         });
 

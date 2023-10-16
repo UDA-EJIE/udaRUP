@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const createBackendServer = require('../backend.js');
-createBackendServer(8081);
+createBackendServer(8082);
 
 module.exports = {
     mode: 'development',
@@ -40,7 +40,7 @@ module.exports = {
             }
         }, {
             context: ['/demo', '/demo/api'],
-            target: 'http://localhost:8081/',
+            target: 'http://localhost:8082/',
             pathRewrite: {
                 '/demo/api': '/demo'
             }

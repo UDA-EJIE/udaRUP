@@ -823,24 +823,14 @@ describe('Test Select Remoto> ', () => {
     });
 
     beforeEach((done) => {
-    /*	return new Promise(function(resolve) {
-    		setupSelectsRemoto(()=>{
-                selectedLiteral = $.rup.i18n.base.rup_select.multiselect.selectedText;
-                $selectAbueloRemoto = $('#selectAbueloRemoto');
-                $selectPadreRemoto = $('#selectPadreRemoto');
-                $selectHijoRemoto = $('#selectHijoRemoto');
-                $selectHijoRemoto.on('selectAjaxSuccess', () => {
-                	resolve();
-                });
-            });
-    	});*/
+
     	setupSelectsRemoto(done);
     	selectedLiteral = $.rup.i18n.base.rup_select.multiselect.selectedText;
         $selectAbueloRemoto = $('#selectAbueloRemoto');
         $selectPadreRemoto = $('#selectPadreRemoto');
         $selectHijoRemoto = $('#selectHijoRemoto');
         $selectHijoRemoto.on('selectAjaxSuccess', () => {
-        	resolve();
+        	
         });
     });
 
@@ -893,29 +883,29 @@ describe('Test Select Remoto> ', () => {
                 });
             });
             describe('select padre > ', () => {
-                beforeEach(() => {
-                	return new Promise(function(resolve) {
+                beforeEach((done) => {
+                	
                 		$selectHijoRemoto.on('selectAjaxSuccess', () => {
-                			resolve();
+                			done();
                    		});
             			$selectPadreRemoto.rup_select('setRupValue', '5');
-                	});
+                	
                 });
                 it('Debe actualizarse la ui: ', () => {
-                	return Promise.resolve().then(function () {
+                	
                         expect($('#select2-selectPadreRemoto-container').text()).toBe('Durangaldea');
-                	});
+                	
                 });
                 it('Debe reflejarse en getRupValue: ', () => {
-                	return Promise.resolve().then(function () {
+                	
                         expect($selectPadreRemoto.rup_select('getRupValue')).toBe('5');
-                	});
+                	
                 });
                 it('El cambio debe reflejarse en el select hijo:', () => {
-                	return Promise.resolve().then(function () {
+                		
                     	$selectHijoRemoto.rup_select('open');
                         expect($('#select2-selectHijoRemoto-results li').text()).toBe('[Seleccionar]DurangoAmorebieta-EtxanoErmua');
-                	});
+                	
                 });
             });
             describe('select hijo > ', () => {
@@ -1037,18 +1027,18 @@ describe('Test Select Remoto> ', () => {
             });
             describe('select padre > ', () => {
                 describe('Selección por valor > ', () => {
-                    beforeEach(() => {
-                    	return new Promise(function(resolve) {
+                    beforeEach((done) => {
+                    	
                      		$selectHijoRemoto.on('selectAjaxSuccess', () => {
-                     			resolve();
+                     			done();
                        		});
                             $selectPadreRemoto.rup_select('selectByLabel', 'Durangaldea');
-                    	});
+                    	
                     });
                     it('Debe modificar la ui ', () => {
-                    	return Promise.resolve().then(function () {
+                    	
                             expect($('#select2-selectPadreRemoto-container').text()).toBe('Durangaldea');
-                    	});
+                    	
                     });
                     it('Debe reflejarse en el método getRupValue', () => {
                     	return Promise.resolve().then(function () {
@@ -1056,20 +1046,20 @@ describe('Test Select Remoto> ', () => {
                     	});
                     });
                     it('Debe reflejarse en el select Hijo:', () => {
-                    	return Promise.resolve().then(function () {
+                    	
                         	$selectHijoRemoto.rup_select('open');
                         	expect($('#select2-selectHijoRemoto-results li').text()).toBe('[Seleccionar]DurangoAmorebieta-EtxanoErmua');
-                    	});
+                    	
                     });
                 });
                 describe('Selección por índice > ', () => {
-                    beforeEach(() => {
-                    	return new Promise(function(resolve) {
+                    beforeEach((done) => {
+                    	
                      		$selectHijoRemoto.on('selectAjaxSuccess', () => {
-                     			resolve();
+                     			done();
                        		});
                             $selectPadreRemoto.rup_select('select', 2);
-                    	});
+                    	
                     });
                     it('Debe modificar la ui ', () => {
                     	return Promise.resolve().then(function () {
@@ -1082,10 +1072,10 @@ describe('Test Select Remoto> ', () => {
                     	});
                     });
                     it('Debe reflejarse en el select Hijo:', () => {
-                    	return Promise.resolve().then(function () {
+                    	
                         	$selectHijoRemoto.rup_select('open');
                         	expect($('#select2-selectHijoRemoto-results li').text()).toBe('[Seleccionar]DurangoAmorebieta-EtxanoErmua');
-                    	});
+                    	
                     });
                 });
             });
@@ -1476,9 +1466,9 @@ function setupSelectsRemoto(done) {
 
     
     $('#selectAbueloRemoto').rup_select(optionsAbueloRemoto);
-   // setTimeout(done, 200);
+   
     $('#selectPadreRemoto').rup_select(optionsPadreRemoto);
-   // setTimeout(done, 200);
+   
     $('#selectHijoRemoto').rup_select(optionsHijoRemoto);
     
     setTimeout(done, 200);

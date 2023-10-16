@@ -17,7 +17,7 @@ describe('Test Validate >  ', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
+    beforeEach((done) => {
         var html = '<form id="exampleValidate">\
                             <label for="campoUno">Campo 1</label><input type="text" name="campoUno" id="campoUno"></input > \
                             <label for="campoDos">Campo 2</label><input type="text" name="campoDos" id="campoDos"></input>\
@@ -50,21 +50,25 @@ describe('Test Validate >  ', () => {
                 }
             }
         };
+        
+        global.initRupI18nPromise.then(() => {
         $validate = $('#exampleValidate').rup_validate(optsValidate);
 
-        $validateEvent = $('#exampleValidateEvent').rup_validate({
-            rules: {
-                'campoUnoEvent': {
-                    required: true
-                }
-            },
-            onSubmitHandler: () => {
-                event_success = true;
-                $('#exampleValidateEvent').triggerHandler('submitSuccessfull');
-            },
-            invalidHandler: () => {
-                event_fail = true;
-            }
+	        $validateEvent = $('#exampleValidateEvent').rup_validate({
+	            rules: {
+	                'campoUnoEvent': {
+	                    required: true
+	                }
+	            },
+	            onSubmitHandler: () => {
+	                event_success = true;
+	                $('#exampleValidateEvent').triggerHandler('submitSuccessfull');
+	            },
+	            invalidHandler: () => {
+	                event_fail = true;
+	            }
+	        });
+	        done();
         });
     });
     afterEach(() => {
