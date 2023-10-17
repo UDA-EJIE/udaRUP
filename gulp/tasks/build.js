@@ -87,7 +87,7 @@ gulp.task('build:resources', function (callback) {
         .pipe(gulp.dest('./dist/css/externals/jasmine'))
         .pipe(gulp.dest('./dist/portal/externals/jasmine'));
 
-    gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/*jasmine*.js', './node_modules/jasmine-core/lib/jasmine-core/boot.js'])
+    gulp.src(['./node_modules/jasmine-core/lib/jasmine-core/*jasmine*.js', './node_modules/jasmine-core/lib/jasmine-core/boot0.js', './node_modules/jasmine-core/lib/jasmine-core/boot1.js'])
         .pipe(gulp.dest('./dist/js/externals/jasmine'));
 
     gulp.src(['./node_modules/jasmine-jquery/lib/*jasmine*.js'])
