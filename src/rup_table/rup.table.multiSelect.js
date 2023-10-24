@@ -382,7 +382,7 @@ handler that will select the items using the API methods.
         var container = $(ctx.nTBody);
 
         container
-            .on('click.dtSelect', function (event) {
+            .on('click contextmenu', function (event) {
                 if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
                 }
