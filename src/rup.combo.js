@@ -1333,7 +1333,9 @@
                 item;
             for (let i = 0; i < array.length; i = i + 1) {
                 item = array[i];
-                item.label = item[settings.sourceParam.label];
+                if (array[i].label == undefined || array[i].label == null) {
+					item.label = item[settings.sourceParam.label];
+				}
                 if (item.style) {
                     remoteImgs[remoteImgs.length] = {};
                     if (optGroupKey == null) {
