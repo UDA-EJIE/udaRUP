@@ -1982,6 +1982,8 @@
         primaryKey: ['id'],
         blockPKeditForm: true,
         enableDynamicForms: true,
+        contextMenuActivo: true,
+        selectFilaDer: false,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {

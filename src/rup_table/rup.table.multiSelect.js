@@ -377,11 +377,12 @@ handler that will select the items using the API methods.
      * @param {DataTable.Api} dt DataTable
      * 
      */
-    function enableMouseSelection(dt) {
+    function enableMouseSelection(dt, ctx) {
         var ctx = dt.settings()[0];
         var container = $(ctx.nTBody);
 
-        container
+			if(ctx.oInit.selectFilaDer){
+				container
             .on('click contextmenu', function (event) {
                 if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
@@ -415,6 +416,46 @@ handler that will select the items using the API methods.
 
                 row.triggerHandler('tableSelectAfterSelectRow',ctx);
             });
+				
+			} else {
+				
+				container
+            .on('click', function (event) {
+                if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
+                    return false;
+                }
+
+                var ctx = dt.settings()[0];
+                var row = $(event.target);
+
+                row.triggerHandler('tableSelectBeforeSelectRow',ctx);
+
+                if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
+                    rangeSelection(dt, event);
+                } else if (ctx.multiselection.lastSelectedIsRange) {
+                    if (event.target.type !== 'checkbox') {
+                        deselectAllPage(dt);
+                        dt.row($(event.target).closest('tr').index()).multiSelect();
+                    } else {
+                        $(event.target).parent('').find('input').prop('checked', function () {
+                            return !this.checked;
+                        });
+                    }
+                } else {
+                    if (event.target.type !== 'checkbox') {
+                        rowSelection(dt, event);
+                    } else if(!$(event.target).hasClass('editable')){
+                        $(event.target).parent('').find('input').prop('checked', function () {
+                            return !this.checked;
+                        });
+                    }
+                }
+
+                row.triggerHandler('tableSelectAfterSelectRow',ctx);
+            });
+			}
+		
+        
     }
 
     /**
@@ -1615,7 +1656,7 @@ handler that will select the items using the API methods.
 
             if (style !== 'api') {
                 if (ctx.oInit.multiSelect.enableMouseSelection) {
-                    enableMouseSelection(dt);
+                    enableMouseSelection(dt, ctx);
                 }
 
                 if (ctx.oInit.multiSelect.enableKeyboardSelection) {

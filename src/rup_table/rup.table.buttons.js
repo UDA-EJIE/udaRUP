@@ -3319,7 +3319,7 @@
 
     var _initContextMenu = function (ctx, api) {
         // Creacion del Context Menu
-        if (ctx.oInit.buttons !== undefined) {
+        if (ctx.oInit.buttons !== undefined && ctx.oInit.contextMenuActivo == true) {
         	let botonesToolbar = ctx._buttons[0].inst.s.buttons;
             _updateContextMenu(botonesToolbar, api, ctx);
         }

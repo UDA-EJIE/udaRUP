@@ -68,9 +68,26 @@
         ctx.select = [];
         var rowsBody = $(ctx.nTBody);
         // Se selecciona una fila
-        rowsBody.on('click.DT keydown', 'tr:not(.group)', function (e) {
+        
+		if(ctx.oInit.selectFilaDer){
+        rowsBody.on('click.DT contextmenu keydown', 'tr:not(.group)', function (e) {
             // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
-            if (e.which == 1 || e.which == 32) {
+            if (e.which == 1 || e.which == 32 || e.which == 3) {
+                if (e.target.className.indexOf('openResponsive') > -1 ||
+                    $(this).hasClass('editable')) {// no hacer nada
+                   //no se devuelve nada para los checkbox funcionen.
+                }else{//selecionar
+	                $(this).triggerHandler('tableSelectBeforeSelectRow',ctx);
+	                var idRow = this._DT_RowIndex;
+	                _selectRowIndex(dt, idRow, $(this));
+	                $(this).triggerHandler('tableSelectAfterSelectRow',ctx);
+                }
+            }
+        }); } else {
+	
+	rowsBody.on('click.DT keydown', 'tr:not(.group)', function (e) {
+            // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
+            if (e.which == 1 || e.which == 32 || e.which == 3) {
                 if (e.target.className.indexOf('openResponsive') > -1 ||
                     $(this).hasClass('editable')) {// no hacer nada
                    //no se devuelve nada para los checkbox funcionen.
@@ -82,6 +99,9 @@
                 }
             }
         });
+	
+	
+}
 
         if (ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined) {
             $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
