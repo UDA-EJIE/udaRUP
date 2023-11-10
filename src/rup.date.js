@@ -151,7 +151,7 @@
                    
                 }
 
-                $(this).multiDatesPicker('toggleDate', [tmpDate]);
+                $(this).multiDatesPicker('toggleDate', tmpDate);
 
                 $(this).val(fechaArray[0] + ' ' + formattedTime);
 

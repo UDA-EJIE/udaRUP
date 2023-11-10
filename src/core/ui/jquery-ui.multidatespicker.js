@@ -294,28 +294,24 @@
 				}
 			},
 			addDates : function( dates, type ) {
-				if(dates.length > 0) {
-					if(!type) type = 'picked';
-					switch(typeof dates) {
-						case 'object':
-						case 'array':
-							if(dates.length) {
-								for(var i = 0; i < dates.length; i++)
-									addDate.call(this, dates[i], type, true);
-								sortDates.call(this, type);
-								break;
-							} // else does the same as 'string'
-						case 'string':
-						case 'number':
-							addDate.call(this, dates, type);
+				if(!type) type = 'picked';
+				switch(typeof dates) {
+					case 'object':
+					case 'array':
+						if(dates.length) {
+							for(var i = 0; i < dates.length; i++)
+								addDate.call(this, dates[i], type, true);
+							sortDates.call(this, type);
 							break;
-						default: 
-							$.error('Date format "'+ typeof dates +'" not allowed on jQuery.multiDatesPicker');
-					}
-					//$(this).datepicker('refresh');
-				} else {
-					$.error('Empty array of dates received.');
+						} // else does the same as 'string'
+					case 'string':
+					case 'number':
+						addDate.call(this, dates, type);
+						break;
+					default: 
+						$.error('Date format "'+ typeof dates +'" not allowed on jQuery.multiDatesPicker');
 				}
+				//$(this).datepicker('refresh');
 			},
 			removeDates : function( dates, type ) {
 				if(!type) type = 'picked';
