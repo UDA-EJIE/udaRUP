@@ -11,6 +11,7 @@ $("#idComponente").rup_table({
 	buttons: {
 		activate: true,
 		blackListButtons: ['deleteButton', 'reportsButton'],
+		contextMenu: true
 		myButtons: [{
 			text: function () {
 				return $.rup.i18n.app.iberdokTable.ver;
@@ -57,6 +58,10 @@ Propiedades del propio botón:
 * __blackListButtons:__ lista dónde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: `'addButton'`, `'editButton'`, `'cloneButton'`, `'deleteButton'`, `'reportsButton'`, `'copyButton'`, `'excelButton'`, `'pdfButton'`, `'odsButton'`, `'csvButton'`. Por ejemplo:
 	``` js
 	plugins.buttons.blackListButtons = ['csvButton'];
+	```	
+* __contexMenu__ Propiedad que permite activar o desactivar el contextMenu de la tabla, en caso de no estar definida estará activa por defecto:
+	``` js
+	plugins.buttons.contextMenu = true;
 	```
 * __report:__ alberga el título y mensaje del popup de descarga, el listado de columnas que se desee exportar y parámetros adicionales que llegarán al controller:
 	``` js
