@@ -638,7 +638,16 @@
                     settings.iniLoad = false;
                 }
 
-                label = $.rup.i18nParse(json_i18n, element.i18nCaption);
+                
+                if (element.label !== undefined){
+                	
+                	label = element.label
+                	
+                } else {
+                	    label = $.rup.i18nParse(json_i18n, element.i18nCaption);
+                	
+                }
+        
 
                 if (settings.lengthLiteral !== undefined) {
                     title = label;
