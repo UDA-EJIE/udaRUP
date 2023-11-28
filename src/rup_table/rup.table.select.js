@@ -239,14 +239,13 @@
     });
 
     apiRegister('select.selectRowIndex()', function (dt, index, isDoubleClick) {
-        var ctx = dt.settings()[0];
-        var rowsBody = $(ctx.nTBody);
+        const ctx = dt.settings()[0];
+        const rowsBody = $(ctx.nTBody);
         var countTr = index;
         if (isDoubleClick !== undefined) {
             countTr = countTr + 1;
         }
-        var tr = $('tr:nth-child(' + countTr + ')', rowsBody);
-        _selectRowIndex(dt, index, tr);
+        _selectRowIndex(dt, index, $('tr:not(.group)', rowsBody).eq(index));
     });
     
     apiRegister('select.defaultId()', function (ctx) {
