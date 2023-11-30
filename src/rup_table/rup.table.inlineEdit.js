@@ -1236,7 +1236,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
 		jQuery.grep(ctx.oInit.colModel, function( n,i) {
 			  if ( n.editable !== true ){
-				  var text = ctx.json.rows[$fila.index()][n.name];
+				  const text = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][n.name];
 				  serializedForm[n.name] = text;
 				  return n;
 			  }
@@ -1264,7 +1264,7 @@ function _guardar(ctx,$fila,child){
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
     $.each(ctx.oInit.primaryKey, function (index, key) {
-    	row[key] = ctx.json.rows[$fila.index()][key];
+    	row[key] = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][key];
     });
 	
 	if(!row) {
@@ -1362,9 +1362,10 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 					_callFeedbackOk(ctx, msgFeedBack, 'ok');
 					
 					if(actionType === 'PUT'){
+						const rowIndex = $('tr:not(.group)', $(ctx.nTBody)).index($fila);
 						// Modificar
-						dt.row($fila.index()).data(data);
-						ctx.json.rows[$fila.index()] = data;
+						dt.row(rowIndex).data(data);
+						ctx.json.rows[rowIndex] = data;
 						
 						// Actualizamos el último id seleccionado (por si ha sido editado)
 						let posicion = 0;
