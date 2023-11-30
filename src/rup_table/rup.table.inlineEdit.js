@@ -1377,7 +1377,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 						});
 						
 						if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) && ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
-							_comprobarSeeker(data, ctx, $fila.index());
+							_comprobarSeeker(data, ctx, rowIndex);
 						}
 						
 						ctx.multiselection.lastSelectedId = idPk;
