@@ -935,7 +935,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(searchRupType !== undefined && cellColModel.editoptions) {
 					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
-						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					} else if (searchRupType === 'autocomplete') {
 						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
@@ -943,6 +943,16 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 						if(cellValue != null){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
+					} else if(searchRupType === 'select'){
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
+						searchEditOptions.inlineEditFieldName = cellColModel.name;
+					}
+					
+					if (searchRupType === 'select' || searchRupType === 'combo' || searchRupType === 'autocomplete') {
+						// Permite inicializar el componente con el source correcto.
+						searchEditOptions.inlineEdit = {};
+						searchEditOptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
+						searchEditOptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.
