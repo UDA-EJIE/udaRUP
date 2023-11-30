@@ -948,7 +948,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(searchRupType !== undefined && cellColModel.editoptions) {
 					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
-						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					} else if (searchRupType === 'autocomplete') {
 						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
@@ -957,7 +957,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
 					} else if(searchRupType === 'select'){
-						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					}
 					
