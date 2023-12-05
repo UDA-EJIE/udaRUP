@@ -1260,6 +1260,26 @@
                     fieldValue = '';
                 }
             };
+            
+			// Objeto auxiliar para contar repeticiones
+			const repeticiones = {};
+
+			// Crear un nuevo array de objetos manteniendo "value" original para valores únicos y actualizando "value" para valores repetidos
+			const nuevoArrayDeObjetos = aux.reduce((result, objeto) => {
+				const { name, value } = objeto;
+				if (!repeticiones[name]) {
+					repeticiones[name] = { value, count: 0 };
+				}
+				repeticiones[name].count++;
+				if (repeticiones[name].count === 1) {
+					result.push({ name, value });
+				} else {
+					result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+				}
+				return result;
+			}, []);
+	
+			aux = nuevoArrayDeObjetos;
 
             for (var i = 0; i < aux.length; i++) {
                 if (aux[i].value !== '' && $.inArray(aux[i].name, settings.filter.excludeSummary) !== 0) {
@@ -1375,7 +1395,12 @@
 	                        break;
 	                    case 'SELECT':
 	                        if (field.next('.ui-multiselect').length === 0) {
-	                            fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
+	                            if ($('option[value=\'' + aux[i].value + '\']', field).html() == undefined ){
+									fieldValue = fieldValue  + aux[i].value;  
+								} else {
+								 fieldValue = fieldValue + $('option[value=\'' + aux[i].value + '\']', field).html();
+
+								}
 	                        } else {
 	                            if ($.inArray($(field).attr('id'), filterMulticombo) === -1) {
 	                                numSelected = field.rup_combo('value').length;

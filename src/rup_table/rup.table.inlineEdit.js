@@ -957,7 +957,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
 					} else if(searchRupType === 'select'){
-						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					}
 					
