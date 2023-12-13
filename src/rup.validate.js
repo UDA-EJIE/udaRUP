@@ -611,7 +611,7 @@
 
         $.fn.rup_validate.defaults = {
             adapter: 'validate_material',
-            ignore: ':hidden[ruptype!=\'autocomplete\'][ruptype!=\'combo\']',
+            ignore: ':hidden[ruptype!=\'autocomplete\'][ruptype!=\'combo\'] , .select2-selection__rendered input',
             feedbackOptions: {
                 gotoTop: false,
                 fadeSpeed: null,
