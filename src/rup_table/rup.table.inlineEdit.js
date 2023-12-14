@@ -948,7 +948,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(searchRupType !== undefined && cellColModel.editoptions) {
 					var searchEditOptions = cellColModel.editoptions;
 					if(searchRupType === 'combo'){//se marca el selected
-						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					} else if (searchRupType === 'autocomplete') {
 						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
@@ -957,7 +957,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
 						}
 					} else if(searchRupType === 'select'){
-						searchEditOptions.selected = ctx.inlineEdit.lastRow.cellValues[cont]
+						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					}
 					
@@ -1260,7 +1260,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
 		jQuery.grep(ctx.oInit.colModel, function( n,i) {
 			  if ( n.editable !== true ){
-				  var text = ctx.json.rows[$fila.index()][n.name];
+				  const text = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][n.name];
 				  serializedForm[n.name] = text;
 				  return n;
 			  }
@@ -1288,7 +1288,7 @@ function _guardar(ctx,$fila,child){
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
     $.each(ctx.oInit.primaryKey, function (index, key) {
-    	row[key] = ctx.json.rows[$fila.index()][key];
+    	row[key] = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][key];
     });
 	
 	if(!row) {
@@ -1386,9 +1386,10 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 					_callFeedbackOk(ctx, msgFeedBack, 'ok');
 					
 					if(actionType === 'PUT'){
+						const rowIndex = $('tr:not(.group)', $(ctx.nTBody)).index($fila);
 						// Modificar
-						dt.row($fila.index()).data(data);
-						ctx.json.rows[$fila.index()] = data;
+						dt.row(rowIndex).data(data);
+						ctx.json.rows[rowIndex] = data;
 						
 						// Actualizamos el último id seleccionado (por si ha sido editado)
 						let posicion = 0;
@@ -1400,7 +1401,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 						});
 						
 						if (ctx.seeker !== undefined && !jQuery.isEmptyObject(ctx.seeker.ajaxOption.data.search) && ctx.seeker.search.funcionParams !== undefined && ctx.seeker.search.funcionParams.length > 0) {
-							_comprobarSeeker(data, ctx, $fila.index());
+							_comprobarSeeker(data, ctx, rowIndex);
 						}
 						
 						ctx.multiselection.lastSelectedId = idPk;
