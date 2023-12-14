@@ -2112,7 +2112,8 @@
 	                     */
 	                    $('#'+ctx.sTableId+'_detail_div.rup-table-formEdit-detail').removeClass('d-none');
 	                }
-	            }, {}));
+	            }, ctx.oInit.formEdit.detailForm.customDialog));
+		        //Propiedad para poder customizar desde el usuario
 	            if (ctx.oInit.formEdit.cancelDeleteFunction === undefined) {
 	                ctx.oInit.formEdit.cancelDeleteFunction = function cancelClicked() {};
 	            }
