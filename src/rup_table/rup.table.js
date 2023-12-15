@@ -1800,7 +1800,11 @@
                                 index = index + line + 1;
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }
-                            DataTable.Api().select.drawSelectId(tabla.context[0]);
+                            
+                            if (ctx.multiselection.selectedRowsPerPage.length === 1) {
+                                DataTable.Api().select.selectRowIndex(tabla, ctx.multiselection.selectedRowsPerPage[0].line, false);
+                            }
+                            
                             if (tabla.context[0].oInit.inlineEdit !== undefined) {
                                 DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
                             }
