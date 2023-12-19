@@ -426,7 +426,7 @@ $btn-material-box-shadow-active:
 	}
 	
 	/* ESTILOS PARA CUANDO LOS BOTONES SON DESACTIVADOS */
-	&:disabled {
+	&:disabled, &.disabled {
 		color: rgba(0, 0, 0, 0.37);
 		background-color: rgba(0, 0, 0, 0.12);
 		border-color: $no-color;

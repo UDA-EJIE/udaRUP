@@ -136,8 +136,7 @@
 
             if (rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit)) {
                 var rowsBody = $(ctx.nTBody);
-                var line = row.line + 1;
-                $('tr:nth-child(' + line + ')', rowsBody).addClass('selected tr-highlight');
+                $('tr:not(.group)', rowsBody).eq(row.line).addClass('selected tr-highlight');
             }
         }
     }

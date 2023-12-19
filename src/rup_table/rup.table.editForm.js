@@ -1560,8 +1560,7 @@
                 DataTable.editForm.fnOpenSaveDialog('PUT', dt, ctx.multiselection.selectedRowsPerPage[0].line, ctx.oInit.formEdit.customTitle);
                 var rowSelectAux = ctx.json.rows[ctx.multiselection.selectedRowsPerPage[0].line];
                 ctx.multiselection.selectedRowsPerPage[0].id = DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit);
-                DataTable.Api().select.deselect(ctx);
-                DataTable.Api().select.drawSelectId(ctx);
+                DataTable.Api().select.selectRowIndex(dt, ctx.multiselection.selectedRowsPerPage[0].line, false);
             }
             //Se actualiza la ultima posicion movida.
             //ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
