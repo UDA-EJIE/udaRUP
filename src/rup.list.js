@@ -2445,6 +2445,7 @@ import Printd from 'printd';
                             if(opciones.createFooter){
                                 opciones._footer.obj.hide();
                             }
+							opciones.records = 0;
                             opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.errors.errorOnGet, 'error');
                             opciones._content.slideDown();
 
@@ -2540,6 +2541,7 @@ import Printd from 'printd';
                                 if(opciones.createFooter){
                                     opciones._footer.obj.hide();
                                 }
+								opciones.records = 0;
                                 opciones.feedback.rup_feedback('set', $.rup.i18n.base.rup_table.defaults.emptyrecords, 'alert');
                                 opciones._content.slideDown();
                                 self.element.trigger('load');
