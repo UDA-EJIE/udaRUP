@@ -3,17 +3,11 @@
     
 	<property name="udaVersion" value="5.4.0"/>
     <property name="previousUdaVersion" value="5.3.0"/>
-    <property name="udaLibVersion" value="5.4.0"/>
-    <property name="previousUdaLibVersion" value="5.3.0"/>
-    <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
-    <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
+    <property name="udaLibVersion" value="5.4.0-RELEASE"/>
+    <property name="previousUdaLibVersion" value="5.3.0-RELEASE"/>
     
     <property name="baseDir" value="../"/>
     <property name="destDir" value="${baseDir}/dist"/>
-    
-    <property name="udaLibBaseDir" value="${baseDir}/udaLib/x38ShLibClasses"/>
-    <property name="udaLibBuildDir" value="${udaLibBaseDir}/target/classes"/>
-    <property name="udaLibDestDir" value="${destDir}/udaLib/${udaLibVersion}"/>
     
     <property name="udaRupBaseDir" value="${baseDir}/udaRUP"/>
     <property name="udaRupBuildDir" value="${udaRupBaseDir}/dist"/>
@@ -40,145 +34,13 @@
     
     <!-- Realiza el build y generación de distribuibles de :
         - Build y generación de distribuibles de udaRup
-        - Build y generación de distribuibles de udaLib
         - Actualización de udaDemoApp con los fuentes de udaRup y los números de versión
         - Actualización de udaTemplates con los fuentes de udaRup y los números de versión
     -->
     <target name="buildVersion" 
             description="Genera los distribuibles para la versión de UDA" 
-            depends="buildUdaLibVersion, buildUdaRupVersion, buildUdaDemoAppVersion, buildUdaTemplatesVersion" >
-        
+            depends="buildUdaRupVersion, buildUdaDemoAppVersion, buildUdaTemplatesVersion" >
     </target>
-    
-    
-    <!-- ***************************** -->
-    <!-- ******** udaLib ************* -->
-    <!-- ***************************** -->
-     
-    <!-- Realiza el build de la versión de udaLib
-        - Actualiza los números de versión en los recursos correspondientes.
-        - Genera los jar correspondientes
-    -->
-    <target name="buildUdaLibVersion" 
-            description="Actualiza los recursos a la versión correspondiente de udaLib y genera los distribuibles" 
-            depends="udaLibRenameVersion, udaLibDist" >
-        
-    </target>
-    
-    <!-- Actualiza el numero de versión en los siguientes recursos: 
-            - /pom.xml
-            - /build.xml
-            - /src/META-INF/MANIFEST.MF
-    -->
-    <target name="udaLibRenameVersion" description="Modifica los numeros de versión de los entregables">
-        <echo>Updating resources version...</echo>
-        
-       <replace file="${udaLibBaseDir}/pom.xml">
-           <replacefilter 
-            token="&lt;version&gt;${udaLibPreviousVersionName}&lt;/version&gt;" 
-            value="&lt;version&gt;${udaLibVersionName}&lt;/version&gt;"/>
-        </replace>
-        
-        <replace file="${udaLibBaseDir}/build.xml">
-           <replacefilter 
-            token="&lt;property name=&quot;version&quot; value=&quot;${udaLibPreviousVersionName}&quot;/&gt;" 
-            value="&lt;property name=&quot;version&quot; value=&quot;${udaLibVersionName}&quot;/&gt;"
-            />
-        </replace>
-        
-         <replace file="${udaLibBaseDir}/src/META-INF/MANIFEST.MF">
-           <replacefilter 
-            token="Manifest-Version: ${previousUdaLibVersion}-RELEASE" 
-            value="Manifest-Version: ${udaLibVersion}-RELEASE"
-            />
-        </replace>
-        
-        
-    </target>
-    
-    
-    <!-- Genera los diferentes jar de la librería x38 -->
-    <target name="udaLibDist" description="Genera los diferentes jar de x38">
-        
-        <echo>Creando distribuibles de udaLib...</echo>
-        
-        <echo>Eliminando ficheros existentes ...</echo>
-		<delete file="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar" />
-		<delete file="${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar" />
-        
-        <echo>Generando ${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/** LICENSE.txt NOTICE.txt" excludes="com/ejie/x38/webdav/**, com/ejie/x38/pif/**, com/ejie/x38/rup/**, com/ejie/x38/cache/**, com/ejie/x38/hdiv/**" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-dav-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/webdav/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-pif-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/pif/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-rup-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/rup/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-cache-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/cache/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-		
-		<echo>Generando ${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar ...</echo>
-		<jar destfile="${udaLibDestDir}/x38ShLibClasses-hdiv-${udaLibVersionName}.jar">
-			<fileset dir="${udaLibBuildDir}" includes="com/ejie/x38/hdiv/** LICENSE.txt NOTICE.txt" />
-			<fileset dir="${udaLibBaseDir}" includes="build.xml pom.xml" />
-			<manifest>
-		      	<attribute name="Main-Class" value=""/>
-		     	<attribute name="Manifest-Version" value="${udaLibVersionName}"/>
-		     	<attribute name="Created-By" value="UDA"/>
-		     </manifest>
-		</jar>
-        
-    </target>
-    
-
     
     <!-- ***************************** -->
     <!-- ******** udaRup ************* -->
@@ -293,8 +155,8 @@
     
         <replace file="${udaDemoAppBaseDir}/x21aEAR/pom.xml">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}&lt;/com.ejie.x38.version&gt;"/>
         </replace>
         
         <replace file="${udaDemoAppBaseDir}/x21aAppWar/WebContent/WEB-INF/views/welcome.jsp">
@@ -349,8 +211,8 @@
         
         <replace file="${udaTemplatesSrcDir}/ear/pom.xml.ftl">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}&lt;/com.ejie.x38.version&gt;"/>
         </replace>
     </target>  
     
