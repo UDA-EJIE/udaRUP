@@ -65,6 +65,7 @@ import Printd from 'printd';
  *          var userVal = item.find('#usuario_value_' + json.codigoPK);
  *          userVal.text(userVal.text() + ' -Added');
  *      },
+ *      beforeLoad: () => {},
  *      load: () => {}
  * });
  */
@@ -98,6 +99,7 @@ import Printd from 'printd';
      * @property {boolean} [createFooter=true] - Si es true crea una copia del header en la parte inferior del listado
      * @property {String} [sord=null] - Determina la dirección de la ordenación
      * @property {Funcion} [modElement=() =>{}] - Callback que se ejecuta antes del añadido de cada tarjeta al listado
+     * @property {Funcion} [beforeLoad=() => {}] - Callback que se ejecuta antes de cada filtrado
      * @property {Funcion} [load=() => {}] - Callback que se ejecuta tras cada filtrado
      * @property {Object} [selectable=Object] - Determina la configuración de la selección
      * @property {boolean} [isMultiSort=false] - Si es true el modo de ordenación cambia a multiordenación
@@ -176,6 +178,7 @@ import Printd from 'printd';
             createFooter: true,
             loader: () => {},
             modElement: () => {},
+            beforeLoad: function () {},
             load: function () {}
         },
 
@@ -379,6 +382,7 @@ import Printd from 'printd';
                 }
 
                 // Asociación de eventos
+                $('#' + self.element[0].id).on('beforeLoad', opciones.beforeLoad);
                 $('#' + self.element[0].id).on('load', opciones.load);
                 $('#' + self.element[0].id).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
@@ -2433,6 +2437,9 @@ import Printd from 'printd';
                     dataType: 'json',
                     data: JSON.stringify(filter),
                     contentType: 'application/json',
+					beforeSend: function() {
+						self.element.trigger('beforeLoad', filter);
+					},
                     success: function (xhr) {
                         $pagenavH.find('.page').remove();
                         $pagenavH.find('.page-separator').hide();
