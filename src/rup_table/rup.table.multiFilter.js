@@ -484,7 +484,33 @@
             if (fecha != null)
                 dataForm[item.name] = fecha.getTime().toString();
         });
+				
+        		filter.filterValue = $.toJSON(dataForm);
+        
+				var objetoJSON = JSON.parse(filter.filterValue);
+				
+				if (hdivStateParamValue !== '') {
+					
+					var clave = settings.primaryKey[0];
+					
+					var $select = $('[name='+ clave+']' );
+					
+					if($('#'+  $select[0].id).attr('ruptype') === 'select'){
+						var label = $('#'+  $select[0].id).rup_select("label");
+					
+						objetoJSON[clave] = label;
+					}
+					
+				}
+				
+				
+				// Crear una nueva cadena con comillas simples por dentro
+				var nuevaCadena = ''
+						+ Object.keys(objetoJSON).map(function(key) {
+							return key + ':' + objetoJSON[key];
+						}).join(', ');
 
+				filter.filterValue = nuevaCadena;
 
 
         var dataFormJson = $.toJSON(dataForm);
@@ -969,9 +995,7 @@
 
             var valorFiltro = JSON.parse(objFiltro[0].data);
 
-            var xhrArray = [];
-
-            xhrArray = $.rup_utils.jsontoarray(valorFiltro);
+            var xhrArray = $.rup_utils.jsontoarray(valorFiltro);
         }
 
         if (valorFiltro === undefined && settings.multiFilter.$savedFilterName !== undefined &&
