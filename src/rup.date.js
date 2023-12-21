@@ -125,15 +125,31 @@
          * $("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
          */
         setRupValue: function (param) {
-
+        
             if ($(this).data('datepicker').settings.datetimepicker) {
                 var fechaArray = param.split(' ');
                 var tmpTime;
-                var tmpDate = new Date(fechaArray[0]);
+                
+                var fechaString = fechaArray[0];
+             // Verificar si la fecha está en el formato dd/mm/yyyy
+             var formatoCorrecto = /^\d{2}\/\d{2}\/\d{4}$/.test(fechaString);
+             
+             if (formatoCorrecto) {
+            	 
+            	 var fechaArrayNuevo = fechaString.split('/');
+            	    var nuevaFechaFormato = fechaArrayNuevo[2] + '/' + fechaArrayNuevo[1] + '/' + fechaArrayNuevo[0];
+               	 var tmpDate = new Date(nuevaFechaFormato);
+
+             } else {
+            	 
+            	 var tmpDate = new Date(fechaArray[0]);
+             }
+                
                 if (fechaArray[1] !== undefined) {
                     var time = '01/01/2000 ' + fechaArray[1];
                     tmpTime = new Date(time);
                 }
+
 
                 if (tmpDate.toString() === 'Invalid Date') {
                     return '';
@@ -146,19 +162,32 @@
                         minute: tmpTime.getMinutes(),
                         second: tmpTime.getSeconds()
                     };
+                    
+                   
                     tmpDate.setHours(dateObj.hour + '', dateObj.minute + '', dateObj.second + '');
                     formattedTime =  $.datepicker.formatTime($(this).data('datepicker').settings.timeFormat,dateObj);
                    
                 }
-
+                var formatoComponenteFecha = $(this).data('datepicker').settings.mask;
+                var resultado = $.rup_utils.formatoFecha(formatoComponenteFecha, param);              
+              
                 $(this).multiDatesPicker('toggleDate', tmpDate);
-
-                $(this).val(fechaArray[0] + ' ' + formattedTime);
+               
+                 $(this).val(resultado[0] + ' ' + formattedTime);
+                
+               
 
             } else {
-                $(this).val(param);
-            }
+            	 var formatoComponenteFecha = $(this).data('datepicker').settings.mask;
+                 var resultado = $.rup_utils.formatoFecha(formatoComponenteFecha, param);
+            	$(this).val(resultado);
+                
+            } 
+        	
+        
         },
+        
+        	
         /**
          * Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label 
          * con un texto vacío
