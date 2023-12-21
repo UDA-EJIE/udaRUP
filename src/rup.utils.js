@@ -1264,6 +1264,38 @@
 	};
 	
 	/**
+     * Permite descifrar el identificador recibido.
+     *
+     * @name decryptHdivID
+     * @function
+     * @since UDA 5.4.0
+     *
+     * @param {string} id - Identificador de la entidad.
+     *
+     * @return {string} Identificador de la entidad sin cifrar.
+     */
+	$.fn.decryptHdivID = function (id) {
+		const source = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-,_/<#$>&€=;+|";
+		const target = "tQc5nAijb8ZWawShs0XEzDC6RdFoVuT9GeBY4gHpNlU3J2vkxMIm1rKfO7LqPy-,_/<#$>&€=;+|~";
+		const splitToken = "-:$:-";
+		
+		const encryptedId = id.split(splitToken).pop();
+		let decryptedId = "";
+		
+		for (var i = 0; i < encryptedId.length; i++) {
+			const c = encryptedId.charAt(i);
+			const index = target.indexOf(c);
+			if (index == -1) {
+				decryptedId = decryptedId.concat(c);
+			} else {
+				decryptedId = decryptedId.concat(source.charAt(index));	
+			}  
+		}
+		
+		return decryptedId;
+	};
+	
+	/**
      * Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
      *
      * @name getHDIV_STATE
