@@ -393,7 +393,7 @@
                 }
 
                 // Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
-                if (options.buttons !== undefined && ctx._buttons !== undefined) {
+                if (ctx.oInit.buttons !== undefined && ctx._buttons !== undefined) {
                     ctx._buttons[0].inst.s.disableAllButtons = undefined;
                     DataTable.Api().buttons.displayRegex(ctx);
                 }
@@ -1842,7 +1842,11 @@
                                 index = index + line + 1;
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }
-                            DataTable.Api().select.drawSelectId(tabla.context[0]);
+                            
+                            if (ctx.multiselection.selectedRowsPerPage.length === 1) {
+                                DataTable.Api().select.selectRowIndex(tabla, ctx.multiselection.selectedRowsPerPage[0].line, false);
+                            }
+                            
                             if (tabla.context[0].oInit.inlineEdit !== undefined) {
                                 DataTable.Api().inlineEdit.addchildIcons(tabla.context[0]);
                             }
