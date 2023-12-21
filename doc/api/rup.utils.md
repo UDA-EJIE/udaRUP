@@ -13,6 +13,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
     * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
     * ~~[~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>~~
+    * [~decryptHdivID(id)](#jQuery.module_rup_utils..decryptHdivID) ⇒ <code>string</code>
     * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
@@ -113,6 +114,19 @@ Procesa el identificador recibido para poder devolver la parte que no altera su 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - Identificador de la entidad con la parte dinámica del cifrado eliminada.  
 **Since**: UDA 5.0.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| id | <code>string</code> | Identificador de la entidad. |
+
+<a name="jQuery.module_rup_utils..decryptHdivID"></a>
+
+### rup_utils~decryptHdivID(id) ⇒ <code>string</code>
+Permite descifrar el identificador recibido.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - Identificador de la entidad sin cifrar.  
+**Since**: UDA 5.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
