@@ -1238,6 +1238,11 @@
 				          }
 				         
 				          let seleccionado = $.grep(data, function (v,index) {
+				        	  
+				        	  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
+				                  v.text = v[settings.sourceParam.text];
+				                }
+				        	  
 				        	  	if(v.id == valueSelect){
 				        	  		positions.push(index);
 				        	  	}
