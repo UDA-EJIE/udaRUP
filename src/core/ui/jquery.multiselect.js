@@ -359,7 +359,7 @@
 						break;
 					}
 				})
-				.on('input[type="checkbox"], input[type="radio"]', 'click.multiselect', function( e ){
+				.on('click.multiselect', 'input[type="checkbox"], input[type="radio"]', function( e ){
 					var $this = $(this),
 						val = this.value,
 						checked = this.checked,
@@ -589,7 +589,7 @@
 
 			// position and show menu
 			if( $.ui.position && !$.isEmptyObject(o.position) ){
-				o.position.of = o.position.of || button;
+				o.position.of = button || o.position.of;//al tener varios remotos que mantenga la posición.
 
 				menu
 					.show()
