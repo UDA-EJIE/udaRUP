@@ -589,7 +589,7 @@
 
 			// position and show menu
 			if( $.ui.position && !$.isEmptyObject(o.position) ){
-				o.position.of = o.position.of || button;
+				o.position.of = button || o.position.of;//al tener varios remotos que mantenga la posición.
 
 				menu
 					.show()
