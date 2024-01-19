@@ -37,7 +37,6 @@ import './rup.report';
 import './rup.slider';
 import './rup.spinner';
 import './rup.sticky';
-import './rup.jqtable';
 import './rup.tabs';
 import './rup.time';
 import './rup.toolbar';
