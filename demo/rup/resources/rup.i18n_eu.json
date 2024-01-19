@@ -81,7 +81,11 @@
     "monthNamesShort": ["Urt", "Ots", "Mar", "Api", "Mai", "Eka", "Uzt", "Abu", "Ira", "Urr", "Aza", "Abe"],
     "nextText": "Hurrengoa",
     "prevText": "Aurrekoa",
-    "weekHeader": "&nbsp;&nbsp;&nbsp;"
+    "weekHeader": "&nbsp;&nbsp;&nbsp;",
+    "errors": {
+      "invalidDate": "Data baliogabea #%s",
+      "multiSelectLimitExceeded": "Arraiak hautapen anitzeko muga gainditzen du. Arraiaren tamaina %i da eta hautapen anitzarena %i"
+    }
   },
   "rup_dialog": {
     "errorLoadingData": "<b>Eskatutako informazio berreskuratzean errore bat gertatu da.</b>",
