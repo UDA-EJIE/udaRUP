@@ -124,70 +124,59 @@
          * // Varias fechas
          * $("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
          */
-        setRupValue: function (param) {
-        
-            if ($(this).data('datepicker').settings.datetimepicker) {
-                var fechaArray = param.split(' ');
-                var tmpTime;
-                
-                var fechaString = fechaArray[0];
-             // Verificar si la fecha está en el formato dd/mm/yyyy
-             var formatoCorrecto = /^\d{2}\/\d{2}\/\d{4}$/.test(fechaString);
-             
-             if (formatoCorrecto) {
-            	 
-            	 var fechaArrayNuevo = fechaString.split('/');
-            	    var nuevaFechaFormato = fechaArrayNuevo[2] + '/' + fechaArrayNuevo[1] + '/' + fechaArrayNuevo[0];
-               	 var tmpDate = new Date(nuevaFechaFormato);
+		setRupValue: function(param) {
+			const $this = $(this);
+			const element = this;
+			const settings = $this.data('datepicker').settings;
+			let date;
 
-             } else {
-            	 
-            	 var tmpDate = new Date(fechaArray[0]);
-             }
-                
-                if (fechaArray[1] !== undefined) {
-                    var time = '01/01/2000 ' + fechaArray[1];
-                    tmpTime = new Date(time);
-                }
+			if (settings.datetimepicker) {
+				let fechaArray = element._splitDate(param);
 
+				fechaArray[0] = element._defineCorrectFormat(fechaArray[0]);
 
-                if (tmpDate.toString() === 'Invalid Date') {
-                    return '';
-                }
+				if (fechaArray[1] !== undefined) {
+					const dateString = fechaArray[0] + ' ' + fechaArray[1];
+					date = new Date(dateString);
+				} else {
+					date = new Date(fechaArray[0]);
+				}
+			} else if (settings.multiSelect) {
+				date = [];
 
-                var formattedTime = '';
-                if (tmpTime !== undefined) {
-                    var dateObj = {
-                        hour: tmpTime.getHours(),
-                        minute: tmpTime.getMinutes(),
-                        second: tmpTime.getSeconds()
-                    };
-                    
-                   
-                    tmpDate.setHours(dateObj.hour + '', dateObj.minute + '', dateObj.second + '');
-                    formattedTime =  $.datepicker.formatTime($(this).data('datepicker').settings.timeFormat,dateObj);
-                   
-                }
-                var formatoComponenteFecha = $(this).data('datepicker').settings.mask;
-                var resultado = $.rup_utils.formatoFecha(formatoComponenteFecha, param);              
-              
-                $(this).multiDatesPicker('toggleDate', tmpDate);
-               
-                 $(this).val(resultado[0] + ' ' + formattedTime);
-                
-               
+				for (let index = 0; index < settings.multiSelect; index++) {
+					const newValue = new Date(element._defineCorrectFormat(element._splitDate(param[index])[0]));
 
-            } else {
-            	 var formatoComponenteFecha = $(this).data('datepicker').settings.mask;
-                 var resultado = $.rup_utils.formatoFecha(formatoComponenteFecha, param);
-            	$(this).val(resultado);
-                
-            } 
-        	
-        
-        },
-        
-        	
+					if (newValue.toString() === 'Invalid Date') {
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_date.errors.invalidDate')), settings.id);
+					} else {
+						date.push(newValue);
+					}
+				}
+
+				if (date.length > 0 && param.length > settings.multiSelect) {
+					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_date.errors.multiSelectLimitExceeded')), param.length, settings.multiSelect, param);
+				}
+			} else {
+				date = new Date(element._defineCorrectFormat(param));
+			}
+
+			if (!settings.multiSelect && date.toString() === 'Invalid Date') {
+				console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_date.errors.invalidDate')), settings.id);
+				return '';
+			}
+
+			if (settings.datetimepicker) {
+				$.datepicker._setDateDatepicker($("#" + settings.id)[0], date);
+			} else if (settings.multiSelect) {
+				if (date.length > 0) {
+					$this.multiDatesPicker('resetDates');
+					$this.multiDatesPicker('addDates', date);
+				}
+			} else {
+				$.datepicker._setDate($.datepicker._getInst($("#" + settings.id)[0]), date);
+			}
+		},
         /**
          * Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label 
          * con un texto vacío
@@ -491,6 +480,11 @@
                 }
 
                 this._ADAPTER.postConfigure.bind($(this))(settings);
+                
+				// Cuando el campo contiene un valor (posiblemente definido desde el modelo), se aplica.
+				if ($('#' + settings.id).val() != "") {
+					$('#' + settings.id).rup_date("setRupValue", $('#' + settings.id).val());
+				}
 
                 //Ajuste para el comportamiento de portales
                 if ($.rup_utils.aplicatioInPortal() && !$('#' + settings.id).is('div')) {
@@ -515,7 +509,24 @@
                 //Se audita el componente
                 $.rup.auditComponent('rup_date', 'init');
             }
-        }
+        },
+        _defineCorrectFormat: function(dateString) {
+			// Verificar si la fecha está en el formato yyyy/mm/dd o yyyy-mm-dd.
+			const formatoCorrecto = /^\d{4}(-|\/)\d{2}(-|\/)\d{2}$/.test(dateString);
+
+			if (!formatoCorrecto) {
+				dateString = $.rup_utils.formatoFecha("yyyy/mm/dd", dateString.replaceAll("-", "/"))[0];
+			}
+			
+			return dateString;
+		},
+		_splitDate: function(dateString) {
+			if (dateString.includes("T")) {
+				return dateString.split('T');
+			} else {
+				return dateString.split(' ');
+			}
+		}
     });
     $.rup_date('extend', {
         _init: function (args) {

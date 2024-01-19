@@ -81,7 +81,11 @@
     "monthNamesShort": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
     "nextText": "Siguiente",
     "prevText": "Anterior",
-    "weekHeader": "&nbsp;&nbsp;&nbsp;"
+    "weekHeader": "&nbsp;&nbsp;&nbsp;",
+    "errors": {
+      "invalidDate": "Invalid date in #%s",
+      "multiSelectLimitExceeded": "Array exceeds multiselection limit. Array size is %i and multiselection limit %i"
+    }
   },
   "rup_dialog": {
     "errorLoadingData": "en_<b>Error recuperando los datos solicitados para crear el diálogo.</b>",
