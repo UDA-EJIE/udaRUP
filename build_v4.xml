@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <project name="uda" default="buildVersion">
     
-	<property name="udaVersion" value="4.5.0"/>
-    <property name="previousUdaVersion" value="4.4.0"/>
-    <property name="udaLibVersion" value="4.5.0"/>
-    <property name="previousUdaLibVersion" value="4.4.0"/>
-    <property name="udaLibVersionName" value="${udaLibVersion}-RELEASE"/>
-    <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-RELEASE"/>
+	<property name="udaVersion" value="6.0.0"/>
+    <property name="previousUdaVersion" value="4.5.0"/>
+    <property name="udaLibVersion" value="6.0.0"/>
+    <property name="previousUdaLibVersion" value="4.5.0"/>
+    <property name="udaLibVersionName" value="${udaLibVersion}-SNAPSHOT"/>
+    <property name="udaLibPreviousVersionName" value="${previousUdaLibVersion}-SNAPSHOT"/>
     
     <property name="baseDir" value="../"/>
     <property name="destDir" value="${baseDir}/dist"/>
@@ -88,8 +88,8 @@
         
          <replace file="${udaLibBaseDir}/src/META-INF/MANIFEST.MF">
            <replacefilter 
-            token="Manifest-Version: ${previousUdaLibVersion}-RELEASE" 
-            value="Manifest-Version: ${udaLibVersion}-RELEASE"
+            token="Manifest-Version: ${previousUdaLibVersion}-SNAPSHOT" 
+            value="Manifest-Version: ${udaLibVersion}-SNAPSHOT"
             />
         </replace>
         
@@ -281,8 +281,8 @@
     
         <replace file="${udaDemoAppBaseDir}/x21aEAR/pom.xml">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;"/>
         </replace>
         
         <replace file="${udaDemoAppBaseDir}/x21aAppWar/WebContent/WEB-INF/views/welcome.jsp">
@@ -337,8 +337,8 @@
         
         <replace file="${udaTemplatesSrcDir}/ear/pom.xml.ftl">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;"/>
         </replace>
     </target>  
     
