@@ -1237,6 +1237,7 @@
 				                 $.each(data[i], function (key, value) {
 				 	                if (typeof(value) === 'object') {
 						                 $.each(value, function () {
+						                	 this.id = String(this.id);
 						                	 allFacts.push(this);
 						                 });
 						                }
@@ -1248,7 +1249,7 @@
 				          }
 				         //Se obliga a que las claves sean String recomendado por select2
 				          let seleccionado = $.grep(data, function (v,index) {
-				        	  
+				        	  v.id = String(v.id);
 				        	  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
 				                  v.text = v[settings.sourceParam.text];
 				                }
