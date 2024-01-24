@@ -1480,7 +1480,7 @@
 					settings.url += (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
 				}
 				
-				if (data) {
+				if (data && !settings.url.includes(data)) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
 					settings.url += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data.replaceAll('#', '%23');
 				}
