@@ -73,7 +73,7 @@ import Printd from 'printd';
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', 'rup.base', 'rup.button', 'rup.autocomplete', 'rup.dialog'], factory);
+        define(['jquery', 'rup.base', 'rup.button', 'rup.dialog'], factory);
     } else {
 
         // Browser globals
@@ -1002,7 +1002,7 @@ import Printd from 'printd';
                                         contentType: 'application/json',
                                         success: () => {
                                             opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
-                                            opciones.multiFilter.$combo.rup_autocomplete('set', '', '');
+                                            opciones.multiFilter.$combo.rup_select('set', '', '');
                                             opciones.multiFilter.$label.data('tmp.loadObjects.term', null);
                                             opciones.multiFilter.$label.data('loadObjects', {});
                                             opciones.multiFilter.$label.data('tmp.data', {});
@@ -1027,7 +1027,7 @@ import Printd from 'printd';
                 }
             });
 
-            opciones.multiFilter.$combo.rup_autocomplete({
+            opciones.multiFilter.$combo.rup_select({
                 source: opciones.action +
                     '/./multiFilter/getAll?filterSelector=' +
                     opciones.multiFilter._filterSelector + '&user=' +
@@ -1044,10 +1044,10 @@ import Printd from 'printd';
                 combobox: true,
                 contains: true,
                 select: function () {
-                    if (opciones.multiFilter.$combo.rup_autocomplete('getRupValue')) {
+                    if (opciones.multiFilter.$combo.rup_select('getRupValue')) {
                         opciones.multiFilter.selected = {
                             filterSelector: opciones.multiFilter._filterSelector,
-                            filterName: opciones.multiFilter.$combo.rup_autocomplete('getRupValue'),
+                            filterName: opciones.multiFilter.$combo.rup_select('getRupValue'),
                             filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
                             filterUser: opciones.multiFilter._filterUser
                         };

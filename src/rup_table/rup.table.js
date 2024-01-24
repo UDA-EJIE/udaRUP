@@ -848,9 +848,6 @@
                 });
             }
             
-            // Elimina los campos _label generados en los autocompletes del filtro
-            $.fn.deleteAutocompleteLabelFromObject(data.filter);
-            
             // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
             $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
             
@@ -987,9 +984,6 @@
             let $self = this;
             $('#' + options.id).triggerHandler('tableFilterReset',options);
             options.filter.$filterContainer.resetForm();
-            
-            // Reinicia por completo los autocomplete ya que sino siguen filtrando
-            $.fn.resetAutocomplete('hidden', options.filter.$filterContainer);
             
             //si es Maestro-Detalle restaura el valor del padre.
             if(options.masterDetail !== undefined){
@@ -1281,10 +1275,6 @@
                     //ID para elementos tipo rup.combo
                     if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0) {
                         fieldId += '-button';
-                    }
-                    //ID para elementos tipo rup.autocomplete
-                    if ($(field).attr('ruptype') === 'autocomplete') {
-                        fieldId = fieldId.substring(0, fieldId.indexOf('_label'));
                     }
 
                     //NAME

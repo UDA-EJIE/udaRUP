@@ -589,17 +589,15 @@
         // Reinicia el formulario.
         $form.resetForm();
         
-        // Limpia los rup_autocomplete, rup_combo y rup_select.
-        jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select]', $form), function (index, elem) {
+        // Limpia los rup_combo y rup_select.
+        jQuery.each($('select.rup_combo, select[rupType=select]', $form), function (index, elem) {
 			const elemSettings = jQuery(elem).data('settings');
 			
 			if (elemSettings != undefined) {
 				const elemRuptype = jQuery(elem).attr('ruptype');
 				
 				if (elemSettings.parent == undefined) {
-					if (elemRuptype == 'autocomplete') {
-						jQuery(elem).rup_autocomplete('setRupValue', '');
-					} else if (elemRuptype == 'combo') {
+					if (elemRuptype == 'combo') {
 						jQuery(elem).rup_combo('reload');
 					} else if (elemRuptype == 'select') {
 						jQuery(elem).rup_select('clear');

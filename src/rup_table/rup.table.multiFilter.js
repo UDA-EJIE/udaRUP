@@ -898,7 +898,7 @@
 
 
         $('#' + ctx.sTableId + '_filter_cleanButton').on('click', function () {
-            settings.multiFilter.$combo.rup_autocomplete('set', '', '');
+            settings.multiFilter.$combo.rup_select('set', '', '');
             settings.filter.$filterSummary.html('<i></i>');
 
         });

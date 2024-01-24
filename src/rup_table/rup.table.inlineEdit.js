@@ -937,18 +937,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					if(searchRupType === 'combo'){//se marca el selected
 						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
-					} else if (searchRupType === 'autocomplete') {
-						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
-						searchEditOptions.loadValue = cellValue;
-						if(cellValue != null){
-							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
-						}
 					} else if(searchRupType === 'select'){
 						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
 						searchEditOptions.inlineEditFieldName = cellColModel.name;
 					}
 					
-					if (searchRupType === 'select' || searchRupType === 'combo' || searchRupType === 'autocomplete') {
+					if (searchRupType === 'select' || searchRupType === 'combo') {
 						// Permite inicializar el componente con el source correcto.
 						searchEditOptions.inlineEdit = {};
 						searchEditOptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
@@ -1486,10 +1480,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
             $.rup_ajax(ajaxOptions);
         } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
         	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-            if (url.indexOf('deleteAll') === -1) {
-            	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
-            	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
-                
+            if (url.indexOf('deleteAll') === -1) {                
                 // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
             	

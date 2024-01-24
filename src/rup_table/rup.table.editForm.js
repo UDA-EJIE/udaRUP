@@ -24,7 +24,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
-        define(['jquery', '../core/utils/jquery.form', '../rup.form', '../rup.combo', 'datatables.net'], function ($) {
+        define(['jquery', '../core/utils/jquery.form', '../rup.form', '../rup.select', 'datatables.net'], function ($) {
             return factory($, window, document);
         });
     } else if (typeof exports === 'object') {
@@ -480,16 +480,6 @@
     						// Cuando no se haya definido un elemento al que hacer el append del menú del combo, se hace al "body" para evitar problemas de CSS.
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
-    						}
-    					} else if (column.rupType === 'autocomplete') {
-    						// Establece el valor por defecto.
-    						if (row !== undefined) {
-    							column.editoptions.defaultValue = row[column.name];
-    						}
-    						
-    						if (column.editoptions.menuAppendTo === undefined) {
-    							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
-    							column.editoptions.menuAppendTo = 'body';
     						}
     					} else if (column.rupType === 'select') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
@@ -1097,10 +1087,7 @@
                 $.rup_ajax(ajaxOptions);
             } else if (isDeleting || ctx.oInit.formEdit.idForm.valid()) {
             	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-                if (url.indexOf('deleteAll') === -1) {
-                	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
-                    $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
-                    
+                if (url.indexOf('deleteAll') === -1) {                    
                     // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                     $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
                     
@@ -1352,10 +1339,6 @@
                 const tableId = ctx.sTableId;
                 if (Number(rowSelected.page) !== page) {
                     var table = $('#' + tableId).DataTable();
-                    // Ejecutar _fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
-                    table.on('draw', function(event, ctx) {
-                    	_fixComboAutocompleteOnEditForm(ctx);
-                    });
                     table.page(rowSelected.page - 1).draw('page');
                     // Se añaden los parámetros para luego ejecutar la función del dialog
                     ctx.oInit.formEdit.$navigationBar.funcionParams = ['PUT', dt, rowSelected.line, linkType];
@@ -1364,8 +1347,6 @@
                 	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, ctx.oInit.formEdit.customTitle)).then(function () {
                         _showOnNav(dt, linkType);
                     });
-                    // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
-                    _fixComboAutocompleteOnEditForm(ctx);
                 }
                 $('#first_' + tableId+'_detail_navigation' + 
                 		', #back_' + tableId+'_detail_navigation' +
@@ -1383,25 +1364,6 @@
 
         var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation.bind(ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
-    }
-    
-    function _fixComboAutocompleteOnEditForm(ctx) {
-    	// Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
-        if (ctx.oInit.colModel !== undefined) {
-        	$.each(ctx.oInit.colModel, function (key, column) {
-        		if (column.editable) {
-        			if (column.rupType === 'combo') {
-        				// Realizar una limpieza total para asegurar un buen funcionamiento.
-        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
-        			} else if (column.rupType === 'autocomplete') {
-        				// Establecer el valor por defecto del componente.
-        				const newDefaultValue = ctx.json.rows.find(row => $.fn.getStaticHdivID(row.id) === $.fn.getStaticHdivID(ctx.oInit.formEdit.$navigationBar.currentPos.id))[column.name];
-        				column.editoptions.defaultValue = newDefaultValue;
-        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
-        			}
-        		}
-        	});
-        }
     }
 
     function _hideOnNav(dt, linkType, callback) {
@@ -1837,7 +1799,7 @@
         	if (ruptype === undefined) {
         		ruptype = element.data('ruptype');
         	}
-        	if ((obj.type === 'hidden' && element.attr('id') !== undefined) || obj.type !== 'hidden' || ruptype === 'autocomplete' || ruptype === 'custom') {
+        	if ((obj.type === 'hidden' && element.attr('id') !== undefined) || obj.type !== 'hidden' || ruptype === 'custom') {
         		let valor = '';
         		if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
         			valor = '[' + count++ + ']';
