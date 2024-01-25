@@ -41,12 +41,13 @@
 			rows = $(),
 			files = o.files,
 			options = o.options;
-
-		return Rup.Templates.rup.upload.uploadTemplate({
+		let templates = {
 			files:files,
 			submitInForm: options.submitInForm===true?true:undefined,
 			notSubmitInForm: !(options.submitInForm===true?true:undefined)
-		});
+		};
+
+		return Rup.Templates.rup.upload.uploadTemplate(templates);
 	};
 
 	$.rup = $.rup || {};

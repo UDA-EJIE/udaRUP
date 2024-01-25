@@ -581,7 +581,6 @@
 
                 //Se audita el componente
                 $.rup.auditComponent('rup_validate', 'init');
-                self.trigger('load');
             }
         });
 
@@ -598,7 +597,7 @@
                 delay: null
             },
             feedbackErrorConfig: {
-                errorMsg: $.rup.i18nParse($.rup.i18n.base, 'rup_jqtable.validateError'),
+                errorMsg: $.rup.i18nParse($.rup.i18n.base, 'rup_table.validateError'),
                 getField: function (self, form, fieldName) {
                     return $('[name=\'' + fieldName + '\']', form);
                 },

@@ -367,8 +367,13 @@
                 	let idEntity = DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit);
                 	if(ctx.oInit.formEdit !== undefined){                	
 	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
-	                    if (hdivStateParamValue !== '' && index == 0) {
-	                    	ctx.multiselection.lastSelectedId = idEntity;
+	                	if(ctx.multiselection.lastSelectedId != '' && idEntity != ''){
+	                		//Se actualiza el last, con el id de hdiv cifrado.
+	                		ctx.multiselection.lastSelectedId = idEntity;
+	                	}
+	                	//Se marcaría el primero, en caso de no encontrar.
+	                	if (hdivStateParamValue !== '' && index == 0) {
+	                		posibleLastselection = idEntity;
 	                    }
                 	}
                     var arra = {
@@ -379,6 +384,10 @@
                     ctx.multiselection.selectedIds.splice(index, 0, arra.id);
                     ctx.multiselection.selectedRowsPerPage.splice(index, 0, arra);
                 });
+                //Si viene reordenación, debe de tener un último seleccionado.                
+                if(json.reorderedSelection != null && json.reorderedSelection.length > 0 && ctx.multiselection.lastSelectedId == ''){
+                	ctx.multiselection.lastSelectedId = posibleLastselection;
+                }
                 if (ctx.multiselection !== undefined && !ctx.multiselection.selectedAll) {
                     ctx.multiselection.numSelected = ctx.multiselection.selectedIds.length;
                 }
@@ -391,7 +400,7 @@
                 $('#' + ctx.sTableId).triggerHandler('tableAfterReorderData',ctx);
             });
 
-            apiRegister('rupTable.getIdPk()', function (json, optionsParam) {
+            apiRegister('rupTable.getIdPk()', function (json = {}, optionsParam) {
                 var opts = options;
                 if (optionsParam !== undefined) {
                     opts = optionsParam;
@@ -420,7 +429,7 @@
              *
              * @name comparePKs
              * @function
-             * @since UDA 5.0.0 (backported) // Table 1.0.0
+             * @since UDA 5.0.0 // Table 1.0.0
              * 
              * @param {object} firstRow - Fila de la tabla a comparar.
              * @param {object} secondRow - Fila de la tabla a comparar.
@@ -821,10 +830,16 @@
          *
          */
         _ajaxRequestData(data, ctx) {
-            //Para añadir un id de busqueda distinto al value, como por ejemplo la fecha.
-        	if (ctx.oInit.ordering && data.order[0] != undefined && data.order[0].column != undefined) {
-        		data.columns[data.order[0].column].colSidx = ctx.aoColumns[data.order[0].column].colSidx;
-        	}
+
+			//Guardar los valores de sidx
+        	if (ctx.oInit.ordering) {
+	        	for (var i = 0; i < data.order.length; i++) {
+	        		if(data.order[i] != undefined && data.order[i].column != undefined){
+						data.columns[data.order[i].column].colSidx = ctx.aoColumns[data.order[i].column].colSidx;
+					}
+				}
+        	}    	
+        	
             //El data viene del padre:Jquery.table y como no tiene el prefijo de busqueda se añade.
             if (ctx.oInit.filter.$filterContainer) {
                 data.filter = window.form2object(ctx.oInit.filter.$filterContainer[0]);
@@ -847,11 +862,8 @@
                     data.seeker.selectedIds.splice(index, 0, DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit));
                 });
             }
-            
-            // Elimina del filtro los campos autogenerados por los multicombos que no forman parte de la entidad
-            $.fn.deleteMulticomboLabelFromObject(data.filter, ctx.oInit.filter.$filterContainer);
-            
-         // Fuerza el mostrado de la primera página cuando se pagina y los criterios de filtrado han cambiado.
+			
+			// Fuerza el mostrado de la primera página cuando se pagina y los criterios de filtrado han cambiado.
 			const newCriteria = ctx.oInit.filter.$filterContainer.serializeArray();
 						
 			if (!_.isEqual(ctx.oInit.filter.oldCriteria, newCriteria)) {
@@ -859,7 +871,7 @@
 				ctx._iDisplayStart = 0;
 				data.start = 0;
 			}
-
+			
             let tableRequest = new TableRequest(data);
             let json = $.extend({}, data, tableRequest.getData());//Mantenemos todos los valores, por si se quieren usar.
 
@@ -981,33 +993,50 @@
          *
          */
         _clearFilter(options) {
-            let $self = this;
-            $('#' + options.id).triggerHandler('tableFilterReset',options);
-            options.filter.$filterContainer.resetForm();
-            
-            //si es Maestro-Detalle restaura el valor del padre.
-            if(options.masterDetail !== undefined){
-	            let tableMaster = $(options.masterDetail.master).DataTable();
-	            let rowSelected = tableMaster.rows('.selected').indexes();
-	            let row = tableMaster.rows(rowSelected).data();
-	            let id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
-	            let $hiddenPKMaster = $('#' + options.id + '_filter_masterPK');
-	            $hiddenPKMaster.val('' + id);
-        	}
-            
-            $self.DataTable().ajax.reload();
-            options.filter.$filterSummary.html(' <i></i>');
+			$('#' + options.sTableId).triggerHandler('tableFilterBeforeReset', options);
 
-            // Provoca un mal funcionamiento del filtrado de Maestro-Detalle en la tabla esclava, 
-            // ya que elimina la referencia del padre y muestra todos los valores en vez de los relacionados.
-            //jQuery('input,textarea').val('');
+			const $form = $('#' + options.sTableId + '_filter_form');
+			jQuery.each($('select[rupType=select], input:not([rupType]), select:not([rupType]), input[rupType=date]', $form), function(index, elem) {
+				const elemSettings = jQuery(elem).data('settings');
 
-            jQuery.each($('select.rup_combo',options.filter.$filterContainer), function (index, elem) {
+				if (elemSettings != undefined) {
+					const elemRuptype = jQuery(elem).attr('ruptype');
+
+					if (elemSettings.parent == undefined) {
+						if (elemRuptype == 'select') {
+							jQuery(elem).rup_select('clear');
+							elem.defaultValue = "";
+						} else if (elemRupType == 'date') {
+							jQuery(elem).rup_select('clear');
+							elem.defaultValue = "";
+						}
+					}
+				} else {
+					elem.defaultValue = "";
+					elem.value = "";
+				}
+			});
+
+			// Si es Maestro-Detalle restaura el valor del maestro.
+			if (options.masterDetail !== undefined) {
+				const tableMaster = $(options.masterDetail.master).DataTable();
+				const rowSelected = tableMaster.rows('.selected').indexes();
+				const row = tableMaster.rows(rowSelected).data();
+				const id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
+				$('#' + options.id + '_filter_masterPK').val('' + id);
+			}
+
+			options.filter.$filterSummary.html(' <i></i>');
+
+			jQuery.each($('select.rup_combo', options.filter.$filterContainer), function(index, elem) {
 				jQuery(elem).rup_combo('refresh');
-            });
+			});
 
-            $.rup_utils.populateForm([], options.filter.$filterContainer);
+			$.rup_utils.populateForm([], options.filter.$filterContainer);
+			
+			$(this).DataTable().ajax.reload();
 
+			$('#' + options.sTableId).triggerHandler('tableFilterAfterReset', options);
         },
         
         /**
@@ -1108,7 +1137,7 @@
                 toggleIcon2Tmpl = "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>";
 
                 $toggleIcon1 = $($.rup_utils.format(toggleIcon1Tmpl, filterOpts.toggleIcon1Id));
-                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_jqtable.plugins.filter.filterCriteria));
+                $toggleLabel = $($.rup_utils.format(toggleLabelTmpl, filterOpts.toggleLabelId, $.rup.i18n.base.rup_table.plugins.filter.filterCriteria));
                 $filterSummary = $($.rup_utils.format(filterSummaryTmpl, filterOpts.filterSummaryId));
                 $toggleIcon2 = $($.rup_utils.format(toggleIcon2Tmpl, filterOpts.toggleIcon2Id));
 
@@ -1276,6 +1305,10 @@
                     if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0) {
                         fieldId += '-button';
                     }
+                    //ID para elementos tipo rup.autocomplete
+                    if ($(field).attr('ruptype') === 'autocomplete') {
+                        fieldId = fieldId.substring(0, fieldId.indexOf('_label'));
+                    }
 
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
@@ -1395,6 +1428,11 @@
                     if (fieldName === '' && fieldValue.trim() === '') {
                         continue;
                     }
+                    //Miramos si el elemento es es un checkbox o un radio, en caso de serlo revisamos fieldName para quitar los inputs
+		            if($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio'){
+						let fValue=fieldValue.split('<span>')[1];
+						fieldValue='<span> '+fValue;
+	          		} 
                     searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
@@ -1439,7 +1477,6 @@
                       
                     $.when(DataTable.editForm.fnOpenSaveDialog(params[0], params[1], params[2], ctx.oInit.formEdit.customTitle)).then(function () {
                     	var row = ctx.json.rows[params[2]];
-                    	ctx.oInit.formEdit.$navigationBar.funcionParams = {};
         	            var multiselection = ctx.multiselection;
         	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
         	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
@@ -1821,7 +1858,7 @@
                             if (ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE') {
                                 DataTable.Api().inlineEdit.cloneLine(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line);
                             } //else{
-                            DataTable.Api().inlineEdit.editInline(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line);
+                            DataTable.Api().inlineEdit.editInline(tabla, ctx, ctx.oInit.inlineEdit.rowDefault.line, ctx.oInit.inlineEdit.rowDefault.actionType === 'CLONE' ? 'POST' : ctx.oInit.inlineEdit.rowDefault.actionType);
                             var count = tabla.columns().responsiveHidden().reduce(function (a, b) {
                                 return b === false ? a + 1 : a;
                             }, 0);
@@ -1840,9 +1877,14 @@
                         }
                     }
 
-                    if (settingsTable.oInit.formEdit !== undefined && settingsTable.oInit.responsive !== undefined &&
-                        settingsTable.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
-                        DataTable.Api().editForm.addchildIcons(settingsTable);
+                    if (settingsTable.oInit.formEdit !== undefined){
+                    	if(	settingsTable.oInit.responsive !== undefined && settingsTable.oInit.responsive.selectorResponsive !== undefined) { //si el selector es por defecto.selectorResponsive: 'td span.dtr-data'
+                    		DataTable.Api().editForm.addchildIcons(settingsTable);
+                    	}
+                    	if(typeof settingsTable.oInit.formEdit.detailForm === 'object' && ctx.oInit.formEdit.detailForm.isOpen !== undefined && ctx.oInit.formEdit.detailForm.isOpen() ){//si dialog esta abierto
+                    		// Ejecutar fixComboAutocompleteOnEditForm como callback para garantizar la actualización de las filas.
+                    		DataTable.Api().editForm.fixComboAutocompleteOnEditForm(ctx);
+                    	}
                     }
                     if (options.inlineEdit === undefined && options.formEdit === undefined) {
                         DataTable.Api().editForm.addchildIcons(settingsTable);
@@ -1954,7 +1996,8 @@
         primaryKey: ['id'],
         blockPKeditForm: true,
         enableDynamicForms: false,
-        selectFilaDer: true,
+        contextMenuActivo: true,
+        selectFilaDer: false,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {

@@ -39,7 +39,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.message', 'select2','./external/select2MultiCheckboxes'], factory);
+        define(['jquery', './rup.base', 'select2','./external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -1198,8 +1198,6 @@
 					        			}
 			        				}
 			        			});
-			        		}else if(params.url.indexOf(datosParent) < 0){//Aseguramos que mete el valor del padre.
-			        			params.url = params.url + '?' + datosParent;
 			        		}
 			        		$request = $.ajax(params);
 			        	}
@@ -1247,7 +1245,7 @@
 				        	  data = allFacts;
 				        	  settings.optionsGroups = data;
 				          }
-				         //Se obliga a que las claves sean String recomendado por select2
+				        //Se obliga a que las claves sean String recomendado por select2
 				          let seleccionado = $.grep(data, function (v,index) {
 				        	  v.id = String(v.id);
 				        	  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
@@ -1478,17 +1476,16 @@
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
 			
 			if ($form.length === 1) {
-				let url = settings.url + (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-
-				if (data) {
-					// Escapa los caracteres '#' para evitar problemas en la petición.
-					url += "&" + data.replaceAll('#', '%23');
+				if ($.fn.getHDIV_STATE(undefined, $form) != '') {
+					settings.url += (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
 				}
-
-				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
-			} else {
-				return settings.url;
+				
+				if (data && !settings.url.includes(data)) {
+					// Escapa los caracteres '#' para evitar problemas en la petición.
+					settings.url += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data.replaceAll('#', '%23');
+				}
 			}
+			return settings.url;
 		},
         /**
 		 * Método de inicialización del componente.

@@ -1135,32 +1135,6 @@
 	};
 	
 	/**
-     * Elimina el campo autogenerado por el componente combo de un objeto. 
-     * Dicho campo sólo sirve para gestión interna, por lo tanto, es seguro y recomendable eliminarlo.
-     *
-     * @name deleteMulticomboLabelFromObject
-     * @function
-     * @since UDA 4.2.2
-     *
-     * @param {object} obj - Objeto del que se quiere eliminar el campo autogenerado.
-     * @param {object} container - Contenedor del componente.
-     */
-	$.fn.deleteMulticomboLabelFromObject = function (obj, container) {
-		if (obj !== undefined && obj !== null && container !== undefined && container !== null) {
-			Object.keys(obj).filter(function (key) {
-				// Se escapan todos los puntos para evitar errores sintácticos
-				const escapedKey = key.replaceAll('.', '\\.');
-				// Si container es un fila de la tabla (tr) significa que la función ha sido llamada desde rup.table.inlineEdit y es necesario añadir el sufijo _inline
-				const suffix = container.is('tr') ? '_inline' : '';
-				const element = container.find("[name$=" + escapedKey + suffix + "]");
-	        	if (element.length > 1 && $(element[0]).prop('multiple')) {
-	        		delete obj["_" + key];
-				}
-	        });
-		}
-	};
-	
-	/**
      * Convierte un JSON con múltiples niveles en un JSON con un único nivel.
      *
      * @name flattenJSON
@@ -1189,36 +1163,64 @@
      *
      * @name isHdiv
      * @function
-     * @since UDA 5.0.0 (backported)
+     * @since UDA 5.0.0
      *
      * @param {string} id - Identificador de la entidad.
      *
      * @return {boolean} Verdadero si el parámetro ha sido cifrado por Hdiv.
      */
 	$.fn.isHdiv = function (id) {
-		return /(.+)-([0-9a-fA-F]{3})-(.{8}-([0-9a-fA-FU]{1,33})-\d+-.+)/.test(id);
+		return /^([a-zA-Z0-9]*-){4}[a-zA-Z0-9]*-:\$:-[a-zA-Z0-9]{1,}$/.test(id);
 	};
 	
 	/**
      * Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.
-     * Es útil cuando se necesita comparar identificadores cifrados.
+     * Es útil cuando se necesita comparar identificadores cifrados. Nota: desde la versión 5.2.0, los identificadores
+     * no alteran su cifrado entre peticiones, por lo que ha dejado de ser necesario usar este método.
      *
+     * @deprecated since version 5.2.0
      * @name getStaticHdivID
      * @function
-     * @since UDA 5.0.0 (backported)
+     * @since UDA 5.0.0
      *
      * @param {string} id - Identificador de la entidad.
      *
      * @return {string} Identificador de la entidad con la parte dinámica del cifrado eliminada.
      */
-	$.fn.getStaticHdivID = function (id) {
-		let regex = /([0-9a-fA-F]+)-([0-9a-fA-F]+)-([0-9a-fA-F]+)$/;
+	$.fn.getStaticHdivID = function (id) {		
+		return id;
+	};
+	
+	/**
+     * Permite descifrar el identificador recibido.
+     *
+     * @name decryptHdivID
+     * @function
+     * @since UDA 5.4.0
+     *
+     * @param {string} id - Identificador de la entidad.
+     *
+     * @return {string} Identificador de la entidad sin cifrar.
+     */
+	$.fn.decryptHdivID = function (id) {
+		const source = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-,_/<#$>&€=;+|";
+		const target = "tQc5nAijb8ZWawShs0XEzDC6RdFoVuT9GeBY4gHpNlU3J2vkxMIm1rKfO7LqPy-,_/<#$>&€=;+|~";
+		const splitToken = "-:$:-";
 		
-		if (regex.test(id)) {
-			id = id.replace(regex, '');
+		const encryptedId = id.split(splitToken).pop();
+		let decryptedId = "";
+		
+		for (var i = 0; i < encryptedId.length; i++) {
+			const c = encryptedId.charAt(i);
+			const index = target.indexOf(c);
+			if (index == -1) {
+				decryptedId = decryptedId.concat(c);
+			} else {
+				decryptedId = decryptedId.concat(source.charAt(index));	
+			}  
 		}
 		
-		return id;
+		return decryptedId;
 	};
 	
 	/**
@@ -1226,7 +1228,7 @@
      *
      * @name getHDIV_STATE
      * @function
-     * @since UDA 5.0.0 (backported)
+     * @since UDA 5.0.0
      *
      * @param {boolean} hasMoreParams - Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL.
      * @param {object} $form - Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use.

@@ -189,8 +189,8 @@
 	                        var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
 	                        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
 	                        if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
-	                            $('#' + idTabla + '_search_searchForm').rup_form();
-	                            $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+								ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+								$.rup_ajax(ajaxOptions);
 	                        }
 	                        $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
 	
@@ -305,14 +305,14 @@
             var ajaxOptions = $.extend(true, [], ctx.seeker.ajaxOption);
             $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeSearch',ctx);
             if (!jQuery.isEmptyObject(ajaxOptions.data.search)) {
-                $('#' + idTabla + '_search_searchForm').rup_form();
                 var tmp = ajaxOptions.success;
                 ajaxOptions.success = function () {
                     tmp(arguments[0], arguments[1], arguments[2]);
                     ajaxOptions.success = tmp;
                     $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterSearch',ctx);
                 };
-                $('#' + idTabla + '_search_searchForm').rup_form('ajaxSubmit', ajaxOptions);
+				ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+				$.rup_ajax(ajaxOptions);
             }
         });
 
@@ -322,12 +322,6 @@
         });
 
         $navLayer.hide();
-
-        function doSearchButtonNavigation($button, buttonId) {
-            if (!$button.prop('disabled')) {
-                $self.rup_jqtable('navigateToMatchedRow', buttonId);
-            }
-        }
 
         // Elemento primero
         $firstNavButton.on('click', function () {
@@ -513,10 +507,19 @@
      *
      */
     function _getDatos(ctx) {
-        var datos = ctx.aBaseJson;
-        if (datos !== undefined && ctx.seeker.search.$searchForm[0] !== undefined) {
-            datos.search = form2object(ctx.seeker.search.$searchForm[0]);
-        }
+        const datos = ctx.aBaseJson;
+        const $form = $('#' + ctx.sTableId + '_seeker_form');
+        
+        if (datos !== undefined) {
+			if (ctx.seeker.search.$searchForm[0] !== undefined) {
+				datos.search = form2object(ctx.seeker.search.$searchForm[0]);
+			}
+			
+			if ($form.length > 0) {
+				datos.search._HDIV_STATE_ = $.fn.getHDIV_STATE(undefined, $form);
+			}
+		}
+		
         return datos;
     }
 
@@ -571,6 +574,11 @@
 	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
 	                		searchEditOptions = cellColModel.searchoptions;
 	                		
+	                		// Permite obtener el HDIV_STATE del formulario del seeker a aquellos componentes que lo necesitan.
+	                		if (new Set(["autocomplete", "combo", "select"]).has(searchRupType)) {
+								searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
+							}
+	                		
 	                		// Invocación al componente RUP
 	                		$elem['rup_' + searchRupType](searchEditOptions);
 	                	}
@@ -582,24 +590,21 @@
     }
 
     function _limpiarSeeker(dt, ctx) {
-    	$('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
-        
+        $('#' + ctx.sTableId).triggerHandler('tableSeekerBeforeClear',ctx);
         const $form = $('#' + ctx.sTableId + '_search_searchForm');
         
         // Reinicia el formulario.
         $form.resetForm();
         
-        // Limpia los rup_combo y rup_select.
-        jQuery.each($('select.rup_combo, select[rupType=select]', $form), function (index, elem) {
+        // Limpia los rup_select.
+        jQuery.each($('select[rupType=select]', $form), function (index, elem) {
 			const elemSettings = jQuery(elem).data('settings');
 			
 			if (elemSettings != undefined) {
 				const elemRuptype = jQuery(elem).attr('ruptype');
 				
 				if (elemSettings.parent == undefined) {
-					if (elemRuptype == 'combo') {
-						jQuery(elem).rup_combo('reload');
-					} else if (elemRuptype == 'select') {
+					if (elemRuptype == 'select') {
 						jQuery(elem).rup_select('clear');
 					}
 				}
@@ -610,6 +615,7 @@
 				}
 			}
         });
+        
         ctx.seeker.search.funcionParams = {};
         ctx.seeker.search.pos = 0;
         _processData(dt, ctx, []);

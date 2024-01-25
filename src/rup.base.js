@@ -97,19 +97,6 @@
    * @typedef {number} Integer
    */
 
-    // [Ajuste para IE] función asociada a deficiencias de IE(msie). Cuando se deje de soportar este navegador, hay que eliminar este polyfill
-    if (!String.prototype.includes) {//To check browser supports or not
-    	String.prototype.includes = function (str) {//Add method includes to String type
-    	  var returnValue = false;
-
-    	  if (this.indexOf(str) !== -1) {
-    		returnValue = true;
-    	  }
-
-    	  return returnValue;
-    	}
-    }
-    
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
@@ -264,10 +251,6 @@
                 success: function (data) {
                     //Se cargan los literales generales de la aplicacion en RUP
                     $.rup.i18n.base = data;
-                    //Se cargan los literales de la tabla por separado (consecuencia de la naturalza de JqGrid)
-                    $.jgrid = {};
-                    $.extend($.jgrid, data.rup_jqtable);
-                    $.jgrid.formatter.date.S = new Function('j', data.rup_jqtable.formatter.date.S);
                 },
                 error: function (XMLHttpRequest, textStatus) {
                     //tratamiento de error
@@ -326,7 +309,7 @@
          * @param {string} defaultValue - Valor por defecto a usar cuando no se pueda devolver el recurso solicitado.
          * @return {string} Recurso idiomático.
          */
-        i18nParse: function (properties, i18nCaption, defaultValue = 'Error') {
+        i18nParse: function (properties, i18nCaption, defaultValue = 'Error de i18n: ' + i18nCaption + ' no encontrado') {
             if (i18nCaption !== undefined && i18nCaption !== null && i18nCaption !== '') {
                 var i18nCaptionArr = i18nCaption.split('.'),
                     i18nValue = properties;

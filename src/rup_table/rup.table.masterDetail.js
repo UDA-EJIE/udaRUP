@@ -100,6 +100,16 @@
             }
 
         });
+        
+        //Se manda el valor del padre
+	    $('#'+ctx.sTableId).on('tableEditFormAfterData', function(event, ctx) {
+	    	if(ctx.oInit.formEdit != undefined) {
+				if (ctx.oInit.formEdit.data == undefined) {
+					ctx.oInit.formEdit.data = {};
+				}
+				ctx.oInit.formEdit.data.pkValueIdPadre = tableMaster.context[0].multiselection.lastSelectedId;
+	    	}
+		});
 
         //Se filtra.
         tableMaster.on('tableAfterReorderData', function () {

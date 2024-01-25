@@ -377,13 +377,12 @@ handler that will select the items using the API methods.
      * @param {DataTable.Api} dt DataTable
      * 
      */
-    function enableMouseSelection(dt) {
+    function enableMouseSelection(dt, ctx) {
         var ctx = dt.settings()[0];
         var container = $(ctx.nTBody);
-        
-        if(ctx.oInit.selectFilaDer){
-	 
-	 container
+
+			if(ctx.oInit.selectFilaDer){
+				container
             .on('click contextmenu', function (event) {
                 if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
@@ -417,13 +416,11 @@ handler that will select the items using the API methods.
 
                 row.triggerHandler('tableSelectAfterSelectRow',ctx);
             });
-	
-	
-		} else {
-	
-	
-	container
-            .on('click.dtSelect', function (event) {
+				
+			} else {
+				
+				container
+            .on('click', function (event) {
                 if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
                     return false;
                 }
@@ -456,9 +453,9 @@ handler that will select the items using the API methods.
 
                 row.triggerHandler('tableSelectAfterSelectRow',ctx);
             });
-}
-
-       
+			}
+		
+        
     }
 
     /**
@@ -909,7 +906,7 @@ handler that will select the items using the API methods.
                 // Marcamos el checkbox
                 $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
                 $(api.context[0].aoData[idx].nTr).triggerHandler('tableHighlightRowAsSelected',ctx);
-                if ($.fn.getStaticHdivID(ctx.multiselection.lastSelectedId) === $.fn.getStaticHdivID(value)) {
+                if (ctx.multiselection.lastSelectedId === value) {
                     pos = idx;
                 }
                 if (pos === -1 && ctx.multiselection.lastSelectedId === '') { //En caso de que no hay ninguna coincidencia se pone el ultimo.
@@ -1192,7 +1189,7 @@ handler that will select the items using the API methods.
         });
 
         //Se deja marcado el primero de la pagina.
-        ctx.multiselection.lastSelectedId = dt.data()[0].id;
+        ctx.multiselection.lastSelectedId = dt.data()[0][ctx.oInit.primaryKey[0]];
         DataTable.Api().rupTable.selectPencil(ctx, 0);
     }
 

@@ -83,10 +83,6 @@
 
     },
     shim : {
-      "free-jqgrid":{
-        "deps": ["jquery"],
-        "exports":"jQuery"
-      },
       "jquery-ui":{
         "deps": ["jquery","jquery-migrate"],
       },

@@ -372,8 +372,8 @@ import Printd from 'printd';
                  * SORT - MULTISORT
                  */
                 if (!opciones.isMultiSort) {
-                    // Sidx select to rup-combo
-                    self._sidxComboInit.apply(self);
+                    // Sidx select to rup_select
+                    self._sidxSelectInit.apply(self);
                     // Inicialización sord
                     self._sordButtonInit(self);
                 } else {
@@ -917,11 +917,11 @@ import Printd from 'printd';
             opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
             opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
-            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="' + opciones.multiFilter._dialogId + '_combo">Filtros</label><input id="' + opciones.multiFilter._dialogId + '_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
+            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label><input id="' + opciones.multiFilter._dialogId + '_select" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
 
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
 
-            opciones.multiFilter.$combo = $('#' + opciones.multiFilter._dialogId + '_combo');
+            opciones.multiFilter.$select = $('#' + opciones.multiFilter._dialogId + '_select');
             opciones.multiFilter.$feedback = $('#' + opciones.multiFilter._dialogId + '_feedback');
 
             opciones.multiFilter.$feedback.rup_feedback({
@@ -960,10 +960,10 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -1001,14 +1001,14 @@ import Printd from 'printd';
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
                                         success: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.ok, 'ok');
-                                            opciones.multiFilter.$combo.rup_select('set', '', '');
+                                            opciones.multiFilter.$select.rup_select('set', '', '');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.ok, 'ok');
                                             opciones.multiFilter.$label.data('tmp.loadObjects.term', null);
                                             opciones.multiFilter.$label.data('loadObjects', {});
                                             opciones.multiFilter.$label.data('tmp.data', {});
                                         },
                                         error: () => {
-                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                            opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                                         }
                                     });
                                 }
@@ -1027,8 +1027,8 @@ import Printd from 'printd';
                 }
             });
 
-            opciones.multiFilter.$combo.rup_select({
-                source: opciones.action +
+            opciones.multiFilter.$select.rup_select({
+                url: opciones.action +
                     '/./multiFilter/getAll?filterSelector=' +
                     opciones.multiFilter._filterSelector + '&user=' +
                     opciones.multiFilter._filterUser,
@@ -1039,15 +1039,13 @@ import Printd from 'printd';
                     category: 'filter'
                 },
                 method: 'GET',
-                menuMaxHeight: 325,
-                minLength: 3,
-                combobox: true,
+                combo: true,
                 contains: true,
                 select: function () {
-                    if (opciones.multiFilter.$combo.rup_select('getRupValue')) {
+                    if (opciones.multiFilter.$select.rup_select('getRupValue')) {
                         opciones.multiFilter.selected = {
                             filterSelector: opciones.multiFilter._filterSelector,
-                            filterName: opciones.multiFilter.$combo.rup_select('getRupValue'),
+                            filterName: opciones.multiFilter.$select.rup_select('getRupValue'),
                             filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
                             filterUser: opciones.multiFilter._filterUser
                         };
@@ -1082,14 +1080,14 @@ import Printd from 'printd';
                                 }
                             },
                             error: () => {
-                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_jqtable.plugins.multifilter.error, 'error');
+                                opciones.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
                             }
                         });
                     }
                 }
             });
 
-            opciones.multiFilter.$label = $('#' + opciones.multiFilter._dialogId + '_combo_label');
+            opciones.multiFilter.$label = $('#' + opciones.multiFilter._dialogId + '_select_label');
 
             //filtro por derecho
             $.rup_ajax({
@@ -1180,25 +1178,25 @@ import Printd from 'printd';
         },
 
         /**
-         * Método interno que configura el combo de seleccion de sidx en la ordenación simple
-         * @name _sidxComboInit
+         * Método interno que configura el select de seleccion de sidx en la ordenación simple
+         * @name _sidxSelectInit
          * @private
          * @function
          */
-        _sidxComboInit: function () {
+        _sidxSelectInit: function () {
             const self = this;
             const opciones = self.options;
 
             let doChange = function(obj, change){
-                if (!$('#' + obj.id).rup_combo('isDisabled')) {
+                if (!$('#' + obj.id).rup_select('isDisabled')) {
                 	let iden = opciones._header.sidx[0].id;
-                    $('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    $('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
                     if(opciones.createFooter){
                     	iden = opciones._footer.sidx[0].id;
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    	$('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
                     }
                     if(change){
-                        self._changeOption('sidx', $('#' + obj.id).rup_combo('getRupValue'));
+                        self._changeOption('sidx', $('#' + obj.id).rup_select('getRupValue'));
                     }
                 }
             };
@@ -1218,7 +1216,7 @@ import Printd from 'printd';
                 ordered: false,
                 change: changeH
             };
-            opciones._header.sidx.rup_combo(sidxRupConf);
+            opciones._header.sidx.rup_select(sidxRupConf);
             opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
             if(opciones.createFooter){
                 var sidxRupConfFoot = {
@@ -1230,7 +1228,7 @@ import Printd from 'printd';
                         change: changeF
                     };
        
-                opciones._footer.sidx.rup_combo(sidxRupConfFoot);
+                opciones._footer.sidx.rup_select(sidxRupConfFoot);
                 opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
             }
         },
@@ -1436,7 +1434,7 @@ import Printd from 'printd';
         },
 
         /**
-         * Método interno que configura el combo de elementos de lista por página
+         * Método interno que configura el select de elementos de lista por página
          * @name _rownumInit
          * @private
          * @function
@@ -1446,19 +1444,17 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-                if(opciones.createFooter){
-                	let iden = opciones._header.rowNum[0].id;
-                    if (obj.id == 'rup-list-footer-rowNum') {
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
-                    }
-                    if (obj.id == 'rup-list-header-rowNum') {
-                    	iden = opciones._footer.rowNum[0].id;
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
-                    }
-                }
-                if(change){
-                    self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
-                }
+				if (!$('#' + obj.id).rup_select('isDisabled')) {
+					let iden = opciones._header.rowNum[0].id;
+					$('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
+					if(opciones.createFooter){
+						iden = opciones._footer.rowNum[0].id;
+						$('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
+					}
+					if(change){
+                    	self._changeOption('rowNum', $('#' + obj.id).rup_select('getRupValue'));
+                	}
+				}
             };
 
 
@@ -1479,7 +1475,7 @@ import Printd from 'printd';
             };
 
             let iden = opciones._header.rowNum[0].id;
-            $('#'+iden).rup_combo(rowNumRupConf);
+            $('#'+iden).rup_select(rowNumRupConf);
             opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
             
             if(opciones.createFooter){
@@ -1493,7 +1489,7 @@ import Printd from 'printd';
                     };
                
                 let idenFoot = opciones._footer.rowNum[0].id;
-                $('#'+idenFoot).rup_combo(rowNumRupConfFoot);
+                $('#'+idenFoot).rup_select(rowNumRupConfFoot);
                 opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
             }
         },
