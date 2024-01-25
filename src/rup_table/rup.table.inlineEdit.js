@@ -1487,13 +1487,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
             delete ajaxOptions.data;
             $.rup_ajax(ajaxOptions);
         } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
-        	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-            if (url.indexOf('deleteAll') === -1) {                
-                var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
-				if (hdivStateParamValue !== '') {
-					ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-				}
-		
+            if (url.indexOf('deleteAll') === -1) {
 				// Comprueba si debe enviarse como multipart.
 				if (ctx.oInit.inlineEdit.multipart === true) {
 					ajaxOptions.enctype = 'multipart/form-data';
@@ -1548,7 +1542,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 }
 
 /**
- * Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+ * Función que gestiona la carga del formulario.
  *
  * @name loadAuxForm
  * @function

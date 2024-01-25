@@ -514,10 +514,6 @@
 			if (ctx.seeker.search.$searchForm[0] !== undefined) {
 				datos.search = form2object(ctx.seeker.search.$searchForm[0]);
 			}
-			
-			if ($form.length > 0) {
-				datos.search._HDIV_STATE_ = $.fn.getHDIV_STATE(undefined, $form);
-			}
 		}
 		
         return datos;
@@ -574,8 +570,7 @@
 	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
 	                		searchEditOptions = cellColModel.searchoptions;
 	                		
-	                		// Permite obtener el HDIV_STATE del formulario del seeker a aquellos componentes que lo necesitan.
-	                		if (new Set(["autocomplete", "combo", "select"]).has(searchRupType)) {
+	                		if (new Set(["select"]).has(searchRupType)) {
 								searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
 							}
 	                		

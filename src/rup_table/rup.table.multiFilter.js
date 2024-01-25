@@ -415,13 +415,6 @@
         	filterName: settings.multiFilter.$comboLabel.val(),
         	filterDefault: settings.multiFilter.$defaultCheck.is(':checked')
         };
-        
-        // Si Hdiv está activado, incluye el parámetro _HDIV_STATE_ dentro de la petición y lo elimina del dataForm ya que ahí Hdiv no lo reconoce
-        var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, settings.multiFilter.$dropdownDialogForm);
-        if (hdivStateParamValue !== '') {
-        	filter._HDIV_STATE_ = hdivStateParamValue;
-        	delete dataForm['_HDIV_STATE_'];
-        }
 
         // Cambiar la fecha a milisegundos para su almacenamiento en BBDD
         var fecha;
@@ -434,19 +427,15 @@
         		filter.filterValue = $.toJSON(dataForm);
         
 				var objetoJSON = JSON.parse(filter.filterValue);
+					
+				var clave = settings.primaryKey[0];
 				
-				if (hdivStateParamValue !== '') {
-					
-					var clave = settings.primaryKey[0];
-					
-					var $select = $('[name='+ clave+']' );
-					
-					if($('#'+  $select[0].id).attr('ruptype') === 'select'){
-						var label = $('#'+  $select[0].id).rup_select("label");
-					
-						objetoJSON[clave] = label;
-					}
-					
+				var $select = $('[name='+ clave+']' );
+				
+				if($('#'+  $select[0].id).attr('ruptype') === 'select'){
+					var label = $('#'+  $select[0].id).rup_select("label");
+				
+					objetoJSON[clave] = label;
 				}
 				
 				
@@ -902,14 +891,6 @@
         if (valorFiltro === undefined && settings.multiFilter.$savedFilterName !== undefined &&
             settings.multiFilter.$savedFilterName === name) {
             valorFiltro = JSON.parse(settings.multiFilter.$savedFilterValue);
-        }
-        
-        // Si Hdiv está activado, incluye el parámetro _HDIV_STATE_ dentro del filtro
-        if (valorFiltro !== undefined) {
-        	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, settings.multiFilter.$filterForm);
-            if (hdivStateParamValue !== '') {
-            	valorFiltro._HDIV_STATE_ = hdivStateParamValue;
-            }
         }
         
         return valorFiltro;
