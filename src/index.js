@@ -31,7 +31,6 @@ import './rup.menu';
 import './rup.message';
 import './rup.navbar';
 import './rup.progressbar';
-import './rup.report';
 import './rup.slider';
 import './rup.spinner';
 import './rup.sticky';
