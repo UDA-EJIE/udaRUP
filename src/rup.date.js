@@ -482,7 +482,7 @@
                 this._ADAPTER.postConfigure.bind($(this))(settings);
                 
 				// Cuando el campo contiene un valor (posiblemente definido desde el modelo), se aplica.
-				if ($('#' + settings.id).val() != "") {
+				if ($('#' + settings.id).val()) {
 					$('#' + settings.id).rup_date("setRupValue", $('#' + settings.id).val());
 				}
 
