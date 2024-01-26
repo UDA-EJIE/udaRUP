@@ -1356,13 +1356,7 @@
 	                            fieldValue += label.html();
 	                        } else {
 	                        	//Mirar si es masterDetail
-	                            
-	                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
-	                            	let md = settings.masterDetail;
-	                            	fieldValue += (md.masterPrimaryNid) ? field.data('nid') : $(field).val();
-	                            }else{
-	                            	fieldValue += $(field).val();
-	                            }
+								fieldValue += $(field).val();
 	                        }
 	                        break;
 	                        //Rup-tree

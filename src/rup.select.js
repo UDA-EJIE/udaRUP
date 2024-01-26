@@ -130,11 +130,11 @@
             		 let data = {};
             		 if(settings.groups){
             			 data = $.grep(settings.optionsGroups, function (v) {
-	                    return v.nid === param || v.id == param;
+	                    return v.id == param;
             			 });
             		}else{
             			data = $.grep(settings.options, function (v) {
-	                    return v.nid === param || v.id == param;
+	                    return v.id == param;
             			});
             		}
  	              	if(data[0] !== undefined){
@@ -187,11 +187,11 @@
 	            		 let data = {};
 	            		 if(settings.groups){
 	            			 data = $.grep(settings.optionsGroups, function (v) {
-		                    return v.nid === value || v.id == value;
+		                    return v.id == value;
 	            			 });
 	            		}else{
 	            			data = $.grep(settings.options, function (v) {
-		                    return v.nid === value || v.id == value;
+		                    return v.id == value;
 	            			});
 	            		}
 	            		if(data[0] != undefined && $('#'+ settings.id).find("option[value='" + data[0] .id + "']").length == 0){
@@ -527,16 +527,7 @@
             // Tipo de select
         	let data = $(this).select2('data');
             if (!$(this).data('settings').multiple) {
-            	//Validar que venga el nid
-            	if(data[0] != undefined && data[0].nid == undefined && $(this).data('settings').options != undefined){
-            	   let seleccionado = $.grep($(this).data('settings').options, function (v, index) {
-            	        return v.id === data[0].id;
-            	   });
-            	   if (seleccionado != undefined && seleccionado.length == 1) {
-            		   data[0].nid = seleccionado[0].nid;
-            	   }
-            	}
-            	 return data[0];
+				return data[0];
             } else {
                 return data;
             }
@@ -1253,7 +1244,7 @@
 				        	  	if(v.id == valueSelect){
 				        	  		positions.push(index);
 				        	  	}
-			                    return v.nid == settings.selected || v.id == settings.selected;
+			                    return v.id == settings.selected;
 			                  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
@@ -1887,7 +1878,7 @@
 			                		        clave = clave + val + settings.multiValueToken  ;
 			                		        let dataSelected = $('#'+elem).rup_select("getDataSelected");
 			                		        if(dataSelected !== undefined){
-			                		        	val = dataSelected.nid || dataSelected.id;
+			                		        	val = dataSelected.id;
 			                		        	ClaveNoCifrar = ClaveNoCifrar + val + settings.multiValueToken  ;
 			                		        }
 			                		    });
@@ -1905,10 +1896,6 @@
 				                		if(val != settings.blank && val != ''){
 				                			$('#'+settings.id).rup_select("enable");
 					                		let valores = settings.dataParents[val];
-					                		if(valores == undefined && $('#'+settings.parent).rup_select("getDataSelected") !== undefined){
-					                			let nid = $('#'+settings.parent).rup_select("getDataSelected").nid;
-					                			valores = settings.dataParents[nid];//si vine cifrado de un remoto.
-					                		}
 					                		settings.data = settings.dataParents;
 					                		if(valores == undefined){// Si no
 																		// hay

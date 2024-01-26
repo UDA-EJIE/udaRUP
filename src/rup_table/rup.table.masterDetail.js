@@ -92,7 +92,6 @@
             if (rowSelected[0] !== undefined) { //Se ha deseleccionado, no entrar.
                 var row = tableMaster.rows(rowSelected).data();
                 var id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
-                $hiddenPKMaster.data('nid',row[0].nid);
                 $hiddenPKMaster.val('' + id);
                 $('#' + ctx.sTableId + '_filter_filterButton').click();
             } else { //se deselecciona
@@ -131,7 +130,6 @@
 
     function _deselectMaster(dt, ctx, $hiddenPKMaster) {
         $hiddenPKMaster.val('-1');
-        $hiddenPKMaster.data('nid',undefined);
         $('#' + ctx.sTableId + ' > tbody tr').remove();
         var asStripeClasses = ctx.asStripeClasses;
         var iStripes = asStripeClasses.length;
