@@ -2107,7 +2107,7 @@
         dataType: 'json',
         cache: true,
         multiple: false,
-        defaultValueAutocompleteNotLoaded: true,
+        defaultValueAutocompleteNotLoaded: false,
         multiValueToken:'##'
         };
 
