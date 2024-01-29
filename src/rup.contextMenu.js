@@ -139,9 +139,7 @@
             //Se recogen y cruzan las paremetrizaciones del objeto
                 var $self = this,
                     settings = $.extend({}, $.fn.rup_contextMenu.defaults, args[0]);
-
-                //Asociar el selector - DEPRECATED - Ahora debe validarse su especificación al crear el componente           
-                //settings.selector = $self.selector;
+                    
                 if (!settings.selector || $(settings.selector).length === 0) {
                     $.rup_messages('msgAlert', {
                         message: $.rup.i18nParse($.rup.i18n.base, 'rup_global.selectorError')

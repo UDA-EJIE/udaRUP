@@ -234,12 +234,4 @@
 
         return result;
     }
-
-    /**
-     * @deprecated Use form2object() instead
-     * @param rootNode
-     * @param delimiter
-     */
-    window.form2json = window.form2object;
-
 }));
