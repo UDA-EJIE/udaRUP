@@ -124,7 +124,11 @@
          * // Varias fechas
          * $("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
          */
-		setRupValue: function(param) {
+		setRupValue: function(param = '') {
+			if (param === '') {
+				return param;
+			}
+			
 			const $this = $(this);
 			const element = this;
 			const settings = $this.data('datepicker').settings;
