@@ -18,7 +18,6 @@ $(".rup_accordion").rup_accordion({  animate: "bounceslide",	active: false,	a
     * [~option(opt, [value])](#module_rup_accordion..option)
     * [~widget()](#module_rup_accordion..widget) ⇒ <code>object</code>
     * [~activate()](#module_rup_accordion..activate)
-    * ~~[~resize()](#module_rup_accordion..resize)~~
 
 <a name="module_rup_accordion..defaults"></a>
 
@@ -111,16 +110,4 @@ Activación programática de la sección especificada por parámetro.
 **Example**  
 ```js
 // Activar la seción tercera.$("#idAccordion").rup_accordion("activate", 3);// Activar la seción identificada con el selector seccion3.$("#idAccordion").rup_accordion("activate", "#seccion3");// Colapsar todas las secciones.$("#idAccordion").rup_accordion("activate", false);
-```
-<a name="module_rup_accordion..resize"></a>
-
-### ~~rup_accordion~resize()~~
-***Deprecated***
-
-La función provoca el reajuste de los height (tamaño vertical) de las distintas secciones del Accordion. La ejecución de esta función solo tiene sentido si la opción fillSpace está activada y el height del contenedor cambia.
-
-**Kind**: inner method of [<code>rup\_accordion</code>](#module_rup_accordion)  
-**Example**  
-```js
-$("#idAccordion").rup_accordion("resize");
 ```

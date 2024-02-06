@@ -194,7 +194,6 @@ El objeto `Filtro` que se envía en los métodos `filterAdd` y `filterDelete` ti
 
 ```js
 {
-    _HDIV_STATE_: hdivStateParamValue, // parámetro necesario cuando se usa Hdiv
     filterSelector: settings.id, // identificador
     filterName: multifilterSettings.$comboLabel.val(), // nombre
     filterValue: dataFormJson, // contiene los valores serializados en JSON

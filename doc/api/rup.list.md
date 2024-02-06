@@ -6,7 +6,7 @@ Presenta los elementos que presenta una tabla rup_table en formato listado. Pens
 **Summary**: Componente RUP List.  
 **Example**  
 ```js
-$('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'listFilterForm',     feedback: 'rup-list-feedback',     visiblePages: 3,     key: 'codigoPK',     selectable: {         multi: true,         selector: '.list-item'     },     sidx: {         source: [{             value: 'USUARIO',             i18nCaption: 'Usuario'         }, {             value: 'EDAD',             i18nCaption: 'Edad'         }, {             value: 'CODCLIENTE',             i18nCaption: 'Codigo cliente'         }],         value: 'EDAD,USUARIO'     },     rowNum: {         source: [{             value: '5',             i18nCaption: 'Cinco'         }, {             value: '10',             i18nCaption: 'Diez'         }, {             value: '20',             i18nCaption: 'Veinte'         }],         value: '5'     },     isMultiSort: true,     modElement: (ev, item, json) => {         var userVal = item.find('#usuario_value_' + json.codigoPK);         userVal.text(userVal.text() + ' -Added');     },     load: () => {}});
+$('#rup-list').rup_list({     action: '/demo/list/filter',     filterForm: 'listFilterForm',     feedback: 'rup-list-feedback',     visiblePages: 3,     key: 'codigoPK',     selectable: {         multi: true,         selector: '.list-item'     },     sidx: {         source: [{             value: 'USUARIO',             i18nCaption: 'Usuario'         }, {             value: 'EDAD',             i18nCaption: 'Edad'         }, {             value: 'CODCLIENTE',             i18nCaption: 'Codigo cliente'         }],         value: 'EDAD,USUARIO'     },     rowNum: {         source: [{             value: '5',             i18nCaption: 'Cinco'         }, {             value: '10',             i18nCaption: 'Diez'         }, {             value: '20',             i18nCaption: 'Veinte'         }],         value: '5'     },     isMultiSort: true,     modElement: (ev, item, json) => {         var userVal = item.find('#usuario_value_' + json.codigoPK);         userVal.text(userVal.text() + ' -Added');     },     beforeLoad: () => {},     load: () => {}});
 ```
 
 * [rup_list](#module_rup_list)
@@ -43,6 +43,7 @@ Opciones por defecto de configuración del componente.
 | [createFooter] | <code>boolean</code> | <code>true</code> | Si es true crea una copia del header en la parte inferior del listado |
 | [sord] | <code>String</code> | <code></code> | Determina la dirección de la ordenación |
 | [modElement] | <code>Funcion</code> | <code>() &#x3D;&gt;{}</code> | Callback que se ejecuta antes del añadido de cada tarjeta al listado |
+| [beforeLoad] | <code>Funcion</code> | <code>() &#x3D;&gt; {}</code> | Callback que se ejecuta antes de cada filtrado |
 | [load] | <code>Funcion</code> | <code>() &#x3D;&gt; {}</code> | Callback que se ejecuta tras cada filtrado |
 | [selectable] | <code>Object</code> | <code>Object</code> | Determina la configuración de la selección |
 | [isMultiSort] | <code>boolean</code> | <code>false</code> | Si es true el modo de ordenación cambia a multiordenación |
