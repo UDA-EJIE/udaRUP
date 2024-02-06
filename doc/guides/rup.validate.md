@@ -101,6 +101,45 @@ $("#formValidaciones").rup_validate(properties);
 
 Como ya se profundizará mas adelante, mediante la propiedad rules se indicará para cada campo (identificado mediante su el valor de su propiedad *name*) que validaciones se deben de realizar.
 
+Cabe destacar que cuando se busque validar un *input* de tipo *checkbox* o *radio*, el label que se quiera asociar para mostrar el error de validación debe contenter el atributo ***data-title*** con el mismo valor que el atributo name del checkbox o radio. Además, **debe estar dentro de un elemento con clase *form-row***, por ejemplo:
+```html
+<form id="formValidaciones" action="/form">
+	<div class="form-row col-sm-6">
+		<div class="col-12">
+			<label id="alertDayErrorLabel" data-title="alertDay">Alert on</label>
+		</div>
+        <div class="col-6">
+            <div class="checkbox-material">
+            	<input type="checkbox" name="alertDay" value="0" id="checkLunes"/>
+                <label for="checkLunes">Lunes</label>
+            </div>
+            <div class="checkbox-material">
+                <input type="checkbox" name="alertDay" value="1" id="checkMartes"/>
+                <label for="checkMartes">Martes</label>
+            </div>
+            <div class="checkbox-material">
+                <input type="checkbox" name="alertDay" value="2" id="checkMiercoles"/>
+                <label for="checkMiercoles">Miércoles</label>
+            </div>
+		</div>
+        <div class="col-6">
+            <div class="checkbox-material">
+                <input type="checkbox" name="alertDay" value="3" id="checkJueves"/>
+                <label for="checkJueves">Jueves</label>
+            </div>
+            <div class="checkbox-material">
+                <input type="checkbox" name="alertDay" value="4" id="checkViernes"/>
+                <label for="checkViernes">Viernes</label>
+            </div>
+            <div class="checkbox-material">
+            	<input type="checkbox" name="alertDay" value="5" id="checkFindesemana"/>
+                <label for="checkFindesemana">Fín de semana</label>
+            </div>
+		</div>
+	</div>
+</form>
+```
+
 ## 6 API
 
 Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.validate.md).
