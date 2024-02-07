@@ -498,16 +498,6 @@
             var klass = this.c.dom.button.active;
             var jqNode = $(button.node);
 
-
-
-
-			if (flag === undefined || flag == false){
-				jqNode.prop('disabled', true);
-				
-			} else if(flag === true){
-				jqNode.prop('disabled', false);
-			}
-  			
             if (flag === undefined) {
                 return jqNode.hasClass(klass);
             }
