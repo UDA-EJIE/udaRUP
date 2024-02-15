@@ -52,16 +52,12 @@ A continuación se comenta la infraestructura necesaria para el correcto funcion
 
 ### 4.2 Dependencias
 
-Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base. La versión elegida para el desarrollo ha sido la 1.8.0.
-*   jQuery 1.8.0: <http://jquery.com/>
-
-La gestión de ciertas partes visuales de los componentes, se han realizado mediante el plugin jQuery-UI que se basa en jQuery y se utiliza para construir aplicaciones web altamente interactivas. Este plugin, entre otras cosas, proporciona abstracciones de bajo nivel de interacción y animación, efectos avanzados de alto nivel y componentes personalizables (estilos). La versión utilizada en el desarrollo ha sido la 1.8.23.
-
-*   jQuery-UI 1.8.23: <http://jqueryui.com/>
+Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base.
+*   jQuery: <http://jquery.com/>
 
 Los ficheros necesarios para el correcto funcionamiento del componente son:
 
-*   jquery-3.4.1.js
+*   jquery-3.y.z.js
 *   rup.base-x.y.z.js
 *   rup.select-x.y.z.js
 *   theme.rup.select-x.y.z.css
@@ -80,27 +76,24 @@ Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones 
 
 Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente select. Por ejemplo:
 
-```javascript
-  $("#id_input").rup_select(properties);
+```js
+$("#id_select").rup_select(properties);
 ```
 
 Donde el parámetro “properties” es un objeto ( var properties = {}; ) o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
 
-Para facilitar la gestión de los datos del formulario, el *input* sobre el que se aplica el componente pasará a tener como nombre su nombre original seguido de *“_label”* y contendrá la descripción del valor seleccionado. El valor interno se guardará en un campo oculto cuyo nombre será el nombre original del *input* sobre el que se aplica el componente. Veámoslo con un ejemplo:
 
-
-1.  Se define el input sobre el que se aplica el componente:
-```js
-<input id=lenguaje name=lenguaje />
+1.  Se define el select sobre el que se aplica el componente:
+```html
+<select id=lenguaje name=lenguaje />
 ```
-2.  Se invoca el componente sobre el input:
+2.  Se invoca el componente sobre el select:
 ```js
 $("#lenguaje").rup_select({...});
 ```
 3.  Se modifica el código HTML y se convierte en:
-```xml
-<input id=”lenguaje_label” name=”lenguaje_label” ruptype=”select”... />
-<hidden id=”lenguaje” name=”lenguaje” ” ruptype=”select”... />
+```html
+<select id=”lenguaje_label” name=”lenguaje_label” ruptype=”select”... />
 ```
 
 ## 6 API
@@ -113,17 +106,28 @@ El componente select se presenta con una apariencia visual definida en el ficher
 
 Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos (*codAppStatics/WebContent/codApp/styles*).
 
-Los estilos del componente se basan en los estilos básicos de los widgets de *jQuery UI*, con lo que los cambios que se realicen sobre su fichero de estilos manualmente o mediante el uso de la herramienta Theme Roller podrán tener repercusión sobre todos los componentes que compartan esos mismos estilos (pudiendo ser el nivel de repercusión general o ajustado a un subconjunto de componentes).
-
 Ejemplo base de la estructura generada por el componente:
 
-```xml
-<select id="idSelect" name="nameSelect" ruptype="select" data-select2-id="idSelect" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"></select>
-<ul class="select2-results__options" role="listbox" id="select2-selectboxLocal-results" aria-expanded="true" aria-hidden="false">
-	<li class="select2-results__option select2-results__option--highlighted" 	id="select2-selectboxLocal-result-9gjv-asp_value" role="option" aria-selected="false" 	data-select2-id="select2-selectboxLocal-result-9gjv-asp_value">
-		asp
-	</li>
-</ul>
+```html
+<select id="selectRemoto" name="code" ruptype="select" data-select2-id="selectRemoto" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+	<option value="" data-select2-id="18"></option>
+	<option value="3" style="print" imgstyle="undefined" data-select2-id="63">Gipuzcoa</option>
+</select>
+<span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="17" style="width: 100%;">
+	<span class="selection">
+		<span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-selectRemoto-container">
+			<span class="select2-selection__rendered" id="select2-selectRemoto-container" role="textbox" aria-readonly="true" title="Gipuzcoa">
+				<span class="select2-selection__clear" title="Remove all items" data-select2-id="65">×</span>
+				<span>
+					<i class="mdi mdi-print">Gipuzcoa</i>
+				</span>
+			</span>
+			<span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+		</span>
+	</span>
+	<span class="dropdown-wrapper" aria-hidden="true"></span>
+</span>
+<label for="selectRemoto" class="select-material">Select remoto</label>
 ```
 
 ### 8 Internacionalización i18n
@@ -153,11 +157,12 @@ Ejemplo:
 El componente Select permite recuperar los datos almacenados en base de datos. Para ello se requiere cierta configuración en el *Controller* al que se invoca.
 
 Se deben declarar dos parámetros (que el componente envía automáticamente):
-*   **q**: termino introducido en el *input*. El termino introducido podría contener comodines (wildcards) que podrían obtener datos no deseados como son el carácter “_” que equivale a cualquier carácter o el carácter “%” que equivale a cualquier literal. Por ello en la petición al servidor se envía escapados automáticamente. Ejemplo de una petición con los caracteres escapados:
-```xml
+*   **q**: termino introducido en el buscador. El termino introducido podría contener comodines (wildcards) que podrían obtener datos no deseados como son el carácter “_” que equivale a cualquier carácter o el carácter “%” que equivale a cualquier literal. Por ello en la petición al servidor se envía escapados automáticamente. Ejemplo de una petición con los caracteres escapados:
+```
 http://localhost:7001/x21aDemoWAR/fase3/select/remote?q=\%\%\%\%&c=false
 ```
-*   **autocomplete**: booleano para indicar que la busqueda será autocomplete enlugar de un select normal.
+*   **autocomplete**: booleano para indicar que la busqueda será autocomplete en lugar de un select normal.
+*   **combo**: booleano para indicar que el autocomplete contendrá también la funcionalidad del combo y solo aplica cuando la propiedad autocomplete está activa. En el *rup_autocomplete* esta propiedad se llamaba *combobox*.
 *   **c**: booleano que determina si la búsqueda es del tipo “contiene” (true) o del tipo “empieza por” (false).
 
 El *Service* que invoca el *Controller* tendrá el método **findAllLike (entidad, paginación, c)** (si se ha generado con el plugin UDA)  que se empleará para realizar la búsqueda. Sus parámetros son los siguientes:
@@ -269,7 +274,7 @@ Para que la serialización se realice correctamente, el componente envía en la 
 
 ## 10 selects enlazados
 Estos selects enlazados, pueden ser tanto locales como remotos. Para indicar que un select depende directamente de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
-```javascript
+```js
 parent: ["departamento", "provincia"]
 ```
 Las dependencias entre los selects pueden encadenarse de tal manera que se tenga un select que depende de otro select que a su vez depende de otro select y así sucesivamente (incluso se pueden combinar select locales con remotos indistintamente). Además, es posible que un select dependa a su vez de dos selects o más y no se cargarán ni se activarán hasta que todos sus padres hayan tomado un valor.
@@ -277,8 +282,8 @@ Las dependencias entre los selects pueden encadenarse de tal manera que se tenga
 Al ser selects enlazados, si un select elimina su selección todos sus selects hijos se vaciarán y se deshabilitarán. Además, si un select se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarán, pero se mostrarán deshabilitados.
 
 Cabe decir que en el atributo name de los campos definidos como parents de un select remoto, ha de definirse el nombre de la entidad, por ejemplo:
-```xml
-<input id="padre" name="provincia" />
+```html
+<select id="padre" name="provincia" />
 ```
 
 ## 11 Aspectos a tener en cuenta
