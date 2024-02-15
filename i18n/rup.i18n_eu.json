@@ -1128,7 +1128,13 @@
     "mordBajar": "Eremua atzeratu",
     "quitarCampoOrden": "Eremu honen arabera bilatzeari utzi",
     "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
-    "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu"
+    "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu",
+    "rowPerPage": {
+		"5": "Bost",
+		"10": "Hamar",
+		"20": "Hogei",
+		"30": "Hogeita hamar"
+	}
   },
   "rup_toolbar": {
   	"mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."

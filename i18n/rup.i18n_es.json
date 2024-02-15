@@ -1038,7 +1038,13 @@
     "mordBajar": "Atrasar el campo",
     "quitarCampoOrden": "Dejar de ordenar por este campo",
     "ariaSummary": "Las opciones de ordenación actuales son: ",
-    "ariaSummaryEmpty": "No se han seleccionado opciones de ordenación"
+    "ariaSummaryEmpty": "No se han seleccionado opciones de ordenación",
+    "rowPerPage": {
+		"5": "Cinco",
+		"10": "Diez",
+		"20": "Veinte",
+		"30": "Treinta"
+	}
   },
   "rup_toolbar": {
   	"mbuttonsIdError": "El atributo ID es obligatorio en los MButtons."
