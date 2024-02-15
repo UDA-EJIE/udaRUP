@@ -14,7 +14,7 @@
 -   [7 Sobreescritura del theme](#7-sobreescritura-del-theme)   
 -   [8  Internacionalización (i18n)](#8-internacionalización-i18n)   
 -   [9 Integración con UDA](#9-integración-con-uda)   
--   [10 Select Seelcts enlazados](#10-select selects-enlazados)
+-   [10 Select enlazados](#10-selects-enlazados)
 -   [11 Aspectos a tener en cuenta](#11-aspectos-a-tener-en-cuenta)
 
 <!-- /MDTOC -->
@@ -272,7 +272,7 @@ Para que la serialización se realice correctamente, el componente envía en la 
 
 **NOTA**: Al generar el código con el *plugin* de **UDA**, se añade este serializador para todos los objetos del modelo creados.
 
-## 10 selects enlazados
+## 10 Selects enlazados
 Estos selects enlazados, pueden ser tanto locales como remotos. Para indicar que un select depende directamente de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
 ```js
 parent: ["departamento", "provincia"]
