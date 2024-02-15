@@ -776,7 +776,13 @@
     "mordBajar": "fr_Atrasar el campo",
     "quitarCampoOrden": "fr_Dejar de ordenar por este campo",
     "ariaSummary": "fr_Las opciones de ordenación actuales son: ",
-    "ariaSummaryEmpty": "fr_No se han seleccionado opciones de ordenación"
+    "ariaSummaryEmpty": "fr_No se han seleccionado opciones de ordenación",
+    "rowPerPage": {
+		"5": "Cinq",
+		"10": "Dix",
+		"20": "Vingt",
+		"30": "Trente"
+	}
   },
   "rup_toolbar": {
   	"mbuttonsIdError": "fr_El atributo ID es obligatorio en los MButtons."
