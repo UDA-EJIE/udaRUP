@@ -1209,8 +1209,7 @@ import Printd from 'printd';
             };
 
             var sidxRupConf = {
-                source: opciones.sidx.source,
-                width: 'initial',
+                data: opciones.sidx.source,
                 selected: opciones.sidx.value,
                 rowStriping: true,
                 ordered: false,
@@ -1220,8 +1219,7 @@ import Printd from 'printd';
             opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
             if(opciones.createFooter){
                 var sidxRupConfFoot = {
-                        source: opciones.sidx.source,
-                        width: 'initial',
+                        data: opciones.sidx.source,
                         selected: opciones.sidx.value,
                         rowStriping: true,
                         ordered: false,
@@ -1466,8 +1464,7 @@ import Printd from 'printd';
             };
 
             var rowNumRupConf = {
-                source: opciones.rowNum.source,
-                width: 'initial',
+                data: opciones.rowNum.source,
                 selected: opciones.rowNum.value,
                 rowStriping: true,
                 ordered: false,
@@ -1480,8 +1477,7 @@ import Printd from 'printd';
             
             if(opciones.createFooter){
                 var rowNumRupConfFoot = {
-                        source: opciones.rowNum.source,
-                        width: 'initial',
+                        data: opciones.rowNum.source,
                         selected: opciones.rowNum.value,
                         rowStriping: true,
                         ordered: false,
