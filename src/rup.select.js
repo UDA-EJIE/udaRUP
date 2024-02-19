@@ -169,6 +169,10 @@
 	            		lis.attr('aria-selected', false);
 	            		$(selectedDate).attr('aria-selected',true);
 	            	}
+            		
+            		// Guardar seleccionado.
+            		settings.selected = param;
+            		
 	            	$self.val(param).trigger('change');
 	            	$('#' + settings.id).rup_select('change');
             	}
@@ -202,6 +206,9 @@
 	            			arrayDatos.push(value);
 	            		}
 	            	});
+            		
+            		// Guardar seleccionados.
+            		settings.selected = arrayDatos;
             		
             		$('#' + settings.id).val(arrayDatos).trigger('change');
             	}
