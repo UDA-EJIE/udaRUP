@@ -1205,7 +1205,7 @@ import Printd from 'printd';
                 doChange(this, true);
             };
             let changeF = function(){
-                doChange(this, false);
+                doChange(this, true);
             };
 
             var sidxRupConf = {
@@ -1460,7 +1460,7 @@ import Printd from 'printd';
                 doChange(this, true);
             };
             let changeF = function(){
-                doChange(this, false);
+                doChange(this, true);
             };
 
             var rowNumRupConf = {
