@@ -1188,7 +1188,7 @@ import Printd from 'printd';
             const opciones = self.options;
 
             let doChange = function(obj, change){
-                if (!$('#' + obj.id).rup_select('isDisabled')) {
+                if (!$('#' + obj.id).rup_select('isDisabled') && obj.selected != $('#' + obj.id).rup_select('getRupValue')) {
                 	let iden = opciones._header.sidx[0].id;
                     $('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
                     if(opciones.createFooter){
@@ -1442,7 +1442,7 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-				if (!$('#' + obj.id).rup_select('isDisabled')) {
+				if (!$('#' + obj.id).rup_select('isDisabled') && obj.selected != $('#' + obj.id).rup_select('getRupValue')) {
 					let iden = opciones._header.rowNum[0].id;
 					$('#'+iden).rup_select('setRupValue', $('#' + obj.id).rup_select('getRupValue'));
 					if(opciones.createFooter){
