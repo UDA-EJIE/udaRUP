@@ -404,7 +404,7 @@
                 	if (Object.prototype.hasOwnProperty.call(json, key)) {
                 		id = id + json[key];
                 	} else if (key.indexOf('.') !== -1) {
-                	    id = $self._getDescendantProperty(json, key);
+                	    id = id + $self._getDescendantProperty(json, key);
                 	}
 
                     if (opts.primaryKey.length > 1 && index < opts.primaryKey.length - 1) {
