@@ -1487,7 +1487,7 @@
 			if ($form.length === 1) {
 				let url = settings.url + (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
 
-				if (data) {
+				if (data && !settings.url.includes(data)) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
 					url += "&" + data.replaceAll('#', '%23');
 				}
