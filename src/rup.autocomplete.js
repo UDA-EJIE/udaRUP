@@ -1002,9 +1002,11 @@ input.
 					return false;
 				};
 				settings.focus = function (event, ui) {
-					$('#' + event.target.id).val(ui.item.label.replace(/<strong>/g, '').replace(/<\/strong>/g, ''));
+					
 					if (settings._focus !== undefined) {
 						settings._focus(event, ui);
+					}else{//se puede personalizar el action entero
+						$('#' + event.target.id).val(ui.item.label.replace(/<strong>/g, '').replace(/<\/strong>/g, ''));
 					}
 					return false; //Evitar acciones jquery.autocomplete.js
 				};
