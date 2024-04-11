@@ -1207,6 +1207,8 @@ import Printd from 'printd';
             let changeF = function(){
                 doChange(this, true);
             };
+            
+            opciones.sidx.source.filter(data => data.id = data.value);
 
             var sidxRupConf = {
                 data: opciones.sidx.source,
@@ -1462,6 +1464,8 @@ import Printd from 'printd';
             let changeF = function(){
                 doChange(this, true);
             };
+            
+            opciones.rowNum.source.filter(data => data.id = data.value);
 
             var rowNumRupConf = {
                 data: opciones.rowNum.source,
