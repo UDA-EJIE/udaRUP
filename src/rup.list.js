@@ -1639,8 +1639,8 @@ import Printd from 'printd';
                 let tmpSordArr = opciones.multiorder.sord.split(',').map((e) => {
                     return e.trim();
                 });
-                if (tmpSidxArr.indexOf($(e.target).attr('data-ordValue')) == -1) {
-                    tmpSidxArr.push($(e.target).attr('data-ordValue'));
+                if (tmpSidxArr.indexOf($(e.currentTarget).attr('data-ordValue')) == -1) {
+                    tmpSidxArr.push($(e.currentTarget).attr('data-ordValue'));
                     tmpSordArr.push(ord);
                 }
                 opciones.multiorder.sidx = tmpSidxArr.join(',');
@@ -1648,20 +1648,20 @@ import Printd from 'printd';
             }
             //Creamos la linea
             let $operateLine = $(`
-                <div id="${opciones._idMultiSortDialog}-ord-line-${$(e.target).attr('data-ordValue')}" 
+                <div id="${opciones._idMultiSortDialog}-ord-line-${$(e.currentTarget).attr('data-ordValue')}" 
                     class="rup_list-ord-line btn-group mb-3" 
-                    data-ordValue="${$(e.target).attr('data-ordValue')}"
+                    data-ordValue="${$(e.currentTarget).attr('data-ordValue')}"
                     role="toolbar" 
                     aria-controls="${self.element[0].id}"
-                    aria-label="${$(e.target).text().trim()}, ${$.rup.i18n.base.rup_list.sort[ord]}">
+                    aria-label="${$(e.currentTarget).text().trim()}, ${$.rup.i18n.base.rup_list.sort[ord]}">
                     <div class="rup_list-apord input-group-text"></div>
                     <button class="rup_list-mord-up btn btn-secondary p-1 mdi mdi-arrow-up"
                         aria-label="${$.rup.i18n.base.rup_list.mordSubir}"
-                        aria-controls="${self.element[0].id} ${opciones._idMultiSortDialog}-ord-line-${$(e.target).attr('data-ordValue')}"></button>
+                        aria-controls="${self.element[0].id} ${opciones._idMultiSortDialog}-ord-line-${$(e.currentTarget).attr('data-ordValue')}"></button>
                     <button class="rup_list-mord-down btn btn-secondary p-1 mdi mdi-arrow-down"
                         aria-label="${$.rup.i18n.base.rup_list.mordBajar}"
-                        aria-controls="${self.element[0].id} ${opciones._idMultiSortDialog}-ord-line-${$(e.target).attr('data-ordValue')}"></button>
-                    <div class="rup_list-mord-label input-group-text rounded-0 w-50" aria-hidden="true">${$(e.target).text()}</div>
+                        aria-controls="${self.element[0].id} ${opciones._idMultiSortDialog}-ord-line-${$(e.currentTarget).attr('data-ordValue')}"></button>
+                    <div class="rup_list-mord-label input-group-text rounded-0 w-50" aria-hidden="true">${$(e.currentTarget).text()}</div>
                     <button aria-controls="${self.element[0].id}"
                         class="rup_list-mord btn btn-secondary mdi" 
                         data-direction="${ord}"
@@ -1672,10 +1672,10 @@ import Printd from 'printd';
                 </div>
             `);
             $operateLine.find('button').rup_button();
-            $(e.target).remove();
+            $(e.currentTarget).remove();
             sortDiv.append($operateLine);
 
-            self._fnOrderOfOrderFields.apply(self, [$('[data-ordValue="' + $(e.target).attr('data-ordValue') + '"]', sortDiv), isInit]);
+            self._fnOrderOfOrderFields.apply(self, [$('[data-ordValue="' + $(e.currentTarget).attr('data-ordValue') + '"]', sortDiv), isInit]);
         },
 
         /**
