@@ -173,10 +173,10 @@ function testDate(lang) {
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
                         if (lang === 'es') {
-                            expect($date.rup_date('getRupValue')).toBe('08/10/2018 00:00');
+                            expect($date.rup_date('getRupValue')).toBe('08/10/2018');
                         }
                         if (lang === 'eu') {
-                            expect($date.rup_date('getRupValue')).toBe('2018/10/08 00:00');
+                            expect($date.rup_date('getRupValue')).toBe('2018/10/08');
                         }
                     });
                 });
@@ -209,10 +209,10 @@ function testDate(lang) {
                     });
                     it(langStr(lang) + 'Debe actualizar el valor:', () => {
                         if(lang === 'es') {
-                            expect($multiDate.rup_date('getRupValue')).toBe('08/10/2018,09/10/2018');
+                            expect($multiDate.rup_date('getRupValue')).toBe('08/10/2018, 09/10/2018');
                         }
                         if(lang === 'eu') {
-                            expect($multiDate.rup_date('getRupValue')).toBe('2018/10/08,2018/10/09');
+                            expect($multiDate.rup_date('getRupValue')).toBe('2018/10/08, 2018/10/09');
                         }
                     });
                 });
