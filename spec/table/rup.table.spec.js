@@ -66,14 +66,15 @@ function testDatatable() {
                     $('#exampleInline').on('draw.dt', () => {
                         done();
                     });
-                    $('#exampleInline').on('tableEditInlineClickRow', () => {
-                        $('#nombre_inline').val(nameEdit);
-                        var ev = $.Event('keydown');
-                        ev.keyCode = 13;
-                        $('#exampleInline > tbody > tr:eq(0)').trigger(ev);
-                    });
+					$('#exampleInline').on('tableInlineEdit', () => {
+						$('#nombre_inline').val(nameEdit);
+						const ev = $.Event('keydown');
+						ev.keyCode = 13;
+						$('#exampleInline > tbody > tr:eq(0)').trigger(ev);
+						$('#exampleInlinesaveButton_1').click();
+						buscarAceptar().click();
+					});
                     $('#exampleInline > tbody > tr:eq(0) > td:eq(0)').dblclick();
-                    buscarAceptar().click();
                 });
                 afterEach((done) => {
                     $.get('/demo/table/reset', done);
