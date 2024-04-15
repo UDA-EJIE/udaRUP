@@ -134,7 +134,6 @@ export function createDatatable1(ctx, callback) {
             name: 'id',
             index: 'id',
             editable: false,
-            width: 80,
             formoptions: {
                 rowpos: 1,
                 colpos: 1
@@ -154,8 +153,7 @@ export function createDatatable1(ctx, callback) {
             formoptions: {
                 rowpos: 3,
                 colpos: 1
-            },
-            classes: 'ui-ellipsis'
+            }
         }, {
             name: 'edad',
             index: 'edad',
