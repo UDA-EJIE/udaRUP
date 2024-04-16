@@ -1207,7 +1207,10 @@
 					        			}
 			        				}
 			        			});
-			        		}
+							} else if (params.url.indexOf(datosParent) < 0) {
+								// Aseguramos que mete el valor del padre.
+								params.url = params.url + '?' + datosParent;
+							}
 			        		$request = $.ajax(params);
 			        	}
 			        }else{
