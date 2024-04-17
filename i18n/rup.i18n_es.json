@@ -84,6 +84,7 @@
     "weekHeader": "&nbsp;&nbsp;&nbsp;",
     "errors": {
       "invalidDate": "Fecha inválida en #%s",
+      "missingTime": "La opción datetimepicker está activa en #%s, pero únicamente ha recibido la fecha, falta la hora.",
       "multiSelectLimitExceeded": "El array excede el límite de la multiselección. El tamaño del array es de %i y el de la multiselección de %i"
     }
   },

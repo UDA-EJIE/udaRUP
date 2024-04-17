@@ -99,14 +99,20 @@
                 if (tmpDate === null || tmpDate.toString() === 'Invalid Date') {
                     return '';
                 }
+                const settings = $(this).data('datepicker').settings;
                 var fechaArray = $(this).rup_date('getDate').split(' ');
 
-                var formattedTime = $(this).data('datepicker').settings.timeFormat;
+                var formattedTime = settings.timeFormat;
                 var separator = formattedTime[2];
-                var tmpTime = fechaArray[1].split(separator).join(':');
-                var dateFormat = $(this).data('datepicker').settings.dateFormat;
-
-                return $.datepicker.formatDate(dateFormat, tmpDate) + ' ' + tmpTime;
+                var tmpTime = fechaArray[1] ? fechaArray[1].split(separator).join(':') : false;
+                var dateFormat = settings.dateFormat;
+                
+                if (tmpTime) {
+					return $.datepicker.formatDate(dateFormat, tmpDate) + ' ' + tmpTime;
+				} else {
+					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_date.errors.missingTime')), settings.id);
+					return $.datepicker.formatDate(dateFormat, tmpDate);
+				}
             } else {
                 return $(this).rup_date('getDate');
             }
