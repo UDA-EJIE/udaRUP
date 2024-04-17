@@ -4,8 +4,7 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
-import 'rup.autocomplete';
-import 'rup.combo';
+import 'rup.select';
 import 'rup.feedback';
 import 'rup.form';
 
@@ -40,7 +39,7 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                     <div class="two-col" >\
                         <div class="col1">\
                         <label for="sexo" class="label">Sexo</label>\
-                            <input type="text" name="sexo" class="formulario_linea_input" id="sexo" />\
+                            <select name="sexo" class="formulario_linea_input" id="sexo" ></select>\
                         </div>\
                         <div class="col1">\
                             <label for="fechaNacimiento" class="label">Fecha de nacimiento</label>\
@@ -108,11 +107,11 @@ const formHtml = '<div id="feedbackMensajes"></div>\
                     <div class="two-col">\
                         <div class="col1">\
                         <label for="municipio" class="label">Municipio</label>\
-                            <input type="text" name="municipio.id" class="formulario_linea_input" size="30" id="municipio" />\
+                            <select name="municipio.id" class="formulario_linea_input" id="municipio" ></select>\
                         </div>\
                         <div class="col1">\
                         <label for="calle" class="label">Calle</label>\
-                            <input type="text" name="calle.id" class="formulario_linea_input" size="50" id="calle" />\
+                            <select name="calle.id" class="formulario_linea_input" id="calle" ></select>\
                         </div>\
                     </div>\
                 </fieldset>\
@@ -127,72 +126,72 @@ function configurar() {
         fadeSpeed: 500,
         block: true
     });
-    $('#sexo').rup_combo({
-        source: [{
+    $('#sexo').rup_select({
+        data: [{
             i18nCaption: 'masculino',
-            value: 'M'
+            id: 'M'
         },
         {
             i18nCaption: 'femenino',
-            value: 'F'
+            id: 'F'
         }
         ],
         i18nId: 'sexo'
     });
     let sourceJson = [{
         i18nCaption: 'ab',
-        value: 'ab_value'
+        id: 'ab_value'
     },
     {
         i18nCaption: 'tc',
-        value: 'tc_value'
+        id: 'tc_value'
     },
     {
         i18nCaption: 'ud',
-        value: 'ud_value'
+        id: 'ud_value'
     },
     {
         i18nCaption: 'le',
-        value: 'le_value'
+        id: 'le_value'
     },
     {
         i18nCaption: 'af',
-        value: 'af_value'
+        id: 'af_value'
     },
     {
         i18nCaption: 'mg',
-        value: 'mg_value'
+        id: 'mg_value'
     },
     {
         i18nCaption: 'ah',
-        value: 'ah_value'
+        id: 'ah_value'
     },
     {
         i18nCaption: 'ui',
-        value: 'ui_value'
+        id: 'ui_value'
     },
     {
         i18nCaption: 'uj',
-        value: 'uj_value'
+        id: 'uj_value'
     },
     {
         i18nCaption: 'ak',
-        value: 'ak_value'
+        id: 'ak_value'
     }
     ];
-    $('#municipio').rup_autocomplete({
-        source: sourceJson,
+    $('#municipio').rup_select({
+        data: sourceJson,
         sourceParam: {
-            label: 'dsO',
-            value: 'id'
+            text: 'dsO',
+            id: 'id'
         },
         minLength: 4
     });
-    $('#calle').rup_autocomplete({
-        source: sourceJson,
+    $('#calle').rup_select({
+        data: sourceJson,
         sourceParam: {
-            label: 'dsO',
-            value: 'id'
+            text: 'dsO',
+            id: 'id'
         },
         minLength: 4
     });
@@ -317,9 +316,9 @@ describe('Test Form', () => {
             });
             describe('Form alternativo > ', () => {
                 it('Debe devolver un string con los datos', () => {
-                    let out = 'nombre=pop&apellido1=&apellido2=&sexo=F&fechaNacimiento=' +
-                        '&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-                        '&provincia.id=&municipio.id_label=&municipio.id=&calle.id_label=&calle.id=';
+                    let out = 'nombre=pop&apellido1=&apellido2=&sexo=M&fechaNacimiento=' + 
+                    '&telefono=&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' + 
+                    '&provincia.id=&municipio.id=ab_value&calle.id=ab_value';
                     expect($formAlt.rup_form('formSerialize')).toBe(out);
                 });
             });
@@ -334,10 +333,10 @@ describe('Test Form', () => {
             });
             describe('Form alternativo > ', () => {
                 it('Debe devolver un string con los datos de los fields:', () => {
-                    let out = 'nombre=pop&apellido1=&apellido2=&fechaNacimiento=&telefono=' +
-                        '&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' +
-                        '&provincia.id=&municipio.id=&calle.id=';
-                    expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldSerialize')).toBe(out);
+					let out = 'nombre=pop&apellido1=&apellido2=&sexo=M&fechaNacimiento=&telefono=' + 
+					'&dni=&usuario=&password=&password_confirm=&email=&email_confirm=' + 
+					'&provincia.id=&municipio.id=ab_value&calle.id=ab_value';
+                    expect($('input, select', $formAlt).rup_form('fieldSerialize')).toBe(out);
                 });
             });
         });
@@ -350,11 +349,10 @@ describe('Test Form', () => {
             });
             describe('Form alternativo > ', () => {
                 it('Debe devolver los valores en un array', () => {
-                    let out = [
-                        'pop', '', '', '', '', '', '',
-                        '', '', '', '', '', '', ''
-                    ];
-                    expect($('input:not(.rup-autocomplete_label)', $formAlt).rup_form('fieldValue')).toEqual(out);
+					let out = [
+						'pop', '', '', 'M', '', '', '', '', '', '', '', '', '', 'ab_value', 'ab_value'
+					];
+                    expect($('input, select', $formAlt).rup_form('fieldValue')).toEqual(out);
                 });
             });
         });
@@ -373,7 +371,13 @@ describe('Test Form', () => {
                 it('Debe devolver los datos rellenados en formato JSON:', () => {
                     let out = {
                         'nombre': 'pop',
-                        'sexo': 'F'
+                        'sexo': 'M',
+						'municipio': {
+							'id': 'ab_value'
+						},
+						'calle': {
+							'id': 'ab_value'
+						}
                     };
                     expect($formAlt.rup_form('formToJson')).toEqual(out);
                 });
