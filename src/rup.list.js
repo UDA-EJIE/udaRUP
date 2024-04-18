@@ -917,7 +917,22 @@ import Printd from 'printd';
             opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
             opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
-            opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label><input id="' + opciones.multiFilter._dialogId + '_select" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
+			opciones.multiFilter.$dialog = $(
+				'<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material">' + 
+					'<div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div>' + 
+					'<form>' + 
+						'<div class="form-row"><div class="form-groupMaterial col-12">' + 
+							'<label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label>' + 
+							'<select id="' + opciones.multiFilter._dialogId + '_select"></select>' + 
+						'</div>' +
+						'<div class="form-row">' + 
+							'<div class="checkbox-material col-12">' + 
+								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" />' + 
+								'<label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label>' + 
+							'</div>' + 
+						'</div>' + 
+					'</form>' + 
+				'</div>');
 
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
 
@@ -1087,7 +1102,7 @@ import Printd from 'printd';
                 }
             });
 
-            opciones.multiFilter.$label = $('#' + opciones.multiFilter._dialogId + '_select_label');
+            opciones.multiFilter.$label = $('label[for="' + opciones.multiFilter._dialogId + '_select"]');
 
             //filtro por derecho
             $.rup_ajax({
@@ -1113,13 +1128,7 @@ import Printd from 'printd';
                     }
                 }
             });
-
-            opciones.multiFilter.$label.data('uiAutocomplete')._renderItem = (ul, item) => {
-                return $('<li></li>').data(
-                    'item.autocomplete', item).append(
-                    '<a>' + item.label + '</a>')
-                    .appendTo(ul);
-            };
+            
             opciones.multiFilter.$label.off('blur click');
         },
 
