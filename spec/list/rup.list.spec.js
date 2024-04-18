@@ -2,12 +2,11 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.feedback';
-import 'rup.combo';
 import 'rup.form';
 import 'rup.list';
 import 'rup.dialog';
 import 'rup.button';
-import 'rup.autocomplete';
+import 'rup.select';
 import 'bootstrap';
 import * as testutils from '../common/specCommonUtils.js';
 import * as listGen from './listCreator';
@@ -79,7 +78,7 @@ describe('Test rup_list', () => {
             beforeEach((done) => {
                 listGen.createList('rup-list', 'listFilterForm', () => {
                     $('#rup-list').on('load', () => {
-                        $('#rup-list-header-sidx').rup_combo('setRupValue', 'EDAD');
+                        $('#rup-list-header-sidx').rup_select('setRupValue', 'EDAD');
                         $('#rup-list').off('load');
                         $('#rup-list').on('load', () => {
                         	done();
@@ -216,7 +215,7 @@ describe('Test rup_list', () => {
                        	$('#rup-list').on('load', () => {
                     		done();
                     	});
-                        $('#rup-list-header-rowNum').rup_combo('setRupValue', '10');
+                        $('#rup-list-header-rowNum').rup_select('setRupValue', '10');
                     });
                     $('#rup-list').rup_list('filter');
                 });

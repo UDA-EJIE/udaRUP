@@ -4,7 +4,6 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
-import 'rup.autocomplete';
 
 
 var $autocomplete, $autocomplete2, $autocomplete3, $autocompleteLabel, $autocompleteLabel2, $autocompleteLabel3;
