@@ -81,6 +81,7 @@ describe('Test rup_list', () => {
                         $('#rup-list-header-sidx').rup_select('setRupValue', 'EDAD');
                         $('#rup-list').off('load');
                         $('#rup-list').on('load', () => {
+                        	$('#rup-list').off('load');
                         	done();
                         });
                         
@@ -102,20 +103,17 @@ describe('Test rup_list', () => {
             });
             describe('>  Se invierte la ordenación mediante el botón definido para ello', () => {
                 beforeEach((done) => {
-                	$('#rup-list').on('load', () => {
-                		$('#rup-list-header-sord').click();
-                		$('#rup-list').on('load', () => {
-                			done();
-                		});
-                	});
-                    
+					$('#rup-list').on('load', () => {
+						done();
+					});
+					$('#rup-list-header-sord').click();
                 });
                 it('> La ordenacion se invierte: ', () => {
-                    expect($('#rup-list > div:eq(0)').is('#rup-list-itemTemplate_9')).toBeTruthy();
-                    expect($('#rup-list > div:eq(1)').is('#rup-list-itemTemplate_8')).toBeTruthy();
-                    expect($('#rup-list > div:eq(2)').is('#rup-list-itemTemplate_7')).toBeTruthy();
-                    expect($('#rup-list > div:eq(3)').is('#rup-list-itemTemplate_6')).toBeTruthy();
-                    expect($('#rup-list > div:eq(4)').is('#rup-list-itemTemplate_5')).toBeTruthy();
+                    expect($('#rup-list > div:eq(0)').is('#rup-list-itemTemplate_10')).toBeTruthy();
+                    expect($('#rup-list > div:eq(1)').is('#rup-list-itemTemplate_4')).toBeTruthy();
+                    expect($('#rup-list > div:eq(2)').is('#rup-list-itemTemplate_9')).toBeTruthy();
+                    expect($('#rup-list > div:eq(3)').is('#rup-list-itemTemplate_3')).toBeTruthy();
+                    expect($('#rup-list > div:eq(4)').is('#rup-list-itemTemplate_23')).toBeTruthy();
                 });
             });
         });
@@ -1199,15 +1197,13 @@ describe('Test rup_list', () => {
                     it('Filter por dereco', () => {
                         expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
                     });
-                    describe('Eligir un filtro', () => {
+                    describe('Elegir un filtro', () => {
                         beforeEach(() => {
-                           
                             $('#rup-list').rup_list('filter');
-                            $('#rup-list_dropdownDialog_combo_label').rup_autocomplete('set', 'Filter 1', 'Filter 1');
                             $('#rup-list_dropdownDialog_btn_apply').click();
                         });
-                        it('El filtro elegido tiene que aparecer en autocomlete', () => {
-                            expect($('#rup-list_dropdownDialog_combo_label').val()).toEqual('Filter 1');
+                        it('El filtro elegido tiene que aparecer en el select', () => {
+                            expect($('label[for="rup-list_dropdownDialog_select"]').val()).toEqual('Filter 2');
                         });
                     });
                 });
@@ -1220,7 +1216,6 @@ describe('Test rup_list', () => {
                         $('#rup-list').rup_list('filter');
                         $('#listFilterForm').find('input').val('');
                         $('#listFilterForm').find('input').eq(2).val('20');
-                        $('#rup-list_dropdownDialog_combo_label').val('TestFilter');
                         $('#rup-list_dropdownDialog_btn_save').click();
                     });
                     it('Tiene que aparecer el feedback', () => {
