@@ -1,13 +1,20 @@
 <a name="module_rup_select"></a>
 
 ## rup\_select
-Permite al usuario recuperar un elemento de una gran lista de elementos o devarias listas dependientes de forma sencilla y ocupando poco espacio en lainterfaz.
+Permite al usuario recuperar un elemento de una gran lista de elementos o de
+varias listas dependientes de forma sencilla y ocupando poco espacio en la
+interfaz.
 
 **Summary**: Componente RUP Select.  
-**See**: El componente está basado en el plugin     [Select2](https://select2.org//). Para mas información acerca de     las funcionalidades y opciones de configuración pinche     [aquí](https://select2.org//).  
+**See**: El componente está basado en el plugin
+     [Select2](https://select2.org//). Para mas información acerca de
+     las funcionalidades y opciones de configuración pinche
+     [aquí](https://select2.org//).  
 **Example**  
 ```js
-$("#idSelect").rup_select({ source : "selectSimple/remote",         sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(),         value:"code", style:"css"} });
+$("#idSelect").rup_select({ source : "selectSimple/remote",
+         sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(),
+         value:"code", style:"css"} });
 ```
 
 * [rup_select](#module_rup_select)
@@ -27,7 +34,13 @@ $("#idSelect").rup_select({ source : "selectSimple/remote",         sourceParam
     * [~reload()](#module_rup_select..reload)
     * [~setSource(source)](#module_rup_select..setSource)
     * [~getDataSelected()](#module_rup_select..getDataSelected) ⇒ <code>string</code> \| <code>Array.&lt;string&gt;</code>
-    * [~addOptionid:	identificador del nuevo optiontext: texto del nuevo optionlabel: en Caso de ser grupos, el label donde se va a meter(obligatorio)()](#module_rup_select..addOptionid_	identificador del nuevo optiontext_ texto del nuevo optionlabel_ en Caso de ser grupos, el label donde se va a meter(obligatorio))
+    * [~addOption
+id:	identificador del nuevo option
+text: texto del nuevo option
+label: en Caso de ser grupos, el label donde se va a meter(obligatorio)()](#module_rup_select..addOption
+id_	identificador del nuevo option
+text_ texto del nuevo option
+label_ en Caso de ser grupos, el label donde se va a meter(obligatorio))
     * [~disableOpt(optValue)](#module_rup_select..disableOpt)
     * [~disableOptArr(optValueArr)](#module_rup_select..disableOptArr)
     * [~enableOpt(enableOpt)](#module_rup_select..enableOpt)
@@ -69,10 +82,13 @@ Opciones por defecto de configuración del componente.
 <a name="module_rup_select..getRupValue"></a>
 
 ### rup_select~getRupValue() ⇒ <code>string</code> \| <code>number</code>
-Método utilizado para obtener el valor del componente. Este método esel utilizado por el resto de componentes RUP para estandarizar laobtención del valor del select.
+Método utilizado para obtener el valor del componente. Este método es
+el utilizado por el resto de componentes RUP para estandarizar la
+obtención del valor del select.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
-**Returns**: <code>string</code> \| <code>number</code> - - Devuelve el valor actual del componente        seleccionado por el usuario.  
+**Returns**: <code>string</code> \| <code>number</code> - - Devuelve el valor actual del componente
+        seleccionado por el usuario.  
 **Example**  
 ```js
 $("#idSelect").rup_select("getRupValue");
@@ -80,7 +96,9 @@ $("#idSelect").rup_select("getRupValue");
 <a name="module_rup_select..setRupValue"></a>
 
 ### rup_select~setRupValue(param)
-Método utilizado para asignar el valor al componente. Este método esel utilizado por el resto de componentes RUP para estandarizar laasignación del valor al Select.
+Método utilizado para asignar el valor al componente. Este método es
+el utilizado por el resto de componentes RUP para estandarizar la
+asignación del valor al Select.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
 
@@ -95,7 +113,8 @@ $("#idSelect").rup_select('setRupValue', 'Si');
 <a name="module_rup_select..clear"></a>
 
 ### rup_select~clear()
-Método que limpia el valor seleccionado en el select. En el caso deselección múltiple los valores seleccionados.
+Método que limpia el valor seleccionado en el select. En el caso de
+selección múltiple los valores seleccionados.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
 **Example**  
@@ -115,7 +134,8 @@ $("#idSelect").rup_select("change");
 <a name="module_rup_select..checkAll"></a>
 
 ### rup_select~checkAll()
-Selecciona todos los elementos en el caso de tratarse de un selectmultilesección.
+Selecciona todos los elementos en el caso de tratarse de un select
+multilesección.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
 **Example**  
@@ -125,7 +145,9 @@ $("#idSelect").rup_select("checkAll");
 <a name="module_rup_select..selectByLabel"></a>
 
 ### rup_select~selectByLabel(param)
-Selecciona el elemento del select que contiene como texto elindicado. En caso de no existir el texto a buscar el se no sufrirácambios En el caso de selección múltiple el parámetro será un array.
+Selecciona el elemento del select que contiene como texto el
+indicado. En caso de no existir el texto a buscar el se no sufrirá
+cambios En el caso de selección múltiple el parámetro será un array.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
 
@@ -135,7 +157,9 @@ Selecciona el elemento del select que contiene como texto elindicado. En caso d
 
 **Example**  
 ```js
-// Simple $("#idSelect").rup_select("selectByLabel", "No"); //         Multiple $("#idSelect").rup_select("selectByLabel",         ["No","Si"]);
+// Simple $("#idSelect").rup_select("selectByLabel", "No"); //
+         Multiple $("#idSelect").rup_select("selectByLabel",
+         ["No","Si"]);
 ```
 <a name="module_rup_select..select"></a>
 
@@ -150,15 +174,20 @@ Selecciona el elemento enviado como parámetro. En caso de ser un numérico se s
 
 **Example**  
 ```js
-// Simple$("#idSelect").rup_select("select", 2);// Multiple$("#idSelect").rup_select("select", [0,2]);
+// Simple
+$("#idSelect").rup_select("select", 2);
+// Multiple
+$("#idSelect").rup_select("select", [0,2]);
 ```
 <a name="module_rup_select..label"></a>
 
 ### rup_select~label() ⇒ <code>string</code> \| <code>Array.&lt;string&gt;</code>
-Método que devuelve el label asociado al valor seleccionado en elselect. En el caso de la selección múltiple se devolverá un array.
+Método que devuelve el label asociado al valor seleccionado en el
+select. En el caso de la selección múltiple se devolverá un array.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
-**Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Texto del elemento o elementos        seleccionado.  
+**Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Texto del elemento o elementos
+        seleccionado.  
 **Example**  
 ```js
 $("#idSelect").rup_select("label");
@@ -166,10 +195,12 @@ $("#idSelect").rup_select("label");
 <a name="module_rup_select..index"></a>
 
 ### rup_select~index() ⇒ <code>number</code> \| <code>Array.&lt;number&gt;</code>
-Devuelve el índice de la opción seleccionada en el select (empezandoen 1). En el caso de la selección múltiple se devolverá un array.
+Devuelve el índice de la opción seleccionada en el select (empezando
+en 1). En el caso de la selección múltiple se devolverá un array.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
-**Returns**: <code>number</code> \| <code>Array.&lt;number&gt;</code> - - Índice del elemento o elementos        seleccionados.  
+**Returns**: <code>number</code> \| <code>Array.&lt;number&gt;</code> - - Índice del elemento o elementos
+        seleccionados.  
 **Example**  
 ```js
 $("#idSelect").rup_select("index");
@@ -222,7 +253,8 @@ $("#idSelect").rup_select("reload");
 <a name="module_rup_select..setSource"></a>
 
 ### rup_select~setSource(source)
-Cambia el source del select y recarga el componente para que estecomience a usarlo.
+Cambia el source del select y recarga el componente para que este
+comience a usarlo.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
 
@@ -240,14 +272,21 @@ $("#idSelect").rup_select("setSource", source, sourceParam);
 Método que devuelve los datos, de los elementos seleccionados.
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
-**Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Texto del elemento o elementos        seleccionado.  
+**Returns**: <code>string</code> \| <code>Array.&lt;string&gt;</code> - - Texto del elemento o elementos
+        seleccionado.  
 **Example**  
 ```js
 $("#idSelect").rup_select("label");
 ```
-<a name="module_rup_select..addOptionid_	identificador del nuevo optiontext_ texto del nuevo optionlabel_ en Caso de ser grupos, el label donde se va a meter(obligatorio)"></a>
+<a name="module_rup_select..addOption
+id_	identificador del nuevo option
+text_ texto del nuevo option
+label_ en Caso de ser grupos, el label donde se va a meter(obligatorio)"></a>
 
-### rup_select~addOptionid:	identificador del nuevo optiontext: texto del nuevo optionlabel: en Caso de ser grupos, el label donde se va a meter(obligatorio)()
+### rup_select~addOption
+id:	identificador del nuevo option
+text: texto del nuevo option
+label: en Caso de ser grupos, el label donde se va a meter(obligatorio)()
 Método que añade un option al select en local
 
 **Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
@@ -363,7 +402,10 @@ Permite consultar y modificar la configuración del componente.
 
 **Example**  
 ```js
-// Establecer una propiedad$("#idSelect").rup_select("option", "minLegth", 2);// Establecer varias propiedad$("#idSelect").rup_select("option", {minLegth:2, delay:1000});
+// Establecer una propiedad
+$("#idSelect").rup_select("option", "minLegth", 2);
+// Establecer varias propiedad
+$("#idSelect").rup_select("option", {minLegth:2, delay:1000});
 ```
 <a name="module_rup_select..open"></a>
 
@@ -378,7 +420,8 @@ Permite abrir el componente.
 
 **Example**  
 ```js
-// Establecer una propiedad$("#idSelect").rup_select("option", true);
+// Establecer una propiedad
+$("#idSelect").rup_select("option", true);
 ```
 <a name="module_rup_select..close"></a>
 
@@ -393,7 +436,8 @@ Permite cerrar el componente.
 
 **Example**  
 ```js
-// Establecer una propiedad$("#idSelect").rup_select("option", true);
+// Establecer una propiedad
+$("#idSelect").rup_select("option", true);
 ```
 <a name="module_rup_select..destroy"></a>
 

@@ -315,7 +315,7 @@ Llamada al servidor con los datos de edición.
 <a name="module_rup.table.inlineEdit..loadAuxForm"></a>
 
 ### rup.table.inlineEdit~loadAuxForm(ctx, actionType) ⇒ <code>object</code>
-Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+Función que gestiona la carga del formulario.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Since**: UDA 5.0.0 (backported) // Table 1.0.0  

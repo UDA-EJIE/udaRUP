@@ -39,7 +39,7 @@ Módulo que habilita la edicción mediante un formulario.
 Configura el componente editForm para su inicialización
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 (backported) // Table 1.0.0  
+**Since**: UDA 5.0.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -75,7 +75,7 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 Función que añade las validaciones a un formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 (backported) // Table 1.0.0  
+**Since**: UDA 5.0.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -87,7 +87,7 @@ Función que añade las validaciones a un formulario.
 Función que gestiona la carga del diálogo de añadir o editar.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 (backported) // Table 1.0.0  
+**Since**: UDA 5.0.0 // Table 1.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

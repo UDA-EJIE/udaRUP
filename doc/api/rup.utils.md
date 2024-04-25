@@ -11,9 +11,6 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
     * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
-    * [~isHdiv(id)](#jQuery.module_rup_utils..isHdiv) ⇒ <code>boolean</code>
-    * [~getStaticHdivID(id)](#jQuery.module_rup_utils..getStaticHdivID) ⇒ <code>string</code>
-    * [~getHDIV_STATE(hasMoreParams, $form)](#jQuery.module_rup_utils..getHDIV_STATE) ⇒ <code>string</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
 <a name="jQuery.module_rup_utils..normalize"></a>
@@ -89,46 +86,6 @@ Convierte un JSON con múltiples niveles en un JSON con un único nivel.
 | originalObj | <code>object</code> | Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso). |
 | flattenedObj | <code>object</code> | Objeto con un único nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
 | extraKey | <code>string</code> | Clave necesaria cuando hay más de un nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
-
-<a name="jQuery.module_rup_utils..isHdiv"></a>
-
-### rup_utils~isHdiv(id) ⇒ <code>boolean</code>
-Comprueba si el parámetro ha sido cifrado por Hdiv.
-
-**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
-**Returns**: <code>boolean</code> - Verdadero si el parámetro ha sido cifrado por Hdiv.  
-**Since**: UDA 5.0.0 (backported)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> | Identificador de la entidad. |
-
-<a name="jQuery.module_rup_utils..getStaticHdivID"></a>
-
-### rup_utils~getStaticHdivID(id) ⇒ <code>string</code>
-Procesa el identificador recibido para poder devolver la parte que no altera su cifrado entre peticiones.Es útil cuando se necesita comparar identificadores cifrados.
-
-**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
-**Returns**: <code>string</code> - Identificador de la entidad con la parte dinámica del cifrado eliminada.  
-**Since**: UDA 5.0.0 (backported)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> | Identificador de la entidad. |
-
-<a name="jQuery.module_rup_utils..getHDIV_STATE"></a>
-
-### rup_utils~getHDIV\_STATE(hasMoreParams, $form) ⇒ <code>string</code>
-Obtiene el parámetro HDIV_STATE de la URL o de un formulario.
-
-**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
-**Returns**: <code>string</code> - Parámetro HDIV_STATE.  
-**Since**: UDA 5.0.0 (backported)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| hasMoreParams | <code>boolean</code> | Parámetro necesario para peticiones GET. Se utilizará para saber si el parámetro HDIV_STATE es el único existente en la URL. |
-| $form | <code>object</code> | Formulario del que extraer el parámetro HDIV_STATE. Este parámetro tiene prioridad respecto a hasMoreParams, por lo tanto, si se recibe será el que se use. |
 
 <a name="jQuery.module_rup_utils..resetAutocomplete"></a>
 

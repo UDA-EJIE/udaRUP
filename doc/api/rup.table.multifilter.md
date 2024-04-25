@@ -10,6 +10,8 @@ Módulo que permite toda multiFilter
 
 * [rup.table.multiFilter](#module_rup.table.multiFilter)
     * [~init(dt)](#module_rup.table.multiFilter..init)
+    * [~preConfigureMultifilter(settings)](#module_rup.table.multiFilter..preConfigureMultifilter)
+    * [~postConfigureMultifilter(settings)](#module_rup.table.multiFilter..postConfigureMultifilter)
     * [~deleteFilter(filter)](#module_rup.table.multiFilter..deleteFilter)
     * [~addFilter(filter)](#module_rup.table.multiFilter..addFilter)
     * [~getMultifilterDialogTemplate(settings)](#module_rup.table.multiFilter..getMultifilterDialogTemplate) ⇒ <code>object</code>
@@ -27,6 +29,29 @@ Se inicializa el componente multiFilter
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto table. |
+
+<a name="module_rup.table.multiFilter..preConfigureMultifilter"></a>
+
+### rup.table.multiFilter~preConfigureMultifilter(settings)
+Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
+
+**Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| settings | <code>object</code> | Parámetros de configuración del componente. |
+
+<a name="module_rup.table.multiFilter..postConfigureMultifilter"></a>
+
+### rup.table.multiFilter~postConfigureMultifilter(settings)
+Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la inicialización del plugin.
+
+**Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
+**Emits**: <code>module:rup\_table#event:rupTable\_multifilter\_fillForm</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| settings | <code>object</code> | Parámetros de configuración del componente. |
 
 <a name="module_rup.table.multiFilter..deleteFilter"></a>
 
