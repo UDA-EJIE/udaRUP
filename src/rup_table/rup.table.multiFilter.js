@@ -395,7 +395,7 @@
      * @param {object} filter - Objeto json con la información del filtro a añadir.
      * @fires module:rup_table#rupTable_multifilter_beforeAdd
      * @example
-     * 
+     * $("#idComponente").rup_table("addFilter", filter);
      */
     function _addFilter(filter, ctx) {
         var settings = ctx.oInit;
@@ -747,7 +747,7 @@
      * @param {object} settings - Propiedades de configuración del componente.
      * @return {object} - Objeto jQuery con el contenido html de la template.
      * @example
-     * 
+     * $("#idComponente").rup_table("getMultifilterDialogTemplate", settings);
      */
     function getMultifilterDialogTemplate(ctx) {
         var settings = ctx.oInit;
