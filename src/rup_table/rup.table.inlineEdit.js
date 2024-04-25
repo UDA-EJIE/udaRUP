@@ -572,13 +572,7 @@ function _getRowSelected(dt, actionType){
 		};
 	var lastSelectedId = ctx.multiselection.lastSelectedId;
 	if (!ctx.multiselection.selectedAll) {
-		let staticID = $.fn.getStaticHdivID(ctx.multiselection.lastSelectedId);
 		$.each(ctx.multiselection.selectedRowsPerPage, function(index, p) {
-			// Obtener el último seleccionado para tener el identificador actualizado (solamente es necesario cuando se usa Hdiv porque cambia el cifrado entre peticiones)
-			if ($.fn.isHdiv(p.id) && staticID === $.fn.getStaticHdivID(p.id)) {
-				ctx.multiselection.lastSelectedId = p.id;
-			}
-			
 			if (p.id == ctx.multiselection.lastSelectedId) {
 				rowDefault.id = p.id;
 				rowDefault.page = p.page;
@@ -1485,8 +1479,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
             delete ajaxOptions.data;
             $.rup_ajax(ajaxOptions);
         } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
-        	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-            if (url.indexOf('deleteAll') === -1) {
+			if (url.indexOf('deleteAll') === -1) {
             	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
             	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
                 
@@ -1494,11 +1487,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
                 $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, $fila);
             	
             	$.when(_loadAuxForm(ctx, actionType)).then(function () {
-	            	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.inlineEdit.idForm);
-	                if (hdivStateParamValue !== '') {
-	                	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-	                }
-	                ajaxOptions.data = JSON.stringify(ajaxOptions.data);
+					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
 	                $.rup_ajax(ajaxOptions);
             	});
             } else {
@@ -1529,7 +1518,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 }
 
 /**
- * Función que gestiona la carga del formulario del que se obtendrá el parámetro HDIV_STATE en función del tipo de method, POST o PUT.
+ * Función que gestiona la carga del formulario.
  *
  * @name loadAuxForm
  * @function

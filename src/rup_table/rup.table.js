@@ -365,11 +365,11 @@
                 //Viene del servidor por eso la linea de la pagina es 1 menos.
                 $.each(json.reorderedSelection, function (index, p) {
                 	let idEntity = DataTable.Api().rupTable.getIdPk(p.pk, ctx.oInit);
-                	if(ctx.oInit.formEdit !== undefined){                	
-	                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
-	                    if (hdivStateParamValue !== '' && index == 0) {
-	                    	ctx.multiselection.lastSelectedId = idEntity;
-	                    }
+                	if(ctx.oInit.formEdit !== undefined){
+						if(ctx.multiselection.lastSelectedId != '' && idEntity != ''){
+	                		// Se actualiza con el último identificador seleccionado.
+	                		ctx.multiselection.lastSelectedId = idEntity;
+	                	}
                 	}
                     var arra = {
                         id: idEntity,
@@ -431,12 +431,7 @@
             	let firstRowPK = DataTable.Api().rupTable.getIdPk(firstRow);
             	let secondRowPK = DataTable.Api().rupTable.getIdPk(secondRow);
             	
-            	// Si Hdiv está activado se comprueba el parámetro nid en vez de la PK (es lo mismo pero sin cifrar)
-            	if ($.fn.isHdiv(firstRowPK) && $.fn.isHdiv(secondRowPK)) {
-            		return firstRow.nid === secondRow.nid;
-            	} else {
-            		return firstRowPK === secondRowPK;
-            	}
+            	return firstRowPK === secondRowPK;
             });
 
             /**
@@ -1743,7 +1738,6 @@
                 	}
                 	$self._initFilter(options);
                 } else if (filterOptions === 'noFilter' && options.filterForm !== undefined) {
-                	// Garantizar la posibilidad del envío del parámetro HDIV_STATE cuando el formulario de filtrado no esté habilitado
                 	options.filter = {};
                 	if (options.filterForm) {
                 		options.filter.id = $(options.filterForm).attr('id');
@@ -1752,7 +1746,7 @@
                     }
                 	options.filter.$filterContainer = jQuery('#' + options.filter.id);
                 } else {
-                	// Para casos en los que no se quiera usar el formulario de filtrado y Hdiv no esté activado
+                	// Para casos en los que no se quiera usar el formulario de filtrado.
                 	args[0].filter = undefined;
                 }
 

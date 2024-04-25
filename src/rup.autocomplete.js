@@ -855,7 +855,7 @@ input.
 				}
 				
 				// Obtener valor del padre
-				parentsValues.selectedSource += settings.$self._processHDIV($('#' + parentId + '_label').data('settings'), $("#" + parentId).rup_autocomplete("getRupValue"));
+				parentsValues.selectedSource += $("#" + parentId).rup_autocomplete("getRupValue");
 				
 				// Comprobar si se trata de un autocomplete enlazado múltiple
 				if (settings.parent.length > 1 && position != settings.parent.length - 1) {
@@ -864,38 +864,6 @@ input.
 			});
 				
 			return parentsValues;
-		},
-		/**
-         * Método que comprueba si el padre de un autocomplete local es remoto y usa HDIV. En caso afirmativo, se usará el NID en vez del ID, ya que este último, viene cifrado.
-         *
-         * @function _processHDIV
-         * @private
-	     * @since UDA 5.0.0 (backported)
-		 *
-         * @param {object} parentSettings - Configuración general del componente padre.
-         * @param {string} selectedSource - Valor del padre.
-		 *
-		 * @return {string}
-         */
-		_processHDIV: function (parentSettings, selectedSource) {
-			if (parentSettings !== undefined && parentSettings.source.name === '_sourceREMOTE' && $.fn.isHdiv(selectedSource)) {
-				let parentData = $("#" + parentSettings.loadObjects).data('tmp.data');
-				let parentLabel = $("#" + parentSettings.loadObjects).rup_autocomplete("getRupValue");
-				
-				let search = $.grep(parentData, function (row) {
-					return row.value === selectedSource && row.label === parentLabel; 
-				});
-				
-				if (search[0] !== undefined && search[0] !== '') {
-					let nid = search[0].nid;
-				
-					if (nid) {
-						selectedSource = nid;
-					}
-				}
-			}
-			
-			return selectedSource;
 		},
 		/**
          * Método de inicialización del componente.

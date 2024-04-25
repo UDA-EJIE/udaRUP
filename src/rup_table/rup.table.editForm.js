@@ -494,8 +494,8 @@
     					} else if (column.rupType === 'select') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
     						if (row !== undefined) {
-    							let rowName = $.fn.getStaticHdivID(row[column.name]);
-    							let flatter	= $.fn.getStaticHdivID($.fn.flattenJSON(row)[column.name]);
+    							let rowName = row[column.name];
+    							let flatter	= $.fn.flattenJSON(row)[column.name];
     							column.editoptions.selected = column.name.includes('.') ? flatter : rowName;    							
     						}
     					}
@@ -604,23 +604,6 @@
 	                    async: false,
 	                    success: function (data) {
 	                    	row = data;
-	                    	if(ctx.oInit.primaryKey !== undefined && ctx.oInit.primaryKey.length === 1){//si hdiv esta activo.
-		                        // Actualizar el nuevo id que viene de HDIV.
-	                    		let idHdiv = "" + data[ctx.oInit.primaryKey];
-		                        if (pk == ctx.multiselection.lastSelectedId) {
-		                            ctx.multiselection.lastSelectedId = idHdiv;
-		                        }
-		                        let pos = jQuery.inArray(pk, ctx.multiselection.selectedIds);
-		                        if (pos >= 0) {
-		                            ctx.multiselection.selectedIds[pos] = idHdiv;
-		                        }
-		                        let result = $.grep(ctx.multiselection.selectedRowsPerPage, function (v) {
-		                                return v.id == pk;
-		                            });
-		                        if (result !== undefined && result.length > 0) {
-		                            result[0].id = idHdiv;
-		                        }
-	                    	}
 	                    },
 	                    error: function (xhr) {
 	                        var divErrorFeedback = feed; //idTableDetail.find('#'+feed[0].id + '_ok');
@@ -1096,18 +1079,12 @@
                 delete ajaxOptions.data;
                 $.rup_ajax(ajaxOptions);
             } else if (isDeleting || ctx.oInit.formEdit.idForm.valid()) {
-            	// Obtener el valor del parámetro HDIV_STATE (en caso de no estar disponible se devolverá vacío) siempre y cuando no se trate de un deleteAll porque en ese caso ya lo contiene el filtro
-                if (url.indexOf('deleteAll') === -1) {
+				if (url.indexOf('deleteAll') === -1) {
                 	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
                     $.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
                     
                     // Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
                     $.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
-                    
-                	var hdivStateParamValue = $.fn.getHDIV_STATE(undefined, ctx.oInit.formEdit.idForm);
-                    if (hdivStateParamValue !== '') {
-                    	ajaxOptions.data._HDIV_STATE_ = hdivStateParamValue;
-                    }
                 }
                 
                 ajaxOptions.data = JSON.stringify(ajaxOptions.data);
@@ -1395,7 +1372,7 @@
         				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
         			} else if (column.rupType === 'autocomplete') {
         				// Establecer el valor por defecto del componente.
-        				const newDefaultValue = ctx.json.rows.find(row => $.fn.getStaticHdivID(row.id) === $.fn.getStaticHdivID(ctx.oInit.formEdit.$navigationBar.currentPos.id))[column.name];
+        				const newDefaultValue = ctx.json.rows.find(row => row.id === ctx.oInit.formEdit.$navigationBar.currentPos.id)[column.name];
         				column.editoptions.defaultValue = newDefaultValue;
         				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
         			}

@@ -1080,9 +1080,7 @@
         _loadRemote: function (settings,first) {
         	var rupSelect = this;
         	 	settings.ajax = {
-		    url: function () {
-    			return rupSelect._generateUrl(settings, _this._getParentsValues(settings, true));
-    		},
+		    url: settings.url,
 		    dataType: settings.dataType,
 		    processResults: function (response) 
 		    	{// Require id y text, podemos permitir que no venga.
@@ -1113,7 +1111,7 @@
 		    	},
 		    cache: false,
 		    data: function () {
-		    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra que Hdiv bloqueará.
+		    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra.
 		    	//se hará en el transport
 		    	return  _this._getParentsValues(settings, true);
 		    },
@@ -1143,7 +1141,7 @@
 
 					// retrieve the cached key or default to _ALL_
 			        let __cachekey = params.data || '_ALL_';
-		    		//Se actualiza el data, para mantener la misma función, con hdiv ya no se mandan los data
+		    		//Se actualiza el data, para mantener la misma función.
 			        if(!settings.autocomplete){
 			        	params.data = "" ;
 			        }
@@ -1464,39 +1462,6 @@
 
             $('#' + settings.id).append(newOption);
         },
-        /**
-         * Gestiona los parámetros a añadir en la URL para que Hdiv permita la llamada.
-         *
-         * @function _generateUrl
-         * @since UDA 5.2.0
-         * @private
-         * @param {object} settings - Configuración del componente.
-         * @param {string} [data] - Valores de búsqueda cuando tiene autocompletado e identificador de los padres en caso de ser enlazados.
-         */
-		_generateUrl: function(settings, data) {
-			let $form;
-			
-			if (settings.$forceForm) {
-				$form = settings.$forceForm;
-			} else {
-				$form = settings.inlineEdit?.$auxForm ? settings.inlineEdit?.$auxForm : $('#' + settings.id).closest('form');
-			}
-			
-			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
-			
-			if ($form.length === 1) {
-				let url = settings.url + (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form);
-
-				if (data && !settings.url.includes(data)) {
-					// Escapa los caracteres '#' para evitar problemas en la petición.
-					url += "&" + data.replaceAll('#', '%23');
-				}
-
-				return url + '&MODIFY_FORM_FIELD_NAME=' + name;
-			} else {
-				return settings.url;
-			}
-		},
         /**
 		 * Método de inicialización del componente.
 		 * 

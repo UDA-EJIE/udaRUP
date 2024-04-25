@@ -487,22 +487,7 @@
 				
         		filter.filterValue = $.toJSON(dataForm);
         
-				var objetoJSON = JSON.parse(filter.filterValue);
-				
-				if (hdivStateParamValue !== '') {
-					
-					var clave = settings.primaryKey[0];
-					
-					var $select = $('[name='+ clave+']' );
-					
-					if($('#'+  $select[0].id).attr('ruptype') === 'select'){
-						var label = $('#'+  $select[0].id).rup_select("label");
-					
-						objetoJSON[clave] = label;
-					}
-					
-				}
-				
+				var objetoJSON = JSON.parse(filter.filterValue);				
 				
 				// Crear una nueva cadena con comillas simples por dentro
 				var nuevaCadena = ''
