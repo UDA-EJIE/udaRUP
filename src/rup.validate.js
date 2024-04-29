@@ -355,7 +355,7 @@
             /**
              * Se eliminan los menssajes de error de las reglas de validacion.
              *
-             * @function resetForm
+             * @function resetElements
              * @example
              * $("#formValidaciones").rup_validate("resetElements");
              */
