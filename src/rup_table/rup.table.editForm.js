@@ -447,10 +447,11 @@
         	});
         } else {
         	// Para cuando el formulario actual sigue siendo válido (ya sea dinámico o no)
-        	let deferred = $.Deferred();
-        	ctx.oInit.formEdit.actionType = actionType;
-        	deferred.resolve();
-    		return deferred.promise();
+			let deferred = $.Deferred();
+			ctx.oInit.formEdit.actionType = actionType;
+			$(ctx.oInit.formEdit.idForm).rup_form('clearForm', true);
+			deferred.resolve();
+			return deferred.promise();
         }
     }
     
