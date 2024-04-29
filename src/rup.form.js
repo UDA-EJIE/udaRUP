@@ -290,12 +290,12 @@
          */
         clearFields: function (includeHidden) {
             return this.each(function () {
-                var ruptype = $(this).attr('ruptype');
+                const ruptype = $(this).attr('ruptype');
 
-                if (ruptype === undefined || ruptype !== 'combo') {
+                if (ruptype === undefined || ruptype !== 'select' ) {
                     $(this).clearFields(includeHidden);
-                } else {
-                    $(this).rup_combo('clear');
+                } else if (ruptype === 'select') {
+                    $(this).rup_select('clear');
                 }
             });
         },

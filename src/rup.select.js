@@ -729,16 +729,16 @@
          * $("#idSelect").rup_select("search", "java");
          */
     	search: function (term,notOthersClose) {
-    		let $search = $(this).data('select2').dropdown.$search ||$(this).data('select2').mySelect.selection.$search;
+    		let $search = $(this).data('select2').dropdown.$search || $(this).data('select2').mySelect.selection.$search;
            	if(!notOthersClose){
         		$('.select2-hidden-accessible').select2('close');
         	}
            	$(this).data('select2').$container.find('input').val(term);  
 	        if($search != undefined){
-	          $search.val(term);	
-	          $search.trigger('keyup');
+				$search.val(term);
+				$(this).data('settings').selected = term;
+				$search.trigger('keyup');
 	        }
-	        
     	},
     	/**
          * Permite consultar y modificar la configuración del componente.
@@ -1223,7 +1223,7 @@
 				          success(__cache[__cachekey]);
 				          // Actualizar seleccionado en la lista//css
 				          let positions = [];
-				          let valueSelect = $('#' + settings.id).rup_select('getRupValue');
+				          let valueSelect = settings.selected ? settings.selected : $('#' + settings.id).rup_select('getRupValue');
 				          
 				          if(settings.groups){// Parseo de grupos para
 												// seleccionar
@@ -1246,16 +1246,21 @@
 				          }
 				        //Se obliga a que las claves sean String recomendado por select2
 				          let seleccionado = $.grep(data, function (v,index) {
-				        	  v.id = String(v.id);
-				        	  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
-				                  v.text = v[settings.sourceParam.text];
-				                }
-				        	  
-				        	  	if(v.id == valueSelect){
-				        	  		positions.push(index);
-				        	  	}
-			                    return v.id == settings.selected;
-			                  });
+							  if (v.id === undefined && v[settings.sourceParam.id] !== undefined) {
+								  v.id = String(v[settings.sourceParam.id]);
+							  } else {
+								  v.id = String(v.id);
+							  }
+							  
+							  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
+								  v.text = v[settings.sourceParam.text];
+							  }
+
+							  if (v.id == valueSelect) {
+								  positions.push(settings.blank == "" ? index - 1 : index);
+							  }
+							  return v.id == settings.selected;
+						  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
 				                    return v.id == $('#' + settings.id).rup_select('getRupValue');
