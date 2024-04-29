@@ -1147,11 +1147,15 @@
 			        }
 			        __lastQuery = __cachekey;
 			        //Si esta cacheado, no busca
-			        if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
-			          // display the cached results
-			          success(__cache[__cachekey]);
-			          return; 
-			        }
+					if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
+						// display the cached results
+						success(__cache[__cachekey]);
+						// Marca el valor definido como seleccionado.
+						if (!settings.autocomplete && settings.selected) {
+							$('#' + settings.id).rup_select('setRupValue', settings.selected);
+						}
+						return;
+					}
 			        
 			        mySelect.$results.find('li').addClass('disabledButtonsTable');
 			        mySelect.$selection.find('input').addClass('disabledButtonsTable');
