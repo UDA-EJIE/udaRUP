@@ -554,6 +554,16 @@
                     beforeClose: userFunction
                 });
             };
+            
+			// Permite eliminar diálogos huerfanos
+			const notTabDialogCount = $("div.rup-dialog").length;
+
+			settings.show = function() {
+				if ($("div.rup-dialog").length > notTabDialogCount) {
+					$("div.rup-dialog").last().remove();
+				}
+			};
+            
             //if (settings.navigation!==true){
             $(div).tabs({
                 ajaxOptions: settings.cache === false ? $.extend(ajaxOptions, {
