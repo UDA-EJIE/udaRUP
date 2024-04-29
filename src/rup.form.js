@@ -282,14 +282,16 @@
          */
         clearFields: function (includeHidden) {
             return this.each(function () {
-                const ruptype = $(this).attr('ruptype');
+				const ruptype = $(this).attr('ruptype');
 
-                if (ruptype === undefined || ruptype !== 'select' ) {
-                    $(this).clearFields(includeHidden);
-                } else if (ruptype === 'select') {
-                    $(this).rup_select('clear');
-                }
-            });
+				if (ruptype === undefined || ruptype !== 'combo' && ruptype !== 'select') {
+					$(this).clearFields(includeHidden);
+				} else if (ruptype === 'combo') {
+					$(this).rup_combo('clear');
+				} else if (ruptype === 'select') {
+					$(this).rup_select('clear');
+				}
+			});
         },
         /**
          * Función de inicialización del componente. Es un método de uso interno. No debería de invocarse de manera directa.
