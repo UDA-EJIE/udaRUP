@@ -290,7 +290,7 @@
          */
         clearFields: function (includeHidden) {
             return this.each(function () {
-                var ruptype = $(this).attr('ruptype');
+                const ruptype = $(this).attr('ruptype');
 
                 if (ruptype === undefined || ruptype !== 'combo') {
                     $(this).clearFields(includeHidden);
