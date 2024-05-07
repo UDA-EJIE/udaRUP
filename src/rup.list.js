@@ -912,8 +912,8 @@ import Printd from 'printd';
             const opciones = self.options;
 
             opciones.multiFilter = {};
-            opciones.multiFilter._filterSelector = 'generated';
-            opciones.multiFilter._filterUser = 'udaPruebas';
+            opciones.multiFilter._selector = 'generated';
+            opciones.multiFilter._user = 'udaPruebas';
             opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
             opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
@@ -927,8 +927,8 @@ import Printd from 'printd';
 						'</div>' +
 						'<div class="form-row">' + 
 							'<div class="checkbox-material col-12">' + 
-								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" />' + 
-								'<label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label>' + 
+								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-activeFilter" />' + 
+								'<label for="' + opciones.multiFilter._dialogId + '-activeFilter">Filtro por defecto</label>' + 
 							'</div>' + 
 						'</div>' + 
 					'</form>' + 
@@ -961,11 +961,11 @@ import Printd from 'printd';
                                 if ($('#' + opciones.filterForm).rup_form('formToJson').length != 0) {
                                     var elem = {
                                         filtro: {
-                                            filterSelector: opciones.multiFilter._filterSelector,
-                                            filterName: opciones.multiFilter.$label.val(),
-                                            filterValue: JSON.stringify($('#' + opciones.filterForm).rup_form('formToJson')),
-                                            filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
-                                            filterUser: opciones.multiFilter._filterUser
+                                            selector: opciones.multiFilter._selector,
+                                            text: opciones.multiFilter.$label.val(),
+                                            data: JSON.stringify($('#' + opciones.filterForm).rup_form('formToJson')),
+                                            active: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked,
+                                            user: opciones.multiFilter._user
                                         }
                                     };
                                     $.rup_ajax({
@@ -1002,11 +1002,11 @@ import Printd from 'printd';
                                 if (opciones.multiFilter.selected) {
                                     var elem = {
                                         filtro: {
-                                            filterSelector: opciones.multiFilter.selected.filterSelector,
-                                            filterName: opciones.multiFilter.selected.filterName,
-                                            filterValue: JSON.stringify(opciones.multiFilter.selected.filterValue),
-                                            filterDefault: opciones.multiFilter.selected.filterDefault,
-                                            filterUser: opciones.multiFilter.selected.filterUser
+                                            selector: opciones.multiFilter.selected.selector,
+                                            text: opciones.multiFilter.selected.text,
+                                            data: JSON.stringify(opciones.multiFilter.selected.value),
+                                            active: opciones.multiFilter.selected.default,
+                                            user: opciones.multiFilter.selected.user
                                         }
                                     };
                                     $.rup_ajax({
@@ -1044,52 +1044,54 @@ import Printd from 'printd';
 
             opciones.multiFilter.$select.rup_select({
                 url: opciones.action +
-                    '/./multiFilter/getAll?filterSelector=' +
-                    opciones.multiFilter._filterSelector + '&user=' +
-                    opciones.multiFilter._filterUser,
+                    '/./multiFilter/getAll?selector=' +
+                    opciones.multiFilter._selector + '&user=' +
+                    opciones.multiFilter._user,
                 sourceParam: {
-                    label: 'filterName',
-                    value: 'filterDefault',
-                    data: 'filterValue',
+                    text: 'text',
+                    id: 'id',
+                    data: 'data',
                     category: 'filter'
                 },
                 method: 'GET',
                 combo: true,
+                autocomplete: true,
+                allowClear: true,
                 contains: true,
                 select: function () {
                     if (opciones.multiFilter.$select.rup_select('getRupValue')) {
                         opciones.multiFilter.selected = {
-                            filterSelector: opciones.multiFilter._filterSelector,
-                            filterName: opciones.multiFilter.$select.rup_select('getRupValue'),
-                            filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
-                            filterUser: opciones.multiFilter._filterUser
+                            selector: opciones.multiFilter._selector,
+                            id: opciones.multiFilter.$select.rup_select('getRupValue'),
+                            active: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked,
+                            user: opciones.multiFilter._user
                         };
                         $.rup_ajax({
                             url: opciones.action +
-                                '/./multiFilter/getAll?filterSelector=' +
-                                opciones.multiFilter._filterSelector + '&user=' +
-                                opciones.multiFilter._filterUser,
+                                '/./multiFilter/getAll?selector=' +
+                                opciones.multiFilter._selector + '&user=' +
+                                opciones.multiFilter._user,
                             type: 'GET',
                             dataType: 'json',
                             contentType: 'application/json',
                             success: function (data) {
-                                if (opciones.multiFilter.selected.filterName) {
+                                if (opciones.multiFilter.selected.id) {
                                     for (let i = 0; i < data.length; i++) {
-                                        if (opciones.multiFilter.selected.filterName == data[i].filterName) {
-                                            opciones.multiFilter.selected.filterValue = JSON.parse(data[i].filterValue);
-                                            opciones.multiFilter.selected.filterDefault = data[i].filterDefault;
+                                        if (opciones.multiFilter.selected.id == data[i].id) {
+                                            opciones.multiFilter.selected.data = JSON.parse(data[i].data);
+                                            opciones.multiFilter.selected.active = data[i].active;
                                         }
                                     }
-                                    if (opciones.multiFilter.selected.filterDefault) {
-                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = true;
+                                    if (opciones.multiFilter.selected.active) {
+                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked = true;
                                     } else {
-                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
+                                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked = false;
                                     }
 
                                     $('#' + opciones.filterForm).find('input').val('');
                                     for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
-                                        if (opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
-                                            $('#' + opciones.filterForm).find('input').eq(i).val(opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                                        if (opciones.multiFilter.selected.data[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
+                                            $('#' + opciones.filterForm).find('input').eq(i).val(opciones.multiFilter.selected.data[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
                                         }
                                     }
                                 }
@@ -1107,23 +1109,23 @@ import Printd from 'printd';
             //filtro por derecho
             $.rup_ajax({
                 url: opciones.action +
-                    '/./multiFilter/getDefault?filterSelector=' +
-                    opciones.multiFilter._filterSelector + '&user=' +
-                    opciones.multiFilter._filterUser,
+                    '/./multiFilter/getDefault?selector=' +
+                    opciones.multiFilter._selector + '&user=' +
+                    opciones.multiFilter._user,
                 type: 'GET',
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
-                    opciones.multiFilter.$label.val(data.filterName);
-                    data.filterValue = JSON.parse(data.filterValue);
-                    if (data.filterDefault) {
-                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = true;
+                    opciones.multiFilter.$label.val(data.text);
+                    data.data = JSON.parse(data.data);
+                    if (data.active) {
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked = true;
                     } else {
-                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
+                        opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-activeFilter')[0].checked = false;
                     }
                     for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
-                        if (data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
-                            $('#' + opciones.filterForm).find('input').eq(i).val(data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                        if (data.data[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
+                            $('#' + opciones.filterForm).find('input').eq(i).val(data.data[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
                         }
                     }
                 }
