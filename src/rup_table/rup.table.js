@@ -1428,8 +1428,8 @@
             }
 
             //Añadir criterios
-            if (settings.multiFilter !== undefined && typeof settings.multiFilter.fncFilterName === "function") {
-                searchString = settings.multiFilter.fncFilterName.bind($self, searchString)();
+            if (settings.multiFilter !== undefined && typeof settings.multiFilter.getName === "function") {
+                searchString = settings.multiFilter.getName.bind($self, searchString)();
             }
 
             settings.filter.$filterSummary.html(' <i>' + searchString + '</i>');
@@ -1562,6 +1562,8 @@
             global.initRupI18nPromise.then(() => {
                 var $self = this;
 
+				global.initTableMultiFilter = jQuery.Deferred();
+
                 if (args[0].buttons != undefined && args[0].buttons.contextMenu === undefined) {
                     args[0].buttons.contextMenu = true;
                 }
@@ -1624,43 +1626,44 @@
 
                 // getDefault multifilter
                 if (options.multiFilter !== undefined && options.multiFilter.getDefault === undefined) {
-                    var usuario;
-                    if (options.multiFilter.userFilter != null) {
-                        usuario = options.multiFilter.userFilter;
-                    } else {
-                        usuario = window.LOGGED_USER;
+                    if (!options.multiFilter.userFilter) {
+                        options.multiFilter.userFilter = window.LOGGED_USER;
                     }
                     var ctx = {};
                     ctx.oInit = options;
                     ctx.sTableId = $self[0].id;
                     $.rup_ajax({
                         url: options.urlBase +
-                        	options.multiFilter.url + '/getDefault?filterSelector=' +
+                        	options.multiFilter.url + '/getDefault?selector=' +
                             options.multiFilter.idFilter + '&user=' +
-                            usuario,
+                            options.multiFilter.userFilter,
                         type: 'GET',
                         dataType: 'json',
                         showLoading: false,
                         contentType: 'application/json',
                         //async : false,
                         complete: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetDefaultFilter',ctx);
+							global.initTableMultiFilter.resolve();
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteGetActiveFilter',ctx);
                         },
                         success: function (data) {
                             if (data != null) {
-                                var valorFiltro = JSON.parse(data.filterValue);
+								ctx.oInit.multiFilter.defaultId = String(data.id);
+								
+								const valorFiltro = JSON.parse(data.data);
 
+								if (valorFiltro) {
+									DataTable.Api().multiFilter.fillForm(valorFiltro, ctx);
+									$self._doFilter(data);
+								}
 
-                                DataTable.Api().multiFilter.fillForm(valorFiltro, ctx);
-                                $self._doFilter(data);
-                                $(options.filter.$filterSummary, 'i').prepend(data.filterName + '{');
-                                $(options.filter.$filterSummary, 'i').append('}');
-
+								$(options.filter.$filterSummary, 'i').prepend(' ' + data.text + ' ');
+								$(options.filter.$filterSummary, 'i').append(data.data ? data.data : '{ }');
                             }
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetDefaultFilter',ctx);
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessGetActiveFilter',ctx);
                         },
                         error: function () {
-                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetDefaultFilter',ctx);
+                            $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorGetActiveFilter',ctx);
                         }
                     });
                 }

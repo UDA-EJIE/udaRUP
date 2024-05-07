@@ -216,7 +216,7 @@
 		classes:{
 			container: "form-groupMaterial",
 			label: "",
-			defaultFilter: {
+			activeFilter: {
 				container: "checkbox-material",
 				checkBox: ""
 			}

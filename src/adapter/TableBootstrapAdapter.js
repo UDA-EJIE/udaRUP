@@ -216,7 +216,7 @@
 		classes:{
 			container: "form-group fix-align col-sm",
 			label: "formulario_linea_label",
-			defaultFilter: {
+			activeFilter: {
 				container: "form-group col-sm",
 				checkBox: "formulario_linea_input form-control"
 			}
