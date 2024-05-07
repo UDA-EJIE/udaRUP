@@ -1182,10 +1182,8 @@ describe('Test rup_list', () => {
                 });
                 describe('> Aplicar', () => {
                     beforeEach(() => {
-                       	
                         $('#rup-list').rup_list('filter');
                         spyAjax = spyOn($, 'rup_ajax').and.callThrough();
-                        $('#rup-list_dropdownDialog').find('a.rup-combobox-toggle').click();
                     });
                     it('Tiene que hacer un ajax', () => {
                         for (let i = 0; i < spyAjax.calls.count(); i++) {
@@ -1194,7 +1192,7 @@ describe('Test rup_list', () => {
                             }
                         }
                     });
-                    it('Filter por dereco', () => {
+                    it('Filter por defecto', () => {
                         expect($('#listFilterForm').find('input').eq(2).val()).toEqual('20');
                     });
                     describe('Elegir un filtro', () => {

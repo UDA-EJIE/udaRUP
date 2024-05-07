@@ -287,22 +287,22 @@ const card32 = {
     credito: 100
 };
 const filter1 = {
-    filterSelector: 'generated',
-    filterName: 'Filter 1',
-    filterValue: {
+    selector: 'generated',
+    text: 'Filter 1',
+    data: {
         usuario: 'user12'
     },
-    filterDefault: false,
-    filterUser: 'udaPruebas'
+    active: false,
+    user: 'udaPruebas'
 };
 const filter2 = {
-    filterSelector: 'generated',
-    filterName: 'Filter 2',
-    filterValue: {
+    selector: 'generated',
+    text: 'Filter 2',
+    data: {
         edad: 20,
     },
-    filterDefault: true,
-    filterUser: 'udaPruebas'
+    active: true,
+    user: 'udaPruebas'
 };
 
 const allregs = JSON.parse(JSON.stringify(
@@ -428,11 +428,11 @@ function getAllResultFilter () {
     var result = [];
     for (let i = 0; i < allregsFilter.length; i++) {
         result[i] = {
-            filterSelector: allregsFilter[i].filterSelector,
-            filterName: allregsFilter[i].filterName,
-            filterValue: JSON.stringify(allregsFilter[i].filterValue),
-            filterDefault: allregsFilter[i].filterDefault,
-            filterUser: allregsFilter[i].filterUser
+            selector: allregsFilter[i].selector,
+            text: allregsFilter[i].text,
+            data: JSON.stringify(allregsFilter[i].data),
+            active: allregsFilter[i].active,
+            user: allregsFilter[i].user
         };
     }
     return result;
@@ -440,13 +440,13 @@ function getAllResultFilter () {
 function getDefaultResultFilter () {
     var result;
     for (let i = 0; i < allregsFilter.length; i++) {
-        if (allregsFilter[i].filterDefault) {
+        if (allregsFilter[i].active) {
             result = {
-                filterSelector: allregsFilter[i].filterSelector,
-                filterName: allregsFilter[i].filterName,
-                filterValue: JSON.stringify(allregsFilter[i].filterValue),
-                filterDefault: allregsFilter[i].filterDefault,
-                filterUser: allregsFilter[i].filterUser
+                selector: allregsFilter[i].selector,
+                text: allregsFilter[i].text,
+                data: JSON.stringify(allregsFilter[i].data),
+                active: allregsFilter[i].active,
+                user: allregsFilter[i].user
             };
             return result;
         }
@@ -455,11 +455,11 @@ function getDefaultResultFilter () {
 function addResultFilter (req) {
     var result = req.body.filtro;
 
-    result.filterValue = JSON.parse(result.filterValue);
+    result.data = JSON.parse(result.data);
 
-    if (result.filterDefault) {
+    if (result.active) {
         for (let i = 0; i < allregsFilter.length; i++) {
-            allregsFilter[i].filterDefault = false;
+            allregsFilter[i].active = false;
         }
     }
     allregsFilter.push(result);
@@ -468,10 +468,10 @@ function addResultFilter (req) {
 function deleteResultFilter (req) {
     var result = req.body.filtro;
 
-    result.filterValue = JSON.parse(result.filterValue);
+    result.data = JSON.parse(result.data);
     
     for (let i = 0; i < allregsFilter.length; i++) {
-        if (allregsFilter[i].filterName == result.filterName) {
+        if (allregsFilter[i].text == result.text) {
             allregsFilter.splice(i, 1);
         }
     }
