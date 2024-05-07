@@ -996,7 +996,7 @@ import Printd from 'printd';
                                     };
                                     $.rup_ajax({
                                         url: opciones.action + '/./multiFilter/delete',
-                                        type: 'POST',
+                                        type: 'DELETE',
                                         dataType: 'json',
                                         data: JSON.stringify(elem),
                                         contentType: 'application/json',
