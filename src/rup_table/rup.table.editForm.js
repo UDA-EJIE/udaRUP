@@ -468,7 +468,7 @@
     }
     
     /**
-     * Valida los formularios para no, buscarlos.
+     * Valida los formularios para no buscarlos.
      *
      * @name validarFormulario
      * @function
