@@ -24,7 +24,7 @@ Elimina los objetos jQuery asociados al elemento identificado por el selector, d
 **Kind**: inner method of [<code>rup\_upload</code>](#module_rup_upload)  
 **Example**  
 ```js
-$(selector).rup_combo("destroy");
+$(selector).rup_upload("destroy");
 ```
 <a name="module_rup_upload..enable"></a>
 

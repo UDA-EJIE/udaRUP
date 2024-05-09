@@ -99,7 +99,7 @@ Función que gestiona la carga del diálogo de añadir o editar.
 <a name="module_rup.table.editForm..validarFormulario"></a>
 
 ### rup.table.editForm~validarFormulario(ctx, lastAction, actionType, row)
-Valida los formularios para no, buscarlos.
+Valida los formularios para no buscarlos.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Since**: UDA 5.0.2 // Table 1.0.0  
