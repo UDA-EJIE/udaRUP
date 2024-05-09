@@ -246,7 +246,7 @@
          * @function
          * @name destroy
          * @example
-         * $(selector).rup_combo("destroy");
+         * $(selector).rup_upload("destroy");
          */
         destroy: function () {
             $(this).fileupload('destroy');
