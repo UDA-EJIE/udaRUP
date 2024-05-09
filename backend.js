@@ -7,12 +7,9 @@ var express = require('express'),
     routesNora = require('./demo/routes/nora'),
     //Routes
     routesTabs = require('./demo/routes/tabs'),
-    routesAutocomplete = require('./demo/routes/autocomplete'),
     routesTree = require('./demo/routes/tree'),
-    routesCombo = require('./demo/routes/combo'),
     routesSelect = require('./demo/routes/select'),
     routesTable = require('./demo/routes/table'),
-    routesJqtable = require('./demo/routes/jqtable'),
     routesUpload = require('./demo/routes/upload'),
     dashboardTable = require('./demo/routes/dashboard'),
     routesAudit = require('./demo/routes/audit'),
@@ -55,49 +52,27 @@ module.exports = (PORT) => {
     app.get('/demo/fragmento3', routesTabs.tabsContent1);
     app.get('/demo/tab2Fragment', routesTabs.tabsContent2);
     app.get('/demo/tab3Fragment', routesTabs.tabsContent3);
-    //Autocomplete
-    app.get('/demo/autocomplete/remote', routesAutocomplete.remote);
+    
     //Tree
     app.get('/demo/ajaxTree', routesTree.json);
     app.get('/demo/tree/remote/json', routesTree.json);
     app.get('/demo/tree/remote/xml', routesTree.xml);
-    // Combo
-    app.get('/demo/comboSimple/remote', routesCombo.comboSimple.remote);
-    app.get('/demo/comboSimple/remoteDos', routesCombo.comboSimple.remoteDos);
-    app.get('/demo/comboSimple/remoteGroup', routesCombo.comboSimple.remoteGroup);
-    app.get('/demo/comboSimple/remoteGroupEnlazado', routesCombo.comboSimple.remoteGroupEnlazado);
-    app.get('/demo/comboEnlazadoSimple/remoteEnlazadoProvincia', routesCombo.comboEnlazadoSimple.remoteEnlazadoProvincia);
-    app.get('/demo/comboEnlazadoSimple/remoteEnlazadoComarca', routesCombo.comboEnlazadoSimple.remoteEnlazadoComarca);
-    app.get('/demo/comboEnlazadoSimple/remoteEnlazadoLocalidad', routesCombo.comboEnlazadoSimple.remoteEnlazadoLocalidad);
-    app.get('/demo/comboEnlazadoMultiple/departamentoRemote', routesCombo.comboEnlazadoMultiple.departamentoRemote);
-    app.get('/demo/comboEnlazadoMultiple/provinciaRemote', routesCombo.comboEnlazadoMultiple.provinciaRemote);
-    app.get('/demo/comboEnlazadoMultiple/dptoProvRemote', routesCombo.comboEnlazadoMultiple.dptoProvRemote);
+    
 	// Select
     app.get('/demo/selectSimple/remote', routesSelect.selectSimple.remote);
     app.get('/demo/selectAutocomplete/remote', routesSelect.autocomplete.remote);
     app.get('/demo/remoteEnlazadoProvincia/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoProvincia);
     app.get('/demo/remoteEnlazadoComarca/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoComarca);
     app.get('/demo/remoteEnlazadoLocalidad/remote', routesSelect.selectEnlazadoSimple.remoteEnlazadoLocalidad);
+    
     // Form
     app.get('/demo/nora/pais', routesNora.pais);
     app.get('/demo/nora/autonomia', routesNora.autonomia);
     app.get('/demo/nora/provincia', routesNora.provincia);
     app.post('/demo/nora', routesNora.submit);
-    // Jqtable
-    app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
-    app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
-    app.put('/demo/jqGridUsuario', routesJqtable.put);
-    app.post('/demo/jqGridUsuario', routesJqtable.post);
-    app.post('/demo/jqGridUsuario/search', routesJqtable.search);
 
     // Upload
     app.post('/upload', routesUpload.upload);
-
-    app.post('/demo/jqGridUsuario/filter', routesJqtable.filter);
-    app.get('/demo/jqGridUsuario/:id', routesJqtable.get);
-    app.put('/demo/jqGridUsuario', routesJqtable.put);
-    app.post('/demo/jqGridUsuario', routesJqtable.post);
-
 
     // Dashboard
     app.get('/dashboard/getAll', dashboardTable.getAll);
