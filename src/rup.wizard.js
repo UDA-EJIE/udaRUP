@@ -460,7 +460,7 @@
             $('#step' + stepNumber + ' .ui-multiselect').each(function () {
                 var selectObj = $('#' + $(this).prev().attr('id'));
                 if (selectObj.data('settings') !== undefined) {
-                    var seleccionados = selectObj.rup_combo('label');
+                    var seleccionados = selectObj.rup_select('label');
                     if (seleccionados.length > 0) { //Existen elementos seleccionados?
                         if (selectObj.data('settings').summaryInline == undefined) {
                             //Tratamiento por defecto
@@ -580,8 +580,8 @@
                 }
             });
 
-            //rup_combo (multicombo se procesa antes)
-            $('#step' + stepNumber + ' .rup_combo').each(function () {
+            //rup_select (multicombo se procesa antes)
+            $('#step' + stepNumber + ' .rup_select').each(function () {
                 $(this).remove();
             });
 

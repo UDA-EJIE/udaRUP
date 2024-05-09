@@ -624,7 +624,7 @@
                     $(this).rup_date('disable');
                     $(this).next().addClass('form-control-customer');
                 } else if ($(this).attr('ruptype') === 'combo') {
-                    $(this).rup_combo('disable');
+                    $(this).rup_select('disable');
                     $(this).next().find('a').addClass('form-control-customer').attr('readonly', true);
                 } else if ($(this).attr('ruptype') === 'time') {
                     $(this).rup_time('disable');
@@ -641,7 +641,7 @@
                 if ($(this).attr('ruptype') === 'date') {
                     $(this).rup_date('enable');
                 } else if ($(this).attr('ruptype') === 'combo') {
-                    $(this).rup_combo('enable');
+                    $(this).rup_select('enable');
                     $(this).next().find('a').attr('readonly', false);
                 } else if ($(this).attr('ruptype') === 'time') {
                     $(this).rup_time('enable');

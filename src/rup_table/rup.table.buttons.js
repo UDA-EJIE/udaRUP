@@ -2144,8 +2144,8 @@
                     // Limpiamos el formulario
                     if($(idTableDetail).find('form')[0] !== undefined) {
                     	$(idTableDetail).find('form')[0].reset();
-                        jQuery.each($('select.rup_combo',$(idTableDetail)), function (index, elem) {
-            				jQuery(elem).rup_combo('refresh');
+                        jQuery.each($('select.rup_select',$(idTableDetail)), function (index, elem) {
+            				jQuery(elem).rup_select('refresh');
                         });
                         if (ctx.multiselection.numSelected > 0) {
                             $.rup_messages('msgConfirm', {

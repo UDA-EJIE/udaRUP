@@ -691,9 +691,9 @@
 	            // Comprobamos si se desea bloquear la edicion de las claves primarias
 	            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	        } else if (actionType === 'POST') {
-	        	//al ser add, s elimpian los combos
-	        	jQuery.each($('select.rup_combo', idForm), function (index, elem) {
-	                jQuery(elem).rup_combo('setRupValue','')
+	        	//al ser add, s elimpian los selects
+	        	jQuery.each($('select.rup_select', idForm), function (index, elem) {
+	                jQuery(elem).rup_select('setRupValue','')
 	            });
 	            $.rup_utils.populateForm(rowArray, idForm);
 	            ctx.oInit.formEdit.$navigationBar.hide();
@@ -1387,8 +1387,6 @@
                 	$.when(DataTable.editForm.fnOpenSaveDialog('PUT', dt, rowSelected.line, ctx.oInit.formEdit.customTitle)).then(function () {
                         _showOnNav(dt, linkType);
                     });
-                    // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
-                    _fixComboAutocompleteOnEditForm(ctx);
                 }
                 $('#first_' + tableId+'_detail_navigation' + 
                 		', #back_' + tableId+'_detail_navigation' +
@@ -1406,25 +1404,6 @@
 
         var barraNavegacion = ctx.oInit._ADAPTER.createDetailNavigation.bind(ctx.oInit.formEdit.$navigationBar);
         ctx.oInit.formEdit.$navigationBar.append(barraNavegacion);
-    }
-    
-    function _fixComboAutocompleteOnEditForm(ctx) {
-    	// Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
-        if (ctx.oInit.colModel !== undefined) {
-        	$.each(ctx.oInit.colModel, function (key, column) {
-        		if (column.editable) {
-        			if (column.rupType === 'combo') {
-        				// Realizar una limpieza total para asegurar un buen funcionamiento.
-        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]')['rup_combo']('hardReset');
-        			} else if (column.rupType === 'autocomplete') {
-        				// Establecer el valor por defecto del componente.
-        				const newDefaultValue = ctx.json.rows.find(row => row.id === ctx.oInit.formEdit.$navigationBar.currentPos.id)[column.name];
-        				column.editoptions.defaultValue = newDefaultValue;
-        				ctx.oInit.formEdit.idForm.find('[name="' + column.name + '"]').data('rup.autocomplete').$labelField.data('settings').defaultValue = newDefaultValue;
-        			}
-        		}
-        	});
-        }
     }
 
     function _hideOnNav(dt, linkType, callback) {
@@ -1929,8 +1908,6 @@
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
                     if (input.attr('ruptype') === 'date' && !input.rup_date('isDisabled')) {
                         input.rup_date('disable');
-                    } else if (input.attr('ruptype') === 'combo' && !input.rup_combo('isDisabled')) {
-                        input.rup_combo('disable');
                     } else if (input.attr('ruptype') === 'select' && !input.rup_select('isDisabled')) {
                         input.rup_select('disable');
                     } else if (input.attr('ruptype') === 'time' && !input.rup_time('isDisabled')) {
@@ -1973,8 +1950,6 @@
                     // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo enable.
                     if (input.attr('ruptype') === 'date' && input.rup_date('isDisabled')) {
                         input.rup_date('enable');
-                    } else if (input.attr('ruptype') === 'combo' && input.rup_combo('isDisabled')) {
-                        input.rup_combo('enable');
                     } else if (input.attr('ruptype') === 'select' && input.rup_select('isDisabled')) {
                         input.rup_select('enable');
                     } else if (input.attr('ruptype') === 'time' && input.rup_time('isDisabled')) {
@@ -2093,10 +2068,6 @@
 
     apiRegister('editForm.addchildIcons()', function (ctx) {
         _addChildIcons(ctx);
-    });
-    
-    apiRegister('editForm.fixComboAutocompleteOnEditForm()', function (ctx) {
-        _fixComboAutocompleteOnEditForm(ctx);
     });
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
