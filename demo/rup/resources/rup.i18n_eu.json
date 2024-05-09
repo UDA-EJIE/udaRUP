@@ -84,6 +84,7 @@
     "weekHeader": "&nbsp;&nbsp;&nbsp;",
     "errors": {
       "invalidDate": "Data baliogabea #%s",
+      "missingTime": "Datetimepicker aukera aktiboa dago #%s-en baina data baino ez du jaso, ordua falta da.",
       "multiSelectLimitExceeded": "Arraiak hautapen anitzeko muga gainditzen du. Arraiaren tamaina %i da eta hautapen anitzarena %i"
     }
   },
