@@ -752,6 +752,17 @@
 	    	if ($('#' + ctx.sTableId + '_formEdit_dialog_loading').length > 0) {
 	    		$('#' + ctx.sTableId + '_formEdit_dialog_loading').remove();
 	    	}
+			
+			// Evitar problemas visuales con el componente rup_select.
+			$.each($('select[ruptype="select"]', idForm), function(index, element) {
+				$(this).rup_select('close', true);
+
+				const $selectContainer = $("#" + element.id + " + span");
+
+				if ($selectContainer.hasClass('select2-container--focus') && $(document.activeElement) != $(element)) {
+					$selectContainer.removeClass('select2-container--focus');
+				}
+			});
 	
 	        // Establecemos el foco al primer elemento input o select que se
 	        // encuentre habilitado en el formulario
