@@ -1735,6 +1735,7 @@
 	
                 	$('#' + settings.id).off('select2:select');
                 	$('#' + settings.id).on('select2:select', function (e) {
+						settings.selected = e.params.data.id;
                         if(settings.autocomplete){//Change input
                         	let mySelect2 = $('#' + settings.id).data('select2');
                         	let data = $(this).select2('data')[0];
