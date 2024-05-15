@@ -997,11 +997,11 @@
                              */
                             dt.ajax.reload();
                             
-                            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow',actionType,ctx);
+                            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow', [ctx, actionType]);
                         }
                         if(actionType === 'PUT'){
 	                        dt.ajax.reload(function () {
-	                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+	                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
 	                        }, false);
                         } else {
                         	if (ctx.oInit.multiSelect === undefined) {
@@ -1013,7 +1013,7 @@
                         		ctx.multiselection.selectedRowsPerPage[0] = arra;
                         		DataTable.Api().select.drawSelectId(ctx);
                         	}
-                        	$('#' + ctx.sTableId).trigger('tableAddFormSuccessCallSaveAjax',actionType,ctx);
+                        	$('#' + ctx.sTableId).trigger('tableAddFormSuccessCallSaveAjax', [ctx, actionType]);
                         }
 
                     } else { // Eliminar
@@ -1022,12 +1022,12 @@
 
                         if (ctx.oInit.multiSelect !== undefined) {
                             dt.ajax.reload(function () {
-                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
                                 DataTable.Api().multiSelect.deselectAll(dt);
                             }, false);                        
                         } else if (ctx.oInit.select !== undefined) {
                             dt.ajax.reload(function () {
-                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax',actionType,ctx);
+                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
                                 DataTable.Api().select.deselect(ctx);
                             }, false);                        
                         }
@@ -1035,7 +1035,7 @@
                     }
                 },
                 complete: function () {
-                    $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax',actionType,ctx);
+                    $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax', [ctx, actionType]);
                 },
                 error: function (xhr) {
                 	let divErrorFeedback;
@@ -1075,7 +1075,7 @@
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     				}
 
-                    $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax',actionType,ctx);
+                    $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax', [ctx, actionType]);
                 },
                 validate: validaciones,
                 feedback: feed.rup_feedback({
