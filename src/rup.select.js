@@ -231,9 +231,9 @@
             	dataSelect2.$selection.find('input').val('');
                 // Simple y multi
             	if($self.data('settings').blank !== undefined){           		
-            		$self.val($self.data('settings').blank).trigger('change')
+            		$self.rup_select('setRupValue', $self.data('settings').blank);
             	}else{
-            		$self.val(null).trigger('change');
+            		$self.rup_select('setRupValue', null);
             	}
             } 
         },
