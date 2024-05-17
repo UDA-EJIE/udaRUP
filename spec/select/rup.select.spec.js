@@ -930,7 +930,7 @@ describe('Test Select Remoto> ', () => {
                         .toBe($selectAbueloRemoto.data('settings').placeholder);
                 });
                 it('El método getRupValue debe devolver el valor establecido', () => {
-                    expect($selectAbueloRemoto.rup_select('getRupValue')).toEqual('');
+                    expect($selectAbueloRemoto.rup_select('getRupValue')).toEqual('-1');
                 });
             });
             describe('select padre > ', () => {
@@ -943,7 +943,7 @@ describe('Test Select Remoto> ', () => {
                         .toBe($selectPadreRemoto.data('settings').placeholder);
                 });
                 it('El método getRupValue debe devolver el valor establecido', () => {
-                    expect($selectPadreRemoto.rup_select('getRupValue')).toEqual('');
+                    expect($selectPadreRemoto.rup_select('getRupValue')).toEqual('-1');
                 });
                 it('El select hijo debe deshabilitarse:', () => {
                     expect($selectHijoRemoto.attr('disabled')).toBe('disabled');
@@ -957,7 +957,7 @@ describe('Test Select Remoto> ', () => {
                     expect($('#select2-selectHijoRemoto-container').text()).toBe('[Seleccionar]');
                 });
                 it('El método getRupValue debe devolver el valor establecido', () => {
-                    expect($selectHijoRemoto.rup_select('getRupValue')).toEqual('');
+                    expect($selectHijoRemoto.rup_select('getRupValue')).toEqual('-1');
                 });
             });
 
