@@ -227,14 +227,19 @@
         	var $self = $(this);
             // init de select
             if (this.length > 0) {
+				const settings = $self.data('settings');
             	var dataSelect2 = $self.data('select2');
             	dataSelect2.$selection.find('input').val('');
                 // Simple y multi
-            	if($self.data('settings').blank !== undefined){           		
-            		$self.rup_select('setRupValue', $self.data('settings').blank);
-            	}else{
-            		$self.rup_select('setRupValue', null);
-            	}
+				if (settings.blank !== undefined) {
+					if (settings.multiple) {
+						$self.rup_select('setRupValue', [$self.data('settings').blank]);
+					} else {
+						$self.rup_select('setRupValue', $self.data('settings').blank);
+					}
+				} else {
+					$self.rup_select('setRupValue', null);
+				}
             } 
         },
         /**
