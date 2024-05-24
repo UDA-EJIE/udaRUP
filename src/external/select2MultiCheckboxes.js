@@ -32,32 +32,75 @@
 			};
 
 			adapter.prototype.update = function(data) {
+				const options = this.options.options;
+				const selectSettings = $('#' + options.id).data('settings');
+
 				// copy and modify SingleSelection adapter
 				this.clear();
 
 				let $rendered = this.$selection.find('.select2-selection__rendered');
-				let noItemsSelected = data.length === 0;
 				let formatted = "";
+				let itemsData = {};
 
-				if (noItemsSelected) {
-					formatted = this.options.get("placeholder") || "";
-				} else {
-					let itemsData = {};
-					if (this.options.options.url != null || this.$element.find("option").length == 0) {//remoto
-						itemsData = {
-							selected: data || [],
-							all: this.container.$results.find('li') || []
-						};
-					} else {
-						itemsData = {
-							selected: data || [],
-							all: this.$element.find("option") || []
-						};
+				if (options.multiple) {
+					const selectableOptions = options.blank == '-1' ? this.$element.find('option').not('[value=""]') : this.$element.find('option');
+
+					let selectedData = $.map(selectSettings || options.data === true ? data : options.data, function(item, index) {
+						// Si el componente ha sido inicializado, se definen las opciones seleccionadas.
+						if (selectSettings) {
+							// Cuando la propiedad blank está activa.
+							if (options.blank != '-1') {
+								return item;
+							}
+							// Cuando la propiedad blank está inactiva.
+							else if (item.id != '') {
+								return item;
+							}
+						}
+						// Si el componente no ha sido inicializado y la propiedad selected coincide con el id, se marca como seleccionado.
+						else if (options.selected == item.id) {
+							return item;
+						}
+					});
+
+					// Si el array está vacío y el componente no ha sido inicializado, comprueba si alguna de las opciones tiene el atributo selected activo.
+					if (selectedData.length == 0 && !selectSettings) {
+						selectedData = $.map(selectableOptions, function(item, index) {
+							if (item.selected) {
+								return { id: item.value, text: item.text };
+							}
+						});
 					}
+
+					itemsData = {
+						selected: selectedData,
+						all: selectableOptions
+					};
 
 					// Pass selected and all items to display method
 					// which calls templateSelection
 					formatted = this.display(itemsData, $rendered);
+				} else {
+					let noItemsSelected = data.length === 0;
+					if (noItemsSelected) {
+						formatted = this.options.get("placeholder") || "";
+					} else {
+						if (this.options.options.url != null || this.$element.find("option").length == 0) {//remoto
+							itemsData = {
+								selected: data || [],
+								all: this.container.$results.find('li') || []
+							};
+						} else {
+							itemsData = {
+								selected: data || [],
+								all: this.$element.find("option") || []
+							};
+						}
+
+						// Pass selected and all items to display method
+						// which calls templateSelection
+						formatted = this.display(itemsData, $rendered);
+					}
 				}
 
 				$rendered.empty().append(formatted);
