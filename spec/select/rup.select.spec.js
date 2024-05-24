@@ -198,7 +198,7 @@ describe('Test Select > ', () => {
                     $selectMulti.rup_select('clear');
                 });
                 it('Debe actualizar la ui ', () => {
-                	selectedLiteral = selectedLiteral.replace('{0}','0').replace('{1}','0');
+                	selectedLiteral = selectedLiteral.replace('{0}','0').replace('{1}','6');
                     expect($('#selectMulti').next('span').text())
                         .toBe(selectedLiteral);
                 });
