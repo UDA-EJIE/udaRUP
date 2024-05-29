@@ -16,11 +16,11 @@
     <property name="udaRupZip" value="${udaRupDestDir}/rup-v${udaVersion}.zip"/>
     
     <property name="udaTemplatesBaseDir" value="${baseDir}/udaTemplates"/>
-    <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}/templates"/>
+    <property name="udaTemplatesSrcDir" value="${udaTemplatesBaseDir}"/>
     <property name="udaTemplatesDestDir" value="${destDir}/udaTemplates/${udaVersion}"/>
     <property name="udaTemplatesFolder" value="templates"/>
-    <property name="udaTemplatesRupFolder" value="templates/statics/rup"/>
-    <property name="udaTemplatesAppFolder" value="templates/statics/xxx"/>
+    <property name="udaTemplatesRupFolder" value="proyecto/{{project_name}}Statics/WebContent/rup"/>
+    <property name="udaTemplatesAppFolder" value="proyecto/{{project_name}}Statics/WebContent/xxx"/>
     <property name="udaTemplatesZip" value="${udaTemplatesDestDir}/templates-v${udaVersion}.zip"/>
     
     <property name="udaDemoAppBaseDir" value="${baseDir}/udaDemoApp"/>
@@ -210,7 +210,7 @@
     <target name="udaTemplatesRenameVersion" description="Modifica los numeros de versión de los resources de udaTemplates">
         <echo>Updating resources version...</echo>
         
-        <replace file="${udaTemplatesSrcDir}/ear/pom.xml.ftl">
+        <replace file="${udaTemplatesSrcDir}/proyecto/{{project_name}}EAR/pom.xml.jinja">
            <replacefilter 
             token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;" 
             value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;"/>
