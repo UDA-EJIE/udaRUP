@@ -2,9 +2,9 @@
 <project name="uda" default="buildVersion">
     
 	<property name="udaVersion" value="6.0.0"/>
-    <property name="previousUdaVersion" value="4.5.0"/>
+    <property name="previousUdaVersion" value="4.5.1"/>
     <property name="udaLibVersion" value="6.0.0"/>
-    <property name="previousUdaLibVersion" value="4.5.0"/>
+    <property name="previousUdaLibVersion" value="4.5.1"/>
     
     <property name="baseDir" value="../"/>
     <property name="destDir" value="${baseDir}/dist"/>
