@@ -6,7 +6,6 @@ import MainView from 'shared/main/mainView';
 import IndexView from 'pages/index/indexView';
 import StyleGuideView from 'styleGuide/styleGuideView';
 import Bt4StyleGuideView from 'styleGuide/bt4/styleGuideView';
-import AutocompleteView from 'components/autocomplete/autocompleteView';
 import FeedbackView from 'components/feedback/feedbackView';
 import TooltipView from 'components/tooltip/tooltipView';
 import MessageView from 'components/message/messageView';
@@ -29,10 +28,8 @@ import TreeDragDropView from 'components/tree/dragDrop/treeDragDropView';
 import TabsStaticView from 'components/tabs/tabsStaticView';
 import WizardSimpleView from 'components/wizard/simple/wizardSimpleView';
 import WizardDynamicView from 'components/wizard/dynamic/wizardDynamicView';
-import ComboSimpleView from 'components/combo/comboSimple/comboSimpleView';
 import TableEditInlineView from 'components/table/editInline/tableView';
 import TableEditFormView from 'components/table/editForm/tableView';
-import JqtableFilterView from 'components/jqtable/jqtableFilterView';
 import StackedHorizontalView from 'responsiveGrid/stackedHorizontal/stackedHorizontalView';
 import MobileDesktopView from 'responsiveGrid/mobileDesktop/mobileDesktopView';
 import MobileTabletDesktopView from 'responsiveGrid/mobileTabletDesktop/mobileTabletDesktopView';
@@ -48,7 +45,6 @@ var MyRouter = AppRouter.extend({
         '' : 'index',
         'styleGuide' : 'styleGuide',
         'bt4StyleGuide' : 'bt4StyleGuide',
-        'autocomplete' : 'autocomplete',
         'feedback' : 'feedback',
         'tooltip' : 'tooltip',
         'tableEditInline' : 'tableEditInline',
@@ -73,8 +69,6 @@ var MyRouter = AppRouter.extend({
         'tabsStatic' : 'tabsStatic',
         'wizardSimple' : 'wizardSimple',
         'wizardDynamic' : 'wizardDynamic',
-        'comboSimple' : 'comboSimple',
-        'jqtableFilter' : 'jqtableFilter',
         'stackedHorizontal': 'stackedHorizontal',
         'mobileDesktop': 'mobileDesktop',
         'mobileTabletDesktop': 'mobileTabletDesktop',
@@ -94,9 +88,6 @@ var RouteController = Marionette.MnObject.extend({
     },
     bt4StyleGuide: function() {
         RupResponsiveDemoApp.mainView.showChildView('Container', new Bt4StyleGuideView());
-    },
-    autocomplete: function() {
-        RupResponsiveDemoApp.mainView.showChildView('Container', new AutocompleteView());
     },
     feedback: function() {
         RupResponsiveDemoApp.mainView.showChildView('Container', new FeedbackView());
@@ -169,12 +160,6 @@ var RouteController = Marionette.MnObject.extend({
     },
     wizardDynamic: function(){
         RupResponsiveDemoApp.mainView.showChildView('Container', new WizardDynamicView());
-    },
-    comboSimple: function(){
-        RupResponsiveDemoApp.mainView.showChildView('Container', new ComboSimpleView());
-    },
-    jqtableFilter: function(){
-        RupResponsiveDemoApp.mainView.Container.show(new JqtableFilterView());
     },
     stackedHorizontal: function(){
         RupResponsiveDemoApp.mainView.showChildView('Container', new StackedHorizontalView());

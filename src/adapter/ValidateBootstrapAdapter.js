@@ -60,25 +60,6 @@
 
 
 	ValidateBootstrapAdapter.prototype.errorPlacement = function (error, element) {
-
-		//limpiar errores previos
-		/*  if (element.parent().hasClass("")) {
-        element.parent().find(".rup-validate-error-icon").remove();
-        element.unwrap();
-      }*/
-
-		// var errorElem = error.attr("src",this.errorImage).addClass("rup-maint_validateIcon").html('').rup_tooltip({"applyToPortal": true});
-		//
-		// if (element.attr("ruptype")==='combo'){
-		//   var comboElem = $("#"+element.attr("id")+"-button");
-		//   if (comboElem){
-		//     errorElem.insertAfter(comboElem);
-		//   }
-		// }else{
-		// var $inputGroup = $("<div>").addClass("form-input-group");
-		// var $iconError = $("<i>").addClass("mdi mdi-close");
-		// element.wrap($inputGroup);
-
 		var name = element.prop('name'),
 			labelProp = this.labels ? this.labels[name] : undefined,
 			$labelContainer = $(labelProp),
@@ -103,17 +84,6 @@
 				$icon.insertAfter(element);
 			}
 		}
-
-
-
-
-		// $iconError.insertAfter(element);
-
-
-
-
-
-		// }
 	};
 
 	ValidateBootstrapAdapter.prototype.showLabel = function (element, message) {

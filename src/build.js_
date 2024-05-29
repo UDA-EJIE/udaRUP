@@ -37,8 +37,7 @@
         "chartjs": "../node_modules/chart.js/dist/Chart",
         "qtip2": "../node_modules/qtip2/dist/jquery.qtip",
         "tether": "../node_modules/tether/dist/js/tether",
-		    "popper": "../node_modules/popper.js/dist/popper.min",
-        //"highlight": "../node_modules/highlight.js/lib/highlight",
+		"popper": "../node_modules/popper.js/dist/popper.min",
         "highlight": "../js/highlight.pack",
         "templates": "../templates",
         "blockUI": "../node_modules/block-ui/jquery.blockUI",
@@ -62,25 +61,16 @@
         "load-image-exif": "../node_modules/blueimp-load-image/js/load-image-exif",
         "canvas-to-blob": "../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob",
 
-
         // menuDeps
-        // "jquery-1.7": "../src/core/jquery-1.7.2",
-        "jquery.ui.autocomplete": "../src/core/ui/jquery.ui.autocomplete",
-        //"jquery.ui.selectmenu": "../src/core/ui/jquery.ui.selectmenu",
-        //"jquery.multiselect": "../src/core/ui/jquery.multiselect",
         "jquery-json": "../src/core/utils/jquery.json-2.2",
         "jquery-ui-timepicker": "../src/core/ui/jquery-ui.timepicker",
         "jquery-ui-multidatespicker": "../src/core/ui/jquery-ui.multidatespicker",
-
+        
         "form2object": "../src/core/utils/form2object",
         "gridstack": "../node_modules/gridstack/dist/gridstack",
         "lodash": "../node_modules/lodash/lodash",
         "jquery-jstree": "../src/core/utils/jquery.jstree",
         "jquery-hotkeys": "../src/core/utils/jquery.hotkeys"
-
-
-
-
     },
     shim : {
       "jquery-ui":{
@@ -145,5 +135,4 @@
           // And so on for all different cases...
       }
     }
-
 }

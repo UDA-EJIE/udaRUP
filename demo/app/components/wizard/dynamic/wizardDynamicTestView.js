@@ -81,9 +81,9 @@ define(['marionette',
 										{i18nCaption:'Datos adicionales', layer:'#otros_datos'}
 									]
 								});
-								$('#provincia').rup_combo({
-									source : 'comboSimple/remote',
-									sourceParam : {label:'desc'+$.rup_utils.capitalizedLang(), value:'code', style:'css'},
+								$('#provincia').rup_select({
+									url: 'comboSimple/remote',
+									sourceParam: {text:'desc'+$.rup_utils.capitalizedLang(), id:'code', style:'css'},
 									selected: 'Combo',
 									width: 300
 								});
@@ -125,24 +125,22 @@ define(['marionette',
 			showButtonPanel: true
 		});
 
-		$('#dias').rup_combo({
-			source : ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+		$('#dias').rup_select({
+			data : ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
 			ordered: false,
 			width: 320,
-			multiselect: true,
-			summaryInline : true
+			multiselect: true
 		});
 
 
-		$('#cliente').rup_combo({
-			sourceGroup : [
+		$('#cliente').rup_select({
+			dataGroups: [
 				{'Invierno' : ['Enero', 'Febrero', 'Marzo']},
 				{'Primavera' : ['Abril', 'Mayo', 'Junio']},
 				{'Verano' : [ 'Julio', 'Agosto', 'Septiembre']},
 				{'Otoño' : [ 'Octubre', 'Noviembre', 'Diciembre']}
 			],
 			width: 400,
-			height: 300,
 			multiselect: true
 		});
 

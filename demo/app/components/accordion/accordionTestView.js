@@ -25,7 +25,7 @@ define(['marionette',
 		$('#accordionExample2').rup_accordion('option','change', function(event, ui){
 			//section autocomplete
 			if(ui.options.active === 0){
-				$('#autocomplete_label').rup_autocomplete('search', 'java');
+				$('#autocomplete').rup_select('search', 'java');
 				//seccion mantenimiento
 			} else if (ui.options.active === 1){
 
@@ -107,29 +107,30 @@ define(['marionette',
 		//section autocomplete
 		/////////////////////////
 
-		$('#autocomplete').rup_autocomplete({
-			/*source : ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"]*/
-			source : [
-				{i18nCaption: 'asp', value:'asp_value'},
-				{i18nCaption: 'c', value:'c_value'},
-				{i18nCaption: 'c++', value:'c++_value'},
-				{i18nCaption: 'coldfusion', value:'coldfusion_value'},
-				{i18nCaption: 'groovy', value:'groovy_value'},
-				{i18nCaption: 'haskell', value:'haskell_value'},
-				{i18nCaption: 'java', value:'java_value'},
-				{i18nCaption: 'javascript', value:'javascript_value'},
-				{i18nCaption: 'perl', value:'perl_value'},
-				{i18nCaption: 'php', value:'php_value'},
-				{i18nCaption: 'python', value:'python_value'},
-				{i18nCaption: 'ruby', value:'ruby_value'},
-				{i18nCaption: 'scala', value:'scala_value'}
+		$('#autocomplete').rup_select({
+			data: [
+				{i18nCaption: 'asp', id:'asp_value'},
+				{i18nCaption: 'c', id:'c_value'},
+				{i18nCaption: 'c++', id:'c++_value'},
+				{i18nCaption: 'coldfusion', id:'coldfusion_value'},
+				{i18nCaption: 'groovy', id:'groovy_value'},
+				{i18nCaption: 'haskell', id:'haskell_value'},
+				{i18nCaption: 'java', id:'java_value'},
+				{i18nCaption: 'javascript', id:'javascript_value'},
+				{i18nCaption: 'perl', id:'perl_value'},
+				{i18nCaption: 'php', id:'php_value'},
+				{i18nCaption: 'python', id:'python_value'},
+				{i18nCaption: 'ruby', id:'ruby_value'},
+				{i18nCaption: 'scala', id:'scala_value'}
 			],
-			contains : false
+			autocomplete: true,
+			contains: false
 		});
 
-		$('#patron').rup_autocomplete({
-			source : 'autocomplete/remote',
-			sourceParam : {label:'desc'+$.rup_utils.capitalizedLang(), value:'code'},
+		$('#patron').rup_select({
+			url: 'autocomplete/remote',
+			sourceParam: {text:'desc'+$.rup_utils.capitalizedLang(), id:'code'},
+			autocomplete: true,
 			minLength: 4
 		});
 

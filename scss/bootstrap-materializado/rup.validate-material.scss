@@ -90,28 +90,6 @@ i.mdi.error {
 			}
 		}
 		
-		/* AUTOCOMPLETE COMBOBOX */
-		span.rup-combobox {	
-			input:not([type="checkbox"]):not([type="radio"]) {
-				&:enabled ~ a {
-					border-color: $validation-error-color-light;
-				}
-				
-				&:hover:enabled ~ a {
-					border-color: $validation-error-color;
-				}
-				
-				&:focus:enabled ~ a {
-					border: 2px solid $validation-error-color;
-					border-left-style: hidden;
-				}
-				
-				~ a:focus {
-					background-color: $validation-error-color-light;
-				}
-			}
-		}
-		
 		/* RUP.DATE */
 		div.rup-date-input-group-material {
 			input:not([type="checkbox"]):not([type="radio"]) {

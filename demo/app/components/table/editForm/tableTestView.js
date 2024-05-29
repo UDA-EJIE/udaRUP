@@ -76,119 +76,75 @@ define(['jquery', 'marionette',
                 name: 'id',
                 index: 'id',
                 editable: true,
-                hidden: false,
-                width: 80,
-                formoptions: {
-                    rowpos: 1,
-                    colpos: 1
-                }
+                hidden: false
             }, {
                 name: 'nombre',
                 index: 'nombre',
                 editable: true,
-                hidden: false,
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 1
-                }
+                hidden: false
             }, {
                 name: 'apellido1',
                 index: 'apellido1',
                 editable: true,
-                hidden: false,
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 1
-                },
-                classes: 'ui-ellipsis'
+                hidden: false
             }, {
                 name: 'ejie',
                 index: 'ejie',
                 editable: true,
                 hidden: false,
-                width: 60,
-                edittype: 'checkbox',
-                formatter: 'checkbox',
-                rwdClasses: 'hidden-xs hidden-sm hidden-md',
-                align: 'center',
                 editoptions: {
                     value: '1:0'
-                },
-                formoptions: {
-                    rowpos: 5,
-                    colpos: 1
                 }
             }, {
                 name: 'fechaAlta',
                 index: 'fecha_alta',
                 editable: true,
                 hidden: false,
-                width: 120,
                 rupType: 'date',
-                rwdClasses: 'hidden-xs hidden-sm hidden-md',
                 editoptions: {
                     labelMaskId: 'fecha-mask',
                     showButtonPanel: true,
                     showOtherMonths: true,
                     noWeekend: true
-                },
-                formoptions: {
-                    rowpos: 2,
-                    colpos: 2
                 }
             }, {
                 name: 'fechaBaja',
                 index: 'fecha_baja',
                 editable: false,
                 hidden: false,
-                width: 120,
                 rupType: 'date',
-                rwdClasses: 'hidden-xs hidden-sm hidden-md',
                 editoptions: {
                     labelMaskId: 'fecha-mask',
                     showButtonPanel: true,
                     showOtherMonths: true,
                     noWeekend: true
-                },
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 2
                 }
             }, {
                 name: 'rol',
                 index: 'rol',
                 editable: true,
                 hidden: false,
-                width: 140,
-                rupType: 'combo',
-                rwdClasses: 'hidden-xs hidden-sm hidden-md',
-                formatter: 'rup_combo',
+                rupType: 'select',
                 editoptions: {
-                    source: [{
-                        label: '---',
-                        value: ''
+                    data: [{
+                        text: '---',
+                        id: ''
                     }, {
-                        label: 'Administrador',
-                        value: 'administrador'
+                        text: 'Administrador',
+                        id: 'administrador'
                     }, {
-                        label: 'Desarrollador',
-                        value: 'desarrollador'
+                        text: 'Desarrollador',
+                        id: 'desarrollador'
                     }, {
-                        label: 'Espectador',
-                        value: 'espectador'
+                        text: 'Espectador',
+                        id: 'espectador'
                     }, {
-                        label: 'Informador',
-                        value: 'informador'
+                        text: 'Informador',
+                        id: 'informador'
                     }, {
-                        label: 'Manager',
-                        value: 'manager'
-                    }],
-                    width: '100%',
-                    customClasses: ['select-material']
-                },
-                formoptions: {
-                    rowpos: 3,
-                    colpos: 2
+                        text: 'Manager',
+                        id: 'manager'
+                    }]
                 }
             }]
         });

@@ -132,24 +132,22 @@ define(['marionette',
 			showButtonPanel: true
 		});
 
-		$('#dias').rup_combo({
-			source : ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+		$('#dias').rup_select({
+			data : ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
 			ordered: false,
 			width: 320,
-			multiselect: true,
-			summaryInline : true
+			multiselect: true
 		});
 
 
-		$('#cliente').rup_combo({
-			sourceGroup : [
+		$('#cliente').rup_select({
+			dataGroups: [
 				{'Invierno' : ['Enero', 'Febrero', 'Marzo']},
 				{'Primavera' : ['Abril', 'Mayo', 'Junio']},
 				{'Verano' : [ 'Julio', 'Agosto', 'Septiembre']},
 				{'Otoño' : [ 'Octubre', 'Noviembre', 'Diciembre']}
 			],
 			width: 400,
-			height: 300,
 			multiselect: true
 		});
 

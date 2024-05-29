@@ -617,40 +617,40 @@
         $('#' + ctx.sTableId).triggerHandler('tableSeekerAfterClear',ctx);
     }
 
-    function _enabledButtons(ctx) {
-        if (ctx.seeker !== undefined) {
-            $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
-                if ($(this).attr('ruptype') === 'date') {
-                    $(this).rup_date('disable');
-                    $(this).next().addClass('form-control-customer');
-                } else if ($(this).attr('ruptype') === 'combo') {
-                    $(this).rup_select('disable');
-                    $(this).next().find('a').addClass('form-control-customer').attr('readonly', true);
-                } else if ($(this).attr('ruptype') === 'time') {
-                    $(this).rup_time('disable');
-                } else {
-                    $(this).prop('disabled', true);
-                }
-            });
-        }
-    }
+	function _enabledButtons(ctx) {
+		if (ctx.seeker !== undefined) {
+			$.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function(key, id) {
+				const rupType = $(this).attr('ruptype');
+				if (rupType === 'date') {
+					$(this).rup_date('disable');
+					$(this).next().addClass('form-control-customer');
+				} else if (rupType === 'select') {
+					$(this).rup_select('disable');
+				} else if (rupType === 'time') {
+					$(this).rup_time('disable');
+				} else {
+					$(this).prop('disabled', true);
+				}
+			});
+		}
+	}
 
-    function _disabledButtons(ctx) {
-        if (ctx.seeker !== undefined) {
-            $.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function (key, id) {
-                if ($(this).attr('ruptype') === 'date') {
-                    $(this).rup_date('enable');
-                } else if ($(this).attr('ruptype') === 'combo') {
-                    $(this).rup_select('enable');
-                    $(this).next().find('a').attr('readonly', false);
-                } else if ($(this).attr('ruptype') === 'time') {
-                    $(this).rup_time('enable');
-                } else {
-                    $(this).prop('disabled', false);
-                }
-            });
-        }
-    }
+	function _disabledButtons(ctx) {
+		if (ctx.seeker !== undefined) {
+			$.each($('#' + ctx.sTableId + ' tfoot [id*="seeker"]:not(a)'), function(key, id) {
+				const rupType = $(this).attr('ruptype');
+				if (rupType === 'date') {
+					$(this).rup_date('enable');
+				} else if (rupType === 'select') {
+					$(this).rup_select('enable');
+				} else if (rupType === 'time') {
+					$(this).rup_time('enable');
+				} else {
+					$(this).prop('disabled', false);
+				}
+			});
+		}
+	}
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * DataTables API

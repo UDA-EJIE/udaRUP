@@ -7,7 +7,6 @@
 // @import "../node_modules/bootstrap/scss/popover";
 
 %rup-message_icon {
-    @extend %rup-fa;
     background-image: none;
     height: auto;
     padding-top: 0.4em;
@@ -68,25 +67,21 @@
     .rup-message_icon-ok {
         @extend %rup-message_icon;
         color: $rup-color-message-ok-icon;
-        @extend .rup-fa-ok;
     }
 
     .rup-message_icon-alert {
         @extend %rup-message_icon;
         color: $rup-color-message-alert-icon;
-        @extend .rup-fa-warning;
     }
 
     .rup-message_icon-error {
         @extend %rup-message_icon;
         color: $rup-color-message-error-icon;
-        @extend .rup-fa-error;
     }
 
     .rup-message_icon-confirm {
         @extend %rup-message_icon;
         color: $rup-color-message-confirm-icon;
-        @extend .rup-fa-confirm;
     }
 }
 @media (max-width: 768px) {

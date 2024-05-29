@@ -11,31 +11,31 @@ define(['marionette',
         initialize: function () {
             this.listaDias = [{
                 i18nCaption: 'lunes',
-                value: '1'
+                id: '1'
             },
             {
                 i18nCaption: 'martes',
-                value: '2'
+                id: '2'
             },
             {
                 i18nCaption: 'miercoles',
-                value: '3'
+                id: '3'
             },
             {
                 i18nCaption: 'jueves',
-                value: '4'
+                id: '4'
             },
             {
                 i18nCaption: 'viernes',
-                value: '5'
+                id: '5'
             },
             {
                 i18nCaption: 'sabado',
-                value: '6'
+                id: '6'
             },
             {
                 i18nCaption: 'domingo',
-                value: '7'
+                id: '7'
             }
             ];
 
@@ -55,50 +55,51 @@ define(['marionette',
 
 
 
-        $('#autocomplete').rup_autocomplete({
-            source: 'autocomplete/remote',
+        $('#autocomplete').rup_select({
+            url: 'autocomplete/remote',
             sourceParam: {
-                label: 'desc' + $.rup_utils.capitalizedLang(),
-                value: 'code'
+                text: 'desc' + $.rup_utils.capitalizedLang(),
+                id: 'code'
             },
+            autocomplete: true,
             minLength: 4
         });
 
 
-        $('#comboAbueloRemoto').rup_combo({
-            source: 'comboEnlazadoSimple/remoteEnlazadoProvincia',
+        $('#comboAbueloRemoto').rup_select({
+            url: 'comboEnlazadoSimple/remoteEnlazadoProvincia',
             sourceParam: {
-                label: 'desc' + $.rup_utils.capitalizedLang(),
-                value: 'code',
+                text: 'desc' + $.rup_utils.capitalizedLang(),
+                id: 'code',
                 style: 'css'
             },
             blank: ''
         });
 
-        $('#comboPadreRemoto').rup_combo({
+        $('#comboPadreRemoto').rup_select({
             parent: ['comboAbueloRemoto'],
-            source: 'comboEnlazadoSimple/remoteEnlazadoComarca',
+            url: 'comboEnlazadoSimple/remoteEnlazadoComarca',
             sourceParam: {
-                label: 'desc' + $.rup_utils.capitalizedLang(),
-                value: 'code',
+                text: 'desc' + $.rup_utils.capitalizedLang(),
+                id: 'code',
                 style: 'css'
             },
             blank: ''
         });
 
-        $('#comboHijoRemoto').rup_combo({
+        $('#comboHijoRemoto').rup_select({
             parent: ['comboPadreRemoto'],
-            source: 'comboEnlazadoSimple/remoteEnlazadoLocalidad',
+            url: 'comboEnlazadoSimple/remoteEnlazadoLocalidad',
             sourceParam: {
-                label: 'desc' + $.rup_utils.capitalizedLang(),
-                value: 'code',
+                text: 'desc' + $.rup_utils.capitalizedLang(),
+                id: 'code',
                 style: 'css'
             },
             blank: ''
         });
 
-        $('#multicombo').rup_combo({
-            source: this.listaDias,
+        $('#multicombo').rup_select({
+            data: this.listaDias,
             width: 400,
             ordered: false,
             loadFromSelect: true,
@@ -152,9 +153,8 @@ define(['marionette',
             }]
         });
 
-        $('#diaObligatorio').rup_combo({
-            //source : ["asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", "javascript", "perl", "php", "python", "ruby", "scala"],
-            source: this.listaDias,
+        $('#diaObligatorio').rup_select({
+            data: this.listaDias,
             width: 100,
             ordered: false
         });

@@ -330,20 +330,6 @@ En cambio, si usamos los estilos de bootstrap materializados a la hora de diseñ
 </div>
 ```
 
-### Autocomplete
-![Autocomplete](img/materialGuidelines/autocomplete.png)
-```html
-<div class="form-group">
-  <input id="autocompleteDefault" name="autocompleteDefault" /> 
-  <label for="autocompleteDefault">Autocomplete</label>
-</div>
-
-<div class="form-groupMaterial">
-  <input id="autocompleteMaterialized" name="autocompleteMaterialized" /> 
-  <label for="autocompleteMaterialized">Autocomplete Material</label>
-</div>
-```
-
 ### Select
 Del mismo modo se trata de obtener una apariencia similar en el uso de los controles **select**.
 

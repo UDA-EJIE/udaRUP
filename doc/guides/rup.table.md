@@ -126,8 +126,8 @@ configuraciÃ³n mÃ­nima:
 ```js
 jQuery(function($){
     // Definición del modelo de columnas.
-    const tableColModel = [
-        {
+    const tableColModels = [
+    	{
             name: 'nombre',
             index: 'nombre',
             editable: true,
@@ -138,36 +138,51 @@ jQuery(function($){
             index: 'apellido1',
             editable: true,
             hidden: false,
-            rupType: 'autocomplete',
+        	rupType: 'select',
             editoptions: {
-                source : './apellidos',
-                sourceParam : {label: 'label', value: 'value'},
-                menuMaxHeight: 200,
-                minLength: 3,
-                combobox: true,
-                contains: true
+            	url: './apellidos',
+                sourceParam: {text: 'label', id: 'value'},
+				autocomplete: true,
+                contains: true,
+                combo: true
             },
             searchoptions: {
-                source : './apellidos',
-                sourceParam : {label: 'label', value: 'value'},
-                menuMaxHeight: 200,
-                minLength: 3,
-                combobox: true,
-                contains: true
+            	url: './apellidos',
+                sourceParam: {text: 'label', id: 'value'},
+				blank: '',
+				autocomplete: true,
+				searchZero: true,
+				combo: true
             }
         },
         { 
-            name: "apellido2", 
-            index: "apellido2", 
-            editable: true, 
-            hidden: true
+        	name: "apellido2", 
+        	index: "apellido2", 
+        	editable: true, 
+        	hidden: false,
+        	rupType: 'select',
+            editoptions: {
+            	url: './apellidos',
+                sourceParam: {text: 'label', id: 'value'},
+				autocomplete: true,
+                contains: true,
+                combo: true
+            },
+            searchoptions: {
+				parent: ['apellido1_example_seeker'],
+            	url : './apellidos',
+                sourceParam : {text: 'label', id: 'value'},
+				blank: '',
+				autocomplete: true,
+				searchZero: true,
+				combo: true
+            }
         },
         {
             name: 'ejie',
             index: 'ejie',
             editable: true,
             hidden: false,
-            orderable: false,
             edittype: 'checkbox'
         },
         {
@@ -192,7 +207,7 @@ jQuery(function($){
         {
             name: 'fechaBaja',
             index: 'fechaBaja',
-            editable: true,
+            editable: false,
             hidden: false,
             rupType: 'date',
             editoptions: {
@@ -213,44 +228,37 @@ jQuery(function($){
             index: 'rol',
             editable: true,
             hidden: false,
-            rupType: 'combo',
+            rupType: 'select',
             editoptions: {
-                source : './roles',
-                sourceParam : {label: 'label', value: 'value'},
-                width: '100%',
-                customClasses: ['select-material']
+                url : './roles',
+                sourceParam : {text: 'label', id: 'value'},
+                blank: ''
             },
             searchoptions: {
-                source : './roles',
-                sourceParam : {label: 'label', value: 'value'},
-                blank: '',
-                width: '100%',
-                customClasses: ['select-material']
+                url : './roles',
+                sourceParam : {text: 'label', id: 'value'},
+                blank: ''
             }
         }
     ];
 
     // Formulario de filtrado.
-    jQuery("#ejie_filter_table").rup_combo({
-        source : './ejie',
-        sourceParam : {label: 'label', value: 'value'},
-        blank: '',
-        width: '100%',
-        customClasses: ['select-material']
+    jQuery("#ejie_filter_table").rup_select({
+        url : './ejie',
+        sourceParam : {text: 'label', id: 'value'},
+        blank: ''
     });
-    jQuery('#rol_filter_table').rup_combo({
-        source : './roles',
-        sourceParam : {label: 'label', value: 'value'},
-        blank: '',
-        width: '100%',
-        customClasses: ['select-material']
+    jQuery('#rol_filter_table').rup_select({
+        url : './roles',
+        sourceParam : {text: 'label', id: 'value'},
+        blank: ''
     });
     jQuery("#fechaAlta_filter_table").rup_date();
     jQuery("#fechaBaja_filter_table").rup_date();
 
     // Inicialización de la tabla.
     $('#example').rup_table({
-        colModel: tableColModel
+        colModel: tableColModels
         multiSelect: {
             style: 'multi'
         },

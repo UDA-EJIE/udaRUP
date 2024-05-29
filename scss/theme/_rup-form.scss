@@ -57,7 +57,6 @@ input[type="tel"],
 input[type="search"],
 input[type="url"],
 input[type="password"],
-.ui-autocomplete-input,
 textarea,
 .uneditable-input {
   // font-size: $rup-font-size-base;
@@ -88,8 +87,15 @@ legend{
   padding: 0 0.4rem;
 }
 
-select{
-  @extend %select-style;
+select {
+	font-size: $rup-font-size-base;
+	height: 2rem;
+	padding: 0;
+	background-color: $rup-bg-color;
+	background-image: none;
+	border: 1px solid $rup-color-border;
+	border-radius: $rup-border-radius;
+	@include rup-box-shadow(0 1px 1px rgba(0, 0, 0, 0.075) inset);
 }
 
 p, ul{

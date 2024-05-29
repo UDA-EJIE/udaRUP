@@ -137,16 +137,15 @@ define(['marionette',
         });
 
         var options_ejie_combo = {
-            source : [
-                {label:'Si', value:'0'},
-                {label:'No', value:'1'}
+            data : [
+                {text:'Si', id:'0'},
+                {text:'No', id:'1'}
             ],
-            width: 120,
             blank: ''
         };
 
 
-        $view.ui.dropdownCombo.rup_combo(options_ejie_combo);
+        $view.ui.dropdownCombo.rup_select(options_ejie_combo);
     }
 
     function fncDropdownElementClick (){

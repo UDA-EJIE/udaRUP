@@ -1,6 +1,6 @@
 
 define(['marionette',
-	'./styleGuideTemplate.hbs', 'rup.button','rup.combo'], function(Marionette, StyleGuideTemplate){
+	'./styleGuideTemplate.hbs', 'rup.button','rup.select'], function(Marionette, StyleGuideTemplate){
 
 	var StyleGuideView = Marionette.View.extend({
 		template: StyleGuideTemplate,
@@ -22,7 +22,7 @@ define(['marionette',
 			}
 		});
 
-		this.ui.rupCombo.rup_combo({
+		this.ui.rupCombo.rup_select({
 			loadFromSelect: true
 		});
 	}

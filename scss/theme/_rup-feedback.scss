@@ -21,7 +21,6 @@
       background-color: $rup-color-feedback-ok-bg;
       span.rup-feedback-icon{
         @extend %feedback-icon;
-        @extend .rup-fa-ok;
         color: $rup-color-feedback-ok-icon;
       }
     }
@@ -30,7 +29,6 @@
       background-color: $rup-color-feedback-alert-bg;
       span.rup-feedback-icon{
         @extend %feedback-icon;
-        @extend .rup-fa-warning;
         color: $rup-color-feedback-alert-icon;
       }
     }
@@ -39,7 +37,6 @@
       background-color: $rup-color-feedback-error-bg;
       span.rup-feedback-icon{
         @extend %feedback-icon;
-        @extend .rup-fa-error;
         color: $rup-color-feedback-error-icon;
       }
     }

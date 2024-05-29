@@ -82,54 +82,56 @@ define(['marionette',
 		});
 
 		// Combo sexo
-		$view.ui.fieldSexo.rup_combo({
-			source : [
-				{i18nCaption: 'masculino', value:'M'},
-				{i18nCaption: 'femenino', value:'F'}
+		$view.ui.fieldSexo.rup_select({
+			data : [
+				{i18nCaption: 'masculino', id:'M'},
+				{i18nCaption: 'femenino', id:'F'}
 			],
 			i18nId:'sexo'
 		});
 
 		// Combo pais
-		$view.ui.fieldPais.rup_combo({
-			source : 'api/nora/pais',
-			sourceParam : {label:'dsO', value:'id'},
+		$view.ui.fieldPais.rup_select({
+			url : 'api/nora/pais',
+			sourceParam : {text:'dsO', id:'id'},
 			blank : '0'
 		});
 
 		// Combo autonomia
-		$view.ui.fieldAutonomia.rup_combo({
-			source : 'api/nora/autonomia',
-			sourceParam : {label:'dsO', value:'id'},
+		$view.ui.fieldAutonomia.rup_select({
+			url : 'api/nora/autonomia',
+			sourceParam : {text:'dsO', id:'id'},
 			width : 400,
 			blank : ''
 		});
 
-		//	jQuery("#formTypeCombo").rup_combo({
-		//		source : [{label:"AJAX submit", value:"ajax"},{label:"HTTP submit", value:"http"}]
+		//	jQuery("#formTypeCombo").rup_select({
+		//		data : [{label:"AJAX submit", value:"ajax"},{label:"HTTP submit", value:"http"}]
 		//	});
 
 		// Combo provincia
-		$view.ui.fieldProvincia.rup_combo({
+		$view.ui.fieldProvincia.rup_select({
 			parent: ['autonomia'],
-			source : '../api/nora/provincia',
-			firstLoad:[{'value':'01','label':'Alava/Araba'},{'value':'20','label':'Gipuzkoa'},{'value':'48','label':'Bizkaia'}],
-			sourceParam : {label:'dsO', value:'id'},
+			url : '../api/nora/provincia',
+			firstLoad: true,
+			sourceParam : {text:'dsO', id:'id'},
 			width : 300,
 			blank : ''
 		});
 
 		// Autocomplete municipio
-		$view.ui.fieldMunicipio.rup_autocomplete({
-			source : '../api/nora/municipio',
-			sourceParam : {label:'dsO', value:'id'},
+		$view.ui.fieldMunicipio.rup_select({
+			url: '../api/nora/municipio',
+			sourceParam: {text:'dsO', id:'id'},
+			autocomplete: true,
 			minLength: 4
 		});
 
 		// Autocomplete calle
-		$view.ui.fieldCalle.rup_autocomplete({
-			source : '../api/nora/calle',
-			sourceParam : {label:'dsO', value:'id'},
+		$view.ui.fieldCalle.rup_select({
+			url: '../api/nora/calle',
+			sourceParam: {text:'dsO', id:'id'},
+			autocomplete: true,
 			minLength: 4
 		});
 

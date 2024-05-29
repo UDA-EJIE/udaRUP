@@ -49,18 +49,11 @@
 	ValidateJQueryUIAdapter.prototype.errorElement = 'img';
 
 	ValidateJQueryUIAdapter.prototype.errorPlacement = function (error, element) {
-		var errorElem = error.attr('src', this.errorImage).addClass('rup-maint_validateIcon').html('').rup_tooltip({
+		const errorElem = error.attr('src', this.errorImage).addClass('rup-maint_validateIcon').html('').rup_tooltip({
 			'applyToPortal': true
 		});
 
-		if (element.attr('ruptype') === 'combo') {
-			var comboElem = $('#' + element.attr('id') + '-button');
-			if (comboElem) {
-				errorElem.insertAfter(comboElem);
-			}
-		} else {
-			errorElem.insertAfter(element);
-		}
+		errorElem.insertAfter(element);
 	};
 
 	ValidateJQueryUIAdapter.prototype.showLabel = function (element, message) {

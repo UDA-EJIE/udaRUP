@@ -477,33 +477,18 @@
                 showErrorsInFeedback: function () {
                 },
                 errorPlacement: function (label, element) {
-
-                    if (element.attr('ruptype') === 'combo') {
-                        var comboElem = $('#' + element.attr('id') + '-button');
-                        if (comboElem) {
-                            label.insertAfter(comboElem);
-                        }
-                    } else {
-                        label.insertAfter(element);
-                    }
+					label.insertAfter(element);
                 }
             },
             // Configuracion de las propiedades a aplicar en caso de que se deban mostrar los errores mediante la visualizacion por defecto.
             showFieldErrorAsDefault: {
                 errorElement: 'img',
                 errorPlacement: function (error, element) {
-                    var errorElem = error.attr('src', this.errorImage).addClass('rup-maint_validateIcon').html('').rup_tooltip({
-                        'applyToPortal': true
-                    });
+					const errorElem = error.attr('src', this.errorImage).addClass('rup-maint_validateIcon').html('').rup_tooltip({
+						'applyToPortal': true
+					});
 
-                    if (element.attr('ruptype') === 'combo') {
-                        var comboElem = $('#' + element.attr('id') + '-button');
-                        if (comboElem) {
-                            errorElem.insertAfter(comboElem);
-                        }
-                    } else {
-                        errorElem.insertAfter(element);
-                    }
+					errorElem.insertAfter(element);
                 }
             }
         };

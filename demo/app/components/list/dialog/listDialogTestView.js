@@ -2,7 +2,7 @@
 define(['jquery', 'marionette',
     './listDialogTemplate.hbs',
     'rup.list',
-    'rup.combo',
+    'rup.select',
     'rup.dialog'
 ], function ($, Marionette, ListDialogTestTemplate) {
     var ListDialogTestView = Marionette.View.extend({

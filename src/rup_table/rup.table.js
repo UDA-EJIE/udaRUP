@@ -1294,15 +1294,6 @@
                     if (fieldIteration === field.length) {
                     	fieldIteration = 0;
                     }
-                    
-                    //ID para elementos tipo rup.combo
-                    if ($(field).attr('ruptype') === 'combo' && field.next('.ui-multiselect').length === 0) {
-                        fieldId += '-button';
-                    }
-                    //ID para elementos tipo rup.autocomplete
-                    if ($(field).attr('ruptype') === 'autocomplete') {
-                        fieldId = fieldId.substring(0, fieldId.indexOf('_label'));
-                    }
 
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
@@ -1319,29 +1310,12 @@
                     } else if (label.length > 0) {
                         fieldName = label.html();
                     } else {
-                        if ($(field).attr('ruptype') !== 'combo') {
-                        	//Mirar si es masterDetail
-                            fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).prev('div').find('label').first().html();
-                            if(settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name){
-                            	let md = settings.masterDetail;
-                            	fieldName = (md.masterPrimaryLabel !== undefined) ? md.masterPrimaryLabel : md.masterPrimaryKey;
-                            }
-                        } else {
-                            // Buscamos el label asociado al combo
-                            // Primero por id
-                            var $auxField = $('[name=\'' + aux[i].name + '\']', searchForm),
-                                $labelField;
-
-                            $labelField = jQuery('[for=\'' + $auxField.attr('id') + '\']');
-
-                            if ($labelField.length > 0) {
-                                fieldName = $labelField.first().text();
-                            } else {
-
-                                fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).parent().prev('div').find('label').first().html();
-
-                            }
-                        }
+						//Mirar si es masterDetail
+						fieldName = $('[name=\'' + aux[i].name + '\']', searchForm).prev('div').find('label').first().html();
+						if (settings.masterDetail !== undefined && settings.masterDetail.masterPrimaryKey === aux[i].name) {
+							let md = settings.masterDetail;
+							fieldName = (md.masterPrimaryLabel !== undefined) ? md.masterPrimaryLabel : md.masterPrimaryKey;
+						}
                     }
                     if (fieldName === null || fieldName === undefined) {
                         fieldName = '';

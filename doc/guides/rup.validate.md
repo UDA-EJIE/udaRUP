@@ -353,7 +353,7 @@ En el siguiente ejemplo se muestra el uso del patrón validación sobre unos com
 <form:form id="formValidaciones">
 	...
 	...
-	<input id="autocomplete" name="autocomplete" />
+	<select id="autocomplete" name="autocomplete" />
 	...
 	...
 	<select id="comboAbueloRemoto" name="provincia" class="rup-combo"></select>
@@ -377,20 +377,21 @@ En el siguiente ejemplo se muestra el uso del patrón validación sobre unos com
 
 [validaciones.js]
 ```javascript
-$("#autocomplete").rup_autocomplete({
-// Inicialización del componente rup_autocomplete
+$("#autocomplete").rup_select({
+	// Inicialización del componente rup_autocomplete
+	autocomplete: true
 });
 
 
-$("#comboAbueloRemoto").rup_combo({
+$("#comboAbueloRemoto").rup_select({
 // Inicialización del componente rup_combo
 });
 
-$("#comboPadreRemoto").rup_combo({
+$("#comboPadreRemoto").rup_select({
 // Inicialización del componente rup_combo
 });
 
-$("#comboHijoRemoto").rup_combo({
+$("#comboHijoRemoto").rup_select({
 // Inicialización del componente rup_combo
 });
 
