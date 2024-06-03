@@ -84,6 +84,8 @@
         var rowsBody = $(ctx.oInit.masterDetail.master + ' > tbody');
 
         var tableMaster = $(ctx.oInit.masterDetail.master).DataTable();
+        
+		var tableDetailOptions = ctx.oInit;
 
         //Se edita el row/fila.
         rowsBody.on('click.DT', 'tr:not(.group)', function () {
@@ -121,6 +123,13 @@
             }
 
         });
+        
+		// Bloquea la botonera en la tabla de detalle cuando no hay registros seleccionados en la tabla maestra.
+		tableMaster.on('tableButtonsAddActionConfirmed', function(event, ctx) {
+			$('#' + ctx.sTableId + '_filter_cleanButton').click();
+			// Limpia el criterio de filtrado de la tabla de detalle (parte visual).
+			tableDetailOptions.filter.$filterSummary.html(' <i></i>');
+		});
 
     };
 

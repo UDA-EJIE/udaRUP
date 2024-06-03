@@ -2162,6 +2162,7 @@
                                             DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
                                         }
                                     }
+									$('#' + ctx.sTableId).triggerHandler('tableButtonsAddActionConfirmed', ctx);
                                     DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
                                 }
                             });
