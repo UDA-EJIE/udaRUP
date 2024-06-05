@@ -22,6 +22,33 @@
     text-decoration: underline;
 }
 
+.collapse_icon_right {
+	float: right;
+	cursor: pointer;
+	opacity: 0.5;
+
+	&:hover {
+		opacity: 0.3;
+	}
+}
+
+.collapse_label,
+.matched_layer {
+	font-weight: normal;
+}
+
+.matched_layer {
+	float: left;
+}
+
+.search_collapse_layer {
+	float: left;
+}
+
+.search_nav_layer {
+	float: right;
+}
+
 .table-bordered {
     border: 1px solid #c0c0c0;
     border-bottom: 1px solid #dee2e6;
