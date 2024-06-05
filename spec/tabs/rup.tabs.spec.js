@@ -14,7 +14,7 @@ describe('Test Tabs > ', () => {
         testutils.loadCss(done);
     });
 
-    beforeEach(() => {
+    beforeEach((done) => {
         var html = '<div id="tabs">\
                         <div id="cont1" style="display:none;">Contenido 1</div>\
                         <div id="cont2" style="display:none;">Contenido 2</div>\
@@ -34,6 +34,7 @@ describe('Test Tabs > ', () => {
         };
         $('#tabs').rup_tabs(opts);
         $tabs = $('#tabs');
+        setTimeout(done, 200);
     });
 
     afterEach(() => {
@@ -195,19 +196,21 @@ describe('Test Tabs > ', () => {
                 $('#mockTab').on('afterTabDataLoad', () => {
                     done();
                 });
+				$('#mockTab').on('load', () => {
+					$('#mockTab').rup_tabs('addTab', {
+						idTab: 'mockTab',
+						label: 'Tab3',
+						position: 1,
+						url: testutils.DEMO + '/fragmento3'
+					});
+					$('#mockTab > ul > li > a:contains(Tab3)').click();
+				});
                 $('#mockTab').rup_tabs({
                     tabs: [{
                         i18nCaption: 'pestana1',
                         layer: '#cont1'
                     }]
                 });
-                $('#mockTab').rup_tabs('addTab', {
-                    idTab: 'mockTab',
-                    label: 'Tab3',
-                    position: 1,
-                    url: testutils.DEMO + '/fragmento3'
-                });
-                $('#mockTab > ul > li > a:contains(Tab3)').click();
             });
             it('Debe crear la tab:', () => {
                 expect($('#mockTab > ul > li > a[href="' + testutils.DEMO + '/fragmento3"]').length).toBe(1);
