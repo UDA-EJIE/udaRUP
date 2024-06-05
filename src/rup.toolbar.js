@@ -339,96 +339,98 @@
         return $(this).height() + parseInt($(this).css('paddingTop')) + parseInt($(this).css('paddingBottom')) + parseInt($(this).css('borderTopWidth')) + parseInt($(this).css('borderBottomWidth'));
     };
 
-    $.fn.rup_toolbar = function (...properties) {
-        if (typeof properties[0] == 'string') {
-            this[properties[0]].apply(this, properties.splice(1));
-            return undefined;
-        }
-        return this.each(function () {
+	$.fn.rup_toolbar = function(...properties) {
+		global.initRupI18nPromise.then(() => {
+			if (typeof properties[0] == 'string') {
+				this[properties[0]].apply(this, properties.splice(1));
+				return undefined;
+			}
+			return this.each(function() {
+				//Carga de los valores por defecto para los atributos que no ha introducido el usuario
+				var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
+					t = $(this),
+					json_i18n, rightButtons = [];
 
+				this._ADAPTER = $.rup.adapter[settings.adapter];
+				//Se guarda el marcador de foco de la botonera
+				if ($.rup_toolbar.focusedExternally === undefined) {
+					$.rup_toolbar.focusedExternally = {};
+				}
+				$.rup_toolbar.focusedExternally[this.id] = false;
 
-            //Carga de los valores por defecto para los atributos que no ha introducido el usuario
-            var settings = $.extend({}, $.fn.rup_toolbar.defaults, properties[0]),
-                t = $(this),
-                json_i18n, rightButtons = [];
+				settings.id = this.id;
+				//Literales
+				json_i18n = $.rup.i18n.app[settings.id];
 
-            this._ADAPTER = $.rup.adapter[settings.adapter];
-            //Se guarda el marcador de foco de la botonera
-            if ($.rup_toolbar.focusedExternally === undefined) {
-                $.rup_toolbar.focusedExternally = {};
-            }
-            $.rup_toolbar.focusedExternally[this.id] = false;
+				//Anyadir estilo
+				t.addClass('rup-toolbar ui-widget-header ui-widget ui-widget-content');
 
-            settings.id = this.id;
-            //Literales
-            json_i18n = $.rup.i18n.app[settings.id];
+				//Tamanyo
+				if (settings.width != null) {
+					t.width(settings.width);
+				}
 
-            //Anyadir estilo
-            t.addClass('rup-toolbar ui-widget-header ui-widget ui-widget-content');
+				//Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
+				$(document).add('ul li').on('click', $.rup_toolbar.hideMButtons);
+				//Botones
+				for (var i = 0; i < settings.buttons.length; i += 1) {
+					var obj = settings.buttons[i];
 
-            //Tamanyo
-            if (settings.width != null) {
-                t.width(settings.width);
-            }
+					// Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
+					if (!(obj.right !== undefined && obj.right === true)) {
+						//MButton
+						if (obj.buttons) {
 
-            //Asignar evento de ocultación de mbuttons cuando se pinche fuera de ellos
-            $(document).add('ul li').on('click', $.rup_toolbar.hideMButtons);
-            //Botones
-            for (var i = 0; i < settings.buttons.length; i += 1) {
-                var obj = settings.buttons[i];
+							// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
+							let mbutton = t.addMButton($.extend({
+								idParent: this.id,
+								id: obj.id,
+								i18nCaption: obj.i18nCaption,
+								css: obj.css,
+								click: t.showMButton
+							}, obj), json_i18n);
+							if (mbutton !== null) {
+								t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
+							}
+							//Button
+						} else {
+							t.addButton(obj, json_i18n);
+						}
+					} else {
+						rightButtons.push(obj);
+					}
+				}
 
-                // Se apartan, para respetar la gestión del tabulador, los botones derechos para ser tratados posteriormente
-                if (!(obj.right !== undefined && obj.right === true)) {
-                    //MButton
-                    if (obj.buttons) {
+				for (let i = 0; i < rightButtons.length; i += 1) {
+					var dObj = rightButtons[i];
 
-                        // el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-                        let mbutton = t.addMButton($.extend({
-                            idParent: this.id,
-                            id: obj.id,
-                            i18nCaption: obj.i18nCaption,
-                            css: obj.css,
-                            click: t.showMButton
-                        }, obj), json_i18n);
-                        if (mbutton !== null) {
-                            t.addButtonsToMButton(obj.buttons, mbutton, json_i18n);
-                        }
-                        //Button
-                    } else {
-                        t.addButton(obj, json_i18n);
-                    }
-                } else {
-                    rightButtons.push(obj);
-                }
-            }
+					//MButton
+					if (dObj.buttons) {
+						// el boton dispone de una definicion de botones anidados, por lo que es un mbutton
+						let mbutton = t.addMButton({
+							id: dObj.id,
+							i18nCaption: dObj.i18nCaption,
+							css: dObj.css,
+							click: t.showMButton,
+							right: dObj.right
+						}, json_i18n);
 
-            for (let i = 0; i < rightButtons.length; i += 1) {
-                var dObj = rightButtons[i];
+						if (mbutton !== null) {
+							t.addButtonsToMButton(dObj.buttons, mbutton, json_i18n);
+						}
+						//Button
+					} else {
+						t.addButton(dObj, json_i18n);
+					}
+				}
 
-                //MButton
-                if (dObj.buttons) {
-                    // el boton dispone de una definicion de botones anidados, por lo que es un mbutton
-                    let mbutton = t.addMButton({
-                        id: dObj.id,
-                        i18nCaption: dObj.i18nCaption,
-                        css: dObj.css,
-                        click: t.showMButton,
-                        right: dObj.right
-                    }, json_i18n);
-
-                    if (mbutton !== null) {
-                        t.addButtonsToMButton(dObj.buttons, mbutton, json_i18n);
-                    }
-                    //Button
-                } else {
-                    t.addButton(dObj, json_i18n);
-                }
-            }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_toolbar', 'init');
-        });
-    };
+				//Se audita el componente
+				$.rup.auditComponent('rup_toolbar', 'init');
+			});
+		}).catch((error) => {
+			console.error('Error al inicializar el componente:\n', error);
+		});
+	};
 
     /* VALORES POR DEFECTO */
     $.fn.rup_toolbar.defaults = {
