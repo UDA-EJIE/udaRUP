@@ -1744,6 +1744,8 @@
                 tabla.on('draw', function (e, settingsTable) {
                     var ctx = tabla.context[0];
                     
+					$self._showSearchCriteria();
+                    
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
                         // Deshabilitamos los botones de paginacion si es necesario
