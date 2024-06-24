@@ -1723,7 +1723,7 @@
 				
 				if (data) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					source += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data.replaceAll('#', '%23');
+					source += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
 				}
 			}
 			return source;

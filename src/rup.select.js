@@ -1489,7 +1489,7 @@
 				
 				if (data && !settings.url.includes(data)) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					settings.url += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data.replaceAll('#', '%23');
+					settings.url += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
 				}
 			}
 			return settings.url;

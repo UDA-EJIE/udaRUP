@@ -927,7 +927,7 @@ input.
 				}
 				
 				// Concatena los datos a enviar.
-				settings.data += ($.fn.getHDIV_STATE(undefined, $form) != '' ? '&' : '?') + data;
+				settings.data += (settings.url.includes('?') ? '&' : '?') + data;
 			}
 			return settings.data;
 		},
