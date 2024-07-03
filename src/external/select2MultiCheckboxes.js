@@ -47,7 +47,12 @@
 				let itemsData = {};
 
 				if (options.multiple) {
-					const selectableOptions = options.blank == '-1' ? this.$element.find('option').not('[value=""]') : this.$element.find('option');
+					var selectableOptions  = "";
+					if (this.options.options.url != null || this.$element.find("option").length == 0) {//remoto
+						selectableOptions = this.container.$results.find('li');
+					}else{
+					 	selectableOptions = options.blank == '-1' ? this.$element.find('option').not('[value=""]') : this.$element.find('option');
+					}
 
 					let selectedData = $.map(selectSettings || options.data === true ? data : options.data, function(item, index) {
 						// Si el componente ha sido inicializado, se definen las opciones seleccionadas.
