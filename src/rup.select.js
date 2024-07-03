@@ -1949,16 +1949,20 @@
 	                		        	  $el.select2('close');
 	                		          }
 	                		         
-	                		          if($("#" + settings.id).val() != null && settings.multiple ? $("#" + settings.id).val().length > 0 : $("#" + settings.id).val().trim() != ''){
+	                		          if(!settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
 	                		        	  $("#" + settings.id).val(null).trigger('change');
-	                		          }
+	                		          }else if(settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().length > 0){
+										$("#" + settings.id).val(null).trigger('change');
+									  }
 	                		          setTimeout($('#' + settings.id).rup_select("enable"), 200);
 	                		          
-			                		}else if($("#" + settings.id).val() != null && settings.multiple ? $("#" + settings.id).val().length > 0 : $("#" + settings.id).val().trim() != ''){
-			                			// Se llama al cambio del trigger.
-			                			$("#" + settings.id).val(null).trigger('change');
-			                			$('#'+settings.id).rup_select("disable");
-			                		}
+			                		}else if(!settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+								  	       	$("#" + settings.id).val(null).trigger('change');
+											$('#'+settings.id).rup_select("disable");
+								  	      }else if(settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().length > 0){
+								  			$("#" + settings.id).val(null).trigger('change');
+											$('#'+settings.id).rup_select("disable");
+								  	}
 			                	}
 			                	
 			                });
