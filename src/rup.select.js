@@ -1264,11 +1264,21 @@
 							  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
 								  v.text = v[settings.sourceParam.text];
 							  }
-
-							  if (v.id == valueSelect) {
-								  positions.push(settings.blank == "" ? index - 1 : index);
+							  if(settings.multiple ){
+								let selectMultiple = $.grep(valueSelect, function (h) {
+										return String(h) == v.id;
+									});
+								// solo se admite un valor.	
+								if (selectMultiple !== undefined && selectMultiple.length > 0){
+									positions.push(settings.blank == "" ? index - 1 : index);
+									return v.id == selectMultiple[0];
+								}
+							  } else {	
+								  if (v.id == valueSelect) {
+									  positions.push(settings.blank == "" ? index - 1 : index);
+								  }
+								  return v.id == settings.selected;
 							  }
-							  return v.id == settings.selected;
 						  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
@@ -1276,9 +1286,13 @@
 				                  });
 				          }
 							// Si es el mismo, no cambia porque esta abriendo
-							if (seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id) {
+							if (seleccionado !== undefined && seleccionado.length >= 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id) {
 								if (settings.multiple) {// Revisar varios selects
-									$('#' + settings.id).rup_select('setRupValue', [seleccionado[0].id]);
+									let dats = [];
+									$.each(seleccionado, function(index, valor) {
+										dats.push(valor.id) 
+									});
+									$('#' + settings.id).rup_select('setRupValue', dats);
 								} else {
 									$('#' + settings.id).rup_select('setRupValue', seleccionado[0].id);
 								}
