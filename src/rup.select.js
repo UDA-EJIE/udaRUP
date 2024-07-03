@@ -39,7 +39,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.message', 'select2','./external/select2MultiCheckboxes'], factory);
+        define(['jquery', './rup.base', './rup.message', 'select2', './external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -536,13 +536,13 @@
 		 * @example $("#idSelect").rup_select("label");
 		 */
     	getDataSelected: function () {
-			// Tipo de select
-			let data = $(this).select2('data');
-			if (!$(this).data('settings').multiple) {
+            // Tipo de select
+        	let data = $(this).select2('data');
+            if (!$(this).data('settings').multiple) {
 				return data[0];
-			} else {
-				return data;
-			}
+            } else {
+                return data;
+            }
         },
         /**
 		 * Método que añade un option al select en local
@@ -1075,53 +1075,53 @@
 
         _loadRemote: function (settings,first) {
         	var rupSelect = this;
-        	 	settings.ajax = {
-		    url: settings.url,
-		    dataType: settings.dataType,
-		    processResults: function (response) 
-		    	{// Require id y text, podemos permitir que no venga.
-		    	if(settings.placeholder != undefined && !settings.multiple){
-		    		let elBlank = response.find(x => x.id == settings.blank);
-		    		if(elBlank == undefined && !settings.autocomplete){
-		                response.unshift({
-		                    id: settings.blank,
-		                    text: settings.placeholder
-		                  });
-		    		}
-		    	}
-		    		if(settings.groups){// PArsear para grupos.
-		    			let results = [];
-		    			$.each(response, function (index, value) {
-		    				let key = Object.keys(value)[0];
-		    				results[index] = {'text':key,'children':value[key]};
-		    			});
-
-		    			response =  results;
-		    		}
-		    		
-		    		settings.options = response;
-		    		$('#' + settings.id).data('settings', settings);
-	    		     return {
- 		    	 		results: response
- 		     		};
-		    	},
-		    cache: false,
-		    data: function () {
-		    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra.
-		    	//se hará en el transport
-		    	return  _this._getParentsValues(settings, true);
-		    },
-		    error: function (xhr, textStatus, errorThrown) {
-		               if (settings.onLoadError !== null) {
-		                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
-		               } else {
-		            	 if(textStatus != 'abort'){//Si se hacen 2 llamadas se cancela la primera.
-		            		 rupSelect._ajaxError(xhr, textStatus, errorThrown);
-		            	 }
-		            	 console.log(textStatus);
-		               }
-		    }		
-    	};
+        	settings.ajax = {
+				url: settings.url,
+			    dataType: settings.dataType,
+			    processResults: function (response) 
+			    	{// Require id y text, podemos permitir que no venga.
+			    	if(settings.placeholder != undefined && !settings.multiple){
+			    		let elBlank = response.find(x => x.id == settings.blank);
+			    		if(elBlank == undefined && !settings.autocomplete){
+			                response.unshift({
+			                    id: settings.blank,
+			                    text: settings.placeholder
+			                  });
+			    		}
+			    	}
+			    		if(settings.groups){// PArsear para grupos.
+			    			let results = [];
+			    			$.each(response, function (index, value) {
+			    				let key = Object.keys(value)[0];
+			    				results[index] = {'text':key,'children':value[key]};
+			    			});
+	
+			    			response =  results;
+			    		}
+			    		
+			    		settings.options = response;
+			    		$('#' + settings.id).data('settings', settings);
+		    		     return {
+	 		    	 		results: response
+	 		     		};
+			    	},
+			    cache: false,
+			    data: function () {
+			    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra.
+			    	//se hará en el transport
+			    	return  _this._getParentsValues(settings, true);
+			    },
+			    error: function (xhr, textStatus, errorThrown) {
+			               if (settings.onLoadError !== null) {
+			                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
+			               } else {
+			            	 if(textStatus != 'abort'){//Si se hacen 2 llamadas se cancela la primera.
+			            		 rupSelect._ajaxError(xhr, textStatus, errorThrown);
+			            	 }
+			            	 console.log(textStatus);
+			               }
+			    }		
+	    	};
         	 	
         	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
@@ -1203,9 +1203,10 @@
 					        			}
 			        				}
 			        			});
-			        		}else if(params.url.indexOf(datosParent) < 0){//Aseguramos que mete el valor del padre.
-			        			params.url = params.url + '?' + datosParent;
-			        		}
+							} else if (params.url.indexOf(datosParent) < 0) {
+								// Aseguramos que mete el valor del padre.
+								params.url = params.url + '?' + datosParent;
+							}
 			        		$request = $.ajax(params);
 			        	}
 			        }else{
@@ -1252,7 +1253,7 @@
 				        	  data = allFacts;
 				        	  settings.optionsGroups = data;
 				          }
-				         //Se obliga a que las claves sean String recomendado por select2
+				        //Se obliga a que las claves sean String recomendado por select2
 				          let seleccionado = $.grep(data, function (v,index) {
 							  if (v.id === undefined && v[settings.sourceParam.id] !== undefined) {
 								  v.id = String(v[settings.sourceParam.id]);
@@ -1263,11 +1264,21 @@
 							  if (v.text === undefined && v[settings.sourceParam.text] !== undefined) {
 								  v.text = v[settings.sourceParam.text];
 							  }
-
-							  if (v.id == valueSelect) {
-								  positions.push(settings.blank == "" ? index - 1 : index);
+							  if(settings.multiple ){
+								let selectMultiple = $.grep(valueSelect, function (h) {
+										return String(h) == v.id;
+									});
+								// solo se admite un valor.	
+								if (selectMultiple !== undefined && selectMultiple.length > 0){
+									positions.push(settings.blank == "" ? index - 1 : index);
+									return v.id == selectMultiple[0];
+								}
+							  } else {	
+								  if (v.id == valueSelect) {
+									  positions.push(settings.blank == "" ? index - 1 : index);
+								  }
+								  return v.id == settings.selected;
 							  }
-							  return v.id == settings.selected;
 						  });
 				          if( $('#' + settings.id).rup_select('getRupValue') != ''){
 				        	  seleccionado = $.grep(data, function (v) {
@@ -1275,9 +1286,13 @@
 				                  });
 				          }
 							// Si es el mismo, no cambia porque esta abriendo
-							if (seleccionado !== undefined && seleccionado.length == 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id) {
+							if (seleccionado !== undefined && seleccionado.length >= 1 && $('#' + settings.id).rup_select('getRupValue') != seleccionado[0].id) {
 								if (settings.multiple) {// Revisar varios selects
-									$('#' + settings.id).rup_select('setRupValue', [seleccionado[0].id]);
+									let dats = [];
+									$.each(seleccionado, function(index, valor) {
+										dats.push(valor.id) 
+									});
+									$('#' + settings.id).rup_select('setRupValue', dats);
 								} else {
 									$('#' + settings.id).rup_select('setRupValue', seleccionado[0].id);
 								}
@@ -1948,16 +1963,20 @@
 	                		        	  $el.select2('close');
 	                		          }
 	                		         
-	                		          if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+	                		          if(!settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
 	                		        	  $("#" + settings.id).val(null).trigger('change');
-	                		          }
+	                		          }else if(settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().length > 0){
+										$("#" + settings.id).val(null).trigger('change');
+									  }
 	                		          setTimeout($('#' + settings.id).rup_select("enable"), 200);
 	                		          
-			                		}else if($("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
-			                			// Se llama al cambio del trigger.
-			                			$("#" + settings.id).val(null).trigger('change');
-			                			$('#'+settings.id).rup_select("disable");
-			                		}
+			                		}else if(!settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().trim() != ''){
+								  	       	$("#" + settings.id).val(null).trigger('change');
+											$('#'+settings.id).rup_select("disable");
+								  	      }else if(settings.multiple && $("#" + settings.id).val() != null && $("#" + settings.id).val().length > 0){
+								  			$("#" + settings.id).val(null).trigger('change');
+											$('#'+settings.id).rup_select("disable");
+								  	}
 			                	}
 			                	
 			                });
