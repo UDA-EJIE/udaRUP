@@ -2001,9 +2001,9 @@
 												$.each(val, function (ind, elem) {
 													if (settings.dataParents[elem] == undefined && $('#' + settings.parent).rup_select("getDataSelected") !== undefined) {
 														const nid = $('#' + settings.parent).rup_select("getDataSelected").nid;
-														valores.push(settings.dataParents[nid]);//si vine cifrado de un remoto.
+														valores.concat(settings.dataParents[nid]);//si vine cifrado de un remoto.
 													} else {
-														valores.push(settings.dataParents[elem]);
+														valores.concat(settings.dataParents[elem]);
 													}
 												});
 											} else {
