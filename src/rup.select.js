@@ -1955,7 +1955,7 @@
 											if($.isArray(val)){
 												valores = [];
 												$.each(val, function (ind, elem) {
-													valores.push(settings.dataParents[elem]);
+													valores = valores.concat(settings.dataParents[elem]);
 													});
 											}else{
 											 valores = settings.dataParents[val];
