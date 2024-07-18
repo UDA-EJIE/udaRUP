@@ -7,7 +7,6 @@
     "doc": "docs",
     "test": "test"
   },
-  "sasslintConfig": ".sasslintrc",
   "scripts": {
     "gulp:build": "gulp build",
     "webpack:watch": "webpack --progress --watch --env dev",
@@ -140,7 +139,6 @@
     "require-dir": "^1.2.0",
     "requirejs": "^2.3.6",
     "run-sequence": "^2.2.1",
-    "sass-lint": "^1.13.1",
     "sass-loader": "^10.3.1",
     "sass-module-importer": "^1.4.0",
     "style-loader": "^0.23.1",
