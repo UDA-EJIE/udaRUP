@@ -101,7 +101,6 @@
     "handlebars-loader": "^1.7.2",
     "highlight.js": "^11.6.0",
     "html": "^1.0.0",
-    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.5.2",
     "imports-loader": "^1.2.0",
     "jasmine": "^5.1.0",
