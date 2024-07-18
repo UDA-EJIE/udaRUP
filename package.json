@@ -45,10 +45,10 @@
   },
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.3",
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.24.9",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-env": "^7.24.8",
     "@mdi/font": "^4.9.95",
     "acorn": "^8.8.0",
     "autoprefixer": "^10.4.12",
