@@ -137,7 +137,7 @@
     "precss": "^4.0.0",
     "pump": "^3.0.0",
     "require-dir": "^1.2.0",
-    "requirejs": "^2.3.6",
+    "requirejs": "^2.3.7",
     "run-sequence": "^2.2.1",
     "sass-loader": "^10.3.1",
     "sass-module-importer": "^1.4.0",
