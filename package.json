@@ -134,7 +134,6 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.4.20",
     "postcss-loader": "^4.3.0",
-    "precss": "^4.0.0",
     "pump": "^3.0.0",
     "require-dir": "^1.2.0",
     "requirejs": "^2.3.7",
