@@ -2084,9 +2084,6 @@
 	                $('#' + settings.id).next('a').click(function () {
 	                    $('#ui-datepicker-div').hide();
 	                });
-	
-	                //Se audita el componente
-	                $.rup.auditComponent('rup_combo', 'init');
 	                
 	                // Comunicar la inicialización del componente.
 	                $('label[for="' + settings.id + '"]').triggerHandler('comboIsInitialized');

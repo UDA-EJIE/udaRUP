@@ -330,9 +330,6 @@
                         }
                     });
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_wizard', 'init');
             }
 
             //Ir al paso inicial

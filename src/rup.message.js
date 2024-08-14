@@ -143,9 +143,6 @@
                 self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
                 self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
             }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_message', 'init');
         },
         /**
          *	Muestra un mensaje de confirmación.
@@ -220,9 +217,6 @@
 
             //Le ponemos el foco al botón aceptar en vez de al enlace
             $('div[aria-describedby=' + self[0].id + '] .ui-dialog-buttonpane button').last().focus();
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_message', 'init');
         },
         /**
          *	Muestra un mensaje de aviso.
@@ -284,9 +278,6 @@
                 self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
                 self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
             }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_message', 'init');
         },
         /**
          *	Muestra un mensaje de alerta.
@@ -343,9 +334,6 @@
             // Limpieza del componente
             self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
             self.data('uiDialog').uiDialog.find('button').removeClass('ui-button ui-corner-all ui-widget');
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_message', 'init');
         }
     });
 

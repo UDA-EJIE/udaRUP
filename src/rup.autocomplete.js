@@ -1331,9 +1331,6 @@ input.
 						});
 					});
 				}
-
-				// Se audita el componente
-				$.rup.auditComponent('rup_autocomplete', 'init');
 			}
 		}
 	});
