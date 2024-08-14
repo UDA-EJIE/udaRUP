@@ -559,9 +559,6 @@
                         $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.dialogTypeError'));
                     }
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_dialog', 'init');
             }
         },
         /**

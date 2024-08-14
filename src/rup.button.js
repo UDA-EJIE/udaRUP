@@ -370,8 +370,6 @@
                         $self._doDropdownByButtons($dropdownButton, $container, dropdownSettings);
                     }
                 }
-                //Se audita el componente
-                $.rup.auditComponent('rup_button', 'init');
             });
             // TODO : Invocación al plugin
 

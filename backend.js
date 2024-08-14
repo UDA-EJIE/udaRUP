@@ -12,7 +12,6 @@ var express = require('express'),
     routesTable = require('./demo/routes/table'),
     routesUpload = require('./demo/routes/upload'),
     dashboardTable = require('./demo/routes/dashboard'),
-    routesAudit = require('./demo/routes/audit'),
     routesCalendar = require('./demo/routes/calendar'),
     routesDialog = require('./demo/routes/dialog'),
     routesList = require('./demo/routes/list');
@@ -93,10 +92,6 @@ module.exports = (PORT) => {
     app.get('/demo/table/reset', routesTable.reset);
     app.post('/demo/table/remote/editForm', routesTable.editForm);
     app.post('/demo/table/remote/inlineEdit', routesTable.inlineEdit);
-
-    //Audit
-    app.post('/audit', routesAudit.audit);
-    app.get('/audit', routesAudit.getAudited);
 
     app.options('/demo/table/remote', function (req, res) {
         res.header('Access-Control-Allow-Origin', '*');

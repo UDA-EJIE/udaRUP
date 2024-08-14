@@ -206,9 +206,6 @@ objetos html, tal y como estaban, antes de aplicar el componente Accordion.
 
                 //Se invoca la creacion del accordion
                 this.accordion(settings);
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_accordion', 'init');
             }
         }
     });

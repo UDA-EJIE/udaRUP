@@ -235,8 +235,6 @@
                         }
                     }
                 }
-                //Se audita el componente
-                //$.rup.auditComponent('rup_tooltip', 'init');
             }
         }
     });
