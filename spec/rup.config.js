@@ -1,5 +1,4 @@
 window.APP_RESOURCES = 'demo/x21a';
-window.AUDIT_PATH = 'http://localhost:8081/audit';
 window.CTX_PATH = '/x21aResponsive/';
 window.STATICS = '';
 window.RESOURCES_PATH = '../../i18n/';

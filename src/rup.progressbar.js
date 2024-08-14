@@ -261,9 +261,6 @@ el resto de componentes RUP para estandarizar la asignación del valor a la barr
                     settings.$label.html(settings.label.replace('${value}', $self.rup_progressbar('getRupValue')).replace('${max}', $self.rup_progressbar('option', 'max')));
                 });
             }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_progressbar', 'init');
         }
     });
 

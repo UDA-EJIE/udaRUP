@@ -278,9 +278,6 @@
                 self.find('[title]').rup_tooltip({
                     'applyToPortal': true
                 });
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_lang', 'init');
             });
         },
         /**

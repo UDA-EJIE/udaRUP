@@ -515,9 +515,6 @@
                 if (settings.create) {
                     settings.create();
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_date', 'init');
             }
         },
         _defineCorrectFormat: function(dateString) {

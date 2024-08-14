@@ -444,9 +444,6 @@ import Printd from 'printd';
                 } else {
                     $('#' + $.escapeSelector(self.element[0].id)).trigger('initComplete');
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_list', 'init');
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });

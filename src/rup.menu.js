@@ -475,8 +475,6 @@
                     //						selectorSelf.find(".ui-state-disabled").attr("tabindex","-1");
                 }
             }
-            //Se audita el componente
-            $.rup.auditComponent('rup_menu', 'init');
         },
         /**
          * Parsea un objeto json para generar la estructura de menú de acuerdo a la información contenida en el.

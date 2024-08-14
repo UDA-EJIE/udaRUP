@@ -226,10 +226,6 @@
                 ulBreadCrumb.xBreadcrumbs();
                 
                 $(this.element).trigger('afterInit');
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_breadCrumb', 'init');
-
             });
         },
         /**

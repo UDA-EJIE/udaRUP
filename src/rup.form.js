@@ -449,9 +449,6 @@
 	            } else {
 	                $self.ajaxForm(settings);
 	            }
-
-	            //Se audita el componente
-	            $.rup.auditComponent('rup_form', 'init');
 	    	}).catch((error) => {
 	            console.error('Error al inicializar el componente:\n', error);
 	        });

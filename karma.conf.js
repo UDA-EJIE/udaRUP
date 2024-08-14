@@ -88,7 +88,6 @@ module.exports = function (config) {
         },
         ],
         proxies: {
-            '/audit': 'http://localhost:8082/audit',
             '/test': 'http://localhost:8082/test',
             '/dist': 'http://localhost:8082/dist',
             '/demo': 'http://localhost:8082/demo',

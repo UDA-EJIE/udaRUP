@@ -615,9 +615,7 @@
 
                 // Se almacena la configuracion del componente en el objeto dom para poder recuperarla en sucesivas invocaciones a los metodos del componente.
                 self.data('settings', settings);
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_validate', 'init');
+				
                 self.trigger('load');
             }
         });

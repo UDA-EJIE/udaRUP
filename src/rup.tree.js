@@ -1740,9 +1740,6 @@
 						// Una vez creados y cargados todos los nodos, se libera la visualización del componente.
 						$(this).removeClass('rup_tree');
 					});
-
-					// Auditar el componente.
-					$.rup.auditComponent('rup_tree', 'init');
 				}
 			}).catch((error) => {
 				console.error('Error al inicializar el componente:\n', error);

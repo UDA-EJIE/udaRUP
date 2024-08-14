@@ -1755,9 +1755,6 @@
 	                $('#' + $.escapeSelector(settings.id)).next('a').click(function () {
 	                    $('#ui-datepicker-div').hide();
 	                });
-	
-	                // Se audita el componente
-	                $.rup.auditComponent('rup_select', 'init');
 	                
 	                // Añade clase Personalizada
 	                if (settings.customClasses) {
