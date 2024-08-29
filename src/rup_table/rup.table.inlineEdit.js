@@ -69,7 +69,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	var idRow;
 	// Se edita el row/fila.
 	var rowsBody = $( ctx.nTBody);
-	rowsBody.on( 'dblclick.DT keypress','tr:not(.group)',  function (e) {
+	rowsBody.on( 'dblclick.DT keypress','tr:not(.dtrg-group)',  function (e) {
 		// Solo selecciona si se pulsa sobre el enter o se hace click izquierdo col raton
             if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
 			if($(this).hasClass('editable')){
@@ -93,7 +93,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		_restaurarFila(ctx,true);
 	    		_editInline(dt, ctx, row.index(), 'PUT');
 	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
-	    			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+	    			$('#' + ctx.sTableId + ' tbody tr:not(.dtrg-group)').eq(0).addClass('new');
 	    			DataTable.Api().rupTable.selectPencil(ctx,0);
 	    		}
 	    	}
@@ -404,7 +404,7 @@ function _add(dt,ctx){
 				ctx.oInit.inlineEdit.alta = true;
 				dt.ajax.reload( function (  ) {
 					ctx.oInit.inlineEdit.alta = undefined;
-					$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+					$('#' + ctx.sTableId + ' tbody tr:not(.dtrg-group)').eq(0).addClass('new');
 					_editInline(dt, ctx, 0, 'POST');
 				} );
 				
@@ -415,7 +415,7 @@ function _add(dt,ctx){
 		ctx.oInit.inlineEdit.alta = true;
 		dt.ajax.reload( function (  ) {
 			ctx.oInit.inlineEdit.alta = undefined;
-			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+			$('#' + ctx.sTableId + ' tbody tr:not(.dtrg-group)').eq(0).addClass('new');
 			_editInline(dt, ctx, 0, 'POST');
 		} );
 
@@ -509,7 +509,7 @@ function _editInline (dt, ctx, idRow, actionType = 'POST'){
 	}
 	
 	$.when(_loadAuxForm(ctx, actionType, ctx.json.rows[idRow])).then(function () {
-		const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
+		const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(idRow);
         if (!$rowSelect.hasClass('editable')) {
 			_changeInputsToRup(ctx,idRow);
 			// Se deshabilitan los botones predefinidos de la tabla.
@@ -777,7 +777,7 @@ function _restaurarFila(ctx,limpiar){
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
+		var $fila = $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(positionLastRow);
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -789,7 +789,7 @@ function _restaurarFila(ctx,limpiar){
 		_restaurarCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),contRest);
 	}
 	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
-		const $selectorTr = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
+		const $selectorTr = $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(positionLastRow);
 		ctx.inlineEdit.lastRow = undefined;
             if ($selectorTr.data('events') !== undefined) {
 			$selectorTr.off('keydown');
@@ -831,7 +831,7 @@ function _changeInputsToRup(ctx,idRow){
 	if(ctx.oInit.colModel !== undefined){
 		var table = $('#'+ctx.sTableId).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
+		ctx.inlineEdit.lastRow = $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(idRow);
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
@@ -1248,7 +1248,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
 		jQuery.grep(ctx.oInit.colModel, function( n,i) {
 			  if ( n.editable !== true ){
-				  const text = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][n.name];
+				  const text = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)][n.name];
 				  serializedForm[n.name] = text;
 				  return n;
 			  }
@@ -1276,7 +1276,7 @@ function _guardar(ctx,$fila,child){
 	var row = _inlineEditFormSerialize($fila,ctx,child);
 	
     $.each(ctx.oInit.primaryKey, function (index, key) {
-    	row[key] = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][key];
+    	row[key] = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)][key];
     });
 	
 	if(!row) {
@@ -1374,7 +1374,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 					_callFeedbackOk(ctx, msgFeedBack, 'ok');
 					
 					if(actionType === 'PUT'){
-						const rowIndex = $('tr:not(.group)', $(ctx.nTBody)).index($fila);
+						const rowIndex = $('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila);
 						// Modificar
 						dt.row(rowIndex).data(data);
 						ctx.json.rows[rowIndex] = data;

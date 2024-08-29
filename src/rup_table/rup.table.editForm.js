@@ -108,7 +108,7 @@
             }
             // Propiedad que no genera el evento de doble click en caso de existir y tener un valor true
             if (!sel.deleteDoubleClick) {
-                rowsBody.on('dblclick.DT keypress', 'tr:not(.group)', function (e) {
+                rowsBody.on('dblclick.DT keypress', 'tr:not(.dtrg-group)', function (e) {
                     // Sólo selecciona si se pulsa sobre el enter o se hace click izquierdo con el ratón
                     if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
                         idRow = this._DT_RowIndex;
@@ -651,7 +651,7 @@
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
-	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
 	           

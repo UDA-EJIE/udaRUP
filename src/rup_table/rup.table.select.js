@@ -70,7 +70,7 @@
         // Se selecciona una fila
         
 		if(ctx.oInit.selectFilaDer){
-        rowsBody.on('click.DT contextmenu keydown', 'tr:not(.group)', function (e) {
+        rowsBody.on('click.DT contextmenu keydown', 'tr:not(.dtrg-group)', function (e) {
             // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
             if (e.which == 1 || e.which == 32 || e.which == 3) {
                 if (e.target.className.indexOf('openResponsive') > -1 ||
@@ -85,7 +85,7 @@
             }
         }); } else {
 	
-	rowsBody.on('click.DT keydown', 'tr:not(.group)', function (e) {
+	rowsBody.on('click.DT keydown', 'tr:not(.dtrg-group)', function (e) {
             // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
             if (e.which == 1 || e.which == 32 || e.which == 3) {
                 if (e.target.className.indexOf('openResponsive') > -1 ||
@@ -136,7 +136,7 @@
 
             if (rowSelectAux !== undefined && row.id === DataTable.Api().rupTable.getIdPk(rowSelectAux, ctx.oInit)) {
                 var rowsBody = $(ctx.nTBody);
-                $('tr:not(.group)', rowsBody).eq(row.line).addClass('selected tr-highlight');
+                $('tr:not(.dtrg-group)', rowsBody).eq(row.line).addClass('selected tr-highlight');
             }
         }
     }
@@ -245,7 +245,7 @@
         if (isDoubleClick !== undefined) {
             countTr = countTr + 1;
         }
-        _selectRowIndex(dt, index, $('tr:not(.group)', rowsBody).eq(index));
+        _selectRowIndex(dt, index, $('tr:not(.dtrg-group)', rowsBody).eq(index));
     });
     
     apiRegister('select.defaultId()', function (ctx) {
