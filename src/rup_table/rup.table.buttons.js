@@ -1,23 +1,24 @@
+/*! Buttons 2.4.2
+ * © SpryMedia Ltd - datatables.net/license
+ */
+
 /**
- * Genera los botones del table
+ * @summary     Buttons
+ * @description Buttons for DataTables
+ * @module      "rup.table.buttons"
+ * @version     2.4.2
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     datatables.net
+ * @copyright   SpryMedia Ltd.
  *
- * @summary 		Extensión del componente RUP Datatable
- * @module			"rup.table.buttons"
- * @version     1.5.1
- * @license
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
+ * This source file is free software, available under the following license:
+ *   MIT license - http://datatables.net/license/mit
  *
- *      http://ec.europa.eu/idabc/eupl.html
+ * This source file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- * @copyright   Copyright 2018 E.J.I.E., S.A.
- *
+ * For details please refer to: http://www.datatables.net
  */
 
 (function (factory) {
@@ -59,6 +60,36 @@
     var _buttonIdCounter = 1;
 
     var _dtButtons = DataTable.ext.buttons;
+	
+	// Custom entity decoder for data export
+	var _entityDecoder = null;
+
+	// Allow for jQuery slim
+	function _fadeIn(el, duration, fn) {
+		if ($.fn.animate) {
+			el.stop().fadeIn(duration, fn);
+		}
+		else {
+			el.css('display', 'block');
+
+			if (fn) {
+				fn.call(el);
+			}
+		}
+	}
+
+	function _fadeOut(el, duration, fn) {
+		if ($.fn.animate) {
+			el.stop().fadeOut(duration, fn);
+		}
+		else {
+			el.css('display', 'none');
+
+			if (fn) {
+				fn.call(el);
+			}
+		}
+	}
 
     /**
      * Botones
@@ -86,19 +117,57 @@
                     className: 'dt-buttons row'
                 },
                 collection: {
-                    tag: 'div',
-                    className: 'dt-button-collection'
+                    action: {
+						// action button
+						dropHtml: '<span class="dt-button-down-arrow">&#x25BC;</span>'
+					},
+					container: {
+						// The element used for the dropdown
+						className: 'dt-button-collection',
+						content: {
+							className: '',
+							tag: 'div'
+						},
+						tag: 'div'
+					}
+					// optionally
+					// , button: IButton - buttons inside the collection container
+					// , split: ISplit - splits inside the collection container
                 },
                 button: {
                     tag: 'button',
-                    className: 'col-12 col-sm-auto btn-material',
-                    active: 'active',
-                    disabled: 'disabled'
+					className: 'dt-button col-12 col-sm-auto btn-material',
+					active: 'dt-button-active', // class name
+					disabled: 'disabled', // class name
+					spacer: {
+						className: 'dt-button-spacer',
+						tag: 'span'
+					},
+					liner: {
+						tag: 'span',
+						className: ''
+					}
                 },
-                buttonLiner: {
-                    tag: 'span',
-                    className: ''
-                }
+				split: {
+					action: {
+						// action button
+						className: 'dt-button-split-drop-button dt-button',
+						tag: 'button'
+					},
+					dropdown: {
+						// button to trigger the dropdown
+						align: 'split-right',
+						className: 'dt-button-split-drop',
+						dropHtml: '<span class="dt-button-down-arrow">&#x25BC;</span>',
+						splitAlignClass: 'dt-button-split-left',
+						tag: 'button'
+					},
+					wrapper: {
+						// wrap around both
+						className: 'dt-button-split',
+						tag: 'div'
+					}
+				}
             }
         };
         ctx.ext.buttons.copyButton = {
@@ -400,6 +469,16 @@
                 ctx.ext.buttons.custom.push(ctx.oInit.buttons.myButtons[nameButton].id);
             }
         }
+		
+		// If not created with a `new` keyword then we return a wrapper function that
+		// will take the settings object for a DT. This allows easy use of new instances
+		// with the `layout` option - e.g. `topLeft: $.fn.dataTable.Buttons( ... )`.
+		if (!(this instanceof Buttons)) {
+			return function (settings) {
+				return new Buttons(settings, dt).container();
+			};
+		}
+		
         // If there is no config set it to an empty object
         if (typeof (config) === 'undefined') {
             config = {};
@@ -497,6 +576,14 @@
             var button = this._nodeToButton(node);
             var klass = this.c.dom.button.active;
             var jqNode = $(button.node);
+			
+			if (
+				button.inCollection &&
+				this.c.dom.collection.button &&
+				this.c.dom.collection.button.active !== undefined
+			) {
+				klass = this.c.dom.collection.button.active;
+			}
 
             if (flag === undefined) {
                 return jqNode.hasClass(klass);
@@ -516,10 +603,12 @@
          *
          * @param {object} config Button configuration object, base string name or function
          * @param {int|string} [idx] Button index for where to insert the button
+		 * @param {boolean} [draw=true] Trigger a draw. Set a false when adding
+		 *   lots of buttons, until the last button.
          * @return {Buttons} Self for chaining
          *
          */
-        add: function (config, idx) {
+        add: function (config, idx, draw) {
             var buttons = this.s.buttons;
 
             if (typeof idx === 'string') {
@@ -534,11 +623,64 @@
                 idx = split[split.length - 1] * 1;
             }
 
-            this._expandButton(buttons, config, false, idx);
-            this._draw();
+			this._expandButton(
+				buttons,
+				config,
+				config !== undefined ? config.split : undefined,
+				(config === undefined || config.split === undefined || config.split.length === 0) &&
+					base !== undefined,
+				false,
+				idx
+			);
+
+			if (draw === undefined || draw === true) {
+				this._draw();
+			}
 
             return this;
         },
+		
+		/**
+		 * Clear buttons from a collection and then insert new buttons
+		 */
+		collectionRebuild: function(node, newButtons) {
+			var button = this._nodeToButton(node);
+
+			if (newButtons !== undefined) {
+				var i;
+				// Need to reverse the array
+				for (i = button.buttons.length - 1; i >= 0; i--) {
+					this.remove(button.buttons[i].node);
+				}
+
+				// If the collection has prefix and / or postfix buttons we need to add them in
+				if (button.conf.prefixButtons) {
+					newButtons.unshift.apply(newButtons, button.conf.prefixButtons);
+				}
+
+				if (button.conf.postfixButtons) {
+					newButtons.push.apply(newButtons, button.conf.postfixButtons);
+				}
+
+				for (i = 0; i < newButtons.length; i++) {
+					var newBtn = newButtons[i];
+
+					this._expandButton(
+						button.buttons,
+						newBtn,
+						newBtn !== undefined &&
+						newBtn.config !== undefined &&
+						newBtn.config.split !== undefined,
+						true,
+						newBtn.parentConf !== undefined && newBtn.parentConf.split !== undefined,
+						null,
+						newBtn.parentConf
+					);
+				}
+			}
+
+			this._draw(button.collection, button.buttons);
+		},
 
         /**
          * Get the container node for the buttons
@@ -568,7 +710,8 @@
         disable: function (node, contextMenu) {
             var button = this._nodeToButton(node);
 
-            $(button.node).addClass(this.c.dom.button.disabled);
+            $(button.node).addClass(this.c.dom.button.disabled).prop('disabled', true);
+			
             if (contextMenu) {
                 $('#' + button.node.id + '_contextMenuToolbar').addClass(this.c.dom.button.disabled);
             }
@@ -634,13 +777,45 @@
             }
 
             var button = this._nodeToButton(node);
-            $(button.node).removeClass(this.c.dom.button.disabled);
+            $(button.node).removeClass(this.c.dom.button.disabled).prop('disabled', false);
             if (contextMenu) {
                 $('#' + button.node.id + '_contextMenuToolbar').removeClass(this.c.dom.button.disabled);
             }
 
             return this;
         },
+		
+		/**
+         * Get a button's index
+         *
+         * This is internally recursive
+         * @param {element} node Button to get the index of
+         * @return {string} Button index
+         */
+		index: function(node, nested, buttons) {
+			if (!nested) {
+				nested = '';
+				buttons = this.s.buttons;
+			}
+
+			for (var i = 0, ien = buttons.length; i < ien; i++) {
+				var inner = buttons[i].buttons;
+
+				if (buttons[i].node === node) {
+					return nested + i;
+				}
+
+				if (inner && inner.length) {
+					var match = this.index(node, i + '-', inner);
+
+					if (match !== null) {
+						return match;
+					}
+				}
+			}
+
+			return null;
+		},
 
         /**
          * Get the instance name for the button set selector
@@ -657,17 +832,21 @@
         },
 
         /**
-         * Get a button's node
+         * Get a button's node of the buttons container if no button is given
          *
          * @name node
          * @function
          * @since UDA 3.4.0 // Table 1.0.0
          *
-         * @param  {node} node Button node
-         * @return {jQuery} Button element
+         * @param  {node} [node] Button node
+         * @return {jQuery} Button element, or container
          *
          */
         node: function (node) {
+			if (!node) {
+				return this.dom.container;
+			}
+			
             var button = this._nodeToButton(node);
             return $(button.node);
         },
@@ -679,11 +858,13 @@
          * @function
          * @since UDA 3.4.0 // Table 1.0.0
          *
+		 * @param {element} node Triggering button node
          * @param  {boolean} flag true to add, false to remove, undefined to get
          * @return {boolean|Buttons} Getter value or this if a setter.
          *
          */
         processing: function (node, flag) {
+			var dt = this.s.dt;
             var button = this._nodeToButton(node);
 
             if (flag === undefined) {
@@ -691,6 +872,14 @@
             }
 
             $(button.node).toggleClass('processing', flag);
+			
+			$(dt.table().node()).triggerHandler('buttons-processing.dt', [
+				flag,
+				dt.button(node),
+				dt,
+				$(node),
+				button.conf
+			]);
 
             return this;
         },
@@ -717,6 +906,8 @@
                     this.remove(button.buttons[i].node);
                 }
             }
+			
+			button.conf.destroying = true;
 
             // Allow the button to remove event handlers, etc
             if (button.conf.destroy) {
@@ -758,16 +949,11 @@
          */
         text: function (node, label) {
             var button = this._nodeToButton(node);
-            var buttonLiner = this.c.dom.collection.buttonLiner;
-            var linerTag = button.inCollection && buttonLiner && buttonLiner.tag ?
-                buttonLiner.tag :
-                this.c.dom.buttonLiner.tag;
+			var textNode = button.textNode;
             var dt = this.s.dt;
             var jqNode = $(button.node);
             var text = function (opt) {
-                return typeof opt === 'function' ?
-                    opt(dt, jqNode, button.conf) :
-                    opt;
+                return typeof opt === 'function' ? opt(dt, jqNode, button.conf) : opt;
             };
 
             if (label === undefined) {
@@ -775,12 +961,7 @@
             }
 
             button.conf.text = label;
-
-            if (linerTag) {
-                jqNode.children(linerTag).html(text(label));
-            } else {
-                jqNode.html(text(label));
-            }
+            textNode.html(text(label));
 
             return this;
         },
@@ -817,9 +998,11 @@
                 this.add(buttons[i]);
             }
 
-            dt.on('destroy', function () {
-                that.destroy();
-            });
+			dt.on('destroy', function (e, settings) {
+				if (settings === dtSettings) {
+					that.destroy();
+				}
+			});
 
             // Global key event binding to listen for button keys
             $('body').on('keyup.' + this.s.namespace, function (e) {
@@ -852,9 +1035,7 @@
          */
         _addKey: function (conf) {
             if (conf.key) {
-                this.s.listenKeys += $.isPlainObject(conf.key) ?
-                    conf.key.key :
-                    conf.key;
+                this.s.listenKeys += $.isPlainObject(conf.key) ? conf.key.key : conf.key;
             }
         },
 
@@ -899,11 +1080,23 @@
          * @param  {boolean} inCollection true if the button is in a collection
          *
          */
-        _expandButton: function (attachTo, button, inCollection, attachPoint) {
+        _expandButton: function 		(
+				attachTo,
+				button,
+				split,
+				inCollection,
+				inSplit,
+				attachPoint,
+				parentConf
+		) {
             var dt = this.s.dt;
-            var buttonCounter = 0;
-            var buttons = !Array.isArray(button) ? [button] :
-                button;
+			var isSplit = false;
+			var domCollection = this.c.dom.collection;
+            var buttons = !Array.isArray(button) ? [button] : button;
+			
+			if (button === undefined) {
+				buttons = !Array.isArray(split) ? [split] : split;
+			}
 
             for (var i = 0, ien = buttons.length; i < ien; i++) {
                 var conf = this._resolveExtends(buttons[i]);
@@ -911,43 +1104,103 @@
                 if (!conf) {
                     continue;
                 }
+				
+				isSplit = conf.config && conf.config.split ? true : false;
 
                 // If the configuration is an array, then expand the buttons at this
                 // point
                 if (Array.isArray(conf)) {
-                    this._expandButton(attachTo, conf, inCollection, attachPoint);
+					this._expandButton(
+						attachTo,
+						conf,
+						built !== undefined && built.conf !== undefined ? built.conf.split : undefined,
+						inCollection,
+						parentConf !== undefined && parentConf.split !== undefined,
+						attachPoint,
+						parentConf
+					);
                     continue;
                 }
 
-                var built = this._buildButton(conf, inCollection);
+				var built = this._buildButton(
+					conf,
+					inCollection,
+					conf.split !== undefined ||
+						(conf.config !== undefined && conf.config.split !== undefined),
+					inSplit
+				);
                 if (!built) {
                     continue;
                 }
 
-                if (attachPoint !== undefined) {
-                    attachTo.splice(attachPoint, 0, built);
-                    attachPoint++;
-                } else {
+				if (attachPoint !== undefined && attachPoint !== null) {
+					attachTo.splice(attachPoint, 0, built);
+					attachPoint++;
+				} else {
                     attachTo.push(built);
                 }
+				
+				// Create the dropdown for a collection
+				if (built.conf.buttons) {
+					built.collection = $('<' + domCollection.container.content.tag + '></' + domCollection.container.content.tag + '>');
+					built.conf._collection = built.collection;
 
-                if (built.conf.buttons) {
-                    var collectionDom = this.c.dom.collection;
-                    built.collection = $('<' + collectionDom.tag + '></' + collectionDom.tag + '>')
-                        .addClass(collectionDom.className)
-                        .attr('role', 'menu');
-                    built.conf._collection = built.collection;
+					$(built.node).append(domCollection.action.dropHtml);
 
-                    this._expandButton(built.buttons, built.conf.buttons, true, attachPoint);
-                }
+					this._expandButton(
+						built.buttons,
+						built.conf.buttons,
+						built.conf.split,
+						!isSplit,
+						isSplit,
+						attachPoint,
+						built.conf
+					);
+				}
+
+				// And the split collection
+				if (built.conf.split) {
+					built.collection = $('<' + domCollection.container.tag + '></' + domCollection.container.tag + '>');
+					built.conf._collection = built.collection;
+
+					for (var j = 0; j < built.conf.split.length; j++) {
+						var item = built.conf.split[j];
+
+						if (typeof item === 'object') {
+							item.parent = parentConf;
+
+							if (item.collectionLayout === undefined) {
+								item.collectionLayout = built.conf.collectionLayout;
+							}
+
+							if (item.dropup === undefined) {
+								item.dropup = built.conf.dropup;
+							}
+
+							if (item.fade === undefined) {
+								item.fade = built.conf.fade;
+							}
+						}
+					}
+
+					this._expandButton(
+						built.buttons,
+						built.conf.buttons,
+						built.conf.split,
+						!isSplit,
+						isSplit,
+						attachPoint,
+						built.conf
+					);
+				}
+				
+				built.conf.parent = parentConf;
 
                 // init call is made here, rather than buildButton as it needs to
                 // be selectable, and for that it needs to be in the buttons array
                 if (conf.init) {
                     conf.init.call(dt.button(built.node), dt, $(built.node), conf);
                 }
-
-                buttonCounter++;
             }
         },
 
@@ -960,160 +1213,303 @@
          *
          * @param  {object} config            Resolved button configuration
          * @param  {boolean} inCollection `true` if a collection button
-         * @return {jQuery} Created button node (jQuery)
+         * @return {object} Completed button description object
          *
          */
-        _buildButton: function (config, inCollection) {
-            var buttonDom = this.c.dom.button;
-            var linerDom = this.c.dom.buttonLiner;
-            var collectionDom = this.c.dom.collection;
+        _buildButton: function (config, inCollection, isSplit, inSplit) {
+			var configDom = this.c.dom;
+			var textNode;
             var dt = this.s.dt;
             var ctx = dt.settings()[0];
             var text = function (opt) {
-                return typeof opt === 'function' ?
-                    opt(dt, button, config) :
-                    opt;
+                return typeof opt === 'function' ? opt(dt, button, config) : opt;
             };
 
-            if (inCollection && collectionDom.button) {
-                buttonDom = collectionDom.button;
-            }
+			// Create an object that describes the button which can be in `dom.button`, or
+			// `dom.collection.button` or `dom.split.button` or `dom.collection.split.button`!
+			// Each should extend from `dom.button`.
+			var dom = $.extend(true, {}, configDom.button);
 
-            if (inCollection && collectionDom.buttonLiner) {
-                linerDom = collectionDom.buttonLiner;
-            }
+			if (inCollection && isSplit && configDom.collection.split) {
+				$.extend(true, dom, configDom.collection.split.action);
+			}
+			else if (inSplit || inCollection) {
+				$.extend(true, dom, configDom.collection.button);
+			}
+			else if (isSplit) {
+				$.extend(true, dom, configDom.split.button);
+			}
+
+			// Spacers don't do much other than insert an element into the DOM
+			if (config.spacer) {
+				var spacer = $('<' + dom.spacer.tag + '></' + dom.spacer.tag + '>')
+					.addClass('dt-button-spacer ' + config.style + ' ' + dom.spacer.className)
+					.html(text(config.text));
+
+				return {
+					conf: config,
+					node: spacer,
+					inserter: spacer,
+					buttons: [],
+					inCollection: inCollection,
+					isSplit: isSplit,
+					collection: null,
+					textNode: spacer
+				};
+			}
 
             // Make sure that the button is available based on whatever requirements
-            // it has. For example, Flash buttons require Flash
-            if (config.available && !config.available(dt, config)) {
+			// it has. For example, PDF button require pdfmake
+			if (config.available && !config.available(dt, config) && !config.hasOwnProperty('html')) {
                 return false;
             }
 
-            var action = function (e, dt, button, config) {
-                config.action.call(dt.button(button), e, dt, button, config);
+			var button;
 
-                $(dt.table().node()).triggerHandler('buttons-action.dt', [
-                    dt.button(button), dt, button, config
-                ]);
-            };
+			if (!config.hasOwnProperty('html')) {
+				var action = function (e, dt, button, config) {
+					config.action.call(dt.button(button), e, dt, button, config);
 
-            var button = $('<' + buttonDom.tag + '></' + buttonDom.tag + '>')
-                .addClass(buttonDom.className)
-                .attr('tabindex', this.s.dt.settings()[0].iTabIndex)
-                .attr('aria-controls', this.s.dt.table().node().id)
-                .on('click.dtb', function (e) {
-                    e.preventDefault();
+					$(dt.table().node()).triggerHandler('buttons-action.dt', [
+						dt.button(button),
+						dt,
+						button,
+						config
+					]);
+				};
 
-                    if (!button.hasClass(buttonDom.disabled) && config.action) {
-                        action(e, dt, button, config);
-                    }
+				var tag = config.tag || dom.tag;
+				var clickBlurs = config.clickBlurs === undefined ? true : config.clickBlurs;
 
-                    button.blur();
-                });
+				button = $('<' + tag + '></' + tag + '>')
+					.addClass(dom.className)
+					.attr('tabindex', this.s.dt.settings()[0].iTabIndex)
+					.attr('aria-controls', this.s.dt.table().node().id)
+					.on('click.dtb', function (e) {
+						e.preventDefault();
 
-            // Make `a` tags act like a link
-            if (buttonDom.tag.toLowerCase() === 'a') {
-                button.attr('href', '#');
-            }
+						if (!button.hasClass(dom.disabled) && config.action) {
+							action(e, dt, button, config);
+						}
 
-            if (linerDom.tag) {
-                var liner = $('<' + linerDom.tag + '></' + linerDom.tag + '>')
-                    .html(text(config.text))
-                    .addClass(linerDom.className);
+						if (clickBlurs) {
+							button.trigger('blur');
+						}
+					})
+					.on('keypress.dtb', function (e) {
+						if (e.keyCode === 13) {
+							e.preventDefault();
 
-                if (linerDom.tag.toLowerCase() === 'a') {
-                    liner.attr('href', '#');
-                }
+							if (!button.hasClass(dom.disabled) && config.action) {
+								action(e, dt, button, config);
+							}
+						}
+					});
 
-                button.append(liner);
-            } else {
-                button.html(text(config.text));
-            }
+				// Make `a` tags act like a link
+				if (tag.toLowerCase() === 'a') {
+					button.attr('href', '#');
+				}
 
-            if (config.id) {
-                button.attr('id', config.id);
-            } else {
-                // Se desactiva el acceso desde el contextMenu por no tener un id establecido
-                config.insideContextMenu = false;
-                // Se asigna un id dinamico en funcion del nombre del table al que pertenece
-                config.id = ctx.sTableId + '_button_' + (_buttonIdCounter++);
-                button.attr('id', config.id);
-            }
+				// Button tags should have `type=button` so they don't have any default behaviour
+				if (tag.toLowerCase() === 'button') {
+					button.attr('type', 'button');
+				}
 
-            if (config.className) {
-                button.addClass(config.className);
-            }
+				if (dom.liner.tag) {
+					var liner = $('<' + dom.liner.tag + '></' + dom.liner.tag + '>')
+						.html(text(config.text))
+						.addClass(dom.liner.className);
 
-            if (config.titleAttr) {
-                button.attr('title', text(config.titleAttr));
-            }
+					if (dom.liner.tag.toLowerCase() === 'a') {
+						liner.attr('href', '#');
+					}
 
-            if (config.attr) {
-                button.attr(config.attr);
-            }
+					button.append(liner);
+					textNode = liner;
+				}
+				else {
+					button.html(text(config.text));
+					textNode = button;
+				}
 
-            if (!config.namespace) {
-                config.namespace = '.dt-button-' + (_buttonCounter++);
-            }
+				if (config.enabled === false) {
+					button.addClass(dom.disabled);
+				}
+				
+				if (config.id) {
+					button.attr('id', config.id);
+				} else {
+					// Se desactiva el acceso desde el contextMenu por no tener un id establecido
+					config.insideContextMenu = false;
+					// Se asigna un id dinamico en funcion del nombre del table al que pertenece
+					config.id = ctx.sTableId + '_button_' + (_buttonIdCounter++);
+					button.attr('id', config.id);
+				}
 
-            if (!config.icon) {
-                // Comprueba si es alguno de los botones con iconos definidos por defecto
-                switch (config.type) {
-                case 'add':
-                    config.icon = 'mdi-plus';
-                    break;
-                case 'edit':
-                    config.icon = 'mdi-playlist-edit';
-                    break;
-                case 'clone':
-                    config.icon = 'mdi-content-copy';
-                    break;
-                case 'delete':
-                    config.icon = 'mdi-trash-can-outline';
-                    break;
-                case 'reports':
-                    config.icon = 'mdi-file-export';
-                    break;
-                case 'copyButton':
-                    config.icon = 'mdi-clipboard-text-outline';
-                    break;
-                case 'excelButton':
-                    config.icon = 'mdi-file-excel';
-                    break;
-                case 'pdfButton':
-                    config.icon = 'mdi-file-pdf';
-                    break;
-                case 'odsButton':
-                    config.icon = 'mdi-file';
-                    break;
-                case 'csvButton':
-                    config.icon = 'mdi-file';
-                    break;
-                default:
-                    config.icon = 'mdi-settings';
-                }
-            }
+				if (config.className) {
+					button.addClass(config.className);
+				}
 
-            var buttonContainer = this.c.dom.buttonContainer;
-            var inserter;
-            if (buttonContainer && buttonContainer.tag) {
-                inserter = $('<' + buttonContainer.tag + '></' + buttonContainer.tag + '>')
-                    .addClass(buttonContainer.className)
-                    .append(button);
-            } else {
-                inserter = button;
-            }
+				if (config.titleAttr) {
+					button.attr('title', text(config.titleAttr));
+				}
 
-            this._addKey(config);
+				if (config.attr) {
+					button.attr(config.attr);
+				}
 
-            return {
-                conf: config,
-                node: button.get(0),
-                inserter: inserter,
-                buttons: [],
-                inCollection: inCollection,
-                collection: null
-            };
+				if (!config.namespace) {
+					config.namespace = '.dt-button-' + _buttonCounter++;
+				}
+				
+				if (!config.icon) {
+					// Comprueba si es alguno de los botones con iconos definidos por defecto
+					switch (config.type) {
+						case 'add':
+							config.icon = 'mdi-plus';
+							break;
+						case 'edit':
+							config.icon = 'mdi-playlist-edit';
+							break;
+						case 'clone':
+							config.icon = 'mdi-content-copy';
+							break;
+						case 'delete':
+							config.icon = 'mdi-trash-can-outline';
+							break;
+						case 'reports':
+							config.icon = 'mdi-file-export';
+							break;
+						case 'copyButton':
+							config.icon = 'mdi-clipboard-text-outline';
+							break;
+						case 'excelButton':
+							config.icon = 'mdi-file-excel';
+							break;
+						case 'pdfButton':
+							config.icon = 'mdi-file-pdf';
+							break;
+						case 'odsButton':
+							config.icon = 'mdi-file';
+							break;
+						case 'csvButton':
+							config.icon = 'mdi-file';
+							break;
+						default:
+							config.icon = 'mdi-settings';
+					}
+				}
+
+				if (config.config !== undefined && config.config.split) {
+					config.split = config.config.split;
+				}
+			}
+			else {
+				button = $(config.html);
+			}
+
+			var buttonContainer = this.c.dom.buttonContainer;
+			var inserter;
+			if (buttonContainer && buttonContainer.tag) {
+				inserter = $('<' + buttonContainer.tag + '></' + buttonContainer.tag + '>')
+					.addClass(buttonContainer.className)
+					.append(button);
+			}
+			else {
+				inserter = button;
+			}
+
+			this._addKey(config);
+
+			// Style integration callback for DOM manipulation
+			// Note that this is _not_ documented. It is currently
+			// for style integration only
+			if (this.c.buttonCreated) {
+				inserter = this.c.buttonCreated(config, inserter);
+			}
+
+			var splitDiv;
+
+			if (isSplit) {
+				var dropdownConf = inCollection
+					? $.extend(true, this.c.dom.split, this.c.dom.collection.split)
+					: this.c.dom.split;
+				var wrapperConf = dropdownConf.wrapper;
+
+				splitDiv = $('<' + wrapperConf.tag + '></' + wrapperConf.tag + '>')
+					.addClass(wrapperConf.className)
+					.append(button);
+
+				var dropButtonConfig = $.extend(config, {
+					align: dropdownConf.dropdown.align,
+					attr: {
+						'aria-haspopup': 'dialog',
+						'aria-expanded': false
+					},
+					className: dropdownConf.dropdown.className,
+					closeButton: false,
+					splitAlignClass: dropdownConf.dropdown.splitAlignClass,
+					text: dropdownConf.dropdown.text
+				});
+
+				this._addKey(dropButtonConfig);
+
+				var splitAction = function (e, dt, button, config) {
+					_dtButtons.split.action.call(dt.button(splitDiv), e, dt, button, config);
+
+					$(dt.table().node()).triggerHandler('buttons-action.dt', [
+						dt.button(button),
+						dt,
+						button,
+						config
+					]);
+					button.attr('aria-expanded', true);
+				};
+
+				var dropButton = $(
+					'<button class="' + dropdownConf.dropdown.className + ' dt-button"></button>'
+				)
+					.html(dropdownConf.dropdown.dropHtml)
+					.on('click.dtb', function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+
+						if (!dropButton.hasClass(dom.disabled)) {
+							splitAction(e, dt, dropButton, dropButtonConfig);
+						}
+						if (clickBlurs) {
+							dropButton.trigger('blur');
+						}
+					})
+					.on('keypress.dtb', function (e) {
+						if (e.keyCode === 13) {
+							e.preventDefault();
+
+							if (!dropButton.hasClass(dom.disabled)) {
+								splitAction(e, dt, dropButton, dropButtonConfig);
+							}
+						}
+					});
+
+				if (config.split.length === 0) {
+					dropButton.addClass('dtb-hide-drop');
+				}
+
+				splitDiv.append(dropButton).attr(dropButtonConfig.attr);
+			}
+
+			return {
+				conf: config,
+				node: isSplit ? splitDiv.get(0) : button.get(0),
+				inserter: isSplit ? splitDiv : inserter,
+				buttons: [],
+				inCollection: inCollection,
+				isSplit: isSplit,
+				inSplit: inSplit,
+				collection: null,
+				textNode: textNode
+			};
         },
 
         /**
@@ -1259,9 +1655,7 @@
          */
         _removeKey: function (conf) {
             if (conf.key) {
-                var character = $.isPlainObject(conf.key) ?
-                    conf.key.key :
-                    conf.key;
+                var character = $.isPlainObject(conf.key) ? conf.key.key : conf.key;
 
                 // Remove only one character, as multiple buttons could have the
                 // same listening key
@@ -1284,6 +1678,7 @@
          *
          */
         _resolveExtends: function (conf) {
+			var that = this;
             var dt = this.s.dt;
             var i, ien;
             var ctx = dt.context[0];
@@ -1301,14 +1696,14 @@
                     }
 
                     if (typeof base === 'function') {
-                        base = base(dt, conf);
+                        base = base.call(that, dt, conf);
 
                         if (!base) {
                             return false;
                         }
                     } else if (typeof base === 'string') {
                         if (!_dtButtonsTable[base]) {
-                            throw 'Unknown button type: ' + base;
+                            return { html: base };
                         }
 
                         base = _dtButtonsTable[base];
@@ -1321,9 +1716,7 @@
                     }
                 }
 
-                return Array.isArray(base) ?
-                    base :
-                    $.extend({}, base);
+                return Array.isArray(base) ? base : $.extend({}, base);
             };
 
             conf = toConfObject(conf);
@@ -1347,6 +1740,10 @@
 
                 // Stash the current class name
                 var originalClassName = objArray.className;
+				
+				if (conf.config !== undefined && objArray.config !== undefined) {
+					conf.config = $.extend({}, objArray.config, conf.config);
+				}
 
                 conf = $.extend({}, objArray, conf);
 
@@ -1357,44 +1754,374 @@
                     conf.className = originalClassName + ' ' + conf.className;
                 }
 
-                // Buttons to be added to a collection  -gives the ability to define
-                // if buttons should be added to the start or end of a collection
-                var postfixButtons = conf.postfixButtons;
-                if (postfixButtons) {
-                    if (!conf.buttons) {
-                        conf.buttons = [];
-                    }
+				// Although we want the `conf` object to overwrite almost all of
+				// the properties of the object being extended, the `extend`
+				// property should come from the object being extended
+				conf.extend = objArray.extend;
+			}
 
-                    for (i = 0, ien = postfixButtons.length; i < ien; i++) {
-                        conf.buttons.push(postfixButtons[i]);
-                    }
+			// Buttons to be added to a collection  -gives the ability to define
+			// if buttons should be added to the start or end of a collection
+			var postfixButtons = conf.postfixButtons;
+			if (postfixButtons) {
+				if (!conf.buttons) {
+					conf.buttons = [];
+				}
 
-                    conf.postfixButtons = null;
-                }
+				for (i = 0, ien = postfixButtons.length; i < ien; i++) {
+					conf.buttons.push(postfixButtons[i]);
+				}
+			}
 
-                var prefixButtons = conf.prefixButtons;
-                if (prefixButtons) {
-                    if (!conf.buttons) {
-                        conf.buttons = [];
-                    }
+			var prefixButtons = conf.prefixButtons;
+			if (prefixButtons) {
+				if (!conf.buttons) {
+					conf.buttons = [];
+				}
 
-                    for (i = 0, ien = prefixButtons.length; i < ien; i++) {
-                        conf.buttons.splice(i, 0, prefixButtons[i]);
-                    }
+				for (i = 0, ien = prefixButtons.length; i < ien; i++) {
+					conf.buttons.splice(i, 0, prefixButtons[i]);
+				}
+			}
 
-                    conf.prefixButtons = null;
-                }
+			return conf;
+		},
 
-                // Although we want the `conf` object to overwrite almost all of
-                // the properties of the object being extended, the `extend`
-                // property should come from the object being extended
-                conf.extend = objArray.extend;
-            }
+		/**
+		 * Display (and replace if there is an existing one) a popover attached to a button
+		 * @param {string|node} content Content to show
+		 * @param {DataTable.Api} hostButton DT API instance of the button
+		 * @param {object} inOpts Options (see object below for all options)
+		 */
+		_popover: function(content, hostButton, inOpts, e) {
+			var dt = hostButton;
+			var c = this.c;
+			var closed = false;
+			var options = $.extend(
+				{
+					align: 'button-left', // button-right, dt-container, split-left, split-right
+					autoClose: false,
+					background: true,
+					backgroundClassName: 'dt-button-background',
+					closeButton: true,
+					containerClassName: c.dom.collection.container.className,
+					contentClassName: c.dom.collection.container.content.className,
+					collectionLayout: '',
+					collectionTitle: '',
+					dropup: false,
+					fade: 400,
+					popoverTitle: '',
+					rightAlignClassName: 'dt-button-right',
+					tag: c.dom.collection.container.tag
+				},
+				inOpts
+			);
 
-            return conf;
-        }
-    });
+			var containerSelector = options.tag + '.' + options.containerClassName.replace(/ /g, '.');
+			var hostNode = hostButton.node();
 
+			var close = function() {
+				closed = true;
+
+				_fadeOut($(containerSelector), options.fade, function() {
+					$(this).detach();
+				});
+
+				$(dt.buttons('[aria-haspopup="dialog"][aria-expanded="true"]').nodes()).attr(
+					'aria-expanded',
+					'false'
+				);
+
+				$('div.dt-button-background').off('click.dtb-collection');
+				Buttons.background(false, options.backgroundClassName, options.fade, hostNode);
+
+				$(window).off('resize.resize.dtb-collection');
+				$('body').off('.dtb-collection');
+				dt.off('buttons-action.b-internal');
+				dt.off('destroy');
+			};
+
+			if (content === false) {
+				close();
+				return;
+			}
+
+			var existingExpanded = $(
+				dt.buttons('[aria-haspopup="dialog"][aria-expanded="true"]').nodes()
+			);
+			if (existingExpanded.length) {
+				// Reuse the current position if the button that was triggered is inside an existing collection
+				if (hostNode.closest(containerSelector).length) {
+					hostNode = existingExpanded.eq(0);
+				}
+
+				close();
+			}
+
+			// Try to be smart about the layout
+			var cnt = $('.dt-button', content).length;
+			var mod = '';
+
+			if (cnt === 3) {
+				mod = 'dtb-b3';
+			}
+			else if (cnt === 2) {
+				mod = 'dtb-b2';
+			}
+			else if (cnt === 1) {
+				mod = 'dtb-b1';
+			}
+
+			var display = $('<' + options.tag + '></' + options.tag + '>')
+				.addClass(options.containerClassName)
+				.addClass(options.collectionLayout)
+				.addClass(options.splitAlignClass)
+				.addClass(mod)
+				.css('display', 'none')
+				.attr({
+					'aria-modal': true,
+					role: 'dialog'
+				});
+
+			content = $(content)
+				.addClass(options.contentClassName)
+				.attr('role', 'menu')
+				.appendTo(display);
+
+			hostNode.attr('aria-expanded', 'true');
+
+			if (hostNode.parents('body')[0] !== document.body) {
+				hostNode = document.body.lastChild;
+			}
+
+			if (options.popoverTitle) {
+				display.prepend(
+					'<div class="dt-button-collection-title">' + options.popoverTitle + '</div>'
+				);
+			}
+			else if (options.collectionTitle) {
+				display.prepend(
+					'<div class="dt-button-collection-title">' + options.collectionTitle + '</div>'
+				);
+			}
+
+			if (options.closeButton) {
+				display
+					.prepend('<div class="dtb-popover-close">&times;</div>')
+					.addClass('dtb-collection-closeable');
+			}
+
+			_fadeIn(display.insertAfter(hostNode), options.fade);
+
+			var tableContainer = $(hostButton.table().container());
+			var position = display.css('position');
+
+			if (options.span === 'container' || options.align === 'dt-container') {
+				hostNode = hostNode.parent();
+				display.css('width', tableContainer.width());
+			}
+
+			// Align the popover relative to the DataTables container
+			// Useful for wide popovers such as SearchPanes
+			if (position === 'absolute') {
+				// Align relative to the host button
+				var offsetParent = $(hostNode[0].offsetParent);
+				var buttonPosition = hostNode.position();
+				var buttonOffset = hostNode.offset();
+				var tableSizes = offsetParent.offset();
+				var containerPosition = offsetParent.position();
+				var computed = window.getComputedStyle(offsetParent[0]);
+
+				tableSizes.height = offsetParent.outerHeight();
+				tableSizes.width = offsetParent.width() + parseFloat(computed.paddingLeft);
+				tableSizes.right = tableSizes.left + tableSizes.width;
+				tableSizes.bottom = tableSizes.top + tableSizes.height;
+
+				// Set the initial position so we can read height / width
+				var top = buttonPosition.top + hostNode.outerHeight();
+				var left = buttonPosition.left;
+
+				display.css({
+					top: top,
+					left: left
+				});
+
+				// Get the popover position
+				computed = window.getComputedStyle(display[0]);
+				var popoverSizes = display.offset();
+
+				popoverSizes.height = display.outerHeight();
+				popoverSizes.width = display.outerWidth();
+				popoverSizes.right = popoverSizes.left + popoverSizes.width;
+				popoverSizes.bottom = popoverSizes.top + popoverSizes.height;
+				popoverSizes.marginTop = parseFloat(computed.marginTop);
+				popoverSizes.marginBottom = parseFloat(computed.marginBottom);
+
+				// First position per the class requirements - pop up and right align
+				if (options.dropup) {
+					top =
+						buttonPosition.top -
+						popoverSizes.height -
+						popoverSizes.marginTop -
+						popoverSizes.marginBottom;
+				}
+
+				if (options.align === 'button-right' || display.hasClass(options.rightAlignClassName)) {
+					left = buttonPosition.left - popoverSizes.width + hostNode.outerWidth();
+				}
+
+				// Container alignment - make sure it doesn't overflow the table container
+				if (options.align === 'dt-container' || options.align === 'container') {
+					if (left < buttonPosition.left) {
+						left = -buttonPosition.left;
+					}
+
+					if (left + popoverSizes.width > tableSizes.width) {
+						left = tableSizes.width - popoverSizes.width;
+					}
+				}
+
+				// Window adjustment
+				if (containerPosition.left + left + popoverSizes.width > $(window).width()) {
+					// Overflowing the document to the right
+					left = $(window).width() - popoverSizes.width - containerPosition.left;
+				}
+
+				if (buttonOffset.left + left < 0) {
+					// Off to the left of the document
+					left = -buttonOffset.left;
+				}
+
+				if (
+					containerPosition.top + top + popoverSizes.height >
+					$(window).height() + $(window).scrollTop()
+				) {
+					// Pop up if otherwise we'd need the user to scroll down
+					top =
+						buttonPosition.top -
+						popoverSizes.height -
+						popoverSizes.marginTop -
+						popoverSizes.marginBottom;
+				}
+
+				if (containerPosition.top + top < $(window).scrollTop()) {
+					// Correction for when the top is beyond the top of the page
+					top = buttonPosition.top + hostNode.outerHeight();
+				}
+
+				// Calculations all done - now set it
+				display.css({
+					top: top,
+					left: left
+				});
+			}
+			else {
+				// Fix position - centre on screen
+				var position = function() {
+					var half = $(window).height() / 2;
+
+					var top = display.height() / 2;
+					if (top > half) {
+						top = half;
+					}
+
+					display.css('marginTop', top * -1);
+				};
+
+				position();
+
+				$(window).on('resize.dtb-collection', function() {
+					position();
+				});
+			}
+
+			if (options.background) {
+				Buttons.background(
+					true,
+					options.backgroundClassName,
+					options.fade,
+					options.backgroundHost || hostNode
+				);
+			}
+
+			// This is bonkers, but if we don't have a click listener on the
+			// background element, iOS Safari will ignore the body click
+			// listener below. An empty function here is all that is
+			// required to make it work...
+			$('div.dt-button-background').on('click.dtb-collection', function() { });
+
+			if (options.autoClose) {
+				setTimeout(function() {
+					dt.on('buttons-action.b-internal', function(e, btn, dt, node) {
+						if (node[0] === hostNode[0]) {
+							return;
+						}
+						close();
+					});
+				}, 0);
+			}
+
+			$(display).trigger('buttons-popover.dt');
+
+			dt.on('destroy', close);
+
+			setTimeout(function() {
+				closed = false;
+				$('body')
+					.on('click.dtb-collection', function(e) {
+						if (closed) {
+							return;
+						}
+
+						// andSelf is deprecated in jQ1.8, but we want 1.7 compat
+						var back = $.fn.addBack ? 'addBack' : 'andSelf';
+						var parent = $(e.target).parent()[0];
+
+						if (
+							(!$(e.target).parents()[back]().filter(content).length &&
+								!$(parent).hasClass('dt-buttons')) ||
+							$(e.target).hasClass('dt-button-background')
+						) {
+							close();
+						}
+					})
+					.on('keyup.dtb-collection', function(e) {
+						if (e.keyCode === 27) {
+							close();
+						}
+					})
+					.on('keydown.dtb-collection', function(e) {
+						// Focus trap for tab key
+						var elements = $('a, button', content);
+						var active = document.activeElement;
+
+						if (e.keyCode !== 9) {
+							// tab
+							return;
+						}
+
+						if (elements.index(active) === -1) {
+							// If current focus is not inside the popover
+							elements.first().focus();
+							e.preventDefault();
+						}
+						else if (e.shiftKey) {
+							// Reverse tabbing order when shift key is pressed
+							if (active === elements[0]) {
+								elements.last().focus();
+								e.preventDefault();
+							}
+						}
+						else {
+							if (active === elements.last()[0]) {
+								elements.first().focus();
+								e.preventDefault();
+							}
+						}
+					});
+			}, 0);
+		}
+	});
 
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1415,24 +2142,20 @@
      * @static
      *
      */
-    Buttons.background = function (show, className, fade) {
+    Buttons.background = function (show, className, fade, insertPoint) {
         if (fade === undefined) {
             fade = 400;
         }
 
         if (show) {
-            $('<div></div>')
-                .addClass(className)
-                .css('display', 'none')
-                .appendTo('body')
-                .fadeIn(fade);
+			_fadeIn(
+				$('<div></div>').addClass(className).css('display', 'none').insertAfter(insertPoint),
+				fade
+			);
         } else {
-            $('body > div.' + className)
-                .fadeOut(fade, function () {
-                    $(this)
-                        .removeClass(className)
-                        .remove();
-                });
+			_fadeOut($('div.' + className), fade, function () {
+				$(this).removeClass(className).remove();
+			});
         }
     };
 
@@ -1455,7 +2178,7 @@
      *
      */
     Buttons.instanceSelector = function (group, buttons) {
-        if (!group) {
+        if (group === undefined || group === null) {
             return $.map(buttons, function (v) {
                 return v.inst;
             });
@@ -1490,7 +2213,10 @@
             } else if (typeof input === 'number') {
                 // Index selector
                 ret.push(buttons[input].inst);
-            }
+			} else if (typeof input === 'object') {
+				// Actual instance selector
+				ret.push(input);
+			}
         };
 
         process(group);
@@ -1525,9 +2251,7 @@
                 button = buttons[i];
 
                 if (button) {
-                    idx = baseIdx !== undefined ?
-                        baseIdx + i :
-                        i + '';
+                    idx = baseIdx !== undefined ? baseIdx + i : i + '';
 
                     a.push({
                         node: button.node,
@@ -1568,10 +2292,12 @@
                 }
             } else if (typeof selector === 'number') {
                 // Main button index selector
-                ret.push({
-                    inst: inst,
-                    node: inst.s.buttons[selector].node
-                });
+				if (inst.s.buttons[selector]) {
+					ret.push({
+						inst: inst,
+						node: inst.s.buttons[selector].node
+					});
+				}
             } else if (typeof selector === 'string') {
                 if (selector.indexOf(',') !== -1) {
                     // Split
@@ -1604,12 +2330,14 @@
                     }
                 } else {
                     // jQuery selector on the nodes
-                    $(nodes).filter(selector).each(function () {
-                        ret.push({
-                            inst: inst,
-                            node: this
-                        });
-                    });
+					$(nodes)
+						.filter(selector)
+						.each(function () {
+							ret.push({
+								inst: inst,
+								node: this
+							});
+						});
                 }
             } else if (typeof selector === 'object' && selector.nodeName) {
                 // Node selector
@@ -1633,6 +2361,55 @@
 
         return ret;
     };
+	
+	/**
+	 * Default function used for formatting output data.
+	 * @param {*} str Data to strip
+	 */
+	Buttons.stripData = function (str, config) {
+		if (typeof str !== 'string') {
+			return str;
+		}
+
+		// Always remove script tags
+		str = str.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+
+		// Always remove comments
+		str = str.replace(/<!\-\-.*?\-\->/g, '');
+
+		if (!config || config.stripHtml) {
+			str = str.replace(/<[^>]*>/g, '');
+		}
+
+		if (!config || config.trim) {
+			str = str.replace(/^\s+|\s+$/g, '');
+		}
+
+		if (!config || config.stripNewlines) {
+			str = str.replace(/\n/g, ' ');
+		}
+
+		if (!config || config.decodeEntities) {
+			if (_entityDecoder) {
+				str = _entityDecoder(str);
+			}
+			else {
+				_exportTextarea.innerHTML = str;
+				str = _exportTextarea.value;
+			}
+		}
+
+		return str;
+	};
+
+	/**
+	 * Provide a custom entity decoding function - e.g. a regex one, which can be
+	 * much faster than the built in DOM option, but also larger code size.
+	 * @param {function} fn
+	 */
+	Buttons.entityDecoder = function (fn) {
+		_entityDecoder = fn;
+	}
 
     /**
      * Version information
@@ -1646,7 +2423,7 @@
      * @static
      *
      */
-    Buttons.version = '1.5.1';
+    Buttons.version = '2.4.2';
 
 
     $.extend(_dtButtons, {
@@ -1655,154 +2432,75 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.collection');
             },
             className: 'buttons-collection',
-            action: function (e, dt, button, config) {
-                var host = button;
-                var collectionParent = $(button).parents('div.dt-button-collection');
-                var hostPosition = {
-                    top: host.position().top + parseInt(host.css('marginTop'), 10),
-                    left: host.position().left + parseInt(host.css('marginLeft'), 10)
-                };
-                var tableContainer = $(dt.table().container());
-                var multiLevel = false;
-                var insertPoint = host;
+			closeButton: false,
+			init: function (dt, button, config) {
+				button.attr('aria-expanded', false);
+			},
+			action: function (e, dt, button, config) {
+				if (config._collection.parents('body').length) {
+					this.popover(false, config);
+				}
+				else {
+					this.popover(config._collection, config);
+				}
+				
+				if (config.background) {
+					// Si la tabla se encuentra en un dialogo insertamos el background dentro del dialogo
+					if ($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
+						$('div.rup-dialog #' + dt.context[0].sTableId + '_wrapper').append('<div class="dt-button-background"></div>');
+					}
+					// Si no usamos el funcionamiento por defecto
+					else {
+						Buttons.background(true, config.backgroundClassName, config.fade);
+					}
+				}
+				
+				// Como el boton se posiciona de manera absoluta hay que establecerle la posicion
+				// cada vez que se cambia el tamaño de la pantalla.
+				$(window).on('resize.ajustarCollection', (function() {
+					if (!$('div.dt-button-collection').is(':visible')) {
+						$(window).off('resize.ajustarCollection');
+					} else {
+						hostPosition = {
+							top: host.position().top + parseInt(host.css('marginTop'), 10),
+							left: host.position().left + parseInt(host.css('marginLeft'), 10)
+						};
 
-                // Remove any old collection
-                if (collectionParent.length) {
-                    multiLevel = $('.dt-button-collection').position();
-                    insertPoint = collectionParent;
-                    $('body').trigger('click.dtb-collection');
-                }
+						config._collection.css({
+							top: hostPosition.top + host.outerHeight(),
+							left: hostPosition.left
+						});
+					}
+				}));
 
-                config._collection
-                    .addClass(config.collectionLayout)
-                    .css('display', 'none')
-                    .insertAfter(insertPoint)
-                    .fadeIn(config.fade);
-
-
-                var position = config._collection.css('position');
-
-                if (multiLevel && position === 'absolute') {
-                    config._collection.css({
-                        top: multiLevel.top,
-                        left: multiLevel.left
-                    });
-                } else if (position === 'absolute') {
-                    config._collection.css({
-                        top: hostPosition.top + host.outerHeight(),
-                        left: hostPosition.left
-                    });
-
-                    // calculate overflow when positioned beneath
-                    var tableBottom = tableContainer.offset().top + tableContainer.height();
-                    var listBottom = hostPosition.top + host.outerHeight() + config._collection.outerHeight();
-                    var bottomOverflow = listBottom - tableBottom;
-
-                    // calculate overflow when positioned above
-                    var listTop = hostPosition.top - config._collection.outerHeight();
-                    var tableTop = tableContainer.offset().top;
-                    var topOverflow = tableTop - listTop;
-
-                    // if bottom overflow is larger, move to the top because it fits better
-                    if (bottomOverflow > topOverflow) {
-                        config._collection.css('top', hostPosition.top - config._collection.outerHeight() - 5);
-                    }
-
-                    var listRight = hostPosition.left + config._collection.outerWidth();
-                    var tableRight = tableContainer.offset().left + tableContainer.width();
-                    if (listRight > tableRight) {
-                        config._collection.css('left', hostPosition.left - (listRight - tableRight));
-                    }
-                } else {
-                    // Fix position - centre on screen
-                    var top = config._collection.height() / 2;
-                    if (top > $(window).height() / 2) {
-                        top = $(window).height() / 2;
-                    }
-
-                    config._collection.css('marginTop', top * -1);
-                }
-
-                if (config.background) {
-                    // Si la tabla se encuentra en un dialogo insertamos el background dentro del dialogo
-                    if ($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
-                        $('div.rup-dialog #' + dt.context[0].sTableId + '_wrapper').append('<div class="dt-button-background"></div>');
-                    }
-                    // Si no usamos el funcionamiento por defecto
-                    else {
-                        Buttons.background(true, config.backgroundClassName, config.fade);
-                    }
-                }
-
-                // Need to break the 'thread' for the collection button being
-                // activated by a click - it would also trigger this event
-                setTimeout(function () {
-                    // This is bonkers, but if we don't have a click listener on the
-                    // background element, iOS Safari will ignore the body click
-                    // listener below. An empty function here is all that is
-                    // required to make it work...
-                    $('div.dt-button-background').on('click.dtb-collection', function () {});
-
-                    $('body').on('click.dtb-collection', function (e) {
-                        // andSelf is deprecated in jQ1.8, but we want 1.7 compat
-                        var back = $.fn.addBack ? 'addBack' : 'andSelf';
-
-                        if (!$(e.target).parents()[back]().filter(config._collection).length) {
-                            config._collection
-                                .fadeOut(config.fade, function () {
-                                    config._collection.detach();
-                                });
-
-                            $('div.dt-button-background').off('click.dtb-collection');
-
-                            // Si la tabla se encuentra en un dialogo eliminamos el background de dentro del dialogo
-                            if ($('div.rup-dialog').has('#' + dt.context[0].sTableId + '_wrapper').length ? true : false) {
-                                $('div.dt-button-background').remove();
-                            }
-                            // Si no usamos el funcionamiento por defecto
-                            else {
-                                Buttons.background(false, config.backgroundClassName, config.fade);
-                            }
-
-                            $('body').off('click.dtb-collection');
-                            dt.off('buttons-action.b-internal');
-                        }
-                    });
-                }, 10);
-
-                // Como el boton se posiciona de manera absoluta hay que establecerle la posicion
-                // cada vez que se cambia el tamaño de la pantalla.
-                $(window).on('resize.ajustarCollection', (function () {
-                    if (!$('div.dt-button-collection').is(':visible')) {
-                        $(window).off('resize.ajustarCollection');
-                    } else {
-                        hostPosition = {
-                            top: host.position().top + parseInt(host.css('marginTop'), 10),
-                            left: host.position().left + parseInt(host.css('marginLeft'), 10)
-                        };
-
-                        config._collection.css({
-                            top: hostPosition.top + host.outerHeight(),
-                            left: hostPosition.left
-                        });
-                    }
-                }));
-
-                if (config.autoClose) {
-                    dt.on('buttons-action.b-internal', function () {
-                        $('div.dt-button-background').click();
-                    });
-                }
-            },
-            background: true,
-            collectionLayout: '',
-            backgroundClassName: 'dt-button-background',
-            autoClose: false,
-            fade: 400,
+				// When activated using a key - auto focus on the
+				// first item in the popover
+				if (e.type === 'keypress') {
+					$('a, button', config._collection).eq(0).focus();
+				}
+			},
             attr: {
-                'aria-haspopup': true
+                'aria-haspopup': 'dialog'
             }
+			// Also the popover options, defined in Buttons.popover
         },
+		split: {
+			text: function(dt) {
+				return dt.i18n('buttons.split', 'Split');
+			},
+			className: 'buttons-split',
+			closeButton: false,
+			init: function(dt, button, config) {
+				return button.attr('aria-expanded', false);
+			},
+			action: function(e, dt, button, config) {
+				this.popover(config._collection, config);
+			},
+			attr: {
+				'aria-haspopup': 'dialog'
+			}
+			// Also the popover options, defined in Buttons.popover
+		},
         addButton: function (dt, conf) {
             var ctx = dt.context[0];
             var collection = _dtButtons['collection'];
@@ -1834,14 +2532,39 @@
         },
         pageLength: function (dt) {
             var lengthMenu = dt.settings()[0].aLengthMenu;
-            var vals = Array.isArray(lengthMenu[0]) ? lengthMenu[0] : lengthMenu;
-            var lang = Array.isArray(lengthMenu[0]) ? lengthMenu[1] : lengthMenu;
-            var text = function (dt) {
-                return dt.i18n('rup_table.pageLength', {
-                    '-1': 'Show all rows',
-                    _: 'Show %d rows'
-                }, dt.page.len());
-            };
+            var vals = [];
+            var lang = [];
+			var text = function (dt) {
+				return dt.i18n(
+					'buttons.pageLength',
+					{
+						'-1': 'Show all rows',
+						_: 'Show %d rows'
+					},
+					dt.page.len()
+				);
+			};
+			
+			// Support for DataTables 1.x 2D array
+			if (Array.isArray(lengthMenu[0])) {
+				vals = lengthMenu[0];
+				lang = lengthMenu[1];
+			}
+			else {
+				for (var i = 0; i < lengthMenu.length; i++) {
+					var option = lengthMenu[i];
+
+					// Support for DataTables 2 object in the array
+					if ($.isPlainObject(option)) {
+						vals.push(option.value);
+						lang.push(option.label);
+					}
+					else {
+						vals.push(option);
+						lang.push(option);
+					}
+				}
+			}
 
             return {
                 extend: 'collection',
@@ -1872,14 +2595,21 @@
                 init: function (dt, node, conf) {
                     var that = this;
                     dt.on('length.dt' + conf.namespace, function () {
-                        that.text(text(dt));
+                        that.text(conf.text);
                     });
                 },
                 destroy: function (dt, node, conf) {
                     dt.off('length.dt' + conf.namespace);
                 }
             };
-        }
+		},
+		spacer: {
+			style: 'empty',
+			spacer: true,
+			text: function(dt) {
+				return dt.i18n('buttons.spacer', '');
+			}
+		}
     });
 
 
@@ -1900,14 +2630,19 @@
 
         this.selector.buttonGroup = group;
 
-        var res = this.iterator(true, 'table', function (ctx) {
-            if (ctx._buttons) {
-                return Buttons.buttonSelector(
-                    Buttons.instanceSelector(group, ctx._buttons),
-                    selector
-                );
-            }
-        }, true);
+		var res = this.iterator(
+			true,
+			'table',
+			function (ctx) {
+				if (ctx._buttons) {
+					return Buttons.buttonSelector(
+						Buttons.instanceSelector(group, ctx._buttons),
+						selector
+					);
+				}
+			},
+			true
+		);
 
         res._groupSelector = group;
         return res;
@@ -1950,6 +2685,22 @@
             set.inst.action(set.node, action);
         });
     });
+	
+	// Collection control
+	DataTable.Api.registerPlural(
+		'buttons().collectionRebuild()',
+		'button().collectionRebuild()',
+		function (buttons) {
+			return this.each(function (set) {
+				for (var i = 0; i < buttons.length; i++) {
+					if (typeof buttons[i] === 'object') {
+						buttons[i].parentConf = set;
+					}
+				}
+				set.inst.collectionRebuild(set.node, buttons);
+			});
+		}
+	);
 
     // Enable / disable buttons
     DataTable.Api.register(['buttons().enable()', 'button().enable()'], function (flag, contextMenu) {
@@ -1964,6 +2715,21 @@
             set.inst.disable(set.node, contextMenu);
         });
     });
+	
+	// Button index
+	DataTable.Api.register('button().index()', function () {
+		var idx = null;
+
+		this.each(function (set) {
+			var res = set.inst.index(set.node);
+
+			if (res !== null) {
+				idx = res;
+			}
+		});
+
+		return idx;
+	});
 
     // Get button nodes
     DataTable.Api.registerPlural('buttons().nodes()', 'button().node()', function () {
@@ -2009,29 +2775,41 @@
             set.inst.node(set.node).trigger('click');
         });
     });
+	
+	// Button resolver to the popover
+	DataTable.Api.register('button().popover()', function (content, options) {
+		return this.map(function (set) {
+			return set.inst._popover(content, this.button(this[0].node), options);
+		});
+	});
 
-    // Get the container elements
-    DataTable.Api.registerPlural('buttons().containers()', 'buttons().container()', function () {
-        var jq = $();
-        var groupSelector = this._groupSelector;
+	// Get the container elements
+	DataTable.Api.register('buttons().containers()', function () {
+		var jq = $();
+		var groupSelector = this._groupSelector;
 
-        // We need to use the group selector directly, since if there are no buttons
-        // the result set will be empty
-        this.iterator(true, 'table', function (ctx) {
-            if (ctx._buttons) {
-                var insts = Buttons.instanceSelector(groupSelector, ctx._buttons);
+		// We need to use the group selector directly, since if there are no buttons
+		// the result set will be empty
+		this.iterator(true, 'table', function (ctx) {
+			if (ctx._buttons) {
+				var insts = Buttons.instanceSelector(groupSelector, ctx._buttons);
 
-                for (var i = 0, ien = insts.length; i < ien; i++) {
-                    jq = jq.add(insts[i].container());
-                }
-            }
-        });
+				for (var i = 0, ien = insts.length; i < ien; i++) {
+					jq = jq.add(insts[i].container());
+				}
+			}
+		});
 
-        return jq;
-    });
+		return jq;
+	});
+
+	DataTable.Api.register('buttons().container()', function () {
+		// API level of nesting is `buttons()` so we can zip into the containers method
+		return this.containers().eq(0);
+	});
 
     // Add a new button
-    DataTable.Api.register('button().add()', function (idx, conf) {
+    DataTable.Api.register('button().add()', function (idx, conf, draw) {
         var ctx = this.context;
         var api = new DataTable.Api(ctx);
 
@@ -2040,7 +2818,7 @@
             var inst = Buttons.instanceSelector(this._groupSelector, ctx[0]._buttons);
 
             if (inst.length) {
-                inst[0].add(conf, idx);
+                inst[0].add(conf, idx, draw);
                 // Nuevo botón al contextMenu
                 _updateContextMenu(this[0].inst.s.buttons, api, ctx[0]);
             }
@@ -2051,9 +2829,11 @@
 
     // Destroy the button sets selected
     DataTable.Api.register('buttons().destroy()', function () {
-        this.pluck('inst').each(function (inst) {
-            inst.destroy();
-        });
+		this.pluck('inst')
+				.unique()
+				.each(function (inst) {
+					inst.destroy();
+				});
 
         return this;
     });
@@ -2073,10 +2853,10 @@
         var that = this;
 
         if (title === false) {
-            $('#table_buttons_info').fadeOut(function () {
-                $(this).remove();
-            });
-            clearTimeout(_infoTimer);
+			this.off('destroy.btn-info');
+			_fadeOut($('#table_buttons_info'), 400, function () {
+				$(this).remove();
+			});
             _infoTimer = null;
 
             return this;
@@ -2091,13 +2871,14 @@
         }
 
         title = title ? '<h2>' + title + '</h2>' : '';
-
-        $('<div id="table_buttons_info" class="dt-button-info"></div>')
-            .html(title)
-            .append($('<div></div>')[typeof message === 'string' ? 'html' : 'append'](message))
-            .css('display', 'none')
-            .appendTo('body')
-            .fadeIn();
+		
+		_fadeIn(
+			$('<div id="table_buttons_info" class="dt-button-info"></div>')
+				.html(title)
+				.append($('<div></div>')[typeof message === 'string' ? 'html' : 'append'](message))
+				.css('display', 'none')
+				.appendTo('body')
+		);
 
         if (time !== undefined && time !== 0) {
             _infoTimer = setTimeout(function () {
@@ -2281,7 +3062,6 @@
     });
 
 
-
     /**
      * Get the file name for an exported file.
      *
@@ -2295,9 +3075,14 @@
      */
     var _filename = function (config) {
         // Backwards compatibility
-        var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined && config.title !== null && config.title !== '' ?
-            config.title :
-            config.filename;
+		var filename =
+			config.filename === '*' &&
+			config.title !== '*' &&
+			config.title !== undefined &&
+			config.title !== null &&
+			config.title !== ''
+				? config.title
+				: config.filename;
 
         if (typeof filename === 'function') {
             filename = filename();
@@ -2356,10 +3141,11 @@
     var _title = function (config) {
         var title = _stringOrFunction(config.title);
 
-        return title === null ?
-            null : title.indexOf('*') !== -1 ?
-                title.replace('*', $('head > title').text() || 'Exported data') :
-                title;
+		return title === null
+			? null
+			: title.indexOf('*') !== -1
+			? title.replace('*', $('head > title').text() || 'Exported data')
+			: title;
     };
 
     var _message = function (dt, option, position) {
@@ -2375,87 +3161,64 @@
                 return null;
             }
 
-            return caption.length ?
-                caption.text() :
-                '';
+			return caption.length ? caption.text() : '';
         }
 
         return message;
     };
-
-
-
-
-
-
-
+	
     var _exportTextarea = $('<textarea></textarea>')[0];
     var _exportData = function (dt, inOpts) {
-        var config = $.extend(true, {}, {
-            rows: null,
-            columns: '',
-            modifier: {
-                search: 'applied',
-                order: 'applied'
-            },
-            orthogonal: 'display',
-            stripHtml: true,
-            stripNewlines: true,
-            decodeEntities: true,
-            trim: true,
-            format: {
-                header: function (d) {
-                    return strip(d);
-                },
-                footer: function (d) {
-                    return strip(d);
-                },
-                body: function (d) {
-                    return strip(d);
-                }
-            }
-        }, inOpts);
+		var config = $.extend(
+			true,
+			{},
+			{
+				rows: null,
+				columns: '',
+				modifier: {
+					search: 'applied',
+					order: 'applied'
+				},
+				orthogonal: 'display',
+				stripHtml: true,
+				stripNewlines: true,
+				decodeEntities: true,
+				trim: true,
+				format: {
+					header: function (d) {
+						return Buttons.stripData(d, config);
+					},
+					footer: function (d) {
+						return Buttons.stripData(d, config);
+					},
+					body: function (d) {
+						return Buttons.stripData(d, config);
+					}
+				},
+				customizeData: null
+			},
+			inOpts
+		);
 
-        var strip = function (str) {
-            if (typeof str !== 'string') {
-                return str;
-            }
+		var header = dt
+			.columns(config.columns)
+			.indexes()
+			.map(function (idx) {
+				var el = dt.column(idx).header();
+				return config.format.header(el.innerHTML, idx, el);
+			})
+			.toArray();
 
-            // Always remove script tags
-            str = str.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-
-            if (config.stripHtml) {
-                str = str.replace(/<[^>]*>/g, '');
-            }
-
-            if (config.trim) {
-                str = str.replace(/^\s+|\s+$/g, '');
-            }
-
-            if (config.stripNewlines) {
-                str = str.replace(/\n/g, ' ');
-            }
-
-            if (config.decodeEntities) {
-                _exportTextarea.innerHTML = str;
-                str = _exportTextarea.value;
-            }
-
-            return str;
-        };
-
-
-        var header = dt.columns(config.columns).indexes().map(function (idx) {
-            var el = dt.column(idx).header();
-            return config.format.header(el.innerHTML, idx, el);
-        }).toArray();
-
-        var footer = dt.table().footer() ?
-            dt.columns(config.columns).indexes().map(function (idx) {
-                var el = dt.column(idx).footer();
-                return config.format.footer(el ? el.innerHTML : '', idx, el);
-            }).toArray() :
-            null;
+		var footer = dt.table().footer()
+			? dt
+					.columns(config.columns)
+					.indexes()
+					.map(function (idx) {
+						var el = dt.column(idx).footer();
+						return config.format.footer(el ? el.innerHTML : '', idx, el);
+					})
+					.toArray()
+			: null;
 
         // If Select is available on this table, and any rows are selected, limit the export
         // to the selected rows. If no rows are selected, all rows will be exported. Specify
@@ -2471,18 +3234,14 @@
             }
         }
 
-        var rowIndexes = dt.rows(config.rows, modifier).indexes().toArray();
-        var selectedCells = dt.cells(rowIndexes, config.columns);
-        var cells = selectedCells
-            .render(config.orthogonal)
-            .toArray();
-        var cellNodes = selectedCells
-            .nodes()
-            .toArray();
+		var rowIndexes = dt.rows(config.rows, modifier).indexes().toArray();
+		var selectedCells = dt.cells(rowIndexes, config.columns);
+		var cells = selectedCells.render(config.orthogonal).toArray();
+		var cellNodes = selectedCells.nodes().toArray();
 
         var columns = header.length;
         var rows = columns > 0 ? cells.length / columns : 0;
-        var body = [rows];
+        var body = [];
         var cellCounter = 0;
 
         for (var i = 0, ien = rows; i < ien; i++) {
@@ -2496,11 +3255,17 @@
             body[i] = row;
         }
 
-        return {
-            header: header,
-            footer: footer,
-            body: body
-        };
+		var data = {
+			header: header,
+			footer: footer,
+			body: body
+		};
+		
+		if (config.customizeData) {
+			config.customizeData(data);
+		}
+
+		return data;
     };
 
     /**
@@ -3648,22 +4413,11 @@
         $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterToolbarInit');
     }
 
-    // DataTables `dom` feature option
-    DataTable.ext.feature.push({
-        fnInit: function (settings) {
-            var api = new DataTable.Api(settings);
-            var opts = api.init().buttons || DataTable.defaults.buttons;
-
-            return new Buttons(api, opts).container();
-        },
-        cFeature: 'B'
-    });
-
-    //DataTables creation - check if the buttons have been defined for this table,
-    //they will have been if the `B` option was used in `dom`, otherwise we should
-    //create the buttons instance here so they can be inserted into the document
-    //using the API. Listen for `init` for compatibility with pre 1.10.10, but to
-    //be removed in future.
+	// DataTables creation - check if the buttons have been defined for this table,
+	// they will have been if the `B` option was used in `dom`, otherwise we should
+	// create the buttons instance here so they can be inserted into the document
+	// using the API. Listen for `init` for compatibility with pre 1.10.10, but to
+	// be removed in future.
     $(document).on('plugin-init.dt', function (e, ctx) {
         if (e.namespace !== 'dt') {
             return;
@@ -3673,6 +4427,24 @@
             inicio(ctx);
         }
     });
+	
+	function _init(settings, options) {
+		var api = new DataTable.Api(settings);
+		var opts = options ? options : api.init().buttons || DataTable.defaults.buttons;
+
+		return new Buttons(api, opts).container();
+	}
+
+	// DataTables `dom` feature option
+	DataTable.ext.feature.push({
+		fnInit: _init,
+		cFeature: 'B'
+	});
+	
+	// DataTables 2 layout feature
+	if (DataTable.ext.features) {
+		DataTable.ext.features.register('buttons', _init);
+	}
 
     return Buttons;
 }));
