@@ -1,6 +1,39 @@
-/* AJUSTE DE MARGENES EN LA BOTONERA */
-div.dt-buttons .btn-material {
-	margin: 0.25rem;
+div.dt-buttons {
+
+	/* AJUSTE DE MARGENES EN LA BOTONERA */
+	.btn-material {
+		margin: 0.25rem;
+	}
+
+	/* SOBRESCRIBIR LOS VALORES DEFINIDOS POR LA CLASE dt-button */
+	button.btn-material {
+		padding: 6px 10px;
+		border: 2px solid transparent;
+		border-radius: 4px;
+		line-height: .7;
+		text-decoration: none;
+		box-sizing: border-box;
+		background-image: none;
+
+		&:hover {
+			background-image: none;
+		}
+
+		&:active {
+			background-image: none;
+			border: 2px solid transparent;
+		}	
+
+		&:focus {
+			background-image: none;
+			border: 2px solid transparent;
+			text-shadow: none;
+		}
+		
+		&:active:not(.disabled):hover:not(.disabled) {
+			background-image: none;
+		}
+	}
 }
 
 /* FORMULARIO DE FILTRADO */
