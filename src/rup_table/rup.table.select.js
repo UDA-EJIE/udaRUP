@@ -1,23 +1,24 @@
+/*! Select for DataTables 1.7.0
+ * © SpryMedia Ltd - datatables.net/license
+ */
+
 /**
- * Módulo que permite toda la seleción simple
+ * @summary     Select
+ * @description Select for DataTables
+ * @module      "rup.table.select"
+ * @version     1.7.0
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     datatables.net
+ * @copyright   SpryMedia Ltd.
  *
- * @summary 		Extensión del componente RUP Datatable
- * @module			"rup.table.select"
- * @version     1.0.0
- * @license
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
+ * This source file is free software, available under the following license:
+ *   MIT license - http://datatables.net/license/mit
  *
- *      http://ec.europa.eu/idabc/eupl.html
+ * This source file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- * @copyright   Copyright 2018 E.J.I.E., S.A.
- *
+ * For details please refer to: http://www.datatables.net
  */
 
 (function (factory) {
@@ -51,7 +52,7 @@
     // Version information for debugger
     DataTable.select = {};
 
-    DataTable.select.version = '1.2.4';
+    DataTable.select.version = '1.7.0';
 
     /**
      * Se inicializa el componente select
@@ -64,50 +65,50 @@
      *
      */
     DataTable.select.init = function (dt) {
-        var ctx = dt.settings()[0];
-        ctx.select = [];
-        var rowsBody = $(ctx.nTBody);
-        // Se selecciona una fila
-        
-		if(ctx.oInit.selectFilaDer){
-        rowsBody.on('click.DT contextmenu keydown', 'tr:not(.dtrg-group)', function (e) {
-            // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
-            if (e.which == 1 || e.which == 32 || e.which == 3) {
-                if (e.target.className.indexOf('openResponsive') > -1 ||
-                    $(this).hasClass('editable')) {// no hacer nada
-                   //no se devuelve nada para los checkbox funcionen.
-                }else{//selecionar
-	                $(this).triggerHandler('tableSelectBeforeSelectRow',ctx);
-	                var idRow = this._DT_RowIndex;
-	                _selectRowIndex(dt, idRow, $(this));
-	                $(this).triggerHandler('tableSelectAfterSelectRow',ctx);
-                }
-            }
-        }); } else {
-	
-	rowsBody.on('click.DT keydown', 'tr:not(.dtrg-group)', function (e) {
-            // Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
-            if (e.which == 1 || e.which == 32 || e.which == 3) {
-                if (e.target.className.indexOf('openResponsive') > -1 ||
-                    $(this).hasClass('editable')) {// no hacer nada
-                   //no se devuelve nada para los checkbox funcionen.
-                }else{//selecionar
-	                $(this).triggerHandler('tableSelectBeforeSelectRow',ctx);
-	                var idRow = this._DT_RowIndex;
-	                _selectRowIndex(dt, idRow, $(this));
-	                $(this).triggerHandler('tableSelectAfterSelectRow',ctx);
-                }
-            }
-        });
-	
-	
-}
+		var ctx = dt.settings()[0];
 
-        if (ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined) {
-            $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
-                DataTable.Api().editForm.addchildIcons(ctx);
-            }));
-        }
+		if (ctx._select) {
+			return;
+		}
+
+		var rowsBody = $(ctx.nTBody);
+		
+		// Se selecciona una fila
+		if (ctx.oInit.selectFilaDer) {
+			rowsBody.on('click.DT contextmenu keydown', 'tr:not(.dtrg-group)', function(e) {
+				// Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
+				if (e.which == 1 || e.which == 32 || e.which == 3) {
+					if (e.target.className.indexOf('openResponsive') > -1 || $(this).hasClass('editable')) {// no hacer nada
+						//no se devuelve nada para los checkbox funcionen.
+					} else {//selecionar
+						$(this).triggerHandler('tableSelectBeforeSelectRow', ctx);
+						var idRow = this._DT_RowIndex;
+						_selectRowIndex(dt, idRow, $(this));
+						$(this).triggerHandler('tableSelectAfterSelectRow', ctx);
+					}
+				}
+			});
+		} else {
+			rowsBody.on('click.DT keydown', 'tr:not(.dtrg-group)', function(e) {
+				// Solo selecciona si se pulsa sobre la barra espaciadora o se hace click izquierdo col raton
+				if (e.which == 1 || e.which == 32 || e.which == 3) {
+					if (e.target.className.indexOf('openResponsive') > -1 || $(this).hasClass('editable')) {// no hacer nada
+						//no se devuelve nada para los checkbox funcionen.
+					} else {//selecionar
+						$(this).triggerHandler('tableSelectBeforeSelectRow', ctx);
+						var idRow = this._DT_RowIndex;
+						_selectRowIndex(dt, idRow, $(this));
+						$(this).triggerHandler('tableSelectAfterSelectRow', ctx);
+					}
+				}
+			});
+		}
+
+		if (ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined) {
+			$(window).on('resize.dtr', DataTable.util.throttle(function() { //Se calcula el responsive
+				DataTable.Api().editForm.addchildIcons(ctx);
+			}));
+		}
     };
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
