@@ -18,7 +18,7 @@ Módulo que permite toda la seleción simple
 Se inicializa el componente select
 
 **Kind**: inner method of [<code>rup.table.masterDetail</code>](#module_rup.table.masterDetail)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

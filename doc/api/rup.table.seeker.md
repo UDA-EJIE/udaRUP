@@ -25,7 +25,7 @@ Buscador interno del table
 Se inicializa el componente seeker
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -37,7 +37,7 @@ Se inicializa el componente seeker
 Crea los componentes principales del buscador.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ Crea los componentes principales del buscador.
 Genera la barra de controles para gestionar la búsqueda..
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Genera la barra de controles para gestionar la búsqueda..
 Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -77,7 +77,7 @@ Selecciona con la lupa los rows seleccionados. Una vez se han encontrado.
 Metodo para saber si hay que paginar o no.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -90,7 +90,7 @@ Metodo para saber si hay que paginar o no.
 Actualiza la navegación del seeker.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -103,7 +103,7 @@ Actualiza la navegación del seeker.
 Metodo para procesar los datos provinientes del controller.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -118,7 +118,7 @@ Se obtienen los datos del formulario del seeker.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
 **Returns**: <code>object</code> - Devuelve el objeto mapeado de todos los campos.  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -130,7 +130,7 @@ Se obtienen los datos del formulario del seeker.
 Partiendo de los inputs del seeker, se convierten en componentes rup dependiendo del tipo.
 
 **Kind**: inner method of [<code>rup.table.seeker</code>](#module_rup.table.seeker)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

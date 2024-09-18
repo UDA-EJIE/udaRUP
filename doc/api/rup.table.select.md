@@ -1,12 +1,13 @@
 <a name="module_rup.table.select"></a>
 
 ## rup.table.select
-Módulo que permite toda la seleción simple
+Select for DataTables
 
-**Summary**: Extensión del componente RUP Datatable  
-**Version**: 1.0.0  
-**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
-**Copyright**: Copyright 2018 E.J.I.E., S.A.  
+**Summary**: Select  
+**Contact**: datatables.net  
+**Version**: 1.7.0  
+**Author**: SpryMedia Ltd (www.sprymedia.co.uk)  
+**Copyright**: SpryMedia Ltd.This source file is free software, available under the following license:  MIT license - http://datatables.net/license/mitThis source file is distributed in the hope that it will be useful, butWITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITYor FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.For details please refer to: http://www.datatables.net  
 
 * [rup.table.select](#module_rup.table.select)
     * [~init(dt)](#module_rup.table.select..init)
@@ -19,7 +20,7 @@ Módulo que permite toda la seleción simple
 Se inicializa el componente select
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -31,11 +32,11 @@ Se inicializa el componente select
 Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 <a name="module_rup.table.select..drawSelectId"></a>
 
 ### rup.table.select~drawSelectId()
 Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered
 
 **Kind**: inner method of [<code>rup.table.select</code>](#module_rup.table.select)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  

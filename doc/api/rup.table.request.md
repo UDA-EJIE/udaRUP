@@ -13,4 +13,4 @@ Encargado de mapear el objeto de base de datos al multiSelect
 Obtiene el objeto a mapear en el multiselect.
 
 **Kind**: inner method of [<code>rup.table.request</code>](#module_rup.table.request)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
