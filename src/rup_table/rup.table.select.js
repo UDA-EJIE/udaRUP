@@ -59,7 +59,7 @@
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      *
@@ -125,7 +125,7 @@
      *
      * @name drawSelectId
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * 
      */
@@ -151,7 +151,7 @@
      *
      * @name drawSelectId
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * 
      */

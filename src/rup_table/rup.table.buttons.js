@@ -96,7 +96,7 @@
      *
      * @name Buttons
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt
      * @param {object} config
@@ -529,7 +529,7 @@
          *
          * @name action
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {int|string} Button index
          * @return {function}
@@ -540,7 +540,7 @@
          *
          * @name action
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button element
          * @param  {function} action Function to set
@@ -565,7 +565,7 @@
          *
          * @name active
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button element
          * @param  {boolean} [flag] Enable / disable flag
@@ -599,7 +599,7 @@
          *
          * @name add
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} config Button configuration object, base string name or function
          * @param {int|string} [idx] Button index for where to insert the button
@@ -687,7 +687,7 @@
          *
          * @name container
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @return {jQuery} Buttons node
          *
@@ -701,7 +701,7 @@
          *
          * @name disable
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button node
          * @return {Buttons} Self for chaining
@@ -725,7 +725,7 @@
          *
          * @name destroy
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @return {Buttons} Self for chaining
          *
@@ -764,7 +764,7 @@
          *
          * @name enable
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button node
          * @param  {boolean} [flag=true] Enable / disable flag
@@ -822,7 +822,7 @@
          *
          * @name name
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @return {string} Instance name
          *
@@ -836,7 +836,7 @@
          *
          * @name node
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} [node] Button node
          * @return {jQuery} Button element, or container
@@ -856,7 +856,7 @@
          *
          * @name processing
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
 		 * @param {element} node Triggering button node
          * @param  {boolean} flag true to add, false to remove, undefined to get
@@ -889,7 +889,7 @@
          *
          * @name remove
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button node
          * @return {Buttons} Self for chaining
@@ -929,7 +929,7 @@
          *
          * @name text
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {int|string} node Button index
          * @return {string} Button text
@@ -940,7 +940,7 @@
          *
          * @name text
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {int|string|function} node Button index
          * @param  {string} label Text
@@ -976,7 +976,7 @@
          *
          * @name _constructor
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          */
         _constructor: function () {
@@ -1028,7 +1028,7 @@
          *
          * @name _addKey
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} conf Resolved button configuration object
          *
@@ -1044,7 +1044,7 @@
          *
          * @name _draw
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} [container] Recursive only - Insert point
          * @param  {array} [buttons] Recursive only - Buttons array
@@ -1073,7 +1073,7 @@
          *
          * @name _expandButton
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {array} attachTo Buttons array to attach to
          * @param  {object} button Button definition
@@ -1209,7 +1209,7 @@
          *
          * @name _buildButton
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {object} config            Resolved button configuration
          * @param  {boolean} inCollection `true` if a collection button
@@ -1517,7 +1517,7 @@
          *
          * @name _nodeToButton
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button node
          * @param  {array} [buttons] Button array, uses base if not defined
@@ -1549,7 +1549,7 @@
          *
          * @name _nodeToHost
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {node} node Button node
          * @param  {array} [buttons] Button array, uses base if not defined
@@ -1582,7 +1582,7 @@
          *
          * @name _keypress
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {string} character The character pressed
          * @param  {object} e Key event that triggered this call
@@ -1648,7 +1648,7 @@
          *
          * @name _removeKey
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {object} conf Button configuration
          *
@@ -1671,7 +1671,7 @@
          *
          * @name _resolveExtends
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param  {string|function|object} conf Button config to resolve
          * @return {object} Button configuration
@@ -2133,7 +2133,7 @@
      *
      * @name Buttons.background
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {boolean} Flag to indicate if the background should be shown or
      *   hidden
@@ -2166,7 +2166,7 @@
      *
      * @name Buttons.instanceSelector
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {string|int|array} Instance selector - see `instance-selector`
      *   documentation on the DataTables site
@@ -2230,7 +2230,7 @@
      *
      * @name Buttons.buttonSelector
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {array} Button instances array that the selector should operate on
      * @param  {string|int|node|jQuery|array} Button selector - see
@@ -2416,7 +2416,7 @@
      *
      * @name Buttons.version
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @type {string}
      *
@@ -3067,7 +3067,7 @@
      *
      * @name _filename
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object}	config Button configuration
      * @param {boolean} incExtension Include the file name extension
@@ -3112,7 +3112,7 @@
      *
      * @name _stringOrFunction
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {undefined|string|function} option Option
      *
@@ -3133,7 +3133,7 @@
      *
      * @name _title
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} config	Button configuration
      *
@@ -3273,7 +3273,7 @@
      *
      * @name _enableCollection
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} id	Id of the button
      *
@@ -3287,7 +3287,7 @@
      *
      * @name _disableCollection
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} id	Id of the button
      *
@@ -3301,7 +3301,7 @@
      *
      * @name _enableButtonAndContextMenuOption
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} id	Id of the button
      *
@@ -3316,7 +3316,7 @@
      *
      * @name _disableButtonAndContextMenuOption
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} id	Id of the button
      *
@@ -3332,7 +3332,7 @@
      *
      * @name _manageButtonsAndButtonsContextMenu
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} opts	Buttons properties
      * @param {int} numOfSelectedRows	Number of selected rows
@@ -3434,7 +3434,7 @@
      *
      * @name _reports
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt Instancia del table
      * @param {object} that Objeto del boton
@@ -3505,7 +3505,7 @@
      *
      * @name ConvertToTabulador
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {boolean} reportsExportAllColumns true en caso de querer mostrar todas las columnas (incluidas las ocultas)
      * @param {object} columns Objeto que contiene las columnas a mostrar
@@ -3584,7 +3584,7 @@
      *
      * @name _reportsTypeOfCopy
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt Instancia del table
      * @param {string} type Tipo de funcion de copia a ejecutar
@@ -3666,7 +3666,7 @@
      *
      * @name _reportsPrepareRequestData
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt Instancia del table
      * @param {object} ajaxOptions Parametros de la llamada AJAX
@@ -3777,7 +3777,7 @@
      *
      * @name _loadDefinedColums
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      *
      * @param {object} dt Instancia del table
      * @param {object} ctx Contexto
@@ -3818,7 +3818,7 @@
      *
      * @name _reportsRequestData
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ajaxOptions Parametros de la llamada AJAX
      * @param {object} ctx Contexto
@@ -3847,7 +3847,7 @@
      *
      * @name _reportsRequestFile
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      *
      * @param {object} ctx Contexto
      * @param {object} ajaxOptions Parametros de la llamada AJAX
@@ -3952,7 +3952,7 @@
      *
      * @name _reportsOpenMessage
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt Instancia del table
      * @param {object} ctx Contexto
@@ -3999,7 +3999,7 @@
      *
      * @name _reportsToClipboard
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt Instancia del table
      * @param {object} that Objeto del boton
@@ -4096,7 +4096,7 @@
      *
      * @name _deleteAllSelects
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      *
      * @param {object} dt - Es el objeto table.
      *
@@ -4287,7 +4287,7 @@
      *
      * @name _initButtons
      * @function
-     * @since UDA 3.7.0 // Table 1.0.0
+     * @since UDA 3.7.0
      *
      * @param {object} ctx - Settings object to operate on
      * @param {List<object>} opts Lista de botones
