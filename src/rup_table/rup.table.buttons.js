@@ -1926,7 +1926,10 @@
 			if (position === 'absolute') {
 				// Align relative to the host button
 				var offsetParent = $(hostNode[0].offsetParent);
-				var buttonPosition = hostNode.position();
+				var buttonPosition = {
+					top: hostNode.position().top + parseInt(hostNode.css('marginTop'), 10),
+					left: hostNode.position().left + parseInt(hostNode.css('marginLeft'), 10)
+				};
 				var buttonOffset = hostNode.offset();
 				var tableSizes = offsetParent.offset();
 				var containerPosition = offsetParent.position();
