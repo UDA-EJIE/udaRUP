@@ -36,6 +36,14 @@ div.dt-buttons {
 	}
 }
 
+/* COLECCION DE BOTONES */
+div.dt-button-collection button.btn-material {
+	background-color: $no-color;
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
 /* FORMULARIO DE FILTRADO */
 div.formulario_legend {
 	border-radius: 5px;

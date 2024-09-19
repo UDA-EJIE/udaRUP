@@ -119,7 +119,7 @@
                 collection: {
                     action: {
 						// action button
-						dropHtml: '<span class="dt-button-down-arrow">&#x25BC;</span>'
+						dropHtml: '<span class="dt-button-down-arrow ml-2">&#x25BC;</span>'
 					},
 					container: {
 						// The element used for the dropdown
@@ -158,7 +158,7 @@
 						// button to trigger the dropdown
 						align: 'split-right',
 						className: 'dt-button-split-drop',
-						dropHtml: '<span class="dt-button-down-arrow">&#x25BC;</span>',
+						dropHtml: '<span class="dt-button-down-arrow ml-2">&#x25BC;</span>',
 						splitAlignClass: 'dt-button-split-left',
 						tag: 'button'
 					},
