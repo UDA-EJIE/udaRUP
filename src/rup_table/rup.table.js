@@ -1212,8 +1212,10 @@
 
                 // Validaciones 
                 if (filterOpts.rules) {
+					const {$feedbackContainer, ...feedbackOptions} = options.feedback;
                     filterOpts.$filterContainer.rup_validate({
                         feedback: options.feedback.$feedbackContainer,
+                        feedbackOptions: feedbackOptions,
                         rules: filterOpts.rules
                     });
                 }
