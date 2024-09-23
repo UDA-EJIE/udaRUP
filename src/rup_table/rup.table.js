@@ -1847,7 +1847,7 @@
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }
                             
-                            if (ctx.multiselection.selectedRowsPerPage.length === 1) {
+                            if (ctx.multiselection.selectedRowsPerPage.length === 1 && ctx.multiselection.selectedRowsPerPage[0].page == ctx.json.page) {
                                 DataTable.Api().select.selectRowIndex(tabla, ctx.multiselection.selectedRowsPerPage[0].line, false);
                             }
                             
