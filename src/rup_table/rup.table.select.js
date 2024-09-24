@@ -66,6 +66,7 @@
      */
     DataTable.select.init = function (dt) {
 		var ctx = dt.settings()[0];
+		ctx.select = [];
 
 		if (ctx._select) {
 			return;
