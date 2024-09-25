@@ -40,7 +40,7 @@ Módulo que habilita la edicción mediante un formulario.
 Configura el componente editForm para su inicialización
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ Configura el componente editForm para su inicialización
 Inicializa el componente editForm
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ Inicializa el componente editForm
 Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 Función que añade las validaciones a un formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -88,7 +88,7 @@ Función que añade las validaciones a un formulario.
 Función que gestiona la carga del diálogo de añadir o editar.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -102,7 +102,7 @@ Función que gestiona la carga del diálogo de añadir o editar.
 Valida los formularios para no buscarlos.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.2 // Table 1.0.0  
+**Since**: UDA 5.0.2  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -117,7 +117,7 @@ Valida los formularios para no buscarlos.
 Detecta los componentes RUP del formulario y los inicializa.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 5.0.2 // Table 1.0.0  
+**Since**: UDA 5.0.2  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -131,7 +131,7 @@ Detecta los componentes RUP del formulario y los inicializa.
 Función que gestiona el comportamiento de abrir el dialog para añadir o editar un registro.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -146,7 +146,7 @@ Función que gestiona el comportamiento de abrir el dialog para añadir o editar
 Llamada al servidor con los datos de edición.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -165,7 +165,7 @@ Llamada al servidor con los datos de edición.
 Llamada para crear el feedback dentro del dialog.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -180,7 +180,7 @@ Llamada para crear el feedback dentro del dialog.
 Se añade el tipo de la lista.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 4.2.0 // Table 1.0.0  
+**Since**: UDA 4.2.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -193,7 +193,7 @@ Se añade el tipo de la lista.
 Actualiza la navegación del dialogo.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -207,7 +207,7 @@ Actualiza la navegación del dialogo.
 Constructor de la barra de navegación.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -219,7 +219,7 @@ Constructor de la barra de navegación.
 Constructor de la barra de navegación.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -232,7 +232,7 @@ Método que obtiene la fila siguiente seleccionada.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>object</code> - Contiene el identificador, la página y la línea de la fila seleccionada.  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -246,7 +246,7 @@ Metodo que obtiene la página siguiente donde esta el primer elemento o elemento
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuelve la página  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -261,7 +261,7 @@ Metodo que obtiene la página siguiente donde esta el primer elemento o elemento
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la página  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -275,7 +275,7 @@ Metodo que obtiene la linea siguiente donde esta el primer elemento o elemento s
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la linea  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -289,7 +289,7 @@ Metodo que obtiene la última linea siguiente donde esta el primer elemento o el
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: integer - devuele la linea  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -302,7 +302,7 @@ Metodo que obtiene la última linea siguiente donde esta el primer elemento o el
 Metodo que elimina todos los registros seleccionados.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -315,7 +315,7 @@ Método que serializa los datos del formulario.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  
-**Since**: UDA 3.6.0 // Table 1.2.0  
+**Since**: UDA 3.6.0  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -328,7 +328,7 @@ Método que serializa los datos del formulario.
 Metodo que comprueba el seeker.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -342,7 +342,7 @@ Metodo que comprueba el seeker.
 Método que gestiona el bloqueo de la edición de las claves primarias.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -355,7 +355,7 @@ Método que gestiona el bloqueo de la edición de las claves primarias.
 Se añaden los iconos al responsive.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

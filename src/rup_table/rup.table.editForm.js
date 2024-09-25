@@ -59,7 +59,7 @@
      *
      * @name preConfigure
      * @function
-     * @since UDA 5.0.0 // Table 1.0.0
+     * @since UDA 5.0.0
      *
      * @param {object} dt - Es el objeto table.
      *
@@ -108,7 +108,7 @@
             }
             // Propiedad que no genera el evento de doble click en caso de existir y tener un valor true
             if (!sel.deleteDoubleClick) {
-                rowsBody.on('dblclick.DT keypress', 'tr:not(.group)', function (e) {
+                rowsBody.on('dblclick.DT keypress', 'tr:not(.dtrg-group)', function (e) {
                     // Sólo selecciona si se pulsa sobre el enter o se hace click izquierdo con el ratón
                     if (e.type == 'keypress' && e.which == 13 || e.type === 'dblclick') {
                         idRow = this._DT_RowIndex;
@@ -149,7 +149,7 @@
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Contexto del Datatable.
      *
@@ -208,7 +208,7 @@
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {DataTable.settings} ctx Settings object to operate on
      *
@@ -327,7 +327,7 @@
      *
      * @name addValidation
      * @function
-     * @since UDA 5.0.0 // Table 1.0.0
+     * @since UDA 5.0.0
      *
      * @param {object} ctx - Contexto del Datatable.
      *
@@ -365,7 +365,7 @@
      *
      * @name loadSaveDialogForm
      * @function
-     * @since UDA 5.0.0 // Table 1.0.0
+     * @since UDA 5.0.0
      *
      * @param {object} ctx - Contexto de la tabla.
      * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
@@ -472,7 +472,7 @@
      *
      * @name validarFormulario
      * @function
-     * @since UDA 5.0.2 // Table 1.0.0
+     * @since UDA 5.0.2
      *
      * @param {object} ctx - Contexto de la tabla.
      * @param {object} lastAction - última accion realizado.
@@ -496,7 +496,7 @@
      *
      * @name formInitializeRUP
      * @function
-     * @since UDA 5.0.2 // Table 1.0.0
+     * @since UDA 5.0.2
      *
      * @param {object} ctx - Contexto de la tabla.
      * @param {object} row - Datos para alimentar los campos del formulario.
@@ -534,7 +534,7 @@
      *
      * @name openSaveDialog
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
      * @param {object} dt - Es el objeto table.
@@ -651,7 +651,7 @@
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
-	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                $('#' + ctx.sTableId + ' > tbody > tr:not(.dtrg-group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
 	           
@@ -870,7 +870,7 @@
      *
      * @name _callSaveAjax
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {string} actionType - Es la acción que se va a ajecutar en el formulario para ir al controller, basado en rest.
      * @param {object} dt - Es el objeto table.
@@ -1177,7 +1177,7 @@
      *
      * @name callFeedbackOk
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {object} feedback - Div donde se va ejecutar el feedback.
@@ -1200,7 +1200,7 @@
      *
      * @name addListType
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      *
      * @param {object} idForm - Identificador del formulario.
      * @param {string} row - Values ya añadidos al formulario.
@@ -1250,7 +1250,7 @@
      *
      * @name updateDetailPagination
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {integer} currentRowNum - Número de la posición actual del registro selecionado.
@@ -1288,7 +1288,7 @@
      *
      * @name callNavigatorBar
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Es el objeto table.
      *
@@ -1447,7 +1447,7 @@
      *
      * @name callNavigatorSelectBar
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Es el objeto table.
      *
@@ -1528,7 +1528,7 @@
      *
      * @name getRowSelected
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Instancia de la tabla.
      * @param {string} actionType - Acción a ajecutar en el formulario para ir al controller, basado en REST.
@@ -1608,7 +1608,7 @@
      *
      * @name getNextPageSelected
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -1656,7 +1656,7 @@
      *
      * @name getPrevPageSelected
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {integer} pageInit - Página a partir de la cual hay que mirar, en general serà la 1.
@@ -1700,7 +1700,7 @@
      *
      * @name getLineByPageSelected
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {integer} lineInit - Linea a partir de la cual hay que mirar, en general será la 1.
@@ -1737,7 +1737,7 @@
      *
      * @name getLineByPageSelectedReverse
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {integer} lineInit - Linea a partir de la cual hay que mirar.
@@ -1773,7 +1773,7 @@
      *
      * @name _deleteAllSelects
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Es el objeto table.
      *
@@ -1827,7 +1827,7 @@
      *
      * @name _editFormSerialize
      * @function
-     * @since UDA 3.6.0 // Table 1.2.0
+     * @since UDA 3.6.0
      *
      * @param {object} idForm - Formulario que alberga los datos.
      * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
@@ -1868,7 +1868,7 @@
      *
      * @name _comprobarSeeker
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} row - Son los datos que se cargan.
      * @param {object} ctx - Settings object to operate on.
@@ -1900,7 +1900,7 @@
      *
      * @name _blockPKeditForm
      * @function
-     * @since UDA 3.7.0 // Table 1.0.0
+     * @since UDA 3.7.0
      *
      * @param {object} ctx - Settings object to operate on.
      * @param {string} actionType - Método de operación CRUD.
@@ -1988,7 +1988,7 @@
      *
      * @name _addChildIcons
      * @function
-     * @since UDA 3.7.0 // Table 1.0.0
+     * @since UDA 3.7.0
      *
      * @param {object} ctx - Contexto del Datatable.
      *

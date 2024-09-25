@@ -222,7 +222,7 @@ $("#idTable").rup_table("reload");
 Inicializa ciertas opciones del componente
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -234,7 +234,7 @@ Inicializa ciertas opciones del componente
 Comprueba si dos claves primarias son iguales.
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -247,7 +247,7 @@ Comprueba si dos claves primarias son iguales.
 Método que gestiona el bloqueo de la edición de las claves primarias.
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -260,7 +260,7 @@ Método que gestiona el bloqueo de la edición de las claves primarias.
 Obtiene el subcampo
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 4.1.0 // Table 1.0.0  
+**Since**: UDA 4.1.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -273,7 +273,7 @@ Obtiene el subcampo
 Obtiene las columnas
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -285,7 +285,7 @@ Obtiene las columnas
 Filtrado
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -297,7 +297,7 @@ Filtrado
 Prepara el objeto necesario para la consulta de registros al servidor
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -309,7 +309,7 @@ Prepara el objeto necesario para la consulta de registros al servidor
 Solicita los datos al servidor
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -322,7 +322,7 @@ Solicita los datos al servidor
 Gestiona la paginación
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -335,7 +335,7 @@ Gestiona la paginación
 Limpia el filtro
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -386,4 +386,4 @@ Crea un evento para mantener la multiseleccion, el seeker y el select ya que acc
 Metodo que inicialida las propiedades para el multiselect y el Select.
 
 **Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  

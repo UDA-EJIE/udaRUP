@@ -316,7 +316,7 @@
          *
          * @name _initOptions
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -428,7 +428,7 @@
              *
              * @name comparePKs
              * @function
-             * @since UDA 5.0.0 // Table 1.0.0
+             * @since UDA 5.0.0
              * 
              * @param {object} firstRow - Fila de la tabla a comparar.
              * @param {object} secondRow - Fila de la tabla a comparar.
@@ -447,7 +447,7 @@
              *
              * @name blockPKEdit
              * @function
-             * @since UDA 3.7.0 // Table 1.0.0
+             * @since UDA 3.7.0
              *
              * @param {object} ctx - Settings object to operate on.
              * @param {string} actionType - Método de operación CRUD.
@@ -586,7 +586,7 @@
          *
          * @name _getDescendantProperty
          * @function
-         * @since UDA 4.1.0 // Table 1.0.0
+         * @since UDA 4.1.0
          *
          * @param {object} obj - Valores de la fila
          * @param {string} key - Clave para extraer el valor
@@ -623,7 +623,7 @@
          *
          * @name _getColumns
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -720,7 +720,7 @@
          *
          * @name _doFilter
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -752,7 +752,7 @@
          *
          * @name _ajaxOptions
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -815,7 +815,7 @@
          *
          * @name _ajaxRequestData
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} data Opciones del table
          * @param {object} ctx contexto  del componente table
@@ -895,7 +895,7 @@
          *
          * @name _createSearchPaginator
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} tabla Objeto que contiene la tabla
          * @param {object} settingsT Opciones del componente
@@ -981,7 +981,7 @@
          *
          * @name _clearFilter
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -1467,7 +1467,7 @@
          *
          * @name initializeMultiselectionProps
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          *
          */
