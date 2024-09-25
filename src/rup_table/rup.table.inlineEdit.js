@@ -1238,21 +1238,24 @@ function _inlineEditFormSerialize($fila,ctx,child){
 			busqueda = 'select,input,textarea';
 		}
 		
-		$.each( this.find(busqueda), function( i, obj ) {
-			var nombre = obj.id.replace('_inline','').replace('_child','');
+		$.each(this.find(busqueda), function(i, obj) {
 			var value = $(obj).val();
-			// Comprobar si contiene un caracter invalido
-			if(value.includes("%")){
-				serializedForm = false;
-				return false;
-			}
-			if($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox'){
-                    value = '0';
-				if($(obj).prop('checked')){
-                        value = '1';
+
+			if (value != null) {
+				var nombre = obj.id.replace('_inline', '').replace('_child', '');
+				// Comprobar si contiene un caracter invalido
+				if (value.includes("%")) {
+					serializedForm = false;
+					return false;
 				}
+				if ($(obj).prop('type') !== undefined && $(obj).prop('type') === 'checkbox') {
+					value = '0';
+					if ($(obj).prop('checked')) {
+						value = '1';
+					}
+				}
+				serializedForm[nombre] = value;
 			}
-			serializedForm[nombre] = value;
 		});
 	});
 	
