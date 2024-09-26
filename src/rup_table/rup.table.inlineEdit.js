@@ -872,7 +872,7 @@ function _changeInputsToRup(ctx,idRow){
 *
 */
 function _recorrerCeldas(ctx,$fila,$celdas,cont){
-	$fila.addClass('editable');
+	$fila.addClass('editable inline');
 	var colModel = ctx.oInit.colModel;
         var child = '';
 	if($fila.hasClass('child')){
@@ -1020,7 +1020,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 function _restaurarCeldas(ctx, $fila, $celdas, contRest) {
     if ($fila.hasClass('editable')) {
     	var colModel = ctx.oInit.colModel;
-        $fila.removeClass('editable');
+        $fila.removeClass('editable inline');
 	
 		$celdas.each( function() {
 			var celda = $(this);

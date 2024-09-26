@@ -68,7 +68,6 @@ i.mdi.error {
 		.error:last-child {
 			display: block;
 			padding-top: 2px;
-			padding-left: 19px;
 		}
 
 		/* SELECT */
@@ -143,4 +142,10 @@ i.mdi.error {
 		}
 
 	}
+}
+
+.inline .form-groupMaterial.rup-validate-field-error .error:last-child {
+	display: block;
+	position: absolute;
+	padding: initial;
 }
