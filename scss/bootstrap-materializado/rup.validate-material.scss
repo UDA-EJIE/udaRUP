@@ -68,7 +68,6 @@ i.mdi.error {
 		.error:last-child {
 			display: block;
 			padding-top: 2px;
-			padding-left: 19px;
 		}
 
 		/* SELECT */
@@ -194,17 +193,8 @@ i.mdi.error {
 	}
 }
 
-/* AYUDA A MOSTRAR EN CONJUNTO LOS ICONOS DE APERTURA Y ERROR DE RUP_SELECT */
-.form-groupMaterial.rup-validate-field-error[class*="col-"] {		
-	select[ruptype="select"] ~ i.mdi.error {
-		right: 35px;
-	}
-}
-
-:not(.form-row) {
-	> .form-groupMaterial.rup-validate-field-error[class*="col-"] {
-		select[ruptype="select"] ~ i.mdi.error {
-			right: 45px;
-		}
-	}
+.inline .form-groupMaterial.rup-validate-field-error .error:last-child {
+	display: block;
+	position: absolute;
+	padding: initial;
 }
