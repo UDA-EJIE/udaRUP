@@ -1272,11 +1272,14 @@
 				if (!repeticiones[name]) {
 					repeticiones[name] = { value, count: 0 };
 				}
-				repeticiones[name].count++;
-				if (repeticiones[name].count === 1) {
-					result.push({ name, value });
-				} else {
-					result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+				if(value != ""){
+					repeticiones[name].count++;
+				
+					if (repeticiones[name].count === 1) {
+						result.push({ name, value });
+					} else if($('[name=\'' + name + '\']').prop("type") != "hidden") {
+						result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+					}
 				}
 				return result;
 			}, []);
@@ -1314,7 +1317,7 @@
                     fieldId = $(field[fieldIteration++]).attr('id');
                     
                     // Reinicia el contador porque ya se han iterado todos los campos
-                    if (fieldIteration === field.length) {
+                    if (field.length == 0 || fieldIteration === field.length) {
                     	fieldIteration = 0;
                     }
                     
@@ -1330,10 +1333,18 @@
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
                     if (isRadio && settings.adapter === 'table_material') {
-                    	fieldName = $('#' + fieldId).closest('.form-radioGroupMaterial').children('label').html();
+						if($('label[data-name="'+aux[i].name+'"]').length == 1){
+							fieldName = $('label[data-name="'+aux[i].name+'"]').text();
+						}else{
+                    		fieldName = $('#' + fieldId).attr('name');
+						}
                     	isRadio = false;
                     } else if (isCheckbox && settings.adapter === 'table_material') {
-                		fieldName = $('#' + fieldId).closest('.form-checkboxGroupMaterial').children('label').html();
+						if($('label[data-name="'+aux[i].name+'"]').length == 1){
+								fieldName = $('label[data-name="'+aux[i].name+'"]').text();
+						}else{
+								fieldName = $('#' + fieldId).attr('name');
+						}
                     	if (searchString !== '' && searchString !== undefined && new RegExp(fieldName, 'i').test(searchString)) {
                     		searchString = searchString.replace(/.{2}$/,","); 
                     		fieldName = '';
@@ -1373,10 +1384,18 @@
                     //VALUE
                     fieldValue = ' = ';
 
-                    switch ($(field)[0].tagName) {
+                    switch (field.length > 0 && $(field)[0].tagName) {
 	                    case 'INPUT':
+							if($(field) != null && $(field)[0].type === 'checkbox' && $(field).length > 1){
+								fieldValue += aux[i].value;
+								break;
+							}
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-	                            fieldValue += label.html();
+								if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
+	                            	fieldValue += $(field).closest('label').text();
+								}else{
+									fieldValue += aux[i].value;
+								}
 	                        } else {
 	                        	//Mirar si es masterDetail
 	                            
@@ -1445,11 +1464,7 @@
                     if (fieldName === '' && fieldValue.trim() === '') {
                         continue;
                     }
-                    //Miramos si el elemento es es un checkbox o un radio, en caso de serlo revisamos fieldName para quitar los inputs
-		            if($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio'){
-						let fValue=fieldValue.split('<span>')[1];
-						fieldValue='<span> '+fValue;
-	          		} 
+ 
                     searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
