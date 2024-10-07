@@ -1035,6 +1035,11 @@
                     }
                 },
                 complete: function () {
+					if(ctx.oInit.formEdit.buttonsForm != undefined){
+						$.each(ctx.oInit.formEdit.buttonsForm, function(index, button) {
+						    $(button).prop('disabled', false);
+						});
+					}
                     $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax', [ctx, actionType]);
                 },
                 error: function (xhr) {
@@ -1124,6 +1129,10 @@
 				if (ajaxOptions.enctype != 'multipart/form-data') {
 					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
 				}
+				ctx.oInit.formEdit.buttonsForm = $('#' + ctx.sTableId + '_detail_div').find('button:enabled');
+				$.each(ctx.oInit.formEdit.buttonsForm, function(index, button) {
+				    $(button).prop('disabled', true);
+				});
 				$.rup_ajax(ajaxOptions);
             }
         }
