@@ -235,8 +235,8 @@
          * @name addTab
          * @param {string} args.idTab - Selector del componente pestaña
          * @param {integer} args.position - Posición de las pestaña a añadir
-         * @param {string} args.url - la url a añadir a la pestaña.
-         * @param {string} args.layer - identificador de un fragmento HTML previamente cargado.
+         * @param {string} args.url - URL a añadir a la pestaña.
+         * @param {string} args.layer - Identificador de un fragmento HTML previamente cargado.
          * @param {string} args.label - Literal a mostrar en la pestaña.
          * @example
 		 * // Añadir pestaña remota

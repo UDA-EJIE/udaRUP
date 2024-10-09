@@ -150,8 +150,8 @@ Función encargada de añadir una nueva pestaña cuando el componente ya está c
 | --- | --- | --- |
 | args.idTab | <code>string</code> | Selector del componente pestaña |
 | args.position | <code>integer</code> | Posición de las pestaña a añadir |
-| args.url | <code>string</code> | la url a añadir a la pestaña. |
-| args.layer | <code>string</code> | identificador de un fragmento HTML previamente cargado. |
+| args.url | <code>string</code> | URL a añadir a la pestaña. |
+| args.layer | <code>string</code> | Identificador de un fragmento HTML previamente cargado. |
 | args.label | <code>string</code> | Literal a mostrar en la pestaña. |
 
 **Example**  
