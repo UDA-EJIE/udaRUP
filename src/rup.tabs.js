@@ -238,11 +238,19 @@
          * @param {string} args.url - la url a añadir a la pestaña.
          * @param {string} args.label - Literal a mostrar en la pestaña.
          * @example
+		 * // Añadir pestaña remota
          * $("#tabs").rup_tabs("addTab",{
-         *    idTab: "tabs",
-         *  position: 2,
+         *   idTab: "tabs",
+         *   position: 2,
          *   url: "fragmento3"
-         *  });
+         * });
+		 * 
+		 * // Añadir pestaña local
+         * $("#tabs").rup_tabs("addTab",{
+         *   idTab: "tabs",
+         *   position: 2,
+         *   layer: "#fragmentoLocal"
+         * });
          */
         addTab: function (args) {
             var newTab, auxTabName, nameLiteral = 'rup-tabs-',
