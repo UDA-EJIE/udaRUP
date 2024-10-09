@@ -1757,7 +1757,7 @@
         }
 
         if (multiSelect === false) {
-            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(), ctx.oInit), 0, pagina, 0, ctx);
+            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(), ctx.oInit), 0, pagina, undefined, ctx);
             //Cuando se resta de 1 en 1 la accion es empty
             ctx.multiselection.accion = '';
             var deselectes = this.deselect();
@@ -1819,7 +1819,7 @@
                         $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
                         //para seleccionar todos los de la pagina actual.
-                        maintIdsRows(DataTable, id, 1, pagina, 0, ctx);
+                        maintIdsRows(DataTable, id, 1, pagina, undefined, ctx);
                     }
                 });
             }
@@ -1937,7 +1937,7 @@
             //para deseleccionar todos los de la pagina actual.
             if ((ctx.multiselection.numSelected > 0 && ctx.multiselection.accion === 'uncheckAll') ||
                 (ctx.multiselection.numSelected >= 0 && ctx.multiselection.accion === 'uncheck')) {
-                maintIdsRows(DataTable, id, 0, false, 0, ctx);
+                maintIdsRows(DataTable, id, 0, false, undefined, ctx);
             } else if (ctx.multiselection.accion === '') { //es que se resta uno solo.
                 ctx.multiselection.numSelected--;
             }
