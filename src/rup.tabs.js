@@ -235,14 +235,23 @@
          * @name addTab
          * @param {string} args.idTab - Selector del componente pestaña
          * @param {integer} args.position - Posición de las pestaña a añadir
-         * @param {string} args.url - la url a añadir a la pestaña.
+         * @param {string} args.url - URL a añadir a la pestaña.
+         * @param {string} args.layer - Identificador de un fragmento HTML previamente cargado.
          * @param {string} args.label - Literal a mostrar en la pestaña.
          * @example
+		 * // Añadir pestaña remota
          * $("#tabs").rup_tabs("addTab",{
-         *    idTab: "tabs",
-         *  position: 2,
+         *   idTab: "tabs",
+         *   position: 2,
          *   url: "fragmento3"
-         *  });
+         * });
+		 * 
+		 * // Añadir pestaña local
+         * $("#tabs").rup_tabs("addTab",{
+         *   idTab: "tabs",
+         *   position: 2,
+         *   layer: "#fragmentoLocal"
+         * });
          */
         addTab: function (args) {
             var newTab, auxTabName, nameLiteral = 'rup-tabs-',
@@ -480,9 +489,6 @@
 					}
 					$('#' + settings.id).triggerHandler('load');
 				}
-
-				//Se audita el componente
-				$.rup.auditComponent('rup_tabs', 'init');
 			}).catch((error) => {
 				console.error('Error al inicializar el componente:\n', error);
 			});

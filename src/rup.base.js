@@ -33,7 +33,7 @@
 }(function ($) {
 
     // NO MODIFICAR: (AUTOGENERADO)
-    var rup_version = '6.0.0';
+    var rup_version = '6.1.0';
 
     jQuery.migrateMute = true;
 
@@ -395,18 +395,7 @@
             $.rup.LOCALE_PARAM_NAME = window.LOCALE_PARAM_NAME;
             //metodos http permitidos en la emulacion xhr para el uso con iframes
             $.rup.IFRAME_ONLY_SUPPORTED_METHODS = ['GET', 'POST'];
-            //Auditoria
-            if(window.AUDIT_PATH) {
-                $.rup.AUDIT_PATH = window.AUDIT_PATH;
-            }
-            else {
-                if($.rup.CTX_PATH[$.rup.CTX_PATH.length -1 ] === '/') {
-                    $.rup.AUDIT_PATH =$.rup.CTX_PATH + 'audit';
-                }
-                else {
-                    $.rup.AUDIT_PATH =$.rup.CTX_PATH + '/audit';
-                }
-            }
+			
             if(window.IS_EJIE) {
                 $.rup.IS_EJIE = window.IS_EJIE;
             }
@@ -801,33 +790,6 @@
         },
         isShiftPressed: function () {
             return jQuery('body').data('tmp.multiselect.shiftPressed') === true;
-        }
-    });
-    /**
-	 * Creamos la funcion que audita el componente
-	 */
-    function prepareAuditData (compName, auditing) {
-        return {
-            'url': window.location.href,
-            'versionRup': $.rup.version,
-            'nombreComponente': compName,
-            'codApp': $.rup.APP_RESOURCES,
-            'timeStamp': Date.now(),
-            'auditing': auditing
-        };
-    }
-    function ajaxAudit (jsonPost) {
-        $.ajax($.rup.AUDIT_PATH,{
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(jsonPost)
-        });
-    }
-    jQuery.extend($.rup,{
-        auditComponent: function(compName, auditing) {
-            if($.rup.IS_EJIE) {
-                ajaxAudit(prepareAuditData(compName, auditing));
-            }
         }
     });
 

@@ -17,7 +17,7 @@ $btn-material-box-shadow-active:
 
 /* ESTILOS ESPECIFICOS DE LOS BOTONES */
 /* ENFASIS ALTO */
-.btn-material[class*="primary-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="primary-high-emphasis"], .btn-material[class*="primary-high-emphasis"] {
 	background-color: $primary-color;
 	
 	&:hover {
@@ -32,10 +32,19 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $primary-color;
 		background-color: $primary-color-very-dark;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $primary-color;
+		
+		&:focus {
+			background-color: $primary-color-very-dark;
+			border-color: $primary-color;
+		}
+	}
 }
 
-.btn-material[class*="secondary-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="secondary-high-emphasis"], .btn-material[class*="secondary-high-emphasis"] {
 	background-color: $secondary-color;	
 	
 	&:hover {
@@ -50,10 +59,19 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $secondary-color;
 		background-color: $secondary-color-very-dark;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $secondary-color;
+
+		&:focus {
+			background-color: $secondary-color-very-dark;
+			border-color: $secondary-color;
+		}
+	}
 }
 
-.btn-material[class*="success-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="success-high-emphasis"], .btn-material[class*="success-high-emphasis"] {
 	background-color: $success-color;	
 	
 	&:hover {
@@ -68,10 +86,19 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $success-color;
 		background-color: $success-color-very-dark;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $success-color;
+
+		&:focus {
+			background-color: $success-color-very-dark;
+			border-color: $success-color;
+		}
+	}
 }
 
-.btn-material[class*="danger-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="danger-high-emphasis"], .btn-material[class*="danger-high-emphasis"] {
 	background-color: $danger-color;	
 	
 	&:hover {
@@ -86,10 +113,19 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $danger-color;
 		background-color: $danger-color-very-dark;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $danger-color;
+
+		&:focus {
+			background-color: $danger-color-very-dark;
+			border-color: $danger-color;
+		}
+	}
 }
 
-.btn-material[class*="warning-dark-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="warning-dark-high-emphasis"], .btn-material[class*="warning-dark-high-emphasis"] {
 	background-color: $warning-color;	
 	
 	&:hover {
@@ -104,10 +140,19 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $warning-color;
 		background-color: $warning-color-very-dark;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $warning-color;
+
+		&:focus {
+			background-color: $warning-color-very-dark;
+			border-color: $warning-color;
+		}
+	}
 }
 
-.btn-material[class*="info-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="info-high-emphasis"], .btn-material[class*="info-high-emphasis"] {
 	background-color: $info-color;	
 	
 	&:hover {
@@ -123,10 +168,19 @@ $btn-material-box-shadow-active:
 		background-color: $info-color;
 		background-color: $info-color-very-dark;
 	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $info-color;
+
+		&:focus {
+			background-color: $info-color-very-dark;
+			border-color: $info-color;
+		}
+	}
 }
 
 /* ENFASIS MEDIO */
-.btn-material[class*="primary-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="primary-medium-emphasis"], .btn-material[class*="primary-medium-emphasis"] {
 	color: $primary-color;			
 	
 	&:hover {
@@ -139,10 +193,14 @@ $btn-material-box-shadow-active:
 		background-color: $primary-color-light;
 		border-color: $primary-color-light;
 		color: $white-color;
-	}	
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $primary-color-light;
+	}
 }
 
-.btn-material[class*="secondary-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="secondary-medium-emphasis"], .btn-material[class*="secondary-medium-emphasis"] {
 	color: $secondary-color;			
 	
 	&:hover {
@@ -155,10 +213,14 @@ $btn-material-box-shadow-active:
 		background-color: $secondary-color-light;
 		border-color: $secondary-color-light;
 		color: $white-color;
-	}	
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $secondary-color-light;
+	}
 }
 
-.btn-material[class*="success-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="success-medium-emphasis"], .btn-material[class*="success-medium-emphasis"] {
 	color: $success-color;				
 	
 	&:hover {
@@ -171,10 +233,14 @@ $btn-material-box-shadow-active:
 		background-color: $success-color-light;
 		border-color: $success-color-light;
 		color: $white-color;
-	}	
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $success-color-light;
+	}
 }
 
-.btn-material[class*="danger-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="danger-medium-emphasis"], .btn-material[class*="danger-medium-emphasis"] {
 	color: $danger-color;			
 	
 	&:hover {
@@ -187,10 +253,14 @@ $btn-material-box-shadow-active:
 		background-color: $danger-color-light;
 		border-color: $danger-color-light;
 		color: $white-color;
-	}	
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $danger-color-light;
+	}
 }
 
-.btn-material[class*="warning-dark-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="warning-dark-medium-emphasis"], .btn-material[class*="warning-dark-medium-emphasis"] {
 	&:hover {
 		background-color: $warning-color-very-light;
 		border-color: $warning-color-very-light;
@@ -199,10 +269,14 @@ $btn-material-box-shadow-active:
 	&:focus {
 		background-color: $warning-color-light;
 		border-color: $warning-color-light;
-	}	
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $warning-color-light;
+	}
 }
 
-.btn-material[class*="info-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="info-medium-emphasis"], .btn-material[class*="info-medium-emphasis"] {
 	color: $info-color;			
 	
 	&:hover {
@@ -215,11 +289,15 @@ $btn-material-box-shadow-active:
 		background-color: $info-color-light;
 		border-color: $info-color-light;
 		color: $white-color;
-	}		
+	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		background-color: $info-color-light;
+	}
 }
 
 /* ENFASIS BAJO */
-.btn-material[class*="primary-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="primary-low-emphasis"], .btn-material[class*="primary-low-emphasis"] {
 	color: $primary-color;	
 	
 	&:hover {
@@ -241,7 +319,7 @@ $btn-material-box-shadow-active:
 	}
 }
 
-.btn-material[class*="secondary-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="secondary-low-emphasis"], .btn-material[class*="secondary-low-emphasis"] {
 	color: $secondary-color;	
 	
 	&:hover {
@@ -263,7 +341,7 @@ $btn-material-box-shadow-active:
 	}
 }
 
-.btn-material[class*="success-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="success-low-emphasis"], .btn-material[class*="success-low-emphasis"] {
 	color: $success-color;	
 	
 	&:hover {
@@ -285,7 +363,7 @@ $btn-material-box-shadow-active:
 	}
 }
 
-.btn-material[class*="danger-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="danger-low-emphasis"], .btn-material[class*="danger-low-emphasis"] {
 	color: $danger-color;	
 	
 	&:hover {
@@ -307,7 +385,7 @@ $btn-material-box-shadow-active:
 	}
 }
 
-.btn-material[class*="warning-dark-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="warning-dark-low-emphasis"], .btn-material[class*="warning-dark-low-emphasis"] {
 	color: $black-color;	
 	
 	&:hover {
@@ -324,7 +402,7 @@ $btn-material-box-shadow-active:
 	}
 }
 
-.btn-material[class*="info-low-emphasis"] {
+div.dt-buttons button.btn-material[class*="info-low-emphasis"], .btn-material[class*="info-low-emphasis"] {
 	color: $info-color;	
 	
 	&:hover {
@@ -348,7 +426,7 @@ $btn-material-box-shadow-active:
 
 /* ESTILOS GENERALES DE LOS ENFASIS DE LOS BOTONES */
 /* ENFASIS ALTO */
-.btn-material[class*="high-emphasis"] {
+div.dt-buttons button.btn-material[class*="high-emphasis"], .btn-material[class*="high-emphasis"] {
 	color: $white-color;
 	box-shadow: $btn-material-box-shadow;	
 	
@@ -363,9 +441,13 @@ $btn-material-box-shadow-active:
 		opacity: $opacity-active;
 		box-shadow: $btn-material-box-shadow-active;
 	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		box-shadow: $btn-material-box-shadow-active;
+	}
 }
 
-.btn-material[class*="dark-high-emphasis"] {
+div.dt-buttons button.btn-material[class*="dark-high-emphasis"], .btn-material[class*="dark-high-emphasis"] {
 	color: $black-color;	
 	
 	&:hover {
@@ -378,7 +460,7 @@ $btn-material-box-shadow-active:
 }
 
 /* ENFASIS MEDIO */
-.btn-material[class*="medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="medium-emphasis"], .btn-material[class*="medium-emphasis"] {
 	background-color: $white-color;
 	border-color: $white-color;
 	box-shadow: $btn-material-box-shadow;	
@@ -390,9 +472,13 @@ $btn-material-box-shadow-active:
 	&:active {
 		box-shadow: $btn-material-box-shadow-active;
 	}
+
+	&:active:not(.disabled):hover:not(.disabled) {
+		box-shadow: $btn-material-box-shadow-active;
+	}
 }
 
-.btn-material[class*="dark-medium-emphasis"] {
+div.dt-buttons button.btn-material[class*="dark-medium-emphasis"], .btn-material[class*="dark-medium-emphasis"] {
 	color: $black-color;	
 	
 	&:hover {
@@ -401,12 +487,12 @@ $btn-material-box-shadow-active:
 }
 
 /* ENFASIS BAJO */
-.btn-material[class*="low-emphasis"] {
+div.dt-buttons button.btn-material[class*="low-emphasis"], .btn-material[class*="low-emphasis"] {
 	border-color: $no-color;
 }
 
 /* ESTILOS GENERICOS */
-.btn-material {
+div.dt-buttons button.btn-material, .btn-material {
 	min-width: 64px;
 	height: 30px;
 	padding: 6px 10px;
@@ -419,6 +505,11 @@ $btn-material-box-shadow-active:
 	text-decoration: none;
 	text-transform: uppercase;
 	box-sizing: border-box;
+	
+	/* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE MAS FINO CUANDO SE HACE HOVER SOBRE EL ELEMENTO */
+	&:hover {
+		border: 2px solid $no-color;
+	}
 	
 	/* ESTILOS PARA EVITAR QUE EL NAVEGADOR PINTE UN BORDE CUANDO EL ELEMENTO TIENE EL FOCO */
 	&:focus {
@@ -453,7 +544,7 @@ $btn-material-box-shadow-active:
 }
 
 /* ESTILOS PARA CREAR BOTONES MAS PEQUEÑOS */
-.btn-material-sm {
+div.dt-buttons button.btn-material-sm, .btn-material-sm {
 	height: 26px;
 	font-size: 0.85rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	padding: 6px 8px;
@@ -465,7 +556,7 @@ $btn-material-box-shadow-active:
 }
 
 /* ESTILOS PARA CREAR BOTONES MAS GRANDES */
-.btn-material-lg {
+div.dt-buttons button.btn-material-lg, .btn-material-lg {
 	font-size: 1rem !important; /* Cuando se quiten las clases de jquery-ui el !important será innecesario */
 	height: 34px;
 	padding: 6px 13px;
@@ -478,7 +569,7 @@ $btn-material-box-shadow-active:
 }
 
 /* ESTILOS PARA UN GRUPO DE BOTONES */
-.btn-group .btn-material {
+div.dt-buttons .btn-group button.btn-material, .btn-group .btn-material {
 	line-height: 1.5;
 	margin: 0 -2px;
 	text-align: center;

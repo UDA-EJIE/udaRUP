@@ -1,5 +1,5 @@
 /*!
- * modernizr v3.12.0
+ * modernizr v3.13.0
  * Build https://modernizr.com/download?-checked-json-supports-target-addtest-atrule-domprefixes-hasevent-load-mq-prefixed-prefixedcss-prefixes-printshiv-setclasses-testallprops-testprop-teststyles-dontmin
  *
  * Copyright (c)
@@ -35,7 +35,7 @@
    * @access public
    */
   var ModernizrProto = {
-    _version: '3.12.0',
+    _version: '3.13.0',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.

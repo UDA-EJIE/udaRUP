@@ -541,7 +541,7 @@
 
 						} else if(formElem.attr('ruptype') === 'select') {
 							// Necesario invocar al método search que por detrás se encargará de llamar a setRupValue.
-							formElem['rup_' + formElem.attr('ruptype')]('search', aData[i]);
+							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
 						} else {
 							// Forma de evitar el EVAL
 							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);

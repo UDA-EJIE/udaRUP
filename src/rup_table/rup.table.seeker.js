@@ -59,7 +59,7 @@
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      *
@@ -138,7 +138,7 @@
      *
      * @name createFilterColumn
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
@@ -210,7 +210,7 @@
      *
      * @name createSearchRow
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
@@ -364,7 +364,7 @@
      *
      * @name selectSearch
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
@@ -415,7 +415,7 @@
      *
      * @name paginar
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
      * @param {object} dato - Son los datos de las filas que viene del controller..
@@ -435,7 +435,7 @@
      *
      * @name updateDetailSeekPagination
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {integer} currentRowNum - Número de la posción actual del registro selecionado.
      * @param {integer} totalRowNum - Número total de registros seleccionados.
@@ -466,7 +466,7 @@
      *
      * @name processData
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
@@ -499,7 +499,7 @@
      *
      * @name getDatos
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} ctx - Es el contexto del table donde esta la configuración del mismo.
      * 
@@ -524,7 +524,7 @@
      *
      * @name createRupComponent
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.

@@ -30,9 +30,6 @@ module.exports = {
     devServer: {
         port: 8080,
         proxy: [{
-            context: '/audit',
-            target: 'http://localhost:8081/'
-        }, {
             context: '/demo/rup/resources',
             target: 'http://localhost:8080/',
             pathRewrite: {
@@ -116,7 +113,6 @@ module.exports = {
                     	postcssOptions: {
                     		plugins: function () { // post css plugins, can be exported to postcss.config.js
                             	return [
-                                	require('precss'),
                                 	require('autoprefixer')
                                 ];
                         	}

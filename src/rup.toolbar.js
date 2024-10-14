@@ -423,9 +423,6 @@
 						t.addButton(dObj, json_i18n);
 					}
 				}
-
-				//Se audita el componente
-				$.rup.auditComponent('rup_toolbar', 'init');
 			});
 		}).catch((error) => {
 			console.error('Error al inicializar el componente:\n', error);

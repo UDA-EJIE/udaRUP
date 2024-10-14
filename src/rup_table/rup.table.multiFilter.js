@@ -58,7 +58,7 @@
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      *
@@ -652,7 +652,7 @@
      *
      * @name _clearFilter
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} options Opciones del componente
      *

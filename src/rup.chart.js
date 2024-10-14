@@ -210,8 +210,6 @@
                 //almacenar el Objecto Chart
                 $('#' + settings.id).data('chart', grafico);
             }
-            //Se audita el componente
-            $.rup.auditComponent('rup_chart', 'init');
         }
 
     });
