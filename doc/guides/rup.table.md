@@ -131,7 +131,13 @@ jQuery(function($){
             name: 'nombre',
             index: 'nombre',
             editable: true,
-            hidden: false
+            hidden: false,
+			editoptions: {
+				maxlength: 20
+			},
+			searchoptions: {
+				maxlength: 20
+			}
         },
         {
             name: 'apellido1',
@@ -626,7 +632,13 @@ const miColModel = [
         name: 'nombre',
         index: 'nombre',
         editable: true,
-        hidden: false
+        hidden: false,
+		editoptions: {
+			maxlength: 20
+		},
+		searchoptions: {
+			maxlength: 20
+		}
     },
     {
         name: 'apellido1',
@@ -739,66 +751,5 @@ Propiedades destacadas:
 * **orderable**: permite deshabilitar la ordenación de una columna.
 * **rupType**: tipo RUP del campo.
 * **edittype**: cuando se habilite la edición en línea y se defina esta propiedad con un valor "checkbox", la tabla convertirá un input normal en uno de tipo checkbox.
-* **editoptions**: sirve para configurar todas las opciones de los campos RUP en edición.
-* **searchoptions**: sirve para configurar todas las opciones de los campos RUP en el buscador (seeker).
-
-## 10. Aspectos a tener en cuenta
-Siempre que se necesite filtrar la tabla por el campo que forme la clave primaria y Hdiv esté activado, será necesario enviar al servidor el valor cifrado. Esto significa que los valores a usar, siempre han tenido que ser enviados previamente por el servidor ya que mantiene una copia para impedir la inserción de valores desde el cliente, evitando así posibles ataques. 
-En caso de hacer uso de un componente autocomplete o combo, puede usarse la entidad `AutocompleteComboPKsPOJO` para formar una lista que después se devolverá en la petición realizada por los componentes anteriormente mencionados y que por supuesto, tendrá los valores cifrados. A continuación, un ejemplo del uso de la entidad:
-
-* Configuración de la vista:
-    ```js
-    $('#nameLog_filter_table').rup_autocomplete({
-    	source : './name',
-       	sourceParam : {label: 'label', value: 'value'},
-       	menuMaxHeight: 200,
-       	minLength: 3,
-       	combobox: true,
-       	contains: true,
-       	showDefault: true
-    });
-    ```
-
-* Controlador:
-    ```java
-    @UDALink(name = "getName")
-    @RequestMapping(value = "/name", method = RequestMethod.GET)
-    public @ResponseBody List<Resource<AutocompleteComboPKsPOJO>> getName(
-            @RequestParam(value = "q", required = false) String q,
-            @RequestParam(value = "c", required = false) Boolean c) {
-        return LoggingEditor.getNames(q);
-    }
-    ```
-    
-* Servicio:
-    ```java
-    /** 
-	 * Devuelve los nombres disponibles.
-	 *
-	 * @param q String enviado por el cliente para la búsqueda de resultados.
-	 * @return List<Resource<AutocompleteComboPKsPOJO>>
-	 */
-	public static List<Resource<AutocompleteComboPKsPOJO>> getNames(String q) {		
-		List<LogModel> listalogs = getLoggers((LoggerContext) LoggerFactory.getILoggerFactory(), false);
-		List<AutocompleteComboPKsPOJO> columnValues = new ArrayList<AutocompleteComboPKsPOJO>();
-
-		if(q != null) {
-	    		q = Normalizer.normalize(q, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-		} else {
-	    		q = "";
-		}
-
-		for (int i = 0; i < listalogs.size(); i++){	
-	    		if (listalogs.get(i).getNameLog() != null) {
-				String name = listalogs.get(i).getNameLog();
-		    		name = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-
-		    		if (q.equals("") || name.indexOf(q) >= 0) {
-					columnValues.add(new AutocompleteComboPKsPOJO(name, name));
-		    		}
-	    		}
-	    	}
-		
-	 	return ResourceUtils.fromListToResource(columnValues);
-	}
-    ```
+* **editoptions**: sirve para configurar todas las opciones de los campos en edición.
+* **searchoptions**: sirve para configurar todas las opciones de los campos en el buscador (seeker).
