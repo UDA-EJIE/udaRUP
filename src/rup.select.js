@@ -2136,6 +2136,7 @@
 	 *           retrocompatibilidad.
 	 * @property {boolean} [autocomplete=false] - Habilita la funcionalidad de
 	 *           autocompletado, permitiendo hacer búsquedas sobre los resultados.
+	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora.
 	 */
 	$.fn.rup_select.defaults = {
 		onLoadError: null,
