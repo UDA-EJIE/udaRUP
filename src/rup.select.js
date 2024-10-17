@@ -2148,7 +2148,8 @@
 		cache: true,
 		multiple: false,
 		defaultValueAutocompleteNotLoaded: false,
-		multiValueToken: '##'
+		multiValueToken: '##',
+		spaceEnable: true
 	};
 }));
 
