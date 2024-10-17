@@ -2100,22 +2100,20 @@
 	 * @property {boolean} [autocomplete=false] - Habilita la funcionalidad de
 	 *           autocompletado, permitiendo hacer búsquedas sobre los resultados.
 	 */
-    $.fn.rup_select.defaults = {
-        onLoadError: null,
-        width: '100%',
-        customClasses: ['select-material'],
-        blank: "-1",
-        minimumResultsForSearch: Infinity,
-        submitAsJSON: false,
-        dataType: 'json',
-        cache: true,
-        multiple: false,
-        defaultValueAutocompleteNotLoaded: false,
-        multiValueToken:'##',
-		spaceEnable:true
-        };
-
-
+	$.fn.rup_select.defaults = {
+		onLoadError: null,
+		width: '100%',
+		customClasses: ['select-material'],
+		blank: "-1",
+		minimumResultsForSearch: Infinity,
+		submitAsJSON: false,
+		dataType: 'json',
+		cache: true,
+		multiple: false,
+		defaultValueAutocompleteNotLoaded: false,
+		multiValueToken: '##',
+		spaceEnable: true
+	};
 }));
 
 function chargedStyles(data){
