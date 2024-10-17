@@ -131,7 +131,13 @@ jQuery(function($){
             name: 'nombre',
             index: 'nombre',
             editable: true,
-            hidden: false
+            hidden: false,
+			editoptions: {
+				maxlength: 20
+			},
+			searchoptions: {
+				maxlength: 20
+			}
         },
         {
             name: 'apellido1',
@@ -627,7 +633,13 @@ const miColModel = [
         name: 'nombre',
         index: 'nombre',
         editable: true,
-        hidden: false
+        hidden: false,
+		editoptions: {
+			maxlength: 20
+		},
+		searchoptions: {
+			maxlength: 20
+		}
     },
     {
         name: 'apellido1',
@@ -740,5 +752,5 @@ Propiedades destacadas:
 * **orderable**: permite deshabilitar la ordenación de una columna.
 * **rupType**: tipo RUP del campo.
 * **edittype**: cuando se habilite la edición en línea y se defina esta propiedad con un valor "checkbox", la tabla convertirá un input normal en uno de tipo checkbox.
-* **editoptions**: sirve para configurar todas las opciones de los campos RUP en edición.
-* **searchoptions**: sirve para configurar todas las opciones de los campos RUP en el buscador (seeker).
+* **editoptions**: sirve para configurar todas las opciones de los campos en edición.
+* **searchoptions**: sirve para configurar todas las opciones de los campos en el buscador (seeker).

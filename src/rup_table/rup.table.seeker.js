@@ -168,7 +168,9 @@
                 } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
                     $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
                 } else {
-                    $(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"/>');
+					const maxlength = $.rup_utils.isNumeric(result[0].searchoptions?.maxlength) ? ' maxlength="' + result[0].searchoptions.maxlength + '"' : '';
+
+					$(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"' + maxlength + '/>');
                 }
             }
         });
