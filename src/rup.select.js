@@ -757,9 +757,9 @@
          * @function option
          * @example
          * // Establecer una propiedad
-         * $("#idSelect").rup_select("option", "minLegth", 2);
+         * $("#idSelect").rup_select("option", "minimumResultsForSearch", 2);
          * // Establecer varias propiedad
-         * $("#idSelect").rup_select("option", {minLegth:2, delay:1000});
+         * $("#idSelect").rup_select("option", {minimumResultsForSearch:2, delay:1000});
          */
 		option: function (optionName, value, removeOptions) {
         	let settings = $(this).data('settings');
@@ -1328,7 +1328,14 @@
 									}
 								});
 							} else {
-								$('#' + settings.id).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
+								if(settings.autocomplete){
+								  let valorInput = mySelect.selection.$selection.find('input').val() 
+								  $('#' + settings.id).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
+								  mySelect.selection.$selection.find('input').val(valorInput); 
+								  mySelect.selection.$selection.find('input').focus();
+								}else{
+									$('#' + settings.id).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
+								}
 							}
 				          
 				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
@@ -1412,6 +1419,10 @@
                  }
         		if(settings.autocomplete){
         			$('#' + settings.id).select2MultiCheckboxes(settings);
+					if(settings.spaceEnable){//permitir en la busqueda en espacio
+						sel = $('#' + settings.id).data('select2').selection;
+						sel.$selection.off('keydown');
+					}
         		}else{
         			$('#' + settings.id).select2(settings);
         		}
@@ -1831,8 +1842,11 @@
 	                			}
 	        
 	                			$('#' + settings.id).select2MultiCheckboxes(settings);
+								let mySelect2 = $('#' + settings.id).data('select2');
+								if(settings.spaceEnable){//permitir en la busqueda en espacio
+									mySelect2.$selection.off('keydown');
+								}
 	                			if(settings.defaultValue != undefined){
-	                				let mySelect2 = $('#' + settings.id).data('select2');
 	                				mySelect2.$selection.find('input').val(settings.defaultValue);
 	                				if(settings.selected == undefined && mySelect2.dataAdapter._dataToConvert != undefined && mySelect2.dataAdapter._dataToConvert.length > 0){
 		                			    let data = $.grep(mySelect2.dataAdapter._dataToConvert, function (v) {
@@ -1853,6 +1867,7 @@
 			                	mySelect2.on('close', function (e) {
 				                	if (Object.keys(e).length === 1) {
 				                	  mySelect2.$selection.find('input').val('');
+									  settings.selected = undefined;
 					                  $('#' + settings.id).val(null).trigger('change');
 					                  if(!settings.closeOnSelect){
 					                	  $('#' + settings.id).select2('open');
@@ -1876,7 +1891,8 @@
                 			let remotoSelect = $('#' + settings.id).data('select2');
                 			remotoSelect.on('close', function (e) {
 			                	if (Object.keys(e).length === 1) {
-			                		remotoSelect.$selection.find('input').val('');
+			                	  remotoSelect.$selection.find('input').val('');
+								  settings.selected = undefined;	
 				                  $('#' + settings.id).val(null).trigger('change');
 				                  if(!settings.closeOnSelect){
 				                	  $('#' + settings.id).select2('open');
@@ -2130,7 +2146,8 @@
         cache: true,
         multiple: false,
         defaultValueAutocompleteNotLoaded: false,
-        multiValueToken:'##'
+        multiValueToken:'##',
+		spaceEnable:true
         };
 
 
