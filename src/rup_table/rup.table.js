@@ -316,7 +316,7 @@
          *
          * @name _initOptions
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -428,7 +428,7 @@
              *
              * @name comparePKs
              * @function
-             * @since UDA 5.0.0 // Table 1.0.0
+             * @since UDA 5.0.0
              * 
              * @param {object} firstRow - Fila de la tabla a comparar.
              * @param {object} secondRow - Fila de la tabla a comparar.
@@ -447,7 +447,7 @@
              *
              * @name blockPKEdit
              * @function
-             * @since UDA 3.7.0 // Table 1.0.0
+             * @since UDA 3.7.0
              *
              * @param {object} ctx - Settings object to operate on.
              * @param {string} actionType - Método de operación CRUD.
@@ -586,7 +586,7 @@
          *
          * @name _getDescendantProperty
          * @function
-         * @since UDA 4.1.0 // Table 1.0.0
+         * @since UDA 4.1.0
          *
          * @param {object} obj - Valores de la fila
          * @param {string} key - Clave para extraer el valor
@@ -623,7 +623,7 @@
          *
          * @name _getColumns
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -720,7 +720,7 @@
          *
          * @name _doFilter
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -752,7 +752,7 @@
          *
          * @name _ajaxOptions
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -815,7 +815,7 @@
          *
          * @name _ajaxRequestData
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} data Opciones del table
          * @param {object} ctx contexto  del componente table
@@ -895,7 +895,7 @@
          *
          * @name _createSearchPaginator
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} tabla Objeto que contiene la tabla
          * @param {object} settingsT Opciones del componente
@@ -981,7 +981,7 @@
          *
          * @name _clearFilter
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          * @param {object} options Opciones del componente
          *
@@ -1191,8 +1191,10 @@
 
                 // Validaciones 
                 if (filterOpts.rules) {
+					const {$feedbackContainer, ...feedbackOptions} = options.feedback;
                     filterOpts.$filterContainer.rup_validate({
                         feedback: options.feedback.$feedbackContainer,
+                        feedbackOptions: feedbackOptions,
                         rules: filterOpts.rules
                     });
                 }
@@ -1249,11 +1251,14 @@
 				if (!repeticiones[name]) {
 					repeticiones[name] = { value, count: 0 };
 				}
-				repeticiones[name].count++;
-				if (repeticiones[name].count === 1) {
-					result.push({ name, value });
-				} else {
-					result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+				if(value != ""){
+					repeticiones[name].count++;
+				
+					if (repeticiones[name].count === 1) {
+						result.push({ name, value });
+					} else if($('[name=\'' + name + '\']').prop("type") != "hidden") {
+						result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
+					}
 				}
 				return result;
 			}, []);
@@ -1291,17 +1296,25 @@
                     fieldId = $(field[fieldIteration++]).attr('id');
                     
                     // Reinicia el contador porque ya se han iterado todos los campos
-                    if (fieldIteration === field.length) {
+                    if (field.length == 0 || fieldIteration === field.length) {
                     	fieldIteration = 0;
                     }
 
                     //NAME
                     label = $('label[for^=\'' + fieldId + '\']', searchForm);
                     if (isRadio && settings.adapter === 'table_material') {
-                    	fieldName = $('#' + fieldId).closest('.form-radioGroupMaterial').children('label').html();
+						if($('label[data-name="'+aux[i].name+'"]').length == 1){
+							fieldName = $('label[data-name="'+aux[i].name+'"]').text();
+						}else{
+                    		fieldName = $('#' + fieldId).attr('name');
+						}
                     	isRadio = false;
                     } else if (isCheckbox && settings.adapter === 'table_material') {
-                		fieldName = $('#' + fieldId).closest('.form-checkboxGroupMaterial').children('label').html();
+						if($('label[data-name="'+aux[i].name+'"]').length == 1){
+								fieldName = $('label[data-name="'+aux[i].name+'"]').text();
+						}else{
+								fieldName = $('#' + fieldId).attr('name');
+						}
                     	if (searchString !== '' && searchString !== undefined && new RegExp(fieldName, 'i').test(searchString)) {
                     		searchString = searchString.replace(/.{2}$/,","); 
                     		fieldName = '';
@@ -1324,10 +1337,18 @@
                     //VALUE
                     fieldValue = ' = ';
 
-                    switch ($(field)[0].tagName) {
+                    switch (field.length > 0 && $(field)[0].tagName) {
 	                    case 'INPUT':
+							if($(field) != null && $(field)[0].type === 'checkbox' && $(field).length > 1){
+								fieldValue += aux[i].value;
+								break;
+							}
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-	                            fieldValue += label.html();
+								if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
+	                            	fieldValue += $(field).closest('label').text();
+								}else{
+									fieldValue += aux[i].value;
+								}
 	                        } else {
 	                        	//Mirar si es masterDetail
 								fieldValue += $(field).val();
@@ -1390,11 +1411,7 @@
                     if (fieldName === '' && fieldValue.trim() === '') {
                         continue;
                     }
-                    //Miramos si el elemento es es un checkbox o un radio, en caso de serlo revisamos fieldName para quitar los inputs
-		            if($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio'){
-						let fValue=fieldValue.split('<span>')[1];
-						fieldValue='<span> '+fValue;
-	          		} 
+ 
                     searchString = searchString + fieldName + fieldValue + '; ';
                 }
             }
@@ -1465,7 +1482,7 @@
          *
          * @name initializeMultiselectionProps
          * @function
-         * @since UDA 3.4.0 // Table 1.0.0
+         * @since UDA 3.4.0
          *
          *
          */
@@ -1744,7 +1761,9 @@
                 tabla.on('draw', function (e, settingsTable) {
                     var ctx = tabla.context[0];
                     
-					$self._showSearchCriteria();
+					if (filterOptions != 'noFilter') {
+						$self._showSearchCriteria();
+					}
                     
                     if (options.searchPaginator) { //Mirar el crear paginador
                         $self._createSearchPaginator($(this), settingsTable);
@@ -1794,7 +1813,7 @@
                                 DataTable.Api().editForm.updateDetailPagination(ctx, index, numTotal);
                             }
                             
-                            if (ctx.multiselection.selectedRowsPerPage.length === 1) {
+                            if (ctx.multiselection.selectedRowsPerPage.length === 1 && ctx.multiselection.selectedRowsPerPage[0].page == ctx.json.page) {
                                 DataTable.Api().select.selectRowIndex(tabla, ctx.multiselection.selectedRowsPerPage[0].line, false);
                             }
                             
@@ -1903,10 +1922,6 @@
                         DataTable.Api().editForm.addchildIcons(tabla.context[0]);
                     }));
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_table', 'init');
-
             }).catch((error) => {
                 console.error('Error al inicializar el componente:\n', error);
             });

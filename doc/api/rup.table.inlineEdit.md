@@ -46,7 +46,7 @@ Módulo que habilita la edicción mediante un formulario.
 Se inicializa el componente editInline
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -58,7 +58,7 @@ Se inicializa el componente editInline
 Initialisation of a new table. Attach event handlers and callbacks to allowSelect to operate correctly.This will occur _after_ the initial DataTables initialisation, althoughbefore Ajax data is rendered, if there is ajax data
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Initialisation of a new table. Attach event handlers and callbacks to allowSele
 Función ejecutada cuando se activa el responsive.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -82,7 +82,7 @@ Función ejecutada cuando se activa el responsive.
 Se añade un nuevo registro.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -95,7 +95,7 @@ Se añade un nuevo registro.
 Se añaden los iconos al responsive.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -107,7 +107,7 @@ Se añaden los iconos al responsive.
 Método principal para la edición en línea.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -123,7 +123,7 @@ Método que obtiene la fila siguiente seleccionada.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Returns**: <code>object</code> - Contiene el identificador, la página y la línea de la fila seleccionada.  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -136,7 +136,7 @@ Método que obtiene la fila siguiente seleccionada.
 Método que clona el elemento seleccionado.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -151,7 +151,7 @@ Método que obtiene la página siguiente donde está el primer elemento o elemen
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Returns**: integer - devuele la página  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -166,7 +166,7 @@ Método que obtiene la linea siguiente donde está el primer elemento o elemento
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Returns**: integer - devuele la linea  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -179,7 +179,7 @@ Método que obtiene la linea siguiente donde está el primer elemento o elemento
 Se restaura la línea(fila) en la edición.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -192,7 +192,7 @@ Se restaura la línea(fila) en la edición.
 Cambia los inputs por los componentes rup.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -205,7 +205,7 @@ Cambia los inputs por los componentes rup.
 Método que recorre las celdas y las procesa.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -220,7 +220,7 @@ Método que recorre las celdas y las procesa.
 Método para restaurar las celdas.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -235,7 +235,7 @@ Método para restaurar las celdas.
 Comprueba que si la fila está en responsive mantenga el diseño.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -248,7 +248,7 @@ Comprueba que si la fila está en responsive mantenga el diseño.
 Crea los eventos asociados a la fila.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -262,7 +262,7 @@ Método para recorre las celdas y las procesa.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Returns**: devuelve si es el último index editado  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -275,7 +275,7 @@ Método para recorre las celdas y las procesa.
 Metodo que serializa los datos del formulario.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.2.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -289,7 +289,7 @@ Metodo que serializa los datos del formulario.
 Método para llamar al ajax de guardado y nuevo.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -303,7 +303,7 @@ Método para llamar al ajax de guardado y nuevo.
 Llamada al servidor con los datos de edición.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -320,7 +320,7 @@ Llamada al servidor con los datos de edición.
 Función que gestiona la carga del formulario.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 5.0.0 // Table 1.0.0  
+**Since**: UDA 5.0.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -334,7 +334,7 @@ Función que gestiona la carga del formulario.
 Valida los formularios para no, buscarlos.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 5.0.2 // Table 1.0.0  
+**Since**: UDA 5.0.2  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -349,7 +349,7 @@ Valida los formularios para no, buscarlos.
 Llamada para crear el feedback dentro del dialog.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -364,7 +364,7 @@ Llamada para crear el feedback dentro del dialog.
 Cambiar los valores de los inputs de responsive a normal y viciversa.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -377,7 +377,7 @@ Cambiar los valores de los inputs de responsive a normal y viciversa.
 Asignar los valores de los inputs en responsive.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -390,7 +390,7 @@ Asignar los valores de los inputs en responsive.
 Se crear un tr ficticio cuando se va a añadir un registro.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -404,7 +404,7 @@ Se crear un tr ficticio cuando se va a añadir un registro.
 Dibujar los iconos del responsive.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -418,7 +418,7 @@ Para saber si hay paginación o no.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
 **Returns**: <code>boolean</code> - si existe paginación o no.  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -430,7 +430,7 @@ Para saber si hay paginación o no.
 Metodo que elimina todos los registros seleccionados.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -442,7 +442,7 @@ Metodo que elimina todos los registros seleccionados.
 Metodo que comprueba el seeker.
 
 **Kind**: inner method of [<code>rup.table.inlineEdit</code>](#module_rup.table.inlineEdit)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

@@ -1,24 +1,24 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+/*! MultiSelect for DataTables 1.7.0
+ * © SpryMedia Ltd - datatables.net/license
+ */
+
 /**
- * Módulo que permite toda la multiseleción
+ * @summary     MultiSelect
+ * @description MultiSelect for DataTables
+ * @module      "rup.table.multiSelect"
+ * @version     1.7.0
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     datatables.net
+ * @copyright   SpryMedia Ltd.
  *
- * @summary 		Extensión del componente RUP Datatable
- * @module			"rup.table.multiSelect"
- * @version     1.0.0
- * @license
- * Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
- * Solo podrá usarse esta obra si se respeta la Licencia.
- * Puede obtenerse una copia de la Licencia en
+ * This source file is free software, available under the following license:
+ *   MIT license - http://datatables.net/license/mit
  *
- *      http://ec.europa.eu/idabc/eupl.html
+ * This source file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
  *
- * Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
- * el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
- * SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
- * Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
- * que establece la Licencia.
- * @copyright   Copyright 2018 E.J.I.E., S.A.
- *
+ * For details please refer to: http://www.datatables.net
  */
 
 (function (factory) {
@@ -52,25 +52,76 @@
     // Version information for debugger
     DataTable.multiSelect = {};
 
-    DataTable.multiSelect.version = '1.2.4';
+    DataTable.multiSelect.version = '1.7.0';
 
     /**
      * Se inicializa el componente multiselect
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Es el objeto table.
      *
      */
     DataTable.multiSelect.init = function (dt) {
         var ctx = dt.settings()[0];
+        
+		if (ctx._multiSelect) {
+			return;
+		}
+		
+		var savedSelected = dt.state.loaded();
+
+		var selectAndSave = function(e, settings, data) {
+			if (data === null || data.multiSelect === undefined) {
+				return;
+			}
+
+			// Clear any currently selected rows, before restoring state
+			// None will be selected on first initialisation
+			if (dt.rows({ selected: true }).any()) {
+				dt.rows().deselect();
+			}
+			if (data.multiSelect.rows !== undefined) {
+				dt.rows(data.multiSelect.rows).select();
+			}
+
+			if (dt.columns({ selected: true }).any()) {
+				dt.columns().deselect();
+			}
+			if (data.multiSelect.columns !== undefined) {
+				dt.columns(data.multiSelect.columns).select();
+			}
+
+			if (dt.cells({ selected: true }).any()) {
+				dt.cells().deselect();
+			}
+			if (data.multiSelect.cells !== undefined) {
+				for (var i = 0; i < data.multiSelect.cells.length; i++) {
+					dt.cell(data.multiSelect.cells[i].row, data.multiSelect.cells[i].column).select();
+				}
+			}
+
+			dt.state.save();
+		};
+
+		dt.on('stateSaveParams', function(e, settings, data) {
+			data.multiSelect = {};
+			data.multiSelect.rows = dt.rows({ selected: true }).ids(true).toArray();
+			data.multiSelect.columns = dt.columns({ selected: true })[0];
+			data.multiSelect.cells = dt.cells({ selected: true })[0].map(function(coords) {
+				return { row: dt.row(coords.row).id(true), column: coords.column };
+			});
+		})
+			.on('stateLoadParams', selectAndSave)
+			.one('init', function() {
+				selectAndSave(undefined, undefined, savedSelected);
+			});
+        
         var init = ctx.oInit.multiSelect;
         var defaults = DataTable.defaults.multiSelect;
-        var opts = init === undefined ?
-            defaults :
-            init;
+        var opts = init === undefined ? defaults : init;
 
         // Set defaults
         var items = 'row';
@@ -94,9 +145,6 @@
             init.enableKeyboardSelection = true;
         }
 
-        //se Inicializa las propiedades de los select.
-        //ctx.multiselection = $self._initializeMultiselectionProps();
-
         _paintCheckboxSelect(ctx);
 
         // Initialisation customisations
@@ -107,7 +155,7 @@
             style = opts;
             setStyle = true;
         } else if ($.isPlainObject(opts)) {
-            if (opts.info !== undefined) {
+			if (opts.info !== undefined) {
                 info = opts.info;
             }
 
@@ -152,7 +200,7 @@
         // If the init options haven't enabled select, but there is a selectable
         // class name, then enable
         if (!setStyle && $(dt.table().node()).hasClass('selectable')) {
-            dt.smultiSelect.style('os');
+            dt.multiSelect.style('os');
         }
     };
 
@@ -206,70 +254,69 @@
         }
     }
 
-    /*
-
-Select is a collection of API methods, event handlers, event emitters and
-buttons (for the `Buttons` extension) for DataTables. It provides the following
-features, with an overview of how they are implemented:
-
-## Selection of rows, columns and cells. Whether an item is selected or not is
-   stored in:
-
-* rows: a `_select_selected` property which contains a boolean value of the
-  DataTables' `aoData` object for each row
-* columns: a `_select_selected` property which contains a boolean value of the
-  DataTables' `aoColumns` object for each column
-* cells: a `_selected_cells` property which contains an array of boolean values
-  of the `aoData` object for each row. The array is the same length as the
-  columns array, with each element of it representing a cell.
-
-This method of using boolean flags allows Select to operate when nodes have not
-been created for rows / cells (DataTables' defer rendering feature).
-
-## API methods
-
-A range of API methods are available for triggering selection and de-selection
-of rows. Methods are also available to configure the selection events that can
-be triggered by an end user (such as which items are to be selected). To a large
-extent, these of API methods *is* Select. It is basically a collection of helper
-functions that can be used to select items in a DataTable.
-
-Configuration of select is held in the object `_select` which is attached to the
-DataTables settings object on initialisation. Select being available on a table
-is not optional when Select is loaded, but its default is for selection only to
-be available via the API - so the end user wouldn't be able to select rows
-without additional configuration.
-
-The `_select` object contains the following properties:
-
-```
-{
-	items:string     - Can be `rows`, `columns` or `cells`. Defines what item
-	                   will be selected if the user is allowed to activate row
-	                   selection using the mouse.
-	style:string     - Can be `none`, `single`, `multi` or `os`. Defines the
-	                   interaction style when selecting items
-	info:boolean     - If the selection summary should be shown in the table
-	                   information elements
-}
-```
-
-In addition to the API methods, Select also extends the DataTables selector
-options for rows, columns and cells adding a `selected` option to the selector
-options object, allowing the developer to select only selected items or
-unselected items.
-
-## Mouse selection of items
-
-Clicking on items can be used to select items. This is done by a simple event
-handler that will select the items using the API methods.
-
- */
-
-
-    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     * Local functions
-     */
+	/*
+	
+	Select is a collection of API methods, event handlers, event emitters and
+	buttons (for the `Buttons` extension) for DataTables. It provides the following
+	features, with an overview of how they are implemented:
+	
+	## Selection of rows, columns and cells. Whether an item is selected or not is
+	   stored in:
+	
+	* rows: a `_select_selected` property which contains a boolean value of the
+	  DataTables' `aoData` object for each row
+	* columns: a `_select_selected` property which contains a boolean value of the
+	  DataTables' `aoColumns` object for each column
+	* cells: a `_selected_cells` property which contains an array of boolean values
+	  of the `aoData` object for each row. The array is the same length as the
+	  columns array, with each element of it representing a cell.
+	
+	This method of using boolean flags allows Select to operate when nodes have not
+	been created for rows / cells (DataTables' defer rendering feature).
+	
+	## API methods
+	
+	A range of API methods are available for triggering selection and de-selection
+	of rows. Methods are also available to configure the selection events that can
+	be triggered by an end user (such as which items are to be selected). To a large
+	extent, these of API methods *is* Select. It is basically a collection of helper
+	functions that can be used to select items in a DataTable.
+	
+	Configuration of select is held in the object `_select` which is attached to the
+	DataTables settings object on initialisation. Select being available on a table
+	is not optional when Select is loaded, but its default is for selection only to
+	be available via the API - so the end user wouldn't be able to select rows
+	without additional configuration.
+	
+	The `_select` object contains the following properties:
+	
+	```
+	{
+		items:string       - Can be `rows`, `columns` or `cells`. Defines what item 
+		                     will be selected if the user is allowed to activate row
+		                     selection using the mouse.
+		style:string       - Can be `none`, `single`, `multi` or `os`. Defines the
+		                     interaction style when selecting items
+		info:boolean       - If the selection summary should be shown in the table
+		                     information elements
+	}
+	```
+	
+	In addition to the API methods, Select also extends the DataTables selector
+	options for rows, columns and cells adding a `selected` option to the selector
+	options object, allowing the developer to select only selected items or
+	unselected items.
+	
+	## Mouse selection of items
+	
+	Clicking on items can be used to select items. This is done by a simple event
+	handler that will select the items using the API methods.
+	
+	 */
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Local functions
+	 */
 
     /**
      * Add one or more cells to the selection when shift clicking in OS selection
@@ -282,8 +329,8 @@ handler that will select the items using the API methods.
      *
      * @name cellRange
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0 
-     * 
+     * @since UDA 3.4.0 
+     *
      * @param  {DataTable.Api} dt   DataTable
      * @param  {object}        idx  Cell index to select to
      * @param  {object}        last Cell index to select from
@@ -306,7 +353,8 @@ handler that will select the items using the API methods.
                     record = true;
                 }
 
-                if (i === end) { // not else if, as start might === end
+                if (i === end) {
+					// not else if, as start might === end
                     record = false;
                     return true;
                 }
@@ -316,9 +364,7 @@ handler that will select the items using the API methods.
         };
 
         var selectRows = function (start, end) {
-            var indexes = dt.rows({
-                search: 'applied'
-            }).indexes();
+            var indexes = dt.rows({ search: 'applied' }).indexes();
 
             // Which comes first - might need to swap
             if (indexes.indexOf(start) > indexes.indexOf(end)) {
@@ -342,9 +388,7 @@ handler that will select the items using the API methods.
             });
         };
 
-        if (!dt.cells({
-            selected: true
-        }).any() && !last) {
+        if (!dt.cells({ selected: true }).any() && !last) {
             // select from the top left cell to this one
             columnIndexes = selectColumns(0, idx.column);
             rowIndexes = selectRows(0, idx.row);
@@ -356,9 +400,7 @@ handler that will select the items using the API methods.
 
         indexes = dt.cells(rowIndexes, columnIndexes).flatten();
 
-        if (!dt.cells(idx, {
-            selected: true
-        }).any()) {
+        if (!dt.cells(idx, { selected: true }).any()) {
             // Select range
             dt.cells(indexes).select();
         } else {
@@ -372,98 +414,93 @@ handler that will select the items using the API methods.
      *
      * @name enableMouseSelection
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      * 
      * @param {DataTable.Api} dt DataTable
      * 
      */
     function enableMouseSelection(dt, ctx) {
-        var ctx = dt.settings()[0];
-        var container = $(ctx.nTBody);
+		var ctx = dt.settings()[0];
+		var container = $(ctx.nTBody);
 
-			if(ctx.oInit.selectFilaDer){
-				container
-            .on('click contextmenu', function (event) {
-                if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
-                    return false;
-                }
+		if (ctx.oInit.selectFilaDer) {
+			container.on('click contextmenu', function(event) {
+				if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
+					return false;
+				}
 
-                var ctx = dt.settings()[0];
-                var row = $(event.target);
+				var ctx = dt.settings()[0];
+				var row = $(event.target);
 
-                row.triggerHandler('tableSelectBeforeSelectRow',ctx);
+				row.triggerHandler('tableSelectBeforeSelectRow', ctx);
 
-                if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
-                    rangeSelection(dt, event);
-                } else if (ctx.multiselection.lastSelectedIsRange) {
-                    if (event.target.type !== 'checkbox') {
-                        deselectAllPage(dt);
-                        dt.row($(event.target).closest('tr').index()).multiSelect();
-                    } else {
-                        $(event.target).parent('').find('input').prop('checked', function () {
-                            return !this.checked;
-                        });
-                    }
-                } else {
-                    if (event.target.type !== 'checkbox') {
-                        rowSelection(dt, event);
-                    } else if(!$(event.target).hasClass('editable')){
-                        $(event.target).parent('').find('input').prop('checked', function () {
-                            return !this.checked;
-                        });
-                    }
-                }
+				if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
+					rangeSelection(dt, event);
+				} else if (ctx.multiselection.lastSelectedIsRange) {
+					if (event.target.type !== 'checkbox') {
+						deselectAllPage(dt);
+						dt.row($(event.target).closest('tr').index()).multiSelect();
+					} else {
+						$(event.target).parent('').find('input').prop('checked', function() {
+							return !this.checked;
+						});
+					}
+				} else {
+					if (event.target.type !== 'checkbox') {
+						rowSelection(dt, event);
+					} else if (!$(event.target).hasClass('editable')) {
+						$(event.target).parent('').find('input').prop('checked', function() {
+							return !this.checked;
+						});
+					}
+				}
 
-                row.triggerHandler('tableSelectAfterSelectRow',ctx);
-            });
-				
-			} else {
-				
-				container
-            .on('click', function (event) {
-                if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
-                    return false;
-                }
+				row.triggerHandler('tableSelectAfterSelectRow', ctx);
+			});
 
-                var ctx = dt.settings()[0];
-                var row = $(event.target);
+		} else {
+			container.on('click', function(event) {
+					if (event.target !== undefined && event.target.className.indexOf('openResponsive') > -1) {
+						return false;
+					}
 
-                row.triggerHandler('tableSelectBeforeSelectRow',ctx);
+					var ctx = dt.settings()[0];
+					var row = $(event.target);
 
-                if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
-                    rangeSelection(dt, event);
-                } else if (ctx.multiselection.lastSelectedIsRange) {
-                    if (event.target.type !== 'checkbox') {
-                        deselectAllPage(dt);
-                        dt.row($(event.target).closest('tr').index()).multiSelect();
-                    } else {
-                        $(event.target).parent('').find('input').prop('checked', function () {
-                            return !this.checked;
-                        });
-                    }
-                } else {
-                    if (event.target.type !== 'checkbox') {
-                        rowSelection(dt, event);
-                    } else if(!$(event.target).hasClass('editable')){
-                        $(event.target).parent('').find('input').prop('checked', function () {
-                            return !this.checked;
-                        });
-                    }
-                }
+					row.triggerHandler('tableSelectBeforeSelectRow', ctx);
 
-                row.triggerHandler('tableSelectAfterSelectRow',ctx);
-            });
-			}
-		
-        
-    }
+					if ((event.shiftKey || event.ctrlKey || event.shiftKey && event.which === 32) && ctx.multiselection.selectedRowsPerPage.length > 0) {
+						rangeSelection(dt, event);
+					} else if (ctx.multiselection.lastSelectedIsRange) {
+						if (event.target.type !== 'checkbox') {
+							deselectAllPage(dt);
+							dt.row($(event.target).closest('tr').index()).multiSelect();
+						} else {
+							$(event.target).parent('').find('input').prop('checked', function() {
+								return !this.checked;
+							});
+						}
+					} else {
+						if (event.target.type !== 'checkbox') {
+							rowSelection(dt, event);
+						} else if (!$(event.target).hasClass('editable')) {
+							$(event.target).parent('').find('input').prop('checked', function() {
+								return !this.checked;
+							});
+						}
+					}
+
+					row.triggerHandler('tableSelectAfterSelectRow', ctx);
+				});
+		}
+	}
 
     /**
      * Attach keyboard listeners to the table to allow keyboard selection of items
      *
      * @name enableKeyboardSelection
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      * 
      * @param {DataTable.Api} dt DataTable
      * 
@@ -524,7 +561,7 @@ handler that will select the items using the API methods.
      *
      * @name rangeSelection
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      * 
      * @param  {DataTable.Api} dt   DataTable
      * 
@@ -583,7 +620,7 @@ handler that will select the items using the API methods.
      *
      * @name rowSelection
      * @function
-     * @since UDA 4.2.0 // Table 1.0.0
+     * @since UDA 4.2.0
      * 
      * @param  {DataTable.Api} dt   DataTable
      * @param  {object}        event  Event information
@@ -644,7 +681,7 @@ handler that will select the items using the API methods.
      *
      * @name eventTrigger
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {DataTable.Api} api      DataTable to trigger events on
      * @param  {boolean}      selected true if selected, false if deselected
@@ -672,7 +709,7 @@ handler that will select the items using the API methods.
      *
      * @name info
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {DataTable.Api} api DataTable to update
      * 
@@ -688,9 +725,7 @@ handler that will select the items using the API methods.
             return;
         }
 
-        var rows = api.rows({
-            selected: true
-        }).flatten().length;
+        var rows = api.rows({ selected: true }).flatten().length;
 
         var add = function (el, name, num) {
             name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.fila');
@@ -716,7 +751,7 @@ handler that will select the items using the API methods.
                 	)));
                 	el.attr("style", "white-space: nowrap;");
                 }
-            } else { // nose muestra.
+            } else { // no se muestra.
             	if ($.rup.lang !== 'eu') {
 	                el.append($('<span class="select-item"></span>').append(api.i18n(
 	                    'select.filas', {
@@ -771,13 +806,14 @@ handler that will select the items using the API methods.
      *
      * @name init
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param  {DataTable.settings} ctx Settings object to operate on
      * 
      */
     function init(ctx) {
         var api = new DataTable.Api(ctx);
+        ctx._multiSelect_init = true;
 
         //Se añade el context, al pagination container
         if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
@@ -817,7 +853,12 @@ handler that will select the items using the API methods.
 
         // On Ajax reload we want to reselect all rows which are currently selected,
         // if there is an rowId (i.e. a unique value to identify each row with)
-        api.on('preXhr.dt.dtSelect', function () {
+        api.on('preXhr.dt.dtSelect', function (e, settings) {
+			if (settings !== api.settings()[0]) {
+				// Not triggered by our DataTable!
+				return;
+			}
+			
             // note that column selection doesn't need to be cached and then
             // reselected, as they are already selected
             var rows = api.rows({
@@ -826,18 +867,12 @@ handler that will select the items using the API methods.
                 return d !== undefined;
             });
 
-            var cells = api.cells({
-                selected: true
-            }).eq(0).map(function (cellIdx) {
-                var id = api.row(cellIdx.row).id(true);
-                return id ? {
-                    row: id,
-                    column: cellIdx.column
-                } :
-                    undefined;
-            }).filter(function (d) {
-                return d !== undefined;
-            });
+			var cells = api.cells({ selected: true }).eq(0).map(function(cellIdx) {
+				var id = api.row(cellIdx.row).id(true);
+				return id ? { row: id, column: cellIdx.column } : undefined;
+			}).filter(function(d) {
+				return d !== undefined;
+			});
 
             // On the next draw, reselect the currently selected items
             api.one('draw.dt.dtSelect', function () {
@@ -855,6 +890,7 @@ handler that will select the items using the API methods.
         // Update the table information element with selected item summary
         api.on('draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
             info(api);
+            api.state.save();
             _drawSelectId(api, ctx);
             //Comprobar si hay algun feedback activado
             var feedback = ctx.oInit.feedback.$feedbackContainer;
@@ -880,7 +916,7 @@ handler that will select the items using the API methods.
      *
      * @name drawSelectId
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {DataTable.api} ctx
      * 
@@ -928,7 +964,7 @@ handler that will select the items using the API methods.
      *
      * @name paintCheckboxexSelect
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param  {DataTable.ctx} ctx Settings object to operate on
      *
@@ -1044,7 +1080,7 @@ handler that will select the items using the API methods.
      *
      * @name checkPageSelectedAll
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Es el objeto table.
      * @param {boolean} selected - Es true o false para saber cual de los 2 quieres buscar.
@@ -1072,7 +1108,7 @@ handler that will select the items using the API methods.
      *
      * @name createContexMenuSelect
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {string} id - Es el identificador del table.
      * @param {object} ctx - table.settings.
@@ -1158,7 +1194,7 @@ handler that will select the items using the API methods.
      *
      * @name selectAllPage
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Datatable.
      *
@@ -1198,7 +1234,7 @@ handler that will select the items using the API methods.
      *
      * @name deselectAllPage
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param {object} dt - Datatable.
      *
@@ -1236,7 +1272,7 @@ handler that will select the items using the API methods.
      *
      * @name selectAll
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Datatable.
      *
@@ -1271,7 +1307,7 @@ handler that will select the items using the API methods.
      *
      * @name deselectAll
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      * @param {object} dt - Datatable.
      *
@@ -1292,7 +1328,7 @@ handler that will select the items using the API methods.
      *
      * @name rowColumnRange
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param  {DataTable.Api} dt   DataTable
      * @param  {string}        type Row or column range selector
@@ -1302,15 +1338,11 @@ handler that will select the items using the API methods.
      */
     function rowColumnRange(dt, type, idx, last) {
         // Add a range of rows from the last selected row to this one
-        var indexes = dt[type + 's']({
-            search: 'applied'
-        }).indexes();
+        var indexes = dt[type + 's']({ search: 'applied' }).indexes();
         var idx1 = $.inArray(last, indexes);
         var idx2 = $.inArray(idx, indexes);
 
-        if (!dt[type + 's']({
-            selected: true
-        }).any() && idx1 === -1) {
+        if (!dt[type + 's']({ selected: true }).any() && idx1 === -1) {
             // select from top to here - slightly odd, but both Windows and Mac OS
             // do this
             indexes.splice($.inArray(idx, indexes) + 1, indexes.length);
@@ -1326,9 +1358,7 @@ handler that will select the items using the API methods.
             indexes.splice(0, idx1);
         }
 
-        if (!dt[type](idx, {
-            selected: true
-        }).any()) {
+        if (!dt[type](idx, { selected: true }).any()) {
             // Select range
             dt[type + 's'](indexes).select();
         } else {
@@ -1343,7 +1373,7 @@ handler that will select the items using the API methods.
      *
      * @name clear
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param  {DataTable.settings} ctx Settings object of the host DataTable
      * @param  {boolean} [force=false] Force the de-selection to happen, regardless
@@ -1354,15 +1384,9 @@ handler that will select the items using the API methods.
         if (force || ctx._multiSelect.style === 'single') {
             var api = new DataTable.Api(ctx);
 
-            api.rows({
-                selected: true
-            }).deselect();
-            api.columns({
-                selected: true
-            }).deselect();
-            api.cells({
-                selected: true
-            }).deselect();
+            api.rows({ selected: true }).deselect();
+            api.columns({ selected: true }).deselect();
+            api.cells({ selected: true }).deselect();
         }
     }
 
@@ -1371,7 +1395,7 @@ handler that will select the items using the API methods.
      *
      * @name initializeMultiselectionProps
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      *
      *
      */
@@ -1406,7 +1430,7 @@ handler that will select the items using the API methods.
      *
      * @name maintIdsRows
      * @function
-     * @since UDA 3.4.0 // Table 1.0.0
+     * @since UDA 3.4.0
      * 
      * @param  {DataTables.Api}     DataTable   DataTable
      * @param  {string}     id   - id seleccionado
@@ -1541,37 +1565,35 @@ handler that will select the items using the API methods.
     // row and column are basically identical just assigned to different properties
     // and checking a different array, so we can dynamically create the functions to
     // reduce the code size
-    $.each([{
-        type: 'row',
-        prop: 'aoData'
-    },
-    {
-        type: 'column',
-        prop: 'aoColumns'
-    }
-    ], function (i, o) {
-        DataTable.ext.selector[o.type].push(function (settings, opts, indexes) {
-            var selected = opts.selected;
-            var data;
-            var out = [];
-
-            if (selected === undefined) {
-                return indexes;
-            }
-
-            for (var i = 0, ien = indexes.length; i < ien; i++) {
-                data = settings[o.prop][indexes[i]];
-
-                if ((selected === true && data._multiSelect_selected === true) ||
-                    (selected === false && !data._multiSelect_selected)
-                ) {
-                    out.push(indexes[i]);
-                }
-            }
-
-            return out;
-        });
-    });
+    $.each(
+		[
+			{ type: 'row', prop: 'aoData' },
+    		{ type: 'column', prop: 'aoColumns'}
+    	],
+    	function (i, o) {
+	        DataTable.ext.selector[o.type].push(function (settings, opts, indexes) {
+	            var selected = opts.selected;
+	            var data;
+	            var out = [];
+	
+	            if (selected === undefined) {
+	                return indexes;
+	            }
+	
+	            for (var i = 0, ien = indexes.length; i < ien; i++) {
+	                data = settings[o.prop][indexes[i]];
+	
+	                if ((selected === true && data._multiSelect_selected === true) ||
+	                    (selected === false && !data._multiSelect_selected)
+	                ) {
+	                    out.push(indexes[i]);
+	                }
+	            }
+	
+	            return out;
+	        });
+		}
+    );
 
     DataTable.ext.selector.cell.push(function (settings, opts, cells) {
         var selected = opts.selected;
@@ -1735,7 +1757,7 @@ handler that will select the items using the API methods.
         }
 
         if (multiSelect === false) {
-            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(), ctx.oInit), 0, pagina, 0, ctx);
+            maintIdsRows(DataTable, DataTable.Api().rupTable.getIdPk(api.data(), ctx.oInit), 0, pagina, undefined, ctx);
             //Cuando se resta de 1 en 1 la accion es empty
             ctx.multiselection.accion = '';
             var deselectes = this.deselect();
@@ -1797,7 +1819,7 @@ handler that will select the items using the API methods.
                         $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
                         //para seleccionar todos los de la pagina actual.
-                        maintIdsRows(DataTable, id, 1, pagina, 0, ctx);
+                        maintIdsRows(DataTable, id, 1, pagina, undefined, ctx);
                     }
                 });
             }
@@ -1915,7 +1937,7 @@ handler that will select the items using the API methods.
             //para deseleccionar todos los de la pagina actual.
             if ((ctx.multiselection.numSelected > 0 && ctx.multiselection.accion === 'uncheckAll') ||
                 (ctx.multiselection.numSelected >= 0 && ctx.multiselection.accion === 'uncheck')) {
-                maintIdsRows(DataTable, id, 0, false, 0, ctx);
+                maintIdsRows(DataTable, id, 0, false, undefined, ctx);
             } else if (ctx.multiselection.accion === '') { //es que se resta uno solo.
                 ctx.multiselection.numSelected--;
             }

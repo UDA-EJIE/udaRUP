@@ -142,6 +142,9 @@
                 $overlayEl;
             //Guardar el elemento que tenía el foco antes de abrir el diálogo
             $(this).data('focus', $(document.activeElement));
+            
+			// Bloquea el desplazamiento vertical y horizontal de la aplicación para mejorar la UX.
+			$('body').addClass('overflow-hidden');
 
             var docHeight = $(document).height(),
                 docWidth = $(document).width();
@@ -390,6 +393,12 @@
                         return settings.onBeforeClose();
                     });
                 }
+                
+				// Desbloquea el desplazamiento vertical y horizontal de la aplicación.
+				$(this).on('dialogclose', function() {
+					$('body').removeClass('overflow-hidden');
+				});
+
                 //Se verifica que el selector solo contenga un diálogo
                 if (settings.type !== null && $(this).length > 0) {
 
@@ -559,9 +568,6 @@
                         $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.dialogTypeError'));
                     }
                 }
-
-                //Se audita el componente
-                $.rup.auditComponent('rup_dialog', 'init');
             }
         },
         /**

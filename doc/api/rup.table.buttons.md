@@ -1,26 +1,29 @@
 <a name="module_rup.table.buttons"></a>
 
 ## rup.table.buttons
-Genera los botones del table
+Buttons for DataTables
 
-**Summary**: Extensión del componente RUP Datatable  
-**Version**: 1.5.1  
-**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
-**Copyright**: Copyright 2018 E.J.I.E., S.A.  
+**Summary**: Buttons  
+**Contact**: datatables.net  
+**Version**: 2.4.2  
+**Author**: SpryMedia Ltd (www.sprymedia.co.uk)  
+**Copyright**: SpryMedia Ltd.This source file is free software, available under the following license:  MIT license - http://datatables.net/license/mitThis source file is distributed in the hope that it will be useful, butWITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITYor FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.For details please refer to: http://www.datatables.net  
 
 * [rup.table.buttons](#module_rup.table.buttons)
     * [~Buttons(dt, config)](#module_rup.table.buttons..Buttons)
     * [~action(Button)](#module_rup.table.buttons..action) ⇒ <code>function</code>
     * [~action(node, action)](#module_rup.table.buttons..action) ⇒ <code>Buttons</code>
     * [~active(node, [flag])](#module_rup.table.buttons..active) ⇒ <code>Buttons</code>
-    * [~add(config, [idx])](#module_rup.table.buttons..add) ⇒ <code>Buttons</code>
+    * [~add(config, [idx], [draw])](#module_rup.table.buttons..add) ⇒ <code>Buttons</code>
+    * [~collectionRebuild()](#module_rup.table.buttons..collectionRebuild)
     * [~container()](#module_rup.table.buttons..container) ⇒ <code>jQuery</code>
     * [~disable(node)](#module_rup.table.buttons..disable) ⇒ <code>Buttons</code>
     * [~destroy()](#module_rup.table.buttons..destroy) ⇒ <code>Buttons</code>
     * [~enable(node, [flag])](#module_rup.table.buttons..enable) ⇒ <code>Buttons</code>
+    * [~index(node)](#module_rup.table.buttons..index) ⇒ <code>string</code>
     * [~name()](#module_rup.table.buttons..name) ⇒ <code>string</code>
-    * [~node(node)](#module_rup.table.buttons..node) ⇒ <code>jQuery</code>
-    * [~processing(flag)](#module_rup.table.buttons..processing) ⇒ <code>boolean</code> \| <code>Buttons</code>
+    * [~node([node])](#module_rup.table.buttons..node) ⇒ <code>jQuery</code>
+    * [~processing(node, flag)](#module_rup.table.buttons..processing) ⇒ <code>boolean</code> \| <code>Buttons</code>
     * [~remove(node)](#module_rup.table.buttons..remove) ⇒ <code>Buttons</code>
     * [~text(node)](#module_rup.table.buttons..text) ⇒ <code>string</code>
     * [~text(node, label)](#module_rup.table.buttons..text) ⇒ <code>Buttons</code>
@@ -28,12 +31,13 @@ Genera los botones del table
     * [~_addKey(conf)](#module_rup.table.buttons.._addKey)
     * [~_draw([container], [buttons])](#module_rup.table.buttons.._draw)
     * [~_expandButton(attachTo, button, inCollection)](#module_rup.table.buttons.._expandButton)
-    * [~_buildButton(config, inCollection)](#module_rup.table.buttons.._buildButton) ⇒ <code>jQuery</code>
+    * [~_buildButton(config, inCollection)](#module_rup.table.buttons.._buildButton) ⇒ <code>object</code>
     * [~_nodeToButton(node, [buttons])](#module_rup.table.buttons.._nodeToButton) ⇒ <code>object</code>
     * [~_nodeToHost(node, [buttons])](#module_rup.table.buttons.._nodeToHost) ⇒ <code>array</code>
     * [~_keypress(character, e)](#module_rup.table.buttons.._keypress)
     * [~_removeKey(conf)](#module_rup.table.buttons.._removeKey)
     * [~_resolveExtends(conf)](#module_rup.table.buttons.._resolveExtends) ⇒ <code>object</code>
+    * [~_popover(content, hostButton, inOpts)](#module_rup.table.buttons.._popover)
     * [~_filename(config, incExtension)](#module_rup.table.buttons.._filename)
     * [~_stringOrFunction(option)](#module_rup.table.buttons.._stringOrFunction) ⇒ <code>null</code> \| <code>string</code>
     * [~_title(config)](#module_rup.table.buttons.._title)
@@ -60,7 +64,7 @@ Genera los botones del table
 Botones
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type |
 | --- | --- |
@@ -73,7 +77,7 @@ Botones
 Get the action of a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -86,7 +90,7 @@ Set the action of a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -100,7 +104,7 @@ Add an active class to the button to make to look active or get currentactive s
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining or boolean for getter  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -109,18 +113,25 @@ Add an active class to the button to make to look active or get currentactive s
 
 <a name="module_rup.table.buttons..add"></a>
 
-### rup.table.buttons~add(config, [idx]) ⇒ <code>Buttons</code>
+### rup.table.buttons~add(config, [idx], [draw]) ⇒ <code>Buttons</code>
 Add a new button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| config | <code>object</code> | Button configuration object, base string name or function |
-| [idx] | <code>int</code> \| <code>string</code> | Button index for where to insert the button |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| config | <code>object</code> |  | Button configuration object, base string name or function |
+| [idx] | <code>int</code> \| <code>string</code> |  | Button index for where to insert the button |
+| [draw] | <code>boolean</code> | <code>true</code> | Trigger a draw. Set a false when adding   lots of buttons, until the last button. |
 
+<a name="module_rup.table.buttons..collectionRebuild"></a>
+
+### rup.table.buttons~collectionRebuild()
+Clear buttons from a collection and then insert new buttons
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 <a name="module_rup.table.buttons..container"></a>
 
 ### rup.table.buttons~container() ⇒ <code>jQuery</code>
@@ -128,7 +139,7 @@ Get the container node for the buttons
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>jQuery</code> - Buttons node  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 <a name="module_rup.table.buttons..disable"></a>
 
 ### rup.table.buttons~disable(node) ⇒ <code>Buttons</code>
@@ -136,7 +147,7 @@ Disable a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -149,7 +160,7 @@ Destroy the instance, cleaning up event handlers and removing DOMelements
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 <a name="module_rup.table.buttons..enable"></a>
 
 ### rup.table.buttons~enable(node, [flag]) ⇒ <code>Buttons</code>
@@ -157,12 +168,24 @@ Enable / disable a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | node | <code>node</code> |  | Button node |
 | [flag] | <code>boolean</code> | <code>true</code> | Enable / disable flag |
+
+<a name="module_rup.table.buttons..index"></a>
+
+### rup.table.buttons~index(node) ⇒ <code>string</code>
+Get a button's indexThis is internally recursive
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Returns**: <code>string</code> - Button index  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| node | <code>element</code> | Button to get the index of |
 
 <a name="module_rup.table.buttons..name"></a>
 
@@ -171,31 +194,32 @@ Get the instance name for the button set selector
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>string</code> - Instance name  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 <a name="module_rup.table.buttons..node"></a>
 
-### rup.table.buttons~node(node) ⇒ <code>jQuery</code>
-Get a button's node
+### rup.table.buttons~node([node]) ⇒ <code>jQuery</code>
+Get a button's node of the buttons container if no button is given
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Returns**: <code>jQuery</code> - Button element  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Returns**: <code>jQuery</code> - Button element, or container  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| node | <code>node</code> | Button node |
+| [node] | <code>node</code> | Button node |
 
 <a name="module_rup.table.buttons..processing"></a>
 
-### rup.table.buttons~processing(flag) ⇒ <code>boolean</code> \| <code>Buttons</code>
+### rup.table.buttons~processing(node, flag) ⇒ <code>boolean</code> \| <code>Buttons</code>
 Set / get a processing class on the selected button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>boolean</code> \| <code>Buttons</code> - Getter value or this if a setter.  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
+| node | <code>element</code> | Triggering button node |
 | flag | <code>boolean</code> | true to add, false to remove, undefined to get |
 
 <a name="module_rup.table.buttons..remove"></a>
@@ -205,7 +229,7 @@ Remove a button.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -218,7 +242,7 @@ Get the text for a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>string</code> - Button text  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -231,7 +255,7 @@ Set the text for a button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -244,14 +268,14 @@ Set the text for a button
 Buttons constructor
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 <a name="module_rup.table.buttons.._addKey"></a>
 
 ### rup.table.buttons~\_addKey(conf)
 Add a new button to the key press listener
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -263,7 +287,7 @@ Add a new button to the key press listener
 Insert the buttons into the container. Call without parameters!
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -276,7 +300,7 @@ Insert the buttons into the container. Call without parameters!
 Create buttons from an array of buttons
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -286,12 +310,12 @@ Create buttons from an array of buttons
 
 <a name="module_rup.table.buttons.._buildButton"></a>
 
-### rup.table.buttons~\_buildButton(config, inCollection) ⇒ <code>jQuery</code>
+### rup.table.buttons~\_buildButton(config, inCollection) ⇒ <code>object</code>
 Create an individual button
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Returns**: <code>jQuery</code> - Created button node (jQuery)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Returns**: <code>object</code> - Completed button description object  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -305,7 +329,7 @@ Get the button object from a node (recursive)
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>object</code> - Button object  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -319,7 +343,7 @@ Get container array for a button from a button node (recursive)
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>array</code> - Button's host array  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -332,7 +356,7 @@ Get container array for a button from a button node (recursive)
 Handle a key press - determine if any button's key configured matcheswhat was typed and trigger the action if so.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -345,7 +369,7 @@ Handle a key press - determine if any button's key configured matcheswhat was t
 Remove a key from the key listener for this instance (to be used when abutton is removed)
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -358,11 +382,24 @@ Resolve a button configuration
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>object</code> - Button configuration  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | conf | <code>string</code> \| <code>function</code> \| <code>object</code> | Button config to resolve |
+
+<a name="module_rup.table.buttons.._popover"></a>
+
+### rup.table.buttons~\_popover(content, hostButton, inOpts)
+Display (and replace if there is an existing one) a popover attached to a button
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>string</code> \| <code>node</code> | Content to show |
+| hostButton | <code>DataTable.Api</code> | DT API instance of the button |
+| inOpts | <code>object</code> | Options (see object below for all options) |
 
 <a name="module_rup.table.buttons.._filename"></a>
 
@@ -370,7 +407,7 @@ Resolve a button configuration
 Get the file name for an exported file.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -384,7 +421,7 @@ Simply utility method to allow parameters to be given as a function
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>null</code> \| <code>string</code> - Resolved value  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -396,7 +433,7 @@ Simply utility method to allow parameters to be given as a function
 Get the title for an exported file.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -408,7 +445,7 @@ Get the title for an exported file.
 Activa la coleccion
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -420,7 +457,7 @@ Activa la coleccion
 Desactiva la coleccion
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -432,7 +469,7 @@ Desactiva la coleccion
 Activa el boton y su opcion dentro del context menu
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -444,7 +481,7 @@ Activa el boton y su opcion dentro del context menu
 Desactiva el boton y su opcion dentro del context menu
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -456,7 +493,7 @@ Desactiva el boton y su opcion dentro del context menu
 Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesdentro del context menu.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -470,7 +507,7 @@ Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesd
 Establece el tipo de llamada necesario para obtener los datos según lo seleccionadoe inicia la gestión para finalmente obtenerlos
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -484,7 +521,7 @@ Establece el tipo de llamada necesario para obtener los datos según lo seleccio
 Se encarga de mapear los datos de json a datos separados por el tabulador.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -499,7 +536,7 @@ Se encarga de mapear los datos de json a datos separados por el tabulador.
 Según el tipo de función de copia solicitada, realiza unas u otras comprobacionesantes de solicitar los datos al servidor
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -516,7 +553,7 @@ Según el tipo de función de copia solicitada, realiza unas u otras comprobacio
 Se encarga de generar las opciones de configuración con las que se llamara a la API
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -534,7 +571,7 @@ Se encarga de generar las opciones de configuración con las que se llamara a la
 Se encarga de devolver las columnas
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 4.2.0 // Table 1.0.0  
+**Since**: UDA 4.2.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -548,7 +585,7 @@ Se encarga de devolver las columnas
 Se encarga de llamar a la API y de devolver los datos recibidos
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -561,7 +598,7 @@ Se encarga de llamar a la API y de devolver los datos recibidos
 Se encarga de llamar a la API y de devolver el fichero recibido
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 4.2.0 // Table 1.0.0  
+**Since**: UDA 4.2.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -574,7 +611,7 @@ Se encarga de llamar a la API y de devolver el fichero recibido
 Gestiona la apertura/cierre del mensaje de confirmación de copia
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -591,7 +628,7 @@ Gestiona la apertura/cierre del mensaje de confirmación de copia
 Copia los datos recibidos al portapapeles
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -607,7 +644,7 @@ Copia los datos recibidos al portapapeles
 Metodo que elimina todos los registros seleccionados.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 4.2.0 // Table 1.0.0  
+**Since**: UDA 4.2.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -619,7 +656,7 @@ Metodo que elimina todos los registros seleccionados.
 Inicializa los botones
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.7.0 // Table 1.0.0  
+**Since**: UDA 3.7.0  
 
 | Param | Type | Description |
 | --- | --- | --- |

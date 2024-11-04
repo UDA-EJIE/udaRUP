@@ -200,8 +200,6 @@
                         });
                     }
                 });
-                //Se audita el componente
-                $.rup.auditComponent('rup_contextMenu', 'init');
             }
         }
     });

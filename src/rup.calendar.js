@@ -512,8 +512,6 @@ $.fn.rup_calendar('extend', {
             calObj = new $(self).calendar(settings);
             this.data('cal',calObj);
             this.trigger('afterInitCalendar');
-            // Se audita el componente
-            $.rup.auditComponent('rup_calendar', 'init');
         }
     }
 });

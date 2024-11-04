@@ -150,12 +150,13 @@ Función encargada de añadir una nueva pestaña cuando el componente ya está c
 | --- | --- | --- |
 | args.idTab | <code>string</code> | Selector del componente pestaña |
 | args.position | <code>integer</code> | Posición de las pestaña a añadir |
-| args.url | <code>string</code> | la url a añadir a la pestaña. |
+| args.url | <code>string</code> | URL a añadir a la pestaña. |
+| args.layer | <code>string</code> | Identificador de un fragmento HTML previamente cargado. |
 | args.label | <code>string</code> | Literal a mostrar en la pestaña. |
 
 **Example**  
 ```js
-$("#tabs").rup_tabs("addTab",{   idTab: "tabs", position: 2,  url: "fragmento3" });
+// Añadir pestaña remota$("#tabs").rup_tabs("addTab",{  idTab: "tabs",  position: 2,  url: "fragmento3"});// Añadir pestaña local$("#tabs").rup_tabs("addTab",{  idTab: "tabs",  position: 2,  layer: "#fragmentoLocal"});
 ```
 <a name="module_rup_tabs..removeTab"></a>
 

@@ -708,7 +708,7 @@ function testForm2Form(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=example2 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=example2 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -1328,7 +1328,7 @@ function testForm2Inline(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=inline2 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=inline2 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -1898,7 +1898,7 @@ function testInline2Form(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=inline1 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=inline1 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -1949,7 +1949,7 @@ function testInline2Form(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=example2 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=example2 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -2486,7 +2486,7 @@ function testInline2Inline(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=inline1 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=inline1 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -2535,7 +2535,7 @@ function testInline2Inline(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=inline2 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('DataTables warning: table id=inline2 - Ajax error. For more information about this error, please see https://datatables.net/tn/7');
                         });
                     });
                     describe('Errores en guardado > ', () => {

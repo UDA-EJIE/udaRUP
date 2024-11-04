@@ -22,7 +22,7 @@ Módulo que permite toda multiFilter
 Se inicializa el componente multiFilter
 
 **Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -96,7 +96,7 @@ $("#idComponente").rup_table("configureMultifilter", settings);
 Limpia el filtro
 
 **Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
+**Since**: UDA 3.4.0  
 
 | Param | Type | Description |
 | --- | --- | --- |
