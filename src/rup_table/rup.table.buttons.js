@@ -525,17 +525,6 @@
          */
 
         /**
-         * Get the action of a button
-         *
-         * @name action
-         * @function
-         * @since UDA 3.4.0
-         *
-         * @param  {int|string} Button index
-         * @return {function}
-         *
-         */
-        /**
          * Set the action of a button
          *
          * @name action
@@ -639,10 +628,18 @@
 
             return this;
         },
-		
+        
 		/**
-		 * Clear buttons from a collection and then insert new buttons
-		 */
+         * Clear buttons from a collection and then insert new buttons.
+         *
+         * @name collectionRebuild
+         * @function
+         * @since UDA 6.1.0
+         *
+         * @param  {node} node Button element
+         * @param  {array} [newButtons] New buttons array
+         *
+         */
 		collectionRebuild: function(node, newButtons) {
 			var button = this._nodeToButton(node);
 
@@ -924,17 +921,6 @@
             return this;
         },
 
-        /**
-         * Get the text for a button
-         *
-         * @name text
-         * @function
-         * @since UDA 3.4.0
-         *
-         * @param  {int|string} node Button index
-         * @return {string} Button text
-         *
-         */
         /**
          * Set the text for a button
          *
