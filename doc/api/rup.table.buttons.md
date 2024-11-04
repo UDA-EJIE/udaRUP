@@ -11,11 +11,10 @@ Buttons for DataTables
 
 * [rup.table.buttons](#module_rup.table.buttons)
     * [~Buttons(dt, config)](#module_rup.table.buttons..Buttons)
-    * [~action(Button)](#module_rup.table.buttons..action) ⇒ <code>function</code>
     * [~action(node, action)](#module_rup.table.buttons..action) ⇒ <code>Buttons</code>
     * [~active(node, [flag])](#module_rup.table.buttons..active) ⇒ <code>Buttons</code>
     * [~add(config, [idx], [draw])](#module_rup.table.buttons..add) ⇒ <code>Buttons</code>
-    * [~collectionRebuild()](#module_rup.table.buttons..collectionRebuild)
+    * [~collectionRebuild(node, [newButtons])](#module_rup.table.buttons..collectionRebuild)
     * [~container()](#module_rup.table.buttons..container) ⇒ <code>jQuery</code>
     * [~disable(node)](#module_rup.table.buttons..disable) ⇒ <code>Buttons</code>
     * [~destroy()](#module_rup.table.buttons..destroy) ⇒ <code>Buttons</code>
@@ -25,7 +24,6 @@ Buttons for DataTables
     * [~node([node])](#module_rup.table.buttons..node) ⇒ <code>jQuery</code>
     * [~processing(node, flag)](#module_rup.table.buttons..processing) ⇒ <code>boolean</code> \| <code>Buttons</code>
     * [~remove(node)](#module_rup.table.buttons..remove) ⇒ <code>Buttons</code>
-    * [~text(node)](#module_rup.table.buttons..text) ⇒ <code>string</code>
     * [~text(node, label)](#module_rup.table.buttons..text) ⇒ <code>Buttons</code>
     * [~_constructor()](#module_rup.table.buttons.._constructor)
     * [~_addKey(conf)](#module_rup.table.buttons.._addKey)
@@ -73,18 +71,6 @@ Botones
 
 <a name="module_rup.table.buttons..action"></a>
 
-### rup.table.buttons~action(Button) ⇒ <code>function</code>
-Get the action of a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| Button | <code>int</code> \| <code>string</code> | index |
-
-<a name="module_rup.table.buttons..action"></a>
-
 ### rup.table.buttons~action(node, action) ⇒ <code>Buttons</code>
 Set the action of a button
 
@@ -128,10 +114,17 @@ Add a new button
 
 <a name="module_rup.table.buttons..collectionRebuild"></a>
 
-### rup.table.buttons~collectionRebuild()
-Clear buttons from a collection and then insert new buttons
+### rup.table.buttons~collectionRebuild(node, [newButtons])
+Clear buttons from a collection and then insert new buttons.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Since**: UDA 6.1.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| node | <code>node</code> | Button element |
+| [newButtons] | <code>array</code> | New buttons array |
+
 <a name="module_rup.table.buttons..container"></a>
 
 ### rup.table.buttons~container() ⇒ <code>jQuery</code>
@@ -234,19 +227,6 @@ Remove a button.
 | Param | Type | Description |
 | --- | --- | --- |
 | node | <code>node</code> | Button node |
-
-<a name="module_rup.table.buttons..text"></a>
-
-### rup.table.buttons~text(node) ⇒ <code>string</code>
-Get the text for a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Returns**: <code>string</code> - Button text  
-**Since**: UDA 3.4.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>int</code> \| <code>string</code> | Button index |
 
 <a name="module_rup.table.buttons..text"></a>
 
