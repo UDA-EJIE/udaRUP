@@ -446,17 +446,6 @@
          */
 
         /**
-         * Get the action of a button
-         *
-         * @name action
-         * @function
-         * @since UDA 3.4.0 // Table 1.0.0
-         *
-         * @param  {int|string} Button index
-         * @return {function}
-         *
-         */
-        /**
          * Set the action of a button
          *
          * @name action
@@ -733,17 +722,6 @@
             return this;
         },
 
-        /**
-         * Get the text for a button
-         *
-         * @name text
-         * @function
-         * @since UDA 3.4.0 // Table 1.0.0
-         *
-         * @param  {int|string} node Button index
-         * @return {string} Button text
-         *
-         */
         /**
          * Set the text for a button
          *
