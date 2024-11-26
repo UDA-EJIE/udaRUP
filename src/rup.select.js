@@ -1481,18 +1481,19 @@
 			}
 			
 			const name = settings.inlineEdit?.auxSiblingFieldName ? settings.inlineEdit?.auxSiblingFieldName : settings.name;
+			var url = settings.url;
 			
 			if ($form.length === 1) {
 				if ($.fn.getHDIV_STATE(undefined, $form) != '') {
-					settings.url += (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
+					url += (settings.url.includes('?') ? '&' : '?') + '_MODIFY_HDIV_STATE_=' + $.fn.getHDIV_STATE(undefined, $form) + '&MODIFY_FORM_FIELD_NAME=' + name;
 				}
 				
 				if (data && !settings.url.includes(data)) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					settings.url += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
+					url += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
 				}
 			}
-			return settings.url;
+			return url;
 		},
         /**
 		 * Método de inicialización del componente.
