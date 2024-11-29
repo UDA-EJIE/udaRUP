@@ -90,14 +90,14 @@ table.dataTable.order-column.hover tbody>tr>.selected:hover {
     background-color: #a2aec7
 }
 
-div.dataTables_wrapper span.select-info,
-div.dataTables_wrapper span.select-item {
+div.dt-container span.select-info,
+div.dt-container span.select-item {
     margin-left: 0.5em
 }
 
 @media screen and (max-width: 640px) {
-    div.dataTables_wrapper span.select-info,
-    div.dataTables_wrapper span.select-item {
+    div.dt-container span.select-info,
+    div.dt-container span.select-item {
         margin-left: 0;
         display: block
     }

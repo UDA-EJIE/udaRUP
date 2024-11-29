@@ -905,7 +905,7 @@
         _createSearchPaginator(tabla, settingsT) {
             //buscar la paginación.
             if ($('#' + tabla[0].id + '_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0') {
-                var liSearch = $('<li></li>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
+                var liSearch = $('<li></li>').addClass('dt-paging-button page-item pageSearch searchPaginator align-self-center');
                 var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina', settingsT.json.total);
                 var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina', settingsT.json.total);
                 var input = $('<input/>').attr({
