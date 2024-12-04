@@ -919,7 +919,7 @@
                 liSearch.append(input);
                 liSearch.append(toPagina);
 
-                $('#' + tabla[0].id + '_previous').after(liSearch);
+                $('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1).after(liSearch);
                 input.keypress(function (e) {
                     if (e.which === 13) // the enter key code
                     {
@@ -936,7 +936,7 @@
 
             // Añade iconos para versiones moviles/tablets
             $('<i class="mdi mdi-page-first d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_first')
+                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').first()
                     .addClass('recolocatedPagination_iconButton')
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
@@ -945,7 +945,7 @@
                     })
                 );
             $('<i class="mdi mdi-chevron-left d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_previous')
+                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1)
                     .addClass('recolocatedPagination_iconButton')
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
@@ -954,7 +954,7 @@
                     })
                 );
             $('<i class="mdi mdi-chevron-right d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_next')
+                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(3)
                     .addClass('recolocatedPagination_iconButton')
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
@@ -963,7 +963,7 @@
                     })
                 );
             $('<i class="mdi mdi-page-last d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_last')
+                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').last()
                     .addClass('recolocatedPagination_iconButton')
                     .children('a')
                     .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
@@ -973,7 +973,7 @@
                 );
 
             // Inserta la lista de botones de paginacion al div anteriormente creado
-            $('#' + tabla[0].id + '_paginate ul').detach().appendTo($('#' + tabla[0].id + '_paginate'));
+            $('#' + tabla[0].id + '_paginate').find('ul').detach().appendTo($('#' + tabla[0].id + '_paginate').find('nav'));
 
         },
 
