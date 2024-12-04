@@ -1,4 +1,4 @@
-/*! Buttons 2.4.2
+/*! Buttons 3.1.2
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     Buttons
  * @description Buttons for DataTables
  * @module      "rup.table.buttons"
- * @version     2.4.2
+ * @version     3.1.2
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -44,7 +44,7 @@
         // Browser
         factory(jQuery, window, document);
     }
-}(function ($, window, document, undefined) {
+}(function ($, window, document) {
     'use strict';
     var DataTable = $.fn.dataTable;
 
@@ -103,6 +103,10 @@
      *
      */
     var Buttons = function (dt, config) {
+		if (!DataTable.versionCheck('2')) {
+			throw 'Warning: Buttons requires DataTables 2 or newer';
+		}
+
         var idTable = dt.context[0].sTableId;
         var ctx = dt.context[0];
         ctx.ext = DataTable.ext;
@@ -1203,6 +1207,7 @@
          *
          */
         _buildButton: function (config, inCollection, isSplit, inSplit) {
+			var that = this;
 			var configDom = this.c.dom;
 			var textNode;
             var dt = this.s.dt;
@@ -1246,15 +1251,15 @@
 
             // Make sure that the button is available based on whatever requirements
 			// it has. For example, PDF button require pdfmake
-			if (config.available && !config.available(dt, config) && !config.hasOwnProperty('html')) {
+			if (config.available && !config.available(dt, config) && !config.html) {
                 return false;
             }
 
 			var button;
 
-			if (!config.hasOwnProperty('html')) {
-				var action = function (e, dt, button, config) {
-					config.action.call(dt.button(button), e, dt, button, config);
+			if (!config.html) {
+				var run = function (e, dt, button, config, done) {
+					config.action.call(dt.button(button), e, dt, button, config, done);
 
 					$(dt.table().node()).triggerHandler('buttons-action.dt', [
 						dt.button(button),
@@ -1263,6 +1268,21 @@
 						config
 					]);
 				};
+				
+				var action = function(e, dt, button, config) {
+					if (config.async) {
+						that.processing(button[0], true);
+
+						setTimeout(function() {
+							run(e, dt, button, config, function() {
+								that.processing(button[0], false);
+							});
+						}, config.async);
+					}
+					else {
+						run(e, dt, button, config, function() { });
+					}
+				}
 
 				var tag = config.tag || dom.tag;
 				var clickBlurs = config.clickBlurs === undefined ? true : config.clickBlurs;
@@ -1779,7 +1799,7 @@
 		 * @param {DataTable.Api} hostButton DT API instance of the button
 		 * @param {object} inOpts Options (see object below for all options)
 		 */
-		_popover: function(content, hostButton, inOpts, e) {
+		_popover: function(content, hostButton, inOpts) {
 			var dt = hostButton;
 			var c = this.c;
 			var closed = false;
@@ -1964,10 +1984,6 @@
 					if (left < buttonPosition.left) {
 						left = -buttonPosition.left;
 					}
-
-					if (left + popoverSizes.width > tableSizes.width) {
-						left = tableSizes.width - popoverSizes.width;
-					}
 				}
 
 				// Window adjustment
@@ -2006,7 +2022,7 @@
 			}
 			else {
 				// Fix position - centre on screen
-				var position = function() {
+				var place = function() {
 					var half = $(window).height() / 2;
 
 					var top = display.height() / 2;
@@ -2017,10 +2033,10 @@
 					display.css('marginTop', top * -1);
 				};
 
-				position();
+				place();
 
 				$(window).on('resize.dtb-collection', function() {
-					position();
+					place();
 				});
 			}
 
@@ -2202,6 +2218,13 @@
             } else if (typeof input === 'number') {
                 // Index selector
                 ret.push(buttons[input].inst);
+			} else if (typeof input === 'object' && input.nodeName) {
+				// Element selector
+				for (var j = 0; j < buttons.length; j++) {
+					if (buttons[j].inst.dom.container[0] === input) {
+						ret.push(buttons[j].inst);
+					}
+				}
 			} else if (typeof input === 'object') {
 				// Actual instance selector
 				ret.push(input);
@@ -2361,17 +2384,17 @@
 		}
 
 		// Always remove script tags
-		str = str.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+		str = Buttons.stripHtmlScript(str);
 
 		// Always remove comments
-		str = str.replace(/<!\-\-.*?\-\->/g, '');
+		str = Buttons.stripHtmlComments(str);
 
 		if (!config || config.stripHtml) {
-			str = str.replace(/<[^>]*>/g, '');
+			str = DataTable.util.stripHtml(str);
 		}
 
 		if (!config || config.trim) {
-			str = str.replace(/^\s+|\s+$/g, '');
+			str = str.trim();
 		}
 
 		if (!config || config.stripNewlines) {
@@ -2398,7 +2421,41 @@
 	 */
 	Buttons.entityDecoder = function (fn) {
 		_entityDecoder = fn;
-	}
+	};
+	
+	/**
+	 * Common function for stripping HTML comments
+	 *
+	 * @param {*} input 
+	 * @returns 
+	 */
+	Buttons.stripHtmlComments = function(input) {
+		var previous;
+
+		do {
+			previous = input;
+			input = input.replace(/(<!--.*?--!?>)|(<!--[\S\s]+?--!?>)|(<!--[\S\s]*?$)/g, '');
+		} while (input !== previous);
+
+		return input;
+	};
+
+	/**
+	 * Common function for stripping HTML script tags
+	 *
+	 * @param {*} input 
+	 * @returns 
+	 */
+	Buttons.stripHtmlScript = function(input) {
+		var previous;
+
+		do {
+			previous = input;
+			input = input.replace(/<script\b[^<]*(?:(?!<\/script[^>]*>)<[^<]*)*<\/script[^>]*>/gi, '');
+		} while (input !== previous);
+
+		return input;
+	};
 
     /**
      * Version information
@@ -2412,7 +2469,7 @@
      * @static
      *
      */
-    Buttons.version = '2.4.2';
+    Buttons.version = '3.1.2';
 
 
     $.extend(_dtButtons, {
@@ -2422,7 +2479,7 @@
             },
             className: 'buttons-collection',
 			closeButton: false,
-			init: function (dt, button, config) {
+			init: function (dt, button) {
 				button.attr('aria-expanded', false);
 			},
 			action: function (e, dt, button, config) {
@@ -2479,7 +2536,7 @@
 			},
 			className: 'buttons-split',
 			closeButton: false,
-			init: function(dt, button, config) {
+			init: function(dt, button) {
 				return button.attr('aria-expanded', false);
 			},
 			action: function(e, dt, button, config) {
@@ -2490,7 +2547,7 @@
 			}
 			// Also the popover options, defined in Buttons.popover
 		},
-        addButton: function (dt, conf) {
+        addButton: function (dt) {
             var ctx = dt.context[0];
             var collection = _dtButtons['collection'];
             _dtButtons = ctx.ext.buttons;
@@ -2499,22 +2556,22 @@
                 return 'addButton';
             }
         },
-        editButton: function (dt, conf) {
+        editButton: function () {
             if (_dtButtons.editButton) {
                 return 'editButton';
             }
         },
-        cloneButton: function (dt, conf) {
+        cloneButton: function () {
             if (_dtButtons.cloneButton) {
                 return 'cloneButton';
             }
         },
-        deleteButton: function (dt, conf) {
+        deleteButton: function () {
             if (_dtButtons.deleteButton) {
                 return 'deleteButton';
             }
         },
-        reportsButton: function (dt, conf) {
+        reportsButton: function () {
             if (_dtButtons.reportsButton) {
                 return 'reportsButton';
             }
@@ -2894,10 +2951,10 @@
         }
 
         return {
-            filename: _filename(conf),
-            title: _title(conf),
-            messageTop: _message(this, conf.message || conf.messageTop, 'top'),
-            messageBottom: _message(this, conf.messageBottom, 'bottom')
+            filename: _filename(conf, this),
+            title: _title(conf, this),
+            messageTop: _message(this, conf, conf.message || conf.messageTop, 'top'),
+            messageBottom: _message(this, conf, conf.messageBottom, 'bottom')
         };
     });
 
@@ -3051,18 +3108,18 @@
     });
 
 
-    /**
-     * Get the file name for an exported file.
-     *
-     * @name _filename
-     * @function
-     * @since UDA 3.4.0
-     *
-     * @param {object}	config Button configuration
-     * @param {boolean} incExtension Include the file name extension
-     *
-     */
-    var _filename = function (config) {
+	/**
+	 * Get the file name for an exported file.
+	 *
+	 * @name _filename
+	 * @function
+	 * @since UDA 3.4.0
+	 *
+	 * @param {object} config Button configuration
+	 * @param {object} dt DataTable instance
+	 *
+	 */
+    var _filename = function (config, dt) {
         // Backwards compatibility
 		var filename =
 			config.filename === '*' &&
@@ -3074,7 +3131,7 @@
 				: config.filename;
 
         if (typeof filename === 'function') {
-            filename = filename();
+            filename = filename(config, dt);
         }
 
         if (filename === undefined || filename === null) {
@@ -3082,13 +3139,13 @@
         }
 
         if (filename.indexOf('*') !== -1) {
-            filename = filename.replace('*', $('head > title').text()).trim();
+            filename = filename.replace(/\*/g, $('head > title').text()).trim();
         }
 
         // Strip characters which the OS will object to
         filename = filename.replace(/[^a-zA-Z0-9_\u00A1-\uFFFF\.,\-_ !\(\)]/g, '');
 
-        var extension = _stringOrFunction(config.extension);
+        var extension = _stringOrFunction(config.extension, config, dt);
         if (!extension) {
             extension = '';
         }
@@ -3104,15 +3161,17 @@
      * @since UDA 3.4.0
      *
      * @param {undefined|string|function} option Option
+	 * @param {object} config Button configuration
+	 * @param {object} dt DataTable instance
      *
      * @return {null|string} Resolved value
      *
      */
-    var _stringOrFunction = function (option) {
+    var _stringOrFunction = function (option, config, dt) {
         if (option === null || option === undefined) {
             return null;
         } else if (typeof option === 'function') {
-            return option();
+            return option(config, dt);
         }
         return option;
     };
@@ -3124,21 +3183,22 @@
      * @function
      * @since UDA 3.4.0
      *
-     * @param {object} config	Button configuration
+	 * @param {object} config Button configuration
+	 * @param {object} dt DataTable instance
      *
      */
-    var _title = function (config) {
-        var title = _stringOrFunction(config.title);
+    var _title = function (config, dt) {
+        var title = _stringOrFunction(config.title, config, dt);
 
 		return title === null
 			? null
 			: title.indexOf('*') !== -1
-			? title.replace('*', $('head > title').text() || 'Exported data')
+			? title.replace(/\*/g, $('head > title').text() || 'Exported data')
 			: title;
     };
 
-    var _message = function (dt, option, position) {
-        var message = _stringOrFunction(option);
+    var _message = function (dt, config, option, position) {
+        var message = _stringOrFunction(option, config, dt);
         if (message === null) {
             return null;
         }
@@ -3184,7 +3244,8 @@
 						return Buttons.stripData(d, config);
 					}
 				},
-				customizeData: null
+				customizeData: null,
+				customizeZip: null
 			},
 			inOpts
 		);
@@ -3193,8 +3254,8 @@
 			.columns(config.columns)
 			.indexes()
 			.map(function (idx) {
-				var el = dt.column(idx).header();
-				return config.format.header(el.innerHTML, idx, el);
+				var col = dt.column(idx);
+				return config.format.header(col.innerHTML, idx, col.header());
 			})
 			.toArray();
 
@@ -3204,7 +3265,17 @@
 					.indexes()
 					.map(function (idx) {
 						var el = dt.column(idx).footer();
-						return config.format.footer(el ? el.innerHTML : '', idx, el);
+						var val = '';
+
+						if (el) {
+							var inner = $('.dt-column-title', el);
+
+							val = inner.length
+								? inner.html()
+								: $(el).html();
+						}
+
+						return config.format.footer(val, idx, el);
 					})
 					.toArray()
 			: null;
@@ -3224,11 +3295,14 @@
         }
 
 		var rowIndexes = dt.rows(config.rows, modifier).indexes().toArray();
-		var selectedCells = dt.cells(rowIndexes, config.columns);
+		var selectedCells = dt.cells(rowIndexes, config.columns, {
+			order: modifier.order
+		});
 		var cells = selectedCells.render(config.orthogonal).toArray();
 		var cellNodes = selectedCells.nodes().toArray();
+		var cellIndexes = selectedCells.indexes().toArray();
 
-        var columns = header.length;
+        var columns = dt.columns(config.columns).count();
         var rows = columns > 0 ? cells.length / columns : 0;
         var body = [];
         var cellCounter = 0;
@@ -3237,7 +3311,12 @@
             var row = [columns];
 
             for (var j = 0; j < columns; j++) {
-                row[j] = config.format.body(cells[cellCounter], i, j, cellNodes[cellCounter]);
+				row[j] = config.format.body(
+					cells[cellCounter],
+					cellIndexes[cellCounter].row,
+					cellIndexes[cellCounter].column,
+					cellNodes[cellCounter]
+				);
                 cellCounter++;
             }
 
@@ -3246,7 +3325,15 @@
 
 		var data = {
 			header: header,
+			headerStructure: _headerFormatter(
+				config.format.header,
+				dt.table().header.structure(config.columns)
+			),
 			footer: footer,
+			footerStructure: _headerFormatter(
+				config.format.footer,
+				dt.table().footer.structure(config.columns)
+			),
 			body: body
 		};
 		
@@ -3256,6 +3343,24 @@
 
 		return data;
     };
+    
+	function _headerFormatter(formatter, struct) {
+		for (var i = 0; i < struct.length; i++) {
+			for (var j = 0; j < struct[i].length; j++) {
+				var item = struct[i][j];
+
+				if (item) {
+					item.title = formatter(
+						item.title,
+						j,
+						item.cell
+					);
+				}
+			}
+		}
+
+		return struct;
+	}
 
     /**
      * Activa la coleccion
@@ -4424,15 +4529,15 @@
 		return new Buttons(api, opts).container();
 	}
 
-	// DataTables `dom` feature option
+	// DataTables 1 `dom` feature option
 	DataTable.ext.feature.push({
 		fnInit: _init,
 		cFeature: 'B'
 	});
 	
 	// DataTables 2 layout feature
-	if (DataTable.ext.features) {
-		DataTable.ext.features.register('buttons', _init);
+	if (DataTable.feature) {
+		DataTable.feature.register('buttons', _init);
 	}
 
     return Buttons;
