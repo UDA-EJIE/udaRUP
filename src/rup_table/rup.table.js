@@ -890,93 +890,113 @@
             cache = null; // Enable garbage collection
             return strJson;
         },
+		/**
+		 * Crea y gestiona la paginación.
+		 *
+		 * @name _createSearchPaginator
+		 * @function
+		 * @since UDA 3.4.0
+		 *
+		 * @param {object} tabla Objeto que contiene la tabla
+		 * @param {object} options Opciones de configuración
+		 * @param {object} settings Opciones del componente
+		 *
+		 */
+		_createSearchPaginator(tabla, options, settings) {
+			if (options.searchPaginator) {
+				//Mirar el crear paginador
+				//buscar la paginación.
+				if ($('#' + tabla[0].id + '_paginate').length === 1 && settings.json !== undefined && settings.json.total !== '0') {
+					var liSearch = $('<li></li>').addClass('dt-paging-button page-item pageSearch searchPaginator align-self-center');
+					var textPagina = jQuery.rup.i18nTemplate(settings.oLanguage, 'pagina', settings.json.total);
+					var toPagina = jQuery.rup.i18nTemplate(settings.oLanguage, 'toPagina', settings.json.total);
+					var input = $('<input/>').attr({
+						type: 'text',
+						size: '3',
+						value: settings.json.page,
+						maxlength: '3'
+					}).addClass('ui-pg-input text-center');
 
-        /**
-         * Gestiona la paginación
-         *
-         * @name _createSearchPaginator
-         * @function
-         * @since UDA 3.4.0
-         *
-         * @param {object} tabla Objeto que contiene la tabla
-         * @param {object} settingsT Opciones del componente
-         *
-         */
-        _createSearchPaginator(tabla, settingsT) {
-            //buscar la paginación.
-            if ($('#' + tabla[0].id + '_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0') {
-                var liSearch = $('<li></li>').addClass('dt-paging-button page-item pageSearch searchPaginator align-self-center');
-                var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina', settingsT.json.total);
-                var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina', settingsT.json.total);
-                var input = $('<input/>').attr({
-                    type: 'text',
-                    size: '3',
-                    value: settingsT.json.page,
-                    maxlength: '3'
-                }).addClass('ui-pg-input text-center');
+					liSearch.append(textPagina);
+					liSearch.append(input);
+					liSearch.append(toPagina);
 
-                liSearch.append(textPagina);
-                liSearch.append(input);
-                liSearch.append(toPagina);
+					$('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1).after(liSearch);
+					input.keypress(function(e) {
+						if (e.which === 13) // the enter key code
+						{
+							var page = parseInt(this.value);
+							if ($.rup_utils.isNumeric(page) && page > 0) {
+								tabla.DataTable().page(page - 1).draw('page');
+							}
+							return false;
+						}
+					});
+				} else {
+					//Sacar un error
+				}
 
-                $('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1).after(liSearch);
-                input.keypress(function (e) {
-                    if (e.which === 13) // the enter key code
-                    {
-                        var page = parseInt(this.value);
-                        if ($.rup_utils.isNumeric(page) && page > 0) {
-                            tabla.DataTable().page(page - 1).draw('page');
-                        }
-                        return false;
-                    }
-                });
-            } else {
-                //Sacar un error
-            }
+				// Añade iconos para versiones moviles/tablets
+				$('<i class="mdi mdi-page-first d-sm-none"></i>')
+					.insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').first()
+						.addClass('recolocatedPagination_iconButton')
+						.children('a')
+						.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+						.wrapInner(function() {
+							return '<span></span>';
+						})
+					);
+				$('<i class="mdi mdi-chevron-left d-sm-none"></i>')
+					.insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1)
+						.addClass('recolocatedPagination_iconButton')
+						.children('a')
+						.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+						.wrapInner(function() {
+							return '<span></span>';
+						})
+					);
+				$('<i class="mdi mdi-chevron-right d-sm-none"></i>')
+					.insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(3)
+						.addClass('recolocatedPagination_iconButton')
+						.children('a')
+						.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+						.wrapInner(function() {
+							return '<span></span>';
+						})
+					);
+				$('<i class="mdi mdi-page-last d-sm-none"></i>')
+					.insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').last()
+						.addClass('recolocatedPagination_iconButton')
+						.children('a')
+						.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
+						.wrapInner(function() {
+							return '<span></span>';
+						})
+					);
 
-            // Añade iconos para versiones moviles/tablets
-            $('<i class="mdi mdi-page-first d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').first()
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-chevron-left d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(1)
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-chevron-right d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').eq(3)
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-page-last d-sm-none"></i>')
-                .insertAfter($('#' + tabla[0].id + '_paginate li.dt-paging-button').last()
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
+				// Inserta la lista de botones de paginacion al div anteriormente creado
+				$('#' + tabla[0].id + '_paginate').find('ul').detach().appendTo($('#' + tabla[0].id + '_paginate').find('nav'));
 
-            // Inserta la lista de botones de paginacion al div anteriormente creado
-            $('#' + tabla[0].id + '_paginate').find('ul').detach().appendTo($('#' + tabla[0].id + '_paginate').find('nav'));
+				// Deshabilitamos los botones de paginacion si es necesario
+				$.each($('ul.pagination li.recolocatedPagination_iconButton'), function() {
+					if ($(this).hasClass('disabled')) {
+						$(this).find('a').prop('tabindex', '-1');
+					} else {
+						$(this).find('a').prop('tabindex', '0');
+					}
+				});
 
-        },
-
+				//Si el seeker esta vacio ocultarlo
+				if (settings.seeker !== undefined &&
+					settings.seeker.search !== undefined && settings.seeker.search.$searchRow !== undefined) {
+					if (settings._iRecordsDisplay > 0) {
+						settings.seeker.search.$searchRow.show();
+					} else {
+						settings.seeker.search.$searchRow.hide();
+					}
+				}
+			}
+		},
         /**
          * Limpia el filtro
          *
@@ -1753,39 +1773,25 @@
                 
                 $self._initializeMultiselectionProps(tabla.context[0]);
                 
-               if(options.createTooltipHead !== false){
-	                //Crear tooltips cabecera;
-	                $.each($('#' + $self[0].id + ' thead th'), function () {
-	                    $self._createTooltip($(this));
-	                });
-               }
-                tabla.on('draw', function (e, settingsTable) {
+				if (options.createTooltipHead !== false) {
+					//Crear tooltips cabecera;
+					$.each($('#' + $self[0].id + ' thead th'), function() {
+						$self._createTooltip($(this));
+					});
+				}
+				
+				tabla.on('init', function(e, settings, json) {
+					$self._createSearchPaginator($(this), options, settings);
+				});
+				
+				tabla.on('draw', function (e, settingsTable) {
                     var ctx = tabla.context[0];
                     
 					if (filterOptions != 'noFilter') {
 						$self._showSearchCriteria();
 					}
                     
-                    if (options.searchPaginator) { //Mirar el crear paginador
-                        $self._createSearchPaginator($(this), settingsTable);
-                        // Deshabilitamos los botones de paginacion si es necesario
-                        $.each($('ul.pagination li.recolocatedPagination_iconButton'), function () {
-                            if ($(this).hasClass('disabled')) {
-                                $('#' + this.id + ' a').prop('tabindex', '-1');
-                            } else {
-                                $('#' + this.id + ' a').prop('tabindex', '0');
-                            }
-                        });
-                        //Si el seeker esta vacio ocultarlo
-                        if (settingsTable.seeker !== undefined &&
-                            settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined) {
-                            if (settingsTable._iRecordsDisplay > 0) {
-                                settingsTable.seeker.search.$searchRow.show();
-                            } else {
-                                settingsTable.seeker.search.$searchRow.hide();
-                            }
-                        }
-                    }
+					$self._createSearchPaginator($(this), options, settingsTable);
 
                     if (options.select !== undefined || options.multiSelect !== undefined) { //AL repintar vigilar el select.
                         if (options.select !== undefined) { //AL repintar vigilar el select.
