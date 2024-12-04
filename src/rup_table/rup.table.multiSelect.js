@@ -1,4 +1,4 @@
-/*! MultiSelect for DataTables 1.7.0
+/*! MultiSelect for DataTables 2.1.0
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     MultiSelect
  * @description MultiSelect for DataTables
  * @module      "rup.table.multiSelect"
- * @version     1.7.0
+ * @version     2.1.0
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -44,15 +44,19 @@
         // Browser
         factory(jQuery, window, document);
     }
-}(function ($, window, document, undefined) {
+}(function ($, window, document) {
     'use strict';
     var DataTable = $.fn.dataTable;
 
 
     // Version information for debugger
     DataTable.multiSelect = {};
+    
+	DataTable.multiSelect.classes = {
+		checkbox: 'dt-select-checkbox'
+	};
 
-    DataTable.multiSelect.version = '1.7.0';
+    DataTable.multiSelect.version = '2.1.0';
 
     /**
      * Se inicializa el componente multiselect
@@ -66,6 +70,10 @@
      */
     DataTable.multiSelect.init = function (dt) {
         var ctx = dt.settings()[0];
+        
+		if (!DataTable.versionCheck('2')) {
+			throw 'Warning: MultiSelect requires DataTables 2 or newer';
+		}
         
 		if (ctx._multiSelect) {
 			return;
@@ -131,7 +139,9 @@
         var className = 'selected tr-highlight';
         var setStyle = false;
 
-        ctx._multiSelect = {};
+		ctx._multiSelect = {
+			infoEls: []
+		};
 
         if (init.hideMultiselect === undefined) {
             init.hideMultiselect = false;
@@ -263,9 +273,9 @@
 	## Selection of rows, columns and cells. Whether an item is selected or not is
 	   stored in:
 	
-	* rows: a `_select_selected` property which contains a boolean value of the
+	* rows: a `_multiSelect_selected` property which contains a boolean value of the
 	  DataTables' `aoData` object for each row
-	* columns: a `_select_selected` property which contains a boolean value of the
+	* columns: a `_multiSelect_selected` property which contains a boolean value of the
 	  DataTables' `aoColumns` object for each column
 	* cells: a `_selected_cells` property which contains an array of boolean values
 	  of the `aoData` object for each row. The array is the same length as the
@@ -299,6 +309,7 @@
 		                     interaction style when selecting items
 		info:boolean       - If the selection summary should be shown in the table
 		                     information elements
+		infoEls:element[]  - List of HTML elements with info elements for a table
 	}
 	```
 	
@@ -645,7 +656,7 @@
         }
 
         // Ignore clicks inside a sub-table
-        if ($(event.target).closest('div.dataTables_wrapper')[0] != dt.table().container()) {
+        if ($(event.target).closest('div.dt-container')[0] != dt.table().container()) {
             return;
         }
 
@@ -714,18 +725,20 @@
      * @param {DataTable.Api} api DataTable to update
      * 
      */
-    function info(api) {
-        var ctx = api.settings()[0];
+    function info(api, node) {
+		if (api.multiSelect.style() === 'api' || api.multiSelect.info() === false) {
+			return;
+		}
+		
+		var ctx = api.settings()[0];
 
-        if (!ctx._multiSelect.info || !ctx.aanFeatures.i) {
-            return;
-        }
-
-        if (api.multiSelect.style() === 'api') {
-            return;
-        }
-
-        var rows = api.rows({ selected: true }).flatten().length;
+		// If _multiSelect_set has any length, then ids are available and should be used
+		// as the counter. Otherwise use the API to workout how many rows are
+		// selected.
+		var rowSetLength = api.settings()[0]._multiSelect_set.length;
+		var rows = rowSetLength ? rowSetLength : api.rows({ selected: true }).count();
+		var columns = api.columns({ selected: true }).count();
+		var cells = api.cells({ selected: true }).count();
 
         var add = function (el, name, num) {
             name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.fila');
@@ -775,24 +788,22 @@
         };
 
         rows = ctx.multiselection.numSelected;
-        //Antes de mostrar la info se ha de ordenar.
+        
+		//Antes de mostrar la info se ha de ordenar.
+		var el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
+		var output = $('<span class="select-info"></span>');
 
-        // Internal knowledge of DataTables to loop over all information elements
-        $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
+		add(output, 'row', rows);
 
-            var output = $('<span class="select-info"></span>');
-            add(output, 'row', rows);
+		var existing = el.children('span.select-info');
 
-            var existing = el.children('span.select-info');
-            if (existing.length) {
-                existing.remove();
-            }
+		if (existing.length) {
+			existing.remove();
+		}
 
-            if (output.text() !== '') {
-                el.append(output);
-            }
-        });
+		if (output.text() !== '') {
+			el.append(output);
+		}
 
         $('#' + ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate',ctx);
     }
@@ -814,11 +825,9 @@
     function init(ctx) {
         var api = new DataTable.Api(ctx);
         ctx._multiSelect_init = true;
-
-        //Se añade el context, al pagination container
-        if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
-            $('#' + ctx.sTableId).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
-        }
+        
+		// _multiSelect_set contains a list of the ids of all rows that are selected
+		ctx._multiSelect_set = [];
 
         // Row callback so that classes can be added to rows and cells if the item
         // was selected before the element was created. This will happen with the
@@ -827,78 +836,77 @@
         // This method of attaching to `aoRowCreatedCallback` is a hack until
         // DataTables has proper events for row manipulation If you are reviewing
         // this code to create your own plug-ins, please do not do this!
-        ctx.aoRowCreatedCallback.push({
-            fn: function (row, data, index) {
-                var i, ien;
-                var d = ctx.aoData[index];
+		ctx.aoRowCreatedCallback.push(function(row, data, index) {
+			var i, ien;
+			var d = ctx.aoData[index];
+			var id = api.row(index).id();
 
-                // Row
-                if (d._multiSelect_selected) {
-                    $(row).addClass(ctx._multiSelect.className);
-                    if (api.row(index).child() !== undefined) {
-                        api.row(index).child().addClass(ctx._multiSelect.className);
-                    }
-                }
-
-                // Cells and columns - if separated out, we would need to do two
-                // loops, so it makes sense to combine them into a single one
-                for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
-                    if (ctx.aoColumns[i]._multiSelect_selected || (d._selected_cells && d._selected_cells[i])) {
-                        $(d.anCells[i]).addClass(ctx._multiSelect.className);
-                    }
-                }
-            },
-            sName: 'select-deferRender'
-        });
-
-        // On Ajax reload we want to reselect all rows which are currently selected,
-        // if there is an rowId (i.e. a unique value to identify each row with)
-        api.on('preXhr.dt.dtSelect', function (e, settings) {
-			if (settings !== api.settings()[0]) {
-				// Not triggered by our DataTable!
-				return;
+			// Row
+			if (d._multiSelect_selected || (id !== 'undefined' && ctx._multiSelect_set.includes(id))) {
+				d._multiSelect_selected = true;
+				$(row)
+					.addClass(ctx._multiSelect.className)
+					.find('input.' + checkboxClass(true)).prop('checked', true);
 			}
-			
-            // note that column selection doesn't need to be cached and then
-            // reselected, as they are already selected
-            var rows = api.rows({
-                selected: true
-            }).ids(true).filter(function (d) {
-                return d !== undefined;
-            });
 
-			var cells = api.cells({ selected: true }).eq(0).map(function(cellIdx) {
-				var id = api.row(cellIdx.row).id(true);
-				return id ? { row: id, column: cellIdx.column } : undefined;
-			}).filter(function(d) {
-				return d !== undefined;
+			// Cells and columns - if separated out, we would need to do two
+			// loops, so it makes sense to combine them into a single one
+			for (i = 0, ien = ctx.aoColumns.length; i < ien; i++) {
+				if (ctx.aoColumns[i]._multiSelect_selected || (d._selected_cells && d._selected_cells[i])) {
+					$(d.anCells[i]).addClass(ctx._multiSelect.className)
+				}
+			}
+		});
+
+		_cumulativeEvents(api);
+		
+		//Se añade el context, al pagination container
+		api.one('info.dt', function(e, ctx) {
+			if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
+				$('#' + ctx.sTableId).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
+			}
+
+			$('#' + ctx.sTableId + '_wrapper div.dt-paging').attr('id', 'example_paginate');
+		});
+
+		// Update the table information element with selected item summary
+		api.on('info.dt', function(e, ctx, node) {
+			// Store the info node for updating on select / deselect
+			if (!ctx._multiSelect.infoEls.includes(node)) {
+				ctx._multiSelect.infoEls.push(node);
+			}
+
+			info(api, node);
+
+			_drawSelectId(api, ctx);
+			
+			//Comprobar si hay algun feedback activado
+			const feedback = ctx.oInit.feedback.$feedbackContainer;
+			if (feedback.type !== undefined && feedback.type === 'eliminar') {
+				feedback.rup_feedback('set', feedback.msgFeedBack, 'ok');
+				feedback.rup_feedback('show');
+			}
+		});
+
+		api.on('select.dtSelect.dt deselect.dtSelect.dt', function() {
+			ctx._multiSelect.infoEls.forEach(function(el) {
+				info(api, el);
 			});
 
-            // On the next draw, reselect the currently selected items
-            api.one('draw.dt.dtSelect', function () {
-                api.rows(rows).multiSelect();
+			api.state.save();
+		});
+		
+		// Clean up and release
+		api.on('destroy.dtSelect', function() {
+			// Remove class directly rather than calling deselect - which would trigger events
+			$(api.rows({ selected: true }).nodes()).removeClass(api.settings()[0]._multiSelect.className);
 
-                // `cells` is not a cell index selector, so it needs a loop
-                if (cells.any()) {
-                    cells.each(function (id) {
-                        api.cells(id.row, id.column).multiSelect();
-                    });
-                }
-            });
-        });
+			$('input.' + checkboxClass(true), api.table().header()).remove();
 
-        // Update the table information element with selected item summary
-        api.on('draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt', function () {
-            info(api);
-            api.state.save();
-            _drawSelectId(api, ctx);
-            //Comprobar si hay algun feedback activado
-            var feedback = ctx.oInit.feedback.$feedbackContainer;
-            if (feedback.type !== undefined && feedback.type === 'eliminar') {
-                feedback.rup_feedback('set', feedback.msgFeedBack, 'ok');
-                feedback.rup_feedback('show');
-            }
-        });
+			disableMouseSelection(api);
+			api.off('.dtSelect');
+			$('body').off('.dtSelect' + _safeId(api.table().node()));
+		});
 
         if (ctx.oInit.inlineEdit === undefined && ctx.oInit.formEdit === undefined) {
             $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
@@ -1339,13 +1347,13 @@
     function rowColumnRange(dt, type, idx, last) {
         // Add a range of rows from the last selected row to this one
         var indexes = dt[type + 's']({ search: 'applied' }).indexes();
-        var idx1 = $.inArray(last, indexes);
-        var idx2 = $.inArray(idx, indexes);
+		var idx1 = indexes.indexOf(last);
+		var idx2 = indexes.indexOf(idx);
 
         if (!dt[type + 's']({ selected: true }).any() && idx1 === -1) {
             // select from top to here - slightly odd, but both Windows and Mac OS
             // do this
-            indexes.splice($.inArray(idx, indexes) + 1, indexes.length);
+            indexes.splice(indexes.indexOf(idx) + 1, indexes.length);
         } else {
             // reverse so we can shift click 'up' as well as down
             if (idx1 > idx2) {
@@ -1363,7 +1371,7 @@
             dt[type + 's'](indexes).select();
         } else {
             // Deselect range - need to keep the clicked on row selected
-            indexes.splice($.inArray(idx, indexes), 1);
+			indexes.splice(indexes.indexOf(idx), 1);
             dt[type + 's'](indexes).deselect();
         }
     }
@@ -1389,6 +1397,135 @@
             api.cells({ selected: true }).deselect();
         }
     }
+    
+    /**
+	 * Select items based on the current configuration for style and items.
+	 *
+	 * @param  {object}             e    Mouse event object
+	 * @param  {DataTables.Api}     dt   DataTable
+	 * @param  {DataTable.settings} ctx  Settings object of the host DataTable
+	 * @param  {string}             type Items to select
+	 * @param  {int|object}         idx  Index of the item to select
+	 * @private
+	 */
+	function typeSelect(e, dt, ctx, type, idx) {
+		var style = dt.select.style();
+		var toggleable = dt.select.toggleable();
+		var isSelected = dt[type](idx, { selected: true }).any();
+
+		if (isSelected && !toggleable) {
+			return;
+		}
+
+		if (style === 'os') {
+			if (e.ctrlKey || e.metaKey) {
+				// Add or remove from the selection
+				dt[type](idx).select(!isSelected);
+			}
+			else if (e.shiftKey) {
+				if (type === 'cell') {
+					cellRange(dt, idx, ctx._multiSelect_lastCell || null);
+				}
+				else {
+					rowColumnRange(
+						dt,
+						type,
+						idx,
+						ctx._multiSelect_lastCell ? ctx._multiSelect_lastCell[type] : null
+					);
+				}
+			}
+			else {
+				// No cmd or shift click - deselect if selected, or select
+				// this row only
+				var selected = dt[type + 's']({ selected: true });
+
+				if (isSelected && selected.flatten().length === 1) {
+					dt[type](idx).deselect();
+				}
+				else {
+					selected.deselect();
+					dt[type](idx).select();
+				}
+			}
+		}
+		else if (style == 'multi+shift') {
+			if (e.shiftKey) {
+				if (type === 'cell') {
+					cellRange(dt, idx, ctx._multiSelect_lastCell || null);
+				}
+				else {
+					rowColumnRange(
+						dt,
+						type,
+						idx,
+						ctx._multiSelect_lastCell ? ctx._multiSelect_lastCell[type] : null
+					);
+				}
+			}
+			else {
+				dt[type](idx).select(!isSelected);
+			}
+		}
+		else {
+			dt[type](idx).select(!isSelected);
+		}
+	}
+
+	function _safeId(node) {
+		return node.id.replace(/[^a-zA-Z0-9\-\_]/g, '-');
+	}
+	
+	/**
+	 * Set up event handlers for cumulative selection
+	 *
+	 * @param {*} api DT API instance
+	 */
+	function _cumulativeEvents(api) {
+		// Add event listeners to add / remove from the _multiSelect_set
+		api.on('select', function(e, dt, type, indexes) {
+			// Only support for rows at the moment
+			if (type !== 'row') {
+				return;
+			}
+
+			var ctx = api.settings()[0];
+
+			_add(api, ctx._multiSelect_set, indexes);
+		});
+
+		api.on('deselect', function(e, dt, type, indexes) {
+			// Only support for rows at the moment
+			if (type !== 'row') {
+				return;
+			}
+
+			var ctx = api.settings()[0];
+
+			_remove(api, ctx._multiSelect_set, indexes);
+		});
+	}
+	
+	function _add(api, arr, indexes) {
+		for (var i = 0; i < indexes.length; i++) {
+			var id = api.row(indexes[i]).id();
+
+			if (id && id !== 'undefined' && !arr.includes(id)) {
+				arr.push(id);
+			}
+		}
+	}
+
+	function _remove(api, arr, indexes) {
+		for (var i = 0; i < indexes.length; i++) {
+			var id = api.row(indexes[i]).id();
+			var idx = arr.indexOf(id);
+
+			if (idx !== -1) {
+				arr.splice(idx, 1);
+			}
+		}
+	}
 
     /**
      * Metodo que inicializa las propiedades para el multiselect.
@@ -1583,9 +1720,10 @@
 	            for (var i = 0, ien = indexes.length; i < ien; i++) {
 	                data = settings[o.prop][indexes[i]];
 	
-	                if ((selected === true && data._multiSelect_selected === true) ||
-	                    (selected === false && !data._multiSelect_selected)
-	                ) {
+					if (data && (
+						(selected === true && data._multiSelect_selected === true) ||
+						(selected === false && !data._multiSelect_selected)
+					)) {
 	                    out.push(indexes[i]);
 	                }
 	            }
@@ -1607,9 +1745,10 @@
         for (var i = 0, ien = cells.length; i < ien; i++) {
             rowData = settings.aoData[cells[i].row];
 
-            if ((selected === true && rowData._selected_cells && rowData._selected_cells[cells[i].column] === true) ||
+            if (rowData && (
+				(selected === true && rowData._selected_cells && rowData._selected_cells[cells[i].column] === true) ||
                 (selected === false && (!rowData._selected_cells || !rowData._selected_cells[cells[i].column]))
-            ) {
+            )) {
                 out.push(cells[i]);
             }
         }
@@ -1666,11 +1805,14 @@
         }
 
         return this.iterator('table', function (ctx) {
-            ctx._multiSelect.style = style;
+			if (!ctx._multiSelect) {
+				DataTable.multiSelect.init(new DataTable.Api(ctx));
+			}
+			if (!ctx._multiSelect_init) {
+				init(ctx);
+			}
 
-            if (!ctx._multiSelect_init) {
-                init(ctx);
-            }
+            ctx._multiSelect.style = style;
 
             // Add mouse event handlers. They aren't required when only
             // API selection is available
@@ -1699,6 +1841,36 @@
             ctx._multiSelect.selector = selector;
         });
     });
+    
+	apiRegister('select.selectable()', function(set) {
+		let ctx = this.context[0];
+
+		if (set) {
+			ctx._multiSelect.selectable = set;
+			return this;
+		}
+
+		return ctx._multiSelect.selectable;
+	});
+
+	apiRegister('select.last()', function(set) {
+		let ctx = this.context[0];
+
+		if (set) {
+			ctx._multiSelect_lastCell = set;
+			return this;
+		}
+
+		return ctx._multiSelect_lastCell;
+	});
+
+	apiRegister('select.cumulative()', function() {
+		let ctx = this.context[0];
+
+		return ctx && ctx._multiSelect_set
+			? ctx._multiSelect_set
+			: [];
+	});
 
     apiRegister('multiSelect.deselectAll()', function (dt) {
         deselectAll(dt);
@@ -1773,15 +1945,33 @@
                 DataTable.Api().inlineEdit.restaurarFila(ctx, true);
             }
             $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectBeforeSelectRow',ctx);
+            
             clear(ctx);
-            pagina = false;
-            ctx.aoData[idx]._multiSelect_selected = true;
+            
+			// There is a good amount of knowledge of DataTables internals in
+			// this function. It _could_ be done without that, but it would hurt
+			// performance (or DT would need new APIs for this work)
+			var dtData = ctx.aoData[idx];
+			var dtColumns = ctx.aoColumns;
 
-            // Añadimos el fondo amarillo
-            $(ctx.aoData[idx].nTr).addClass(ctx._multiSelect.className);
+			if (ctx._multiSelect.selectable) {
+				var result = ctx._multiSelect.selectable(dtData._aData, dtData.nTr, idx);
+
+				if (result === false) {
+					// Not selectable - do nothing
+					return;
+				}
+			}
+
+			// Añadimos el fondo amarillo
+            $(dtData.nTr).addClass(ctx._multiSelect.className);
             if (api.row(idx).child() !== undefined) {
                 api.row(idx).child().addClass(ctx._multiSelect.className);
             }
+			dtData._multiSelect_selected = true;
+
+            pagina = false;
+
             // Marcamos el checkbox
             $($(ctx.aoData[idx].anCells).filter('.select-checkbox')).find(':input').prop('checked', true);
 
@@ -1802,6 +1992,7 @@
             $(ctx.aoData[idx].nTr).triggerHandler('tableMultiSelectAfterSelectRow',ctx);
 
         });
+        
         if (pagina) { //Cuando se pagina, se filtra, o se reordena.
             if (ctx.multiselection.selectedAll) { //Si pagina y están todos sleccionados se pintan.
                 let ctx = api.settings()[0];
@@ -1843,6 +2034,14 @@
 
         return this;
     });
+    
+	apiRegister('row().selected()', function() {
+		var ctx = this.context[0];
+		if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]]._multiSelect_selected) {
+			return true;
+		}
+		return false;
+	});
 
     apiRegisterPlural('columns().multiSelect()', 'column().multiSelect()', function (multiSelect) {
         var api = this;
@@ -1870,6 +2069,14 @@
 
         return this;
     });
+    
+	apiRegister('column().selected()', function() {
+		var ctx = this.context[0];
+		if (ctx && this.length && ctx.aoColumns[this[0]] && ctx.aoColumns[this[0]]._multiSelect_selected) {
+			return true;
+		}
+		return false;
+	});
 
     apiRegisterPlural('cells().multiSelect()', 'cell().multiSelect()', function (multiSelect) {
         var api = this;
@@ -1901,6 +2108,16 @@
         return this;
     });
 
+	apiRegister('cell().selected()', function() {
+		var ctx = this.context[0];
+		if (ctx && this.length) {
+			var row = ctx.aoData[this[0][0].row];
+			if (row && row._multiSelect_cells && row._multiSelect_cells[this[0][0].column]) {
+				return true;
+			}
+		}
+		return false;
+	});
 
     apiRegisterPlural('rows().deselect()', 'row().deselect()', function () {
         var api = this;
@@ -1913,7 +2130,13 @@
         }
 
         this.iterator('row', function (ctx, idx) {
-            ctx.aoData[idx]._multiSelect_selected = false;
+			// Like the select action, this has a lot of knowledge about DT internally
+			var dtData = ctx.aoData[idx];
+			var dtColumns = ctx.aoColumns;
+
+			$(dtData.nTr).removeClass(ctx._multiSelect.className);
+			dtData._multiSelect_selected = false;
+			ctx._multiSelect_lastCell = null;
 
             // Quitamos el fondo amarillo
             $(ctx.aoData[idx].nTr).removeClass(ctx._multiSelect.className);
@@ -2037,6 +2260,22 @@
 
         return 'draw.dt.DT' + unique + ' multiSelect.dt.DT' + unique + ' deselect.dt.DT' + unique;
     }
+    
+	function enabled(dt, config) {
+		if (config.limitTo.indexOf('rows') !== -1 && dt.rows({ selected: true }).any()) {
+			return true;
+		}
+	
+		if (config.limitTo.indexOf('columns') !== -1 && dt.columns({ selected: true }).any()) {
+			return true;
+		}
+	
+		if (config.limitTo.indexOf('cells') !== -1 && dt.cells({ selected: true }).any()) {
+			return true;
+		}
+	
+		return false;
+	}
 
     var _buttonNamespace = 0;
 
@@ -2134,7 +2373,34 @@
             destroy: function (dt, node, config) {
                 dt.off(config._eventNamespace);
             }
-        }
+        },
+        showSelected: {
+			text: i18n('showSelected', 'Show only selected'),
+			className: 'buttons-show-selected',
+			action: function (e, dt) {
+				if (dt.search.fixed('dt-select')) {
+					// Remove existing function
+					dt.search.fixed('dt-select', null);
+	
+					this.active(false);
+				}
+				else {
+					// Use a fixed filtering function to match on selected rows
+					// This needs to reference the internal aoData since that is
+					// where Select stores its reference for the selected state
+					var dataSrc = dt.settings()[0].aoData;
+	
+					dt.search.fixed('dt-select', function (text, data, idx) {
+						// _multiSelect_selected is set by Select on the data object for the row
+						return dataSrc[idx]._multiSelect_selected;
+					});
+	
+					this.active(true);
+				}
+	
+				dt.draw();
+			}
+		}
     });
 
     $.each(['Row', 'Column', 'Cell'], function (i, item) {
@@ -2148,6 +2414,8 @@
             },
             init: function (dt) {
                 var that = this;
+                
+				this.active(dt.select.items() === lc);
 
                 dt.on('selectItems.dt.DT', function (e, ctx, items) {
                     that.active(items === lc);
@@ -2156,17 +2424,123 @@
         };
     });
 
-
+	// Note that DataTables 2.1 has more robust type detection, but we retain
+	// backwards compatibility with 2.0 for the moment.
+	DataTable.type('select-checkbox', {
+		className: 'dt-select',
+		detect: DataTable.versionCheck('2.1')
+			? {
+				oneOf: function () {
+					return false; // no op
+				},
+				allOf: function () {
+					return false; // no op
+				},
+				init: function () {
+					return false;
+				}
+			}
+			: function (data) {
+				// Rendering function will tell us if it is a checkbox type
+				return data === 'select-checkbox' ? data : false;
+			},
+		order: {
+			pre: function (d) {
+				return d === 'X' ? -1 : 0;
+			}
+		}
+	});
+	
+	$.extend(true, DataTable.defaults.oLanguage, {
+		select: {
+			aria: {
+				rowCheckbox: 'Select row'
+			}
+		}
+	});
+	
+	DataTable.render.select = function (valueProp, nameProp) {
+		var valueFn = valueProp ? DataTable.util.get(valueProp) : null;
+		var nameFn = nameProp ? DataTable.util.get(nameProp) : null;
+	
+		var fn = function (data, type, row, meta) {
+			var dtRow = meta.settings.aoData[meta.row];
+			var selected = dtRow._multiSelect_selected;
+			var ariaLabel = meta.settings.oLanguage.select.aria.rowCheckbox;
+			var selectable = meta.settings._multiSelect.selectable;
+	
+			if (type === 'display') {
+				// Check if the row is selectable before showing the checkbox
+				if (selectable) {
+					var result = selectable(row, dtRow.nTr, meta.row);
+		
+					if (result === false) {
+						return '';
+					}
+				}
+	
+				return $('<input>')
+					.attr({
+						'aria-label': ariaLabel,
+						class: checkboxClass(),
+						name: nameFn ? nameFn(row) : null,
+						type: 'checkbox',
+						value: valueFn ? valueFn(row) : null,
+						checked: selected
+					})
+					.on('input', function (e) {
+						// Let Select 100% control the state of the checkbox
+						e.preventDefault();
+	
+						// And make sure this checkbox matches it's row as it is possible
+						// to check out of sync if this was clicked on to deselect a range
+						// but remains selected itself
+						this.checked = $(this).closest('tr').hasClass('selected');
+					})[0];
+			}
+			else if (type === 'type') {
+				return 'select-checkbox';
+			}
+			else if (type === 'filter') {
+				return '';
+			}
+	
+			return selected ? 'X' : '';
+		}
+	
+		// Workaround so uglify doesn't strip the function name. It is used
+		// for the column type detection.
+		fn._name = 'selectCheckbox';
+	
+		return fn;
+	}
+	
+	// Legacy checkbox ordering
+	DataTable.ext.order['select-checkbox'] = function (settings, col) {
+		return this.api()
+			.column(col, { order: 'index' })
+			.nodes()
+			.map(function (td) {
+				if (settings._multiSelect.items === 'row') {
+					return $(td).parent().hasClass(settings._multiSelect.className).toString();
+				}
+				else if (settings._multiSelect.items === 'cell') {
+					return $(td).hasClass(settings._multiSelect.className).toString();
+				}
+				return false;
+			});
+	};
+	
+	$.fn.DataTable.multiSelect = DataTable.multiSelect;
 
     /* * * ** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * Initialisation
      */
 
-    // DataTables creation - check if select has been defined in the options. Note
-    // this required that the table be in the document! If it isn't then something
-    // needs to trigger this method unfortunately. The next major release of
-    // DataTables will rework the events and address this.
-    $(document).on('preInit.dt.dtSelect', function (e, ctx) {
+    // DataTables creation - we need this to run _before_ data is read in, but
+	// for backwards compat. we also run again on preInit. If it happens twice
+	// it will simply do nothing the second time around.
+    $(document).on('i18n.dt.dtSelect preInit.dt.dtSelect', function (e, ctx) {
         if (e.namespace !== 'dt') {
             return;
         }
