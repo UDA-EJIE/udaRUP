@@ -485,7 +485,7 @@
             _selectSearch(dt, ctx, data);
         } else {
             var tabla = $('#' + ctx.sTableId);
-            tabla.dataTable().fnPageChange(data[ctx.seeker.search.pos].page - 1);
+            tabla.DataTable().page(data[ctx.seeker.search.pos].page - 1).draw('page');
         }
 
         if (data.length === 0) {

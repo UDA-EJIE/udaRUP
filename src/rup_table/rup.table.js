@@ -925,7 +925,7 @@
                     {
                         var page = parseInt(this.value);
                         if ($.rup_utils.isNumeric(page) && page > 0) {
-                            tabla.dataTable().fnPageChange(page - 1);
+                            tabla.DataTable().page(page - 1).draw('page');
                         }
                         return false;
                     }
