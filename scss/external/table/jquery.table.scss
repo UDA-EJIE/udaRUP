@@ -432,7 +432,7 @@ table.dataTable td {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-.dt-container .dataTables_length,
+.dt-container .dt-length,
 .dt-container .dataTables_filter,
 .dt-container .dt-info,
 .dt-container .dt-processing,
@@ -490,7 +490,7 @@ table.dataTable td {
 }
 
 @media screen and (max-width: 640px) {
-    .dt-container .dataTables_length,
+    .dt-container .dt-length,
     .dt-container .dataTables_filter {
         float: none;
         text-align: center
@@ -518,11 +518,11 @@ tfoot .rup-date-input-group {
     padding-right: 7px;
 }
 
-.dataTables_length label {
+.dt-length label {
     display: inline-flex;
 }
 
-.dataTables_length select {
+.dt-length select {
     margin: 0px 5px
 }
 
@@ -538,9 +538,9 @@ table.dataTable tbody>tr:hover {
     font-weight: initial
 }
 
-.dataTables_length select,
-.dataTables_length .ui-multiselect,
-.dataTables_length .ui-selectmenu-dropdown {
+.dt-length select,
+.dt-length .ui-multiselect,
+.dt-length .ui-selectmenu-dropdown {
     margin: 0px 5px
 }
 
@@ -548,7 +548,7 @@ table.dataTable tbody>tr:hover {
     display: inline-block
 }
 
-.dataTables_length {
+.dt-length {
     float: none
 }
 
