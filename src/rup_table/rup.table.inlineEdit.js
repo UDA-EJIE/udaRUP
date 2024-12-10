@@ -121,7 +121,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
 	// Si no existe se crea
 	if(idForm.length === 0){
-		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
+		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm').addClass('w-100');
         $('#'+ctx.sTableId).wrapAll($searchForm);
 	}
 	
