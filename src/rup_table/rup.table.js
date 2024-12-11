@@ -1938,6 +1938,9 @@
     //******************************************************
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
+    DataTable.ext.classes.length.container = 'dt-length col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0';
+    DataTable.ext.classes.info.container = 'dt-info col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center';
+    
     $.fn.rup_table.defaults = {
         foobar: false,
         headerContextMenu: {
@@ -1965,16 +1968,30 @@
             },
             selectorResponsive: 'td span.dtr-data'
         },
-        dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-            't<"container-fluid paginationContainer"' +
-            '<"row"' +
-            '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-            '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0"l>' +
-            '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
-            '>' +
-            '>' +
-            'r',
+		layout: {
+			top2Start: null,
+			top2End: null,
+			topStart: null,
+			topEnd: null,
+			top: null,
+			bottom: {
+				rowClass: 'container-fluid paginationContainer',
+				className: 'row',
+				features: [{
+					div: {
+						id: 'select_info',
+						className: 'col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left'
+					},
+					inputPaging: {},
+					pageLength: {},
+					info: {}
+				}]
+			},
+			bottomStart: null,
+			bottomEnd: null,
+			bottom2Start: null,
+			bottom2End: null
+		},
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
