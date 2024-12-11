@@ -33,6 +33,8 @@
             './rup.table.responsive',
             'datatables.net-colreorder',
             'datatables.net-colreorder-bs4',
+            'datatables.net-colreorder-bs4',
+            'datatables.net-feature-inputpaging',
             './rup.table.multiSelect',
             './rup.table.seeker',
             './rup.table.inlineEdit',
