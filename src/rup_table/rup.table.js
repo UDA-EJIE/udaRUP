@@ -2000,7 +2000,6 @@
         enableDynamicForms: false,
         contextMenuActivo: true,
         selectFilaDer: false,
-        searchPaginator: true,
         createdRow: function (row) {
             var ctx = $('#' + this[0].id).rup_table('getContext');
 
