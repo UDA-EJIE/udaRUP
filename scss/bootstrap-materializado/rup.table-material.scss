@@ -140,8 +140,32 @@ table.dataTable tbody {
 
 /* ESTILIZA EL INPUT, LABEL Y SELECT DEL PAGINADOR DE LA TABLA */
 .paginationContainer {
-	.searchPaginator {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	
+	ul.pagination li.paginate_button {
+		box-sizing: border-box;
+		display: inline-block;
+		min-width: 1.5em;
+		padding: 0.5em 0.25em;
+		margin-left: 2px;
+		text-align: center;
+		text-decoration: none !important;
+		cursor: pointer;
+		*cursor: hand;
+		color: #333 !important;
+		border: 1px solid transparent;
+		border-radius: 2px;
+		
+		a {
+			line-height: 10px;
+		}
+	}
+	
+	.dt-paging-input {
 		input {
+			width: 6ch;
+			min-width: 6ch;
 			padding: 1px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
@@ -201,9 +225,4 @@ table.dataTable tbody {
 		/* ICONO DROPDOWN */
 		background-position: calc(100% - 7.5px) calc(0.8em), calc(100% - 2.5px) calc(0.8em);
 	}
-}
-
-form + div.paginationContainer {
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
 }

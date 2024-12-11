@@ -790,7 +790,7 @@
         rows = ctx.multiselection.numSelected;
         
 		//Antes de mostrar la info se ha de ordenar.
-		var el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
+		var el = $('#' + ctx.sTableId + '_wrapper').find('#select_info');
 		var output = $('<span class="select-info"></span>');
 
 		add(output, 'row', rows);
@@ -859,15 +859,6 @@
 		});
 
 		_cumulativeEvents(api);
-		
-		//Se añade el context, al pagination container
-		api.one('info.dt', function(e, ctx) {
-			if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
-				$('#' + ctx.sTableId).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
-			}
-
-			$('#' + ctx.sTableId + '_wrapper div.dt-paging').attr('id', 'example_paginate');
-		});
 
 		// Update the table information element with selected item summary
 		api.on('info.dt', function(e, ctx, node) {
