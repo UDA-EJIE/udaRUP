@@ -1999,7 +1999,6 @@
         contextMenuActivo: true,
         selectFilaDer: false,
         searchPaginator: true,
-        pagingType: 'full',
         createdRow: function (row) {
             var ctx = $('#' + this[0].id).rup_table('getContext');
 
