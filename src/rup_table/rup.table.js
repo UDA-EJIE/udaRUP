@@ -994,7 +994,11 @@
 							jQuery(elem).rup_autocomplete('setRupValue', '');
 							elem.defaultValue = "";
 						} else if (elemRuptype == 'combo') {
-							jQuery(elem).rup_combo('reload');
+							if (_typeof(elemSettings.source) === 'object' || _typeof(elemSettings.sourceGroup) === 'object') {//local
+								jQuery(elem).rup_combo('setRupValue',elemSettings.blank);
+							}else{
+								jQuery(elem).rup_combo('reload');
+							}
 							elem.defaulSelected = false;
 						} else if (elemRuptype == 'select') {
 							jQuery(elem).rup_select('clear');
