@@ -2,12 +2,11 @@
 import 'jquery';
 import 'jasmine-jquery';
 import 'rup.feedback';
-import 'rup.combo';
 import 'rup.form';
 import 'rup.list';
 import 'rup.dialog';
 import 'rup.button';
-import 'rup.autocomplete';
+import 'rup.select';
 import 'bootstrap';
 import * as listGen from './listCreator';
 

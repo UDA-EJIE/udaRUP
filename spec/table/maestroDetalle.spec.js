@@ -442,7 +442,7 @@ function testForm2Form(defer) {
             });
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', () => {
+                    $('#example2').on('tableFilterSearch', () => {
                         setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
@@ -656,8 +656,7 @@ function testForm2Form(defer) {
 
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
-                            expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=example1 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                            expect($('.rup-message-alert').find('#rup_msgDIV_msg').text()).toBe('"KABOOM!"');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -683,10 +682,12 @@ function testForm2Form(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#example1').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_example1').click();
                             $('#edad_example1_seeker', $('#example1')).val('asd');
                             $('#search_nav_button_example1').click();
-                            $('#example1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -712,7 +713,9 @@ function testForm2Form(defer) {
                     });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            $('#example2').on('tableEditFormErrorCallSaveAjax', done);
+                            $('#example2').on('tableEditFormErrorCallSaveAjax', () => {
+								setTimeout(done, 100);
+							});
                             $('#example2 > tbody > tr:contains(Ana) > td:eq(1)').dblclick();
                             
                             $('#example2').on('tableEditFormAddEditAfterShowForm', () => {
@@ -730,10 +733,12 @@ function testForm2Form(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#example2').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_example2').click();
                             $('#edad_example2_seeker', $('#example2')).val('asd');
                             $('#search_nav_button_example2').click();
-                            $('#example2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -784,7 +789,9 @@ function testForm2Inline(defer) {
         });
         describe('Filtrado intertabla > ', () => {
             beforeEach((done) => {
-                $('#inline2').on('draw.dt', done);
+                $('#inline2').on('draw.dt', () => {
+					done();
+				});
                 $('#example1 > tbody > tr:eq(3) > td:eq(0)').click();
             });
             it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
@@ -799,7 +806,9 @@ function testForm2Inline(defer) {
             describe('Filtrado independiente > ', () => {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#example1').on('draw.dt', done);
+						$('#example1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#example1_filter_fieldset').find('#id_filter_table').val(4);
                         $('#example1_filter_fieldset').find('#example1_filter_filterButton').click();
                     });
@@ -821,7 +830,9 @@ function testForm2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', done);
+						$('#inline2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline2_filter_fieldset').find('#id_filter_table').val(4);
                         $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                     });
@@ -844,7 +855,10 @@ function testForm2Inline(defer) {
             });
             describe('Búsqueda independiente > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+					$('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -867,7 +881,9 @@ function testForm2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example1').on('tableSeekerAfterSearch', done);
+                            $('#example1').on('tableSeekerAfterSearch', () => {
+								setTimeout(done, 100);
+							});
                             $('#example1').find('#nombre_example1_seeker').val('E');
                             $('#search_nav_button_example1').click();
                         });
@@ -903,7 +919,9 @@ function testForm2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('tableSeekerAfterSearch', done);
+                            $('#inline2').on('tableSeekerAfterSearch', () => {
+								setTimeout(done, 100);
+							});
                             $('#inline2').find('#nombre_inline2_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
@@ -928,6 +946,7 @@ function testForm2Inline(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#example1').on('draw.dt', () => {
+							$('#example1').off('draw.dt');
                             setTimeout(done, 100);
                         });
                         $('#example1').find('th:contains(Nombre)').click();
@@ -967,6 +986,7 @@ function testForm2Inline(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#inline2').on('draw.dt', () => {
+							$('#inline2').off('draw.dt');
                             setTimeout(done, 100);
                         });
                         $('#inline2').find('th:contains(Nombre)').click();
@@ -1005,14 +1025,16 @@ function testForm2Inline(defer) {
             });
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', () => {
+                    $('#inline2').on('tableFilterSearch', () => {
                         setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#example1').on('draw.dt', done);
+                        $('#example1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#example1_next').click();
                     });
                     it('Cambia el número de página de #example1:', () => {
@@ -1036,7 +1058,9 @@ function testForm2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', done);
+						$('#inline2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline2_next').click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
@@ -1061,7 +1085,10 @@ function testForm2Inline(defer) {
             });
             describe('Formularios independientes > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+					$('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -1076,7 +1103,9 @@ function testForm2Inline(defer) {
                     });
                     describe('Funcionamiento del formulario', () => {
                         beforeEach((done) => {
-                            $('#example1').on('tableEditFormSuccessCallSaveAjax', done);
+                            $('#example1').on('tableEditFormSuccessCallSaveAjax', () => {
+								setTimeout(done, 100);
+							});
                             $('#example1_detail_div').find('#edad_detail_table').val(11);
                             $('#example1_detail_button_save').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
@@ -1092,15 +1121,11 @@ function testForm2Inline(defer) {
                 describe('Tabla detalle > ', () => {
                     let nameEdit = 'Ane';
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', () => {
-                            done();
-                        });
-                        $('#inline2').on('tableEditInlineClickRow', () => {
+                        $('#inline2').on('tableInlineEdit', () => {
                             $('#nombre_inline').val(nameEdit);
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
+                            setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1111,7 +1136,10 @@ function testForm2Inline(defer) {
             });
             describe('Botonera y feedback independientes > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+					$('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -1163,11 +1191,9 @@ function testForm2Inline(defer) {
                             $('#rup_feedback_inline2').on('rupFeedback_show', () => {
                                 done();
                             });
-                            $('#inline2').on('tableEditInlineClickRow', () => {
+                            $('#inline2').on('tableInlineEdit', () => {
                                 $('#nombre_inline').val('Ane');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1187,6 +1213,7 @@ function testForm2Inline(defer) {
             describe('Validaciones de formulario independientes > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
                         setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
@@ -1213,13 +1240,11 @@ function testForm2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('tableEditInlineClickRow', () => {
+                        $('#inline2').on('tableInlineEdit', () => {
                             $('#nombre_inline').val('');
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
-                            setTimeout(done,100);
+                            setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -1236,6 +1261,7 @@ function testForm2Inline(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
                         setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
@@ -1251,7 +1277,7 @@ function testForm2Inline(defer) {
                         it('El feedback debe comportarse de la manera esperada:', () => {
                             expect($('.rup-message-alert').height()).toBeGreaterThan(0);
                             expect($('.rup-message-alert').find('#rup_msgDIV_msg').text())
-                                .toBe('DataTables warning: table id=example1 - Ajax error. For more information about this error, please see http://datatables.net/tn/7');
+                                .toBe('"KABOOM!"');
                         });
                     });
                     describe('Errores en guardado > ', () => {
@@ -1276,10 +1302,12 @@ function testForm2Inline(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#example1').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_example1').click();
                             $('#edad_example1_seeker', $('#example1')).val('asd');
                             $('#search_nav_button_example1').click();
-                            $('#example1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_example1').is(':visible')).toBeTruthy();
@@ -1305,13 +1333,10 @@ function testForm2Inline(defer) {
                     });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('tableEditInlineClickRow', () => {
+                            $('#inline2').on('tableInlineEdit', () => {
                                 $('#edad_inline').val('asd');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline2 > tbody > tr:eq(0)').trigger(ev);
-                                $(buscarAceptar()).click();//boton confirmar cambios
-                                
+                                $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
+                                $(buscarAceptar()).click();//boton confirmar cambios     
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                             $('#inline2').on('tableEditInLineCompleteCallSaveAjax', () => {
@@ -1328,10 +1353,12 @@ function testForm2Inline(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#inline2').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_inline2').click();
                             $('#edad_inline2_seeker', $('#inline2')).val('asd');
                             $('#search_nav_button_inline2').click();
-                            $('#inline2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
@@ -1383,7 +1410,9 @@ function testInline2Form(defer) {
         });
         describe('Filtrado intertabla > ', () => {
             beforeEach((done) => {
-                $('#example2').on('draw.dt', (done));
+                $('#example2').on('draw.dt', () => {
+					done();
+				});
                 $('#inline1 > tbody > tr:eq(3) > td:eq(0)').click();
             });
             it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
@@ -1398,7 +1427,9 @@ function testInline2Form(defer) {
             describe('Filtrado independiente > ', () => {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', done);
+						$('#inline1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline1_filter_fieldset').find('#id_filter_table').val(4);
                         $('#inline1_filter_fieldset').find('#inline1_filter_filterButton').click();
                     });
@@ -1420,7 +1451,9 @@ function testInline2Form(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#example2').on('draw.dt', done);
+						$('#example2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#example2_filter_fieldset').find('#id_filter_table').val(4);
                         $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                     });
@@ -1443,7 +1476,10 @@ function testInline2Form(defer) {
             });
             describe('Búsqueda independiente > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', done);
+					$('#example2').on('draw.dt', () => {
+						$('#example2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -1466,7 +1502,9 @@ function testInline2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('tableSeekerAfterSearch', done);
+                            $('#inline1').on('tableSeekerAfterSearch', () => {
+								setTimeout(done, 100);
+							});
                             $('#inline1').find('#nombre_inline1_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
@@ -1502,7 +1540,9 @@ function testInline2Form(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#example2').on('tableSeekerAfterSearch', done);
+                            $('#example2').on('tableSeekerAfterSearch', () => {
+								setTimeout(done, 100);
+							});
                             $('#example2').find('#nombre_example2_seeker').val('E');
                             $('#search_nav_button_example2').click();
                         });
@@ -1527,6 +1567,7 @@ function testInline2Form(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
                         $('#inline1').on('draw.dt', () => {
+							$('#inline1').off('draw.dt');
                             setTimeout(done, 100);
                         });
                         $('#inline1').find('th:contains(Nombre)').click();
@@ -1566,6 +1607,7 @@ function testInline2Form(defer) {
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
                         $('#example2').on('draw.dt', () => {
+							$('#example2').off('draw.dt');
                             setTimeout(done, 100);
                         });
                         $('#example2').find('th:contains(Nombre)').click();
@@ -1604,14 +1646,16 @@ function testInline2Form(defer) {
             });
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', () => {
+                    $('#example2').on('tableFilterSearch', () => {
                         setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', done);
+						$('#inline1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline1_next').click();
                     });
                     it('Cambia el número de página de #example1:', () => {
@@ -1635,7 +1679,9 @@ function testInline2Form(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#example2').on('draw.dt', done);
+						$('#example2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#example2_next').click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
@@ -1660,7 +1706,10 @@ function testInline2Form(defer) {
             });
             describe('Formularios independientes > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', done);
+                    $('#example2').on('draw.dt', () => {
+						$('#example2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -1669,11 +1718,9 @@ function testInline2Form(defer) {
                         $('#inline1').on('draw.dt', () => {
                             done();
                         });
-                        $('#inline1').on('tableEditInlineClickRow', () => {
+                        $('#inline1').on('tableInlineEdit', () => {
                             $('#nombre_inline').val(nameEdit);
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+							$('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1694,7 +1741,9 @@ function testInline2Form(defer) {
                     });
                     describe('Funcionamiento del formulario', () => {
                         beforeEach((done) => {
-                            $('#example2').on('tableEditFormSuccessCallSaveAjax', done);
+                            $('#example2').on('tableEditFormSuccessCallSaveAjax', () => {
+								setTimeout(done, 100);
+							});
                             $('#example2_detail_div').find('#edad_detail_table').val(11);
                             $('#example2_detail_button_save').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
@@ -1710,7 +1759,9 @@ function testInline2Form(defer) {
             });
             describe('Botonera y feedback independientes > ', () => {
                 beforeEach((done) => {
-                    $('#example2').on('draw.dt', done);
+					$('#example2').on('draw.dt', () => {
+						setTimeout(done, 100);
+					});
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -1727,11 +1778,9 @@ function testInline2Form(defer) {
                             $('#rup_feedback_inline1').on('rupFeedback_show', () => {
                                 done();
                             });
-                            $('#inline1').on('tableEditInlineClickRow', () => {
+                            $('#inline1').on('tableInlineEdit', () => {
                                 $('#nombre_inline').val('Ane');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
@@ -1786,17 +1835,16 @@ function testInline2Form(defer) {
             describe('Validaciones de formulario independientes > ', () => {
                 beforeEach((done) => {
                     $('#example2').on('draw.dt', () => {
+						$('#example2').off('draw.dt');
                         setTimeout(done, 100);
                     });
                     $('#example2_filter_fieldset').find('#example2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('tableEditInlineClickRow', () => {
+                        $('#inline1').on('tableInlineEdit', () => {
                             $('#nombre_inline').val('');
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
                             setTimeout(done, 100);
                         });
@@ -1855,13 +1903,10 @@ function testInline2Form(defer) {
                     });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('tableEditInlineClickRow', () => {
+                            $('#inline1').on('tableInlineEdit', () => {
                                 $('#edad_inline').val('asd');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                               
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                             $('#inline1').on('tableEditInLineCompleteCallSaveAjax', () => {
@@ -1878,10 +1923,12 @@ function testInline2Form(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#inline1').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_inline1').click();
                             $('#edad_inline1_seeker', $('#inline1')).val('asd');
                             $('#search_nav_button_inline1').click();
-                            $('#inline1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
@@ -1927,10 +1974,12 @@ function testInline2Form(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#example2').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_example2').click();
                             $('#edad_example2_seeker', $('#example2')).val('asd');
                             $('#search_nav_button_example2').click();
-                            $('#example2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_example2').is(':visible')).toBeTruthy();
@@ -1982,7 +2031,9 @@ function testInline2Inline(defer) {
         });
         describe('Filtrado intertabla > ', () => {
             beforeEach((done) => {
-                $('#inline2').on('draw.dt', (done));
+                $('#inline2').on('draw.dt', () => {
+					setTimeout(done, 100);
+				});
                 $('#inline1 > tbody > tr:eq(3) > td:eq(0)').click();
             });
             it('La fila seleccionada debe aparecer en la tabla de detalle:', () => {
@@ -1997,7 +2048,9 @@ function testInline2Inline(defer) {
             describe('Filtrado independiente > ', () => {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', done);
+						$('#inline1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline1_filter_fieldset').find('#id_filter_table').val(4);
                         $('#inline1_filter_fieldset').find('#inline1_filter_filterButton').click();
                     });
@@ -2019,7 +2072,9 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', done);
+                        $('#inline2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline2_filter_fieldset').find('#id_filter_table').val(4);
                         $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                     });
@@ -2042,7 +2097,10 @@ function testInline2Inline(defer) {
             });
             describe('Búsqueda independiente > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+					$('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -2065,7 +2123,9 @@ function testInline2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('tableSeekerAfterSearch', done);
+							$('#inline2').on('draw.dt', () => {
+								setTimeout(done, 100);
+							});
                             $('#inline1').find('#nombre_inline1_seeker').val('E');
                             $('#search_nav_button_inline1').click();
                         });
@@ -2101,7 +2161,9 @@ function testInline2Inline(defer) {
                     });
                     describe('Funcionalidad del seeker > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('tableSeekerAfterSearch', done);
+                            $('#inline2').on('tableSeekerAfterSearch', () => {
+								setTimeout(done, 100);
+							});
                             $('#inline2').find('#nombre_inline2_seeker').val('E');
                             $('#search_nav_button_inline2').click();
                         });
@@ -2125,16 +2187,12 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 100);
-                        });
-                        $('#inline1').find('th:contains(Nombre)').click();
+                        $('#inline1').find('thead th:contains(Nombre)').click();
+                        setTimeout(done, 100);
                     });
                     afterEach((done) => {
-                        $('#inline1').on('draw.dt', () => {
-                            setTimeout(done, 100);
-                        });
-                        $('#inline1').find('th:contains(Id)').click();
+                        $('#inline1').find('thead th:contains(Id)').click();
+                        setTimeout(done, 100);
                     });
 
                     it('Debe haber cambiado el orden de #inline1:', () => {
@@ -2164,16 +2222,12 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 100);
-                        });
-                        $('#inline2').find('th:contains(Nombre)').click();
+                        $('#inline2').find('thead th:contains(Nombre)').click();
+						setTimeout(done, 100);
                     });
                     afterEach((done) => {
-                        $('#inline2').on('draw.dt', () => {
-                            setTimeout(done, 100);
-                        });
-                        $('#inline2').find('th:contains(Id)').click();
+                        $('#inline2').find('thead th:contains(Id)').click();
+                        setTimeout(done, 100);
                     });
                     it('Debe haber cambiado el orden de #inline2:', () => {
                         expect($('#inline2 > tbody > tr:eq(0) > td:eq(1)').text()).toBe('1');
@@ -2203,14 +2257,16 @@ function testInline2Inline(defer) {
             });
             describe('Paginación independiente > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', () => {
+                    $('#inline2').on('tableFilterSearch', () => {
                         setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', done);
+                        $('#inline1').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline1_next').click();
                     });
                     it('Cambia el número de página de #inline1:', () => {
@@ -2234,7 +2290,9 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', done);
+                        $('#inline2').on('draw.dt', () => {
+							setTimeout(done, 100);
+						});
                         $('#inline2_next').click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
@@ -2259,24 +2317,20 @@ function testInline2Inline(defer) {
             });
             describe('Formularios independientes > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+                    $('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
                     let nameEdit = 'Ane';
                     beforeEach((done) => {
-                        $('#inline1').on('draw.dt', () => {
-                            done();
-                        });
-                        $('#inline1').on('tableEditFormAddEditAfterShowForm', () => {
-                            setTimeout(done, 100);
-                        });
-                        $('#inline1').on('tableEditInlineClickRow', () => {
+                        $('#inline1').on('tableInlineEdit', () => {
                             $('#nombre_inline').val(nameEdit);
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+							$('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
+							setTimeout(done, 100);
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2287,15 +2341,11 @@ function testInline2Inline(defer) {
                 describe('Tabla detalle > ', () => {
                     let nameEdit = 'Ane';
                     beforeEach((done) => {
-                        $('#inline2').on('draw.dt', () => {
-                            done();
-                        });
-                        $('#inline2').on('tableEditInlineClickRow', () => {
-                            $('#nombre_inline').val(nameEdit);
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline2 > tbody > tr:eq(0)').trigger(ev);
-                            $(buscarAceptar()).click();//boton confirmar cambios
+                        $('#inline2').on('tableInlineEdit', () => {
+							$('#nombre_inline').val(nameEdit);
+							$('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
+							$(buscarAceptar()).click();//boton confirmar cambios
+							setTimeout(done, 100);
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2306,7 +2356,10 @@ function testInline2Inline(defer) {
             });
             describe('Botonera y feedback independientes > ', () => {
                 beforeEach((done) => {
-                    $('#inline2').on('draw.dt', done);
+                    $('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
+						setTimeout(done, 100);
+					});
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
                 });
                 describe('Tabla maestro > ', () => {
@@ -2320,15 +2373,11 @@ function testInline2Inline(defer) {
                     });
                     describe('Feedback > ', () => {
                         beforeEach((done) => {
-                            $('#rup_feedback_inline1').on('rupFeedback_show', () => {
-                                done();
-                            });
-                            $('#inline1').on('tableEditInlineClickRow', () => {
+                            $('#inline1').on('tableInlineEdit', () => {
                                 $('#nombre_inline').val('Ane');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
+								setTimeout(done, 100);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2354,15 +2403,11 @@ function testInline2Inline(defer) {
                     });
                     describe('Feedback > ', () => {
                         beforeEach((done) => {
-                            $('#rup_feedback_inline2').on('rupFeedback_show', () => {
-                                done();
-                            });
-                            $('#inline2').on('tableEditInlineClickRow', () => {
+                            $('#inline2').on('tableInlineEdit', () => {
                                 $('#nombre_inline').val('Ane');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
+								setTimeout(done, 100);
                             });
                             $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                         });
@@ -2387,13 +2432,11 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
-                        $('#inline1').on('tableEditInlineClickRow', () => {
+                        $('#inline1').on('tableInlineEdit', () => {
                             $('#nombre_inline').val('');
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                            $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
-                            setTimeout(done, 100);
+                            done();
                         });
                         $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2407,13 +2450,11 @@ function testInline2Inline(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-                        $('#inline2').on('tableEditInlineClickRow', () => {
+                        $('#inline2').on('tableInlineEdit', () => {
                             $('#nombre_inline').val('');
-                            var ev = $.Event('keydown');
-                            ev.keyCode = 13;
-                            $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                            $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                             $(buscarAceptar()).click();//boton confirmar cambios
-                            setTimeout(done, 100);
+                            done();
                         });
                         $('#inline2 > tbody > tr:eq(0) > td:eq(0)').dblclick();
                     });
@@ -2429,6 +2470,7 @@ function testInline2Inline(defer) {
             describe('Gestión de errores > ', () => {
                 beforeEach((done) => {
                     $('#inline2').on('draw.dt', () => {
+						$('#inline2').off('draw.dt');
                         setTimeout(done, 100);
                     });
                     $('#inline2_filter_fieldset').find('#inline2_filter_filterButton').click();
@@ -2449,18 +2491,13 @@ function testInline2Inline(defer) {
                     });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            $('#inline1').on('tableEditInlineClickRow', () => {
+                            $('#inline1').on('tableInlineEdit', () => {
                                 $('#edad_inline').val('asd');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline1 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline1_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
-                               // setTimeout(done, 400);
+								setTimeout(done, 100);
                             });
                             $('#inline1 > tbody > tr:eq(0) > td:eq(0)').dblclick();
-                            $('#inline1').on('tableEditInLineCompleteCallSaveAjax', () => {
-                                done();
-                            });
                         });
 
                         it('El feedback debe mostrarse:', () => {
@@ -2472,10 +2509,12 @@ function testInline2Inline(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#inline1').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_inline1').click();
                             $('#edad_inline1_seeker', $('#inline1')).val('asd');
                             $('#search_nav_button_inline1').click();
-                            $('#inline1').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_inline1').is(':visible')).toBeTruthy();
@@ -2501,11 +2540,9 @@ function testInline2Inline(defer) {
                     });
                     describe('Errores en guardado > ', () => {
                         beforeEach((done) => {
-                            $('#inline2').on('tableEditInlineClickRow', () => {
+                            $('#inline2').on('tableInlineEdit', () => {
                                 $('#edad_inline').val('asd');
-                                var ev = $.Event('keydown');
-                                ev.keyCode = 13;
-                                $('#inline2 > tbody > tr:eq(0)').trigger(ev);
+                                $('#inline2_containerToolbar > button.table_toolbar_btnSave').click();
                                 $(buscarAceptar()).click();//boton confirmar cambios
                                 
                             });
@@ -2524,10 +2561,12 @@ function testInline2Inline(defer) {
                     });
                     describe('Errores en búsqueda > ', () => {
                         beforeEach((done) => {
+                            $('#inline2').on('tableSeekerSearchError', () => {
+								setTimeout(done, 100);
+							});
                             $('#searchCollapsLabel_inline2').click();
                             $('#edad_inline2_seeker', $('#inline2')).val('asd');
                             $('#search_nav_button_inline2').click();
-                            $('#inline2').on('tableSeekerSearchError', done);
                         });
                         it('El feedback debe mostrarse:', () => {
                             expect($('#rup_feedback_inline2').is(':visible')).toBeTruthy();
