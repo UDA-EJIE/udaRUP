@@ -10,7 +10,6 @@ Genera los botones del table
 
 * [rup.table.buttons](#module_rup.table.buttons)
     * [~Buttons(dt, config)](#module_rup.table.buttons..Buttons)
-    * [~action(Button)](#module_rup.table.buttons..action) ⇒ <code>function</code>
     * [~action(node, action)](#module_rup.table.buttons..action) ⇒ <code>Buttons</code>
     * [~active(node, [flag])](#module_rup.table.buttons..active) ⇒ <code>Buttons</code>
     * [~add(config, [idx])](#module_rup.table.buttons..add) ⇒ <code>Buttons</code>
@@ -22,7 +21,6 @@ Genera los botones del table
     * [~node(node)](#module_rup.table.buttons..node) ⇒ <code>jQuery</code>
     * [~processing(flag)](#module_rup.table.buttons..processing) ⇒ <code>boolean</code> \| <code>Buttons</code>
     * [~remove(node)](#module_rup.table.buttons..remove) ⇒ <code>Buttons</code>
-    * [~text(node)](#module_rup.table.buttons..text) ⇒ <code>string</code>
     * [~text(node, label)](#module_rup.table.buttons..text) ⇒ <code>Buttons</code>
     * [~_constructor()](#module_rup.table.buttons.._constructor)
     * [~_addKey(conf)](#module_rup.table.buttons.._addKey)
@@ -66,18 +64,6 @@ Botones
 | --- | --- |
 | dt | <code>object</code> | 
 | config | <code>object</code> | 
-
-<a name="module_rup.table.buttons..action"></a>
-
-### rup.table.buttons~action(Button) ⇒ <code>function</code>
-Get the action of a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| Button | <code>int</code> \| <code>string</code> | index |
 
 <a name="module_rup.table.buttons..action"></a>
 
@@ -210,19 +196,6 @@ Remove a button.
 | Param | Type | Description |
 | --- | --- | --- |
 | node | <code>node</code> | Button node |
-
-<a name="module_rup.table.buttons..text"></a>
-
-### rup.table.buttons~text(node) ⇒ <code>string</code>
-Get the text for a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Returns**: <code>string</code> - Button text  
-**Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>int</code> \| <code>string</code> | Button index |
 
 <a name="module_rup.table.buttons..text"></a>
 

@@ -66,6 +66,7 @@ Opciones por defecto de configuración del componente.
 | [typeAhead] | <code>number</code> | <code>false</code> | Especifica en milisegundos el           tiempo de espera que toma el componente antes de procesar los           eventos de escritura realizados por el usuario. |
 | [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el           método obsoleto a la hora de empaquetar en objetos json los           elementos seleccionados. Su propósito es mantener la           retrocompatibilidad. |
 | [autocomplete] | <code>boolean</code> | <code>false</code> | Habilita la funcionalidad de           autocompletado, permitiendo hacer búsquedas sobre los resultados. |
+| [spaceEnable] | <code>boolean</code> | <code>true</code> | Habilita la funcionalidad de búsquedas con barra espaciadora. |
 
 <a name="module_rup_select..getRupValue"></a>
 
@@ -364,7 +365,7 @@ Permite consultar y modificar la configuración del componente.
 
 **Example**  
 ```js
-// Establecer una propiedad$("#idSelect").rup_select("option", "minLegth", 2);// Establecer varias propiedad$("#idSelect").rup_select("option", {minLegth:2, delay:1000});
+// Establecer una propiedad$("#idSelect").rup_select("option", "minimumResultsForSearch", 2);// Establecer varias propiedad$("#idSelect").rup_select("option", {minimumResultsForSearch:2, delay:1000});
 ```
 <a name="module_rup_select..open"></a>
 
