@@ -897,7 +897,8 @@
                
             let parentsFull = 0;
             $.each(parent, function (idx, parentId) {
-	            if (parentId != undefined && $('#' + parentId).val() != null && $('#' + parentId).val().trim() !== '') {
+				const parentSettings = $('#' + parentId).data('settings');
+	            if (parentId != undefined && $('#' + parentId).val() != null && parentSettings.multiple ? $("#" + parentId).val().length > 0 : $("#" + parentId).val().trim() != '') {
 	            	if(settings.blank == $('#' + parentId).val()){
 	            		retorno = '';
 	            	}else{
@@ -1132,8 +1133,9 @@
         	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
         	 	}
-        	 	if(settings.parent != undefined 
-        	 			&& ($('#' + settings.parent).val() == null || $('#' + settings.parent).val().trim() === '')){
+        	 	
+        	 	const parentSettings = $('#' + settings.parent).data('settings');
+        	 	if(settings.parent != undefined && ($('#' + settings.parent).val() == null || parentSettings.multiple ? $("#" + settings.parent).val().length == 0 : $("#" + settings.parent).val().trim() == '')){
         	 		settings.firstLoad = false;
         	 	}
 
