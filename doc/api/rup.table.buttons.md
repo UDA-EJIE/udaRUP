@@ -5,12 +5,21 @@ Genera los botones del table
 
 **Summary**: Extensión del componente RUP Datatable  
 **Version**: 1.5.1  
-**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
+**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
+Solo podrá usarse esta obra si se respeta la Licencia.
+Puede obtenerse una copia de la Licencia en
+
+     http://ec.europa.eu/idabc/eupl.html
+
+Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
+el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
+SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
+Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
+que establece la Licencia.  
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table.buttons](#module_rup.table.buttons)
     * [~Buttons(dt, config)](#module_rup.table.buttons..Buttons)
-    * [~action(Button)](#module_rup.table.buttons..action) ⇒ <code>function</code>
     * [~action(node, action)](#module_rup.table.buttons..action) ⇒ <code>Buttons</code>
     * [~active(node, [flag])](#module_rup.table.buttons..active) ⇒ <code>Buttons</code>
     * [~add(config, [idx])](#module_rup.table.buttons..add) ⇒ <code>Buttons</code>
@@ -22,7 +31,6 @@ Genera los botones del table
     * [~node(node)](#module_rup.table.buttons..node) ⇒ <code>jQuery</code>
     * [~processing(flag)](#module_rup.table.buttons..processing) ⇒ <code>boolean</code> \| <code>Buttons</code>
     * [~remove(node)](#module_rup.table.buttons..remove) ⇒ <code>Buttons</code>
-    * [~text(node)](#module_rup.table.buttons..text) ⇒ <code>string</code>
     * [~text(node, label)](#module_rup.table.buttons..text) ⇒ <code>Buttons</code>
     * [~_constructor()](#module_rup.table.buttons.._constructor)
     * [~_addKey(conf)](#module_rup.table.buttons.._addKey)
@@ -69,18 +77,6 @@ Botones
 
 <a name="module_rup.table.buttons..action"></a>
 
-### rup.table.buttons~action(Button) ⇒ <code>function</code>
-Get the action of a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| Button | <code>int</code> \| <code>string</code> | index |
-
-<a name="module_rup.table.buttons..action"></a>
-
 ### rup.table.buttons~action(node, action) ⇒ <code>Buttons</code>
 Set the action of a button
 
@@ -96,7 +92,8 @@ Set the action of a button
 <a name="module_rup.table.buttons..active"></a>
 
 ### rup.table.buttons~active(node, [flag]) ⇒ <code>Buttons</code>
-Add an active class to the button to make to look active or get currentactive state.
+Add an active class to the button to make to look active or get current
+active state.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining or boolean for getter  
@@ -145,7 +142,8 @@ Disable a button
 <a name="module_rup.table.buttons..destroy"></a>
 
 ### rup.table.buttons~destroy() ⇒ <code>Buttons</code>
-Destroy the instance, cleaning up event handlers and removing DOMelements
+Destroy the instance, cleaning up event handlers and removing DOM
+elements
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Returns**: <code>Buttons</code> - Self for chaining  
@@ -210,19 +208,6 @@ Remove a button.
 | Param | Type | Description |
 | --- | --- | --- |
 | node | <code>node</code> | Button node |
-
-<a name="module_rup.table.buttons..text"></a>
-
-### rup.table.buttons~text(node) ⇒ <code>string</code>
-Get the text for a button
-
-**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
-**Returns**: <code>string</code> - Button text  
-**Since**: UDA 3.4.0 // Table 1.0.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>int</code> \| <code>string</code> | Button index |
 
 <a name="module_rup.table.buttons..text"></a>
 
@@ -329,7 +314,8 @@ Get container array for a button from a button node (recursive)
 <a name="module_rup.table.buttons.._keypress"></a>
 
 ### rup.table.buttons~\_keypress(character, e)
-Handle a key press - determine if any button's key configured matcheswhat was typed and trigger the action if so.
+Handle a key press - determine if any button's key configured matches
+what was typed and trigger the action if so.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -342,7 +328,8 @@ Handle a key press - determine if any button's key configured matcheswhat was t
 <a name="module_rup.table.buttons.._removeKey"></a>
 
 ### rup.table.buttons~\_removeKey(conf)
-Remove a key from the key listener for this instance (to be used when abutton is removed)
+Remove a key from the key listener for this instance (to be used when a
+button is removed)
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -453,7 +440,8 @@ Desactiva el boton y su opcion dentro del context menu
 <a name="module_rup.table.buttons.._manageButtonsAndButtonsContextMenu"></a>
 
 ### rup.table.buttons~\_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject)
-Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesdentro del context menu.
+Gestiona la propiedad de activado/desactivado de los botones y de sus opciones
+dentro del context menu.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -467,7 +455,8 @@ Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesd
 <a name="module_rup.table.buttons.._reports"></a>
 
 ### rup.table.buttons~\_reports(dt, that, config)
-Establece el tipo de llamada necesario para obtener los datos según lo seleccionadoe inicia la gestión para finalmente obtenerlos
+Establece el tipo de llamada necesario para obtener los datos según lo seleccionado
+e inicia la gestión para finalmente obtenerlos
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  
@@ -496,7 +485,8 @@ Se encarga de mapear los datos de json a datos separados por el tabulador.
 <a name="module_rup.table.buttons.._reportsTypeOfCopy"></a>
 
 ### rup.table.buttons~\_reportsTypeOfCopy(dt, type, request, multiselection, selectedAll, [deselectedIds]) ⇒ <code>object</code>
-Según el tipo de función de copia solicitada, realiza unas u otras comprobacionesantes de solicitar los datos al servidor
+Según el tipo de función de copia solicitada, realiza unas u otras comprobaciones
+antes de solicitar los datos al servidor
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
 **Since**: UDA 3.4.0 // Table 1.0.0  

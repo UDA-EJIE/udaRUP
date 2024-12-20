@@ -13,7 +13,7 @@ var properties={  rules:{      "campoObligatorio":{required:true},      "dni"
 * [rup_validate](#module_rup_validate)
     * [~destroy()](#module_rup_validate..destroy)
     * [~resetForm()](#module_rup_validate..resetForm)
-    * [~resetForm()](#module_rup_validate..resetForm)
+    * [~resetElements()](#module_rup_validate..resetElements)
 
 <a name="module_rup_validate..destroy"></a>
 
@@ -35,9 +35,9 @@ Se realiza un reset del formulario y se eliminan los mensajes de error de las re
 ```js
 $("#formValidaciones").rup_validate("resetForm");
 ```
-<a name="module_rup_validate..resetForm"></a>
+<a name="module_rup_validate..resetElements"></a>
 
-### rup_validate~resetForm()
+### rup_validate~resetElements()
 Se eliminan los menssajes de error de las reglas de validacion.
 
 **Kind**: inner method of [<code>rup\_validate</code>](#module_rup_validate)  
