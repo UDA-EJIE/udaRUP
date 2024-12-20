@@ -1024,8 +1024,12 @@
 						}
 					}
 				} else {
-					elem.defaultValue = "";
-					elem.value = "";
+					if(elem.type == 'checkbox'){//los checkbox pueden tener valor asignado.
+						elem.value = elem.defaultValue;
+					}else{
+						elem.defaultValue = "";
+						elem.value = "";
+					}
 				}
 			});
 
