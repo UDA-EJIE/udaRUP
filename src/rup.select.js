@@ -1547,7 +1547,7 @@
 				
 				if (data && !settings.url.includes(data)) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					url += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
+					url += (url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
 				}
 			}
 			return url;
