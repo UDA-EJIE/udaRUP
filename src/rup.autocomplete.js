@@ -927,7 +927,7 @@ input.
 				}
 				
 				// Concatena los datos a enviar.
-				settings.data += (settings.url.includes('?') ? '&' : '?') + data;
+				settings.data += (settings.data.includes('?') ? '&' : '?') + data;
 			}
 			return settings.data;
 		},

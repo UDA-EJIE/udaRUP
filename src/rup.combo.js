@@ -1723,7 +1723,7 @@
 				
 				if (data) {
 					// Escapa los caracteres '#' para evitar problemas en la petición.
-					source += (settings.url.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
+					source += (source.includes('?') ? '&' : '?') + data.replaceAll('#', '%23');
 				}
 			}
 			return source;
