@@ -7,7 +7,7 @@
  */
 (function($) {
 
-
+	let myOpcions = "";
 	$.fn.select2.amd.define("CustomSelectionAdapter",
 		[
 			"select2/utils",
@@ -33,7 +33,7 @@
 
 			adapter.prototype.update = function(data) {
 				const options = this.options.options;
-				const selectSettings = $('#' + options.id).data('settings');
+				let selectSettings = $('#' + options.id).data('settings');
 
 				// copy and modify SingleSelection adapter
 				this.clear();
@@ -84,7 +84,22 @@
 
 					// Pass selected and all items to display method
 					// which calls templateSelection
-					formatted = this.display(itemsData, $rendered);
+					let title = "";
+					if(selectSettings == undefined){//aseguramos que el adapter siempre tenga las opciones cargadas
+						selectSettings = myOpcions;
+					}
+					if(selectSettings != undefined && selectSettings.placeholder != undefined && itemsData.selected.length == 0){
+						formatted = $('<span>', {
+						    class: 'select2-selection__placeholder', // Clase asignada
+						    text: selectSettings.placeholder         // Contenido dinámico
+						});
+						title = selectSettings.placeholder;
+					}else{// si es vacio se le asigna el por defecto
+						formatted = this.display(itemsData, $rendered);
+						title = formatted;
+					}
+					$rendered.empty().append(formatted);
+					$rendered.prop('title', title);
 				} else {
 					let noItemsSelected = data.length === 0;
 					if (noItemsSelected) {
@@ -106,10 +121,10 @@
 						// which calls templateSelection
 						formatted = this.display(itemsData, $rendered);
 					}
+					$rendered.empty().append(formatted);
+					$rendered.prop('title', formatted);
 				}
 
-				$rendered.empty().append(formatted);
-				$rendered.prop('title', formatted);
 			};
 
 			return adapter;
@@ -246,11 +261,8 @@
 					let cadena = getBlankLabel(options.id, options);
 					return cadena.replace('{0}', datos.selected.length).replace('{1}', datos.all.length);
 				};
+				myOpcions = options;
 				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
-				if (options.placeholder == undefined || options.placeholder == '') {
-					// si es vació se asigna el label
-					options.placeholder = options.templateSelection({ selected: [], all: [] });
-				}
 			} else if (options.autocomplete) {
 				if (options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity) {
 					options.minimumResultsForSearch = 3;
