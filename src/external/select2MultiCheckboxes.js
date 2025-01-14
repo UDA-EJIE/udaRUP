@@ -342,10 +342,6 @@
 				myOpcions = options;
 				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
 
-				if (options.placeholder == undefined || options.placeholder == '') {
-					// si es vació se asigna el label
-					options.placeholder = options.templateSelection({ selected: [], all: [] });
-				}
 			} else if (options.autocomplete && options.multiple) {
 			    // Configura el número mínimo de caracteres para activar la búsqueda
 			    if (options.minimumResultsForSearch === undefined || options.minimumResultsForSearch === Infinity) {
