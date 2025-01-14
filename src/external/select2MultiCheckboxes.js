@@ -130,6 +130,83 @@
 			return adapter;
 		}
 	);
+	
+	$.fn.select2.amd.define("CustomDropdownAdapter", [
+    "select2/utils",
+    "select2/dropdown",
+    "select2/dropdown/attachBody",
+    "select2/dropdown/search"
+], function(Utils, Dropdown, AttachBody, Search) {
+     // Decorate Dropdown with Search functionalities
+    let dropdownWithSearch = Utils.Decorate(Dropdown, Search);
+
+    dropdownWithSearch.prototype.render = function() {
+          // Copy and modify default search render method
+        let $rendered = Dropdown.prototype.render.call(this);
+
+        // Add ability for a placeholder in the search box
+        let placeholder = this.options.get("placeholderForSearch") || "Buscar...";
+        let $search = $(
+            '<span class="select2-search select2-search--dropdown">' +
+            '<input class="select2-search__field" placeholder="' + placeholder + '" type="search"' +
+            ' tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off"' +
+            ' spellcheck="false" role="textbox" />' +
+            '</span>'
+        );
+
+ 
+        this.$searchContainer = $search;
+        this.$search = $search.find('input');
+
+
+        $rendered.prepend($search);
+
+        return $rendered;
+    };
+
+    // Decora el dropdown con AttachBody para el correcto posicionamiento
+    return Utils.Decorate(dropdownWithSearch, AttachBody);
+});
+
+
+	$.fn.select2.amd.define("CustomSelectionAdapter1", [
+    "select2/utils",
+    "select2/selection/multiple",
+    "select2/selection/placeholder",
+    "select2/selection/eventRelay"
+], function(Utils, MultipleSelection, Placeholder, EventRelay) {
+    // Combina MultipleSelection con Placeholder y EventRelay
+    let selectionAdapter = Utils.Decorate(MultipleSelection, Placeholder);
+    selectionAdapter = Utils.Decorate(selectionAdapter, EventRelay);
+
+    selectionAdapter.prototype.render = function() {
+        let $selection = MultipleSelection.prototype.render.call(this);
+        $selection.addClass("custom-multiple-selection");
+        return $selection;
+    };
+
+    selectionAdapter.prototype.update = function(data) {
+	    this.clear(); // Limpia las selecciones anteriores
+	
+	    let $rendered = this.$selection.find('.select2-selection__rendered');
+	
+	    const totalOptions = this.$element.find("option:not([disabled]):not([value=''])").length;
+
+	    const selectedCount = this.$element.find("option:selected:not([disabled]):not([value=''])").length;
+	    if (selectedCount === 0) {
+	      
+	        $rendered.text(`Seleccionados 0 de ${totalOptions}`);
+	    } else {
+	       
+	        $rendered.text(`Seleccionados ${selectedCount} de ${totalOptions}`);
+	    }
+	};
+
+
+    return selectionAdapter;
+});
+
+
 
 	$.fn.select2.amd.define("AutocompleteSelectionAdapter",
 		[
@@ -245,6 +322,7 @@
 			return adapter;
 		}
 	);
+	
 
 	$.fn.extend({
 		select2MultiCheckboxes: function() {
@@ -263,6 +341,22 @@
 				};
 				myOpcions = options;
 				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
+
+				if (options.placeholder == undefined || options.placeholder == '') {
+					// si es vació se asigna el label
+					options.placeholder = options.templateSelection({ selected: [], all: [] });
+				}
+			} else if (options.autocomplete && options.multiple) {
+			    // Configura el número mínimo de caracteres para activar la búsqueda
+			    if (options.minimumResultsForSearch === undefined || options.minimumResultsForSearch === Infinity) {
+			        options.minimumResultsForSearch = 3;
+			    }
+			    // Asigna los adaptadores personalizados
+			    
+				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter1");
+				options.dropdownAdapter = $.fn.select2.amd.require("CustomDropdownAdapter");
+				
+
 			} else if (options.autocomplete) {
 				if (options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity) {
 					options.minimumResultsForSearch = 3;
@@ -275,7 +369,7 @@
 					return ' Seleccionado(s) ' + datos.selected.length + ' de ' + datos.all.length;
 
 				};
-			}
+			} 
 
 			$('#' + options.id).select2(options);
 		}

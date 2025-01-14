@@ -71,3 +71,17 @@ display: none;
 .select-icon  .select2-search--dropdown {
 	display: none;
 }
+
+
+.select2-search--dropdown {
+    display: block !important;
+}
+
+.select2-search__field {
+    width: 100% !important;
+    padding: 5px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    margin-bottom: 5px !important;
+    box-sizing: border-box;
+}
