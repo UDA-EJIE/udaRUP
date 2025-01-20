@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <project name="uda" default="buildVersion">
     
-	<property name="udaVersion" value="5.4.1"/>
-    <property name="previousUdaVersion" value="5.4.0"/>
-    <property name="udaLibVersion" value="5.4.1-RELEASE"/>
-    <property name="previousUdaLibVersion" value="5.4.0-RELEASE"/>
+	<property name="udaVersion" value="5.4.2"/>
+    <property name="previousUdaVersion" value="5.4.1"/>
+    <property name="udaLibVersion" value="5.4.2-RELEASE"/>
+    <property name="previousUdaLibVersion" value="5.4.1-RELEASE"/>
     
     <property name="baseDir" value="../"/>
     <property name="destDir" value="${baseDir}/dist"/>
