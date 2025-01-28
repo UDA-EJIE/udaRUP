@@ -1142,14 +1142,30 @@
 			        	params.data = "" ;
 			        }
 			        let mySelect = $('#' + settings.id).data('select2');
-			        if(settings.autocomplete){
-			        	params.data.q = mySelect.$container.find('input').val();
+			        if(settings.autocomplete && settings.multiple){
+						let searchField = document.querySelector('.select2-search--dropdown .select2-search__field');
+			        	params.data.q = searchField.value;
 			        	__cachekey = params.data.q;
-			        }
+			        } else {
+						params.data.q = mySelect.$container.find('input').val();
+			        	__cachekey = params.data.q;
+						
+					}
 			        if (__lastQuery !== __cachekey) {
-			          // remove caches not from last query
-			          __cache = [];
-			        }
+			          // Verificar si existe un valor en __cache que coincida con __cachekey
+						if (__cache[""] && __cache[""].some(item => item.text === __cachekey)) {
+				    // Si no existe coincidencia, limpiar el __cache
+				   			 params.data.q = '';
+				   			 
+					} else {
+						
+						 if (__lastQuery !== "") {
+					        delete __cache[__lastQuery];
+					    }
+											
+					}
+						
+								        }
 			        __lastQuery = __cachekey;
 			        //Si esta cacheado, no busca
 					if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {

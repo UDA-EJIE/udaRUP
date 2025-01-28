@@ -169,45 +169,6 @@
 });
 
 
-	$.fn.select2.amd.define("CustomSelectionAdapter1", [
-    "select2/utils",
-    "select2/selection/multiple",
-    "select2/selection/placeholder",
-    "select2/selection/eventRelay"
-], function(Utils, MultipleSelection, Placeholder, EventRelay) {
-    // Combina MultipleSelection con Placeholder y EventRelay
-    let selectionAdapter = Utils.Decorate(MultipleSelection, Placeholder);
-    selectionAdapter = Utils.Decorate(selectionAdapter, EventRelay);
-
-    selectionAdapter.prototype.render = function() {
-        let $selection = MultipleSelection.prototype.render.call(this);
-        $selection.addClass("custom-multiple-selection");
-        return $selection;
-    };
-
-    selectionAdapter.prototype.update = function(data) {
-	    this.clear(); // Limpia las selecciones anteriores
-	
-	    let $rendered = this.$selection.find('.select2-selection__rendered');
-	
-	    const totalOptions = this.$element.find("option:not([disabled]):not([value=''])").length;
-
-	    const selectedCount = this.$element.find("option:selected:not([disabled]):not([value=''])").length;
-	    if (selectedCount === 0) {
-	      
-	        $rendered.text(`Seleccionados 0 de ${totalOptions}`);
-	    } else {
-	       
-	        $rendered.text(`Seleccionados ${selectedCount} de ${totalOptions}`);
-	    }
-	};
-
-
-    return selectionAdapter;
-});
-
-
-
 	$.fn.select2.amd.define("AutocompleteSelectionAdapter",
 		[
 			"select2/utils",
@@ -337,6 +298,13 @@
 				}, arguments[0]);
 				options.templateSelection = function(datos, span) {
 					let cadena = getBlankLabel(options.id, options);
+					
+					if (options.data){
+						if (options.data.length > 0){
+							return cadena.replace('{0}', datos.selected.length).replace('{1}', options.data.length);			
+						}	
+					}
+					
 					return cadena.replace('{0}', datos.selected.length).replace('{1}', datos.all.length);
 				};
 				myOpcions = options;
@@ -344,15 +312,21 @@
 
 			} else if (options.autocomplete && options.multiple) {
 			    // Configura el número mínimo de caracteres para activar la búsqueda
+			  
 			    if (options.minimumResultsForSearch === undefined || options.minimumResultsForSearch === Infinity) {
 			        options.minimumResultsForSearch = 3;
 			    }
-			    // Asigna los adaptadores personalizados
 			    
-				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter1");
+			    options.templateSelection = function(datos, span) {
+					let cadena = getBlankLabel(options.id, options);
+					
+					return cadena.replace('{0}', datos.selected.length).replace('{1}', datos.all.length);
+				};
+			    // Asigna los adaptadores personalizados
+				myOpcions = options;
+				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
 				options.dropdownAdapter = $.fn.select2.amd.require("CustomDropdownAdapter");
 				
-
 			} else if (options.autocomplete) {
 				if (options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity) {
 					options.minimumResultsForSearch = 3;
