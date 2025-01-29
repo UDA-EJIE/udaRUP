@@ -27,9 +27,14 @@
  *      {@link https://select2.org//|Select2}. Para mas información acerca de
  *      las funcionalidades y opciones de configuración pinche
  *      {@link https://select2.org//|aquí}.
- * @example $("#idSelect").rup_select({ source : "selectSimple/remote",
- *          sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(),
- *          value:"code", style:"css"} });
+ * @example $("#idSelect").rup_select({
+ * 				url: "selectSimple/remote",
+ *          	sourceParam : {
+ * 					text: "desc" + $.rup_utils.capitalizedLang(),
+ *          		id: "code",
+ * 					style: "css"
+ * 				}
+ * 			});
  */
 
 /* global define */
