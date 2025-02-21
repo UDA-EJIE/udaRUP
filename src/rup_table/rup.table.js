@@ -1393,10 +1393,16 @@
 								break;
 							}
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-								if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
-	                            	fieldValue += $(field).closest('label').text();
+								if (typeof settings.criterianCheckRadio === "function") {// se puede usar una función personalizada
+									fieldValue += settings.criterianCheckRadio($(field));
 								}else{
-									fieldValue += aux[i].value;
+									if($(field).siblings('label').first().text() != undefined && $(field).siblings('label').first().text() != ""){
+		                            	fieldValue += $(field).siblings('label').first().text();
+									}else if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
+										fieldValue += $(field).closest('label').text();
+									}else{
+									    fieldValue += aux[i].value;
+									}
 								}
 	                        } else {
 	                        	//Mirar si es masterDetail
