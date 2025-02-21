@@ -1006,7 +1006,7 @@
 						if (!objBox.includes(obj[e]) && deepCont <= deep) {
 							objBox.push(obj[e]);
 							deepCont++;
-							objtmp[e] = $.rup_utils.deepCopy(obj[e]);
+							objtmp[e] = $.rup_utils.deepCopy(obj[e],0);
 						} else {
 							if (deepCont > deep) {
 								objtmp[e] = obj[e];
