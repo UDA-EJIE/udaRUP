@@ -7,7 +7,7 @@
  */
 (function($) {
 
-
+	let myOpcions = "";
 	$.fn.select2.amd.define("CustomSelectionAdapter",
 		[
 			"select2/utils",
@@ -33,7 +33,7 @@
 
 			adapter.prototype.update = function(data) {
 				const options = this.options.options;
-				const selectSettings = $('#' + options.id).data('settings');
+				let selectSettings = $('#' + options.id).data('settings');
 
 				// copy and modify SingleSelection adapter
 				this.clear();
@@ -84,7 +84,22 @@
 
 					// Pass selected and all items to display method
 					// which calls templateSelection
-					formatted = this.display(itemsData, $rendered);
+					let title = "";
+					if(selectSettings == undefined){//aseguramos que el adapter siempre tenga las opciones cargadas
+						selectSettings = myOpcions;
+					}
+					if(selectSettings != undefined && selectSettings.placeholder != undefined && itemsData.selected.length == 0){
+						formatted = $('<span>', {
+						    class: 'select2-selection__placeholder', // Clase asignada
+						    text: selectSettings.placeholder         // Contenido dinámico
+						});
+						title = selectSettings.placeholder;
+					}else{// si es vacio se le asigna el por defecto
+						formatted = this.display(itemsData, $rendered);
+						title = formatted;
+					}
+					$rendered.empty().append(formatted);
+					$rendered.prop('title', title);
 				} else {
 					let noItemsSelected = data.length === 0;
 					if (noItemsSelected) {
@@ -106,15 +121,53 @@
 						// which calls templateSelection
 						formatted = this.display(itemsData, $rendered);
 					}
+					$rendered.empty().append(formatted);
+					$rendered.prop('title', formatted);
 				}
 
-				$rendered.empty().append(formatted);
-				$rendered.prop('title', formatted);
 			};
 
 			return adapter;
 		}
 	);
+	
+	$.fn.select2.amd.define("CustomDropdownAdapter", [
+    "select2/utils",
+    "select2/dropdown",
+    "select2/dropdown/attachBody",
+    "select2/dropdown/search"
+], function(Utils, Dropdown, AttachBody, Search) {
+     // Decorate Dropdown with Search functionalities
+    let dropdownWithSearch = Utils.Decorate(Dropdown, Search);
+
+    dropdownWithSearch.prototype.render = function() {
+          // Copy and modify default search render method
+        let $rendered = Dropdown.prototype.render.call(this);
+
+        // Add ability for a placeholder in the search box
+        let placeholder = this.options.get("placeholderForSearch") || "Buscar...";
+        let $search = $(
+            '<span class="select2-search select2-search--dropdown">' +
+            '<input class="select2-search__field" placeholder="' + placeholder + '" type="search"' +
+            ' tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off"' +
+            ' spellcheck="false" role="textbox" />' +
+            '</span>'
+        );
+
+ 
+        this.$searchContainer = $search;
+        this.$search = $search.find('input');
+
+
+        $rendered.prepend($search);
+
+        return $rendered;
+    };
+
+    // Decora el dropdown con AttachBody para el correcto posicionamiento
+    return Utils.Decorate(dropdownWithSearch, AttachBody);
+});
+
 
 	$.fn.select2.amd.define("AutocompleteSelectionAdapter",
 		[
@@ -230,6 +283,7 @@
 			return adapter;
 		}
 	);
+	
 
 	$.fn.extend({
 		select2MultiCheckboxes: function() {
@@ -244,13 +298,35 @@
 				}, arguments[0]);
 				options.templateSelection = function(datos, span) {
 					let cadena = getBlankLabel(options.id, options);
+					
+					if (options.data){
+						if (options.data.length > 0){
+							return cadena.replace('{0}', datos.selected.length).replace('{1}', options.data.length);			
+						}	
+					}
+					
 					return cadena.replace('{0}', datos.selected.length).replace('{1}', datos.all.length);
 				};
+				myOpcions = options;
 				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
-				if (options.placeholder == undefined || options.placeholder == '') {
-					// si es vació se asigna el label
-					options.placeholder = options.templateSelection({ selected: [], all: [] });
-				}
+
+			} else if (options.autocomplete && options.multiple) {
+			    // Configura el número mínimo de caracteres para activar la búsqueda
+			  
+			    if (options.minimumResultsForSearch === undefined || options.minimumResultsForSearch === Infinity) {
+			        options.minimumResultsForSearch = 3;
+			    }
+			    
+			    options.templateSelection = function(datos, span) {
+					let cadena = getBlankLabel(options.id, options);
+					
+					return cadena.replace('{0}', datos.selected.length).replace('{1}', datos.all.length);
+				};
+			    // Asigna los adaptadores personalizados
+				myOpcions = options;
+				options.selectionAdapter = $.fn.select2.amd.require("CustomSelectionAdapter");
+				options.dropdownAdapter = $.fn.select2.amd.require("CustomDropdownAdapter");
+				
 			} else if (options.autocomplete) {
 				if (options.minimumResultsForSearch == undefined || options.minimumResultsForSearch == Infinity) {
 					options.minimumResultsForSearch = 3;
@@ -263,7 +339,7 @@
 					return ' Seleccionado(s) ' + datos.selected.length + ' de ' + datos.all.length;
 
 				};
-			}
+			} 
 
 			$('#' + options.id).select2(options);
 		}

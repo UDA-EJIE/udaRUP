@@ -921,8 +921,12 @@
 						}
 					}
 				} else {
-					elem.defaultValue = "";
-					elem.value = "";
+					if(elem.type == 'checkbox'){//los checkbox pueden tener valor asignado.
+						elem.value = elem.defaultValue;
+					}else{
+						elem.defaultValue = "";
+						elem.value = "";
+					}
 				}
 			});
 
@@ -1159,22 +1163,37 @@
             
 			// Objeto auxiliar para contar repeticiones
 			const repeticiones = {};
-
+			// Objeto auxiliar para almacenar los valores concatenados
+			var valoresConcatenados = {};
 			// Crear un nuevo array de objetos manteniendo "value" original para valores únicos y actualizando "value" para valores repetidos
 			const nuevoArrayDeObjetos = aux.reduce((result, objeto) => {
 				const { name, value } = objeto;
 				if (!repeticiones[name]) {
 					repeticiones[name] = { value, count: 0 };
+					
+					valoresConcatenados[name] = [];
 				}
 				if(value != ""){
 					repeticiones[name].count++;
 				
 					if (repeticiones[name].count === 1) {
 						result.push({ name, value });
+						valoresConcatenados[name].push(value);
 					} else if($('[name=\'' + name + '\']').prop("type") != "hidden") {
-						result.find(item => item.name === name).value = 'Seleccionados ' + repeticiones[name].count;
-					}
-				}
+						var existingItem = result.find(function (item) {
+			        return item.name === name;
+				      });
+					
+				     if (repeticiones[name].count < 4) {
+						valoresConcatenados[name].push(value);
+				        // Concatenar valores si las repeticiones son menores que 4
+				        existingItem.value = valoresConcatenados[name].join(", ");
+				     } else {
+				        // Mostrar el número de seleccionados si las repeticiones son 4 o más
+				        existingItem.value = 'Seleccionados ' + repeticiones[name].count;
+				      }
+				    }
+			  }
 				return result;
 			}, []);
 	
@@ -1259,10 +1278,16 @@
 								break;
 							}
 	                        if ($(field)[0].type === 'checkbox' || $(field)[0].type === 'radio') {
-								if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
-	                            	fieldValue += $(field).closest('label').text();
+								if (typeof settings.criterianCheckRadio === "function") {// se puede usar una función personalizada
+									fieldValue += settings.criterianCheckRadio($(field));
 								}else{
-									fieldValue += aux[i].value;
+									if($(field).siblings('label').first().text() != undefined && $(field).siblings('label').first().text() != ""){
+		                            	fieldValue += $(field).siblings('label').first().text();
+									}else if($(field).closest('label').text() != undefined && $(field).closest('label').text() != ""){
+										fieldValue += $(field).closest('label').text();
+									}else{
+									    fieldValue += aux[i].value;
+									}
 								}
 	                        } else {
 	                        	//Mirar si es masterDetail

@@ -27,9 +27,14 @@
  *      {@link https://select2.org//|Select2}. Para mas información acerca de
  *      las funcionalidades y opciones de configuración pinche
  *      {@link https://select2.org//|aquí}.
- * @example $("#idSelect").rup_select({ source : "selectSimple/remote",
- *          sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(),
- *          value:"code", style:"css"} });
+ * @example $("#idSelect").rup_select({
+ * 				url: "selectSimple/remote",
+ *          	sourceParam : {
+ * 					text: "desc" + $.rup_utils.capitalizedLang(),
+ *          		id: "code",
+ * 					style: "css"
+ * 				}
+ * 			});
  */
 
 /* global define */
@@ -1164,8 +1169,13 @@
 			        }
 			        let mySelect = $('#' + settings.id).data('select2');
 			        if(settings.autocomplete){
-			        	params.data.q = mySelect.$container.find('input').val();
-			        	__cachekey = params.data.q;
+						if(settings.multiple){
+							let searchField = document.querySelector('.select2-search--dropdown .select2-search__field');
+							params.data.q = searchField.value;
+						}else{						
+				        	params.data.q = mySelect.$container.find('input').val();
+				        	__cachekey = params.data.q;
+						}
 			        }
 			        if (__lastQuery !== __cachekey) {
 			          // remove caches not from last query
