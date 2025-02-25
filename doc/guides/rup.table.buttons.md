@@ -74,6 +74,11 @@ Propiedades del propio botón:
 		}
 	};
 	```
+* __insertAfter__ Propiedad que permite insertar antes del formulario de filtrado los botones, por defecto si no se pone nada, se insertan después del formulario de filtrado:
+	``` js
+	plugins.buttons.insertAfter = true;
+	```
+		
 Ejemplo del controller:
 ``` java
 @RequestMapping(value = {"/xlsReport" , "/xlsxReport"}, method = RequestMethod.POST, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
