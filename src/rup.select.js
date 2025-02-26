@@ -1545,9 +1545,7 @@
 	                // Revisar apra el select
 	                if (settings.firstLoad === null && ($(this).is('select') && settings.loadFromSelect)) {
 	                    loadAsLocal = true;
-	                }
-	
-	                
+	                }                
 	
 	                // Asociar evento CHANGE para propagar cambios a los hijos
 	                $('#' + settings.id).on('change', function () {
@@ -2009,6 +2007,15 @@
 	                	});
 		                // Fin funcion evento padre
 	                }
+					if (settings.noCheck){
+						let mySelectCheck = $('#' + settings.id).data('select2');
+						mySelectCheck.on("results:all", function() {
+						    let listItems = mySelectCheck.$results.find('li');
+							listItems.each(function () {
+						   		$(this).addClass('ocultar-before');
+						    });
+						});
+					}	
 	                $('#' + settings.id).data('settings', settings);
 	                //Si es remoto, el último evento es: selectAjaxSuccess
 	                $('#' + settings.id).triggerHandler('selectFinish', settings);
