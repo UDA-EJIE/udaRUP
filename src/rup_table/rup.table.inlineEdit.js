@@ -1235,19 +1235,34 @@ function _inlineEditFormSerialize($fila,ctx,child){
 						value = '1';
 					}
 				}
-				serializedForm[nombre] = value;
+				
+				// Construye correctamente el JSON aunque los datos contengan subentidades.
+				if (nombre.includes(".")) {
+					$.extend(serializedForm, $.rup_utils.queryStringToJson(nombre + "=" + value));
+				} else {
+					serializedForm[nombre] = value;
+				}
 			}
 		});
 	});
 	
 	//añadir los no editables,en caso de SOLO edición, 
-	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
-		jQuery.grep(ctx.oInit.colModel, function( n,i) {
-			  if ( n.editable !== true ){
-				  const text = ctx.json.rows[$('tr:not(.group)', $(ctx.nTBody)).index($fila)][n.name];
-				  serializedForm[n.name] = text;
-				  return n;
-			  }
+	if (!selectores[0].hasClass('new') && typeof serializedForm !== "boolean") {
+		jQuery.grep(ctx.oInit.colModel, function(n, i) {
+			if (n.editable !== true) {
+				const isSubentity = n.name.includes(".");
+				const row = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)];
+				const text = isSubentity ? row[n.name.split(".")[0]] : row[n.name];
+
+				// Construye correctamente el JSON aunque los datos contengan subentidades.
+				if (isSubentity) {
+					$.extend(serializedForm, $.rup_utils.queryStringToJson(n.name + "=" + text));
+				} else {
+					serializedForm[n.name] = text;
+				}
+
+				return n;
+			}
 		});
 	}
 	
