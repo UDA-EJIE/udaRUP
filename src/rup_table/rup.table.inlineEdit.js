@@ -238,6 +238,17 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    };
 	}
 	
+	// TODO: de cara a UDA 7, se podría simplificar la estructura incluyendo en el mismo objeto la activación de los diálogos y la configuración de sus mensajes. Por ejemplo:
+    /*
+     *	saveDialog: {
+			enable: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true, 
+			titleOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+			messageOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+			titleOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+			messageOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+		}
+	 *
+     */
 	ctx.oInit.inlineEdit.settings = {
 		saveDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
 		saveDialogMessages: {

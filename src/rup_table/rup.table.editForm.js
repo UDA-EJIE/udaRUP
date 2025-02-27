@@ -130,6 +130,17 @@
         // Establece el valor de las propiedades del formulario de edición.
         ctx.oInit.formEdit.loadSpinner = typeof ctx.oInit.formEdit.loadSpinner === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
         
+        // TODO: de cara a UDA 7, se podría simplificar la estructura incluyendo en el mismo objeto la activación de los diálogos y la configuración de sus mensajes. Por ejemplo:
+        /*
+         *	saveDialog: {
+				enable: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true, 
+				titleOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+				messageOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+				titleOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+				messageOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+			}
+		 *
+         */
 		ctx.oInit.formEdit.detailForm.settings = {
 			type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
 			width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
