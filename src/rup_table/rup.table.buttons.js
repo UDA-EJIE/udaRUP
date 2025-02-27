@@ -3454,6 +3454,7 @@
             // Este caso para cuando no hay registros seleccionados
             type = 'all';
             selectedAll = true;
+			deselectedIds = [];
         }
 
         $.when(_reportsTypeOfCopy(dt, type, config.request, multiselection, selectedAll, deselectedIds)).then(function (exportData, ajaxOptions) {
