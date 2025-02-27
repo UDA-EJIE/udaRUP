@@ -217,8 +217,8 @@ DataTable.inlineEdit.init = function ( dt ) {
 				
 	        	if (ctx.oInit.inlineEdit.settings.cancelDialog) {
 					$.rup_messages('msgConfirm', {
-					    message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-					    title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+					    title: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.title,
+					    message: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.message,
 					    OKFunction: function () {
 					    	_cancelRow();
 					        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -238,10 +238,35 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    };
 	}
 	
+	// TODO: de cara a UDA 7, se podría simplificar la estructura incluyendo en el mismo objeto la activación de los diálogos y la configuración de sus mensajes. Por ejemplo:
+    /*
+     *	saveDialog: {
+			enable: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true, 
+			titleOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+			messageOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+			titleOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+			messageOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+		}
+	 *
+     */
 	ctx.oInit.inlineEdit.settings = {
-        saveDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
-        cancelDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.cancelDialog : true,
-        deleteDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.deleteDialog : true
+		saveDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.saveDialog : true,
+		saveDialogMessages: {
+			titleOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+			messageOnAddAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+			titleOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+			messageOnEditAction: ctx.oInit.inlineEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+		},
+		cancelDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.cancelDialog : true,
+		cancelDialogMessages: {
+			title: ctx.oInit.inlineEdit.confirmDialogs?.cancelDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+			message: ctx.oInit.inlineEdit.confirmDialogs?.cancelDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
+		},
+		deleteDialog: (ctx.oInit.inlineEdit.confirmDialogs !== undefined && ctx.oInit.inlineEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.inlineEdit.confirmDialogs.deleteDialog : true,
+		deleteDialogMessages: {
+			title: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+			message: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+		}
     };
 
     $(window).on('resize.dtr', DataTable.util.throttle(function () { //Se calcula el responsive
@@ -926,7 +951,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				
 				//Convertir a input.
 				var searchRupType = (cellColModel.editoptions !== undefined && cellColModel.editoptions.rupType !== undefined) ? cellColModel.editoptions.rupType : cellColModel.rupType;
-				var colModelName = cellColModel.name;
+				const colModelName = $.rup_utils.escapeId(cellColModel.name);
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
 				
@@ -1242,19 +1267,34 @@ function _inlineEditFormSerialize($fila,ctx,child){
 						value = '1';
 					}
 				}
-				serializedForm[nombre] = value;
+				
+				// Construye correctamente el JSON aunque los datos contengan subentidades.
+				if (nombre.includes(".")) {
+					$.extend(serializedForm, $.rup_utils.queryStringToJson(nombre + "=" + value));
+				} else {
+					serializedForm[nombre] = value;
+				}
 			}
 		});
 	});
 	
 	//añadir los no editables,en caso de SOLO edición, 
-	if(!selectores[0].hasClass('new') && typeof serializedForm !== "boolean"){
-		jQuery.grep(ctx.oInit.colModel, function( n,i) {
-			  if ( n.editable !== true ){
-				  const text = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)][n.name];
-				  serializedForm[n.name] = text;
-				  return n;
-			  }
+	if (!selectores[0].hasClass('new') && typeof serializedForm !== "boolean") {
+		jQuery.grep(ctx.oInit.colModel, function(n, i) {
+			if (n.editable !== true) {
+				const isSubentity = n.name.includes(".");
+				const row = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)];
+				const text = isSubentity ? row[n.name.split(".")[0]] : row[n.name];
+
+				// Construye correctamente el JSON aunque los datos contengan subentidades.
+				if (isSubentity) {
+					$.extend(serializedForm, $.rup_utils.queryStringToJson(n.name + "=" + text));
+				} else {
+					serializedForm[n.name] = text;
+				}
+
+				return n;
+			}
 		});
 	}
 	
@@ -1526,8 +1566,8 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
     
     if (ctx.oInit.inlineEdit.settings.saveDialog && !isDeleting) {
     	$.rup_messages('msgConfirm', {
-            title: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
-            message: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+            title: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction,
+            message: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction,
             OKFunction: function () {
             	_makeAjaxCall();
             	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1902,8 +1942,8 @@ function _deleteAllSelects(dt){
     
 	if (ctx.oInit.inlineEdit.settings.deleteDialog) {
 		$.rup_messages('msgConfirm', {
-			message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
-			title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+			title: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title,
+			message: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message,
 			OKFunction: function () {
 				_doDelete();
 	            $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);

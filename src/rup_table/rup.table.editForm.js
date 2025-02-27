@@ -130,13 +130,38 @@
         // Establece el valor de las propiedades del formulario de edición.
         ctx.oInit.formEdit.loadSpinner = typeof ctx.oInit.formEdit.loadSpinner === 'boolean' ? ctx.oInit.formEdit.loadSpinner : true;
         
-        ctx.oInit.formEdit.detailForm.settings = {
-            type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
-            width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
-            saveDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true,
-            cancelDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.cancelDialog : true,
-            deleteDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.deleteDialog : true
-        };
+        // TODO: de cara a UDA 7, se podría simplificar la estructura incluyendo en el mismo objeto la activación de los diálogos y la configuración de sus mensajes. Por ejemplo:
+        /*
+         *	saveDialog: {
+				enable: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true, 
+				titleOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+				messageOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+				titleOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+				messageOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+			}
+		 *
+         */
+		ctx.oInit.formEdit.detailForm.settings = {
+			type: ctx.oInit.formEdit.type !== undefined ? ctx.oInit.formEdit.type : $.rup.dialog.DIV,
+			width: ctx.oInit.formEdit.width !== undefined ? ctx.oInit.formEdit.width : 569,
+			saveDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.saveDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.saveDialog : true,
+			saveDialogMessages: {
+				titleOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save'),
+				messageOnAddAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnAddAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnAddAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData'),
+				titleOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.titleOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
+				messageOnEditAction: ctx.oInit.formEdit.confirmDialogs?.saveDialogMessages?.messageOnEditAction ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnEditAction) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+			},
+			cancelDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.cancelDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.cancelDialog : true,
+			cancelDialogMessages: {
+				title: ctx.oInit.formEdit.confirmDialogs?.cancelDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+				message: ctx.oInit.formEdit.confirmDialogs?.cancelDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
+			},
+			deleteDialog: (ctx.oInit.formEdit.confirmDialogs !== undefined && ctx.oInit.formEdit.confirmDialogs.deleteDialog !== undefined) ? ctx.oInit.formEdit.confirmDialogs.deleteDialog : true,
+			deleteDialogMessages: {
+				title: ctx.oInit.formEdit.confirmDialogs?.deleteDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+				message: ctx.oInit.formEdit.confirmDialogs?.deleteDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+			}
+		};
         
         // Calcula el responsive
         $(window).on('resize.dtr', DataTable.util.throttle(function () {
@@ -168,8 +193,8 @@
             }
             if (ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack) {
                 $.rup_messages('msgConfirm', {
-                    message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.saveAndContinue'),
-                    title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+                    title: ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.title,
+                    message: ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.message,
                     OKFunction: function () {
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
@@ -1163,8 +1188,8 @@
         
         if (ctx.oInit.formEdit.detailForm.settings.saveDialog && !isDeleting) {
         	$.rup_messages('msgConfirm', {
-                title: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.save') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.save'),
-                message: actionType == 'POST' ? $.rup.i18nParse($.rup.i18n.base, 'rup_table.add.saveData') : $.rup.i18nParse($.rup.i18n.base, 'rup_table.edit.saveData'),
+                title: actionType == 'POST' ? ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnAddAction : ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnEditAction,
+                message: actionType == 'POST' ? ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnAddAction : ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnEditAction,
                 OKFunction: function () {
                 	_makeAjaxCall();
                 	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1818,8 +1843,8 @@
         
         if (ctx.oInit.formEdit.detailForm.settings.deleteDialog) {
         	$.rup_messages('msgConfirm', {
-                message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
-                title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
+                title: ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.title,
+                message: ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.message,
                 OKFunction: function () {
                 	_doDelete();
                     $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);

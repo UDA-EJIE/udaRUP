@@ -41,8 +41,22 @@ $("#idComponente").rup_table({
         },
         confirmDialogs: {
             saveDialog: false,
+            saveDialogMessages: {
+                titleOnAddAction: 'Título a mostar en diálogos de añadir',
+                messageOnAddAction: 'Mensaje a mostrar en diálogos de añadir',
+                titleOnEditAction: 'Título a mostar en diálogos de editar',
+                messageOnEditAction: 'Mensaje a mostrar en diálogos de editar'
+            },
             cancelDialog: true,
-            deleteDialog: true
+            cancelDialogMessages: {
+                title: 'Título a mostar en diálogos de cancelación',
+                message: 'Mensaje a mostrar en diálogos de cancelación'
+            },
+            deleteDialog: true,
+            deleteDialogMessages: {
+                title: 'Título a mostar en diálogos de eliminación',
+                message: 'Mensaje a mostrar en diálogos de eliminación'
+            }
         }
     }
 });
@@ -92,6 +106,29 @@ inlineEdit: {
         saveDialog: false,
         cancelDialog: true,
         deleteDialog: true
+    }
+}
+```
+&nbsp;
+
+Configurar los títulos y mensajes mostrados en los diálogos de confirmación:
+```js
+inlineEdit: {
+    confirmDialogs: {
+        saveDialogMessages: {
+            titleOnAddAction: 'Título a mostar en diálogos de añadir',
+            messageOnAddAction: 'Mensaje a mostrar en diálogos de añadir',
+            titleOnEditAction: 'Título a mostar en diálogos de editar',
+            messageOnEditAction: 'Mensaje a mostrar en diálogos de editar'
+        },
+        cancelDialogMessages: {
+            title: 'Título a mostar en diálogos de cancelación',
+            message: 'Mensaje a mostrar en diálogos de cancelación'
+        },
+        deleteDialogMessages: {
+            title: 'Título a mostar en diálogos de eliminación',
+            message: 'Mensaje a mostrar en diálogos de eliminación'
+        }
     }
 }
 ```
