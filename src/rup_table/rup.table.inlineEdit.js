@@ -1270,7 +1270,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 			if (n.editable !== true) {
 				const isSubentity = n.name.includes(".");
 				const row = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)];
-				const text = isSubentity ? row[n.name.split(".")[0]] : row[n.name];
+				const text = isSubentity ? $.fn.flattenJSON(row)[n.name] : row[n.name];
 
 				// Construye correctamente el JSON aunque los datos contengan subentidades.
 				if (isSubentity) {
