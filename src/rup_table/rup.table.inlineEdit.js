@@ -217,8 +217,8 @@ DataTable.inlineEdit.init = function ( dt ) {
 				
 	        	if (ctx.oInit.inlineEdit.settings.cancelDialog) {
 					$.rup_messages('msgConfirm', {
-					    title: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.title,
-					    message: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.message,
+					    title: ctx.oInit.inlineEdit.settings.cancelDialogMessages.title,
+					    message: ctx.oInit.inlineEdit.settings.cancelDialogMessages.message,
 					    OKFunction: function () {
 					    	_cancelRow();
 					        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -266,6 +266,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 		deleteDialogMessages: {
 			title: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
 			message: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+		},
+		changeControlDialogMessages: {
+			title: ctx.oInit.inlineEdit.confirmDialogs?.changeControlDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.changeControlDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+			message: ctx.oInit.inlineEdit.confirmDialogs?.changeControlDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.changeControlDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
 		}
     };
 
@@ -411,8 +415,8 @@ function _onResponsiveResize(dt){
 function _add(dt,ctx){
 	if(ctx.multiselection.numSelected > 0){
 		$.rup_messages('msgConfirm', {
-			message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-			title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+			title: ctx.oInit.inlineEdit.settings.changeControlDialogMessages.title,
+			message: ctx.oInit.inlineEdit.settings.changeControlDialogMessages.message,
 			OKFunction: function () {
 				_restaurarFila(ctx,true);
 				// Abrimos el formulario
@@ -1284,7 +1288,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 			if (n.editable !== true) {
 				const isSubentity = n.name.includes(".");
 				const row = ctx.json.rows[$('tr:not(.dtrg-group)', $(ctx.nTBody)).index($fila)];
-				const text = isSubentity ? row[n.name.split(".")[0]] : row[n.name];
+				const text = isSubentity ? $.fn.flattenJSON(row)[n.name] : row[n.name];
 
 				// Construye correctamente el JSON aunque los datos contengan subentidades.
 				if (isSubentity) {
@@ -1566,8 +1570,8 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
     
     if (ctx.oInit.inlineEdit.settings.saveDialog && !isDeleting) {
     	$.rup_messages('msgConfirm', {
-            title: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction,
-            message: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction,
+            title: actionType == 'POST' ? ctx.oInit.inlineEdit.settings.saveDialogMessages.titleOnAddAction : ctx.oInit.inlineEdit.settings.saveDialogMessages.titleOnEditAction,
+            message: actionType == 'POST' ? ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnEditAction,
             OKFunction: function () {
             	_makeAjaxCall();
             	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1942,8 +1946,8 @@ function _deleteAllSelects(dt){
     
 	if (ctx.oInit.inlineEdit.settings.deleteDialog) {
 		$.rup_messages('msgConfirm', {
-			title: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title,
-			message: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message,
+			title: ctx.oInit.inlineEdit.settings.deleteDialogMessages.title,
+			message: ctx.oInit.inlineEdit.settings.deleteDialogMessages.message,
 			OKFunction: function () {
 				_doDelete();
 	            $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);

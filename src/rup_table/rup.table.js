@@ -479,6 +479,8 @@
                             // Comprobamos si es un componente rup o no. En caso de serlo usamos el metodo disable.
                             if (input.attr('ruptype') === 'date' && !input.rup_date('isDisabled')) {
                                 input.rup_date('disable');
+							} else if (input.attr('ruptype') === 'select' && !input.rup_select('isDisabled')) {
+								    input.rup_select('disable');	
                             } else if (input.attr('ruptype') === 'time' && !input.rup_time('isDisabled')) {
                                 input.rup_time('disable');
                             } else if (input.attr('type') === 'checkbox') {
