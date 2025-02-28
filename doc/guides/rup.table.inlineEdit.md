@@ -56,6 +56,10 @@ $("#idComponente").rup_table({
             deleteDialogMessages: {
                 title: 'Título a mostar en diálogos de eliminación',
                 message: 'Mensaje a mostrar en diálogos de eliminación'
+            },
+            changeControlDialogMessages: {
+                title: 'Título a mostrar en diálogo de control de cambios',
+                message: 'Mensaje a mostar en diálogos de control de cambios (cuando hay al menos un registro seleccionado y se desea añadir uno nuevo)'
             }
         }
     }
@@ -128,6 +132,10 @@ inlineEdit: {
         deleteDialogMessages: {
             title: 'Título a mostar en diálogos de eliminación',
             message: 'Mensaje a mostrar en diálogos de eliminación'
+        },
+        changeControlDialogMessages: {
+            title: 'Título a mostrar en diálogo de control de cambios',
+            message: 'Mensaje a mostar en diálogos de control de cambios (cuando hay al menos un registro seleccionado y se desea añadir uno nuevo)'
         }
     }
 }

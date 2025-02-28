@@ -247,6 +247,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 		deleteDialogMessages: {
 			title: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.delete'),
 			message: ctx.oInit.inlineEdit.confirmDialogs?.deleteDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.deleteAll'),
+		},
+		changeControlDialogMessages: {
+			title: ctx.oInit.inlineEdit.confirmDialogs?.changeControlDialogMessages?.title ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.changeControlDialogMessages.title) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+			message: ctx.oInit.inlineEdit.confirmDialogs?.changeControlDialogMessages?.message ? $.rup.i18nParse($.rup.i18n.app, ctx.oInit.inlineEdit.confirmDialogs.changeControlDialogMessages.message) : $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
 		}
     };
 
@@ -392,8 +396,8 @@ function _onResponsiveResize(dt){
 function _add(dt,ctx){
 	if(ctx.multiselection.numSelected > 0){
 		$.rup_messages('msgConfirm', {
-			message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.checkSelectedElems'),
-			title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.changes'),
+			title: ctx.oInit.inlineEdit.settings.changeControlDialogMessages.title,
+			message: ctx.oInit.inlineEdit.settings.changeControlDialogMessages.message,
 			OKFunction: function () {
 				_restaurarFila(ctx,true);
 				// Abrimos el formulario
