@@ -193,8 +193,8 @@
             }
             if (ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack) {
                 $.rup_messages('msgConfirm', {
-                    title: ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.title,
-                    message: ctx.oInit.formEdit.confirmDialogs.cancelDialogMessages.message,
+                    title: ctx.oInit.formEdit.detailForm.settings.cancelDialogMessages.title,
+                    message: ctx.oInit.formEdit.detailForm.settings.cancelDialogMessages.message,
                     OKFunction: function () {
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
@@ -1188,8 +1188,8 @@
         
         if (ctx.oInit.formEdit.detailForm.settings.saveDialog && !isDeleting) {
         	$.rup_messages('msgConfirm', {
-                title: actionType == 'POST' ? ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnAddAction : ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.titleOnEditAction,
-                message: actionType == 'POST' ? ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnAddAction : ctx.oInit.formEdit.confirmDialogs.saveDialogMessages.messageOnEditAction,
+                title: actionType == 'POST' ? ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.titleOnAddAction : ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.titleOnEditAction,
+                message: actionType == 'POST' ? ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.messageOnAddAction : ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.messageOnEditAction,
                 OKFunction: function () {
                 	_makeAjaxCall();
                 	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1843,8 +1843,8 @@
         
         if (ctx.oInit.formEdit.detailForm.settings.deleteDialog) {
         	$.rup_messages('msgConfirm', {
-                title: ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.title,
-                message: ctx.oInit.formEdit.confirmDialogs.deleteDialogMessages.message,
+                title: ctx.oInit.formEdit.detailForm.settings.deleteDialogMessages.title,
+                message: ctx.oInit.formEdit.detailForm.settings.deleteDialogMessages.message,
                 OKFunction: function () {
                 	_doDelete();
                     $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
