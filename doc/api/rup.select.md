@@ -7,7 +7,7 @@ Permite al usuario recuperar un elemento de una gran lista de elementos o devar
 **See**: El componente está basado en el plugin     [Select2](https://select2.org//). Para mas información acerca de     las funcionalidades y opciones de configuración pinche     [aquí](https://select2.org//).  
 **Example**  
 ```js
-$("#idSelect").rup_select({ source : "selectSimple/remote",         sourceParam : {label:"desc"+$.rup_utils.capitalizedLang(),         value:"code", style:"css"} });
+$("#idSelect").rup_select({				url: "selectSimple/remote",         	sourceParam : {					text: "desc" + $.rup_utils.capitalizedLang(),         		id: "code",					style: "css"				}			});
 ```
 
 * [rup_select](#module_rup_select)
