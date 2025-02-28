@@ -209,8 +209,8 @@ DataTable.inlineEdit.init = function ( dt ) {
 				
 	        	if (ctx.oInit.inlineEdit.settings.cancelDialog) {
 					$.rup_messages('msgConfirm', {
-					    title: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.title,
-					    message: ctx.oInit.inlineEdit.confirmDialogs.cancelDialogMessages.message,
+					    title: ctx.oInit.inlineEdit.settings.cancelDialogMessages.title,
+					    message: ctx.oInit.inlineEdit.settings.cancelDialogMessages.message,
 					    OKFunction: function () {
 					    	_cancelRow();
 					        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1556,8 +1556,8 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
     
     if (ctx.oInit.inlineEdit.settings.saveDialog && !isDeleting) {
     	$.rup_messages('msgConfirm', {
-            title: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.titleOnEditAction,
-            message: actionType == 'POST' ? ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.confirmDialogs.saveDialogMessages.messageOnEditAction,
+            title: actionType == 'POST' ? ctx.oInit.inlineEdit.settings.saveDialogMessages.titleOnAddAction : ctx.oInit.inlineEdit.settings.saveDialogMessages.titleOnEditAction,
+            message: actionType == 'POST' ? ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnEditAction,
             OKFunction: function () {
             	_makeAjaxCall();
             	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
@@ -1904,8 +1904,8 @@ function _deleteAllSelects(dt){
     
 	if (ctx.oInit.inlineEdit.settings.deleteDialog) {
 		$.rup_messages('msgConfirm', {
-			title: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.title,
-			message: ctx.oInit.inlineEdit.confirmDialogs.deleteDialogMessages.message,
+			title: ctx.oInit.inlineEdit.settings.deleteDialogMessages.title,
+			message: ctx.oInit.inlineEdit.settings.deleteDialogMessages.message,
 			OKFunction: function () {
 				_doDelete();
 	            $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
