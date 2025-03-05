@@ -1548,7 +1548,7 @@
 					// $.rup.i18n.base.rup_select.multiselect);
 	
 	                // Se carga el identificador del padre del patron
-	                settings.id = $.rup_utils.escapeId($(this).attr('id'));
+	                settings.id = $.escapeSelector($(this).attr('id'));
 	                if($(this).attr('name') === undefined){
 	                	$(this).attr('name',settings.id);
 	                }
