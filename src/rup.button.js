@@ -242,15 +242,15 @@
                     if (settings.list !== null || settings.layer !== null) {
                         var $fabGroupDiv = $('<div>').addClass('rup-button-fab-group');
                         //$self.wrap($fabListDiv);
-                        $self.add($('#' + settings.list)).wrapAll($fabGroupDiv);
+                        $self.add($('#' + $.escapeSelector(settings.list))).wrapAll($fabGroupDiv);
 
                         if (settings.list !== null) {
-                            $('#' + settings.list).addClass('rup-button-fab-list');
-                            $('button', '#' + settings.list).addClass('rup-button-fab-sm').rup_button();
+                            $('#' + $.escapeSelector(settings.list)).addClass('rup-button-fab-list');
+                            $('button', '#' + $.escapeSelector(settings.list)).addClass('rup-button-fab-sm').rup_button();
                         }
 
                         if (settings.layer !== null) {
-                            $('#' + settings.layer).addClass('rup-button-fab-layer');
+                            $('#' + $.escapeSelector(settings.layer)).addClass('rup-button-fab-layer');
                         }
 
                     }

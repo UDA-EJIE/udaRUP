@@ -623,7 +623,7 @@
                             delay: null
                         },
                         //Si existen rup_feedbacks cogemos el último, será el que se está mostrando.
-                        feedback_principal = $('#' + feedbacks[feedbacks.length -1].id);
+                        feedback_principal = $('#' + $.escapeSelector(feedbacks[feedbacks.length -1].id));
 
                     // Mostramos el error en el feedback
                     feedback_principal.rup_feedback('option', feedback_props);

@@ -249,7 +249,7 @@
         resetForm: function () {
 	
 			//Los rup select no se limpiaban con el reset nativo, por lo tanto, se usa el metodo clear
-			$('#' + $(this).attr('id') + ' select').each(function(index, element){
+			$('#' + $.escapeSelector($(this).attr('id')) + ' select').each(function(index, element){
 				if ($(element).attr('ruptype') == 'select'){
 					$(element).rup_select('clear');
 				}

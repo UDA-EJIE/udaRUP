@@ -237,7 +237,7 @@
         ctx.multiselection.numSelected = 0;
         ctx.multiselection.selectedIds = [];
         DataTable.Api().buttons.displayRegex(ctx);
-        $('#' + ctx.sTableId).trigger('rupTable_deselect',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).trigger('rupTable_deselect',ctx);
     });
 
     apiRegister('select.selectRowIndex()', function (dt, index, isDoubleClick) {

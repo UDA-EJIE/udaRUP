@@ -71,7 +71,7 @@
 
 		if (settings.pager !== undefined && settings.pager !== null) {
 			settings.$pager = $((settings.pager.indexOf('#') === 0 ? settings.pager : '#' + settings.pager));
-			pagerName = settings.$pager.attr('id');
+			pagerName = $.escapeSelector(settings.$pager.attr('id'));
 
 			settings.$pager.css('height', 'auto'); //Posibilitar redimensionar paginador
 
@@ -150,9 +150,9 @@
 
 		var $self = $(this),
 			settings = $self.data('settings'),
-			tableID = $self.attr('id');
+			tableID = $.escapeSelector($self.attr('id'));
 		var $template = $(Rup.Templates.rup.table.detail.navigation.bootstrap({
-			tableId: $self.prop('id'),
+			tableId: $.escapeSelector($self.prop('id')),
 			resultNumText: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.numResult'),
 			labelFirst: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.first'),
 			labelPrev: jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.previous'),

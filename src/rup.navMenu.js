@@ -83,7 +83,7 @@
             var windowHref = window.location.href.substr(window.location.href.lastIndexOf('#'));
             var liHref;
             //marco la pestana seleccionada
-            $('#' + pId + '  li a').each(function (index, element) {
+            $('#' + $.escapeSelector(pId) + '  li a').each(function (index, element) {
                 liHref = element.href.substr(element.href.lastIndexOf('#'));
                 if (liHref === windowHref) {
                     $(element).parent().addClass('actualTab');
@@ -182,13 +182,13 @@
         _calculatePageOfActualTab: function (settings) {
             var item = 0;
             var page = 0;
-            var menuSize = $('#' + settings.id + ' li').length;
+            var menuSize = $('#' + $.escapeSelector(settings.id) + ' li').length;
             var maxItemVisible = item + settings.visible;
             var auxItem;
             while (maxItemVisible <= menuSize) {
                 for (var tabVisible = item; tabVisible < maxItemVisible; tabVisible++) {
                     //auxItem = $('.rup_navMenu .itemTab:nth(' + tabVisible + ')');
-                    auxItem = $('#' + settings.id + ' li:nth(' + tabVisible + ')');
+                    auxItem = $('#' + $.escapeSelector(settings.id) + ' li:nth(' + tabVisible + ')');
 
                     if (auxItem.hasClass('actualTab')) {
                         return page;

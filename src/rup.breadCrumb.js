@@ -154,7 +154,7 @@
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectMessage'),
                                             title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
                                             OKFunction: function () {
-                                                $(window).attr('location', $('#' + idBreadCrumb + ' .rup-breadCrumb_link').attr('logOutHref'));
+                                                $(window).attr('location', $('#' + $.escapeSelector(idBreadCrumb) + ' .rup-breadCrumb_link').attr('logOutHref'));
                                             }
                                         });
                                     }).html($.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.exit')).append($('<span>').addClass('ui-icon rup-icon rup-icon-door-out rup-breadCrumb_exitImg'))));
@@ -168,7 +168,7 @@
                                             message: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuSecuritySystemDisconnectMessage'),
                                             title: $.rup.i18nParse($.rup.i18n.base, 'rup_breadCrumb.menuDisconnectTitle'),
                                             OKFunction: function () {
-                                                $(window).attr('location', $('#' + idBreadCrumb + ' .rup-breadCrumb_link').attr('logOutHref'));
+                                                $(window).attr('location', $('#' + $.escapeSelector(idBreadCrumb) + ' .rup-breadCrumb_link').attr('logOutHref'));
                                             }
                                         });
                                     }).mouseover(
@@ -219,7 +219,7 @@
                 // delete lastCrum;
                 //y por ultimo se añade el span, todo el ul a un nuevo div que lo contenga
                 $(this.element.children()[0]).append('<div class="breadCrumb_where_is col-12 col-sm-9 order-first"></div>');
-                $('#' + idBreadCrumb + ' .breadCrumb_where_is').append([breadCrumbSpan, ulBreadCrumb]);
+                $('#' + $.escapeSelector(idBreadCrumb) + ' .breadCrumb_where_is').append([breadCrumbSpan, ulBreadCrumb]);
                 
                 $(ulBreadCrumb).wrap($('<div>').addClass('d-inline-flex col-auto px-0 pb-1'));
                 

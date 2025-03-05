@@ -108,7 +108,7 @@ de la aplicación pueda cerrar la capa manualmente.
                 if (value) {
                     this._addCloseLink();
                 } else {
-                    $('#' + this.options._idFeedback + '_closeDiv').remove();
+                    $('#' + $.escapeSelector(this.options._idFeedback) + '_closeDiv').remove();
                 }
                 break;
             }
@@ -155,7 +155,7 @@ de la aplicación pueda cerrar la capa manualmente.
         _addCloseLink: function () {
             var opciones = this.options;
             opciones._divClose.click(function () {
-                $('#' + opciones._idFeedback).rup_feedback('close');
+                $('#' + $.escapeSelector(opciones._idFeedback)).rup_feedback('close');
             });
             this.element.prepend(opciones._divClose);
         },
@@ -233,7 +233,7 @@ de la aplicación pueda cerrar la capa manualmente.
             }
 
             //Sacar mensaje
-            $('#' + opciones._idFeedback + '_content').remove();
+            $('#' + $.escapeSelector(opciones._idFeedback) + '_content').remove();
             element.append($('<div></div>').attr('id', opciones._idFeedback + '_content').html(message));
             //Añadir cierre (evento y capa)
             if (opciones.closeLink) {
@@ -260,7 +260,7 @@ de la aplicación pueda cerrar la capa manualmente.
                 this.hide();
             }
 
-            $('#' + this.options._idFeedback).trigger('rupFeedback_afterSet');
+            $('#' + $.escapeSelector(this.options._idFeedback)).trigger('rupFeedback_afterSet');
         },
         /**
      * Oculta la capa del feedback con una animación. <br/><br/>
@@ -290,10 +290,10 @@ de la aplicación pueda cerrar la capa manualmente.
             }
 
             element.delay(delay).fadeOut(eval(fadeSpeed), function () {
-                $('#' + opciones._idFeedback).rup_feedback('close', true);
+                $('#' + $.escapeSelector(opciones._idFeedback)).rup_feedback('close', true);
             });
 
-            $('#' + this.options._idFeedback + '_closeDiv').hide();
+            $('#' + $.escapeSelector(this.options._idFeedback) + '_closeDiv').hide();
         },
         /**
      * Oculta la capa del feedback sin animación alguna.<br/>
@@ -344,8 +344,8 @@ de la aplicación pueda cerrar la capa manualmente.
                 applyToPortal: true
             });
 
-            $('#' + this.options._idFeedback + '_closeDiv').show();
-            $('#' + this.options._idFeedback).trigger('rupFeedback_show');
+            $('#' + $.escapeSelector(this.options._idFeedback) + '_closeDiv').show();
+            $('#' + $.escapeSelector(this.options._idFeedback)).trigger('rupFeedback_show');
 
             /**
        * Permite asociar una función que se ejecutará cuando se muestre el feedback.
