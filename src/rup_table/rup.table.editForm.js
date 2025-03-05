@@ -121,7 +121,7 @@
                         }
                         _getRowSelected(dt, 'PUT');
                         DataTable.editForm.fnOpenSaveDialog('PUT', dt, idRow, ctx.oInit.formEdit.customTitle);
-                        $('#' + ctx.sTableId).triggerHandler('tableEditFormClickRow',ctx);
+                        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormClickRow',ctx);
                     }
                 });
             }
@@ -188,16 +188,16 @@
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
                         ctx.oInit.formEdit.detailForm.rup_dialog('close');
-                        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+                        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
                     },
                     CANCELFunction: function () {
                         ctx.oInit.formEdit.okCallBack = false;
-                        $('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+                        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageCancel', ctx);
                     }
                     ,
                     CLOSEFunction: function () {
                         ctx.oInit.formEdit.okCallBack = false;
-                        $('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+                        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageClose', ctx);
                     }
                 });
             }
@@ -410,7 +410,7 @@
 			const defaultData = {'actionType': actionType};
 			let data = ctx.oInit.formEdit.data !== undefined ? $.extend({}, defaultData, ctx.oInit.formEdit.data) : defaultData;
 			
-			$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeLoad', ctx);
+			$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormBeforeLoad', ctx);
 			
 			return $.post(ctx.oInit.formEdit.url !== undefined ? ctx.oInit.formEdit.url : ctx.oInit.urlBase + '/editForm', data, function (form) {				
 				// Guardar anterior formulario para poder comprobarlo con el recién recibido
@@ -433,7 +433,7 @@
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
-					$('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx);
+					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormInitialize', ctx);
 				}
 				
 				// Detectar componentes RUP e inicializarlos
@@ -442,12 +442,12 @@
 				// Añadir validaciones
 				_addValidation(ctx);
 								
-				$('#' + ctx.sTableId).triggerHandler('tableEditFormAfterLoad', ctx);
+				$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterLoad', ctx);
 	    	}, 'html');
         } else if (!ctx.oInit.enableDynamicForms && lastAction === undefined) {
         	// Entrará por aquí cuando los formularios dinámicos hayan sido desactivados (comportamiento por defecto) y se necesite inicializar el formulario por ser la primera llamada
         	ctx.oInit.formEdit.actionType = actionType;
-        	$.when($('#' + ctx.sTableId).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
+        	$.when($('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormInitialize', ctx)).then(function () {
         		let deferred = $.Deferred();
         		
         		// Detectar componentes RUP e inicializarlos
@@ -543,7 +543,7 @@
         var ctx = dt.settings()[0];
 
     	// Mostrar spinner de carga hasta que el formulario sea visible (sólo si fue activado). La segunda comprobación, evita que aparezca el spinner cuando se pagina dentro de editForm entre registros porque para ese caso, ya existe otro spinner
-    	if (ctx.oInit.formEdit.loadSpinner && $('#' + ctx.sTableId + '_detail_div_loading').length == 0) {
+    	if (ctx.oInit.formEdit.loadSpinner && $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div_loading').length == 0) {
     		$('body').append(
     				'<div id="' + ctx.sTableId + '_formEdit_dialog_loading" class="formEdit_dialog_loading_container">' +
     					'<div></div>' +
@@ -581,7 +581,7 @@
 	        var buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
 	
 
-	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
+	        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
 
 	        let rowArray = $.rup_utils.jsontoarray(row);
 	        
@@ -627,7 +627,7 @@
 	                            divErrorFeedback.rup_feedback(ctx.oInit.feedback);
 	                        }
 	                        _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
-	                        $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
+	                        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjaxGet',ctx);
 	                    },
 	                    complete: () => {
 	                        if (ctx.oInit.formEdit.$navigationBar.funcionParams && ctx.oInit.formEdit.$navigationBar.funcionParams.length >= 4) {
@@ -642,7 +642,7 @@
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
-	                $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
+	                $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	                rowArray = $.rup_utils.jsontoarray(row);
 	            }
 	            $.rup_utils.populateForm(rowArray, idForm);
@@ -661,7 +661,7 @@
 	                indexInArray = (Number(ctx.json.page) - 1) * ctx.aBaseJson.length;
 	                indexInArray = indexInArray + idRow;
 	            }
-	            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterFillData',ctx);
+	            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterFillData',ctx);
 	            if(ctx.oInit.formEdit.$navigationBar.funcionParams == undefined || ctx.oInit.formEdit.$navigationBar.funcionParams.length == undefined){
 	            	_updateDetailPagination(ctx, indexInArray + 1, numTotal);
 	            }
@@ -691,7 +691,7 @@
 	            DataTable.Api().rupTable.blockPKEdit(ctx, actionType);
 	        }
 	
-	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
+	        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
 	        
 	        // Establecemos el título del formulario
 	        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
@@ -699,15 +699,15 @@
 	        ctx.oInit.formEdit.detailForm.rup_dialog('open');
 	        
 	        // Quitar spinner de carga porque el formulario ya es visible (si fue activado)
-	    	if ($('#' + ctx.sTableId + '_formEdit_dialog_loading').length > 0) {
-	    		$('#' + ctx.sTableId + '_formEdit_dialog_loading').remove();
+	    	if ($('#' + $.escapeSelector(ctx.sTableId) + '_formEdit_dialog_loading').length > 0) {
+	    		$('#' + $.escapeSelector(ctx.sTableId) + '_formEdit_dialog_loading').remove();
 	    	}
 			
 			// Evitar problemas visuales con el componente rup_select.
 			$.each($('select[ruptype="select"]', idForm), function(index, element) {
 				$(this).rup_select('close', true);
 
-				const $selectContainer = $("#" + element.id + " + span");
+				const $selectContainer = $("#" + $.escapeSelector(element.id) + " + span");
 
 				if ($selectContainer.hasClass('select2-container--focus') && $(document.activeElement) != $(element)) {
 					$selectContainer.removeClass('select2-container--focus');
@@ -766,7 +766,7 @@
 	                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
 	                }
 	                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
+	                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
 	            } else {
 	            	let url = actionType == 'POST' ? '/add' : '/edit';
 	            	
@@ -778,7 +778,7 @@
 	            	
 	            	_callSaveAjax(actionType, dt, row, idRow, false, idTableDetail, url, false);
 	            }
-	            $('#' + ctx.sTableId).triggerHandler('tableButtonSave',ctx);
+	            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonSave',ctx);
 	        });
 	
 	
@@ -829,7 +829,7 @@
 	                    divErrorFeedback.rup_feedback(ctx.oInit.feedback);
 	                }
 	                _callFeedbackOk(ctx, divErrorFeedback, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-	                $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
+	                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjaxNotRow',ctx);
 	            } else {
 	            	let url = actionType == 'POST' ? '/add' : '/edit';
 	            	
@@ -841,10 +841,10 @@
 	            	
 	            	_callSaveAjax(actionSaveContinue, dt, row, idRow, true, idTableDetail, url, false);
 	            }
-	            $('#' + ctx.sTableId).triggerHandler('tableButtonSaveContinue', ctx);
+	            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonSaveContinue', ctx);
 	        });
 	
-	        $('#' + ctx.sTableId).triggerHandler('tableEditFormAddEditAfterShowForm', ctx);
+	        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditAfterShowForm', ctx);
 	
 	        return loadPromise;
         });
@@ -872,7 +872,7 @@
         var ctx = dt.settings()[0];
         
         let _makeAjaxCall = function () {
-        	$('#' + ctx.sTableId).triggerHandler('tableEditFormBeforeCallAjax', [ctx, actionType, url]);
+        	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormBeforeCallAjax', [ctx, actionType, url]);
         	
         	// Añadir filtro
             var feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
@@ -887,7 +887,7 @@
 
             if (ctx.oInit.masterDetail !== undefined) { //Asegurar que se recoge el idPadre
                 var masterPkObject = DataTable.Api().masterDetail.getMasterTablePkObject(ctx);
-                $('#' + ctx.sTableId+'_detail_masterPK').val($('#' + ctx.sTableId + '_filter_masterPK').val());
+                $('#' + $.escapeSelector(ctx.sTableId) + '_detail_masterPK').val($('#' + $.escapeSelector(ctx.sTableId) + '_filter_masterPK').val());
                 row = jQuery.extend(true, row,masterPkObject);
             }
             
@@ -1011,11 +1011,11 @@
                              */
                             dt.ajax.reload();
                             
-                            $('#' + ctx.sTableId).triggerHandler('tableEditFormAfterInsertRow', [ctx, actionType]);
+                            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterInsertRow', [ctx, actionType]);
                         }
                         if(actionType === 'PUT'){
 	                        dt.ajax.reload(function () {
-	                            $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
+	                            $('#' + $.escapeSelector(ctx.sTableId)).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
 	                        }, false);
                         } else {
                         	if (ctx.oInit.multiSelect === undefined) {
@@ -1027,7 +1027,7 @@
                         		ctx.multiselection.selectedRowsPerPage[0] = arra;
                         		DataTable.Api().select.drawSelectId(ctx);
                         	}
-                        	$('#' + ctx.sTableId).trigger('tableAddFormSuccessCallSaveAjax', [ctx, actionType]);
+                        	$('#' + $.escapeSelector(ctx.sTableId)).trigger('tableAddFormSuccessCallSaveAjax', [ctx, actionType]);
                         }
 
                     } else { // Eliminar
@@ -1036,12 +1036,12 @@
 
                         if (ctx.oInit.multiSelect !== undefined) {
                             dt.ajax.reload(function () {
-                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
+                                $('#' + $.escapeSelector(ctx.sTableId)).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
                                 DataTable.Api().multiSelect.deselectAll(dt);
                             }, false);                        
                         } else if (ctx.oInit.select !== undefined) {
                             dt.ajax.reload(function () {
-                                $('#' + ctx.sTableId).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
+                                $('#' + $.escapeSelector(ctx.sTableId)).trigger('tableEditFormSuccessCallSaveAjax', [ctx, actionType]);
                                 DataTable.Api().select.deselect(ctx);
                             }, false);                        
                         }
@@ -1054,7 +1054,7 @@
 						    $(button).prop('disabled', false);
 						});
 					}
-                    $('#' + ctx.sTableId).triggerHandler('tableEditFormCompleteCallSaveAjax', [ctx, actionType]);
+                    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormCompleteCallSaveAjax', [ctx, actionType]);
                 },
                 error: function (xhr) {
                 	let divErrorFeedback;
@@ -1094,7 +1094,7 @@
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     				}
 
-                    $('#' + ctx.sTableId).triggerHandler('tableEditFormErrorCallSaveAjax', [ctx, actionType]);
+                    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjax', [ctx, actionType]);
                 },
                 validate: validaciones,
                 feedback: feed.rup_feedback({
@@ -1143,7 +1143,7 @@
 				if (ajaxOptions.enctype != 'multipart/form-data') {
 					ajaxOptions.data = JSON.stringify(ajaxOptions.data);
 				}
-				ctx.oInit.formEdit.buttonsForm = $('#' + ctx.sTableId + '_detail_div').find('button:enabled');
+				ctx.oInit.formEdit.buttonsForm = $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div').find('button:enabled');
 				$.each(ctx.oInit.formEdit.buttonsForm, function(index, button) {
 				    $(button).prop('disabled', true);
 				});
@@ -1157,13 +1157,13 @@
                 message: actionType == 'POST' ? ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.messageOnAddAction : ctx.oInit.formEdit.detailForm.settings.saveDialogMessages.messageOnEditAction,
                 OKFunction: function () {
                 	_makeAjaxCall();
-                	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+                	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
                 },
                 CANCELFunction: function () {
-                	$('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+                	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageCancel', ctx);
                 },
                 CLOSEFunction: function () {
-                	$('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+                	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageClose', ctx);
                 }
             });
         } else {
@@ -1188,7 +1188,7 @@
     	if(ctx.oInit.formEdit.disabledFeedback){//no muestra el feedback
     		return false;
     	}
-        $('#' + ctx.sTableId).triggerHandler('tableEditFormFeedbackShow',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormFeedbackShow',ctx);
         feedback.rup_feedback('set', msgFeedBack, type);
         feedback.rup_feedback('show');
     }
@@ -1269,17 +1269,17 @@
         }
         
         if (currentRowNum === 1) {
-        	$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', true);
         } else {
-        	$('#first_' + tableId + ', #back_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', false);
         }
         if (currentRowNum === totalRowNum) {
-        	$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', true);
         } else {
-        	$('#forward_' + tableId + ', #last_' + tableId, ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', false);
         }
 
-        $('#rup_table_selectedElements_' + tableId).text($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
+        $('#rup_table_selectedElements_' + $.escapeSelector(tableId)).text($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
     }
 
     /**
@@ -1403,10 +1403,10 @@
                     // Solventar problemas de los componentes combo y autocomplete en los formularios de edición.
                     _fixComboAutocompleteOnEditForm(ctx);
                 }
-                $('#first_' + tableId+'_detail_navigation' + 
-                		', #back_' + tableId+'_detail_navigation' +
-                		', #forward_' + tableId+'_detail_navigation' +
-                		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+                $('#first_' + $.escapeSelector(tableId) + '_detail_navigation' + 
+                		', #back_' + $.escapeSelector(tableId) + '_detail_navigation' +
+                		', #forward_' + $.escapeSelector(tableId) + '_detail_navigation' +
+                		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
             });
 
             // Actualizar la última posición movida
@@ -1443,7 +1443,7 @@
     function _hideOnNav(dt, linkType, callback) {
         const ctx = dt.settings()[0];
         const direction = (linkType === 'prev' || linkType === 'first') ? 'right' : 'left';
-        const $dialogContent = $('#' + ctx.sTableId + '_detail_div .dialog-content-material');
+        const $dialogContent = $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div .dialog-content-material');
         $dialogContent.parent().css('overflow-x', 'hidden');
         $dialogContent.hide('slide', {
             direction: direction
@@ -1456,8 +1456,8 @@
     function _showOnNav(dt, linkType) {
         const ctx = dt.settings()[0];
         const direction = (linkType === 'prev' || linkType === 'first') ? 'left' : 'right';
-        const $dialogContent = $('#' + ctx.sTableId + '_detail_div .dialog-content-material');
-        $('#' + ctx.sTableId + '_detail_div_loading').remove();
+        const $dialogContent = $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div .dialog-content-material');
+        $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div_loading').remove();
         $dialogContent.show('slide', {
             direction: direction
         }, 100, () => {
@@ -1517,7 +1517,7 @@
             }
             // Cambio de pagina
             if (Number(futurePage) !== page) {
-                var table = $('#' + ctx.sTableId).DataTable();
+                var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
                 ctx.select.selectedRowsPerPage = {};
                 ctx.select.selectedRowsPerPage.cambio = linkType;
                 ctx.select.selectedRowsPerPage.page = futurePage;
@@ -1531,10 +1531,10 @@
             //Se actualiza la ultima posicion movida.
             //ctx.oInit.formEdit.$navigationBar.currentPos = rowSelected;
             let tableId = ctx.sTableId;
-            $('#first_' + tableId+'_detail_navigation' + 
-            		', #back_' + tableId+'_detail_navigation' +
-            		', #forward_' + tableId+'_detail_navigation' +
-            		', #last_' + tableId+'_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+            $('#first_' + $.escapeSelector(tableId) + '_detail_navigation' + 
+            		', #back_' + $.escapeSelector(tableId) + '_detail_navigation' +
+            		', #forward_' + $.escapeSelector(tableId) + '_detail_navigation' +
+            		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
             
             return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
         };
@@ -1616,7 +1616,7 @@
         // En caso de estar en una página distinta, navegamos a ella
         if (dt.page() + 1 !== Number(rowDefault.page)) {
             var pageActual = dt.page() + 1;
-            var table = $('#' + ctx.sTableId).DataTable();
+            var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
             table.page(rowDefault.page - 1).draw('page');
             if (ctx.oInit.formEdit !== undefined) {
                 ctx.oInit.formEdit.$navigationBar.funcionParams = [actionType, dt, rowDefault.line, undefined, pageActual];
@@ -1836,7 +1836,7 @@
                 message: ctx.oInit.formEdit.detailForm.settings.deleteDialogMessages.message,
                 OKFunction: function () {
                 	_doDelete();
-                    $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+                    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
                 },
                 CANCELFunction: ctx.oInit.formEdit.cancelDeleteFunction
             });
@@ -1919,8 +1919,8 @@
             });
             // se borra el icono
 
-            $('#' + ctx.sTableId + ' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
-            $('#' + ctx.sTableId + ' tbody tr').eq(idRow).find('td i.filtered-row').remove();
+            $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
+            $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').eq(idRow).find('td i.filtered-row').remove();
             DataTable.Api().seeker.updateDetailSeekPagination(1, ctx.seeker.search.funcionParams.length, ctx);
         }
     }
@@ -1961,7 +1961,7 @@
                         }
 
                         var valorCheck = input.is(':checked') ? 1 : 0;
-                        var selectorInputSustituto = $('#' + id + '_bloqueado');
+                        var selectorInputSustituto = $('#' + $.escapeSelector(id) + '_bloqueado');
 
                         // Comprobamos si es necesario cambiar el check
                         if (selectorInputSustituto.attr('valor') !== valorCheck) {
@@ -1970,9 +1970,9 @@
                             }
 
                             if (valorCheck === 1) {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'></i>');
+                                input.after('<i id=\'' + $.escapeSelector(id) + '_bloqueado\' class=\'mdi mdi-check sustitutoCheckboxPKBloqueadoGeneral\' valor=\'1\' aria-hidden=\'true\'></i>');
                             } else {
-                                input.after('<i id=\'' + id + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'></i>');
+                                input.after('<i id=\'' + $.escapeSelector(id) + '_bloqueado\' class=\'mdi mdi-close sustitutoCheckboxPKBloqueadoGeneral sustitutoCheckboxPKBloqueadoCross\' valor=\'0\' aria-hidden=\'true\'></i>');
                             }
                         }
                     } else {
@@ -2001,7 +2001,7 @@
                         input.rup_time('enable');
                     } else if (input.attr('type') === 'checkbox') {
                         input.removeClass('checkboxPKBloqueado');
-                        $('#' + id + '_bloqueado').remove();
+                        $('#' + $.escapeSelector(id) + '_bloqueado').remove();
                     } else {
                         input.prop('readOnly', false);
                     }
@@ -2040,9 +2040,9 @@
             }
 
             if (ctx.responsive.c.details.target === 'td span.openResponsive') { //por defecto
-                $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
+                $('#' + $.escapeSelector(ctx.sTableId)).find('tbody td:first-child span.openResponsive').remove();
                 if (hasHidden) { //añadir span ala primera fila
-                    $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
+                    $.each($('#' + $.escapeSelector(ctx.sTableId)).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
                         var $span = $('<span></span>');
                         if ($(this).find('span.openResponsive').length === 0) {
                             $(this).prepend($span.addClass('openResponsive'));
@@ -2068,7 +2068,7 @@
                 }
             }
 
-            $('#' + ctx.sTableId).triggerHandler('tableEditFormAddChildIcons',ctx);
+            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddChildIcons',ctx);
         } catch (error) {}
     }
 
@@ -2131,7 +2131,7 @@
         if (!ctx.oInit.noEdit && ctx.oInit.formEdit !== undefined && ctx.oInit.formEdit.activate !== false) {
 	        DataTable.editForm.preConfigure(new DataTable.Api(ctx));
 	        
-        	$('#' + ctx.sTableId).on('tableEditFormInitialize', function(event, ctx) {
+        	$('#' + $.escapeSelector(ctx.sTableId)).on('tableEditFormInitialize', function(event, ctx) {
         		let deferred = $.Deferred();
     	        DataTable.editForm.init(ctx);
 	            
@@ -2146,7 +2146,7 @@
 	                     * en el formEdit para evitar un bug visual en el que hacia que sus campos apareciesen 
 	                     * bajo la tabla y fueran visibles previa a la inicializacion del componente rup.dialog.
 	                     */
-	                    $('#'+ctx.sTableId+'_detail_div.rup-table-formEdit-detail').removeClass('d-none');
+	                    $('#' + $.escapeSelector(ctx.sTableId) + '_detail_div.rup-table-formEdit-detail').removeClass('d-none');
 	                }
 	            }, ctx.oInit.formEdit.detailForm.customDialog));
 		        //Propiedad para poder customizar desde el usuario

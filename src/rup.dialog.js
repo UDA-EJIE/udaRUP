@@ -315,7 +315,7 @@
                 /* Se aplican las clases definidas en el adapter excepto a los botones definidos como enlaces 
                 (la excepcion solo es valida para los enlaces si no usan las clases 'ui-button ui-corner-all ui-widget') */
                 if (btnsLength > 0) {
-                    $('#' + this[0].id).closest('div.rup-dialog').find('button.ui-button.ui-corner-all.ui-widget:not(.ui-datepicker-trigger)').
+                    $('#' + $.escapeSelector(this[0].id)).closest('div.rup-dialog').find('button.ui-button.ui-corner-all.ui-widget:not(.ui-datepicker-trigger)').
                         addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
                         .removeClass('ui-button ui-corner-all ui-widget');
                 }
@@ -430,7 +430,7 @@
 
                             if (settings.specificLocation !== '') {
                                 codeEventCreate = function () {
-                                    $self.parent('.ui-dialog').insertAfter($('#' + settings.specificLocation));
+                                    $self.parent('.ui-dialog').insertAfter($('#' + $.escapeSelector(settings.specificLocation)));
                                 };
                             } else if ($.rup_utils.aplicatioInPortal()) { //Ajuste para portales
                                 codeEventCreate = function () {
@@ -520,7 +520,7 @@
                                 $self.data('uiDialog').uiDialogTitlebar.addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].titlebarColor());
                             }
                             //Se comprueba que no existe el aspa.
-                            if($('#'+settings.id + '_close').length === 0){
+                            if($('#' + $.escapeSelector(settings.id) + '_close').length === 0){
 	                            $self.prev('div')
 	                                .append('<a class="float-right text-white" href="#0"><i id="' + settings.id + '_close" class="mdi mdi-close" aria-hidden="true"></i></a>')
 	                                .on('click', 'a', function () {
@@ -600,12 +600,12 @@
             var ajaxOptions = $.extend({}, settings.ajaxOptions);
             ajaxOptions.success = function (data, textStatus, XMLHttpRequest) {
                 if (data !== '' || data !== null) { //si nos devuelve datos los mostramos como HTML y desbloqueamos el ui
-                    $('#' + settings.id).html(data);
+                    $('#' + $.escapeSelector(settings.id)).html(data);
                     $.unblockUI();
                     if (settings.autoOpen === true) {
-                        $('#' + settings.id).rup_dialog('open');
+                        $('#' + $.escapeSelector(settings.id)).rup_dialog('open');
                         //le establecemos el foco
-                        $('div[aria-describedby=' + settings.id + '] .ui-dialog-buttonpane button').last().focus();
+                        $('div[aria-describedby=' + $.escapeSelector(settings.id) + '] .ui-dialog-buttonpane button').last().focus();
                     }
                 }
                 if (settings.ajaxOptions && settings.ajaxOptions.success !== undefined && settings.ajaxOptions.success !== null && typeof settings.ajaxOptions.success === 'function') {

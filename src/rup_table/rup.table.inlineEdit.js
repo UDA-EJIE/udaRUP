@@ -77,7 +77,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 			}
 			idRow = this._DT_RowIndex;
 			_editInline(dt,ctx,idRow);
-			$('#'+ctx.sTableId).triggerHandler('tableEditInlineClickRow',ctx);
+			$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInlineClickRow',ctx);
 		}
 	} );
 	
@@ -93,7 +93,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	    		_restaurarFila(ctx,true);
 	    		_editInline(dt,ctx,row.index());
 	    		if(ctx.oInit.inlineEdit.currentPos !== null && ctx.oInit.inlineEdit.currentPos.actionType === 'CLONE'){
-	    			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+	    			$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr:not(.group)').eq(0).addClass('new');
 	    			DataTable.Api().rupTable.selectPencil(ctx,0);
 	    		}
 	    	}
@@ -118,11 +118,11 @@ DataTable.inlineEdit.init = function ( dt ) {
 
 	}
 	
-	var idForm = $('#'+ctx.sTableId+'_search_searchForm');
+	var idForm = $('#' + $.escapeSelector(ctx.sTableId) + '_search_searchForm');
 	// Si no existe se crea
 	if(idForm.length === 0){
 		var $searchForm = jQuery('<form>').attr('id',ctx.sTableId+'_search_searchForm');
-        $('#'+ctx.sTableId).wrapAll($searchForm);
+        $('#' + $.escapeSelector(ctx.sTableId)).wrapAll($searchForm);
 	}
 	
 	// Se añaden las validaciones
@@ -142,7 +142,7 @@ DataTable.inlineEdit.init = function ( dt ) {
     propertiesValidate.feedback = feed;
     propertiesValidate.rules = validaciones;
 	
-    $('#' + ctx.sTableId + '_search_searchForm').rup_validate(propertiesValidate);
+    $('#' + $.escapeSelector(ctx.sTableId) + '_search_searchForm').rup_validate(propertiesValidate);
     
     let borrarGuardar = false;
     let borrarCancelar = false;
@@ -178,7 +178,7 @@ DataTable.inlineEdit.init = function ( dt ) {
 	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	         type: 'save',
 	         action: function ( e, dt, button, config ) {
-	        	 var $selector = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+	        	 var $selector = $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr.editable:not(.child)');
 	        	 _guardar(ctx,$selector,false);
 	         }
 	    };
@@ -198,10 +198,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 			type: 'cancel',
 			action: function () {
 				let _cancelRow = function () {
-					$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
-					$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-				 	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
-					$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+					$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1').prop('disabled', true);
+					$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				 	$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1').prop('disabled', true);
+					$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 					ctx.inlineEdit.lastRow = undefined;
 					ctx.oInit.inlineEdit.alta = undefined;
 			        dt.ajax.reload(undefined, false);
@@ -213,14 +213,14 @@ DataTable.inlineEdit.init = function ( dt ) {
 					    message: ctx.oInit.inlineEdit.settings.cancelDialogMessages.message,
 					    OKFunction: function () {
 					    	_cancelRow();
-					        $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+					        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
 					    },
 					    CANCELFunction: function () {
-					        $('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+					        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageCancel', ctx);
 					    }
 					    ,
 					    CLOSEFunction: function () {
-					        $('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+					        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageClose', ctx);
 					    }
 					});
 	        	} else {
@@ -414,7 +414,7 @@ function _add(dt,ctx){
 				ctx.oInit.inlineEdit.alta = true;
 				dt.ajax.reload( function (  ) {
 					ctx.oInit.inlineEdit.alta = undefined;
-					$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+					$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr:not(.group)').eq(0).addClass('new');
 					_editInline(dt,ctx,0);
 				} );
 				
@@ -425,12 +425,12 @@ function _add(dt,ctx){
 		ctx.oInit.inlineEdit.alta = true;
 		dt.ajax.reload( function (  ) {
 			ctx.oInit.inlineEdit.alta = undefined;
-			$('#' + ctx.sTableId + ' tbody tr:not(.group)').eq(0).addClass('new');
+			$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr:not(.group)').eq(0).addClass('new');
 			_editInline(dt,ctx,0);
 		} );
 
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineAddRow',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInlineAddRow',ctx);
 }
 
 /**
@@ -455,9 +455,9 @@ function _addChildIcons(ctx){
         }
 
 	if(ctx.responsive.c.details.target === 'td span.openResponsive'){//por defecto
-            $('#' + ctx.sTableId).find('tbody td:first-child span.openResponsive').remove();
+            $('#' + $.escapeSelector(ctx.sTableId)).find('tbody td:first-child span.openResponsive').remove();
             if (hasHidden) { //añadir span ala primera fila
-                $.each($('#' + ctx.sTableId).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
+                $.each($('#' + $.escapeSelector(ctx.sTableId)).find('tbody td:first-child:not(.child):not(.dataTables_empty)'), function () {
 				var $span = $('<span></span>');
 				if($(this).find('span.openResponsive').length === 0){
 					$(this).prepend($span.addClass('openResponsive'));
@@ -491,13 +491,13 @@ function _addChildIcons(ctx){
 		//si hay inputs guardados se reemplazan los cambios por el responsive.
 		if(ctx.inlineEdit !== undefined && 
 				ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.rupValues !== undefined){
-			var table = $('#'+ctx.sTableId).DataTable( );
+			var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable( );
 			ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
-			var $row = $('#'+ctx.sTableId+' tbody tr.editable:not(.child)');
+			var $row = $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr.editable:not(.child)');
 			_asignarInputsValues(ctx,$row);
 		}
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineAddChildIcons',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditLineAddChildIcons',ctx);
 }
 
 /**
@@ -516,7 +516,7 @@ function _editInline ( dt,ctx, idRow ){
 	if(ctx.inlineEdit.lastRow !== undefined && ctx.inlineEdit.lastRow.idx !== idRow){//si no es la misma fila.
 		_restaurarFila(ctx,false);
 	}
-	const $rowSelect = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
+	const $rowSelect = $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(idRow);
         if (!$rowSelect.hasClass('editable')) {
 		_changeInputsToRup(ctx,idRow);
 		// Se deshabilitan los botones predefinidos de la tabla.
@@ -524,19 +524,19 @@ function _editInline ( dt,ctx, idRow ){
 	}
 	
 	// Habilitamos en la botonera y contextMenu
-	$('#' + ctx.sTableId+'saveButton_1').prop('disabled', false);
-	$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
-	$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', false);
-	$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
+	$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1').prop('disabled', false);
+	$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
+	$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1').prop('disabled', false);
+	$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1_contextMenuToolbar').removeClass('disabledButtonsTable');
 	
 	// Cuando sea añadir registro no hay que habilitar el boton de informes
         if (!$rowSelect.hasClass('odd new')) {
-		$('#' + ctx.sTableId+'informes_01').prop('disabled', false);
+		$('#' + $.escapeSelector(ctx.sTableId) + 'informes_01').prop('disabled', false);
 	}
 
 	DataTable.Api().seeker.enabledButtons(ctx);
 	
-	$('#'+ctx.sTableId).triggerHandler('tableInlineEdit',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableInlineEdit',ctx);
 	var selectores = {};
 	selectores[0] = $rowSelect;
         if ($rowSelect.next().find('.child').length === 1) {
@@ -637,7 +637,7 @@ function _getRowSelected(dt, actionType){
 
 	// En caso de estar en una página distinta, navegamos a ella
 	if (dt.page() + 1 !== Number(rowDefault.page)) {
-		var table = $('#' + ctx.sTableId).DataTable();
+		var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 		table.page(rowDefault.page - 1).draw('page');
 		if (ctx.oInit.inlineEdit !== undefined) {
 			rowDefault.actionType = actionType;
@@ -670,7 +670,7 @@ function _getRowSelected(dt, actionType){
 *
 */
 function _cloneLine(dt, ctx, line){
-	$('#' + ctx.sTableId).triggerHandler('tableEditInlineClone', ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInlineClone', ctx);
 	
 	dt.row(0).data(dt.row(line + 1).data());
 	
@@ -679,7 +679,7 @@ function _cloneLine(dt, ctx, line){
 	}
         
 	// Añadir clase necesaria para su futura gestión a la hora de guardar el registro
-	$('#' + ctx.sTableId + ' tbody tr').eq(0).addClass('new');
+	$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').eq(0).addClass('new');
 }
 
 /**
@@ -779,11 +779,11 @@ function _getLineByPageSelected(ctx,lineInit){
 *
 */
 function _restaurarFila(ctx,limpiar){
-	$('#'+ctx.sTableId).triggerHandler('tableEditInlineRestaurarFilaInit',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInlineRestaurarFilaInit',ctx);
 	if(ctx.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined){
 		var positionLastRow = ctx.inlineEdit.lastRow.idx;
 
-		var $fila = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
+		var $fila = $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(positionLastRow);
 		//Sin responsive
 		_restaurarCeldas(ctx,$fila,$fila.find('td'),0);
 		var contRest = $fila.find('td:not([style*="display: none"])').length;
@@ -795,7 +795,7 @@ function _restaurarFila(ctx,limpiar){
 		_restaurarCeldas(ctx,$fila.next('.child'),$fila.next('.child').find(ctx.oInit.responsive.selectorResponsive),contRest);
 	}
 	if(ctx.inlineEdit !== undefined && limpiar){//si se limpia, no queda ninguna marcada
-		const $selectorTr = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(positionLastRow);
+		const $selectorTr = $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(positionLastRow);
 		ctx.inlineEdit.lastRow = undefined;
             if ($selectorTr.data('events') !== undefined) {
 			$selectorTr.off('keydown');
@@ -817,7 +817,7 @@ function _restaurarFila(ctx,limpiar){
 		ctx._buttons[0].inst.s.disableAllButtons = undefined;
 		DataTable.Api().buttons.displayRegex(ctx);
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
 }
 
 /**
@@ -835,9 +835,9 @@ function _changeInputsToRup(ctx,idRow){
 	// Se procesan las celdas editables
 
 	if(ctx.oInit.colModel !== undefined){
-		var table = $('#'+ctx.sTableId).DataTable( );
+		var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable( );
 		var cont = 0;
-		ctx.inlineEdit.lastRow = $('#' + ctx.sTableId + ' > tbody > tr:not(.group)').eq(idRow);
+		ctx.inlineEdit.lastRow = $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(idRow);
 		ctx.inlineEdit.lastRow.cellValues = {};
 		ctx.inlineEdit.lastRow.columnsHidden = table.columns().responsiveHidden();
 		ctx.inlineEdit.lastRow.submit = 0;
@@ -925,7 +925,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				
 				//Convertir a input.
 				var searchRupType = (cellColModel.editoptions !== undefined && cellColModel.editoptions.rupType !== undefined) ? cellColModel.editoptions.rupType : cellColModel.rupType;
-				const colModelName = $.rup_utils.escapeId(cellColModel.name);
+				const colModelName = $.escapeSelector(cellColModel.name);
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
 				
@@ -968,8 +968,8 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					}
 					
 					//Se Comprueba que los elemnetos menu estan eliminados.
-					if( $('#'+$elem.attr('id')+'-menu').length > 0){
-						$('#'+$elem.attr('id')+'-menu').remove('ul');
+					if( $('#' + $.escapeSelector($elem.attr('id')) + '-menu').length > 0){
+						$('#' + $.escapeSelector($elem.attr('id')) + '-menu').remove('ul');
 					}
 					
 					// Invocación al componente RUP
@@ -1114,7 +1114,7 @@ function _comprobarFila(ctx,$fila){
 	}
 	//Se crea el evento para el tr child de escape
 	 _crearEventos(ctx,$filaChild);
-	var tabla = $('#'+ctx.sTableId).DataTable();
+	var tabla = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 	tabla.responsive.recalc();
 }
 
@@ -1134,7 +1134,7 @@ function _crearEventos(ctx,$selector){
 		$selector.keydown(function(e) {
 		    if (e.keyCode === 27) {//Esc
                     if ($selector.hasClass('new')) { //si se da alta y se cancela.
-		    		var dt = $('#'+ctx.sTableId).DataTable();
+		    		var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
 		    		ctx.oInit.inlineEdit.alta = undefined;
 		    		//primer parametro para mandar una funcion a ejecutar, segundo parametro bloquear la pagina si pones false
@@ -1156,7 +1156,7 @@ function _crearEventos(ctx,$selector){
 		    }
 		});
 	}
-	$('#'+ctx.sTableId).triggerHandler('tableEditLineCrearEventos',ctx);
+	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditLineCrearEventos',ctx);
 }
 
 /**
@@ -1310,7 +1310,7 @@ function _guardar(ctx,$fila,child){
 	
 	if(!row) {
     	_callFeedbackOk(ctx, $.rup.i18nParse($.rup.i18n.base, 'rup_global.charError'), 'error');
-		$('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
+		$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
     } else {
         var actionType = 'PUT';
 		if($fila.hasClass('new') || (child && $fila.prev().hasClass('new'))){//si ejecurar el child, hay que buscar el padre para saver si es nuevo.
@@ -1338,7 +1338,7 @@ function _guardar(ctx,$fila,child){
     	}
     	
 		_callSaveAjax(actionType, ctx, $fila, row, url, false);
-		$('#'+ctx.sTableId).triggerHandler('tableEditlineGuardar',ctx);
+		$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditlineGuardar',ctx);
     }
 }
 
@@ -1359,7 +1359,7 @@ function _guardar(ctx,$fila,child){
 */
 function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 	let _makeAjaxCall = function () {
-		$('#' + ctx.sTableId).triggerHandler('tableEditInLineBeforeCallAjax', [ctx, actionType, url]);
+		$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineBeforeCallAjax', [ctx, actionType, url]);
 		
 		// add Filter
 		var feed = ctx.oInit.feedback.$feedbackContainer;
@@ -1390,12 +1390,12 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 			contentType: 'application/json',
 			async: true,
 			success: function(data, status, xhr) {
-				$('#' + ctx.sTableId+'saveButton_1').prop('disabled', true);
-				$('#' + ctx.sTableId+'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
-				$('#' + ctx.sTableId+'cancelButton_1').prop('disabled', true);
-				$('#' + ctx.sTableId+'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1').prop('disabled', true);
+				$('#' + $.escapeSelector(ctx.sTableId) + 'saveButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
+				$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1').prop('disabled', true);
+				$('#' + $.escapeSelector(ctx.sTableId) + 'cancelButton_1_contextMenuToolbar').addClass('disabledButtonsTable');
 				ctx.oInit.inlineEdit.alta = undefined;
-				var dt = $('#' + ctx.sTableId).DataTable();
+				var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 				var idPk = DataTable.Api().rupTable.getIdPk(data, ctx.oInit);
 				
 				if (url !== '/deleteAll' && actionType !== 'DELETE') {
@@ -1449,7 +1449,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				        DataTable.Api().select.deselect(ctx);
 				        _callFeedbackOk(ctx, msgFeedBack, 'ok'); //Se informa feedback de la tabla
 				    }
-				    $('#' + ctx.sTableId).triggerHandler('tableEditInLineAfterDelete', ctx);
+				    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineAfterDelete', ctx);
 				}
 				ctx.inlineEdit.row = undefined;
 				ctx.inlineEdit.lastRow = undefined;
@@ -1463,7 +1463,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				}, false);
 			},
 			complete: function() {
-				$('#' + ctx.sTableId).triggerHandler('tableEditInLineCompleteCallSaveAjax', ctx);
+				$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineCompleteCallSaveAjax', ctx);
 			},
 			error: function (xhr) {
 				if (xhr.status === 406 && xhr.responseText !== '') {
@@ -1474,15 +1474,15 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 								//se transforma a inline
 								var rulesAux = responseJSON.rupErrorFields;
 							     $.each(rulesAux, function (name, rule) {
-							    	 if($('#'+name+'_inline').length === 1){
+							    	 if($('#' + $.escapeSelector(name) + '_inline').length === 1){
 							    		 responseJSON.rupErrorFields[name + '_inline'] = rule;
 							    	 }
-							    	 if($('#'+name+'_inline_child').length === 1){
+							    	 if($('#' + $.escapeSelector(name) + '_inline_child').length === 1){
 							    		 responseJSON.rupErrorFields[name + '_inline_child'] = rule;
 							    	 }
 							    	 delete responseJSON.rupErrorFields[name];
 							     });
-								let $form = $('#' + ctx.sTableId + '_search_searchForm');
+								let $form = $('#' + $.escapeSelector(ctx.sTableId) + '_search_searchForm');
 								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
 								$form.validate().invalid = responseJSON.rupErrorFields;
 								$form.validate().showErrors(responseJSON.rupErrorFields);
@@ -1501,7 +1501,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 	                _callFeedbackOk(ctx, xhr.responseText, 'error');
 				}
 	
-			    $('#' + ctx.sTableId).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
+			    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineErrorCallSaveAjax',ctx);
 			},
 			validate:ctx.oInit.inlineEdit.validate,
 	        feedback: feed
@@ -1515,7 +1515,7 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
         if (ajaxOptions.data == '') {
             delete ajaxOptions.data;
             $.rup_ajax(ajaxOptions);
-        } else if (isDeleting || $('#' + ctx.sTableId + '_search_searchForm').valid()) {
+        } else if (isDeleting || $('#' + $.escapeSelector(ctx.sTableId) + '_search_searchForm').valid()) {
 			if (url.indexOf('deleteAll') === -1) {
             	// Elimina los campos _label generados por los autocompletes que no forman parte de la entidad
             	$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
@@ -1564,13 +1564,13 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
             message: actionType == 'POST' ? ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnAddAction : ctx.oInit.inlineEdit.settings.saveDialogMessages.messageOnEditAction,
             OKFunction: function () {
             	_makeAjaxCall();
-            	$('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+            	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
             },
             CANCELFunction: function () {
-            	$('#' + ctx.sTableId).triggerHandler('tableMessageCancel', ctx);
+            	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageCancel', ctx);
             },
             CLOSEFunction: function () {
-            	$('#' + ctx.sTableId).triggerHandler('tableMessageClose', ctx);
+            	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageClose', ctx);
             }
         });
     } else {
@@ -1617,7 +1617,7 @@ function _loadAuxForm(ctx, actionType) {
 				tempForm.remove();
 			}
 			
-			let tableWrapper = $('#' + ctx.sTableId + '_wrapper');
+			let tableWrapper = $('#' + $.escapeSelector(ctx.sTableId) + '_wrapper');
 			tableWrapper.prepend(receivedForm);
 			ctx.oInit.inlineEdit.actionType = actionType;
 			ctx.oInit.inlineEdit.idForm = tableWrapper.find("form").first();
@@ -1648,7 +1648,7 @@ function _callFeedbackOk(ctx, msgFeedBack, type) {
 	if(ctx.oInit.inlineEdit.disabledFeedback){//no muestra el feedback
 		return false;
 	}
-    $('#' + ctx.sTableId).triggerHandler('tableEditInLineFeedbackShow',ctx);
+    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditInLineFeedbackShow',ctx);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
     ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
 }
@@ -1665,7 +1665,7 @@ function _callFeedbackOk(ctx, msgFeedBack, type) {
 *
 */
 function _inResponsiveChangeInputsValues(ctx,$fila){
-	var table = $('#'+ctx.sTableId).DataTable( );
+	var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable( );
 	ctx.inlineEdit.lastRow.rupValues = [];
 	table.columns().responsiveHidden().each( function(valor,i) {
 		if(!$fila.find('td').eq(i).hasClass('select-checkbox')){//si la primera columna es de seleccion no entrar.
@@ -1680,7 +1680,7 @@ function _inResponsiveChangeInputsValues(ctx,$fila){
 					var $inputChild = $fila.next('.child').find('li').eq(cont).find('select,input');
 					value = $inputChild.val();
 					if($inputChild.length > 0){
-                            $('#' + $inputChild[0].id.replace('_child', '')).prop('disabled', false);
+                            $('#' + $.escapeSelector($inputChild[0].id.replace('_child', ''))).prop('disabled', false);
 					}
 					if($inputChild.is(':checkbox')){//x si es checkbox
 						if($inputChild.prop('checked')){
@@ -1912,7 +1912,7 @@ function _deleteAllSelects(dt){
 			message: ctx.oInit.inlineEdit.settings.deleteDialogMessages.message,
 			OKFunction: function () {
 				_doDelete();
-	            $('#' + ctx.sTableId).triggerHandler('tableMessageOk', ctx);
+	            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
 			},
 			CANCELFunction: ctx.oInit.inlineEdit.cancelDeleteFunction
 		});
@@ -1947,8 +1947,8 @@ function _comprobarSeeker(row,ctx,idRow){
 			});
 		// se borra el icono
 		
-		$('#'+ctx.sTableId+' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
-		$('#'+ctx.sTableId+' tbody tr').eq(idRow).find('td i.filtered-row').remove();
+		$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').eq(idRow).find('td.select-checkbox i.filtered-row').remove();
+		$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').eq(idRow).find('td i.filtered-row').remove();
 		DataTable.Api().seeker.updateDetailSeekPagination(1,ctx.seeker.search.funcionParams.length,ctx);
 	}
 }

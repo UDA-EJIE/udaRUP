@@ -143,7 +143,7 @@
                     },
                     'focus': function (event) {
                         if ($(event.currentTarget).attr('rup_shift_nofocus') === undefined) {
-                            if ($('#' + this.menuId).attr('rup_menu_nofocus') === undefined) {
+                            if ($('#' + $.escapeSelector(this.menuId)).attr('rup_menu_nofocus') === undefined) {
                                 $(event.currentTarget).find('.ui-menu-item a').first().focus();
                             }
                         } else {
@@ -475,7 +475,7 @@
             restoreScrollEvents: function () {
                 this._bind({
                     'mouseover': function () {
-                        $('#' + this.menuId).attr('rup_menu_nofocus', 'true');
+                        $('#' + $.escapeSelector(this.menuId)).attr('rup_menu_nofocus', 'true');
                     },
                     'mouseover .rup_menu_horizontal_children': function (event) {
                         var target = $(event.currentTarget);
@@ -484,7 +484,7 @@
                         $(target).focus();
                     },
                     'mouseover .ui-menu-item': function (event) {
-                        $('#' + this.menuId).attr('rup_menu_nofocus', 'true');
+                        $('#' + $.escapeSelector(this.menuId)).attr('rup_menu_nofocus', 'true');
                         event.stopImmediatePropagation();
                         var target = $(event.currentTarget);
 
@@ -492,15 +492,15 @@
                         // to avoid a jump caused by adjacent elements both having a class with a border
                         target.siblings().children('.ui-state-active').removeClass('ui-state-active');
 
-                        if ((target.offset().left + target.width() > event.pageX) && ((target.offset().top + $('#' + this.menuId).height() > event.pageY) || (target.offset().top + target.height() > event.pageY))) {
-                            if (($('#' + target.children('a').attr('id') + ':focus').length <= 0)) {
-                                $('#' + target.children('a').attr('id')).focus();
-                                $('#' + target.children('a').attr('id')).focus();
+                        if ((target.offset().left + target.width() > event.pageX) && ((target.offset().top + $('#' + $.escapeSelector(this.menuId)).height() > event.pageY) || (target.offset().top + target.height() > event.pageY))) {
+                            if (($('#' + $.escapeSelector(target.children('a').attr('id')) + ':focus').length <= 0)) {
+                                $('#' + $.escapeSelector(target.children('a').attr('id'))).focus();
+                                $('#' + $.escapeSelector(target.children('a').attr('id'))).focus();
                             } else {
                                 if (!(target.hasClass('rup_menu_horizontal_children'))) {
-                                    if (!($('#' + target.children('a').attr('id')).hasClass('ui-state-focus'))) {
-                                        $('#' + target.children('a').attr('id')).addClass('ui-state-focus');
-                                        if ($('#' + target.children('a').attr('id')).attr('role') === 'menuitem') {
+                                    if (!($('#' + $.escapeSelector(target.children('a').attr('id'))).hasClass('ui-state-focus'))) {
+                                        $('#' + $.escapeSelector(target.children('a').attr('id'))).addClass('ui-state-focus');
+                                        if ($('#' + $.escapeSelector(target.children('a').attr('id'))).attr('role') === 'menuitem') {
                                             this._startOpening($(target).children('[role = \'menu\']'));
                                         }
                                     }
@@ -511,11 +511,11 @@
                     'mouseleave': function (event) {
                         this.collapseAll(event, true);
                         $('.ui-state-focus').removeClass('ui-state-focus');
-                        $('#' + this.menuId).removeAttr('rup_menu_nofocus');
+                        $('#' + $.escapeSelector(this.menuId)).removeAttr('rup_menu_nofocus');
                     },
                     'mouseleave .ui-menu-item': function (event) {
                         var target = $(event.currentTarget);
-                        if (target.attr('rupmenu_firslevel') === undefined || ((target.offset().top - 1 < event.pageY) && (target.offset().top + $('#' + this.menuId).height() + 1 < event.pageY))) {
+                        if (target.attr('rupmenu_firslevel') === undefined || ((target.offset().top - 1 < event.pageY) && (target.offset().top + $('#' + $.escapeSelector(this.menuId)).height() + 1 < event.pageY))) {
                             this._close();
                             $('.ui-state-focus').removeClass('ui-state-focus');
                         }

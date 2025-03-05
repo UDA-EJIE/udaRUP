@@ -225,10 +225,10 @@ import Printd from 'printd';
         _validateSkeleton: function () {
             var id = this.element.attr('id');
             if (this.options.selectable && this.options.selectable.multi) {
-                return $('#' + id + '-header-selectables').length;
+                return $('#' + $.escapeSelector(id) + '-header-selectables').length;
             }
-            return $('#' + id + '-content').length &&
-                $('#' + id + '-header').length &&
+            return $('#' + $.escapeSelector(id) + '-content').length &&
+                $('#' + $.escapeSelector(id) + '-header').length &&
                 $('select').filter(function () {
                     return this.id == (id + '-header-rowNum');
                 }).length &&
@@ -241,7 +241,7 @@ import Printd from 'printd';
                 $('nav, div').filter(function () {
                     return this.id == (id + '-header-nav');
                 }).length &&
-                $('#' + id + '-itemTemplate').length;
+                $('#' + $.escapeSelector(id) + '-itemTemplate').length;
         },
 
         /**
@@ -284,7 +284,7 @@ import Printd from 'printd';
                  * CONTENT
                  */
                 opciones._idContent = selfId + '-content';
-                opciones._content = $('#' + opciones._idContent);
+                opciones._content = $('#' + $.escapeSelector(opciones._idContent));
                 opciones._content.addClass('rup_list-content');
                 opciones._content.hide();
 
@@ -296,7 +296,7 @@ import Printd from 'printd';
                 /**
                  * FEEDBACK
                  */
-                opciones.feedback = $('#' + opciones.feedback).rup_feedback({
+                opciones.feedback = $('#' + $.escapeSelector(opciones.feedback)).rup_feedback({
                     gotoTop: false
                 });
                 opciones.feedback.addClass('rup_list-feedback');
@@ -305,7 +305,7 @@ import Printd from 'printd';
                  * TEMPLATE
                  */
                 opciones._idItemTemplate = selfId + '-itemTemplate';
-                opciones._itemTemplate = $('#' + opciones._idItemTemplate);
+                opciones._itemTemplate = $('#' + $.escapeSelector(opciones._idItemTemplate));
                 opciones._itemTemplate.addClass('rup_list-itemTemplate');
                 opciones._itemTemplate.hide();
                 opciones._itemTemplate.attr('aria-hidden', 'true');
@@ -332,15 +332,15 @@ import Printd from 'printd';
                     opciones[idObj].selectables = selfId + label + '-selectables';
                     // HEADER $OBJECTS MAP
                     opciones[obj] = {};
-                    opciones[obj].obj = $('#' + opciones[idObj].header);
+                    opciones[obj].obj = $('#' + $.escapeSelector(opciones[idObj].header));
                     opciones[obj].multiSort = {};
-                    opciones[obj].pagenav = $('#' + opciones[idObj].pagenav);
-                    opciones[obj].pagePrev = $('#' + opciones[idObj].pagePrev);
-                    opciones[obj].pageNext = $('#' + opciones[idObj].pageNext);
-                    opciones[obj].rowNum = $('#' + opciones[idObj].rowNum);
-                    opciones[obj].sidx = $('#' + opciones[idObj].sidx);
-                    opciones[obj].sord = $('#' + opciones[idObj].sord);
-                    opciones[obj].selectables = $('#' + opciones[idObj].selectables);
+                    opciones[obj].pagenav = $('#' + $.escapeSelector(opciones[idObj].pagenav));
+                    opciones[obj].pagePrev = $('#' + $.escapeSelector(opciones[idObj].pagePrev));
+                    opciones[obj].pageNext = $('#' + $.escapeSelector(opciones[idObj].pageNext));
+                    opciones[obj].rowNum = $('#' + $.escapeSelector(opciones[idObj].rowNum));
+                    opciones[obj].sidx = $('#' + $.escapeSelector(opciones[idObj].sidx));
+                    opciones[obj].sord = $('#' + $.escapeSelector(opciones[idObj].sord));
+                    opciones[obj].selectables = $('#' + $.escapeSelector(opciones[idObj].selectables));
                     // HEADER $OBJECTS CLASS ASSIGNMENT
                     opciones[obj].obj.addClass('rup_list' + label);
                     opciones[obj].pagenav.addClass('rup_list' + label + '-nav');
@@ -354,7 +354,7 @@ import Printd from 'printd';
                 populateHeaderFooterOpts();
                 if (opciones.createFooter) {
                     var footerHTML = $('<div>').append(opciones._header.obj.clone()).html().replace(/header/g, 'footer');
-                    $('#' + selfId).after(footerHTML);
+                    $('#' + $.escapeSelector(selfId)).after(footerHTML);
                 }
                 populateHeaderFooterOpts(true);
 
@@ -382,9 +382,9 @@ import Printd from 'printd';
                 }
 
                 // Asociación de eventos
-                $('#' + self.element[0].id).on('beforeLoad', opciones.beforeLoad);
-                $('#' + self.element[0].id).on('load', opciones.load);
-                $('#' + self.element[0].id).on('modElement', (e, item, json) => {
+                $('#' + $.escapeSelector(self.element[0].id)).on('beforeLoad', opciones.beforeLoad);
+                $('#' + $.escapeSelector(self.element[0].id)).on('load', opciones.load);
+                $('#' + $.escapeSelector(self.element[0].id)).on('modElement', (e, item, json) => {
                     opciones.modElement(e, item, json);
                     self.element.append(item);
 
@@ -438,11 +438,11 @@ import Printd from 'printd';
                  * INIT COMPLETE EVENT
                  */
                 if (opciones.isMultisort) {
-                    $('#' + self.element[0].id).on('rup_list-mord-inited', () => {
-                        $('#' + self.element[0].id).trigger('initComplete');
+                    $('#' + $.escapeSelector(self.element[0].id)).on('rup_list-mord-inited', () => {
+                        $('#' + $.escapeSelector(self.element[0].id)).trigger('initComplete');
                     });
                 } else {
-                    $('#' + self.element[0].id).trigger('initComplete');
+                    $('#' + $.escapeSelector(self.element[0].id)).trigger('initComplete');
                 }
 
                 //Se audita el componente
@@ -462,7 +462,7 @@ import Printd from 'printd';
             var self = this;
             var opciones = self.options;
 
-            $('#' + self.element[0].id + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
+            $('#' + $.escapeSelector(self.element[0].id) + '-content').find(opciones.selectable.selector).attr('rup-list-selector', 'enabled');
 
             opciones.multiselection = {
                 selectedIds: null,
@@ -825,9 +825,9 @@ import Printd from 'printd';
             const self = this;
             const opciones = self.options;
 
-            if ($('#' + opciones.filterForm).find('#listPrint').length == 0) {
+            if ($('#' + $.escapeSelector(opciones.filterForm)).find('#listPrint').length == 0) {
                 opciones.btnPrint = $('<button id="listPrint">Imprimir</button>');
-                opciones.btnPrint.appendTo($('#' + opciones.filterForm));
+                opciones.btnPrint.appendTo($('#' + $.escapeSelector(opciones.filterForm)));
                 opciones.btnPrint[0].disabled = true;
                 opciones.btnPrint.on('click', btnPrintMain);
             }
@@ -857,7 +857,7 @@ import Printd from 'printd';
                 // Si el formulario de filtrado indicado es correcto se parsea
                 let filterForm = {};
                 if($(`form[id="${opciones.filterForm}"]`).length==1){
-                    filterForm = $('#' + opciones.filterForm).rup_form('formToJson');
+                    filterForm = $('#' + $.escapeSelector(opciones.filterForm)).rup_form('formToJson');
                 }
 
                 var filter = {
@@ -916,13 +916,13 @@ import Printd from 'printd';
             opciones.multiFilter._filterUser = 'udaPruebas';
             opciones.multiFilter._dialogId = self.element[0].id + '_dropdownDialog';
 
-            opciones.multiFilter.$btn = $('#' + opciones.filterForm).find('button').eq(0);
+            opciones.multiFilter.$btn = $('#' + $.escapeSelector(opciones.filterForm)).find('button').eq(0);
             opciones.multiFilter.$dialog = $('<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material"><div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div><form><div class="form-row"><div class="form-groupMaterial col-12"><label for="' + opciones.multiFilter._dialogId + '_combo">Filtros</label><input id="' + opciones.multiFilter._dialogId + '_combo" /></div></div><div class="form-row"><div class="checkbox-material col-12"><input type="checkbox" id="' + opciones.multiFilter._dialogId + '-defaultFilter" /><label for="' + opciones.multiFilter._dialogId + '-defaultFilter">Filtro por defecto</label></div></div></form></div>');
 
             opciones.multiFilter.$btn.after(opciones.multiFilter.$dialog);
 
-            opciones.multiFilter.$combo = $('#' + opciones.multiFilter._dialogId + '_combo');
-            opciones.multiFilter.$feedback = $('#' + opciones.multiFilter._dialogId + '_feedback');
+            opciones.multiFilter.$combo = $('#' + $.escapeSelector(opciones.multiFilter._dialogId) + '_combo');
+            opciones.multiFilter.$feedback = $('#' + $.escapeSelector(opciones.multiFilter._dialogId) + '_feedback');
 
             opciones.multiFilter.$feedback.rup_feedback({
                 block: false,
@@ -943,13 +943,13 @@ import Printd from 'printd';
                             id: opciones.multiFilter._dialogId + '_btn_save',
                             text: 'Guardar',
                             click: function () {
-                                if ($('#' + opciones.filterForm).rup_form('formToJson').length != 0) {
+                                if ($('#' + $.escapeSelector(opciones.filterForm)).rup_form('formToJson').length != 0) {
                                     var elem = {
                                         filtro: {
                                             filterSelector: opciones.multiFilter._filterSelector,
                                             filterName: opciones.multiFilter.$label.val(),
-                                            filterValue: JSON.stringify($('#' + opciones.filterForm).rup_form('formToJson')),
-                                            filterDefault: opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked,
+                                            filterValue: JSON.stringify($('#' + $.escapeSelector(opciones.filterForm)).rup_form('formToJson')),
+                                            filterDefault: opciones.multiFilter.$dialog.find('#' + $.escapeSelector(opciones.multiFilter._dialogId) + '-defaultFilter')[0].checked,
                                             filterUser: opciones.multiFilter._filterUser
                                         }
                                     };
@@ -1073,10 +1073,10 @@ import Printd from 'printd';
                                         opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
                                     }
 
-                                    $('#' + opciones.filterForm).find('input').val('');
-                                    for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
-                                        if (opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
-                                            $('#' + opciones.filterForm).find('input').eq(i).val(opciones.multiFilter.selected.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                                    $('#' + $.escapeSelector(opciones.filterForm)).find('input').val('');
+                                    for (let i = 0; i < $('#' + $.escapeSelector(opciones.filterForm)).find('input').length; i++) {
+                                        if (opciones.multiFilter.selected.filterValue[$('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).attr('name')] != undefined) {
+                                            $('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).val(opciones.multiFilter.selected.filterValue[$('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).attr('name')]);
                                         }
                                     }
                                 }
@@ -1108,9 +1108,9 @@ import Printd from 'printd';
                     } else {
                         opciones.multiFilter.$dialog.find('#' + opciones.multiFilter._dialogId + '-defaultFilter')[0].checked = false;
                     }
-                    for (let i = 0; i < $('#' + opciones.filterForm).find('input').length; i++) {
-                        if (data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')] != undefined) {
-                            $('#' + opciones.filterForm).find('input').eq(i).val(data.filterValue[$('#' + opciones.filterForm).find('input').eq(i).attr('name')]);
+                    for (let i = 0; i < $('#' + $.escapeSelector(opciones.filterForm)).find('input').length; i++) {
+                        if (data.filterValue[$('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).attr('name')] != undefined) {
+                            $('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).val(data.filterValue[$('#' + $.escapeSelector(opciones.filterForm)).find('input').eq(i).attr('name')]);
                         }
                     }
                 }
@@ -1163,7 +1163,7 @@ import Printd from 'printd';
                 }
             }
             // Funcionamiento botón sord
-            $('#' + opciones._idListHeader.sord + ', #' + opciones._idListFooter.sord).on('click', function () {
+            $('#' + $.escapeSelector(opciones._idListHeader.sord) + ', #' + $.escapeSelector(opciones._idListFooter.sord)).on('click', function () {
                 sordH.toggleClass('asc');
                 sordH.toggleClass('desc');
                 if(opciones.createFooter){
@@ -1190,15 +1190,15 @@ import Printd from 'printd';
             const opciones = self.options;
 
             let doChange = function(obj, change){
-                if (!$('#' + obj.id).rup_combo('isDisabled')) {
+                if (!$('#' + $.escapeSelector(obj.id)).rup_combo('isDisabled')) {
                 	let iden = opciones._header.sidx[0].id;
-                    $('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    $('#' + $.escapeSelector(iden)).rup_combo('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
                     if(opciones.createFooter){
                     	iden = opciones._footer.sidx[0].id;
-                    	$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+                    	$('#' + $.escapeSelector(iden)).rup_combo('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
                     }
                     if(change){
-                        self._changeOption('sidx', $('#' + obj.id).rup_combo('getRupValue'));
+                        self._changeOption('sidx', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
                     }
                 }
             };
@@ -1219,7 +1219,7 @@ import Printd from 'printd';
                 change: changeH
             };
             opciones._header.sidx.rup_combo(sidxRupConf);
-            opciones._header.sidx = $('#' + opciones._idListHeader.sidx);
+            opciones._header.sidx = $('#' + $.escapeSelector(opciones._idListHeader.sidx));
             if(opciones.createFooter){
                 var sidxRupConfFoot = {
                         source: opciones.sidx.source,
@@ -1231,7 +1231,7 @@ import Printd from 'printd';
                     };
        
                 opciones._footer.sidx.rup_combo(sidxRupConfFoot);
-                opciones._footer.sidx = $('#' + opciones._idListFooter.sidx);
+                opciones._footer.sidx = $('#' + $.escapeSelector(opciones._idListFooter.sidx));
             }
         },
 
@@ -1293,7 +1293,7 @@ import Printd from 'printd';
                 $tmpWrapSummary.children().remove();
                 $tmpWrapSummary.append($spanResumen);
                 $spanResumen.unwrap();
-                opciones[obj].multiSort.summary = $('#' + opciones[idObj].multiSort.summary);
+                opciones[obj].multiSort.summary = $('#' + $.escapeSelector(opciones[idObj].multiSort.summary));
 
                 // Se rellena el resumen con el order por defecto
                 opciones.multiorder.sidx.split(',').map((e) => {
@@ -1334,7 +1334,7 @@ import Printd from 'printd';
                 $tmpWrapEditMord.children().remove();
                 $tmpWrapEditMord.append($btnOrderDialog);
                 $btnOrderDialog.unwrap();
-                opciones[obj].multiSort.edit = $('#' + opciones[idObj].multiSort.edit);
+                opciones[obj].multiSort.edit = $('#' + $.escapeSelector(opciones[idObj].multiSort.edit));
 
                 // Establecemos el boton para el dialogo
                 opciones[obj].multiSort.edit.on('click keyup', (e) => {
@@ -1382,7 +1382,7 @@ import Printd from 'printd';
                     </div>
                 `)
                 .appendTo('body');
-            opciones._multiSortDialog = $('#' + opciones._idMultiSortDialog);
+            opciones._multiSortDialog = $('#' + $.escapeSelector(opciones._idMultiSortDialog));
 
             //Creamos el contenido del diálogo
             opciones.sidx.source.forEach((el) => {
@@ -1446,15 +1446,15 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-				if (!$('#' + obj.id).rup_combo('isDisabled')) {
+				if (!$('#' + $.escapeSelector(obj.id)).rup_combo('isDisabled')) {
 					let iden = opciones._header.rowNum[0].id;
-					$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+					$('#' + $.escapeSelector(iden)).rup_combo('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
 					if(opciones.createFooter){
 						iden = opciones._footer.rowNum[0].id;
-						$('#'+iden).rup_combo('setRupValue', $('#' + obj.id).rup_combo('getRupValue'));
+						$('#' + $.escapeSelector(iden)).rup_combo('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
 					}
 					if(change){
-                    	self._changeOption('rowNum', $('#' + obj.id).rup_combo('getRupValue'));
+                    	self._changeOption('rowNum', $('#' + $.escapeSelector(obj.id)).rup_combo('getRupValue'));
                 	}
 				}
             };
@@ -1477,8 +1477,8 @@ import Printd from 'printd';
             };
 
             let iden = opciones._header.rowNum[0].id;
-            $('#'+iden).rup_combo(rowNumRupConf);
-            opciones._header.rowNum = $('#' + opciones._idListHeader.rowNum);
+            $('#' + $.escapeSelector(iden)).rup_combo(rowNumRupConf);
+            opciones._header.rowNum = $('#' + $.escapeSelector(opciones._idListHeader.rowNum));
             
             if(opciones.createFooter){
                 var rowNumRupConfFoot = {
@@ -1491,8 +1491,8 @@ import Printd from 'printd';
                     };
                
                 let idenFoot = opciones._footer.rowNum[0].id;
-                $('#'+idenFoot).rup_combo(rowNumRupConfFoot);
-                opciones._footer.rowNum = $('#' + opciones._idListFooter.rowNum);
+                $('#' + $.escapeSelector(idenFoot)).rup_combo(rowNumRupConfFoot);
+                opciones._footer.rowNum = $('#' + $.escapeSelector(opciones._idListFooter.rowNum));
             }
         },
 
@@ -1858,10 +1858,10 @@ import Printd from 'printd';
             opciones.multiselection.selectedRowsPerPage = [];
 
             self._getPageElementsIds().forEach((elem) => {
-                $('#' + elem).addClass('rup_list-item-selected');
-                $('#' + elem).attr('aria-selected', 'true');
+                $('#' + $.escapeSelector(elem)).addClass('rup_list-item-selected');
+                $('#' + $.escapeSelector(elem)).attr('aria-selected', 'true');
             });
-            $('#' + self.element[0].id).trigger('listAfterMultiselection');
+            $('#' + $.escapeSelector(self.element[0].id)).trigger('listAfterMultiselection');
         },
 
         /**
@@ -1879,10 +1879,10 @@ import Printd from 'printd';
             opciones.multiselection.selectedIds = null;
             opciones.multiselection.selectedRowsPerPage = null;
             self._getPageElementsIds().forEach((elem) => {
-                $('#' + elem).removeClass('rup_list-item-selected');
-                $('#' + elem).attr('aria-selected', 'false');
+                $('#' + $.escapeSelector(elem)).removeClass('rup_list-item-selected');
+                $('#' + $.escapeSelector(elem)).attr('aria-selected', 'false');
             });
-            $('#' + self.element[0].id).trigger('listAfterMultiselection');
+            $('#' + $.escapeSelector(self.element[0].id)).trigger('listAfterMultiselection');
         },
 
         /**
@@ -1923,8 +1923,8 @@ import Printd from 'printd';
                             })(),
                             page: opciones.page
                         });
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).addClass('rup_list-item-selected');
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'true');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).addClass('rup_list-item-selected');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).attr('aria-selected', 'true');
                     }
                 });
             } else {
@@ -1934,8 +1934,8 @@ import Printd from 'printd';
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).addClass('rup_list-item-selected');
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'true');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).addClass('rup_list-item-selected');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).attr('aria-selected', 'true');
                     }
                 });
             }
@@ -1945,7 +1945,7 @@ import Printd from 'printd';
             if (opciones.multiselection.selectedRowsPerPage.length == 0) {
                 opciones.multiselection.selectedRowsPerPage = null;
             }
-            $('#' + self.element[0].id).trigger('listAfterMultiselection');
+            $('#' + $.escapeSelector(self.element[0].id)).trigger('listAfterMultiselection');
         },
 
         /**
@@ -1972,8 +1972,8 @@ import Printd from 'printd';
                         let id = arrElem.split('_').pop();
                         opciones.multiselection.selectedIds = opciones.multiselection.selectedIds.filter(z => z != id);
                         opciones.multiselection.selectedRowsPerPage = opciones.multiselection.selectedRowsPerPage.filter(z => z.id != arrElem);
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).removeClass('rup_list-item-selected');
-                        $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'false');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).removeClass('rup_list-item-selected');
+                        $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).attr('aria-selected', 'false');
                     }
                 });
             } else {
@@ -1998,8 +1998,8 @@ import Printd from 'printd';
                             page: opciones.page
                         });
                     }
-                    $('#' + self.options._idItemTemplate + '_' + arrElem).removeClass('rup_list-item-selected');
-                    $('#' + self.options._idItemTemplate + '_' + arrElem).attr('aria-selected', 'false');
+                    $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).removeClass('rup_list-item-selected');
+                    $('#' + $.escapeSelector(self.options._idItemTemplate + '_' + arrElem)).attr('aria-selected', 'false');
                 });
             }
             if (opciones.multiselection.selectedIds.length == 0) {
@@ -2008,7 +2008,7 @@ import Printd from 'printd';
             if (opciones.multiselection.selectedRowsPerPage.length == 0) {
                 opciones.multiselection.selectedRowsPerPage = null;
             }
-            $('#' + self.element[0].id).trigger('listAfterMultiselection');
+            $('#' + $.escapeSelector(self.element[0].id)).trigger('listAfterMultiselection');
         },
 
         /**
@@ -2080,7 +2080,7 @@ import Printd from 'printd';
         _getPageElementsIds: function () {
             var self = this;
             var keys = [];
-            $('#' + self.element[0].id).children().toArray().forEach((elem) => {
+            $('#' + $.escapeSelector(self.element[0].id)).children().toArray().forEach((elem) => {
                 keys.push(String($(elem)[0].id));
             });
             return keys;
@@ -2096,7 +2096,7 @@ import Printd from 'printd';
         _getPageIds: function () {
             var self = this;
             var keys = [];
-            $('#' + self.element[0].id).children().toArray().forEach((elem) => {
+            $('#' + $.escapeSelector(self.element[0].id)).children().toArray().forEach((elem) => {
                 keys.push(String($(elem).data('pk')));
             });
             return keys;
@@ -2208,8 +2208,8 @@ import Printd from 'printd';
                 }
             }
 
-            const $activePageHeader = $('#' + opciones._idListHeader.pagenav + ' ' + '.page[data-page="' + opciones.page + '"]');
-            const $activePageFooter = $('#' + opciones._idListFooter.pagenav + ' ' + '.page[data-page="' + opciones.page + '"]');
+            const $activePageHeader = $('#' + $.escapeSelector(opciones._idListHeader.pagenav) + ' ' + '.page[data-page="' + opciones.page + '"]');
+            const $activePageFooter = $('#' + $.escapeSelector(opciones._idListFooter.pagenav) + ' ' + '.page[data-page="' + opciones.page + '"]');
             // Marcar la página actual como activa
             $activePageHeader.toggleClass('active');
             $activePageHeader.attr('aria-current', 'true');
@@ -2217,10 +2217,10 @@ import Printd from 'printd';
             $activePageFooter.attr('aria-current', 'true');
 
             // Funcionamiento del pagenav
-            $('#' + opciones._idListHeader.pagenav + ' .rup_list-page-item.page, #' + opciones._idListFooter.pagenav + ' .rup_list-page-item.page')
+            $('#' + $.escapeSelector(opciones._idListHeader.pagenav) + ' .rup_list-page-item.page, #' + $.escapeSelector(opciones._idListFooter.pagenav) + ' .rup_list-page-item.page')
                 .on('click', function () {
-                    const $pageActiveHeader = $('#' + opciones._idListHeader.pagenav + ' .rup_list-page-item.page.active');
-                    const $pageActiveFooter = $('#' + opciones._idListFooter.pagenav + ' .rup_list-page-item.page.active');
+                    const $pageActiveHeader = $('#' + $.escapeSelector(opciones._idListHeader.pagenav) + ' .rup_list-page-item.page.active');
+                    const $pageActiveFooter = $('#' + $.escapeSelector(opciones._idListFooter.pagenav) + ' .rup_list-page-item.page.active');
 
                     // La página activa se desactiva
                     $pageActiveHeader.toggleClass('active');
@@ -2271,7 +2271,7 @@ import Printd from 'printd';
                   opciones.multiselection.selectedIds.splice(index, 0, arra.id);
                   opciones.multiselection.selectedRowsPerPage.splice(index, 0, arra);
                 });
-                $('#' + self.element[0].id).triggerHandler('listAfterReorderData',opciones);
+                $('#' + $.escapeSelector(self.element[0].id)).triggerHandler('listAfterReorderData',opciones);
             }
         },
 
@@ -2287,7 +2287,7 @@ import Printd from 'printd';
             const opciones = self.options;
 
             if (opciones.isScrollList && opciones.stepOnLoad) {
-                $('#' + opciones._idOverlay).remove();
+                $('#' + $.escapeSelector(opciones._idOverlay)).remove();
                 opciones._overlay.css({
                     'position': 'relative',
                     'height': 'auto'
@@ -2300,7 +2300,7 @@ import Printd from 'printd';
                     opciones._footer.obj.css('opacity', '0.3');
                 }
 
-                $('#' + opciones._idOverlay).remove();
+                $('#' + $.escapeSelector(opciones._idOverlay)).remove();
                 opciones._overlay.css({
                     'position': 'absolute'
                 });
@@ -2325,7 +2325,7 @@ import Printd from 'printd';
             if(opciones.createFooter){
                 opciones._footer.obj.css('opacity', '1');
             }
-            $('#' + opciones._idOverlay).remove();
+            $('#' + $.escapeSelector(opciones._idOverlay)).remove();
         },
 
         /**
@@ -2375,7 +2375,7 @@ import Printd from 'printd';
             }
             // Componer el filtro
             var filter = {
-                filter: $('#' + opciones.filterForm).rup_form('formToJson'),
+                filter: $('#' + $.escapeSelector(opciones.filterForm)).rup_form('formToJson'),
                 page: opciones.page,
                 rows: opciones.rowNum.value,
                 sidx: sidx,
@@ -2425,7 +2425,7 @@ import Printd from 'printd';
             // Si hay formulario de filtrado se valida antes de filtrar
             let canFilter = true;
             if($(`form[id="${opciones.filterForm}"]`).length==1){
-                canFilter = $('#' + opciones.filterForm).rup_form('valid');
+                canFilter = $('#' + $.escapeSelector(opciones.filterForm)).rup_form('valid');
             }
 
             if (canFilter) {
@@ -2505,7 +2505,7 @@ import Printd from 'printd';
                                             .text(elemArr[elemArrKeys[i]])
                                             .attr('id', elemArrKeys[i] + '_value_' + elem[opciones.key]);
                                     }
-                                    $('#' + self.element[0].id).trigger('modElement', [$item, elem]);
+                                    $('#' + $.escapeSelector(self.element[0].id)).trigger('modElement', [$item, elem]);
                                 });
 
                                 // si ha resultados se muestran cabecera/pie y listado

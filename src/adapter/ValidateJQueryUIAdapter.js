@@ -24,18 +24,18 @@
 			return $(fieldTmp).attr("oldtitle");
 		}
 		else if(labelAttributes.labelForId !== undefined && labelAttributes.labelForId !== '') {
-			return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForId + "']").text();
+			return $("#" + $.escapeSelector(fieldTmp.id)).find("label[for='" + $.escapeSelector(labelAttributes.labelForId) + "']").text();
 		} else {
-			return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForName + "']").text();
+			return $("#" + $.escapeSelector(fieldTmp.id)).find("label[for='" + $.escapeSelector(labelAttributes.labelForName) + "']").text();
 		}
 	};
 	
 	ValidateJQueryUIAdapter.prototype.forInputNameElement = function (fieldTmp, labelAttributes) {
-		return $("#"+fieldTmp.id).find("label[for='" + labelAttributes.labelForName + "']");
+		return $("#" + $.escapeSelector(fieldTmp.id)).find("label[for='" + $.escapeSelector(labelAttributes.labelForName) + "']");
 	};
 
 	ValidateJQueryUIAdapter.prototype.forInputIdElement = function (fieldTmp, labelAttributes) {
-		return $("#"+fieldTmp.id).find(':input[id=\'' + labelAttributes.labelForId + '\']')[0];
+		return $("#" + $.escapeSelector(fieldTmp.id)).find(':input[id=\'' + $.escapeSelector(labelAttributes.labelForId) + '\']')[0];
 	};
 
 	ValidateJQueryUIAdapter.prototype.highlight = function (element, errorClass) {

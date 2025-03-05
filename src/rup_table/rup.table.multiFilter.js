@@ -89,7 +89,7 @@
         var $dropdownDiaglogTemplate;
 
         //definincion de variables con los selectores
-        settings.multiFilter.$dropdownDialog = $('#' + ctx.sTableId + '_multifilter_dropdownDialog');
+        settings.multiFilter.$dropdownDialog = $('#' + $.escapeSelector(ctx.sTableId) + '_multifilter_dropdownDialog');
 
         //definicion de variables con ids
         settings.multiFilter.dropdownDialogId = ctx.sTableId + '_multifilter_dropdownDialog';
@@ -376,14 +376,14 @@
                     settings.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.noRecords, 'error');
 
                 }
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessDeleteFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterSuccessDeleteFilter',ctx);
             },
             complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteDeleteFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterCompleteDeleteFilter',ctx);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 settings.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorDeleteFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterErrorDeleteFilter',ctx);
             }
         });
     }
@@ -414,7 +414,7 @@
             contentType: 'application/json',
             async: false,
             beforeSend: function (xhr, options) {
-				return $('#' + ctx.sTableId).triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
+				return $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('rupTable_multifilter_beforeAdd',[xhr, options]);
             },
             success: function (data, status, xhr) {
 
@@ -432,14 +432,14 @@
                 if (settings.multiFilter.$comboLabel.autocomplete('widget').is(':visible')) {
                     settings.multiFilter.$comboLabel.autocomplete('widget').hide();
                 }
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterSuccessAddFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterSuccessAddFilter',ctx);
             },
             complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterCompleteAddFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterCompleteAddFilter',ctx);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 settings.multiFilter.$feedback.rup_feedback('set', $.rup.i18n.base.rup_table.plugins.multifilter.error, 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterErrorAddFilter',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterErrorAddFilter',ctx);
             }
         });
 
@@ -560,7 +560,7 @@
      */
     function _fillForm(filtroNuevo, ctx) {
         var settings = ctx.oInit;
-        $('#' + ctx.sTableId).triggerHandler('tableMultiFilterFillForm',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterFillForm',ctx);
         //cambiar milisengudos a fecha (el formato de bd del  fecha es milisegundos)
         $('[ruptype=\'date\']', settings.filter.$filterContainer).each(function (index, elem) {
 
@@ -599,7 +599,7 @@
         var xhrArray = $.rup_utils.jsontoarray(filtroNuevo);
 
         // rellenar el formulario
-        $.rup_utils.populateForm(xhrArray, $('#' + ctx.sTableId + '_filter_form'));
+        $.rup_utils.populateForm(xhrArray, $('#' + $.escapeSelector(ctx.sTableId) + '_filter_form'));
 
 
     }
@@ -803,7 +803,7 @@
      */
     function configureMultifilter(ctx) {
         var settings = ctx.oInit;
-        settings.multiFilter.$filterForm = $('#' + settings.sTableId + '_filter_form');
+        settings.multiFilter.$filterForm = $('#' + $.escapeSelector(settings.sTableId) + '_filter_form');
 
 
         var selector;
@@ -843,22 +843,22 @@
             method: 'GET',
             contains: false,
             combobox: true,
-            menuAppendTo: $('#' + settings.multiFilter.dropdownDialogId).parent(),
-            appendTo: $('#' + settings.multiFilter.dropdownDialogId).parent(),
+            menuAppendTo: $('#' + $.escapeSelector(settings.multiFilter.dropdownDialogId)).parent(),
+            appendTo: $('#' + $.escapeSelector(settings.multiFilter.dropdownDialogId)).parent(),
             select: function () {
                 var valorFiltro = _searchFilterInCombo(ctx);
 
                 //limpiar Filtro
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterBeforeCleanFilterForm',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterBeforeCleanFilterForm',ctx);
                 _cleanFilterForm(ctx);
-                $('#' + ctx.sTableId).triggerHandler('tableMultiFilterAfterCleanFilterForm',ctx);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiFilterAfterCleanFilterForm',ctx);
 
                 // rellenar el formulario del filtro
                 _fillForm(valorFiltro, ctx);
             }
         });
 
-        jQuery('#' + ctx.sTableId + '_multifilter_combo_label').on('autocompleteopen', function () {
+        jQuery('#' + $.escapeSelector(ctx.sTableId) + '_multifilter_combo_label').on('autocompleteopen', function () {
             $(this).data('uiAutocomplete').menu.element.css('zIndex', Number($('#' + settings.multiFilter.dropdownDialogId).parent().css('zIndex')) + 1);
 
             if ($(this).data('tmp.data') !== undefined) {
@@ -871,7 +871,7 @@
                     }
                 });
                 if (objeto !== undefined) {
-                    var link = $('#' + ctx.sTableId + '_multifilter_combo_menu a').eq(count);
+                    var link = $('#' + $.escapeSelector(ctx.sTableId) + '_multifilter_combo_menu a').eq(count);
                     link.css('font-weight', 'bold');
                 }
             }
@@ -882,7 +882,7 @@
         });
 
 
-        $('#' + ctx.sTableId + '_filter_cleanButton').on('click', function () {
+        $('#' + $.escapeSelector(ctx.sTableId) + '_filter_cleanButton').on('click', function () {
             settings.multiFilter.$combo.rup_autocomplete('set', '', '');
             settings.filter.$filterSummary.html('<i></i>');
 

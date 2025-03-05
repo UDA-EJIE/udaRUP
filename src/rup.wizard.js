@@ -268,9 +268,9 @@
                     });
 
                 //Estilo botón submit (sirve de ID)
-                $('#' + settings.submitButton).addClass('rup-wizard_submitButton');
+                $('#' + $.escapeSelector(settings.submitButton)).addClass('rup-wizard_submitButton');
                 if (settings.submitFnc) {
-                    $('#' + settings.submitButton).click(settings.submitFnc);
+                    $('#' + $.escapeSelector(settings.submitButton)).click(settings.submitFnc);
                 }
 
                 //Estilos firstStep y finalStep
@@ -458,7 +458,7 @@
 
             //RUP_MULTICOMBO
             $('#step' + stepNumber + ' .ui-multiselect').each(function () {
-                var selectObj = $('#' + $(this).prev().attr('id'));
+                var selectObj = $('#' + $.escapeSelector($(this).prev().attr('id')));
                 if (selectObj.data('settings') !== undefined) {
                     var seleccionados = selectObj.rup_combo('label');
                     if (seleccionados.length > 0) { //Existen elementos seleccionados?
@@ -508,7 +508,7 @@
                             text: $('#step' + stepNumber + ' label[for=\'' + this.id + '\']').text(),
                             'class': 'rup-wizard_summaryValue'
                         }).insertAfter(this);
-                        $('#' + this.id).attr('checked', 'checked'); //Restablecer selección que se pierde al clonar
+                        $('#' + $.escapeSelector(this.id)).attr('checked', 'checked'); //Restablecer selección que se pierde al clonar
                     }
                     //						if (this.checked){
                     //							$(settings.labelElement, { text: "(*) " + $("#step"+stepNumber+" label[for='"+this.id+"']").text(), "class":"rup-wizard_summaryValue" }).insertAfter(this);
@@ -537,7 +537,7 @@
             //Gestionar TEXTAREAS
             $('#step' + stepNumber + ' textarea').each(function () {
                 $(settings.textareaElement, {
-                    text: $('#' + $(this).attr('id')).val(),
+                    text: $('#' + $.escapeSelector($(this).attr('id'))).val(),
                     'class': 'rup-wizard_summaryParagraph'
                 }).insertAfter(this);
                 $(this).remove();
@@ -546,7 +546,7 @@
             //Gestionar SELECTS
             $('#step' + stepNumber + ' select:not(\'.ui-pg-selbox\')').each(function () {
                 $(settings.labelElement, {
-                    text: ($('#' + this.id + ' option:selected').text() !== '&nbsp;') ? $('#' + this.id + ' option:selected').text() : '',
+                    text: ($('#' + $.escapeSelector(this.id) + ' option:selected').text() !== '&nbsp;') ? $('#' + $.escapeSelector(this.id) + ' option:selected').text() : '',
                     'class': 'rup-wizard_summaryValue'
                 }).insertAfter(this);
                 $(this).remove();
@@ -639,13 +639,13 @@
                     }
 
                     //Comprobamos si es subelemento
-                    if ($('#' + containerTab[containerTab.length - 1]).find(idTabs[i]).length === 0) {
+                    if ($('#' + $.escapeSelector(containerTab[containerTab.length - 1])).find(idTabs[i]).length === 0) {
                         //No es subpestaña, se debe mover el puntero de dónde se deba añadir la capa
                         pointer = $(fieldset);
                         do {
                             containerTab.pop(); //Extraer contenedor de pestañas
                             //Comprobar si es subelemento
-                            if ($('#' + containerTab[containerTab.length - 1]).find(idTabs[i]).length > 0) {
+                            if ($('#' + $.escapeSelector(containerTab[containerTab.length - 1])).find(idTabs[i]).length > 0) {
                                 pointer = $('#subtab_' + containerTab[containerTab.length - 1]);
                                 break;
                             } else {
@@ -801,7 +801,7 @@
 
                 //Es un contenedor de pestañas (llamada recursiva para pre-procesar los hijos)
                 if (idTabs[idTabs.length - 1].substring(1) === labelTabs[labelTabs.length - 1]) {
-                    rupWizard._getRupTabs(rupWizard, $('#' + labelTabs[labelTabs.length - 1]), labelTabs, idTabs);
+                    rupWizard._getRupTabs(rupWizard, $('#' + $.escapeSelector(labelTabs[labelTabs.length - 1])), labelTabs, idTabs);
                 }
             });
         },
@@ -853,7 +853,7 @@
             });
 
             function createPrevButton(i) {
-                var stepName = 'step' + i;
+                var stepName = $.escapeSelector('step' + i);
                 $('#' + stepName + 'commands').append('<a id=\'' + stepName + 'Prev\' class=\'prev\'>< Back</a>');
 
                 $('#' + stepName + 'Prev').on('click', function (e) {
@@ -866,7 +866,7 @@
             }
 
             function createNextButton(i) {
-                var stepName = 'step' + i;
+                var stepName = $.escapeSelector('step' + i);
                 $('#' + stepName + 'commands').append('<a id=\'' + stepName + 'Next\' class=\'next\'>Next ></a>');
 
                 $('#' + stepName + 'Next').on('click', function (e) {

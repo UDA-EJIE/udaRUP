@@ -127,9 +127,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCopyClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeCopyClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCopyClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterCopyClick', [dt, button, config]);
             }
         };
 
@@ -158,9 +158,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeExcelClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeExcelClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterExcelClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterExcelClick', [dt, button, config]);
             }
         };
 
@@ -188,9 +188,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforePdfClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforePdfClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterPdfClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterPdfClick', [dt, button, config]);
             }
         };
 
@@ -219,9 +219,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeOdsClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeOdsClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterOdsClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterOdsClick', [dt, button, config]);
             }
         };
 
@@ -250,9 +250,9 @@
                     this.processing(true);
                 }
                 let that = this;
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCsvClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeCsvClick', [dt, button, config]);
                 _reports(dt, that, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCsvClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterCsvClick', [dt, button, config]);
             }
         };
 
@@ -269,9 +269,9 @@
                 ctx.ext.buttons.addButton.eventDT = dt;
             },
             action: function (e, dt, button, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeAddClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeAddClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterAddClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterAddClick', [dt, button, config]);
             }
         };
 
@@ -288,9 +288,9 @@
                 ctx.ext.buttons.editButton.eventDT = dt;
             },
             action: function (e, dt, button, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
             }
         };
 
@@ -307,9 +307,9 @@
                 ctx.ext.buttons.cloneButton.eventDT = dt;
             },
             action: function (e, dt, button, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeCloneClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeCloneClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterCloneClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterCloneClick', [dt, button, config]);
             }
         };
 
@@ -326,9 +326,9 @@
                 ctx.ext.buttons.deleteButton.eventDT = dt;
             },
             action: function (e, dt, button, config) {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeDeleteClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeDeleteClick', [dt, button, config]);
                 DataTable.Api().buttons.actions(dt, config);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterDeleteClick', [dt, button, config]);
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterDeleteClick', [dt, button, config]);
             }
         };
 
@@ -559,7 +559,7 @@
 
             $(button.node).addClass(this.c.dom.button.disabled);
             if (contextMenu) {
-                $('#' + button.node.id + '_contextMenuToolbar').addClass(this.c.dom.button.disabled);
+                $('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar').addClass(this.c.dom.button.disabled);
             }
 
             return this;
@@ -625,7 +625,7 @@
             var button = this._nodeToButton(node);
             $(button.node).removeClass(this.c.dom.button.disabled);
             if (contextMenu) {
-                $('#' + button.node.id + '_contextMenuToolbar').removeClass(this.c.dom.button.disabled);
+                $('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar').removeClass(this.c.dom.button.disabled);
             }
 
             return this;
@@ -2140,7 +2140,7 @@
                                             DataTable.Api().select.deselect(ctx); // Y deselecionamos los checks y seekers
                                         }
                                     }
-									$('#' + ctx.sTableId).triggerHandler('tableButtonsAddActionConfirmed', ctx);
+									$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAddActionConfirmed', ctx);
                                     DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
                                 }
                             });
@@ -2243,7 +2243,7 @@
             	// Deshabilita el botón de la toolbar.
             	$(this.node).prop('disabled', true);
             	// Deshabilita el botón del contextMenu.
-            	$('#' + this.node.id + '_contextMenuToolbar').addClass('disabledButtonsTable');
+            	$('#' + $.escapeSelector(this.node.id) + '_contextMenuToolbar').addClass('disabledButtonsTable');
             }
         });
         
@@ -2492,7 +2492,7 @@
      *
      */
     var _enableCollection = function (id) {
-        $('#' + id).prop('disabled', false);
+        $('#' + $.escapeSelector(id)).prop('disabled', false);
     };
 
     /**
@@ -2506,7 +2506,7 @@
      *
      */
     var _disableCollection = function (id) {
-        $('#' + id).prop('disabled', true);
+        $('#' + $.escapeSelector(id)).prop('disabled', true);
     };
 
     /**
@@ -2520,8 +2520,9 @@
      *
      */
     var _enableButtonAndContextMenuOption = function (id) {
-        $('#' + id).prop('disabled', false);
-        $('#' + id + '_contextMenuToolbar').removeClass('disabledButtonsTable');
+		const escapedId = $.escapeSelector(id);
+        $('#' + escapedId).prop('disabled', false);
+        $('#' + escapedId + '_contextMenuToolbar').removeClass('disabledButtonsTable');
     };
 
     /**
@@ -2535,8 +2536,9 @@
      *
      */
     var _disableButtonAndContextMenuOption = function (id) {
-    	$('#' + id).prop('disabled', true);
-    	$('#' + id + '_contextMenuToolbar').addClass('disabledButtonsTable');
+		const escapedId = $.escapeSelector(id);
+    	$('#' + escapedId).prop('disabled', true);
+    	$('#' + escapedId + '_contextMenuToolbar').addClass('disabledButtonsTable');
     };
 
     /**
@@ -2604,7 +2606,7 @@
                 // Genera un evento encargado de ocultar los botones dentro del collection.
                 // Se comprueba mediante una clase si ya tiene o no el evento, mejorando asi
                 // el rendimiento
-                $('#' + collectionId + ':not(.listening)').addClass('listening').on('click', function (e) {
+                $('#' + $.escapeSelector(collectionId) + ':not(.listening)').addClass('listening').on('click', function (e) {
                     // Se establece el valor de 'numOfSelectedRows' porque sino siempre tendria
                     // el valor recibido cuando se creo el evento
                     var numOfSelectedRows = ctx.multiselection.numSelected;
@@ -3014,13 +3016,13 @@
         $.ajax(ajaxOptions)
             .done(function (data) {
                 deferred.resolve(data);
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsSuccessReportsRequestData');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsSuccessReportsRequestData');
             })
             .complete(function () {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsCompleteReportsRequestData');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsCompleteReportsRequestData');
             })
             .error(function () {
-                $('#' + ctx.sTableId).triggerHandler('tableButtonsErrorReportsRequestData');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsErrorReportsRequestData');
             });
         return deferred.promise();
     };
@@ -3040,7 +3042,7 @@
      */
     var _reportsRequestFile = function (ctx, ajaxOptions) {	
     	// Dialogo de espera
-        var $reportFileWait = $('#' + ctx.sTableId + 'reportFileWait');
+        var $reportFileWait = $('#' + $.escapeSelector(ctx.sTableId) + 'reportFileWait');
         $reportFileWait.rup_dialog({
             type: $.rup.dialog.TEXT,
             autoOpen: false,
@@ -3104,7 +3106,7 @@
             	} else {
             		// Para los demas navegadores
             		if (!$('a#rupTableButtonsReportsExport').length) {
-            			$('#' + ctx.sTableId + 'rup_report_dialogsContainer').append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
+            			$('#' + $.escapeSelector(ctx.sTableId) + 'rup_report_dialogsContainer').append("<a id='rupTableButtonsReportsExport' class='d-none'>rupTableButtonsReportsExport</a>");
             		}
             		element = $('a#rupTableButtonsReportsExport')[0];
             		element.href = window.URL.createObjectURL(blob);
@@ -3115,11 +3117,11 @@
             		element.remove();
             	}
             	
-            	if ($('#' + $reportFileWait.attr('id')).length > 0) {
+            	if ($('#' + $.escapeSelector($reportFileWait.attr('id'))).length > 0) {
                     $reportFileWait.rup_dialog('close');
                 }
             } else {
-            	if ($('#' + $reportFileWait.attr('id')).length > 0) {
+            	if ($('#' + $.escapeSelector($reportFileWait.attr('id'))).length > 0) {
                     $reportFileWait.rup_dialog('close');
                     console.info('----------- ERROR -----------');
                 }
@@ -3153,7 +3155,7 @@
                 1: '¿Desea copiar un registro?'
             }, exportDataRows),
             open: function () {
-                $('#' + dt.context[0].sTableId).trigger('rupTable_confirmMsgOpen');
+                $('#' + $.escapeSelector(dt.context[0].sTableId)).trigger('rupTable_confirmMsgOpen');
             },
             OKFunction: function () {
                 if (ctx.oInit.formEdit !== undefined) {
@@ -3216,7 +3218,7 @@
                     if (that.processing !== undefined) {
                         that.processing(false);
                     }
-                    $('#' + dt.context[0].sTableId).trigger('rupTable_copied');
+                    $('#' + $.escapeSelector(dt.context[0].sTableId)).trigger('rupTable_copied');
                     return;
                 }
             } catch (t) {}
@@ -3317,10 +3319,10 @@
     };
     
     var _callDelete = function (actionType, dt, ctx, row, url) {
-        $('#' + ctx.sTableId).triggerHandler('tableBeforeCallDelete');
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableBeforeCallDelete');
 
         let _callFeedbackDelete = function (ctx, msgFeedBack, type) {
-            $('#' + ctx.sTableId).triggerHandler('tableFeedbackShowDelete');
+            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableFeedbackShowDelete');
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', msgFeedBack, type);
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
         };
@@ -3356,7 +3358,7 @@
                 } else if (ctx.oInit.select !== undefined) {
                     DataTable.Api().select.deselect(ctx);
                 }
-                $('#' + ctx.sTableId).triggerHandler('tablefterDelete');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tablefterDelete');
 
                 ctx._buttons[0].inst.s.disableAllButtons = undefined;
 
@@ -3369,14 +3371,14 @@
                 }, false);
 
 
-                $('#' + ctx.sTableId).triggerHandler('tableSuccessCallDelete');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableSuccessCallDelete');
             },
             complete: function () {
-                $('#' + ctx.sTableId).triggerHandler('tableCompleteCallDelete');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableCompleteCallDelete');
             },
             error: function (xhr) {
                 _callFeedbackDelete(ctx, xhr.responseText, 'error');
-                $('#' + ctx.sTableId).triggerHandler('tableErrorCallDelete');
+                $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableErrorCallDelete');
             },
             feedback: () => {
                 _callFeedbackDelete(ctx, msgFeedBack, 'ok');
@@ -3444,7 +3446,7 @@
                     if (inCollection && idCollection !== undefined) {
                         // Obtenemos la info necesaria del boton y la guardamos en variables
                         var buttonName;
-                        var dt = $('#' + ctx.sTableId).DataTable();
+                        var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
                         var eventConfig;
                         $.each(ctx.ext.buttons, function (key) {
                             var buttonObject = ctx.ext.buttons[key];
@@ -3457,7 +3459,7 @@
                         // el boton, empeorando la UX
                         ctx.ext.buttons[buttonName].action(undefined, dt, undefined, eventConfig);
                     } else {
-                        $('#' + buttonId).trigger('click');
+                        $('#' + $.escapeSelector(buttonId)).trigger('click');
                     }
                 },
                 items
@@ -3498,17 +3500,17 @@
             if (this.conf.icon !== undefined) {
                 // Establece el icono de los botones
                 if ($(this.node).find('i').length === 0) {
-                    $('#' + this.conf.id).prepend('<i class="mdi ' + this.conf.icon + '" aria-hidden="true"></i>');
+                    $('#' + $.escapeSelector(this.conf.id)).prepend('<i class="mdi ' + this.conf.icon + '" aria-hidden="true"></i>');
                 }
 
                 // Comprueba si tiene botones hijos
-                if (this.buttons.length > 0 && $('#' + this.conf.id).length > 0) {
+                if (this.buttons.length > 0 && $('#' + $.escapeSelector(this.conf.id)).length > 0) {
                     // Añadimos un evento para cuando se pulse sobre el boton padre, se le
                     // asignen los iconos a los hijos
-                    $('#' + this.conf.id)[0].addEventListener('click', function eventHandler() {
+                    $('#' + $.escapeSelector(this.conf.id))[0].addEventListener('click', function eventHandler() {
                         var that = this;
                         $.each(opts[i].buttons, function (i) {
-                            var selectorCollection = $('#' + this.conf.id);
+                            var selectorCollection = $('#' + $.escapeSelector(this.conf.id));
 
                             // Establece el icono de los botones hijos
                             if ($(this.node).find('i').length === 0) {
@@ -3541,7 +3543,7 @@
                 .attr('id', ctx.sTableId + 'rup_report_dialogsContainer')
                 .append($defaultDialog_wait)
                 .append($defaultDialog_error);
-        $('#' + ctx.sTableId).after($defaultDialog);
+        $('#' + $.escapeSelector(ctx.sTableId)).after($defaultDialog);
     };
 
 
@@ -3559,19 +3561,19 @@
         var numOfSelectedRows = ctx.multiselection.numSelected;
         var collectionObject;
         
-        $('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeToolbarInit');
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeToolbarInit');
         
 		if(ctx.oInit.buttons.insertAfter){
-	        if ($('#' + ctx.sTableId + '_filter_form').length > 0) {
-	            new Buttons(api, defaultButtons).container().insertAfter($('#' + ctx.sTableId + '_filter_form'));
+	        if ($('#' + $.escapeSelector(ctx.sTableId) + '_filter_form').length > 0) {
+	            new Buttons(api, defaultButtons).container().insertAfter($('#' + $.escapeSelector(ctx.sTableId) + '_filter_form'));
 	        } else {
-	            new Buttons(api, defaultButtons).container().insertAfter($('#' + ctx.sTableId + '_wrapper'));
+	            new Buttons(api, defaultButtons).container().insertAfter($('#' + $.escapeSelector(ctx.sTableId) + '_wrapper'));
 	        }
 		}else{
-			if ($('#' + ctx.sTableId + '_filter_form').length > 0) {
-			    new Buttons(api, defaultButtons).container().insertBefore($('#' + ctx.sTableId + '_filter_form'));
+			if ($('#' + $.escapeSelector(ctx.sTableId) + '_filter_form').length > 0) {
+			    new Buttons(api, defaultButtons).container().insertBefore($('#' + $.escapeSelector(ctx.sTableId) + '_filter_form'));
 			} else {
-			    new Buttons(api, defaultButtons).container().insertBefore($('#' + ctx.sTableId + '_wrapper'));
+			    new Buttons(api, defaultButtons).container().insertBefore($('#' + $.escapeSelector(ctx.sTableId) + '_wrapper'));
 			}
 		}
 
@@ -3580,7 +3582,7 @@
         _initContextMenu(ctx, api);
 
         // Detecta cuando se selecciona o se deselecciona una fila en el table
-        $('#' + ctx.sTableId).DataTable().on('select deselect contextmenu', function (event) {
+        $('#' + $.escapeSelector(ctx.sTableId)).DataTable().on('select deselect contextmenu', function (event) {
             DataTable.Api().buttons.displayRegex(ctx);
         });
         
@@ -3601,7 +3603,7 @@
             DataTable.Api().buttons.displayRegex(ctx);
         }
         
-        $('#' + ctx.sTableId).triggerHandler('tableButtonsAfterToolbarInit');
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterToolbarInit');
     }
 
     // DataTables `dom` feature option

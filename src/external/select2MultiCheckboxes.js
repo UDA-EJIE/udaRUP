@@ -33,7 +33,7 @@
 
 			adapter.prototype.update = function(data) {
 				const options = this.options.options;
-				let selectSettings = $('#' + options.id).data('settings');
+				let selectSettings = $('#' + $.escapeSelector(options.id)).data('settings');
 
 				// copy and modify SingleSelection adapter
 				this.clear();
@@ -214,9 +214,9 @@
 					let $container = this.container.$container;
 					$arrow.on('click', function() {
 						if ($container.hasClass('select2-container--open')) {
-							$('#' + $options.options.id).select2('close');
+							$('#' + $.escapeSelector($options.options.id)).select2('close');
 						} else {
-							$('#' + $options.options.id).select2('open');
+							$('#' + $.escapeSelector($options.options.id)).select2('open');
 							$('input.select2-search__field').addClass('d-none');
 						}
 					});
@@ -261,11 +261,11 @@
 				input.on('keyup', delay(function() {
 					if (this.value.length >= $options.options.minimumResultsForSearch || (this.value.length == 0 && $options.options.searchZero)) {
 						let openLast = false;
-						if ($('#' + $options.options.id).select2('isOpen')) {
+						if ($('#' + $.escapeSelector($options.options.id)).select2('isOpen')) {
 							openLast = true;
 						}
 
-						$('#' + $options.options.id).select2('open');
+						$('#' + $.escapeSelector($options.options.id)).select2('open');
 						$('input.select2-search__field').addClass('d-none');
 						$('input.select2-search__field').val(this.value);
 						if ($options.options.url == null || ($options.options.url != null && openLast)) {//Si es local
@@ -341,7 +341,7 @@
 				};
 			} 
 
-			$('#' + options.id).select2(options);
+			$('#' + $.escapeSelector(options.id)).select2(options);
 		}
 	});
 	function delay(callback, ms) {

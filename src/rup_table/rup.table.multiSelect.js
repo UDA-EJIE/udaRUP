@@ -747,7 +747,7 @@ handler that will select the items using the API methods.
 
         // Internal knowledge of DataTables to loop over all information elements
         $.each(ctx.aanFeatures.i, function (i, el) {
-            el = $('#' + ctx.sTableId + 'PaginationContainer > div > div:first-child');
+            el = $('#' + $.escapeSelector(ctx.sTableId) + 'PaginationContainer > div > div:first-child');
 
             var output = $('<span class="select-info"></span>');
             add(output, 'row', rows);
@@ -762,7 +762,7 @@ handler that will select the items using the API methods.
             }
         });
 
-        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectionRowNumberUpdate',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiSelectionRowNumberUpdate',ctx);
     }
 
     /**
@@ -783,8 +783,8 @@ handler that will select the items using the API methods.
         var api = new DataTable.Api(ctx);
 
         //Se añade el context, al pagination container
-        if ($('#' + ctx.sTableId).next($('div.paginationContainer')).length === 1) {
-            $('#' + ctx.sTableId).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
+        if ($('#' + $.escapeSelector(ctx.sTableId)).next($('div.paginationContainer')).length === 1) {
+            $('#' + $.escapeSelector(ctx.sTableId)).next($('div.paginationContainer')).attr('id', ctx.sTableId + 'PaginationContainer');
         }
 
         // Row callback so that classes can be added to rows and cells if the item
@@ -919,7 +919,7 @@ handler that will select the items using the API methods.
         });
         if (pos >= 0) {
             //si hay mas columnas porque aun no ha refrescado al crear y clonar.
-            if (ctx._iDisplayLength < ctx.json.rows.length && !$('#' + ctx.sTableId + ' tbody tr').hasClass('new')) {
+            if (ctx._iDisplayLength < ctx.json.rows.length && !$('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr').hasClass('new')) {
                 pos--;
             }
             DataTable.Api().rupTable.selectPencil(api.context[0], pos);
@@ -962,9 +962,9 @@ handler that will select the items using the API methods.
                     var dt = new DataTable.Api(ctx);
                     if ($(this).find('input').is(':checked')) {
                         deselectAllPage(dt);
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
                     } else {
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
                         selectAllPage(dt);
                     }
                 });
@@ -979,7 +979,7 @@ handler that will select the items using the API methods.
                         $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
                         // Marcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
                     }
                     //Desmarcar todos
                     if (!ctx.multiselection.selectedAll && ctx.multiselection.selectedIds.length === 0) {
@@ -988,7 +988,7 @@ handler that will select the items using the API methods.
                         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
                         // Desmarcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
                     }
                     if (ctx.multiselection.selectedIds.length > 0) {
                         $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
@@ -1002,12 +1002,12 @@ handler that will select the items using the API methods.
                         $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
                         // Marcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
                     } else {
                         $('#contextMenu1 li.context-menu-icon-check_all').removeClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
                         // Desmarcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
                     }
 
                     //Si la pagina esta completamente deseleccionada
@@ -1016,12 +1016,12 @@ handler that will select the items using the API methods.
                         $('#contextMenu1 li.context-menu-icon-check').removeClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
                         // Desmarcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
                     } else {
                         $('#contextMenu1 li.context-menu-icon-uncheck_all').removeClass('disabledButtonsTable');
                         $('#contextMenu1 li.context-menu-icon-uncheck').removeClass('disabledButtonsTable');
                         // Marcamos el check del tHead
-                        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+                        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
                     }
 
                 });
@@ -1142,7 +1142,7 @@ handler that will select the items using the API methods.
         }
 
         dt.on('init.dt', function () {
-        	$('#' + id).rup_contextMenu({
+        	$('#' + $.escapeSelector(id)).rup_contextMenu({
         		selector: '#' + id,
         		trigger: 'left',
         		items: items,
@@ -1173,7 +1173,7 @@ handler that will select the items using the API methods.
 
         $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
         // Marcamos el check del tHead
-        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
 
         //FeedBack
         var countPage = dt.page() + 1;
@@ -1185,9 +1185,9 @@ handler that will select the items using the API methods.
             (ctx.multiselection.selectedAll && ctx.multiselection.deselectedIds.length > 0)) {
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', selectMsg + remainingSelectButton, 'alert');
             ctx.oInit.feedback.type = 'fijo';
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackSelectAll',ctx);
+            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiSelectFeedbackSelectAll',ctx);
         }
-        $('#' + $(remainingSelectButton)[0].id).on('click', function () {
+        $('#' + $.escapeSelector($(remainingSelectButton)[0].id)).on('click', function () {
             selectAll(dt);
         });
 
@@ -1213,7 +1213,7 @@ handler that will select the items using the API methods.
 
         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
         // Desmarcamos el check del tHead
-        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
 
         //FeedBack
         var countPage = dt.page() + 1;
@@ -1224,12 +1224,12 @@ handler that will select the items using the API methods.
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('set', deselectMsg + remainingDeselectButton, 'alert');
             ctx.oInit.feedback.$feedbackContainer.rup_feedback('show');
             ctx.oInit.feedback.$feedbackContainer.type = 'fijo';
-            $('#' + ctx.sTableId).triggerHandler('tableMultiSelectFeedbackDeselectAll',ctx);
+            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiSelectFeedbackDeselectAll',ctx);
         }
-        $('#' + $(remainingDeselectButton)[0].id).on('click', function () {
+        $('#' + $.escapeSelector($(remainingDeselectButton)[0].id)).on('click', function () {
             deselectAll(dt);
         });
-        $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
+        $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox i.selected-pencil').remove();
 
         ctx.multiselection.lastSelectedIsRange = false;
     }
@@ -1254,7 +1254,7 @@ handler that will select the items using the API methods.
         $('#contextMenu1 li.context-menu-icon-check_all').addClass('disabledButtonsTable');
         $('#contextMenu1 li.context-menu-icon-check').addClass('disabledButtonsTable');
         // Marcamos el check del tHead
-        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', true);
+        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', true);
 
         dt.rows().multiSelect();
         if (dt.page() === 0) {
@@ -1265,7 +1265,7 @@ handler that will select the items using the API methods.
             ctx.multiselection.lastSelectedId = '';
         }
 
-        $('#' + ctx.sTableId).triggerHandler('tableMultiSelectSelectAll',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiSelectSelectAll',ctx);
     }
 
 
@@ -1283,9 +1283,9 @@ handler that will select the items using the API methods.
         var ctx = dt.settings()[0];
         ctx.multiselection = _initializeMultiselectionProps(ctx);
         ctx.multiselection.accion = 'uncheckAll';
-        $('#' + ctx.sTableId + ' tbody tr td.select-checkbox i.selected-pencil').remove();
+        $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox i.selected-pencil').remove();
         dt.rows().deselect();
-        $('#' + ctx.sTableId).trigger('rupTable_deselectAll',ctx);
+        $('#' + $.escapeSelector(ctx.sTableId)).trigger('rupTable_deselectAll',ctx);
     }
 
 
@@ -1398,7 +1398,7 @@ handler that will select the items using the API methods.
         $('#contextMenu1 li.context-menu-icon-uncheck').addClass('disabledButtonsTable');
         $('#contextMenu1 li.context-menu-icon-uncheck_all').addClass('disabledButtonsTable');
         // Desmarcamos el check del tHead
-        $('#inputSelectTableHead' + ctx.sTableId).prop('checked', false);
+        $('#inputSelectTableHead' + $.escapeSelector(ctx.sTableId)).prop('checked', false);
 
         DataTable.Api().rupTable.selectPencil(ctx, -1);
         return $self.multiselection;
@@ -1667,7 +1667,7 @@ handler that will select the items using the API methods.
                 }
             }
 
-            $('#' + ctx.sTableId).trigger('selectStyle', [style,ctx]);
+            $('#' + $.escapeSelector(ctx.sTableId)).trigger('selectStyle', [style,ctx]);
         });
     });
 
@@ -1806,7 +1806,7 @@ handler that will select the items using the API methods.
             }
             if (ctx.oInit.buttons !== undefined) {
                 //Mirar la propiedad para el contextMenu y dejar la clase marcada.
-                $('#' + ctx.sTableId + ' > tbody > tr').addClass('context-menu-cursor');
+                $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr').addClass('context-menu-cursor');
             }
         }
         this.iterator('table', function (ctx, i) {
