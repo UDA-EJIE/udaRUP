@@ -205,10 +205,10 @@
 
 
                 //Almacenar los settings
-                $('#' + settings.id).data('settings', settings);
+                $('#' + $.escapeSelector(settings.id)).data('settings', settings);
 
                 //almacenar el Objecto Chart
-                $('#' + settings.id).data('chart', grafico);
+                $('#' + $.escapeSelector(settings.id)).data('chart', grafico);
             }
         }
 

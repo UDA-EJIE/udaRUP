@@ -99,7 +99,7 @@
             //Eliminar máscara
             var labelMaskId = $(this).data('datepicker').settings.labelMaskId;
             if (labelMaskId) {
-                $('#' + labelMaskId).text('');
+                $('#' + $.escapeSelector(labelMaskId)).text('');
             }
             //Eliminar imagen (reloj)
             $(this).next('img').remove();
@@ -189,7 +189,7 @@
                 $(this).data('datepicker').settings.onSelect(); 
             }
             
-            $.datepicker._setTime($.datepicker._getInst($('#' + $(this).data('datepicker').settings.id)[0]), time);
+            $.datepicker._setTime($.datepicker._getInst($('#' + $.escapeSelector($(this).data('datepicker').settings.id))[0]), time);
         },
         /**
      * Refresca el calendario desplegado por si ha habido algún cambio.
@@ -262,7 +262,7 @@
 
                 //Mostrar máscara
                 if (settings.labelMaskId) {
-                    $('#' + settings.labelMaskId).text($.rup.i18nParse($.rup.i18n.base, 'rup_time.mask') + ' ');
+                    $('#' + $.escapeSelector(settings.labelMaskId)).text($.rup.i18nParse($.rup.i18n.base, 'rup_time.mask') + ' ');
                 }
 
                 //Mostrar placeholder
@@ -279,7 +279,7 @@
                 $self.timepicker(settings);
 
                 //Max-Length
-                //$("#"+settings.id).attr("maxlength",literales["mask"].length-2);
+                //$("#"+$.escapeSelector(settings.id)).attr("maxlength",literales["mask"].length-2);
 
                 //Añadir imagen
                 self._ADAPTER.initIconTrigger.bind($self)(settings);

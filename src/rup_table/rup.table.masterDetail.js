@@ -95,7 +95,7 @@
                 var row = tableMaster.rows(rowSelected).data();
                 var id = DataTable.Api().rupTable.getIdPk(row[0], tableMaster.context[0].oInit);
                 $hiddenPKMaster.val('' + id);
-                $('#' + ctx.sTableId + '_filter_filterButton').click();
+                $('#' + $.escapeSelector(ctx.sTableId) + '_filter_filterButton').click();
             } else { //se deselecciona
                 _deselectMaster(dt, ctx, $hiddenPKMaster);
             }
@@ -103,7 +103,7 @@
         });
         
         //Se manda el valor del padre
-	    $('#'+ctx.sTableId).on('tableEditFormAfterData', function(event, ctx) {
+	    $('#' + $.escapeSelector(ctx.sTableId)).on('tableEditFormAfterData', function(event, ctx) {
 	    	if(ctx.oInit.formEdit != undefined) {
 				if (ctx.oInit.formEdit.data == undefined) {
 					ctx.oInit.formEdit.data = {};
@@ -119,14 +119,14 @@
                 _deselectMaster(dt, ctx, $hiddenPKMaster);
             } else {
                 $hiddenPKMaster.val('' + multi.selectedIds[0]);
-                $('#' + ctx.sTableId + '_filter_filterButton').click();
+                $('#' + $.escapeSelector(ctx.sTableId) + '_filter_filterButton').click();
             }
 
         });
         
 		// Bloquea la botonera en la tabla de detalle cuando no hay registros seleccionados en la tabla maestra.
 		tableMaster.on('tableButtonsAddActionConfirmed', function(event, ctx) {
-			$('#' + ctx.sTableId + '_filter_cleanButton').click();
+			$('#' + $.escapeSelector(ctx.sTableId) + '_filter_cleanButton').click();
 			// Limpia el criterio de filtrado de la tabla de detalle (parte visual).
 			tableDetailOptions.filter.$filterSummary.html(' <i></i>');
 		});
@@ -139,7 +139,7 @@
 
     function _deselectMaster(dt, ctx, $hiddenPKMaster) {
         $hiddenPKMaster.val('-1');
-        $('#' + ctx.sTableId + ' > tbody tr').remove();
+        $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody tr').remove();
         var asStripeClasses = ctx.asStripeClasses;
         var iStripes = asStripeClasses.length;
         var numberVisibles = dt.columns().responsiveHidden().reduce(function (a, b) {
@@ -153,9 +153,9 @@
                 'colSpan': numberVisibles,
                 'class': ctx.oClasses.sRowEmpty
             }).html(ctx.oLanguage.sZeroRecords))[0];
-        $('#' + ctx.sTableId + ' > tbody').append($tr);
+        $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody').append($tr);
         ctx.seeker.search.$searchRow.hide();
-        $('#' + ctx.sTableId + 'addButton_1').prop('disabled', true);
+        $('#' + $.escapeSelector(ctx.sTableId) + 'addButton_1').prop('disabled', true);
         DataTable.Api().select.deselect(ctx);
     }
 
@@ -169,7 +169,7 @@
 	 */
     function _getMasterTablePkObject(ctx) {
 
-        var masterPkValue = $('#' + ctx.sTableId+'_filter_masterPK').val();
+        var masterPkValue = $('#' + $.escapeSelector(ctx.sTableId) + '_filter_masterPK').val();
         var masterPkName = ctx.oInit.masterDetail.masterPrimaryKey;
 
         function nestJSON(key, value) {
