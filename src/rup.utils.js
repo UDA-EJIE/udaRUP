@@ -680,6 +680,9 @@
 			}
 			return objectsAreSame;
 		},
+		/**
+		 * @deprecated desde version 6.2.0. Utilizar $.escapeSelector() en su lugar: https://api.jquery.com/jQuery.escapeSelector/
+		 */
 		escapeId: function (id) {
 			if (id) {
                 return id.replace(/([ #;&,.+*~':"!^$[\]()=>|/@])/g, '\\$1');
