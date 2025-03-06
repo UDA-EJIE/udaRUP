@@ -1010,7 +1010,7 @@
                              * Si no se filtra, aparece un error visual en la selección de registros y otro en el paginador del formulario de edición.
                              */
 							dt.ajax.reload(function () {
-								$('#' + ctx.sTableId).trigger('tableEditFormAfterInsertRow', [ctx, actionType]);
+								$('#' + $.escapeSelector(ctx.sTableId)).trigger('tableEditFormAfterInsertRow', [ctx, actionType]);
 							}, false);
                         }
                         if(actionType === 'PUT'){

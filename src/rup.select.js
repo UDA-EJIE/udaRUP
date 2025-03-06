@@ -1363,7 +1363,7 @@
 							if(settings.cache){
 								settings.selected = "";
 							}else{
-								settings.selected = $('#' + settings.id).rup_select('getRupValue');
+								settings.selected = $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue');
 							}
 	              		  }
 				        });
