@@ -1070,6 +1070,7 @@
                 // Se asigna a la tecla ENTER la función de búsqueda
                 filterOpts.$collapsableLayer.on('keydown', function (evt) {
                     if (evt.keyCode === 13) {
+						evt.preventDefault();
                         let customFiltrar = options.validarFiltrar;
                         if (typeof customFiltrar === "function" && customFiltrar(options)) {
                             return false;
