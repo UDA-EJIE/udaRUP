@@ -1009,9 +1009,9 @@
                              * Filtrar para colocar cada registro en su lugar correspondiente. 
                              * Si no se filtra, aparece un error visual en la selección de registros y otro en el paginador del formulario de edición.
                              */
-                            dt.ajax.reload();
-                            
-                            $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterInsertRow', [ctx, actionType]);
+							dt.ajax.reload(function () {
+								$('#' + ctx.sTableId).trigger('tableEditFormAfterInsertRow', [ctx, actionType]);
+							}, false);
                         }
                         if(actionType === 'PUT'){
 	                        dt.ajax.reload(function () {
