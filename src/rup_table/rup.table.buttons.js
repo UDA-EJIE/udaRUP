@@ -1,4 +1,4 @@
-/*! Buttons 3.1.2
+/*! Buttons 3.2.2
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     Buttons
  * @description Buttons for DataTables
  * @module      "rup.table.buttons"
- * @version     3.1.2
+ * @version     3.2.2
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -121,11 +121,7 @@
                     className: 'dt-buttons row'
                 },
                 collection: {
-                    action: {
-						// action button
-						dropHtml: '<span class="dt-button-down-arrow ml-2">&#x25BC;</span>'
-					},
-					container: {
+                    container: {
 						// The element used for the dropdown
 						className: 'dt-button-collection',
 						content: {
@@ -150,7 +146,9 @@
 					liner: {
 						tag: 'span',
 						className: ''
-					}
+					},
+					dropClass: '',
+					dropHtml: '<span class="dt-button-down-arrow">&#x25BC;</span>'
                 },
 				split: {
 					action: {
@@ -162,7 +160,6 @@
 						// button to trigger the dropdown
 						align: 'split-right',
 						className: 'dt-button-split-drop',
-						dropHtml: '<span class="dt-button-down-arrow ml-2">&#x25BC;</span>',
 						splitAlignClass: 'dt-button-split-left',
 						tag: 'button'
 					},
@@ -711,11 +708,25 @@
         disable: function (node, contextMenu) {
             var button = this._nodeToButton(node);
 
-            $(button.node).addClass(this.c.dom.button.disabled).prop('disabled', true);
-			
-            if (contextMenu) {
-                $('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar').addClass(this.c.dom.button.disabled);
-            }
+			if (button.isSplit) {
+				$(button.node.childNodes[0])
+					.addClass(this.c.dom.button.disabled)
+					.prop('disabled', true);
+			}
+			else {
+				$(button.node)
+					.addClass(this.c.dom.button.disabled)
+					.prop('disabled', true);
+			}
+
+			if (contextMenu) {
+				$('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar')
+					.addClass(this.c.dom.button.disabled);
+			}
+
+			button.disabled = true;
+
+			this._checkSplitEnable();
 
             return this;
         },
@@ -773,15 +784,31 @@
          *
          */
         enable: function (node, flag, contextMenu) {
-            if (flag === false) {
-                return this.disable(node);
-            }
+			if (flag === false) {
+				return this.disable(node);
+			}
 
-            var button = this._nodeToButton(node);
-            $(button.node).removeClass(this.c.dom.button.disabled).prop('disabled', false);
-            if (contextMenu) {
-                $('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar').removeClass(this.c.dom.button.disabled);
-            }
+			var button = this._nodeToButton(node);
+
+			if (button.isSplit) {
+				$(button.node.childNodes[0])
+					.removeClass(this.c.dom.button.disabled)
+					.prop('disabled', false);
+			}
+			else {
+				$(button.node)
+					.removeClass(this.c.dom.button.disabled)
+					.prop('disabled', false);
+			}
+
+			if (contextMenu) {
+				$('#' + $.escapeSelector(button.node.id) + '_contextMenuToolbar')
+					.removeClass(this.c.dom.button.disabled);
+			}
+
+			button.disabled = false;
+
+			this._checkSplitEnable();
 
             return this;
         },
@@ -918,6 +945,10 @@
             this._removeKey(button.conf);
 
             $(button.node).remove();
+            
+			if (button.inserter) {
+				$(button.inserter).remove();
+			}
 
             var idx = $.inArray(button, host);
             host.splice(idx, 1);
@@ -1129,13 +1160,18 @@
 				} else {
                     attachTo.push(built);
                 }
+                
+				// Any button type can have a drop icon set
+				if (built.conf.dropIcon && !built.conf.split) {
+					$(built.node)
+						.addClass(this.c.dom.button.dropClass)
+						.append(this.c.dom.button.dropHtml);
+				}
 				
 				// Create the dropdown for a collection
 				if (built.conf.buttons) {
 					built.collection = $('<' + domCollection.container.content.tag + '></' + domCollection.container.content.tag + '>');
 					built.conf._collection = built.collection;
-
-					$(built.node).append(domCollection.action.dropHtml);
 
 					this._expandButton(
 						built.buttons,
@@ -1282,7 +1318,7 @@
 					else {
 						run(e, dt, button, config, function() { });
 					}
-				}
+				};
 
 				var tag = config.tag || dom.tag;
 				var clickBlurs = config.clickBlurs === undefined ? true : config.clickBlurs;
@@ -1448,6 +1484,7 @@
 					.append(button);
 
 				var dropButtonConfig = $.extend(config, {
+					autoClose: true,
 					align: dropdownConf.dropdown.align,
 					attr: {
 						'aria-haspopup': 'dialog',
@@ -1476,7 +1513,8 @@
 				var dropButton = $(
 					'<button class="' + dropdownConf.dropdown.className + ' dt-button"></button>'
 				)
-					.html(dropdownConf.dropdown.dropHtml)
+					.html(this.c.dom.button.dropHtml)
+					.addClass(this.c.dom.button.dropClass)
 					.on('click.dtb', function (e) {
 						e.preventDefault();
 						e.stopPropagation();
@@ -1517,6 +1555,57 @@
 				textNode: textNode
 			};
         },
+        
+		/**
+		 * Spin over buttons checking if splits should be enabled or not.
+		 * @param {*} buttons Array of buttons to check
+		 */
+		_checkSplitEnable: function(buttons) {
+			if (!buttons) {
+				buttons = this.s.buttons;
+			}
+
+			for (var i = 0; i < buttons.length; i++) {
+				var button = buttons[i];
+
+				// Check if the button is a split one and if so, determine
+				// its state
+				if (button.isSplit) {
+					var splitBtn = button.node.childNodes[1];
+
+					if (this._checkAnyEnabled(button.buttons)) {
+						// Enable the split
+						$(splitBtn)
+							.removeClass(this.c.dom.button.disabled)
+							.prop('disabled', false);
+					}
+					else {
+						$(splitBtn)
+							.addClass(this.c.dom.button.disabled)
+							.prop('disabled', false);
+					}
+				}
+				else if (button.isCollection) {
+					// Nest down into collections
+					this._checkSplitEnable(button.buttons);
+				}
+			}
+		},
+
+		/**
+		 * Check an array of buttons and see if any are enabled in it
+		 * @param {*} buttons Button array
+		 * @returns true if a button is enabled, false otherwise
+		 */
+		_checkAnyEnabled: function(buttons) {
+			for (var i = 0; i < buttons.length; i++) {
+				if (!buttons[i].disabled) {
+					return true;
+				}
+			}
+
+			return false;
+		},
 
         /**
          * Get the button object from a node (recursive)
@@ -1536,7 +1625,7 @@
             }
 
             for (var i = 0, ien = buttons.length; i < ien; i++) {
-                if (buttons[i].node === node) {
+				if (buttons[i].node === node || $(buttons[i].node).children().eq(0).get(0) === node) {
                     return buttons[i];
                 }
 
@@ -1824,7 +1913,8 @@
 			);
 
 			var containerSelector = options.tag + '.' + options.containerClassName.replace(/ /g, '.');
-			var hostNode = hostButton.node();
+			var hostButtonNode = hostButton.node();
+			var hostNode = options.collectionLayout.includes('fixed') ? $('body') : hostButton.node();
 
 			var close = function() {
 				closed = true;
@@ -1845,6 +1935,8 @@
 				$('body').off('.dtb-collection');
 				dt.off('buttons-action.b-internal');
 				dt.off('destroy');
+				
+				$('body').trigger('buttons-popover-hide.dt');
 			};
 
 			if (content === false) {
@@ -1862,6 +1954,26 @@
 				}
 
 				close();
+			}
+			
+			// Sort buttons if defined
+			if (options.sort) {
+				var elements = $('button', content)
+					.map(function(idx, el) {
+						return {
+							text: $(el).text(),
+							el: el
+						};
+					})
+					.toArray();
+
+				elements.sort(function(a, b) {
+					return a.text.localeCompare(b.text);
+				});
+
+				$(content).append(elements.map(function(v) {
+					return v.el;
+				}));
 			}
 
 			// Try to be smart about the layout
@@ -1894,10 +2006,10 @@
 				.attr('role', 'menu')
 				.appendTo(display);
 
-			hostNode.attr('aria-expanded', 'true');
+			hostButtonNode.attr('aria-expanded', 'true');
 
 			if (hostNode.parents('body')[0] !== document.body) {
-				hostNode = document.body.lastChild;
+				hostNode = $(document.body).children('div, section, p').last();
 			}
 
 			if (options.popoverTitle) {
@@ -2009,7 +2121,7 @@
 						popoverSizes.marginBottom;
 				}
 
-				if (containerPosition.top + top < $(window).scrollTop()) {
+				if (offsetParent.offset().top + top < $(window).scrollTop()) {
 					// Correction for when the top is beyond the top of the page
 					top = buttonPosition.top + hostNode.outerHeight();
 				}
@@ -2379,6 +2491,11 @@
 	 * @param {*} str Data to strip
 	 */
 	Buttons.stripData = function (str, config) {
+		// If the input is an HTML element, we can use the HTML from it (HTML might be stripped below).
+		if (str !== null && typeof str === 'object' && str.nodeName && str.nodeType) {
+			str = str.innerHTML;
+		}
+		
 		if (typeof str !== 'string') {
 			return str;
 		}
@@ -2408,6 +2525,14 @@
 			else {
 				_exportTextarea.innerHTML = str;
 				str = _exportTextarea.value;
+			}
+		}
+		
+		// Prevent Excel from running a formula
+		if (!config || config.escapeExcelFormula) {
+			if (str.match(/^[=+\-@\t\r]/)) {
+				console.log('matching and updateing');
+				str = "'" + str;
 			}
 		}
 
@@ -2469,7 +2594,7 @@
      * @static
      *
      */
-    Buttons.version = '3.1.2';
+    Buttons.version = '3.2.2';
 
 
     $.extend(_dtButtons, {
@@ -2479,6 +2604,7 @@
             },
             className: 'buttons-collection',
 			closeButton: false,
+			dropIcon: true,
 			init: function (dt, button) {
 				button.attr('aria-expanded', false);
 			},
@@ -3232,6 +3358,7 @@
 				stripHtml: true,
 				stripNewlines: true,
 				decodeEntities: true,
+				escapeExcelFormula: false,
 				trim: true,
 				format: {
 					header: function (d) {
