@@ -37,6 +37,7 @@
 
 				// copy and modify SingleSelection adapter
 				this.clear();
+				this.container.$dropdown.find(".select2-search--dropdown").addClass('d-block')
 
 				let $rendered = this.$selection.find('.select2-selection__rendered');
 				let formatted = "";
