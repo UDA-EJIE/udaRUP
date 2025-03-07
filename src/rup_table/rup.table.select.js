@@ -147,19 +147,6 @@
         }
     }
 
-    /**
-     * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
-     *
-     *
-     * This will occur _after_ the initial DataTables initialisation, although
-     * before Ajax data is rendered
-     *
-     * @name drawSelectId
-     * @function
-     * @since UDA 3.4.0
-     *
-     * 
-     */
     function _selectRowIndex(dt, index, tr) {
         var ctx = dt.settings()[0];
         ctx.multiselection.selectedRowsPerPage = [];
@@ -266,14 +253,6 @@
  	        }
         }
     });
-
-
-    // Common events with suitable namespaces
-    function namespacedEvents(config) {
-        var unique = config._eventNamespace;
-
-        return 'draw.dt.DT' + unique + ' select.dt.DT' + unique + ' deselect.dt.DT' + unique;
-    }
 
 
     /* * * ** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
