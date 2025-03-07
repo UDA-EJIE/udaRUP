@@ -1,4 +1,4 @@
-/*! Select for DataTables 1.7.0
+/*! Select for DataTables 3.0.0
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     Select
  * @description Select for DataTables
  * @module      "rup.table.select"
- * @version     1.7.0
+ * @version     3.0.0
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -44,15 +44,14 @@
         // Browser
         factory(jQuery, window, document);
     }
-}(function ($, window, document, undefined) {
+}(function ($, window, document) {
     'use strict';
     var DataTable = $.fn.dataTable;
-
 
     // Version information for debugger
     DataTable.select = {};
 
-    DataTable.select.version = '1.7.0';
+    DataTable.select.version = '3.0.0';
 
     /**
      * Se inicializa el componente select
@@ -66,6 +65,11 @@
      */
     DataTable.select.init = function (dt) {
 		var ctx = dt.settings()[0];
+
+		if (!DataTable.versionCheck('2')) {
+			throw 'Warning: Select requires DataTables 2 or newer';
+		}
+		
 		ctx.select = [];
 
 		if (ctx._select) {
@@ -111,11 +115,11 @@
 			}));
 		}
     };
+    
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * Local functions
      */
-
 
     /**
      * Pinta los elementos selecionables, porque tiene los ids almacenados y mete la clase que se le indica.
