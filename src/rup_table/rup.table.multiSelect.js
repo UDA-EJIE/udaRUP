@@ -220,56 +220,6 @@
         }
     };
 
-    function _selectRowIndex(dt, index, tr) {
-        var ctx = dt.settings()[0];
-        ctx.multiselection.selectedRowsPerPage = [];
-        ctx.oInit.multiSelect.funcionParams = '';
-        var rowsBody = $(ctx.nTBody);
-
-        if (tr.hasClass('tr-highlight')) {
-            tr.removeClass('selected tr-highlight');
-            if (tr.next('.child').length >= 1) {
-                tr.next('.child').removeClass('selected tr-highlight');
-            }
-            ctx.multiselection.numSelected = 0;
-            ctx.multiselection.selectedIds = [];
-            ctx.multiselection.lastSelectedId = '';
-            // Si es en edicion en linea, no hacer nada
-            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && DataTable.Api().inlineEdit.editSameLine(ctx, index)) {
-                // Seleccionar la fila otra vez.
-                _selectRowIndex(dt, index, tr);
-            }
-        } else {
-            $('tr', rowsBody).removeClass('selected tr-highlight');
-            tr.addClass('selected tr-highlight');
-            if (tr.next('.child').length >= 1) {
-                tr.next('.child').addClass('selected tr-highlight');
-            }
-            tr.triggerHandler('tableHighlightRowAsSelected');
-            var row = ctx.json.rows[index];
-            if (row !== undefined) {
-                var arra = {
-                    id: DataTable.Api().rupTable.getIdPk(row, ctx.oInit),
-                    page: dt.page() + 1,
-                    line: index
-                };
-                ctx.multiselection.selectedRowsPerPage.splice(0, 0, arra);
-                ctx.multiselection.numSelected = 1;
-                ctx.multiselection.selectedIds = [DataTable.Api().rupTable.getIdPk(row, ctx.oInit)];
-                ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
-            }
-            // Si es en edicion en linea
-            if (!ctx.oInit.noEdit && ctx.oInit.inlineEdit !== undefined && ctx.inlineEdit.lastRow !== undefined &&
-                ctx.inlineEdit.lastRow.idx !== index) {
-                DataTable.Api().inlineEdit.restaurarFila(ctx, true);
-            }
-        }
-
-        if (ctx.oInit.buttons !== undefined) {
-            DataTable.Api().buttons.displayRegex(ctx);
-        }
-    }
-
 	/*
 	
 	Select is a collection of API methods, event handlers, event emitters and
@@ -334,97 +284,6 @@
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Local functions
 	 */
-
-    /**
-     * Add one or more cells to the selection when shift clicking in OS selection
-     * style cell selection.
-     *
-     * Cell range is more complicated than row and column as we want to select
-     * in the visible grid rather than by index in sequence. For example, if you
-     * click first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1
-     * should also be selected (and not 1-3, 1-4. etc)
-     *
-     * @name cellRange
-     * @function
-     * @since UDA 3.4.0 
-     *
-     * @param  {DataTable.Api} dt   DataTable
-     * @param  {object}        idx  Cell index to select to
-     * @param  {object}        last Cell index to select from
-     * 
-     */
-    function cellRange(dt, idx, last) {
-        var indexes;
-        var columnIndexes;
-        var rowIndexes;
-        var selectColumns = function (start, end) {
-            if (start > end) {
-                var tmp = end;
-                end = start;
-                start = tmp;
-            }
-
-            var record = false;
-            return dt.columns(':visible').indexes().filter(function (i) {
-                if (i === start) {
-                    record = true;
-                }
-
-                if (i === end) {
-					// not else if, as start might === end
-                    record = false;
-                    return true;
-                }
-
-                return record;
-            });
-        };
-
-        var selectRows = function (start, end) {
-            var indexes = dt.rows({ search: 'applied' }).indexes();
-
-            // Which comes first - might need to swap
-            if (indexes.indexOf(start) > indexes.indexOf(end)) {
-                var tmp = end;
-                end = start;
-                start = tmp;
-            }
-
-            var record = false;
-            return indexes.filter(function (i) {
-                if (i === start) {
-                    record = true;
-                }
-
-                if (i === end) {
-                    record = false;
-                    return true;
-                }
-
-                return record;
-            });
-        };
-
-        if (!dt.cells({ selected: true }).any() && !last) {
-            // select from the top left cell to this one
-            columnIndexes = selectColumns(0, idx.column);
-            rowIndexes = selectRows(0, idx.row);
-        } else {
-            // Get column indexes between old and new
-            columnIndexes = selectColumns(last.column, idx.column);
-            rowIndexes = selectRows(last.row, idx.row);
-        }
-
-        indexes = dt.cells(rowIndexes, columnIndexes).flatten();
-
-        if (!dt.cells(idx, { selected: true }).any()) {
-            // Select range
-            dt.cells(indexes).select();
-        } else {
-            // Deselect range
-            dt.cells(indexes).deselect();
-        }
-    }
 
     /**
      * Attach mouse listeners to the table to allow mouse selection of items
@@ -1469,53 +1328,6 @@
         $('#' + $.escapeSelector(ctx.sTableId)).trigger('rupTable_deselectAll',ctx);
     }
 
-
-    /**
-     * Add one or more items (rows or columns) to the selection when shift clicking
-     * in OS selection style
-     *
-     * @name rowColumnRange
-     * @function
-     * @since UDA 3.4.0
-     * 
-     * @param  {DataTable.Api} dt   DataTable
-     * @param  {string}        type Row or column range selector
-     * @param  {object}        idx  Item index to select to
-     * @param  {object}        last Item index to select from
-     * 
-     */
-    function rowColumnRange(dt, type, idx, last) {
-        // Add a range of rows from the last selected row to this one
-        var indexes = dt[type + 's']({ search: 'applied' }).indexes();
-		var idx1 = indexes.indexOf(last);
-		var idx2 = indexes.indexOf(idx);
-
-        if (!dt[type + 's']({ selected: true }).any() && idx1 === -1) {
-            // select from top to here - slightly odd, but both Windows and Mac OS
-            // do this
-            indexes.splice(indexes.indexOf(idx) + 1, indexes.length);
-        } else {
-            // reverse so we can shift click 'up' as well as down
-            if (idx1 > idx2) {
-                var tmp = idx2;
-                idx2 = idx1;
-                idx1 = tmp;
-            }
-
-            indexes.splice(idx2 + 1, indexes.length);
-            indexes.splice(0, idx1);
-        }
-
-        if (!dt[type](idx, { selected: true }).any()) {
-            // Select range
-            dt[type + 's'](indexes).select();
-        } else {
-            // Deselect range - need to keep the clicked on row selected
-			indexes.splice(indexes.indexOf(idx), 1);
-            dt[type + 's'](indexes).deselect();
-        }
-    }
-
     /**
      * Clear all selected items
      *
@@ -1537,80 +1349,6 @@
             api.cells({ selected: true }).deselect();
         }
     }
-    
-    /**
-	 * Select items based on the current configuration for style and items.
-	 *
-	 * @param  {object}             e    Mouse event object
-	 * @param  {DataTables.Api}     dt   DataTable
-	 * @param  {DataTable.settings} ctx  Settings object of the host DataTable
-	 * @param  {string}             type Items to select
-	 * @param  {int|object}         idx  Index of the item to select
-	 * @private
-	 */
-	function typeSelect(e, dt, ctx, type, idx) {
-		var style = dt.select.style();
-		var toggleable = dt.select.toggleable();
-		var isSelected = dt[type](idx, { selected: true }).any();
-
-		if (isSelected && !toggleable) {
-			return;
-		}
-
-		if (style === 'os') {
-			if (e.ctrlKey || e.metaKey) {
-				// Add or remove from the selection
-				dt[type](idx).select(!isSelected);
-			}
-			else if (e.shiftKey) {
-				if (type === 'cell') {
-					cellRange(dt, idx, ctx._multiSelect_lastCell || null);
-				}
-				else {
-					rowColumnRange(
-						dt,
-						type,
-						idx,
-						ctx._multiSelect_lastCell ? ctx._multiSelect_lastCell[type] : null
-					);
-				}
-			}
-			else {
-				// No cmd or shift click - deselect if selected, or select
-				// this row only
-				var selected = dt[type + 's']({ selected: true });
-
-				if (isSelected && selected.flatten().length === 1) {
-					dt[type](idx).deselect();
-				}
-				else {
-					selected.deselect();
-					dt[type](idx).select();
-				}
-			}
-		}
-		else if (style == 'multi+shift') {
-			if (e.shiftKey) {
-				if (type === 'cell') {
-					cellRange(dt, idx, ctx._multiSelect_lastCell || null);
-				}
-				else {
-					rowColumnRange(
-						dt,
-						type,
-						idx,
-						ctx._multiSelect_lastCell ? ctx._multiSelect_lastCell[type] : null
-					);
-				}
-			}
-			else {
-				dt[type](idx).select(!isSelected);
-			}
-		}
-		else {
-			dt[type](idx).select(!isSelected);
-		}
-	}
 
 	function _safeId(node) {
 		return node.id.replace(/[^a-zA-Z0-9\-\_]/g, '-');
@@ -2481,22 +2219,6 @@
 
         return 'draw.dt.DT' + unique + ' multiSelect.dt.DT' + unique + ' deselect.dt.DT' + unique;
     }
-    
-	function enabled(dt, config) {
-		if (config.limitTo.indexOf('rows') !== -1 && dt.rows({ selected: true }).any()) {
-			return true;
-		}
-	
-		if (config.limitTo.indexOf('columns') !== -1 && dt.columns({ selected: true }).any()) {
-			return true;
-		}
-	
-		if (config.limitTo.indexOf('cells') !== -1 && dt.cells({ selected: true }).any()) {
-			return true;
-		}
-	
-		return false;
-	}
 
     var _buttonNamespace = 0;
 
