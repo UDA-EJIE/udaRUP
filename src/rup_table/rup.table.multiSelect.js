@@ -1,4 +1,4 @@
-/*! MultiSelect for DataTables 2.1.0
+/*! MultiSelect for DataTables 3.0.0
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     MultiSelect
  * @description MultiSelect for DataTables
  * @module      "rup.table.multiSelect"
- * @version     2.1.0
+ * @version     3.0.0
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -56,7 +56,7 @@
 		checkbox: 'dt-select-checkbox'
 	};
 
-    DataTable.multiSelect.version = '2.1.0';
+    DataTable.multiSelect.version = '3.0.0';
 
     /**
      * Se inicializa el componente multiselect
@@ -138,6 +138,7 @@
         var selector = 'td';
         var className = 'selected tr-highlight';
         var setStyle = false;
+		var keys = false;
 
 		ctx._multiSelect = {
 			infoEls: []
@@ -185,12 +186,17 @@
             if (opts.className !== undefined) {
                 className = opts.className;
             }
+
+			if (opts.keys !== undefined) {
+				keys = opts.keys;
+			}
         }
 
         dt.multiSelect.selector(selector);
         dt.multiSelect.items(items);
         dt.multiSelect.style(style);
         dt.multiSelect.info(info);
+		dt.multiSelect.keys(keys);
         ctx._multiSelect.className = className;
 
         // Sort table based on selected rows. Requires Select Datatables extension
@@ -292,13 +298,13 @@
 	extent, these of API methods *is* Select. It is basically a collection of helper
 	functions that can be used to select items in a DataTable.
 	
-	Configuration of select is held in the object `_select` which is attached to the
+	Configuration of select is held in the object `_multiSelect` which is attached to the
 	DataTables settings object on initialisation. Select being available on a table
 	is not optional when Select is loaded, but its default is for selection only to
 	be available via the API - so the end user wouldn't be able to select rows
 	without additional configuration.
 	
-	The `_select` object contains the following properties:
+	The `_multiSelect` object contains the following properties:
 	
 	```
 	{
@@ -731,14 +737,16 @@
 		}
 		
 		var ctx = api.settings()[0];
-
-		// If _multiSelect_set has any length, then ids are available and should be used
-		// as the counter. Otherwise use the API to workout how many rows are
-		// selected.
-		var rowSetLength = api.settings()[0]._multiSelect_set.length;
+		var rowSetLength = ctx._multiSelect_set.length;
 		var rows = rowSetLength ? rowSetLength : api.rows({ selected: true }).count();
 		var columns = api.columns({ selected: true }).count();
 		var cells = api.cells({ selected: true }).count();
+		
+		// If subtractive selection, then we need to take the number of rows and
+		// subtract those that have been deselected
+		if (ctx._multiSelect_mode === 'subtractive') {
+			rows = api.page.info().recordsDisplay - rowSetLength;
+		}
 
         var add = function (el, name, num) {
             name = jQuery.rup.i18nTemplate(ctx.oLanguage, 'rup_table.fila');
@@ -807,6 +815,140 @@
 
         $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMultiSelectionRowNumberUpdate',ctx);
     }
+    
+	function keysSet(dt) {
+		var ctx = dt.settings()[0];
+		var flag = ctx._multiSelect.keys;
+		var namespace = 'dts-keys-' + ctx.sTableId;
+
+		if (flag) {
+			// Need a tabindex of the `tr` elements to make them focusable by the browser
+			$(dt.rows({ page: 'current' }).nodes()).attr('tabindex', 0);
+
+			dt.on('draw.' + namespace, function() {
+				$(dt.rows({ page: 'current' }).nodes()).attr('tabindex', 0);
+			});
+
+			// Listen on document for tab, up and down
+			$(document).on('keydown.' + namespace, function(e) {
+				var key = e.keyCode;
+				var active = document.activeElement;
+
+				// Can't use e.key as it wasn't widely supported until 2017
+				// 9 Tab
+				// 13 Return
+				// 32 Space
+				// 38 ArrowUp
+				// 40 ArrowDown
+				if (![9, 13, 32, 38, 40].includes(key)) {
+					return;
+				}
+
+				var nodes = dt.rows({ page: 'current' }).nodes().toArray();
+				var idx = nodes.indexOf(active);
+				var preventDefault = true;
+
+				// Only take an action if a row has focus
+				if (idx === -1) {
+					return;
+				}
+
+				if (key === 9) {
+					// Tab focus change
+					if (e.shift === false && idx === nodes.length - 1) {
+						keysPageDown(dt);
+					}
+					else if (e.shift === true && idx === 0) {
+						keysPageUp(dt);
+					}
+					else {
+						// Browser will do it for us
+						preventDefault = false;
+					}
+				}
+				else if (key === 13 || key === 32) {
+					// Row selection / deselection
+					var row = dt.row(active);
+
+					if (row.selected()) {
+						row.deselect();
+					}
+					else {
+						row.select();
+					}
+				}
+				else if (key === 38) {
+					// Move up
+					if (idx > 0) {
+						nodes[idx - 1].focus();
+					}
+					else {
+						keysPageUp(dt);
+					}
+				}
+				else {
+					// Move down
+					if (idx < nodes.length - 1) {
+						nodes[idx + 1].focus();
+					}
+					else {
+						keysPageDown(dt);
+					}
+				}
+
+				if (preventDefault) {
+					e.stopPropagation();
+					e.preventDefault();
+				}
+			});
+		}
+		else {
+			// Stop the rows from being able to gain focus
+			$(dt.rows().nodes()).removeAttr('tabindex');
+
+			// Nuke events
+			dt.off('draw.' + namespace);
+			$(document).off('keydown.' + namespace);
+		}
+	}
+
+	/**
+	 * Change to the next page and focus on the first row
+	 *
+	 * @param {DataTable.Api} dt DataTable instance
+	 */
+	function keysPageDown(dt) {
+		// Is there another page to turn to?
+		var info = dt.page.info();
+
+		if (info.page < info.pages - 1) {
+			dt
+				.one('draw', function() {
+					dt.row(':first-child').node().focus();
+				})
+				.page('next')
+				.draw(false);
+		}
+	}
+
+	/**
+	 * Change to the previous page and focus on the last row
+	 *
+	 * @param {DataTable.Api} dt DataTable instance
+	 */
+	function keysPageUp(dt) {
+		// Is there another page to turn to?
+		var info = dt.page.info();
+
+		if (info.page > 0) {
+			dt
+				.one('draw', function() {
+					dt.row(':last-child').node().focus();
+				})
+				.page('previous')
+				.draw(false);
+		}
+	}
 
     /**
      * Initialisation of a new table. Attach event handlers and callbacks to allow
@@ -826,7 +968,10 @@
         var api = new DataTable.Api(ctx);
         ctx._multiSelect_init = true;
         
-		// _multiSelect_set contains a list of the ids of all rows that are selected
+		// When `additive` then `_multiSelect_set` contains a list of the row ids that
+		// are selected. If `subtractive` then all rows are selected, except those
+		// in `_multiSelect_set`, which is a list of ids.
+		ctx._multiSelect_mode = 'additive';
 		ctx._multiSelect_set = [];
 
         // Row callback so that classes can be added to rows and cells if the item
@@ -842,7 +987,11 @@
 			var id = api.row(index).id();
 
 			// Row
-			if (d._multiSelect_selected || (id !== 'undefined' && ctx._multiSelect_set.includes(id))) {
+			if (
+				d._multiSelect_selected ||
+				(ctx._multiSelect_mode === 'additive' && ctx._multiSelect_set.includes(id)) ||
+				(ctx._multiSelect_mode === 'subtractive' && !ctx._multiSelect_set.includes(id))
+			) {
 				d._multiSelect_selected = true;
 				$(row)
 					.addClass(ctx._multiSelect.className)
@@ -1482,7 +1631,16 @@
 
 			var ctx = api.settings()[0];
 
-			_add(api, ctx._multiSelect_set, indexes);
+			if (ctx._multiSelect_mode === 'additive') {
+				// Add row to the selection list if it isn't already there
+				_add(api, ctx._multiSelect_set, indexes);
+			}
+			else {
+				// Subtractive - if a row is selected it should not in the list
+				// as in subtractive mode the list gives the rows which are not
+				// selected
+				_remove(api, ctx._multiSelect_set, indexes);
+			}
 		});
 
 		api.on('deselect', function(e, dt, type, indexes) {
@@ -1493,7 +1651,14 @@
 
 			var ctx = api.settings()[0];
 
-			_remove(api, ctx._multiSelect_set, indexes);
+			if (ctx._multiSelect_mode === 'additive') {
+				// List is of those rows selected, so remove it
+				_remove(api, ctx._multiSelect_set, indexes);
+			}
+			else {
+				// List is of rows which are deselected, so add it!
+				_add(api, ctx._multiSelect_set, indexes);
+			}
 		});
 	}
 	
@@ -1787,6 +1952,22 @@
             eventTrigger(new DataTable.Api(ctx), 'selectItems', [items]);
         });
     });
+    
+	apiRegister('multiSelect.keys()', function(flag) {
+		if (flag === undefined) {
+			return this.context[0]._multiSelect.keys;
+		}
+
+		return this.iterator('table', function(ctx) {
+			if (!ctx._multiSelect) {
+				DataTable.multiSelect.init(new DataTable.Api(ctx));
+			}
+
+			ctx._multiSelect.keys = flag;
+
+			keysSet(new DataTable.Api(ctx));
+		});
+	});
 
     // Takes effect from the _next_ selection. None disables future selection, but
     // does not clear the current selection. Use the `deselect` methods for that
@@ -1833,7 +2014,7 @@
         });
     });
     
-	apiRegister('select.selectable()', function(set) {
+	apiRegister('multiSelect.selectable()', function(set) {
 		let ctx = this.context[0];
 
 		if (set) {
@@ -1844,7 +2025,7 @@
 		return ctx._multiSelect.selectable;
 	});
 
-	apiRegister('select.last()', function(set) {
+	apiRegister('multiSelect.last()', function(set) {
 		let ctx = this.context[0];
 
 		if (set) {
@@ -1855,12 +2036,45 @@
 		return ctx._multiSelect_lastCell;
 	});
 
-	apiRegister('select.cumulative()', function() {
+	apiRegister('multiSelect.cumulative()', function(mode) {
+		if (mode) {
+			return this.iterator('table', function(ctx) {
+				if (ctx._multiSelect_mode === mode) {
+					return;
+				}
+
+				var dt = new DataTable.Api(ctx);
+
+				// Convert from the current mode, to the new
+				if (mode === 'subtractive') {
+					// For subtractive mode we track the row ids which are not selected
+					var unselected = dt.rows({ selected: false }).ids().toArray();
+
+					ctx._multiSelect_mode = mode;
+					ctx._multiSelect_set.length = 0;
+					ctx._multiSelect_set.push.apply(ctx._multiSelect_set, unselected);
+				}
+				else {
+					// Switching to additive, so selected rows are to be used
+					var selected = dt.rows({ selected: true }).ids().toArray();
+
+					ctx._multiSelect_mode = mode;
+					ctx._multiSelect_set.length = 0;
+					ctx._multiSelect_set.push.apply(ctx._multiSelect_set, selected);
+				}
+			}).draw(false);
+		}
+
 		let ctx = this.context[0];
 
-		return ctx && ctx._multiSelect_set
-			? ctx._multiSelect_set
-			: [];
+		if (ctx && ctx._multiSelect_set) {
+			return {
+				mode: ctx._multiSelect_mode,
+				rows: ctx._multiSelect_set
+			};
+		}
+
+		return null;
 	});
 
     apiRegister('multiSelect.deselectAll()', function (dt) {
@@ -2032,6 +2246,22 @@
 			return true;
 		}
 		return false;
+	});
+	
+	apiRegister('row().focus()', function() {
+		var ctx = this.context[0];
+
+		if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]].nTr) {
+			ctx.aoData[this[0]].nTr.focus();
+		}
+	});
+
+	apiRegister('row().blur()', function() {
+		var ctx = this.context[0];
+
+		if (ctx && this.length && ctx.aoData[this[0]] && ctx.aoData[this[0]].nTr) {
+			ctx.aoData[this[0]].nTr.blur();
+		}
 	});
 
     apiRegisterPlural('columns().multiSelect()', 'column().multiSelect()', function (multiSelect) {
