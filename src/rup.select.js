@@ -1436,7 +1436,7 @@
         		}
         	}
 			
-    	 	if(settings.firstLoad){// ejecutar los datos
+    	 	if(settings.firstLoad || settings.loadOnStartUp){// ejecutar los datos
     	 		
     	 		let $el = $('#' + $.escapeSelector(settings.id));
     	 		let mySelect = $el.data('select2');
