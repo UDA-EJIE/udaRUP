@@ -47,25 +47,26 @@
     'use strict';
     var DataTable = $.fn.dataTable;
 
-    DataTable.Responsive.prototype._detailsObj = function(rowIdx)
-    {
-        var that = this;
-        var dt = this.s.dt;
+	DataTable.Responsive.prototype._detailsObj = function(rowIdx) {
+		var that = this;
+		var dt = this.s.dt;
 
-        return $.map( this.s.columns, function( col, i ) {
-        // Never and control columns should not be passed to the renderer
-            if ( col.never || col.control ) {
-                return;
-            }
+		return $.map(this.s.columns, function(col, i) {
+			// Never and control columns should not be passed to the renderer
+			if (col.never || col.control) {
+				return;
+			}
 
-            return {
-                title:       dt.settings()[0].aoColumns[ i ].sTitle.substring(dt.settings()[0].aoColumns[ i ].sTitle.indexOf('<span>'), dt.settings()[0].aoColumns[ i ].sTitle.indexOf('</span>') + 7),
-                data:        dt.cell( rowIdx, i ).render( that.c.orthogonal ),
-                hidden:      dt.column( i ).visible() && !that.s.current[ i ],
-                columnIndex: i,
-                rowIndex:    rowIdx
-            };
-        } );
-    };
+			var dtCol = dt.settings()[0].aoColumns[i];
+
+			return {
+				title: dtCol.sTitle.substring(dtCol.sTitle.indexOf('<span>'), dtCol.sTitle.indexOf('</span>') + 7),
+				data: dt.cell(rowIdx, i).render(that.c.orthogonal),
+				hidden: dt.column(i).visible() && !that.s.current[i],
+				columnIndex: i,
+				rowIndex: rowIdx
+			};
+		});
+	};
 
 }));
