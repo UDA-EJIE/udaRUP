@@ -1172,6 +1172,7 @@
 						if(settings.multiple){
 							let searchField = document.querySelector('.select2-search--dropdown .select2-search__field');
 							params.data.q = searchField.value;
+							__cachekey = params.data.q;
 						}else{						
 				        	params.data.q = mySelect.$container.find('input').val();
 				        	__cachekey = params.data.q;
