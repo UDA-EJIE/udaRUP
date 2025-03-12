@@ -1971,7 +1971,7 @@
 				
 				if(tabla.context[0].oInit.scrollX && !tabla.context[0].oInit.showScrollFootInner){
 					tabla.on('init.dt', function () {
-					    $('#'+tabla.context[0].sTableId+'_wrapper .dataTables_scrollFootInner').hide();
+					    $('#'+$.escapeSelector(tabla.context[0].sTableId)+'_wrapper .dataTables_scrollFootInner').hide();
 					});
 				}
 
