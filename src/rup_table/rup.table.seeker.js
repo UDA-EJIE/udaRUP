@@ -710,8 +710,8 @@
         if (ctx.oInit.seeker !== undefined && ctx.oInit.seeker.activate !== false ) {
             DataTable.seeker.init(new DataTable.Api(ctx));
 			if(ctx.oInit.scrollX){//Si hay scroll para no perder el seeker
-				$('#'+ctx.sTableId+'_wrapper .dataTables_scrollBody').on('scroll', function() {
-				    $.fn.dataTable.seeker.init(new $.fn.dataTable.Api($('#'+ctx.sTableId).DataTable().settings()[0]));
+				$('#' + $.escapeSelector(ctx.sTableId) + '_wrapper .dataTables_scrollBody').on('scroll', function() {
+				    $.fn.dataTable.seeker.init(new $.fn.dataTable.Api($('#' + $.escapeSelector(ctx.sTableId)).DataTable().settings()[0]));
 				});
 			}			
         } else {
