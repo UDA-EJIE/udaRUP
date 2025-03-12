@@ -532,59 +532,71 @@
      * @param {object} ctx - Es el contecto del table donde esta la configuración del mismo.
      *
      */
-    function _createRupComponent(dt, ctx) {
-        var colModel = ctx.oInit.colModel,
-            searchEditOptions;
-        if (colModel !== undefined) {
-        	var idTabla = $.escapeSelector(ctx.sTableId);
-            $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)').each(function () { // El primer tr corresponde al desplegable de filtros
+	function _createRupComponent(dt, ctx) {
+	    var colModel = ctx.oInit.colModel,
+	        searchEditOptions;
+	    if (colModel !== undefined) {
+	        var idTabla = $.escapeSelector(ctx.sTableId);
 
-                // Se añade la clase necesaria para mostrar los inputs con estilos material
-                $(this).addClass('form-groupMaterial');
-                
-                let nombre = $(this).find('input, select').attr('name');
-                let cellColModel = $.grep(colModel, function (v) {
-                    return v.index.toUpperCase() === nombre.toUpperCase();
-                });
+	        // Buscar en la primera fila del tfoot
+	        var $footerCells = $('#' + idTabla + ' tfoot tr').eq(1).find('th:not(.select-checkbox)');
+	        var $inputs = $footerCells.find('input, select');
 
-                if(cellColModel !== undefined){
-                	cellColModel = cellColModel[0];
-	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined) ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-	
+	        // Si no hay elementos en la primera fila, buscar en la segunda
+	        if ($inputs.length === 0) {
+	            $footerCells = $('#' + idTabla + ' tfoot tr').eq(2).find('th:not(.select-checkbox)');
+	            $inputs = $footerCells.find('input, select');
+	        }
+
+	        // Iterar sobre las columnas del tfoot
+	        $footerCells.each(function () {
+	            $(this).addClass('form-groupMaterial');
+
+	            let nombre = $(this).find('input, select').attr('name');
+	            let cellColModel = $.grep(colModel, function (v) {
+	                return v.index.toUpperCase() === nombre.toUpperCase();
+	            });
+
+	            if (cellColModel !== undefined && cellColModel.length > 0) {
+	                cellColModel = cellColModel[0];
+	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined)
+	                    ? cellColModel.searchoptions.rupType
+	                    : cellColModel.rupType;
+
 	                var colModelName = cellColModel.name;
 	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
-	                
-	                if($elem.length == 1){
-	                	// Se añade el title de los elementos de acuerdo al colname
-	                	$elem.attr({
-	                		'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
-	                		'class': 'editable customelement form-control-customer'
-	                	}).removeAttr('readOnly');
-	                	
-	                	// Añadir label oculto que se usará principalmente para la gestión de los combos enlazados.
-	                	$('<label></label>', {
-	                		'for': $elem.attr('id'), 
-	                		'class': "d-none", 
-	                		'text': $elem.attr('placeholder')
-	                	}).insertAfter($elem);
-	                	
-	                	// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-	                	if (searchRupType !== undefined && cellColModel.searchoptions) {
-	                		searchEditOptions = cellColModel.searchoptions;
-	                		
-	                		if (new Set(["select"]).has(searchRupType)) {
-								searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
-							}
-	                		
-	                		// Invocación al componente RUP
-	                		$elem['rup_' + searchRupType](searchEditOptions);
-	                	}
-	                }
-            	}
-            });
-        }
 
-    }
+	                if ($elem.length == 1) {
+						// Se añade el title de los elementos de acuerdo al colname
+	                    $elem.attr({
+	                        'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
+	                        'class': 'editable customelement form-control-customer'
+	                    }).removeAttr('readOnly');
+
+						// Añadir label oculto que se usará principalmente para la gestión de los combos enlazados.
+	                    $('<label></label>', {
+	                        'for': $elem.attr('id'),
+	                        'class': "d-none",
+	                        'text': $elem.attr('placeholder')
+	                    }).insertAfter($elem);
+
+						// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
+	                    if (searchRupType !== undefined && cellColModel.searchoptions) {
+	                        searchEditOptions = cellColModel.searchoptions;
+
+	                        if (new Set(["select"]).has(searchRupType)) {
+	                            searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
+	                        }
+
+							// Invocación al componente RUP
+	                        $elem['rup_' + searchRupType](searchEditOptions);
+	                    }
+	                }
+	            }
+	        });
+	    }
+	}
+
 
     function _limpiarSeeker(dt, ctx) {
         $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableSeekerBeforeClear',ctx);
@@ -701,6 +713,11 @@
         }
         if (ctx.oInit.seeker !== undefined && ctx.oInit.seeker.activate !== false ) {
             DataTable.seeker.init(new DataTable.Api(ctx));
+			if(ctx.oInit.scrollX){//Si hay scroll para no perder el seeker
+				$('#' + $.escapeSelector(ctx.sTableId) + '_wrapper .dataTables_scrollBody').on('scroll', function() {
+				    $.fn.dataTable.seeker.init(new $.fn.dataTable.Api($('#' + $.escapeSelector(ctx.sTableId)).DataTable().settings()[0]));
+				});
+			}			
         } else {
             $('tfoot').hide();
         }

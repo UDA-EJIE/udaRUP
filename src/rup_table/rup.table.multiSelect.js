@@ -1066,8 +1066,8 @@
 
                 });
 
-                if (ctx.nTable.tHead !== null) {
-                    var th = $(ctx.nTable.tHead.rows[0].cells[0]);
+                if (ctx.nTHead !== null) {
+                    var th = $(ctx.nTHead.rows[0].cells[0]);
                     th.append(input, link);
                 }
 
@@ -1967,7 +1967,7 @@
         });
 
         //al paginar
-        var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
+        var input = $(ctx.nTHead.rows[0].cells[0]).find(':input');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);
@@ -2136,7 +2136,7 @@
         });
 
         //al paginar
-        var input = $(ctx.nTable.tHead.rows[0].cells[0]).find(':input');
+        var input = $(ctx.nTHead.rows[0].cells[0]).find(':input');
 
         if (checkPageSelectedAll(api, true)) {
             input.prop('checked', true);
