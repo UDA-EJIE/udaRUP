@@ -1600,16 +1600,9 @@
                     });
                 }
 
-                if (args[0].responsive === undefined) { //si el usuario no cambia el selector
-                    var responsive = {
-                        details: {
-                            type: 'column',
-                            target: 'td span.openResponsive'
-                        },
-                        selectorResponsive: 'td span.dtr-data'
-                    };
-
-                    options.responsive = responsive;
+				// Si la propieadad no ha sido definida, se establece el valor por defecto.
+                if (args[0].responsive === undefined) {
+                    options.responsive = $.fn.rup_table.defaults.responsive;
                 }
 
                 // Se añaden las clases CSS de los títulos y flechas de las columnas.
@@ -1886,7 +1879,7 @@
         responsive: {
             details: {
                 type: 'column',
-                target: 'tr'
+                target: 'td span.openResponsive'
             },
             selectorResponsive: 'td span.dtr-data'
         },
