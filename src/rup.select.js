@@ -119,7 +119,8 @@
 		 * @example $("#idSelect").rup_select('setRupValue', 'Si');
 		 */
         setRupValue: function (param) {
-            var $self = $(this),
+            var self = this,
+            	$self = $(self),
                 settings = $self.data('settings');
             
             // Tipo de select
@@ -145,7 +146,7 @@
  	              	if(data[0] !== undefined){
  	              	 if($('#' + $.escapeSelector(settings.id)).find("option[value='" + data[0] .id + "']").length == 0){
  	              	   data = data[0];
- 	              	   _this._createOption(settings,data);
+ 	              	   self._createOption(settings,data);
  	              	   param = data.id;// mantenga el cifrado
  	              	   texto = data.text;
  	              	 }else{
@@ -205,7 +206,7 @@
 	            		}
 	            		if(data[0] != undefined && $('#' + $.escapeSelector(settings.id)).find("option[value='" + data[0] .id + "']").length == 0){
 	            			data = data[0];
-	            			_this._createOption(settings,data);
+	            			self._createOption(settings,data);
 	            			arrayDatos.push(data.id);
 	            		}else{
 	            			arrayDatos.push(value);
@@ -495,8 +496,9 @@
 		 * @example $("#idSelect").rup_select("setSource", source, sourceParam);
 		 */
         setSource: function (source,sourceParam) {
+			var self = this;
         	if (source !== undefined && source !== '') {
-            	let $self = $(this);
+            	let $self = $(self);
             	let settings = $self.data().settings;
             	let dataSelect2 = $self.data('select2');
             	if($self.data().settings.data === undefined){// remoto
@@ -515,7 +517,7 @@
                 	$self.empty();
                 	if(settings.data !== undefined && settings.autocomplete){
                 		 $.each(settings.data, function () {
-                			 _this._createOption(settings, this);
+                			 self._createOption(settings, this);
                 		});
                 		
                 	}else{
@@ -960,6 +962,7 @@
 		 *            isParent - Si tiene datos en forma parent.
 		 */
         _parseLOCAL: function (data,i18nId,isParent) {
+			var self = this;
             let text;
             let array = data;
             if(isParent){// Si es padre llamar a la recursividad
@@ -967,7 +970,7 @@
             		data = data[0];
             	}
             	$.each(data, function (key, value) {
-            		data[key] = _this._parseLOCAL(data[key],i18nId,false);
+            		data[key] = self._parseLOCAL(data[key],i18nId,false);
             	});
             }else{
             	data = [];
@@ -1095,7 +1098,7 @@
 			 */
 
         _loadRemote: function (settings,first) {
-        	var rupSelect = this;
+        	var self = this;
         	settings.ajax = {
 				url: settings.url,
 			    dataType: settings.dataType,
@@ -1130,14 +1133,14 @@
 			    data: function () {
 			    	// Es necesario enviarlo vacío para que el componente subyacente no genere parámetros extra.
 			    	//se hará en el transport
-			    	return  _this._getParentsValues(settings, true);
+			    	return  self._getParentsValues(settings, true);
 			    },
 			    error: function (xhr, textStatus, errorThrown) {
 			               if (settings.onLoadError !== null) {
 			                 jQuery(settings.onLoadError(xhr, textStatus, errorThrown));
 			               } else {
 			            	 if(textStatus != 'abort'){//Si se hacen 2 llamadas se cancela la primera.
-			            		 rupSelect._ajaxError(xhr, textStatus, errorThrown);
+			            		 self._ajaxError(xhr, textStatus, errorThrown);
 			            	 }
 			            	 console.log(textStatus);
 			               }
@@ -1218,7 +1221,7 @@
 			            }, settings.extraParams);
 			        }
 			        if (settings.parent) {
-			        	var datosParent = _this._getParentsValues(settings, true);
+			        	var datosParent = self._getParentsValues(settings, true);
 			        	if(datosParent != ''){
 			        		if(settings.autocomplete){//añadir el data del padre
 			        			let padres = datosParent.split('&');//split por si tiene varios padres	
@@ -1423,7 +1426,7 @@
         	}else{
                 if (settings.placeholder == undefined || settings.placeholder == '') {
                     // si es vació se asigna el label
-                    settings.placeholder = rupSelect._getBlankLabel(settings.id);
+                    settings.placeholder = self._getBlankLabel(settings.id);
                  }
         		if(settings.autocomplete){
         			$('#' + $.escapeSelector(settings.id)).select2MultiCheckboxes(settings);
@@ -1526,10 +1529,11 @@
 		 *            args - Parámetros de inicialización del componente.
 		 */
         _init: function (args) {
-        	_this = this;
+			var self = this,
+				$self = $(self);
         	global.initRupI18nPromise.then(() => {
 	            if (args.length > 1) {
-	                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $(this).attr('id'));
+	                $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_global.initError') + $self.attr('id'));
 	            } else {
 	                // Se recogen y cruzan las paremetrizaciones del objeto
 	                var settings = $.extend({}, $.fn.rup_select.defaults, args[0]),
@@ -1538,7 +1542,7 @@
 	                    attrs;
 	
 	                // Se recoge el tabindex indicado en el elemento
-	                settings.tabindex = $(this).attr('tabindex');
+	                settings.tabindex = $self.attr('tabindex');
 	
 	                // Sobreescribir literales por defecto para
 					// multiselect:REVISAR
@@ -1546,11 +1550,11 @@
 					// $.rup.i18n.base.rup_select.multiselect);
 	
 	                // Se carga el identificador del padre del patron
-	                settings.id = $.escapeSelector($(this).attr('id'));
-	                if($(this).attr('name') === undefined){
-	                	$(this).attr('name',settings.id);
+	                settings.id = $.escapeSelector($self.attr('id'));
+	                if($self.attr('name') === undefined){
+	                	$self.attr('name',settings.id);
 	                }
-	                settings.name = $(this).attr('name');
+	                settings.name = $self.attr('name');
 	                $('#' + $.escapeSelector(settings.id)).attr('ruptype', 'select');
 	
 	                // Si no se recibe identificador para el acceso a literales
@@ -1562,10 +1566,10 @@
 	                // Guardar valor del INPUT
 	                settings.inputValue = $('#' + $.escapeSelector(settings.id)).val() === null ? $('#' + $.escapeSelector(settings.id)).prop('value') : $('#' + $.escapeSelector(settings.id)).val();
 	
-	                attrs = $(this).prop('attributes');
+	                attrs = $self.prop('attributes');
 	
 	                // Revisar apra el select
-	                if (settings.firstLoad === null && ($(this).is('select') && settings.loadFromSelect)) {
+	                if (settings.firstLoad === null && ($self.is('select') && settings.loadFromSelect)) {
 	                    loadAsLocal = true;
 	                }                
 	
@@ -1592,14 +1596,14 @@
 		                        if (data.style != null && data.id !== settings.blank) {
 		                            // adjust for custom placeholder values,
 									// restaurar
-		                            return _this._textIcon(data);
+		                            return self._textIcon(data);
 		                          }
 	
 		                        return data.text;
 		                      }
 		                	if(settings.placeholder == ''){// si es vació se
 															// asigna el label
-		                		settings.placeholder = this._getBlankLabel(settings.id)
+		                		settings.placeholder = self._getBlankLabel(settings.id)
 		                	}
 		                	if(settings.data !== undefined && !settings.multiple){// y si
 																					// no
@@ -1654,7 +1658,7 @@
 																									// placeholder
 																									// values,
 																									// restaurar
-			                			return _this._textIcon(data);
+			                			return self._textIcon(data);
 			                        }
 		
 			                        return data.text;
@@ -1668,7 +1672,7 @@
 																							// placeholder
 																							// values,
 																							// restaurar
-			                			return _this._textIcon(data);
+			                			return self._textIcon(data);
 			                        }
 		
 			                        return data.text;
@@ -1728,12 +1732,12 @@
 		    				settings.sorter = settings.sortered;
 		    			}
 		            	if(settings.dataGroups === undefined){// LOcal
-		            		settings.data = this._parseLOCAL(settings.data,settings.i18nId,settings.parent);
+		            		settings.data = self._parseLOCAL(settings.data,settings.i18nId,settings.parent);
 		            	}else{// grupos
 		            		  let optionsGroups = [];
 		            	      for (var i = 0; i < settings.dataGroups.length; i = i + 1) {
 		            	          if (typeof settings.dataGroups[i] === 'object') {
-		            	        	  settings.dataGroups[i].children = this._parseLOCAL(settings.dataGroups[i].children,settings.i18nId,settings.parent);
+		            	        	  settings.dataGroups[i].children = self._parseLOCAL(settings.dataGroups[i].children,settings.i18nId,settings.parent);
 		            	        	  for (var j = 0; j < settings.dataGroups[i].children.length; j = j + 1) {
 		            	        		  optionsGroups.push(settings.dataGroups[i].children[j]);
 		            	        	  }
@@ -1753,13 +1757,13 @@
 		    			}else if(settings.sortered !== false){
 		    				settings.sorter = settings.sortered;
 		    			}
-	                	this._loadRemote(settings,true);
+	                	self._loadRemote(settings,true);
 		           } else {// por si viene cargado de un select
 		        	   settings.data = true;
 		        	   if(settings.parent){//convertir el data, formato parent	
 		        		   settings.data = [];
 		        		   $('#' + $.escapeSelector(settings.id)).find('option').each(function () {
-		        			   let idPadre = $(this).data('idpadre');
+		        			   let idPadre = $self.data('idpadre');
 		        			   if(idPadre != undefined){
 		        				   //si no existe
 		        				   if(settings.data[idPadre] === undefined){
@@ -1768,7 +1772,7 @@
 		        						   settings.data[idPadre].push({id:settings.blank, text:settings.placeholder});
 		        					   }
 		        				   }
-		        				   settings.data[idPadre].push({id:$(this).val(), text:$(this).text()});
+		        				   settings.data[idPadre].push({id:$self.val(), text:$self.text()});
 		        			   }
 		        	            
 		        	          });
@@ -1799,7 +1803,7 @@
 						settings.selected = e.params.data.id;
                         if(settings.autocomplete){//Change input
                         	let mySelect2 = $('#' + $.escapeSelector(settings.id)).data('select2');
-                        	let data = $(this).select2('data')[0];
+                        	let data = $self.select2('data')[0];
                             mySelect2.$selection.find('input').val(data.text);
                         }
                         if(settings.select){
@@ -1824,7 +1828,7 @@
 																	// fijos.
 	                			settings.dataParents = settings.data;
 	                		}
-	                		let valorValue = _this._getParentsValues(settings,false,settings.multiValueToken);
+	                		let valorValue = self._getParentsValues(settings,false,settings.multiValueToken);
 	                		if(valorValue != ''){	                			
 	                			valoresParent = settings.dataParents[valorValue];
 	                			if(valoresParent == undefined && settings.dataParents[0] != undefined){
@@ -1843,7 +1847,7 @@
 	                	}else{	  
 	                        if (settings.placeholder == undefined || settings.placeholder == '') {
 	                            // si es vació se asigna el label
-	                            settings.placeholder = _this._getBlankLabel(settings.id);
+	                            settings.placeholder = self._getBlankLabel(settings.id);
 	                         }
 	                		if(settings.autocomplete){//local y autocomplete
 	                			if(settings.matcher == undefined && settings.accentFolding == false){
@@ -2002,7 +2006,7 @@
 			                		$('#' + $.escapeSelector(settings.id)).rup_select("setRupValue",settings.blank);
 			                	}else{// si soy Remoto
 									const elemId = $.escapeSelector(settings.id);
-									let datosParent = _this._getParentsValues(settings, true);
+									let datosParent = self._getParentsValues(settings, true);
 
 									// Sola llamar si el padre tiene valor.
 									if (datosParent != '') {
@@ -2050,7 +2054,7 @@
 						mySelectCheck.on("results:all", function() {
 						    let listItems = mySelectCheck.$results.find('li');
 							listItems.each(function () {
-						   		$(this).addClass('ocultar-before');
+						   		$self.addClass('ocultar-before');
 						    });
 						});
 					}	
