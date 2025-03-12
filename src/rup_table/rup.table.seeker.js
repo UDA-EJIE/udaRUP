@@ -568,17 +568,20 @@
 	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
 
 	                if ($elem.length == 1) {
+						// Se añade el title de los elementos de acuerdo al colname
 	                    $elem.attr({
 	                        'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
 	                        'class': 'editable customelement form-control-customer'
 	                    }).removeAttr('readOnly');
 
+						// Añadir label oculto que se usará principalmente para la gestión de los combos enlazados.
 	                    $('<label></label>', {
 	                        'for': $elem.attr('id'),
 	                        'class': "d-none",
 	                        'text': $elem.attr('placeholder')
 	                    }).insertAfter($elem);
 
+						// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
 	                    if (searchRupType !== undefined && cellColModel.searchoptions) {
 	                        searchEditOptions = cellColModel.searchoptions;
 
@@ -586,6 +589,7 @@
 	                            searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
 	                        }
 
+							// Invocación al componente RUP
 	                        $elem['rup_' + searchRupType](searchEditOptions);
 	                    }
 	                }
