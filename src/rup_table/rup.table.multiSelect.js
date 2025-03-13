@@ -1684,6 +1684,10 @@ handler that will select the items using the API methods.
     apiRegister('multiSelect.deselectAll()', function (dt) {
         deselectAll(dt);
     });
+	
+	apiRegister('multiSelect.selectAll()', function (dt) {
+	    selectAll(dt);
+	});
     
     apiRegister('multiSelect.defaultsIds()', function (ctx) {
 
