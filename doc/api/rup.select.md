@@ -19,6 +19,7 @@ $("#idSelect").rup_select({				url: "selectSimple/remote",         	sourcePara
     * [~checkAll()](#module_rup_select..checkAll)
     * [~selectByLabel(param)](#module_rup_select..selectByLabel)
     * [~select(param)](#module_rup_select..select)
+    * [~deselect()](#module_rup_select..deselect)
     * [~label()](#module_rup_select..label) ⇒ <code>string</code> \| <code>Array.&lt;string&gt;</code>
     * [~index()](#module_rup_select..index) ⇒ <code>number</code> \| <code>Array.&lt;number&gt;</code>
     * [~disable()](#module_rup_select..disable)
@@ -67,6 +68,7 @@ Opciones por defecto de configuración del componente.
 | [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el           método obsoleto a la hora de empaquetar en objetos json los           elementos seleccionados. Su propósito es mantener la           retrocompatibilidad. |
 | [autocomplete] | <code>boolean</code> | <code>false</code> | Habilita la funcionalidad de           autocompletado, permitiendo hacer búsquedas sobre los resultados. |
 | [spaceEnable] | <code>boolean</code> | <code>true</code> | Habilita la funcionalidad de búsquedas con barra espaciadora. |
+| [deselect] | <code>jQuery.rup\_select~deselect</code> |  | Función de callback           a ejecutar cuando se deselecciona una opción de la lista. |
 
 <a name="module_rup_select..getRupValue"></a>
 
@@ -153,6 +155,16 @@ Selecciona el elemento enviado como parámetro. En caso de ser un numérico se s
 **Example**  
 ```js
 // Simple$("#idSelect").rup_select("select", 2);// Multiple$("#idSelect").rup_select("select", [0,2]);
+```
+<a name="module_rup_select..deselect"></a>
+
+### rup_select~deselect()
+Método que lanza el evento deselect del componente.
+
+**Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
+**Example**  
+```js
+$("#idSelect").rup_select("deselect");
 ```
 <a name="module_rup_select..label"></a>
 
