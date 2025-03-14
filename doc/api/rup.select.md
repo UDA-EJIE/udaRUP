@@ -68,6 +68,7 @@ Opciones por defecto de configuración del componente.
 | [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el           método obsoleto a la hora de empaquetar en objetos json los           elementos seleccionados. Su propósito es mantener la           retrocompatibilidad. |
 | [autocomplete] | <code>boolean</code> | <code>false</code> | Habilita la funcionalidad de           autocompletado, permitiendo hacer búsquedas sobre los resultados. |
 | [spaceEnable] | <code>boolean</code> | <code>true</code> | Habilita la funcionalidad de búsquedas con barra espaciadora. |
+| [select] | <code>jQuery.rup\_select~select</code> |  | Función de callback           a ejecutar cuando se selecciona una opción de la lista. |
 | [deselect] | <code>jQuery.rup\_select~deselect</code> |  | Función de callback           a ejecutar cuando se deselecciona una opción de la lista. |
 
 <a name="module_rup_select..getRupValue"></a>
