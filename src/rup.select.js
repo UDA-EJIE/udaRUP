@@ -1815,6 +1815,15 @@
     	                }
                 		
                 	});
+                	
+                	// Lanzar evento change cuando se deselecciona una opción.
+                	$('#' + $.escapeSelector(settings.id)).off('select2:unselect');
+					$('#' + $.escapeSelector(settings.id)).on('select2:unselect', function(e) {
+						if (settings.change) {
+							settings.change(e);
+						}
+					});                	
+                	
 	                if (settings.data) {// local y groups
 	                	if(settings.parent){// si depende de otro selects.
 	                		// Si es uno meterlo como string - local
