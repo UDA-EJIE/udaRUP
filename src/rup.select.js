@@ -357,6 +357,17 @@
         		}
         	}
         },
+		/**
+		 * Método que lanza el evento deselect del componente.
+		 * 
+		 * @function deselect
+		 * @example $("#idSelect").rup_select("deselect");
+		 */
+		deselect: function() {
+			if ($(this).data('settings').deselect) {
+				$(this).data('settings').deselect();
+			}
+		},
         /**
 		 * Método que devuelve el label asociado al valor seleccionado en el
 		 * select. En el caso de la selección múltiple se devolverá un array.
@@ -1822,6 +1833,10 @@
                 	// Lanzar evento change cuando se deselecciona una opción.
                 	$('#' + $.escapeSelector(settings.id)).off('select2:unselect');
 					$('#' + $.escapeSelector(settings.id)).on('select2:unselect', function(e) {
+						if(settings.deselect){
+                        	settings.deselect(e);
+    	                }
+    	                
 						if (settings.change) {
 							settings.change(e);
 						}
@@ -2171,7 +2186,9 @@
 	 *           retrocompatibilidad.
 	 * @property {boolean} [autocomplete=false] - Habilita la funcionalidad de
 	 *           autocompletado, permitiendo hacer búsquedas sobre los resultados.
-	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora.
+	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora. 
+	 * @property {jQuery.rup_select~deselect} [deselect] - Función de callback
+	 *           a ejecutar cuando se deselecciona una opción de la lista.
 	 */
 	$.fn.rup_select.defaults = {
 		onLoadError: null,
