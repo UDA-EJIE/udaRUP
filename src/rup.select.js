@@ -2186,7 +2186,9 @@
 	 *           retrocompatibilidad.
 	 * @property {boolean} [autocomplete=false] - Habilita la funcionalidad de
 	 *           autocompletado, permitiendo hacer búsquedas sobre los resultados.
-	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora. 
+	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora.
+	 * @property {jQuery.rup_select~select} [select] - Función de callback
+	 *           a ejecutar cuando se selecciona una opción de la lista.
 	 * @property {jQuery.rup_select~deselect} [deselect] - Función de callback
 	 *           a ejecutar cuando se deselecciona una opción de la lista.
 	 */
