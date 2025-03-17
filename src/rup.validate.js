@@ -181,11 +181,15 @@
             return this.optional(element) || param.test(value);
         });
 
-        // Validacion de campo numerico. Tiene en cuenta el formato dependiendo de la locale
-        jQuery.validator.addMethod('number', function (value, element) {
-            var expr = new RegExp($.rup.i18n.base.rup_validate.regexp.decimal);
-            return this.optional(element) || expr.test(value);
-        });
+		// Validacion de campo numerico (siempre debe ser un input de tipo texto para evitar problemas).
+		// Tiene en cuenta el formato dependiendo de la locale.
+		jQuery.validator.addMethod('number', function(value, element) {
+			if ($(element).attr('type') === 'text') {
+				return this.optional(element) || new RegExp($.rup.i18n.base.rup_validate.regexp.decimal).test(value);
+			} else {
+				$.rup.errorGestor($.rup.i18nTemplate($.rup.i18n.base, 'rup_validate.errors.numberValidation'));
+			}
+		});
 
         // Validacion de fecha. Tiene en cuanta el formato dependiendo de la locale
         jQuery.validator.addMethod('date', function (value, element, param) {

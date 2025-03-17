@@ -224,7 +224,10 @@
     },
     "regexp": {
       "decimal": "^[+-]?((\\d*)|(\\d{1,3}(\\s\\d{3})+))(,\\d+)?$"
-    }
+    },
+    "errors": {
+		"numberValidation": "La validation numérique doit être effectuée sur un champ de type texte."	
+	}
   },
   "rup_wizard": {
     "next": "Siguiente_fr",
