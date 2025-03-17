@@ -176,10 +176,14 @@
             return this.optional(element) || /^-?\d+$/.test(value);
         });
 
-        // Patron
-        jQuery.validator.addMethod('pattern', function (value, element, param) {
-            return this.optional(element) || param.test(value);
-        });
+		// Patron
+		jQuery.validator.addMethod('pattern', function(value, element, param) {
+			if (!_.isRegExp(param)) {
+				param = new RegExp(param);
+			}
+
+			return this.optional(element) || param.test(value);
+		});
 
 		// Validacion de campo numerico (siempre debe ser un input de tipo texto para evitar problemas).
 		// Tiene en cuenta el formato dependiendo de la locale.
