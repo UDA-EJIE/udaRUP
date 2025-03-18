@@ -1132,7 +1132,7 @@ function _comprobarFila(ctx,$fila){
 function _crearEventos(ctx,$selector){
         if ($selector.data('events') === undefined || $selector.data('events').keydown === undefined) {
 		$selector.keydown(function(e) {
-		    if (e.keyCode === 27) {//Esc
+		    if (e.code === 'Escape') {//Esc
                     if ($selector.hasClass('new')) { //si se da alta y se cancela.
 		    		var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
@@ -1142,7 +1142,7 @@ function _crearEventos(ctx,$selector){
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
-		    }else if (e.keyCode === 13 || (!e.shiftKey && e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
+		    }else if (e.code === 'Enter' || (!e.shiftKey && e.code === 'Tab' && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
 		    	if($selector.parent('tr').length > 0){//si es mayor que cero la seleccion es en el td,hay que pasar al tr.
 		    		$selector = $selector.parent('tr');

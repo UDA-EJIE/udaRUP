@@ -804,7 +804,7 @@
                 if (!document.activeElement || document.activeElement === document.body) {
                     // SUse a string of characters for fast lookup of if we need to
                     // handle this
-                    var character = String.fromCharCode(e.keyCode).toLowerCase();
+                    var character = e.key.toLowerCase();
 
                     if (that.s.listenKeys.toLowerCase().indexOf(character) !== -1) {
                         that._keypress(character, e);
@@ -3254,7 +3254,7 @@
         container.on('click.buttons-copy', close);
         $(document)
             .on('keydown.buttons-copy', function (e) {
-                if (e.keyCode === 27) { // esc
+                if (e.code === "Escape") { // esc
                     close();
                 }
             })

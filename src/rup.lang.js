@@ -250,22 +250,22 @@
                     });
 
                     self.on('keydown', function (event) {
-                        switch (event.keyCode) {
-                        case $.ui.keyCode.UP:
+                        switch (event.code) {
+                        case "ArrowUp":
                             if ($(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').length > 0) {
                                 $(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').first().children().focus();
                             } else {
                                 $(event.target).parent().siblings('li:not(.rup-language_language_list_active)').last().children().focus();
                             }
                             break;
-                        case $.ui.keyCode.DOWN:
+                        case "ArrowDown":
                             if ($(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').length > 0) {
                                 $(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').first().children().focus();
                             } else {
                                 $(event.target).parent().siblings('li:not(.rup-language_language_list_active)').first().children().focus();
                             }
                             break;
-                        case $.ui.keyCode.ESCAPE:
+                        case "Escape":
                             liListado.hide();
                             liEnlace.show();
                             break;
