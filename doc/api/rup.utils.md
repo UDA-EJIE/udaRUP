@@ -7,6 +7,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 
 * [rup_utils](#jQuery.module_rup_utils)
     * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
+    * [~editFormSerialize(idForm, [serializerSplitter])](#jQuery.module_rup_utils..editFormSerialize) ⇒ <code>string</code>
     * [~isNumeric(field)](#jQuery.module_rup_utils..isNumeric) ⇒ <code>boolean</code>
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
@@ -30,6 +31,26 @@ Devuelve un string con los caracteres sencillos.
 ```js
 // Convierte los caracteres de la cadena "áéíóu" a "aeiou"$.rup_utils.normalize("áéíóu");
 ```
+<a name="jQuery.module_rup_utils..editFormSerialize"></a>
+
+### rup_utils~editFormSerialize(idForm, [serializerSplitter]) ⇒ <code>string</code>
+Método que serializa los datos del formulario.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>string</code> - - Devuelve los datos del formulario serializados  
+**Since**: UDA 6.2.0  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| idForm | <code>object</code> |  | Formulario que alberga los datos. |
+| [serializerSplitter] | <code>string</code> | <code>&quot;&amp;&quot;</code> | Cadena a usar para separar los campos. |
+
+<a name="jQuery.module_rup_utils..escapeId"></a>
+
+### ~~rup_utils~escapeId()~~
+***Deprecated***
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 <a name="jQuery.module_rup_utils..isNumeric"></a>
 
 ### rup_utils~isNumeric(field) ⇒ <code>boolean</code>

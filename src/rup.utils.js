@@ -556,6 +556,47 @@
 				}
 			}
 		},
+		
+	    /**
+	     * Método que serializa los datos del formulario.
+	     *
+	     * @name editFormSerialize
+	     * @function
+	     * @since UDA 6.2.0
+	     *
+	     * @param {object} idForm - Formulario que alberga los datos.
+	     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
+	     *
+	     * @return {string} - Devuelve los datos del formulario serializados
+	     *
+	     */
+	    editFormSerialize(idForm, serializerSplitter = '&') {
+	        const idFormArray = idForm.formToArray();
+	        let serializedForm = '';
+	        let ultimo = '';
+	        let count = 0;
+	
+	        $.each(idFormArray, function (key, obj) {
+	        	if (ultimo != obj.name) {
+	        		count = 0;
+	    		}
+				let valor = '';
+				if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
+					valor = '[' + count++ + ']';
+				}
+				else if (ultimo === obj.name) {//Se mete como lista
+					//se hace replace del primer valor
+					serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
+					valor = '[' + count++ + ']'; //y se mete el array
+				}
+				serializedForm += (obj.name + valor + '=' + obj.value);
+				serializedForm += serializerSplitter;
+				ultimo = obj.name;
+	        });
+	        // Evitar que el último carácter sea "&" o el separador definido por el usuario.
+	        serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
+	        return serializedForm;
+	    },
 
 		//DATE UTILS
 		createDate: function (day, month, year) {
