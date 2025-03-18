@@ -1142,8 +1142,7 @@ function _crearEventos(ctx,$selector){
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
-		    }else if (e.keyCode === 13 || 
-		    		(e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
+		    }else if (e.keyCode === 13 || (!e.shiftKey && e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
 		    	if($selector.parent('tr').length > 0){//si es mayor que cero la seleccion es en el td,hay que pasar al tr.
 		    		$selector = $selector.parent('tr');
