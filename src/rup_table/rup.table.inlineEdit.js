@@ -1199,7 +1199,7 @@ function _lastIndexEditable(ctx,$target){
 	var index = 0;
 	for (var i = ctx.aoColumns.length-1; i >= 0; i--) {
 		var nombreColumna = ctx.aoColumns[i].data;
-		for (var j = 0 ; j <= ctx.oInit.colModel.length ; j++ ) {
+		for (var j = 0 ; j < ctx.oInit.colModel.length ; j++ ) {
 			  var nombreAux = ctx.oInit.colModel[j].name;
 			  var editable = ctx.oInit.colModel[j].editable;
 			  if ( editable === true && nombreAux === nombreColumna ){
