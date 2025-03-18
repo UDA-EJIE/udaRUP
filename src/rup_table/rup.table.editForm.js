@@ -186,7 +186,7 @@
                 ctx.oInit.formEdit.okCallBack = false;
             }
             // Si es igual no se debe hacer nada
-            var formSerializado = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
+            var formSerializado = $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
             if (ctx.oInit.formEdit.dataOrigin === formSerializado || !ctx.oInit.formEdit.detailForm.settings.cancelDialog) {
                 _cancelPopup(ctx);
                 return true;
@@ -758,7 +758,7 @@
 	        $(idForm).find('input,select').filter(':not([readonly],[type=hidden])').first().focus();
 	
 	        // Se guardan los datos originales
-	        ctx.oInit.formEdit.dataOrigin = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+	        ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	        ctx.oInit.formEdit.okCallBack = false;
 	
 	
@@ -779,7 +779,7 @@
 	        	}
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
 	            // Se transforma
 	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
@@ -842,7 +842,7 @@
 	            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
 	            // Comprobar si row ha sido modificada
 	            // Se serializa el formulario con los cambios
-	            row = _editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
 	            // Se transforma
 	            row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
@@ -1028,7 +1028,7 @@
                             	ctx.oInit.formEdit.idForm.resetForm();
                             }
 
-                            ctx.oInit.formEdit.dataOrigin = _editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
+                            ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
                             if (ctx.oInit.multiSelect !== undefined) {
                                 ctx.oInit.feedback.type = 'noBorrar';
                                 dt.row().multiSelect();
@@ -1854,47 +1854,6 @@
         } else {
         	_doDelete();
         }
-    }
-
-    /**
-     * Método que serializa los datos del formulario.
-     *
-     * @name _editFormSerialize
-     * @function
-     * @since UDA 3.6.0
-     *
-     * @param {object} idForm - Formulario que alberga los datos.
-     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
-     *
-     * @return {string} - Devuelve los datos del formulario serializados
-     *
-     */
-    function _editFormSerialize(idForm, serializerSplitter = '&') {
-        let serializedForm = '';
-        let idFormArray = idForm.formToArray();
-        let ultimo = '';
-        let count = 0;
-
-        $.each(idFormArray, function (key, obj) {
-        	if (ultimo != obj.name) {
-        		count = 0;
-    		}
-			let valor = '';
-			if ($(idForm).find('[name="' + obj.name + '"]').prop('multiple')) {
-				valor = '[' + count++ + ']';
-			}
-			else if (ultimo === obj.name) {//Se mete como lista
-				//se hace replace del primer valor
-				serializedForm = serializedForm.replace(ultimo + '=', ultimo + '[' + count++ + ']=');
-				valor = '[' + count++ + ']'; //y se mete el array
-			}
-			serializedForm += (obj.name + valor + '=' + obj.value);
-			serializedForm += serializerSplitter;
-			ultimo = obj.name;
-        });
-        // Evitar que el último carácter sea "&" o el separador definido por el usuario.
-        serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
-        return serializedForm;
     }
 
     /**
