@@ -1211,7 +1211,8 @@ function _lastIndexEditable(ctx,$target){
 *
 */
 function _inlineEditFormSerialize($fila,ctx,child){
-	var serializedForm = {};
+	// Crear un nuevo objeto para no modificar los datos recibidos, de esta forma es posible reutilizarlos.
+	var serializedForm = jQuery.extend(true, {}, ctx.oInit.inlineEdit.receivedFormDataObject);
 	var selectores = {};
 
 	//añadir columnas child
@@ -1622,6 +1623,10 @@ function _loadAuxForm(ctx, actionType) {
 			tableWrapper.prepend(receivedForm);
 			ctx.oInit.inlineEdit.actionType = actionType;
 			ctx.oInit.inlineEdit.idForm = tableWrapper.find("form").first();
+			
+			// Almacena los datos recibidos en el formulario.
+			const serializedForm = $.rup_utils.editFormSerialize(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.serializerSplitter);
+			ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToJson(serializedForm, ctx.oInit.inlineEdit.serializerSplitter, ctx.oInit.inlineEdit.allowAllCharacters);
     	}, 'html');
     } else {
     	// Para cuando el formulario actual sigue siendo válido o los formularios dinámicos están desactivados
