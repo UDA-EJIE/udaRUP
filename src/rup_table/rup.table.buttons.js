@@ -995,7 +995,7 @@
                 if (!document.activeElement || document.activeElement === document.body) {
                     // SUse a string of characters for fast lookup of if we need to
                     // handle this
-                    var character = String.fromCharCode(e.keyCode).toLowerCase();
+                    var character = e.key.toLowerCase();
 
                     if (that.s.listenKeys.toLowerCase().indexOf(character) !== -1) {
                         that._keypress(character, e);
@@ -1283,7 +1283,7 @@
 						}
 					})
 					.on('keypress.dtb', function (e) {
-						if (e.keyCode === 13) {
+						if (e.code === 'Enter') {
 							e.preventDefault();
 
 							if (!button.hasClass(dom.disabled) && config.action) {
@@ -1469,7 +1469,7 @@
 						}
 					})
 					.on('keypress.dtb', function (e) {
-						if (e.keyCode === 13) {
+						if (e.code === 'Enter') {
 							e.preventDefault();
 
 							if (!dropButton.hasClass(dom.disabled)) {
@@ -2075,7 +2075,7 @@
 						}
 					})
 					.on('keyup.dtb-collection', function(e) {
-						if (e.keyCode === 27) {
+						if (e.code === 'Escape') {
 							close();
 						}
 					})
@@ -2084,7 +2084,7 @@
 						var elements = $('a, button', content);
 						var active = document.activeElement;
 
-						if (e.keyCode !== 9) {
+						if (e.code !== 'Tab') {
 							// tab
 							return;
 						}
@@ -4061,7 +4061,7 @@
         container.on('click.buttons-copy', close);
         $(document)
             .on('keydown.buttons-copy', function (e) {
-                if (e.keyCode === 27) { // esc
+                if (e.code === "Escape") { // esc
                     close();
                 }
             })

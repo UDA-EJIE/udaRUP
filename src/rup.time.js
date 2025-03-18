@@ -317,9 +317,9 @@
     $.datepicker._timepicker_doKeyPress = $.datepicker._doKeyPress;
     $.datepicker._doKeyPress = function (event) {
         var instance = $.datepicker._get($.datepicker._getInst(event.target), 'timepicker');
-        switch (event.keyCode) {
+        switch (event.code) {
         //Izquierda
-        case 37:
+        case "Left":
             if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
                 instance.hour_slider.slider('option', 'value', instance.hour_slider.slider('option', 'value') - instance._defaults.stepHour);
             } else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift
@@ -329,7 +329,7 @@
             }
             break;
             //Derecha
-        case 39:
+        case "Right":
             if (event.ctrlKey && !(event.altKey || event.shiftKey)) { //Ctrl
                 instance.hour_slider.slider('option', 'value', instance.hour_slider.slider('option', 'value') + instance._defaults.stepHour);
             } else if (event.ctrlKey && event.shiftKey && !event.altKey) { //Ctrl + Shift

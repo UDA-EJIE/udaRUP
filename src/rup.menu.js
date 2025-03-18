@@ -253,14 +253,14 @@
                             var $uiMenu = selectorSelf.data().uiMenu;
                             //								console.log($uiMenu.active);
 
-                            switch (event.keyCode) {
-                            case $.ui.keyCode.UP:
+                            switch (event.code) {
+                            case "ArrowUp":
                                 $uiMenu.previous(event);
                                 event.stopImmediatePropagation();
                                 event.preventDefault();
                                 event.stopPropagation();
                                 break;
-                            case $.ui.keyCode.DOWN:
+                            case "ArrowDown":
                                 if ($uiMenu.active && !$uiMenu.active.is('.ui-state-disabled')) {
                                     if ($uiMenu.active.hasClass('rup_menu_horizontal_children')) {
                                         $uiMenu.options.position = {
@@ -279,7 +279,7 @@
                                 event.preventDefault();
                                 event.stopPropagation();
                                 break;
-                            case $.ui.keyCode.LEFT:
+                            case "Left":
                                 if (!$uiMenu.active.hasClass('rup_menu_horizontal_children')) {
                                     $uiMenu.collapse(event);
                                 } else {
@@ -289,7 +289,7 @@
                                 event.preventDefault();
                                 event.stopPropagation();
                                 break;
-                            case $.ui.keyCode.RIGHT:
+                            case "Ri":ght
                                 if (!$uiMenu.active.hasClass('rup_menu_horizontal_children') && $uiMenu.active.is('[aria-haspopup=\'true\']')) {
                                     $uiMenu.options.position = {
                                         my: 'left bottom',
@@ -304,7 +304,7 @@
                                 event.preventDefault();
                                 event.stopPropagation();
                                 break;
-                            case $.ui.keyCode.HOME:
+                            case "Home":
                                 $uiMenu._move('first', 'first', event);
                                 event.stopImmediatePropagation();
                                 event.preventDefault();

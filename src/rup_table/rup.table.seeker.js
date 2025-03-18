@@ -182,7 +182,7 @@
             	if(celda !== undefined){
 	                $('input', celda).on('keypress', function (ev) {
 	                    this.focus();
-	                    if (ev.keyCode === 13 && this.value !== '') { //Se hace la llamada de busqueda.
+	                    if (ev.code === 'Enter' && this.value !== '') { //Se hace la llamada de busqueda.
 	                    	let customBuscar = ctx.oInit.validarBuscar;
 	                    	if(typeof customBuscar === "function" && customBuscar(ctx)){
 	                    		return false;
