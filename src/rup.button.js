@@ -184,8 +184,8 @@
                 var object = $(event.currentTarget),
                     objectParent = object.parent(),
                     nextObject;
-                switch (event.keyCode) {
-                case $.ui.keyCode.TAB:
+                switch (event.code) {
+                case "Tab":
                     if (!event.shiftKey) {
                         if (object.next().attr('id') !== objectParent.attr('id') + '-rightButtons') {
                             //Siguiente boton

@@ -1150,7 +1150,7 @@ function _comprobarFila(ctx,$fila){
 function _crearEventos(ctx,$selector){
         if ($selector.data('events') === undefined || $selector.data('events').keydown === undefined) {
 		$selector.keydown(function(e) {
-		    if (e.keyCode === 27) {//Esc
+		    if (e.code === 'Escape') {//Esc
                     if ($selector.hasClass('new')) { //si se da alta y se cancela.
 		    		var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 		    		ctx.inlineEdit.lastRow = undefined;
@@ -1160,7 +1160,7 @@ function _crearEventos(ctx,$selector){
 		    	}else{//si se modifica
 		    		_restaurarFila(ctx,true);
 		    	}
-		    }else if (e.keyCode === 13 || (!e.shiftKey && e.keyCode === 9 && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
+		    }else if (e.code === 'Enter' || (!e.shiftKey && e.code === 'Tab' && _lastIndexEditable(ctx,$(e.target)))) {//Intro 13, //Tabulador 9
 		    	var child = false;
 		    	if($selector.parent('tr').length > 0){//si es mayor que cero la seleccion es en el td,hay que pasar al tr.
 		    		$selector = $selector.parent('tr');
@@ -1244,17 +1244,19 @@ function _inlineEditFormSerialize($fila,ctx,child){
 	}
 	//Se vacian las reglas.
 	$.each(selectores,function() {
-		// Añadir las columnas parent y child.
-		let busqueda = 'td:not([style*="display: none"]):not(".select-checkbox") input:not([disabled]),' +
-			'td:not([style*="display: none"]):not(".select-checkbox") select:not([disabled]),' +
-			'td:not([style*="display: none"]):not(".select-checkbox") textarea:not([disabled])';
+		let campos;
 
-		// Si es el hijo, solo buscar los select, input y textarea que haya.
+		// Si es el hijo, solo buscar los select, input y textarea que haya, de lo contrario, añadir las columnas parent y child.
 		if (this.hasClass('child')) {
-			busqueda = 'select,input,textarea';
+		    campos = this.find('select,input,textarea');
+		} else {
+		    campos = this.find('td:not([style*="display: none"]):not(".select-checkbox") input:not([disabled]),' +
+		            'td:not([style*="display: none"]):not(".select-checkbox") select:not([disabled]),' +
+		            'td:not([style*="display: none"]):not(".select-checkbox") textarea:not([disabled])')
+		        .not('select[ruptype="select"] + span input');
 		}
 		
-		$.each(this.find(busqueda), function(i, obj) {
+		$.each(campos, function(i, obj) {
 			var value = $(obj).val();
 
 			if (value != null) {

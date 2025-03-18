@@ -265,32 +265,32 @@
                     return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
                 }
 
-                switch (event.keyCode) {
-                case $.ui.keyCode.PAGE_UP:
+                switch (event.code) {
+                case "PageUp":
                     this.previousPage(event);
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     break;
-                case $.ui.keyCode.PAGE_DOWN:
+                case "PageDown":
                     this.nextPage(event);
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     break;
-                case $.ui.keyCode.HOME:
+                case "Home":
                     this._move('first', 'first', event);
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     break;
-                case $.ui.keyCode.END:
+                case "End":
                     this._move('last', 'last', event);
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     break;
-                case $.ui.keyCode.UP:
+                case "ArrowUp":
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     if (!horizontal) {
@@ -301,7 +301,7 @@
                         $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     }
                     break;
-                case $.ui.keyCode.DOWN:
+                case "ArrowDown":
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     if (!horizontal) {
@@ -312,7 +312,7 @@
                         $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     }
                     break;
-                case $.ui.keyCode.LEFT:
+                case "Left":
                     if (!horizontal) {
                         $(event.target).parent().parent().parent().children('a').focus();
                         event.stopImmediatePropagation();
@@ -324,7 +324,7 @@
                         $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     }
                     break;
-                case $.ui.keyCode.RIGHT:
+                case "Right":
                     if (!horizontal) {
                         if (this.expand(event)) {
                             event.stopImmediatePropagation();
@@ -337,7 +337,7 @@
                         $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     }
                     break;
-                case $.ui.keyCode.ENTER:
+                case "Enter":
                     event.stopImmediatePropagation();
                     event.preventDefault();
 
@@ -355,14 +355,14 @@
                     }
                     event.preventDefault();
                     break;
-                case $.ui.keyCode.ESCAPE:
+                case "Escape":
                     if (this.collapse(event)) {
                         event.stopImmediatePropagation();
                     }
                     event.preventDefault();
                     $.merge($(event.currentTarget).find('.ui-state-focus').children('a'), $(event.currentTarget).find('.ui-state-focus').not('li')).focus();
                     break;
-                case $.ui.keyCode.TAB:
+                case "Tab":
                     this.collapseAll(event, true);
                     if (!event.shiftKey) {
                         var principalParent = $(event.target).parent().parent();
