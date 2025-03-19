@@ -163,6 +163,12 @@ module.exports = [{
                 loader: 'expose-loader',
                 options: 'Popper'
             }]
+        },
+        {
+            test: require.resolve('flat')
+        },
+        {
+            test: require.resolve('query-string')
         }
         ]
     },

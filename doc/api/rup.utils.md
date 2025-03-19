@@ -11,7 +11,9 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~isNumeric(field)](#jQuery.module_rup_utils..isNumeric) ⇒ <code>boolean</code>
     * [~deleteMulticomboLabelFromObject(obj, container)](#jQuery.module_rup_utils..deleteMulticomboLabelFromObject)
     * [~deleteAutocompleteLabelFromObject(obj)](#jQuery.module_rup_utils..deleteAutocompleteLabelFromObject)
-    * [~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>
+    * ~~[~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>~~
+    * [~flattenObject(originalObj, options)](#jQuery.module_rup_utils..flattenObject) ⇒ <code>object</code>
+    * [~unflattenObject(originalObj, options)](#jQuery.module_rup_utils..unflattenObject) ⇒ <code>object</code>
     * [~resetAutocomplete(type, obj)](#jQuery.module_rup_utils..resetAutocomplete)
 
 <a name="jQuery.module_rup_utils..normalize"></a>
@@ -95,7 +97,8 @@ Elimina el campo autogenerado por el componente autocomplete de un objeto. Dich
 
 <a name="jQuery.module_rup_utils..flattenJSON"></a>
 
-### rup_utils~flattenJSON(originalObj, flattenedObj, extraKey) ⇒ <code>object</code>
+### ~~rup_utils~flattenJSON(originalObj, flattenedObj, extraKey) ⇒ <code>object</code>~~
+***Deprecated***
 Convierte un JSON con múltiples niveles en un JSON con un único nivel.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
@@ -108,6 +111,33 @@ Convierte un JSON con múltiples niveles en un JSON con un único nivel.
 | flattenedObj | <code>object</code> | Objeto con un único nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
 | extraKey | <code>string</code> | Clave necesaria cuando hay más de un nivel. Se incluye entre los parámetros porque la función lo usará si se llama a sí misma. |
 
+<a name="jQuery.module_rup_utils..flattenObject"></a>
+
+### rup_utils~flattenObject(originalObj, options) ⇒ <code>object</code>
+Convierte un objeto de JavaScript con múltiples niveles en un objeto con un único nivel.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>object</code> - Objeto con un único nivel.  
+**Since**: UDA 6.2.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| originalObj | <code>object</code> | Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso). |
+| options | <code>object</code> | Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options |
+
+<a name="jQuery.module_rup_utils..unflattenObject"></a>
+
+### rup_utils~unflattenObject(originalObj, options) ⇒ <code>object</code>
+Convierte un objeto de JavaScript con un único nivel en un objeto con múltiples niveles.
+
+**Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Returns**: <code>object</code> - Objeto con múltiples niveles (siempre y cuando el objeto procesado los tuviese).  
+**Since**: UDA 6.2.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| originalObj | <code>object</code> | Objeto plano con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso). |
+| options | <code>object</code> | Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options |
 <a name="jQuery.module_rup_utils..resetAutocomplete"></a>
 
 ### rup_utils~resetAutocomplete(type, obj)
