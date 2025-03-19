@@ -359,6 +359,7 @@
 		/**
 		 * Convierte una cadena querystring en un objeto json.
 		 *
+		 * @deprecated desde version 6.2.0. Utilizar $.rup_utils.queryStringToObject() en su lugar: https://github.com/sindresorhus/query-string
 		 * @name jQuery.rup_utils#queryStringToJson
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
@@ -461,6 +462,23 @@
 				setValue(data, path, value);
 			}
 			return data;
+		},
+		
+		/**
+		 * Convierte una cadena query string en un objeto JavaScript.
+		 *
+		 * @name jQuery.rup_utils#queryStringToObject
+		 * @function
+		 * @param {string} query - Query string a transformar en un objeto JavaScript.
+		 * @param {object} options - Opciones de configuración: https://github.com/sindresorhus/query-string?tab=readme-ov-file#options
+		 * @returns {object} - Objeto JavaScript creado a partir de la query string indicada.
+		 * @example
+		 * // Obtener un objeto JavaScript a partir de la query string:
+		 * // "keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB" -> "{ keyA: "valueA", keyB: "valueB", keyC: "valueC", keyD: { A: "valueDA", B: "valueDB" } }"
+		 * $.rup_utils.queryStringToObject("keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB");
+		 */
+		queryStringToObject: function (query, options) {
+			return $.fn.unflattenObject(queryString.parse(query, options));
 		},
 		
 		/**
@@ -1184,6 +1202,7 @@
 	/**
      * Convierte un JSON con múltiples niveles en un JSON con un único nivel.
      *
+	 * @deprecated desde version 6.2.0. Utilizar $.fn.flattenObject() en su lugar: https://github.com/hughsk/flat
      * @name flattenJSON
      * @function
      * @since UDA 5.0.2
@@ -1203,6 +1222,38 @@
 			}
 		}
 		return flattenedObj;
+	};
+	
+	/**
+     * Convierte un objeto de JavaScript con múltiples niveles en un objeto con un único nivel.
+     *
+	 * @name flattenObject
+     * @function
+     * @since UDA 6.2.0
+     *
+     * @param {object} originalObj - Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
+	 * @param {object} options - Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options
+     * 
+     * @return {object} Objeto con un único nivel.
+     */
+	$.fn.flattenObject = function (originalObj, options) {
+		return flatten(originalObj, options);
+	};
+	
+	/**
+     * Convierte un objeto de JavaScript con un único nivel en un objeto con múltiples niveles.
+     *
+     * @name unflattenObject
+     * @function
+     * @since UDA 6.2.0
+     *
+     * @param {object} originalObj - Objeto plano con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
+	 * @param {object} options - Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options
+     * 
+     * @return {object} Objeto con múltiples niveles (siempre y cuando el objeto procesado los tuviese).
+     */
+	$.fn.unflattenObject = function (originalObj, options) {
+		return unflatten(originalObj, options);
 	};
 
 	jQuery.rup_utils.base64 = {
