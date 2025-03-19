@@ -5,9 +5,9 @@
 import 'jquery';
 import 'jquery-migrate';
 import 'bootstrap';
-
 import 'bootstrap/scss/bootstrap.scss';
-
+import queryString from 'query-string';
+import { flatten, unflatten } from 'flat';
 
 /**
  * RUP
@@ -57,3 +57,6 @@ import '../scss/rup-theme.scss';
 
 global.Rup = Rup;
 global.$ = global.jQuery = $;
+global.queryString = queryString;
+global.flatten = flatten;
+global.unflatten = unflatten;
