@@ -1258,7 +1258,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 				
 				// Construye correctamente el JSON aunque los datos contengan subentidades.
 				if (nombre.includes(".")) {
-					$.extend(serializedForm, $.rup_utils.queryStringToJson(nombre + "=" + value));
+					$.extend(serializedForm, $.rup_utils.queryStringToObject(nombre + "=" + value));
 				} else {
 					serializedForm[nombre] = value;
 				}
@@ -1276,7 +1276,7 @@ function _inlineEditFormSerialize($fila,ctx,child){
 
 				// Construye correctamente el JSON aunque los datos contengan subentidades.
 				if (isSubentity) {
-					$.extend(serializedForm, $.rup_utils.queryStringToJson(n.name + "=" + text));
+					$.extend(serializedForm, $.rup_utils.queryStringToObject(n.name + "=" + text));
 				} else {
 					serializedForm[n.name] = text;
 				}
@@ -1626,7 +1626,7 @@ function _loadAuxForm(ctx, actionType) {
 			
 			// Almacena los datos recibidos en el formulario.
 			const serializedForm = $.rup_utils.editFormSerialize(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.serializerSplitter);
-			ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToJson(serializedForm, ctx.oInit.inlineEdit.serializerSplitter, ctx.oInit.inlineEdit.allowAllCharacters);
+			ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToObject(serializedForm, ctx.oInit.inlineEdit.queryStringToObjectOptions);
     	}, 'html');
     } else {
     	// Para cuando el formulario actual sigue siendo válido o los formularios dinámicos están desactivados
