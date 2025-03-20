@@ -101,6 +101,7 @@ table.dataTable tbody {
 .paginationContainer {
 	.searchPaginator {
 		input {
+			width: 50px;
 			padding: 1px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
