@@ -781,6 +781,7 @@
 	            // Se serializa el formulario con los cambios
 	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
+				// TODO: eliminar uso de queryStringToJson en UDA 7
 				// Transformación de query string a un objeto.
 				// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.
 				if (ctx.oInit.formEdit.serializerSplitter || ctx.oInit.formEdit.allowAllCharacters) {
@@ -849,6 +850,7 @@
 	            // Se serializa el formulario con los cambios
 	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
+				// TODO: eliminar uso de queryStringToJson en UDA 7
 				// Transformación de query string a un objeto.
 				// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.
 				if (ctx.oInit.formEdit.serializerSplitter || ctx.oInit.formEdit.allowAllCharacters) {
