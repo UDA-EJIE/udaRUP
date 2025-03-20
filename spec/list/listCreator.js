@@ -31,7 +31,7 @@ function getHtml(idLista, idForm) {
                         '<div class="row">' +
                             '<label for="listFilterEdad">Edad:</label>' +
                             '<div class="col-md-1"></div>' +
-                            '<input id="listFilterEdad" type="number" name="edad" class="col-md-9">' +
+                            '<input id="listFilterEdad" type="text" name="edad" class="col-md-9">' +
                         '</div>' +
                     '</div>' +
                     '<div class="col-md-2"></div>' +
@@ -39,7 +39,7 @@ function getHtml(idLista, idForm) {
                         '<div class="row">' +
                             '<label for="listFilterCodCliente">Codigo cliente:</label>' +
                             '<div class="col-md-1"></div>' +
-                            '<input id="listFilterCodCliente" type="number" name="codCliente" class="col-md-8">' +
+                            '<input id="listFilterCodCliente" type="text" name="codCliente" class="col-md-8">' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
