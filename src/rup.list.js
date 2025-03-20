@@ -480,17 +480,17 @@ import Printd from 'printd';
 
             if (opciones.isSuperSelect) {
                 $(document).on('keydown', (e) => {
-                    if (e.code == "ArrowDown") {
+                    if (e.key == "17") {
                         isControl = true;
-                    } else if (e.code == 'Shift') {
+                    } else if (e.key == '16') {
                         isShift = true;
                     }
                 });
 
                 $(document).on('keyup', (e) => {
-                    if (e.code == "ArrowUp") {
+                    if (e.key == "17") {
                         isControl = false;
-                    } else if (e.code == 'Shift') {
+                    } else if (e.key == '16') {
                         isShift = false;
                     }
                 });
@@ -500,7 +500,7 @@ import Printd from 'printd';
                 const $clickedEl = $(e.currentTarget);
 
                 if (e.type === 'click' ||
-                    (e.type === 'keyup' && (e.code == 'Enter' || e.code == 'Space'))) {
+                    (e.type === 'keyup' && (e.key == '13' || e.key == '32'))) {
                     let clickedPK = $clickedEl.data('pk');
 
                     if (opciones.multiselection.selectedIds == null) {
@@ -1338,7 +1338,7 @@ import Printd from 'printd';
 
                 // Establecemos el boton para el dialogo
                 opciones[obj].multiSort.edit.on('click keyup', (e) => {
-                    if (e.type === 'click' || (e.type === 'keyup' && e.code == 'Enter')) {
+                    if (e.type === 'click' || (e.type === 'keyup' && e.key == '13')) {
                         opciones._multiSortDialog.rup_dialog('open');
                     }
                 });
