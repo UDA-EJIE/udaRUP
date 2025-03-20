@@ -995,7 +995,7 @@
                 if (!document.activeElement || document.activeElement === document.body) {
                     // SUse a string of characters for fast lookup of if we need to
                     // handle this
-                    var character = e.key.toLowerCase();
+                    var character = e.code.toLowerCase();
 
                     if (that.s.listenKeys.toLowerCase().indexOf(character) !== -1) {
                         that._keypress(character, e);

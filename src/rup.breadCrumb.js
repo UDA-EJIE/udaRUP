@@ -307,7 +307,7 @@
                     switch (event.code) {
                     case "ArrowUp":
                         var enlaces = $(this).find('li > a');
-                        for (var i = 0; i <= enlaces.length; i++) {
+                        for (var i = 0; i < enlaces.length; i++) {
                             if (enlaces[i].text === $(event.target).text()) {
                                 break;
                             }
@@ -319,8 +319,8 @@
                         }
                         break;
                     case "ArrowDown":
-                        // var enlaces = $(this).find('li > a');
-                        for (var j = 0; j <= enlaces.length; j++) {
+                        var enlaces = $(this).find('li > a');
+                        for (var j = 0; j < enlaces.length; j++) {
                             if (enlaces[j].text === $(event.target).text()) {
                                 break;
                             }
