@@ -1570,7 +1570,7 @@ var opts2 = {
         }
     },
     date_range_start: new Date(2019, 0, 1, 0, 0, 0),
-    date_range_end: new Date(2025, 1, 1, 0, 0, 0),
+    date_range_end: new Date(2030, 1, 1, 0, 0, 0),
     rupAfterEventsLoad: function (events) {
         if (!events) {
             return;
