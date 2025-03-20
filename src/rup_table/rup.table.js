@@ -906,7 +906,7 @@
                     type: 'text',
                     size: '3',
                     value: settingsT.json.page,
-                    maxlength: '3'
+                    maxlength: '6'
                 }).addClass('ui-pg-input text-center');
 
                 liSearch.append(textPagina);
