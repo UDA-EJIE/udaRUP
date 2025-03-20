@@ -742,8 +742,13 @@
 	            // Se serializa el formulario con los cambios
 	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	            
-	            // Se transforma
-	            row = $.rup_utils.queryStringToObject(row, ctx.oInit.formEdit.queryStringToObjectOptions);
+				// Transformación de query string a un objeto.
+				// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.
+				if (ctx.oInit.formEdit.serializerSplitter || ctx.oInit.formEdit.allowAllCharacters) {
+					row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
+				} else {
+					row = $.rup_utils.queryStringToObject(row, ctx.oInit.formEdit.queryStringToObjectOptions);
+				}
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);
@@ -805,8 +810,13 @@
 	            // Se serializa el formulario con los cambios
 	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
 	
-	            // Se transforma
-	            row = $.rup_utils.queryStringToObject(row, ctx.oInit.formEdit.queryStringToObjectOptions);
+				// Transformación de query string a un objeto.
+				// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.
+				if (ctx.oInit.formEdit.serializerSplitter || ctx.oInit.formEdit.allowAllCharacters) {
+					row = $.rup_utils.queryStringToJson(row, ctx.oInit.formEdit.serializerSplitter, ctx.oInit.formEdit.allowAllCharacters);
+				} else {
+					row = $.rup_utils.queryStringToObject(row, ctx.oInit.formEdit.queryStringToObjectOptions);
+				}
 	            
 	            //listas checkbox
 	            row = _addListType(idForm,row);

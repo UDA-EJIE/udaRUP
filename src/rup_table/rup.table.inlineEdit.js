@@ -1626,7 +1626,13 @@ function _loadAuxForm(ctx, actionType) {
 			
 			// Almacena los datos recibidos en el formulario.
 			const serializedForm = $.rup_utils.editFormSerialize(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.serializerSplitter);
-			ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToObject(serializedForm, ctx.oInit.inlineEdit.queryStringToObjectOptions);
+
+			// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.
+			if (ctx.oInit.inlineEdit.serializerSplitter || ctx.oInit.inlineEdit.allowAllCharacters) {
+				ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToJson(serializedForm, ctx.oInit.inlineEdit.serializerSplitter, ctx.oInit.inlineEdit.allowAllCharacters);
+			} else {
+				ctx.oInit.inlineEdit.receivedFormDataObject = $.rup_utils.queryStringToObject(serializedForm, ctx.oInit.inlineEdit.queryStringToObjectOptions);
+			}
     	}, 'html');
     } else {
     	// Para cuando el formulario actual sigue siendo válido o los formularios dinámicos están desactivados
