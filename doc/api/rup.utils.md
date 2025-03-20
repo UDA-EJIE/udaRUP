@@ -8,6 +8,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 * [rup_utils](#jQuery.module_rup_utils)
     * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
     * [~editFormSerialize(idForm, [serializerSplitter])](#jQuery.module_rup_utils..editFormSerialize) ⇒ <code>string</code>
+    * ~~[~escapeId()](#jQuery.module_rup_utils..escapeId)~~
     * [~isNumeric(field)](#jQuery.module_rup_utils..isNumeric) ⇒ <code>boolean</code>
     * ~~[~flattenJSON(originalObj, flattenedObj, extraKey)](#jQuery.module_rup_utils..flattenJSON) ⇒ <code>object</code>~~
     * [~flattenObject(originalObj, options)](#jQuery.module_rup_utils..flattenObject) ⇒ <code>object</code>

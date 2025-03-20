@@ -77,9 +77,9 @@ $("#idTable").rup_table("createButton", {
 					ctx.ext.buttons.editButton.eventDT = dt;
 				},
 				action: function (e, dt, button, config) {
-					$('#' + ctx.sTableId).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
+					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsBeforeEditClick', [dt, button, config]);
 					DataTable.Api().buttons.actions(dt, config);
-					$('#' + ctx.sTableId).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
+					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterEditClick', [dt, button, config]);
 				}
 			}, 0);
 ```
