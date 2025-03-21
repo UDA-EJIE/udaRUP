@@ -150,8 +150,8 @@ describe('RUP Utils Tests', function(){
     describe('Tests del método queryStringToObject', function(){
         it('debería de crear un objeto JavaScript a partir de un query string', function(){
 
-            var queryString = 'keyA=valueA&keyB=valueB&keyC=valueC',
-                expectedObject = {keyA:'valueA', keyB:'valueB', keyC:'valueC'},
+            var queryString = 'keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB',
+                expectedObject = {keyA:'valueA', keyB:'valueB', keyC:'valueC', keyD: {A:'valueDA', B:'valueDB'}},
                 createdObject;
 
             createdObject = $.rup_utils.queryStringToObject(queryString);
