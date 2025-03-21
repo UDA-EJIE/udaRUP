@@ -171,7 +171,13 @@ module.exports = function (config) {
                             outputPath: 'rup/html/templates/rup_calendar/'
                         }
                     },
-                }
+                },
+				{
+					test: require.resolve('flat')
+				},
+				{
+					test: require.resolve('query-string')
+				}
                 ],
             },
             resolve: {
