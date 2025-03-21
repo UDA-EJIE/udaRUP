@@ -576,7 +576,7 @@
 		},
 		
 	    /**
-	     * Método que serializa los datos del formulario.
+	     * Método que transforma los datos de un formulario en un query string.
 	     *
 		 * @deprecated desde version 6.2.0. Utilizar $.rup_utils.formDataToQueryString() en su lugar.
 	     * @name editFormSerialize
@@ -586,7 +586,7 @@
 	     * @param {object} idForm - Formulario que alberga los datos.
 	     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
 	     *
-	     * @return {string} - Devuelve los datos del formulario serializados
+	     * @return {string} - Devuelve los datos del formulario en un query string.
 	     *
 	     */
 	    editFormSerialize(idForm, serializerSplitter = '&') {
