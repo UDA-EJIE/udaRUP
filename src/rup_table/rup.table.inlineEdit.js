@@ -1638,8 +1638,9 @@ function _loadAuxForm(ctx, actionType, row) {
 			ctx.oInit.inlineEdit.actionType = actionType;
 			ctx.oInit.inlineEdit.idForm = tableWrapper.find("form").first();
 			
+			// TODO: eliminar uso de editFormSerialize en UDA 7
 			// Almacena los datos recibidos en el formulario.
-			const serializedForm = $.rup_utils.editFormSerialize(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.serializerSplitter);
+			const serializedForm = ctx.oInit.inlineEdit.serializerSplitter ? $.rup_utils.editFormSerialize(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.serializerSplitter) : $.rup_utils.formDataToQueryString(ctx.oInit.inlineEdit.idForm, ctx.oInit.inlineEdit.formDataToQueryStringOptions);
 
 			// TODO: eliminar uso de queryStringToJson en UDA 7
 			// Se mantiene la compatibilidad con aplicaciones que usen las propiedades deprecadas.

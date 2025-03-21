@@ -185,8 +185,11 @@
             if (event.originalEvent !== undefined) { //el evento es cerrado por el aspa
                 ctx.oInit.formEdit.okCallBack = false;
             }
-            // Si es igual no se debe hacer nada
-            var formSerializado = $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
+            
+			// TODO: eliminar uso de editFormSerialize en UDA 7
+			// Si es igual no se debe hacer nada
+			var formSerializado = ctx.oInit.formEdit.serializerSplitter ? $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter) : $.rup_utils.formDataToQueryString(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.formDataToQueryStringOptions);
+
             if (ctx.oInit.formEdit.dataOrigin === formSerializado || !ctx.oInit.formEdit.detailForm.settings.cancelDialog) {
                 _cancelPopup(ctx);
                 return true;
@@ -756,9 +759,15 @@
 	        // Establecemos el foco al primer elemento input o select que se
 	        // encuentre habilitado en el formulario
 	        $(idForm).find('input,select').filter(':not([readonly],[type=hidden])').first().focus();
-	
-	        // Se guardan los datos originales
-	        ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+	        
+			// TODO: eliminar uso de editFormSerialize en UDA 7
+			// Se guardan los datos originales
+			if (ctx.oInit.formEdit.serializerSplitter) {
+				ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+			} else {
+				ctx.oInit.formEdit.dataOrigin = $.rup_utils.formDataToQueryString(idForm, ctx.oInit.formEdit.formDataToQueryStringOptions);
+			}
+			
 	        ctx.oInit.formEdit.okCallBack = false;
 	
 	
@@ -777,9 +786,15 @@
 		        		return false;
 		        	}
 	        	}
-	            // Comprobar si row ha sido modificada
-	            // Se serializa el formulario con los cambios
-	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+	        	
+				// TODO: eliminar uso de editFormSerialize en UDA 7
+				// Comprobar si row ha sido modificada
+				// Procesar formulario para obtener los datos
+				if (ctx.oInit.formEdit.serializerSplitter) {
+					row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+				} else {
+					row = $.rup_utils.formDataToQueryString(idForm, ctx.oInit.formEdit.formDataToQueryStringOptions);
+				}
 	            
 				// TODO: eliminar uso de queryStringToJson en UDA 7
 				// Transformación de query string a un objeto.
@@ -846,9 +861,15 @@
 	        	}
 	        	
 	            var actionSaveContinue = ctx.oInit.formEdit.detailForm.buttonSaveContinue.actionType;
-	            // Comprobar si row ha sido modificada
-	            // Se serializa el formulario con los cambios
-	            row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+				
+				// TODO: eliminar uso de editFormSerialize en UDA 7
+				// Comprobar si row ha sido modificada
+				// Procesar formulario para obtener los datos
+				if (ctx.oInit.formEdit.serializerSplitter) {
+					row = $.rup_utils.editFormSerialize(idForm, ctx.oInit.formEdit.serializerSplitter);
+				} else {
+					row = $.rup_utils.formDataToQueryString(idForm, ctx.oInit.formEdit.formDataToQueryStringOptions);
+				}
 	
 				// TODO: eliminar uso de queryStringToJson en UDA 7
 				// Transformación de query string a un objeto.
@@ -1039,8 +1060,14 @@
                             } else { //mantener y borrar
                             	ctx.oInit.formEdit.idForm.resetForm();
                             }
-
-                            ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
+                            
+							// TODO: eliminar uso de editFormSerialize en UDA 7
+							if (ctx.oInit.formEdit.serializerSplitter) {
+								ctx.oInit.formEdit.dataOrigin = $.rup_utils.editFormSerialize(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.serializerSplitter);
+							} else {
+								ctx.oInit.formEdit.dataOrigin = $.rup_utils.formDataToQueryString(ctx.oInit.formEdit.idForm, ctx.oInit.formEdit.formDataToQueryStringOptions);
+							}
+                            
                             if (ctx.oInit.multiSelect !== undefined) {
                                 ctx.oInit.feedback.type = 'noBorrar';
                                 dt.row().multiSelect();
