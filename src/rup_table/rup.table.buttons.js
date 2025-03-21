@@ -111,7 +111,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'copyButton',
             request: {
-	        	url: '/clipboardReport',
+	        	url: $.rup_utils.aplicatioInPortal() ? '/clipboardReport?R01HNoPortal=true' : '/clipboardReport',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'json',
@@ -143,7 +143,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'excelButton',
             request: {
-	        	url: '/xlsxReport',
+	        	url: $.rup_utils.aplicatioInPortal() ? '/xlsxReport?R01HNoPortal=true' : '/xlsxReport',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -174,7 +174,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'pdfButton',
             request: {
-	        	url: '/pdfReport',
+	        	url: $.rup_utils.aplicatioInPortal() ? '/pdfReport?R01HNoPortal=true' : '/pdfReport',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'application/pdf',
@@ -204,7 +204,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'odsButton',
             request: {
-	        	url: '/odsReport',
+	        	url: $.rup_utils.aplicatioInPortal() ? '/odsReport?R01HNoPortal=true' : '/odsReport',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'application/vnd.oasis.opendocument.spreadsheet',
@@ -235,7 +235,7 @@
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'csvButton',
             request: {
-	        	url: '/csvReport',
+	        	url: $.rup_utils.aplicatioInPortal() ? '/csvReport?R01HNoPortal=true' : '/csvReport',
 	            method: 'POST',
 	            contentType: 'application/json',
         		dataType: 'text/csv',
