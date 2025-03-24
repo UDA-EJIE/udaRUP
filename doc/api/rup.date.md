@@ -1,13 +1,41 @@
 <a name="module_rup_date"></a>
 
 ## rup\_date
-Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/><br/> Además, este sistema permite la introducción de fechas independiente de dispositivo y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
+Permite al usuario introducir y seleccionar una fecha, tanto de forma manual como visual, 
+moviéndose fácilmente por días, meses y años. Además, para minimizar las posibilidades de 
+introducir una fecha incorrecta, ofrece al usuario ayudas y sugerencias de formato. <br/>
+<br/> Además, este sistema permite la introducción de fechas independiente de dispositivo 
+y flexible, ya que tanto los usuarios avanzados como los novatos podrán utilizarlo sin problemas.
 
 **Summary**: Componente RUP Date.  
-**See**: El componente está basado en el plugin [jQuery UI DatePicker](http://jqueryui.com/datepicker/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://api.jqueryui.com/datepicker/).  
+**See**: El componente está basado en el plugin [jQuery UI DatePicker](http://jqueryui.com/datepicker/). 
+Para mas información acerca de las funcionalidades y opciones de configuración pinche 
+[aquí](http://api.jqueryui.com/datepicker/).  
 **Example**  
 ```js
-// Ejemplo de selector de fecha simple.$("#fecha").rup_date({	labelMaskId : "fecha-mask",	showButtonPanel : true,	showOtherMonths : true,	noWeekend : true});// Ejemplo de selector de fecha simple que permite seleccionar tres fechas.$("#fecha_multi").rup_date({	multiSelect: 3,	labelMaskId : "fecha_multi-mask",	buttonImage : "/rup/css/images/exclamation.png"});// Ejemplo de selectores de fecha desde y hasta$.rup_date({	from: "desde",	to: "hasta",	//Resto igual que en date	labelMaskId : "intervalo-mask",	numberOfMonths: 3});
+// Ejemplo de selector de fecha simple.
+$("#fecha").rup_date({
+	labelMaskId : "fecha-mask",
+	showButtonPanel : true,
+	showOtherMonths : true,
+	noWeekend : true
+});
+
+// Ejemplo de selector de fecha simple que permite seleccionar tres fechas.
+$("#fecha_multi").rup_date({
+	multiSelect: 3,
+	labelMaskId : "fecha_multi-mask",
+	buttonImage : "/rup/css/images/exclamation.png"
+});
+
+// Ejemplo de selectores de fecha desde y hasta
+$.rup_date({
+	from: "desde",
+	to: "hasta",
+	//Resto igual que en date
+	labelMaskId : "intervalo-mask",
+	numberOfMonths: 3
+});
 ```
 
 * [rup_date](#module_rup_date)
@@ -86,7 +114,8 @@ A continuación se muestran los posibles parámetros de configuración que recib
 <a name="module_rup_date..getRupValue"></a>
 
 ### rup_date~getRupValue() ⇒ <code>string</code> \| <code>array</code>
-Método utilizado para obtener el valor del componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
+Método utilizado para obtener el valor del componente. Este método es el utilizado por el 
+resto de componentes RUP para estandarizar la obtención del valor del componente fecha.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Returns**: <code>string</code> \| <code>array</code> - - Devuelve el valor actual del componente seleccionado por el usuario.  
@@ -97,7 +126,8 @@ $("#idDate").rup_date("getRupValue");
 <a name="module_rup_date..setRupValue"></a>
 
 ### rup_date~setRupValue(param)
-Método utilizado para asignar el valor al componente. Este método es el utilizado por el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
+Método utilizado para asignar el valor al componente. Este método es el utilizado por
+ el resto de componentes RUP para estandarizar la asignación del valor al componente fecha.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 
@@ -107,12 +137,16 @@ Método utilizado para asignar el valor al componente. Este método es el utiliz
 
 **Example**  
 ```js
-// Fecha simple$("#idDate").rup_date("setRupValue", "21/06/2015");// Varias fechas$("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
+// Fecha simple
+$("#idDate").rup_date("setRupValue", "21/06/2015");
+// Varias fechas
+$("#idDate").rup_date("setRupValue", ["21/06/2015", "22/06/2015"]);
 ```
 <a name="module_rup_date..destroy"></a>
 
 ### rup_date~destroy()
-Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label con un texto vacío
+Elimina el componente de la pantalla. En caso de tener máscara también se restaura el label 
+con un texto vacío
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -122,7 +156,8 @@ $("#idDate").rup_date("destroy");
 <a name="module_rup_date..disable"></a>
 
 ### rup_date~disable()
-Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega el calendario.
+Deshabilita el componente en pantalla no pudiendo introducirse ninguna fecha ni se despliega
+ el calendario.
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -132,7 +167,8 @@ $("#idDate").rup_date("disable");
 <a name="module_rup_date..enable"></a>
 
 ### rup_date~enable()
-Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el desplegable del calendario
+Habilita el componente permitiendo introducir la fecha tanto mediante teclado como mediante el 
+desplegable del calendario
 
 **Kind**: inner method of [<code>rup\_date</code>](#module_rup_date)  
 **Example**  
@@ -220,5 +256,10 @@ Permite consultar y modificar la configuración del componente.
 
 **Example**  
 ```js
-// Consultar una propiedad$("#idCombo").rup_date("option", "multiselect");// Establecer una propiedad$("#idCombo").rup_date("option", "multiselect", 2);// Establecer varias propiedad$("#idCombo").rup_date("option", {datetimepicker:true, multiselect:3});
+// Consultar una propiedad
+$("#idCombo").rup_date("option", "multiselect");
+// Establecer una propiedad
+$("#idCombo").rup_date("option", "multiselect", 2);
+// Establecer varias propiedad
+$("#idCombo").rup_date("option", {datetimepicker:true, multiselect:3});
 ```
