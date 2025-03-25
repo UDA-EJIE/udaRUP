@@ -239,7 +239,8 @@
                 // Simple y multi
 				if (settings.blank !== undefined) {
 					if (settings.multiple) {
-						$self.rup_select('setRupValue', [$self.data('settings').blank]);
+						const blankValue = $self.data('settings').blank;
+						$self.rup_select('setRupValue', $.isArray(blankValue) ? blankValue : [blankValue]);
 					} else {
 						$self.rup_select('setRupValue', $self.data('settings').blank);
 					}
