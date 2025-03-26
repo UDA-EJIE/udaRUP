@@ -681,7 +681,7 @@
 	            }
 	           
 				// Estando loadFromModel a true no se cargan los datos de la fila obtenida a partir de la tabla (se depende de lo cargado a través del modelo).
-				if(!ctx.oInit.formEdit.loadFromModel) {
+				if(!ctx.oInit.formEdit.loadFromModel && typeof row !== 'undefined') {
 					$.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
 				}
 	            
@@ -720,7 +720,11 @@
 	        	jQuery.each($('select.rup_select', idForm), function (index, elem) {
 	                jQuery(elem).rup_select('setRupValue','')
 	            });
-	            $.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
+	            
+				if (typeof row !== 'undefined') {
+					$.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm);
+				}
+				
 	            ctx.oInit.formEdit.$navigationBar.hide();
 	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
 	            if(customTitle == (undefined || null)) {
