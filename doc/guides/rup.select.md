@@ -320,5 +320,5 @@ public UdaModule udaModule() {
 </bean>
 ```
 
-* En los casos en los que se utilice el método *clear* del componente, como por ejemplo como lo hace el módulo de edición de la tabla para limpiar los valores previos que pudiera contener el formulario, **es necesario disponer de algún valor en la propiedad `blank`** si se espera que el componente no esté vacío una vez se ejecute el método.
+* En los casos en los que se utilice el método *clear* del componente, como por ejemplo lo hace el módulo de edición de la tabla para limpiar los valores previos que pudiera contener el formulario, **es necesario disponer de algún valor en la propiedad `blank`** si se espera que el componente no esté vacío una vez se ejecute el método.
 * Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `menuAppendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.
