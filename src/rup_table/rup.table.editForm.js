@@ -645,7 +645,11 @@
 	                //Se mantiene el checked sin quitar.
 	                $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	            }
-	            $.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
+	           
+				if(typeof row !== 'undefined') {
+					$.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
+				}
+	            
 	            var multiselection = ctx.multiselection;
 	            var indexInArray = jQuery.inArray(DataTable.Api().rupTable.getIdPk(row, ctx.oInit), multiselection.selectedIds);
 	            if (ctx.multiselection.selectedAll) { //Si es selecAll recalcular el numero de los selects. Solo la primera vez es necesario.
@@ -681,7 +685,11 @@
 	        	jQuery.each($('select.rup_combo', idForm), function (index, elem) {
 	                jQuery(elem).rup_combo('setRupValue','')
 	            });
-	            $.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
+	            
+				if (typeof row !== 'undefined') {
+					$.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm);
+				}
+				
 	            ctx.oInit.formEdit.$navigationBar.hide();
 	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
 	            if(customTitle == (undefined || null)) {
