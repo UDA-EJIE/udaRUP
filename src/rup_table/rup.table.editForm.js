@@ -679,7 +679,8 @@
 	                //Se mantiene el checked sin quitar.
 	                $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.dtrg-group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	            }
-	           
+	           	
+				$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterPopulate',ctx);
 				// Estando loadFromModel a true no se cargan los datos de la fila obtenida a partir de la tabla (se depende de lo cargado a través del modelo).
 				if(!ctx.oInit.formEdit.loadFromModel && typeof row !== 'undefined') {
 					$.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
