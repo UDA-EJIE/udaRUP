@@ -646,7 +646,6 @@
 	                $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody > tr:not(.group)').eq(idRow).find('td.select-checkbox input[type="checkbox"]').prop('checked', true);
 	            }
 	           
-				$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterPopulate',ctx);
 				if(typeof row !== 'undefined') {
 					$.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
 				}
