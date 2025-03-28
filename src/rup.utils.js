@@ -517,6 +517,8 @@
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
             var formElem;
 			var tree_data, selectorArray;
+			
+			let deferred = $.Deferred();
 
             function loadedJstreeEvent(){
                 var selectorArbol = this.id;
@@ -573,6 +575,8 @@
 					}
 				}
 			}
+			
+			deferred.resolve();
 		},
 		
 	    /**

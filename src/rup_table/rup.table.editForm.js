@@ -647,7 +647,10 @@
 	            }
 	           
 				if(typeof row !== 'undefined') {
-					$.rup_utils.populateForm($.fn.flattenObject(row, {safe: true}), idForm);
+					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormBeforePopulate', [ctx, idForm, row]);
+					$.when($.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm)).then(function() {
+						$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterPopulate', [ctx, idForm, row]);
+					});
 				}
 	            
 	            var multiselection = ctx.multiselection;
@@ -687,7 +690,10 @@
 	            });
 	            
 				if (typeof row !== 'undefined') {
-					$.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm);
+					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormBeforePopulate', [ctx, idForm, row]);
+					$.when($.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm)).then(function() {
+						$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterPopulate', [ctx, idForm, row]);
+					});
 				}
 				
 	            ctx.oInit.formEdit.$navigationBar.hide();
