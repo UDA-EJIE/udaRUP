@@ -477,8 +477,24 @@
 		 * // "keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB" -> "{ keyA: "valueA", keyB: "valueB", keyC: "valueC", keyD: { A: "valueDA", B: "valueDB" } }"
 		 * $.rup_utils.queryStringToObject("keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB");
 		 */
-		queryStringToObject: function (query, options) {
-			return $.fn.unflattenObject(queryString.parse(query, options));
+		queryStringToObject: function (query, options, $form) {
+			let parsedQuery =  $.fn.unflattenObject(queryString.parse(query, options));
+			if($form != undefined){
+				Object.keys(parsedQuery).forEach(key => {
+				    let $fieldElement = $form.find(`[name="${key}"]`);
+	
+				    // Comprobar si es un select multiple o un rup_select
+				    let isMultiple = $fieldElement.is("select[multiple]") || 
+				                     $fieldElement.attr("ruptype") === "select" && $fieldElement.attr("multiple") !== undefined;
+									 
+					if (isMultiple && !Array.isArray(parsedQuery[key])) {
+					     parsedQuery[key] = [parsedQuery[key]]; // Convertir en array si es un solo valor
+					}
+	
+				});
+			}
+
+			return parsedQuery;
 		},
 		
 		/**
