@@ -730,8 +730,9 @@
         _doFilter(options) {
             var $self = this;
             let reloadTable = () => {
+				$('#' + $.escapeSelector(options.id)).trigger('tableFilterBeforeSearch',options);
                 $self.DataTable().ajax.reload(() => {
-                    $('#' + $.escapeSelector(options.id)).trigger('tableFilterSearch',options);
+                    $('#' + $.escapeSelector(options.id)).trigger('tableFilterAfterSearch',options);
                 });
             };
 
