@@ -90,13 +90,7 @@
 						selectSettings = myOpcions;
 					}
 					
-					let validIds = new Set(data.map(item => String(item.id))); 
-					// Asegurar que selectSettings.selected sea un array, o inicializarlo vacío
-					if (!Array.isArray(selectSettings.selected)) {
-					    selectSettings.selected = selectSettings.selected ? [selectSettings.selected] : [];
-					}
-					// Filtrar solo los valores que están en validIds
-					selectSettings.selected = selectSettings.selected.filter(id => validIds.has(String(id)));
+					selectSettings.selected = "";
 					
 					if(selectSettings != undefined && selectSettings.placeholder != undefined && itemsData.selected.length == 0){
 						formatted = $('<span>', {

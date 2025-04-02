@@ -1203,8 +1203,16 @@
 						// display the cached results
 						success(__cache[__cachekey]);
 						// Marca el valor definido como seleccionado.
-						if (!settings.autocomplete && settings.selected) {
-							$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+						if (!settings.multiple) {
+							if (!settings.autocomplete && settings.selected) {
+								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+							}
+
+						}else{
+							//para multiples
+							if (!settings.autocomplete && (settings.selected != "" || settings.selected.length > 0)) {
+								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+							}
 						}
 						return;
 					}
