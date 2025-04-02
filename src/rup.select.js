@@ -180,7 +180,6 @@
             		settings.selected = param;
             		
 	            	$self.val(param).trigger('change');
-	            	$('#' + $.escapeSelector(settings.id)).rup_select('change');
             	}
 
             } else {
@@ -220,7 +219,7 @@
             	}
             	
             }
-            
+			$('#' + $.escapeSelector(settings.id)).rup_select('change');
         },
         /**
 		 * Método que limpia el valor seleccionado en el select. En el caso de
