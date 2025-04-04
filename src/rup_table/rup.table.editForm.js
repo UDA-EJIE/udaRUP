@@ -636,10 +636,16 @@
 	                        }
 	                    }
 	                };
-	                loadPromise = $.rup_ajax(ajaxOptions);
-	                //Se carga desde bbdd y se actualiza la fila
-	                dt.row(idRow).data(row);
-	                ctx.json.rows[idRow] = row;
+	                
+					// Estando loadFromModel a true no se lanza la petición de carga de datos (se depende de lo cargado a través del modelo).
+					if(!ctx.oInit.formEdit.loadFromModel) {
+						loadPromise = $.rup_ajax(ajaxOptions);
+	                }
+					if(!ctx.oInit.formEdit.notRefreshToAfterSaveEdit) {
+		                //Se carga desde bbdd y se actualiza la fila
+		                dt.row(idRow).data(row);
+		                ctx.json.rows[idRow] = row;
+					}
 	                // Recrear iconos del responsive en caso de ser necesario.
 	                _addChildIcons(ctx);
 	                //Se mantiene el checked sin quitar.
