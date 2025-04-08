@@ -483,14 +483,28 @@
      * @param {object} row - Datos para alimentar los campos del formulario.
      * @param {object} form - Formulario en el que hay que inicializar los componentes.
      */
-    function _formInitializeFields(ctx, row, form) {
-    	if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
-    		$.each(ctx.oInit.colModel, function (key, column) {
-    			const element = form.find('[name="' + column.name + '"]');
-    			// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
-    			if (column.rupType && column.editable) {
-    				if (column.editoptions !== undefined) {
-    					if (column.rupType === 'combo') {
+	function _formInitializeFields(ctx, row, form) {
+		if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
+			$.each(ctx.oInit.colModel, function(key, column) {
+				const element = form.find('[name="' + column.name + '"]');
+
+				// Comprobar si el campo debe ser mostrado, si debe serlo, se verificará si es un componente RUP y editable, de no cumplir, 
+				// se terminará verificando si es o no editable y en caso de no serlo, se añadirá el atributo readonly.
+				if (column.hidden) {
+					element.prop('hidden', true);
+
+					// Cuando el campo del formulario no comparta contenedor con ningún otro campo, se ocultará el contenedor, en el resto de casos, el label.
+					if (element.parent().is('div') && element.parent().find('input,textarea,select').length === 1) {
+						element.parent().addClass('d-none');
+					} else {
+						form.find('label[for="' + element.attr('id') + '"]').addClass('d-none');
+					}
+				}
+				else if (column.rupType && column.editable) {
+					if (column.editoptions !== undefined) {
+						// Definir el tipo de componente RUP a inicializar.
+						const rupType = column.editoptions.rupType !== undefined ? column.editoptions.rupType : column.rupType;
+						if (rupType === 'combo') {
     						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el combo.
     						if (row !== undefined) {
     							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];    							
@@ -499,7 +513,7 @@
     						if (column.editoptions.appendTo === undefined) {
     							column.editoptions.appendTo = 'body';
     						}
-    					} else if (column.rupType === 'autocomplete') {
+    					} else if (rupType === 'autocomplete') {
     						// Establece el valor por defecto.
     						if (row !== undefined) {
     							column.editoptions.defaultValue = row[column.name];
@@ -509,25 +523,23 @@
     							// Cuando no se haya definido un elemento al que hacer el append del menú del autocomplete, se hace al "body" para evitar problemas de CSS.
     							column.editoptions.menuAppendTo = 'body';
     						}
-    					} else if (column.rupType === 'select') {
-    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
-    						if (row !== undefined) {
-    							let rowName = row[column.name];
-    							let flatter	= $.fn.flattenJSON(row)[column.name];
-    							column.editoptions.selected = column.name.includes('.') ? flatter : rowName;    							
-    						}
-    					}
-    					// Inicializar componente.
-    					element['rup_' + column.rupType](column.editoptions);
-    				} else if (column.searchoptions === undefined) {
-    					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
-    				}
-    			} else if (!column.editable) {
-    				element.prop('readonly', true);
-    			}
-    		});
-    	}
-    }
+    					} else if (rupType === 'select') {
+							// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
+							if (row !== undefined) {
+								column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
+							}
+						}
+						// Inicializar componente.
+						element['rup_' + rupType](column.editoptions);
+					} else if (column.searchoptions === undefined) {
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
+					}
+				} else if (!column.editable) {
+					element.prop('readonly', true);
+				}
+			});
+		}
+	}
 
     /**
      * Función que gestiona el comportamiento de abrir el dialog para añadir o editar un registro.
