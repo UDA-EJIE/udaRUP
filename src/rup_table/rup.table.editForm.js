@@ -463,7 +463,7 @@
 				}
 				
 				// Detectar componentes RUP e inicializarlos
-				_formInitializeRUP(ctx, row, $(formContainerID + ' #' + receivedForm.attr("id")));
+				_formInitializeFields(ctx, row, $(formContainerID + ' #' + receivedForm.attr("id")));
 				
 				// Añadir validaciones
 				_addValidation(ctx);
@@ -477,7 +477,7 @@
         		let deferred = $.Deferred();
         		
         		// Detectar componentes RUP e inicializarlos
-        		_formInitializeRUP(ctx, row, idForm);
+        		_formInitializeFields(ctx, row, idForm);
 				
 				// Añadir validaciones
 				_addValidation(ctx);
@@ -520,9 +520,9 @@
     }
     
     /**
-     * Detecta los componentes RUP del formulario y los inicializa.
+     * Procesa el colModel para gestionar los campos del formulario de edición además de inicializar los componentes RUP.
      *
-     * @name formInitializeRUP
+     * @name _formInitializeFields
      * @function
      * @since UDA 5.0.2
      *
@@ -530,32 +530,44 @@
      * @param {object} row - Datos para alimentar los campos del formulario.
      * @param {object} form - Formulario en el que hay que inicializar los componentes.
      */
-    function _formInitializeRUP(ctx, row, form) {
-    	if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
-    		$.each(ctx.oInit.colModel, function (key, column) {
-    			const element = form.find('[name="' + column.name + '"]');
-    			// Comprobar que es un componente RUP y editable. En caso de no ser editable, se añade la propiedad readonly.
-    			if (column.rupType && column.editable) {
-    				if (column.editoptions !== undefined) {
+	function _formInitializeFields(ctx, row, form) {
+		if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
+			$.each(ctx.oInit.colModel, function(key, column) {
+				const element = form.find('[name="' + column.name + '"]');
+
+				// Comprobar si el campo debe ser mostrado, si debe serlo, se verificará si es un componente RUP y editable, de no cumplir, 
+				// se terminará verificando si es o no editable y en caso de no serlo, se añadirá el atributo readonly.
+				if (column.hidden) {
+					element.prop('hidden', true);
+
+					// Cuando el campo del formulario no comparta contenedor con ningún otro campo, se ocultará el contenedor, en el resto de casos, el label.
+					if (element.parent().is('div') && element.parent().find('input,textarea,select').length === 1) {
+						element.parent().addClass('d-none');
+					} else {
+						form.find('label[for="' + element.attr('id') + '"]').addClass('d-none');
+					}
+				}
+				else if (column.rupType && column.editable) {
+					if (column.editoptions !== undefined) {
 						// Definir el tipo de componente RUP a inicializar.
 						const rupType = column.editoptions.rupType !== undefined ? column.editoptions.rupType : column.rupType;
-    					if (rupType === 'select') {
-    						// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
-    						if (row !== undefined) {
-    							column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
-    						}
-    					}
-    					// Inicializar componente.
-    					element['rup_' + rupType](column.editoptions);
-    				} else if (column.searchoptions === undefined) {
-    					console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
-    				}
-    			} else if (!column.editable) {
-    				element.prop('readonly', true);
-    			}
-    		});
-    	}
-    }
+						if (rupType === 'select') {
+							// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
+							if (row !== undefined) {
+								column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
+							}
+						}
+						// Inicializar componente.
+						element['rup_' + rupType](column.editoptions);
+					} else if (column.searchoptions === undefined) {
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
+					}
+				} else if (!column.editable) {
+					element.prop('readonly', true);
+				}
+			});
+		}
+	}
 
     /**
      * Función que gestiona el comportamiento de abrir el dialog para añadir o editar un registro.
@@ -765,9 +777,8 @@
 				}
 			});
 	
-	        // Establecemos el foco al primer elemento input o select que se
-	        // encuentre habilitado en el formulario
-	        $(idForm).find('input,select').filter(':not([readonly],[type=hidden])').first().focus();
+	        // Establece el foco al primer elemento input, textarea o select que se encuentre habilitado en el formulario.
+	        $(idForm).find('input,textarea,select').filter(':not([readonly],[type=hidden])').first().focus();
 	        
 			// TODO: eliminar uso de editFormSerialize en UDA 7
 			// Se guardan los datos originales
