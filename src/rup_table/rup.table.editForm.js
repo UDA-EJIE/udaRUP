@@ -777,9 +777,8 @@
 				}
 			});
 	
-	        // Establecemos el foco al primer elemento input o select que se
-	        // encuentre habilitado en el formulario
-	        $(idForm).find('input,select').filter(':not([readonly],[type=hidden])').first().focus();
+	        // Establece el foco al primer elemento input, textarea o select que se encuentre habilitado en el formulario.
+	        $(idForm).find('input,textarea,select').filter(':not([readonly],[type=hidden])').first().focus();
 	        
 			// TODO: eliminar uso de editFormSerialize en UDA 7
 			// Se guardan los datos originales
