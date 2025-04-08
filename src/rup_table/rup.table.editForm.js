@@ -440,7 +440,7 @@
 				}
 				
 				// Detectar componentes RUP e inicializarlos
-				_formInitializeRUP(ctx, row, $(formContainerID + ' #' + receivedForm.attr("id")));
+				_formInitializeFields(ctx, row, $(formContainerID + ' #' + receivedForm.attr("id")));
 				
 				// Añadir validaciones
 				_addValidation(ctx);
@@ -454,7 +454,7 @@
         		let deferred = $.Deferred();
         		
         		// Detectar componentes RUP e inicializarlos
-        		_formInitializeRUP(ctx, row, idForm);
+        		_formInitializeFields(ctx, row, idForm);
 				
 				// Añadir validaciones
 				_addValidation(ctx);
@@ -475,7 +475,7 @@
     /**
      * Detecta los componentes RUP del formulario y los inicializa.
      *
-     * @name formInitializeRUP
+     * @name _formInitializeFields
      * @function
      * @since UDA 5.0.2 // Table 1.0.0
      *
@@ -483,7 +483,7 @@
      * @param {object} row - Datos para alimentar los campos del formulario.
      * @param {object} form - Formulario en el que hay que inicializar los componentes.
      */
-    function _formInitializeRUP(ctx, row, form) {
+    function _formInitializeFields(ctx, row, form) {
     	if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
     		$.each(ctx.oInit.colModel, function (key, column) {
     			const element = form.find('[name="' + column.name + '"]');
