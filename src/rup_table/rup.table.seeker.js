@@ -560,10 +560,7 @@
 
 	            if (cellColModel !== undefined && cellColModel.length > 0) {
 	                cellColModel = cellColModel[0];
-	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined)
-	                    ? cellColModel.searchoptions.rupType
-	                    : cellColModel.rupType;
-
+	                var searchRupType = cellColModel.searchoptions?.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
 	                var colModelName = cellColModel.name;
 	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
 

@@ -487,8 +487,9 @@
 		if (ctx.oInit.colModel !== undefined && (ctx.oInit.multiSelect !== undefined || ctx.oInit.select !== undefined)) {
 			$.each(ctx.oInit.colModel, function(key, column) {
 				const element = form.find('[name="' + column.name + '"]');
+				const rupType = column.editoptions?.rupType !== undefined ? column.editoptions.rupType : column.rupType;
 
-				// Comprobar si el campo debe ser mostrado, si debe serlo, se verificará si es un componente RUP y editable, de no cumplir, 
+				// Comprobar si el campo debe ser mostrado, si debe serlo, se verificará si es editable y un componente RUP, de no cumplir, 
 				// se terminará verificando si es o no editable y en caso de no serlo, se añadirá el atributo readonly.
 				if (column.hidden) {
 					element.prop('hidden', true);
@@ -500,7 +501,7 @@
 						form.find('label[for="' + element.attr('id') + '"]').addClass('d-none');
 					}
 				}
-				else if (column.rupType && column.editable) {
+				else if (column.editable && rupType !== undefined) {
 					if (column.editoptions !== undefined) {
 						// Definir el tipo de componente RUP a inicializar.
 						const rupType = column.editoptions.rupType !== undefined ? column.editoptions.rupType : column.rupType;
