@@ -798,7 +798,14 @@
                 'type': 'POST',
                 'data': this._ajaxRequestData,
                 'contentType': 'application/json',
-                'dataType': 'json'
+                'dataType': 'json',
+				'beforeSend': function(xhr, settings) {
+				    if (!options.filter.$filterContainer.valid()) {
+					  $('#'+options.id+"_processing").hide();
+				      return false;
+				    }
+				    return true;
+				  }
             };
 
             if (options.customError !== undefined) {
