@@ -806,11 +806,14 @@
                 'contentType': 'application/json',
                 'dataType': 'json',
 				'beforeSend': function(xhr, settings) {
-				    if (!options.filter.$filterContainer.valid()) {
-					  $('#'+options.id+"_processing").hide();
-				      return false;
-				    }
-				    return true;
+					if (options.filter.noValidar !== true){
+					    if (options.filter.noValidarOnStart && !options.filter.$filterContainer.valid()) {
+						  $('#'+options.id+"_processing").hide();
+					      return false;
+					    }
+						options.filter.noValidarOnStart = true;
+					    return true;
+					  }
 				  }
             };
 
