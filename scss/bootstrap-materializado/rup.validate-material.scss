@@ -111,6 +111,37 @@ i.mdi.error {
 			}
 		}
 		
+		/* RUP.SELECT */
+		select[ruptype="select"] {
+			&:enabled + span {
+				&:hover span.select2-selection {
+					border-color: $validation-error-color;
+				}
+		
+				&.select2-container--focus + label {
+					color: $validation-error-color;
+				}
+			}
+			
+			+ span {
+				&.select2-container--focus {
+					span.select2-selection, span.select2-selection:focus {
+						border-color: $validation-error-color;
+					}
+				}
+				
+				&.select2-container--disabled {					
+					& ~ label {
+						color: $validation-error-color-light;
+					}
+				}
+				
+				span.select2-selection {
+					border: 1px solid $validation-error-color-light;
+				}
+			}
+		}
+		
 		/* RUP.DATE */
 		div.rup-date-input-group-material {
 			input:not([type="checkbox"]):not([type="radio"]) {
