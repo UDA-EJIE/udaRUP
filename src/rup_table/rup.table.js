@@ -670,9 +670,6 @@
             		})
             	}
             });
-            
-            $.each(options.colModel, function (index, column) {
-            });
 
             //se crea el tfoot
             var $tfoot = $('<tfoot>').appendTo($self[0]);
