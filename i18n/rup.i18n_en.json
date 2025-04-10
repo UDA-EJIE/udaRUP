@@ -354,7 +354,7 @@
       "nourl": "en_No se ha especificado una URL",
       "wrongParam": "The expected parameter has not been received.",
       "wrongParams": "The expected parameters have not been received.",
-      "wrongColModel": "There is neither 'editoptions' nor 'searchoptions' for '{0}', but there is 'rupType', therefore, the element properties have not been well defined in the 'colModel' of the table.",
+      "wrongColModel": "There is not \"{1}\" for '{0}', but there is 'rupType', therefore, the element properties have not been well defined in the 'colModel' of the table.",
       "noMasterPKField": {
         "msg": "en_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "en_Error en la inicialización de la tabla"

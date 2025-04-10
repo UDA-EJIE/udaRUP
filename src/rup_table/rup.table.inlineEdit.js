@@ -954,7 +954,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				//Convertir a input.
-				var searchRupType = cellColModel.editoptions?.rupType !== undefined ? cellColModel.editoptions.rupType : cellColModel.rupType;
+				const rupType = cellColModel.editoptions?.rupType !== undefined ? cellColModel.editoptions.rupType : cellColModel.rupType;
 				const colModelName = $.escapeSelector(cellColModel.name);
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
@@ -973,26 +973,31 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					'class': 'editable customelement form-control-customer',
 					...($.rup_utils.isNumeric(cellColModel.editoptions?.maxlength) && { 'maxlength': cellColModel.editoptions.maxlength })
 				}).removeAttr('readOnly');
-				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-				if(searchRupType !== undefined && cellColModel.editoptions) {
-					var searchEditOptions = cellColModel.editoptions;
-					if(searchRupType === 'select'){
-						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
-						searchEditOptions.inlineEditFieldName = cellColModel.name;
-						// Permite inicializar el componente con el source correcto.
-						searchEditOptions.inlineEdit = {};
-						searchEditOptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
-						searchEditOptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
+				
+				if (rupType !== undefined) {
+					if (rupType === 'select' && cellColModel.editoptions === undefined) {
+						// El componente rup_select necesita recibir propiedades para la inicialización.
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'editoptions'));
+					} else {
+						if (rupType === 'select') {
+							cellColModel.editoptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
+							cellColModel.editoptions.inlineEditFieldName = cellColModel.name;
+
+							// Permite inicializar el componente con el source correcto.
+							cellColModel.editoptions.inlineEdit = {};
+							cellColModel.editoptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
+							cellColModel.editoptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
+						}
+
+						// Eliminar los elementos del menú.
+						if ($('#' + $.escapeSelector($elem.attr('id')) + '-menu').length > 0) {
+							$('#' + $.escapeSelector($elem.attr('id')) + '-menu').remove('ul');
+						}
+
+						// Inicializar componente.
+						$elem['rup_' + rupType](cellColModel.editoptions);
 					}
-					
-					//Se Comprueba que los elemnetos menu estan eliminados.
-					if( $('#' + $.escapeSelector($elem.attr('id')) + '-menu').length > 0){
-						$('#' + $.escapeSelector($elem.attr('id')) + '-menu').remove('ul');
-					}
-					
-					// Invocación al componente RUP
-					$elem['rup_'+searchRupType](searchEditOptions);
-				}else if(cellColModel.edittype === 'checkbox'){
+				} else if(cellColModel.edittype === 'checkbox'){
 					$elem
 						.prop('type', 'checkbox')
 						.parent().toggleClass('form-groupMaterial checkbox-material checkbox-material-inline')

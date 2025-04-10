@@ -549,17 +549,22 @@
 					}
 				}
 				else if (column.editable && rupType !== undefined) {
-					if (column.editoptions !== undefined) {
-						if (rupType === 'select') {
+					if (rupType === 'select') {
+						if (column.editoptions === undefined) {
+							// El componente rup_select necesita recibir propiedades para la inicialización.
+							console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name, 'editoptions'));
+						} else {
 							// Si se recibe una fila con valores, se establece el valor del campo correspondiente como el registro seleccionado en el select.
 							if (row !== undefined) {
 								column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
 							}
+
+							// Inicializar componente.
+							element['rup_' + rupType](column.editoptions);
 						}
+					} else {
 						// Inicializar componente.
 						element['rup_' + rupType](column.editoptions);
-					} else if (column.searchoptions === undefined) {
-						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), column.name));
 					}
 				} else if (!column.editable) {
 					element.prop('readonly', true);
