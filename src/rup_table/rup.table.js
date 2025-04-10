@@ -661,17 +661,18 @@
             }
             
             $.each(options.colModel, function (index, column) {
+				const position = $self.find('th[data-col-prop=' + column.name + ']').index();
             	// Se ocultan las columnas que así hayan sido definidas en el colModel.
             	if (column.hidden) {
             		options.columnDefs.push({
-            			targets: rupSelectColumn ? index + 1 : index,
+            			targets: rupSelectColumn ? position : position - 1,
             			visible: false,
             			className: 'never'
             		})
             	} else if (column.orderable === false) {
             		// Se bloquea la ordenación de las columnas que así hayan sido definidas en el colModel. Solo se hace esta comprobación cuando la columna no ha sido ocultada.
             		options.columnDefs.push({
-            			targets: rupSelectColumn ? index + 1 : index,
+            			targets: rupSelectColumn ? position : position - 1,
             			orderable: false
             		})
             	}
