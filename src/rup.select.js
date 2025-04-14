@@ -1316,6 +1316,9 @@
 								  v.text = v[settings.sourceParam.text];
 							  }
 							  if(settings.multiple ){
+								if (typeof valueSelect === 'string') {//si viene String lo convierte, no debería
+									valueSelect = [valueSelect];
+								}
 								let selectMultiple = $.grep(valueSelect, function (h) {
 										return String(h) == v.id;
 									});
@@ -1364,6 +1367,9 @@
 									$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								}
 							}
+						if(settings.multiple && settings.loadOnStartUp){//actualizar el número de lo cargado
+							mySelect.selection.update([]);
+						}	
 				          
 				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
 				            jQuery(settings.onLoadSuccess($('#' + $.escapeSelector(settings.id))));
