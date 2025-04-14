@@ -1373,7 +1373,7 @@
 									$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								}
 							}
-						if(settings.multiple && settings.loadOnStartUp){//actualizar el número de lo cargado
+						if(settings.multiple){//actualizar el número de lo cargado, siempre que sea multiple
 							mySelect.selection.update([]);
 						}	
 				          
