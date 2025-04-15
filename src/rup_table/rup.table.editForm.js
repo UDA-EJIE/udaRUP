@@ -728,6 +728,7 @@
 	            DataTable.Api().rupTable.selectPencil(ctx, idRow);
 	            // Se guarda el ultimo id editado.
 	            ctx.multiselection.lastSelectedId = DataTable.Api().rupTable.getIdPk(row, ctx.oInit);
+
 	            // Se muestra el dialog.
 	            ctx.oInit.formEdit.$navigationBar.show();
 	            // Si no se ha definido un 'customTitle' asignamos un valor a la variable del título del formulario
@@ -764,6 +765,11 @@
 	        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
 	        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
 	        ctx.oInit.formEdit.detailForm.rup_dialog('open');
+			
+			//se desactiva los focos para que  se centren en el buscador de los select.
+			if(_haySelectMultipleAutocomplete(ctx.oInit.colModel)){
+				$(document).off('focusin');
+			}
 	        
 	        // Quitar spinner de carga porque el formulario ya es visible (si fue activado)
 	    	if ($('#' + $.escapeSelector(ctx.sTableId) + '_formEdit_dialog_loading').length > 0) {
@@ -2037,6 +2043,28 @@
             }
         }
     }
+	
+	/**
+	 * Se verifica si hay algún select multiple con autocomplete.
+	 *
+	 * @name _haySelectMultipleAutocomplete
+	 * @function
+	 * @since UDA 6.3.0
+	 *
+	 * @param {object} colModel - definición de las columnas..
+	 *
+	 */
+	function _haySelectMultipleAutocomplete(colModel) {
+	  if(colModel == undefined || colModel == null){
+		return false;
+	  }	
+	  return colModel.some(col =>
+	    col.rupType === "select" &&
+	    col.editoptions?.multiple === true &&
+	    col.editoptions?.autocomplete === true
+	  );
+	}
+
 
 
     /**
