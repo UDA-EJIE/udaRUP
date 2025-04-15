@@ -655,7 +655,7 @@
             }
             
             $.each(options.colModel, function (index, column) {
-				const position = $self.find('th[data-col-prop=' + column.name + ']').index();
+				const position = $self.find('th[data-col-prop="' + column.name + '"]').index();
             	// Se ocultan las columnas que así hayan sido definidas en el colModel.
             	if (column.hidden) {
             		options.columnDefs.push({
