@@ -1173,6 +1173,7 @@
 
 				let __cache = [];
 				let __lastQuery = null;
+				settings.cacheUrlSelectData = {};
 		    	settings.ajax.transport = function(params, success, failure) {
 
 					// retrieve the cached key or default to _ALL_
@@ -1187,6 +1188,14 @@
 							let searchField = document.querySelector('.select2-search--dropdown .select2-search__field');
 							params.data.q = searchField.value;
 							__cachekey = params.data.q;
+							if (settings.cacheUrl === true && Object.keys(settings.cacheUrlSelectData).length > 0) {
+							      // filtrar datos en caché, no va al controller
+							      let filtered = settings.cacheUrlSelectData.filter(function (item) {
+								    return self._normalizeString(item.text).includes(self._normalizeString(__cachekey));
+								  });
+							      success(filtered);
+							      return;
+							 }
 						}else{						
 				        	params.data.q = mySelect.$container.find('input').val();
 				        	__cachekey = params.data.q;
@@ -1271,6 +1280,7 @@
 				    
 				          // store data in cache
 				          __cache[__cachekey] = data;
+
 				          // display the results
 				          $('#' + $.escapeSelector(settings.id)).rup_select("enable");
 					        //Si tiene padres deshabilitarlos
@@ -1283,7 +1293,18 @@
 			                      });
 					        	}
 					        }
+							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true) {
+									$('#' + $.escapeSelector(settings.id)).empty();
+								}	
 				          success(__cache[__cachekey]);
+						  if (settings.autocomplete && settings.multiple) {
+							  if (settings.cacheUrl === true) {//almacena los datos para no ir al controller
+							     settings.cacheUrlSelectData = data;
+							  }else{//Vaciamos las opciones, porque recargan nuevas
+							  	//$('#' + $.escapeSelector(settings.id)).empty();	
+							  	mySelect.selection.update([]);//actualizo con los nuevos datos	
+							  }
+						  }
 				          // Actualizar seleccionado en la lista//css
 				          let positions = [];
 				          let valueSelect = settings.selected ? settings.selected : $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue');
@@ -1487,6 +1508,10 @@
     	 	}
  
         },
+		_normalizeString(str) {
+		  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+		},
+
         /**
 		 * Método de inicialización del componente.
 		 * 
