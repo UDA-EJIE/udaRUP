@@ -1157,6 +1157,9 @@
 			               }
 			    }		
 	    	};
+				if(settings.firstLoad == undefined){//si no esta definido en la primera vez
+					settings.firstLoad = true;
+				}
         	 	
         	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
@@ -1367,9 +1370,7 @@
 									$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								}
 							}
-						if(settings.multiple){//actualizar el número de lo cargado, siempre que sea multiple
-							mySelect.selection.update([]);
-						}	
+
 				          
 				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
 				            jQuery(settings.onLoadSuccess($('#' + $.escapeSelector(settings.id))));
@@ -1377,6 +1378,9 @@
 				          $('#' + $.escapeSelector(settings.id)).data('settings', settings);
 	              		  $('#' + $.escapeSelector(settings.id)).triggerHandler('selectAjaxSuccess', [data]);
 	              		  if(settings.firstLoad){
+							if(settings.multiple){//actualizar el número de lo cargado, siempre que sea multiple
+								mySelect.selection.update([]);
+							}	
 	              			if(settings.autocomplete && settings.selected == undefined && settings.defaultValue != undefined && data != undefined &&
 	              					($('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') == '' || $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') == settings.blank)){
 	              				//setear el valor para el defaultValue
