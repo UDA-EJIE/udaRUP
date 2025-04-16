@@ -77,6 +77,12 @@
 							}
 						});
 					}
+					
+					if (selectSettings != undefined && selectSettings.cacheUrl === true 
+						&& Object.keys(selectSettings.cacheUrlSelectData).length > 0 
+						&& selectableOptions.length < Object.keys(selectSettings.cacheUrlSelectData).length) {
+							selectableOptions = selectSettings.cacheUrlSelectData;
+					}
 
 					itemsData = {
 						selected: selectedData,
