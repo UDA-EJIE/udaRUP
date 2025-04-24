@@ -2122,7 +2122,7 @@
 						mySelectCheck.on("results:all", function() {
 						    let listItems = mySelectCheck.$results.find('li');
 							listItems.each(function () {
-						   		$self.addClass('ocultar-before');
+						   		$(this).addClass('ocultar-before');
 						    });
 						});
 					}	
