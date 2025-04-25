@@ -1302,8 +1302,8 @@
 						  if (settings.autocomplete && settings.multiple) {
 							  if (settings.cacheUrl === true) {//almacena los datos para no ir al controller
 							     settings.cacheUrlSelectData = data;
-							  }else if(!sameParam){//Vaciamos las opciones, porque recargan nuevas
-							  	//$('#' + $.escapeSelector(settings.id)).empty();	
+							  }else if(!settings.firstLoad && !sameParam){//Vaciamos las opciones, porque recargan nuevas
+							  	//la primera carga no hace falta.
 							  	mySelect.selection.update([]);//actualizo con los nuevos datos	
 							  }
 						  }
