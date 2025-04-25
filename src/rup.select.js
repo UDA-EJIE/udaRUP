@@ -1475,6 +1475,9 @@
 			
 
         	if(settings.multiple){
+				if(settings.closeOnSelect == undefined){//en los multiples por defecto que o se cierre.
+					settings.closeOnSelect = false;
+				}
          		$('#' + $.escapeSelector(settings.id)).select2MultiCheckboxes(settings);
         	}else{
                 if (settings.placeholder == undefined || settings.placeholder == '') {
@@ -1913,6 +1916,9 @@
 	                	
 
 	                	if(settings.multiple){
+								if(settings.closeOnSelect == undefined){//en los multiples por defecto que o se cierre.
+									settings.closeOnSelect = false;
+								}
 	 	                        $('#' + $.escapeSelector(settings.id)).select2MultiCheckboxes(settings);
 	                	}else{	  
 	                        if (settings.placeholder == undefined || settings.placeholder == '') {
