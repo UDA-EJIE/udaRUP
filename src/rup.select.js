@@ -1178,6 +1178,7 @@
 
 					// retrieve the cached key or default to _ALL_
 			        let __cachekey = params.data || '_ALL_';
+					let sameParam = true;
 		    		//Se actualiza el data, para mantener la misma función.
 			        if(!settings.autocomplete){
 			        	params.data = "" ;
@@ -1204,6 +1205,7 @@
 			        if (__lastQuery !== __cachekey) {
 			          // remove caches not from last query
 			          __cache = [];
+					  sameParam = false;
 			        }
 			        __lastQuery = __cachekey;
 			        //Si esta cacheado, no busca
@@ -1293,14 +1295,14 @@
 			                      });
 					        	}
 					        }
-							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true) {
+							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true && !sameParam) {
 									$('#' + $.escapeSelector(settings.id)).empty();
 								}	
 				          success(__cache[__cachekey]);
 						  if (settings.autocomplete && settings.multiple) {
 							  if (settings.cacheUrl === true) {//almacena los datos para no ir al controller
 							     settings.cacheUrlSelectData = data;
-							  }else{//Vaciamos las opciones, porque recargan nuevas
+							  }else if(!sameParam){//Vaciamos las opciones, porque recargan nuevas
 							  	//$('#' + $.escapeSelector(settings.id)).empty();	
 							  	mySelect.selection.update([]);//actualizo con los nuevos datos	
 							  }
