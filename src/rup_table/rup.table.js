@@ -633,9 +633,6 @@
         _getColumns(options) {
             var $self = this;
             
-            // Indica si la primera columna ha sido generada por el componente RUP
-            let rupSelectColumn = false;
-            
             //Se crea la columna del select.
             if (options.columnDefs !== undefined && options.columnDefs.length > 0 &&
                 options.columnDefs[0].className !== undefined && options.columnDefs[0].className.indexOf('select-checkbox') > -1 &&
@@ -656,8 +653,6 @@
                 if (options.multiSelect !== undefined && options.multiSelect.hideMultiselect) {
                     options.columnDefs[0].visible = false;
                 }
-                
-                rupSelectColumn = true;
             }
             
             $.each(options.colModel, function (index, column) {
@@ -665,14 +660,14 @@
             	// Se ocultan las columnas que así hayan sido definidas en el colModel.
             	if (column.hidden) {
             		options.columnDefs.push({
-            			targets: rupSelectColumn ? position : position - 1,
+            			targets: position,
             			visible: false,
             			className: 'never'
             		})
             	} else if (column.orderable === false) {
             		// Se bloquea la ordenación de las columnas que así hayan sido definidas en el colModel. Solo se hace esta comprobación cuando la columna no ha sido ocultada.
             		options.columnDefs.push({
-            			targets: rupSelectColumn ? position : position - 1,
+            			targets: position,
             			orderable: false
             		})
             	}
