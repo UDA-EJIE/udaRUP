@@ -159,16 +159,16 @@
                 let nombre = $('#' + $.escapeSelector(idTabla) + ' thead th:nth-child(' + position + ')').attr('data-col-prop')
 
                 let result = $.grep(colModel, function (v) {
-                    return v.index.toUpperCase() === nombre.toUpperCase();
+                    return v.name.toUpperCase() === nombre.toUpperCase();
                 });
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (colModel != undefined && result[0].hidden) {
+                if (colModel != undefined && result[0]?.hidden) {
                     $(this).empty();
-                } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
+                } else if (result[0]?.rupType == 'select' || result[0]?.searchoptions?.rupType == 'select') {
                     $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
                 } else {
-					const maxlength = $.rup_utils.isNumeric(result[0].searchoptions?.maxlength) ? ' maxlength="' + result[0].searchoptions.maxlength + '"' : '';
+					const maxlength = $.rup_utils.isNumeric(result[0]?.searchoptions?.maxlength) ? ' maxlength="' + result[0].searchoptions.maxlength + '"' : '';
 
 					$(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"' + maxlength + '/>');
                 }
@@ -554,7 +554,7 @@
 
 	            let nombre = $(this).find('input, select').attr('name');
 	            let cellColModel = $.grep(colModel, function (v) {
-	                return v.index.toUpperCase() === nombre.toUpperCase();
+	                return v.name.toUpperCase() === nombre.toUpperCase();
 	            });
 
 	            if (cellColModel !== undefined && cellColModel.length > 0) {
