@@ -36,6 +36,10 @@
   max-width: 300px;
 }
 
+.rup_report .ui-progressbar-value { width: 100%px; height: 20px; }
+
+.rup_report .ui-progressbar-value { background: url(images/pbar-ani.gif); }
+
 @media (max-width: 767px) {
   .fileupload-buttonbar .toggle,
   .files .toggle,
