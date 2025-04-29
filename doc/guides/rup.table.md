@@ -129,7 +129,6 @@ jQuery(function($){
     const tableColModel = [
         {
             name: 'nombre',
-            index: 'nombre',
             editable: true,
             hidden: false,
 			editoptions: {
@@ -141,7 +140,6 @@ jQuery(function($){
         },
         {
             name: 'apellido1',
-            index: 'apellido1',
             editable: true,
             hidden: false,
             rupType: 'autocomplete',
@@ -163,14 +161,29 @@ jQuery(function($){
             }
         },
         { 
-            name: "apellido2", 
-            index: "apellido2", 
-            editable: true, 
-            hidden: true
+        	name: "apellido2",
+        	editable: true, 
+        	hidden: false,
+        	rupType: 'select',
+            editoptions: {
+            	url: './apellidos',
+                sourceParam: {text: 'label', id: 'value'},
+				autocomplete: true,
+                contains: true,
+                combo: true
+            },
+            searchoptions: {
+				parent: ['apellido1_example_seeker'],
+            	url : './apellidos',
+                sourceParam : {text: 'label', id: 'value'},
+				blank: '',
+				autocomplete: true,
+				searchZero: true,
+				combo: true
+            }
         },
         {
             name: 'ejie',
-            index: 'ejie',
             editable: true,
             hidden: false,
             orderable: false,
@@ -178,7 +191,6 @@ jQuery(function($){
         },
         {
             name: 'fechaAlta',
-            index: 'fechaAlta',
             editable: true,
             hidden: false,
             rupType: 'date',
@@ -197,8 +209,7 @@ jQuery(function($){
         },
         {
             name: 'fechaBaja',
-            index: 'fechaBaja',
-            editable: true,
+            editable: false,
             hidden: false,
             rupType: 'date',
             editoptions: {
@@ -216,7 +227,6 @@ jQuery(function($){
         },
         {
             name: 'rol',
-            index: 'rol',
             editable: true,
             hidden: false,
             rupType: 'combo',
@@ -623,7 +633,6 @@ Ofrece la posibilidad de configurar las flechas de ordenación en las columnas. 
 const miColModel = [
     {
         name: 'nombre',
-        index: 'nombre',
         editable: true,
         hidden: false,
 		editoptions: {
@@ -635,7 +644,6 @@ const miColModel = [
     },
     {
         name: 'apellido1',
-        index: 'apellido1',
         editable: true,
         hidden: false,
         rupType: 'autocomplete',
@@ -658,14 +666,12 @@ const miColModel = [
         }
     },
     { 
-    	name: "apellido2", 
-    	index: "apellido2", 
+    	name: "apellido2",
     	editable: true, 
     	hidden: true
     },
     {
         name: 'ejie',
-        index: 'ejie',
         editable: true,
         hidden: false,
         orderable: false,
@@ -673,7 +679,6 @@ const miColModel = [
     },
     {
         name: 'fechaAlta',
-        index: 'fechaAlta',
         editable: true,
         hidden: false,
         rupType: 'date',
@@ -692,7 +697,6 @@ const miColModel = [
     },
     {
         name: 'fechaBaja',
-        index: 'fechaBaja',
         editable: true,
         hidden: false,
         rupType: 'date',
@@ -711,7 +715,6 @@ const miColModel = [
     },
     {
         name: 'rol',
-        index: 'rol',
         editable: true,
         hidden: false,
         rupType: 'combo',
@@ -738,7 +741,6 @@ El **colModel** se usa para modelar los campos de la tabla y es necesario para e
 
 Propiedades destacadas:
 * **name**: identificador del campo.
-* **index**: índice del campo.
 * **editable**: autoriza o bloquea la edición del campo.
 * **hidden**: permite ocultar la columna.
 * **orderable**: permite deshabilitar la ordenación de una columna.
