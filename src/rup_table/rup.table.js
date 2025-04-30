@@ -1040,6 +1040,9 @@
 			});
 
 			$.rup_utils.populateForm([], options.filter.$filterContainer);
+			if(!options.filter.validToClear){
+				options.filter.noValidarOnStart = false;
+			}
 			
 			$(this).DataTable().ajax.reload();
 
