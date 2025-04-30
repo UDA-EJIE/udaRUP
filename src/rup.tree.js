@@ -70,7 +70,7 @@
 		getRupValue: function () {
 			var $self = this,
 			settings = $self.data('settings'),
-			selectedItems, tmpId, name = $self.attr('name');
+			selectedItems, tmpId, name = $self.attr('name') !== undefined ? $self.attr('name') : $self.data('name');
 
 			if (jQuery.inArray('checkbox', settings.plugins) !== -1) {
 				selectedItems = $self.rup_tree('getChecked', false);
