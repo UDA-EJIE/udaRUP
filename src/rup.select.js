@@ -219,6 +219,7 @@
             	}
             	
             }
+			$('#' + $.escapeSelector(settings.id)).empty();
 			$('#' + $.escapeSelector(settings.id)).rup_select('change');
         },
         /**
@@ -1881,6 +1882,9 @@
                 	// Lanzar evento change cuando se deselecciona una opción.
                 	$('#' + $.escapeSelector(settings.id)).off('select2:unselect');
 					$('#' + $.escapeSelector(settings.id)).on('select2:unselect', function(e) {
+						if (!settings.multiple) {//quitar el valor por defecto
+							settings.selected = settings.blank;
+						}
 						if(settings.deselect){
                         	settings.deselect(e);
     	                }
