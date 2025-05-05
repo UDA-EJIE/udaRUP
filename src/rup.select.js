@@ -219,7 +219,7 @@
             	}
             	
             }
-			$('#' + $.escapeSelector(settings.id)).empty();
+			
 			$('#' + $.escapeSelector(settings.id)).rup_select('change');
         },
         /**
