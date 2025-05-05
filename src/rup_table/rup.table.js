@@ -989,40 +989,8 @@
 			$('#' + $.escapeSelector(options.sTableId)).triggerHandler('tableFilterBeforeReset', options);
 
 			const $form = $('#' + $.escapeSelector(options.sTableId) + '_filter_form');
-			jQuery.each($('input[rupType=autocomplete], select.rup_combo, select[rupType=select], input:not([rupType]), select:not([rupType]), input[rupType=date]', $form), function(index, elem) {
-				const elemSettings = jQuery(elem).data('settings');
-
-				if (elemSettings != undefined) {
-					const elemRuptype = jQuery(elem).attr('ruptype');
-
-					if (elemSettings.parent == undefined) {
-						if (elemRuptype == 'autocomplete') {
-							jQuery(elem).rup_autocomplete('setRupValue', '');
-							elem.defaultValue = "";
-						} else if (elemRuptype == 'combo') {
-							if (_typeof(elemSettings.source) === 'object' || _typeof(elemSettings.sourceGroup) === 'object') {//local
-								jQuery(elem).rup_combo('setRupValue',elemSettings.blank);
-							}else{
-								jQuery(elem).rup_combo('reload');
-							}
-							elem.defaulSelected = false;
-						} else if (elemRuptype == 'select') {
-							jQuery(elem).rup_select('clear');
-							elem.defaultValue = "";
-						} else if (elemRupType == 'date') {
-							jQuery(elem).rup_select('clear');
-							elem.defaultValue = "";
-						}
-					}
-				} else {
-					if(elem.type == 'checkbox'){//los checkbox pueden tener valor asignado.
-						elem.value = elem.defaultValue;
-					}else{
-						elem.defaultValue = "";
-						elem.value = "";
-					}
-				}
-			});
+			
+			$form.rup_validate("resetForm");
 			
 			// Limpiar mensajes de validación.
 			$form.rup_validate("resetElements");
