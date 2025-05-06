@@ -236,6 +236,9 @@
 				const settings = $self.data('settings');
             	var dataSelect2 = $self.data('select2');
             	dataSelect2.$selection.find('input').val('');
+				if(settings.data == undefined){//si es remoto
+					$('#' + $.escapeSelector(settings.id)).empty();
+				}
                 // Simple y multi
 				if (settings.blank !== undefined) {
 					if (settings.multiple) {
@@ -247,6 +250,7 @@
 				} else {
 					$self.rup_select('setRupValue', null);
 				}
+				
             } 
         },
         /**
