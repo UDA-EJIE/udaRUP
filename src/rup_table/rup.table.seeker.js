@@ -581,6 +581,9 @@
 							if (rupType === 'select' && cellColModel.searchoptions === undefined) {
 								// El componente rup_select necesita recibir propiedades para la inicialización.
 								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'searchoptions'));
+							} else if (rupType === 'tree') {
+								// El componente rup_tree no puede ser inicializado en el seeker.
+								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeSeeker'), cellColModel.name));
 							} else {
 								if (new Set(["select"]).has(rupType)) {
 									cellColModel.searchoptions.$forceForm = $('#' + idTabla + '_seeker_form');

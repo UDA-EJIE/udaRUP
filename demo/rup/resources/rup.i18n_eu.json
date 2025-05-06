@@ -355,6 +355,8 @@
       "wrongParam": "Ez da jaso espero zen parametroa.",
       "wrongParams": "Ez dira jaso espero ziren parametroak.",
       "wrongColModel": "\"{0}\" ez dauka \"{1}\"-ik, baina badauka \"rupType\", beraz, elementuaren ezaugarriak ez dira ondo definitu taularen \"colModel\"-ean.",
+      "treeSeeker": "Ezin da zuhaitz bat (rup_tree) \"{0}\" eremuan hasi bilatzailean.",
+      "treeInlineEdit": "Ezin da zuhaitz bat (rup_tree) \"{0}\" eremuan hasi lerro baten edizioan. Erabili formulario edizioa horren ordez.",
       "noMasterPKField": {
         "msg": "Errorea gertatu da xehetasunezko rup_table-a hasieratzerakoan, ezin izan da \"{1}\" aitaren klabearen input-a \"#{0}\" iragazpen-formularioan gehitu.",
         "title": "Errorea taula hasieratzerakoan"
