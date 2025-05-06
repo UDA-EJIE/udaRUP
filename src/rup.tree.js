@@ -132,8 +132,9 @@
 						$self.rup_tree('checkNode', item);
 					}
 				});
-			}
-			else {
+			} else if (Array.isArray(values)) {
+				$self.rup_tree('selectNode', values);
+			} else {
 				if(typeof values !== 'string'){
 					throw Error('Invalid Args (setRupValue)');
 				}
