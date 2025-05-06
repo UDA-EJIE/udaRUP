@@ -532,7 +532,6 @@
 		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
             var formElem;
-			var tree_data, selectorArray;
 			
 			let deferred = $.Deferred();
 
@@ -552,27 +551,18 @@
             }
 
 			if (aData) {
-
 				for (var i in aData) {
-                    tree_data = [];
 					formElem = $('[name=\'' + i + '\']', formid);
-					if (formElem.length == 0) {
-						selectorArray = i.substr(0, i.indexOf('['));
-						formElem = $('[name=\'' + selectorArray + '\']', formid);
-
-
+					
+					// Identifica el elemento que contiene el rup_tree.
+					const treeId = formElem.data('tree-id');
+					if (treeId !== undefined) {
+						formElem = $('div[id=\'' + treeId + '\'][class*="jstree"]', formid);
 					}
+					
 					if (formElem.is('[ruptype]')) {
 						if (formElem.hasClass('jstree')) {
-
-							for (var a in aData) {
-								if (a.substr(0, a.indexOf('[')) == selectorArray) {
-									tree_data.push(aData[a]);
-								}
-							}
-							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', tree_data);
-							var $arbol = [];
-							$arbol[selectorArray] = tree_data;
+							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
                             formElem.on('loaded.jstree', loadedJstreeEvent);
 
 						} else if(formElem.attr('ruptype') === 'select') {

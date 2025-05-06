@@ -978,6 +978,9 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					if (rupType === 'select' && cellColModel.editoptions === undefined) {
 						// El componente rup_select necesita recibir propiedades para la inicialización.
 						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'editoptions'));
+					} else if (rupType === 'tree') {
+						// El componente rup_tree no puede ser inicializado en edición en línea.
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeInlineEdit'), cellColModel.name));
 					} else {
 						if (rupType === 'select') {
 							cellColModel.editoptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
