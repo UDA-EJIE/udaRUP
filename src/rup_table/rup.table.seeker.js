@@ -159,16 +159,16 @@
                 let nombre = $('#' + $.escapeSelector(idTabla) + ' thead th:nth-child(' + position + ')').attr('data-col-prop')
 
                 let result = $.grep(colModel, function (v) {
-                    return v.index.toUpperCase() === nombre.toUpperCase();
+                    return v.name.toUpperCase() === nombre.toUpperCase();
                 });
 
                 // Comprobamos si queremos deshabilitar la búsqueda de la columna
-                if (colModel != undefined && result[0].hidden) {
+                if (colModel != undefined && result[0]?.hidden) {
                     $(this).empty();
-                } else if (result[0].rupType == 'select' || result[0].searchoptions?.rupType == 'select') {
+                } else if (result[0]?.rupType == 'select' || result[0]?.searchoptions?.rupType == 'select') {
                     $(this).html('<select name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"></select>');
                 } else {
-					const maxlength = $.rup_utils.isNumeric(result[0].searchoptions?.maxlength) ? ' maxlength="' + result[0].searchoptions.maxlength + '"' : '';
+					const maxlength = $.rup_utils.isNumeric(result[0]?.searchoptions?.maxlength) ? ' maxlength="' + result[0].searchoptions.maxlength + '"' : '';
 
 					$(this).html('<input type="text" placeholder="' + title + '" name="' + nombre + '" id="' + nombre + '_' + idTabla + '_seeker"' + maxlength + '/>');
                 }
@@ -554,17 +554,13 @@
 
 	            let nombre = $(this).find('input, select').attr('name');
 	            let cellColModel = $.grep(colModel, function (v) {
-	                return v.index.toUpperCase() === nombre.toUpperCase();
+	                return v.name.toUpperCase() === nombre.toUpperCase();
 	            });
 
 	            if (cellColModel !== undefined && cellColModel.length > 0) {
 	                cellColModel = cellColModel[0];
-	                var searchRupType = (cellColModel.searchoptions !== undefined && cellColModel.searchoptions.rupType !== undefined)
-	                    ? cellColModel.searchoptions.rupType
-	                    : cellColModel.rupType;
-
-	                var colModelName = cellColModel.name;
-	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
+	                const rupType = cellColModel.searchoptions?.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
+	                var $elem = $('[name=\'' + cellColModel.name + '\']', ctx.seeker.searchForm);
 
 	                if ($elem.length == 1) {
 						// Se añade el title de los elementos de acuerdo al colname
@@ -581,16 +577,22 @@
 	                    }).insertAfter($elem);
 
 						// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-	                    if (searchRupType !== undefined && cellColModel.searchoptions) {
-	                        searchEditOptions = cellColModel.searchoptions;
+						if (rupType !== undefined) {
+							if (rupType === 'select' && cellColModel.searchoptions === undefined) {
+								// El componente rup_select necesita recibir propiedades para la inicialización.
+								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'searchoptions'));
+							} else if (rupType === 'tree') {
+								// El componente rup_tree no puede ser inicializado en el seeker.
+								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeSeeker'), cellColModel.name));
+							} else {
+								if (new Set(["select"]).has(rupType)) {
+									cellColModel.searchoptions.$forceForm = $('#' + idTabla + '_seeker_form');
+								}
 
-	                        if (new Set(["select"]).has(searchRupType)) {
-	                            searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
-	                        }
-
-							// Invocación al componente RUP
-	                        $elem['rup_' + searchRupType](searchEditOptions);
-	                    }
+								// Invocación al componente RUP
+								$elem['rup_' + rupType](cellColModel.searchoptions);
+							}
+						}
 	                }
 	            }
 	        });

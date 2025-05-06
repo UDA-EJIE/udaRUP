@@ -2,7 +2,13 @@
 
 import 'jquery';
 import 'handlebars';
+import queryString from 'query-string';
+import { flatten, unflatten } from 'flat';
 import 'rup.utils';
+
+global.queryString = queryString;
+global.flatten = flatten;
+global.unflatten = unflatten;
 
 describe('RUP Utils Tests', function(){
 
@@ -135,6 +141,21 @@ describe('RUP Utils Tests', function(){
 
             createdJson = $.rup_utils.queryStringToJson(queryString);
             expect(expectedJson).toEqual(createdJson);
+        });
+    });
+
+    /*
+      * Tests del método queryStringToObject
+      */
+    describe('Tests del método queryStringToObject', function(){
+        it('debería de crear un objeto JavaScript a partir de un query string', function(){
+
+            var queryString = 'keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB',
+                expectedObject = {keyA:'valueA', keyB:'valueB', keyC:'valueC', keyD: {A:'valueDA', B:'valueDB'}},
+                createdObject;
+
+            createdObject = $.rup_utils.queryStringToObject(queryString);
+            expect(expectedObject).toEqual(createdObject);
         });
     });
 });

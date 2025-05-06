@@ -547,7 +547,7 @@
 
                         // Limpieza del componente y añadidas clases restantes de los botones
                         $self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-                        $self.data('uiDialog').uiDialog.find('button:not(.ui-datepicker-trigger)').
+                        $self.data('uiDialog').uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
                             addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
                             .removeClass('ui-button ui-corner-all ui-widget');
 

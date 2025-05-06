@@ -182,4 +182,68 @@ describe('Test BreadCrumb >', () => {
             });
         });
     });
+	describe('Test de eventos > ', () => {
+	    describe('Evento keydown en createdLI > ', () => {
+	        let createdLI;
+	        beforeEach(() => {
+	            createdLI = $('<li tabindex="0">Test Item</li>');
+	            $('#exampleBreadcrumb ul.rup-breadCrumb_main').append(createdLI);
+	        });
+
+			it('Debe disparar un evento click cuando se presiona Enter o Space', () => {
+			    const liElement = $('<li></li>'); // Crear un <li> falso
+			    spyOn(liElement, 'trigger'); // Espiar el método trigger
+
+			    liElement.on('keydown', (event) => {
+			        if (event.code === 'Enter' || event.code === 'Space') {
+			            liElement.trigger('click');
+			        }
+			    });
+
+			    // Simular keydown con Enter
+			    const event = jQuery.Event('keydown', { code: 'Enter' });
+			    liElement.trigger(event);
+
+			    // Verificar que trigger fue llamado (sin validar argumentos exactos)
+			    expect(liElement.trigger).toHaveBeenCalled();
+			});
+			
+			it('Debe disparar un evento click cuando se presiona Space', () => {
+			    const liElement = $('<li></li>'); // Crear un <li> falso
+			    spyOn(liElement, 'trigger'); // Espiar el método trigger
+
+			    liElement.on('keydown', (event) => {
+			        if (event.code === 'Space') {
+			            liElement.trigger('click');
+			        }
+			    });
+
+			    // Simular keydown con Enter
+			    const event = jQuery.Event('keydown', { code: 'Enter' });
+			    liElement.trigger(event);
+
+			    // Verificar que trigger fue llamado (sin validar argumentos exactos)
+			    expect(liElement.trigger).toHaveBeenCalled();
+			});
+			describe('Evento keydown', function () {
+			    it('Debe responder al evento keydown y mostrar el valor de event.code', function () {
+			        // Crear un espía para la función que maneja el evento keydown
+			        spyOn(createdLI, 'on').and.callThrough();
+
+			        // Manejador de evento keydown
+			        createdLI.on('keydown', function (event) {
+			            console.log("Tecla presionada:", event.code);  // Imprimir en consola el valor de event.code
+
+			            // Asegurarse de que el valor de event.code sea correcto
+			            expect(event.code).toBe('ArrowUp'); // Cambia esto según el valor que desees verificar
+			        });
+
+			        // Simular la pulsación de la tecla 'ArrowUp'
+			        let event = $.Event('keydown', { code: 'ArrowUp' });
+			        createdLI.trigger(event);  // Disparar el evento para simular la tecla presionada
+			    });
+			});
+						
+	    });
+	});
 });

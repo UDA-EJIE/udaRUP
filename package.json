@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
@@ -136,7 +136,7 @@
     "postcss": "8.4.39",
     "postcss-loader": "4.3.0",
     "pump": "3.0.0",
-    "query-string": "^9.1.1",
+    "query-string": "^5.1.1",
     "require-dir": "1.2.0",
     "requirejs": "2.3.7",
     "run-sequence": "2.2.1",

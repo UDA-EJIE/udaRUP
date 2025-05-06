@@ -45,9 +45,9 @@ module.exports = function (config) {
             templatePath: null, // set if you moved jasmine_template.html
             focusOnFailures: false, // reports show failures on start
             namedFiles: true, // name files instead of creating sub-directories
-            pageTitle: 'Karma Report 6.0.0', // page title for reports; browser info by default
+            pageTitle: 'Karma Report 6.2.0', // page title for reports; browser info by default
             urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
-            reportName: 'karma_report_6.0.0', // report summary filename; browser info by default
+            reportName: 'karma_report_6.2.0', // report summary filename; browser info by default
 
             // experimental
             preserveDescribeNesting: false, // folded suites stay folded 
@@ -171,7 +171,13 @@ module.exports = function (config) {
                             outputPath: 'rup/html/templates/rup_calendar/'
                         }
                     },
-                }
+                },
+				{
+					test: require.resolve('flat')
+				},
+				{
+					test: require.resolve('query-string')
+				}
                 ],
             },
             resolve: {

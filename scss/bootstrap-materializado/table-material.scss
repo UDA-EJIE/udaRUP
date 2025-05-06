@@ -53,6 +53,12 @@ table.table-material {
 		font-weight: bold;
 		vertical-align: middle;
 		font-size: 1.35rem;
+		
+		/* FIX PARA EL ALINEAMIENTO DEL RELOJ DE RUP.TIME DENTRO DE LA TABLA */
+		&.mdi-clock {
+			vertical-align: initial;
+			font-size: 1.1rem;
+		}
 	}
 
 	.checkbox-material {

@@ -287,4 +287,38 @@ Cabe decir que en el atributo name de los campos definidos como parents de un se
 ```
 
 ## 11 Aspectos a tener en cuenta
-Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `menuAppendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.
+* Para que la obtención de los datos de forma remota funcione, es necesario serializar la entidad mediante Jackson. Para ello, bastará con añadir la clase en el mapa de la propiedad serializers del bean udaModule. Por ejemplo:
+```java
+// Ejemplo de configuración en Java
+@Bean
+public UdaModule udaModule() {
+	UdaModule udaModule = new UdaModule();
+
+	Map<Class<? extends Object>, JsonSerializer<Object>> serializers = new HashMap<Class<? extends Object>, JsonSerializer<Object>>();
+	serializers.put(Usuario.class, customSerializer());
+
+	udaModule.setSerializers(serializers);
+	udaModule.setSerializationInclusions(serializationInclusions());
+	udaModule.setSerializationFeature(serializationFeature());
+	udaModule.setDeserializationFeature(deserializationFeature());
+
+	return udaModule;
+}
+```
+
+```xml
+<!-- Ejemplo de configuración en XML  -->
+<bean id="udaModule" class="com.ejie.x38.serialization.UdaModule" >
+	<property name="serializers">
+		<util:map>
+			<entry key="#{T(com.ejie.x21a.model.Usuario)}" value-ref="customSerializer" />
+		 </util:map>
+	</property>
+	<property name="serializationInclusions" ref="serializationInclusions" />
+	<property name="serializationFeature" ref="serializationFeature" />
+	<property name="deserializationFeature" ref="deserializationFeature" />
+</bean>
+```
+
+* En los casos en los que se utilice el método *clear* del componente, como por ejemplo lo hace el módulo de edición de la tabla para limpiar los valores previos que pudiera contener el formulario, **es necesario disponer de algún valor en la propiedad `blank`** si se espera que el componente no esté vacío una vez se ejecute el método.
+* Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `menuAppendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.

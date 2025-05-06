@@ -477,8 +477,24 @@
 		 * // "keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB" -> "{ keyA: "valueA", keyB: "valueB", keyC: "valueC", keyD: { A: "valueDA", B: "valueDB" } }"
 		 * $.rup_utils.queryStringToObject("keyA=valueA&keyB=valueB&keyC=valueC&keyD.A=valueDA&keyD.B=valueDB");
 		 */
-		queryStringToObject: function (query, options) {
-			return $.fn.unflattenObject(queryString.parse(query, options));
+		queryStringToObject: function (query, options, $form) {
+			let parsedQuery =  $.fn.unflattenObject(queryString.parse(query, options));
+			if($form != undefined){
+				Object.keys(parsedQuery).forEach(key => {
+				    let $fieldElement = $form.find(`[name="${key}"]`);
+	
+				    // Comprobar si es un select multiple o un rup_select
+				    let isMultiple = $fieldElement.is("select[multiple]") || 
+				                     $fieldElement.attr("ruptype") === "select" && $fieldElement.attr("multiple") !== undefined;
+									 
+					if (isMultiple && !Array.isArray(parsedQuery[key])) {
+					     parsedQuery[key] = [parsedQuery[key]]; // Convertir en array si es un solo valor
+					}
+	
+				});
+			}
+
+			return parsedQuery;
 		},
 		
 		/**
@@ -516,7 +532,8 @@
 		},
 		populateForm: function (aData, formid) { //rellena un formulario que recibe como segundo parametro con los datos que recibe en el segundo parametro
             var formElem;
-			var tree_data, selectorArray;
+			
+			let deferred = $.Deferred();
 
             function loadedJstreeEvent(){
                 var selectorArbol = this.id;
@@ -534,27 +551,18 @@
             }
 
 			if (aData) {
-
 				for (var i in aData) {
-                    tree_data = [];
 					formElem = $('[name=\'' + i + '\']', formid);
-					if (formElem.length == 0) {
-						selectorArray = i.substr(0, i.indexOf('['));
-						formElem = $('[name=\'' + selectorArray + '\']', formid);
-
-
+					
+					// Identifica el elemento que contiene el rup_tree.
+					const treeId = formElem.data('tree-id');
+					if (treeId !== undefined) {
+						formElem = $('div[id=\'' + treeId + '\'][class*="jstree"]', formid);
 					}
+					
 					if (formElem.is('[ruptype]')) {
 						if (formElem.hasClass('jstree')) {
-
-							for (var a in aData) {
-								if (a.substr(0, a.indexOf('[')) == selectorArray) {
-									tree_data.push(aData[a]);
-								}
-							}
-							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', tree_data);
-							var $arbol = [];
-							$arbol[selectorArray] = tree_data;
+							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
                             formElem.on('loaded.jstree', loadedJstreeEvent);
 
 						} else if(formElem.attr('ruptype') === 'select') {
@@ -573,11 +581,14 @@
 					}
 				}
 			}
+			
+			deferred.resolve();
 		},
 		
 	    /**
-	     * Método que serializa los datos del formulario.
+	     * Método que transforma los datos de un formulario en un query string.
 	     *
+		 * @deprecated desde version 6.2.0. Utilizar $.rup_utils.formDataToQueryString() en su lugar.
 	     * @name editFormSerialize
 	     * @function
 	     * @since UDA 6.2.0
@@ -585,7 +596,7 @@
 	     * @param {object} idForm - Formulario que alberga los datos.
 	     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
 	     *
-	     * @return {string} - Devuelve los datos del formulario serializados
+	     * @return {string} - Devuelve los datos del formulario en un query string.
 	     *
 	     */
 	    editFormSerialize(idForm, serializerSplitter = '&') {
@@ -615,6 +626,31 @@
 	        serializedForm = serializedForm.substring(0, serializedForm.length - serializerSplitter.length);
 	        return serializedForm;
 	    },
+	    
+		/**
+		 * Método que transforma los datos de un formulario en un query string.
+		 *
+		 * @name formDataToQueryString
+		 * @function
+		 * @since UDA 6.2.0
+		 *
+		 * @param {object} idForm - Formulario que alberga los datos.
+		 * @param {object} options - Opciones de configuración: https://github.com/sindresorhus/query-string?tab=readme-ov-file#stringifyobject-options
+		 *
+		 * @return {string} - Devuelve los datos del formulario en un query string.
+		 *
+		 */
+		formDataToQueryString(idForm, options) {
+			let serializedForm = '';
+
+			$.each(idForm.formToArray(), function(key, obj) {
+				serializedForm += queryString.stringify({ [obj.name]: obj.value }, options) + '&';
+			});
+
+			// Evitar que el último carácter sea "&".
+			serializedForm = serializedForm.substring(0, serializedForm.length - 1);
+			return serializedForm;
+		},
 
 		//DATE UTILS
 		createDate: function (day, month, year) {

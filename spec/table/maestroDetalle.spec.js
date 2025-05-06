@@ -1,6 +1,8 @@
 /* eslint-env jquery,jasmine */
 import 'jquery';
 import 'jasmine-jquery';
+import queryString from 'query-string';
+import { flatten, unflatten } from 'flat';
 import 'rup.feedback';
 import 'rup.dialog';
 import 'rup.message';
@@ -12,6 +14,9 @@ import * as dtGen from './tableCreator';
 //     doesNotReject
 // } from 'assert';
 
+global.queryString = queryString;
+global.flatten = flatten;
+global.unflatten = unflatten;
 var selected = {};
 
 function clearDatatable(done) {

@@ -223,8 +223,11 @@
       "url": "Por favor, escribe una URL válida."
     },
     "regexp": {
-      "decimal": "^-?(?:\\d+|\\d{1,3}(?:.\\d{3})+)(?:\\,\\d+)?$"
-    }
+      "decimal": "^[+-]?((\\d*)|(\\d{1,3}(\\.\\d{3})+))(,\\d+)?$"
+    },
+    "errors": {
+		"numberValidation": "La validación numérica debe realizarse sobre un campo de tipo texto."	
+	}
   },
   "rup_wizard": {
     "next": "Siguiente",
@@ -351,7 +354,9 @@
       "nourl": "No se ha especificado una URL",
       "wrongParam": "No se ha recibido el parámetro esperado.",
       "wrongParams": "No se han recibido los parámetros esperados.",
-      "wrongColModel": "No existe ni \"editoptions\" ni \"searchoptions\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
+      "wrongColModel": "No existe \"{1}\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
+      "treeSeeker": "No es posible inicializar un árbol (rup_tree) sobre el campo \"{0}\" en el buscador.",
+      "treeInlineEdit": "No es posible inicializar un árbol (rup_tree) sobre el campo \"{0}\" en edición en línea. Use la edición en formulario en su lugar.",
       "noMasterPKField": {
         "msg": "Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "Error en la inicialización de la tabla"

@@ -353,7 +353,9 @@
       "nourl": "fr_No se ha especificado una URL",
       "wrongParam": "fr_No se ha recibido el parámetro esperado.",
       "wrongParams": "fr_No se han recibido los parámetros esperados.",
-      "wrongColModel": "fr_No existe ni \"editoptions\" ni \"searchoptions\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
+      "wrongColModel": "fr_No existe \"{1}\" para \"{0}\", pero sí \"rupType\", por lo tanto, las propiedades del elemento no han sido bien definidas en el \"colModel\" de la tabla.",
+      "treeSeeker": "fr_No es posible inicializar un árbol (rup_tree) sobre el campo \"{0}\" en el buscador.",
+      "treeInlineEdit": "fr_No es posible inicializar un árbol (rup_tree) sobre el campo \"{0}\" en edición en línea. Use la edición en formulario en su lugar.",
       "noMasterPKField": {
         "msg": "fr_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "fr_Error en la inicialización de la tabla"

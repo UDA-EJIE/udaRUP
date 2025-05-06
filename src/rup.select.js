@@ -180,7 +180,6 @@
             		settings.selected = param;
             		
 	            	$self.val(param).trigger('change');
-	            	$('#' + $.escapeSelector(settings.id)).rup_select('change');
             	}
 
             } else {
@@ -220,7 +219,8 @@
             	}
             	
             }
-            
+			
+			$('#' + $.escapeSelector(settings.id)).rup_select('change');
         },
         /**
 		 * Método que limpia el valor seleccionado en el select. En el caso de
@@ -236,16 +236,21 @@
 				const settings = $self.data('settings');
             	var dataSelect2 = $self.data('select2');
             	dataSelect2.$selection.find('input').val('');
+				if(settings.data == undefined){//si es remoto
+					$('#' + $.escapeSelector(settings.id)).empty();
+				}
                 // Simple y multi
 				if (settings.blank !== undefined) {
 					if (settings.multiple) {
-						$self.rup_select('setRupValue', [$self.data('settings').blank]);
+						const blankValue = $self.data('settings').blank;
+						$self.rup_select('setRupValue', $.isArray(blankValue) ? blankValue : [blankValue]);
 					} else {
 						$self.rup_select('setRupValue', $self.data('settings').blank);
 					}
 				} else {
 					$self.rup_select('setRupValue', null);
 				}
+				
             } 
         },
         /**
@@ -1160,6 +1165,9 @@
 			               }
 			    }		
 	    	};
+				if(settings.firstLoad == undefined){//si no esta definido en la primera vez
+					settings.firstLoad = true;
+				}
         	 	
         	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
@@ -1173,10 +1181,12 @@
 
 				let __cache = [];
 				let __lastQuery = null;
+				settings.cacheUrlSelectData = {};
 		    	settings.ajax.transport = function(params, success, failure) {
 
 					// retrieve the cached key or default to _ALL_
 			        let __cachekey = params.data || '_ALL_';
+					let sameParam = true;
 		    		//Se actualiza el data, para mantener la misma función.
 			        if(!settings.autocomplete){
 			        	params.data = "" ;
@@ -1187,6 +1197,14 @@
 							let searchField = document.querySelector('.select2-search--dropdown .select2-search__field');
 							params.data.q = searchField.value;
 							__cachekey = params.data.q;
+							if (settings.cacheUrl === true && Object.keys(settings.cacheUrlSelectData).length > 0) {
+							      // filtrar datos en caché, no va al controller
+							      let filtered = settings.cacheUrlSelectData.filter(function (item) {
+								    return self._normalizeString(item.text).includes(self._normalizeString(__cachekey));
+								  });
+							      success(filtered);
+							      return;
+							 }
 						}else{						
 				        	params.data.q = mySelect.$container.find('input').val();
 				        	__cachekey = params.data.q;
@@ -1195,6 +1213,7 @@
 			        if (__lastQuery !== __cachekey) {
 			          // remove caches not from last query
 			          __cache = [];
+					  sameParam = false;
 			        }
 			        __lastQuery = __cachekey;
 			        //Si esta cacheado, no busca
@@ -1202,8 +1221,16 @@
 						// display the cached results
 						success(__cache[__cachekey]);
 						// Marca el valor definido como seleccionado.
-						if (!settings.autocomplete && settings.selected) {
-							$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+						if (!settings.multiple) {
+							if (!settings.autocomplete && settings.selected) {
+								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+							}
+
+						}else{
+							//para multiples
+							if (!settings.autocomplete && (settings.selected != "" || settings.selected.length > 0)) {
+								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+							}
 						}
 						return;
 					}
@@ -1263,6 +1290,7 @@
 				    
 				          // store data in cache
 				          __cache[__cachekey] = data;
+
 				          // display the results
 				          $('#' + $.escapeSelector(settings.id)).rup_select("enable");
 					        //Si tiene padres deshabilitarlos
@@ -1275,7 +1303,18 @@
 			                      });
 					        	}
 					        }
+							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true && !sameParam) {
+									$('#' + $.escapeSelector(settings.id)).empty();
+								}	
 				          success(__cache[__cachekey]);
+						  if (settings.autocomplete && settings.multiple) {
+							  if (settings.cacheUrl === true) {//almacena los datos para no ir al controller
+							     settings.cacheUrlSelectData = data;
+							  }else if(!settings.firstLoad && !sameParam){//Vaciamos las opciones, porque recargan nuevas
+							  	//la primera carga no hace falta.
+							  	mySelect.selection.update([]);//actualizo con los nuevos datos	
+							  }
+						  }
 				          // Actualizar seleccionado en la lista//css
 				          let positions = [];
 				          let valueSelect = settings.selected ? settings.selected : $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue');
@@ -1311,6 +1350,9 @@
 								  v.text = v[settings.sourceParam.text];
 							  }
 							  if(settings.multiple ){
+								if (typeof valueSelect === 'string') {//si viene String lo convierte, no debería
+									valueSelect = [valueSelect];
+								}
 								let selectMultiple = $.grep(valueSelect, function (h) {
 										return String(h) == v.id;
 									});
@@ -1362,6 +1404,7 @@
 									$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								}
 							}
+
 				          
 				         if (settings.onLoadSuccess !== null && settings.onLoadSuccess !== undefined) {
 				            jQuery(settings.onLoadSuccess($('#' + $.escapeSelector(settings.id))));
@@ -1369,6 +1412,9 @@
 				          $('#' + $.escapeSelector(settings.id)).data('settings', settings);
 	              		  $('#' + $.escapeSelector(settings.id)).triggerHandler('selectAjaxSuccess', [data]);
 	              		  if(settings.firstLoad){
+							if(settings.multiple){//actualizar el número de lo cargado, siempre que sea multiple
+								mySelect.selection.update([]);
+							}	
 	              			if(settings.autocomplete && settings.selected == undefined && settings.defaultValue != undefined && data != undefined &&
 	              					($('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') == '' || $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') == settings.blank)){
 	              				//setear el valor para el defaultValue
@@ -1440,6 +1486,9 @@
 			
 
         	if(settings.multiple){
+				if(settings.closeOnSelect == undefined){//en los multiples por defecto que o se cierre.
+					settings.closeOnSelect = false;
+				}
          		$('#' + $.escapeSelector(settings.id)).select2MultiCheckboxes(settings);
         	}else{
                 if (settings.placeholder == undefined || settings.placeholder == '') {
@@ -1475,6 +1524,10 @@
     	 	}
  
         },
+		_normalizeString(str) {
+		  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+		},
+
         /**
 		 * Método de inicialización del componente.
 		 * 
@@ -1833,6 +1886,9 @@
                 	// Lanzar evento change cuando se deselecciona una opción.
                 	$('#' + $.escapeSelector(settings.id)).off('select2:unselect');
 					$('#' + $.escapeSelector(settings.id)).on('select2:unselect', function(e) {
+						if (!settings.multiple) {//quitar el valor por defecto
+							settings.selected = settings.blank;
+						}
 						if(settings.deselect){
                         	settings.deselect(e);
     	                }
@@ -1871,6 +1927,9 @@
 	                	
 
 	                	if(settings.multiple){
+								if(settings.closeOnSelect == undefined){//en los multiples por defecto que o se cierre.
+									settings.closeOnSelect = false;
+								}
 	 	                        $('#' + $.escapeSelector(settings.id)).select2MultiCheckboxes(settings);
 	                	}else{	  
 	                        if (settings.placeholder == undefined || settings.placeholder == '') {
@@ -2082,7 +2141,7 @@
 						mySelectCheck.on("results:all", function() {
 						    let listItems = mySelectCheck.$results.find('li');
 							listItems.each(function () {
-						   		$self.addClass('ocultar-before');
+						   		$(this).addClass('ocultar-before');
 						    });
 						});
 					}	

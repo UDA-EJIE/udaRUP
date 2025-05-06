@@ -70,7 +70,7 @@
 		getRupValue: function () {
 			var $self = this,
 			settings = $self.data('settings'),
-			selectedItems, tmpId, name = $self.attr('name');
+			selectedItems, tmpId, name = $self.attr('name') !== undefined ? $self.attr('name') : $self.data('name');
 
 			if (jQuery.inArray('checkbox', settings.plugins) !== -1) {
 				selectedItems = $self.rup_tree('getChecked', false);
@@ -132,8 +132,9 @@
 						$self.rup_tree('checkNode', item);
 					}
 				});
-			}
-			else {
+			} else if (Array.isArray(values)) {
+				$self.rup_tree('selectNode', values);
+			} else {
 				if(typeof values !== 'string'){
 					throw Error('Invalid Args (setRupValue)');
 				}
@@ -141,6 +142,9 @@
 					$('li#'+values+' > a', $self).click();
 				}
 			}
+
+			// Define los valores en el input oculto del formulario.
+			$('input[name=\'' + $self.data('name') + '\']', $self.parents('form')).val($self.rup_tree('getSelected'));
 		},
 		/**
 		 * Establece el foco sobre el componente.
@@ -1696,7 +1700,7 @@
 					jQuery.rup.errorGestor(jQuery.rup.i18n.base.rup_global.initError + jQuery(this).attr('id'));
 				} else {
 					// Se recogen y cruzan las paremetrizaciones.
-					if (args.length > 0) {
+					if (args.length > 0 && args[0] !== undefined) {
 						if (args[0].select) {
 							args[0].ui = args[0].select;
 							delete args[0].select;
@@ -1728,6 +1732,11 @@
 
 					// Evento de inicializacion.
 					selectorSelf.on('ready.jstree', function () {
+						// Necesario para que el componente funcione correctamente en la edición de una tabla.
+						if ($(this).parents('form')) {
+							$('<input type="hidden" name="' + $(this).data('name') + '" data-tree-id="' + this.id + '"></input>').insertAfter($(this));
+						}
+						
 						// Una vez creados y cargados todos los nodos, se libera la visualización del componente.
 						$(this).removeClass('rup_tree');
 					});
