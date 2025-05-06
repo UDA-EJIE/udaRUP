@@ -2,11 +2,10 @@
 
 import 'jquery';
 import 'handlebars';
-import queryString from 'query-string';
 import { flatten, unflatten } from 'flat';
 import 'rup.utils';
 
-global.queryString = queryString;
+global.queryString = queryStringToJson;
 global.flatten = flatten;
 global.unflatten = unflatten;
 
@@ -154,8 +153,31 @@ describe('RUP Utils Tests', function(){
                 expectedObject = {keyA:'valueA', keyB:'valueB', keyC:'valueC', keyD: {A:'valueDA', B:'valueDB'}},
                 createdObject;
 
-            createdObject = $.rup_utils.queryStringToObject(queryString);
+            createdObject = queryStringToObject(queryString);
             expect(expectedObject).toEqual(createdObject);
         });
     });
 });
+
+function queryStringToJson(queryString) {
+  return queryString
+    .split('&')
+    .reduce((acc, pair) => {
+      const [key, value] = pair.split('=').map(decodeURIComponent);
+      acc[key] = value;
+      return acc;
+    }, {});
+}
+
+function queryStringToObject(queryString) {
+  const flatObject = queryString
+    .replace(/^\?/, '')
+    .split('&')
+    .filter(Boolean)
+    .reduce((acc, pair) => {
+      const [key, value] = pair.split('=').map(decodeURIComponent);
+      acc[key] = value;
+      return acc;
+    }, {});
+  return unflatten(flatObject);
+}
