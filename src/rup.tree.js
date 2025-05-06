@@ -142,6 +142,9 @@
 					$('li#'+values+' > a', $self).click();
 				}
 			}
+
+			// Define los valores en el input oculto del formulario.
+			$('input[name=\'' + $self.data('name') + '\']', $self.parents('form')).val($self.rup_tree('getSelected'));
 		},
 		/**
 		 * Establece el foco sobre el componente.
@@ -1729,6 +1732,11 @@
 
 					// Evento de inicializacion.
 					selectorSelf.on('ready.jstree', function () {
+						// Necesario para que el componente funcione correctamente en la edición de una tabla.
+						if ($(this).parents('form')) {
+							$('<input type="hidden" name="' + $(this).data('name') + '" data-tree-id="' + this.id + '"></input>').insertAfter($(this));
+						}
+						
 						// Una vez creados y cargados todos los nodos, se libera la visualización del componente.
 						$(this).removeClass('rup_tree');
 					});
