@@ -549,49 +549,54 @@
 	            $inputs = $footerCells.find('input, select');
 	        }
 
-	        // Iterar sobre las columnas del tfoot
-	        $footerCells.each(function () {
-	            $(this).addClass('form-groupMaterial');
+			// Iterar sobre las columnas del tfoot
+			$footerCells.each(function() {
+				$(this).addClass('form-groupMaterial');
 
-	            let nombre = $(this).find('input, select').attr('name');
-	            let cellColModel = $.grep(colModel, function (v) {
-	                return v.name.toUpperCase() === nombre.toUpperCase();
-	            });
+				let nombre = $(this).find('input, select').attr('name');
+				let cellColModel = $.grep(colModel, function(v) {
+					return v.name.toUpperCase() === nombre.toUpperCase();
+				});
 
-	            if (cellColModel !== undefined && cellColModel.length > 0) {
-	                cellColModel = cellColModel[0];
-	                var searchRupType = cellColModel.searchoptions?.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
-	                var colModelName = cellColModel.name;
-	                var $elem = $('[name=\'' + colModelName + '\']', ctx.seeker.searchForm);
+				if (cellColModel !== undefined && cellColModel.length > 0) {
+					cellColModel = cellColModel[0];
+					const rupType = cellColModel.searchoptions?.rupType !== undefined ? cellColModel.searchoptions.rupType : cellColModel.rupType;
+					var $elem = $('[name=\'' + cellColModel.name + '\']', ctx.seeker.searchForm);
 
-	                if ($elem.length == 1) {
+					if ($elem.length == 1) {
 						// Se añade el title de los elementos de acuerdo al colname
-	                    $elem.attr({
-	                        'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
-	                        'class': 'editable customelement form-control-customer'
-	                    }).removeAttr('readOnly');
+						$elem.attr({
+							'title': $('#' + cellColModel.name + '_' + idTabla + '_seeker').attr('placeholder'),
+							'class': 'editable customelement form-control-customer'
+						}).removeAttr('readOnly');
 
 						// Añadir label oculto que se usará principalmente para la gestión de los combos enlazados.
-	                    $('<label></label>', {
-	                        'for': $elem.attr('id'),
-	                        'class': "d-none",
-	                        'text': $elem.attr('placeholder')
-	                    }).insertAfter($elem);
+						$('<label></label>', {
+							'for': $elem.attr('id'),
+							'class': "d-none",
+							'text': $elem.attr('placeholder')
+						}).insertAfter($elem);
 
 						// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-	                    if (searchRupType !== undefined && cellColModel.searchoptions) {
-	                        searchEditOptions = cellColModel.searchoptions;
+						if (rupType !== undefined) {
+							if ((rupType === 'select' || rupType === 'combo' || rupType === 'autocomplete') && cellColModel.searchoptions === undefined) {
+								// El componente necesita recibir propiedades para la inicialización.
+								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'searchoptions'));
+							} else if (rupType === 'tree') {
+								// El componente rup_tree no puede ser inicializado en el seeker.
+								console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeSeeker'), cellColModel.name));
+							} else {
+								if (new Set(["select"]).has(rupType)) {
+									cellColModel.searchoptions.$forceForm = $('#' + idTabla + '_seeker_form');
+								}
 
-	                        if (new Set(["select"]).has(searchRupType)) {
-	                            searchEditOptions.$forceForm = $('#' + idTabla + '_seeker_form');
-	                        }
-
-							// Invocación al componente RUP
-	                        $elem['rup_' + searchRupType](searchEditOptions);
-	                    }
-	                }
-	            }
-	        });
+								// Invocación al componente RUP
+								$elem['rup_' + rupType](cellColModel.searchoptions);
+							}
+						}
+					}
+				}
+			});
 	    }
 	}
 

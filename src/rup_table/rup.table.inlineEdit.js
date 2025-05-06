@@ -943,38 +943,45 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 					'class': 'editable customelement form-control-customer',
 					...($.rup_utils.isNumeric(cellColModel.editoptions?.maxlength) && { 'maxlength': cellColModel.editoptions.maxlength })
 				}).removeAttr('readOnly');
-				// En caso de tratarse de un componente rup, se inicializa de acuerdo a la configuracón especificada en el colModel
-				if(searchRupType !== undefined && cellColModel.editoptions) {
-					var searchEditOptions = cellColModel.editoptions;
-					if(searchRupType === 'combo'){//se marca el selected
-						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
-						searchEditOptions.inlineEditFieldName = cellColModel.name;
-					} else if (searchRupType === 'autocomplete') {
-						const cellValue = ctx.inlineEdit.lastRow.cellValues[cont];
-						searchEditOptions.loadValue = cellValue;
-						if(cellValue != null){
-							searchEditOptions.loadObjectsAuto = {[cellValue]:cellValue};
+				
+				if (rupType !== undefined) {
+					if ((rupType === 'select' || rupType === 'combo' || rupType === 'autocomplete') && cellColModel.editoptions === undefined) {
+						// El componente necesita recibir propiedades para la inicialización.
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.wrongColModel'), cellColModel.name, 'editoptions'));
+					} else if (rupType === 'tree') {
+						// El componente rup_tree no puede ser inicializado en edición en línea.
+						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeInlineEdit'), cellColModel.name));
+					} else {
+						if (rupType === 'select') {
+							cellColModel.editoptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
+							cellColModel.editoptions.inlineEditFieldName = cellColModel.name;
+						} else if (rupType === 'combo') {
+							cellColModel.editoptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
+							cellColModel.editoptions.inlineEditFieldName = cellColModel.name;
+						} else if (rupType === 'autocomplete') {
+							const cellValue = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name];
+							cellColModel.editoptions.loadValue = cellValue;
+							if (cellValue != null) {
+								cellColModel.editoptions.loadObjectsAuto = { [cellValue]: cellValue };
+							}
 						}
-					} else if(searchRupType === 'select'){
-						searchEditOptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
-						searchEditOptions.inlineEditFieldName = cellColModel.name;
+
+						if (rupType === 'select' || rupType === 'combo' || rupType === 'autocomplete') {
+							// Permite inicializar el componente con el source correcto.
+							cellColModel.editoptions.inlineEdit = {};
+							cellColModel.editoptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
+							cellColModel.editoptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
+						}
+
+						// Eliminar los elementos del menú.
+						if ($('#' + $.escapeSelector($elem.attr('id')) + '-menu').length > 0) {
+							$('#' + $.escapeSelector($elem.attr('id')) + '-menu').remove('ul');
+						}
+
+						// Inicializar componente.
+						$elem['rup_' + rupType](cellColModel.editoptions);
 					}
-					
-					if (searchRupType === 'select' || searchRupType === 'combo' || searchRupType === 'autocomplete') {
-						// Permite inicializar el componente con el source correcto.
-						searchEditOptions.inlineEdit = {};
-						searchEditOptions.inlineEdit.$auxForm = ctx.oInit.inlineEdit.idForm;
-						searchEditOptions.inlineEdit.auxSiblingFieldName = cellColModel.name;
-					}
-					
-					//Se Comprueba que los elemnetos menu estan eliminados.
-					if( $('#' + $.escapeSelector($elem.attr('id')) + '-menu').length > 0){
-						$('#' + $.escapeSelector($elem.attr('id')) + '-menu').remove('ul');
-					}
-					
-					// Invocación al componente RUP
-					$elem['rup_'+searchRupType](searchEditOptions);
-				}else if(cellColModel.edittype === 'checkbox'){
+				} else if(cellColModel.edittype === 'checkbox'){
 					$elem
 						.prop('type', 'checkbox')
 						.parent().toggleClass('form-groupMaterial checkbox-material checkbox-material-inline')
