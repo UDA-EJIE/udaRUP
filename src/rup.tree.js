@@ -1696,7 +1696,7 @@
 					jQuery.rup.errorGestor(jQuery.rup.i18n.base.rup_global.initError + jQuery(this).attr('id'));
 				} else {
 					// Se recogen y cruzan las paremetrizaciones.
-					if (args.length > 0) {
+					if (args.length > 0 && args[0] !== undefined) {
 						if (args[0].select) {
 							args[0].ui = args[0].select;
 							delete args[0].select;
