@@ -191,6 +191,7 @@ table.dataTable tbody {
 	
 	.dt-length {		
 		select {
+			max-width: 185px;
 			padding: 0 15px 0 5px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
