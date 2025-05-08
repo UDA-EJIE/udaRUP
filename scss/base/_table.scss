@@ -67,7 +67,11 @@ td>div.centerOnResponsiveContainer {
 .dataTable {
 	.dt-ordering-asc {
 		&.sorting_active_only {
-			.mdi.mdi-arrow-down {
+			span.mdi.mdi-arrow-up {
+				display: inline;
+			}
+			
+			span.mdi.mdi-arrow-down {
 				display: none;
 			}
 		}
@@ -79,8 +83,12 @@ td>div.centerOnResponsiveContainer {
 
 	.dt-ordering-desc {
 		&.sorting_active_only {
-			.mdi.mdi-arrow-up {
+			span.mdi.mdi-arrow-up {
 				display: none;
+			}
+			
+			span.mdi.mdi-arrow-down {
+				display: inline;
 			}
 		}
 		
