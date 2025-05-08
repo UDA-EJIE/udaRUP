@@ -350,7 +350,7 @@ export function describes() {
                 beforeEach((done)=>{
                     
                    	$('#rup-list').on('rup_list-mord-dialogOpen', () => {
-                		done();
+                		setTimeout(done, 200);
                 	});
                     $('#rup-list-header-mord-edit').click();
                 });

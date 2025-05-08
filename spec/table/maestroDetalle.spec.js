@@ -991,7 +991,7 @@ function testForm2Inline(defer) {
                     beforeEach((done) => {
                         $('#inline2').on('draw.dt', () => {
 							$('#inline2').off('draw.dt');
-                            setTimeout(done, 100);
+                            setTimeout(done, 200);
                         });
                         $('#inline2').find('th:contains(Nombre)').click();
                     });
@@ -1430,7 +1430,7 @@ function testInline2Form(defer) {
                 describe('Tabla maestro > ', () => {
                     beforeEach((done) => {
 						$('#inline1').on('draw.dt', () => {
-							setTimeout(done, 100);
+							setTimeout(done, 200);
 						});
                         $('#inline1_filter_fieldset').find('#id_filter_table').val(4);
                         $('#inline1_filter_fieldset').find('#inline1_filter_filterButton').click();
@@ -2232,7 +2232,7 @@ function testInline2Inline(defer) {
                         $('#inline2').find('thead th:contains(Nombre)').click();
 						$('#inline2').on('draw.dt', () => {
 							$('#inline2').off('draw.dt');
-						    setTimeout(done, 100);
+						    setTimeout(done, 200);
 						});
                     });
                     afterEach((done) => {
