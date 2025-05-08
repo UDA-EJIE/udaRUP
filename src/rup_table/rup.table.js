@@ -1865,13 +1865,27 @@
             delay: 2000,
             block: false
         },
-        responsive: {
-            details: {
-                type: 'column',
-                target: 'td span.openResponsive'
-            },
-            selectorResponsive: 'td span.dtr-data'
-        },
+		responsive: {
+			details: {
+				renderer: function(api, rowIdx, columns) {
+					var data = $.map(columns, function(col) {
+						var klass = col.className ? 'class="' + col.className + '"' : '';
+
+						// Elimina las flechas de ordenación.
+						if (col.title.indexOf('d-block') !== -1) {
+							col.title = col.title.substring(col.title.indexOf('<div class="d-block'), col.title.lastIndexOf);
+						}
+
+						return col.hidden ? '<li ' + klass + ' data-dtr-index="' + col.columnIndex + '" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' + '<span class="dtr-title">' + col.title + '</span> ' + '<span class="dtr-data">' + col.data + '</span>' + '</li>' : '';
+					}).join('');
+
+					return data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"/>').append(data) : false;
+				},
+				type: 'column',
+				target: 'td span.openResponsive'
+			},
+			selectorResponsive: 'td span.dtr-data'
+		},
 		layout: {
 			top2Start: null,
 			top2End: null,
