@@ -1,4 +1,4 @@
-/*! Buttons 3.2.2
+/*! Buttons for DataTables 3.2.3
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +6,7 @@
  * @summary     Buttons
  * @description Buttons for DataTables
  * @module      "rup.table.buttons"
- * @version     3.2.2
+ * @version     3.2.3
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -1276,6 +1276,7 @@
 				return {
 					conf: config,
 					node: spacer,
+					nodeChild: null,
 					inserter: spacer,
 					buttons: [],
 					inCollection: inCollection,
@@ -1542,10 +1543,13 @@
 
 				splitDiv.append(dropButton).attr(dropButtonConfig.attr);
 			}
+			
+			var node = isSplit ? splitDiv.get(0) : button.get(0);
 
 			return {
 				conf: config,
-				node: isSplit ? splitDiv.get(0) : button.get(0),
+				node: node,
+				nodeChild: node && node.children && node.children.length ? node.children[0] : null,
 				inserter: isSplit ? splitDiv : inserter,
 				buttons: [],
 				inCollection: inCollection,
@@ -1625,9 +1629,9 @@
             }
 
             for (var i = 0, ien = buttons.length; i < ien; i++) {
-				if (buttons[i].node === node || $(buttons[i].node).children().eq(0).get(0) === node) {
-                    return buttons[i];
-                }
+				if (buttons[i].node === node || buttons[i].nodeChild === node) {
+					return buttons[i];
+				}
 
                 if (buttons[i].buttons.length) {
                     var ret = this._nodeToButton(node, buttons[i].buttons);
@@ -2594,7 +2598,7 @@
      * @static
      *
      */
-    Buttons.version = '3.2.2';
+    Buttons.version = '3.2.3';
 
 
     $.extend(_dtButtons, {
