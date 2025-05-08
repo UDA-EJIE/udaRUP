@@ -107,7 +107,7 @@ describe('Test ContextMenu > ', () => {
             setTimeout(() => {
                 $('.context-menu-submenu').mouseenter();
                 done();
-            }, 200);
+            }, 600);
         });
         it('Se muestra el elemento del submenu > ', () => {
             expect($('span:contains(Clickable2)').is(':visible')).toBeTruthy();
