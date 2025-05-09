@@ -1406,6 +1406,9 @@ function _callSaveAjax(actionType, ctx, $fila, row, url, isDeleting){
 				ctx.oInit.inlineEdit.alta = undefined;
 				var dt = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
 				var idPk = DataTable.Api().rupTable.getIdPk(data, ctx.oInit);
+				if(ctx.oInit.filter != undefined){
+					ctx.oInit.filter.type = "operation";
+				}
 				
 				if (url !== '/deleteAll' && actionType !== 'DELETE') {
 					// Se informa al feedback de la tabla
