@@ -284,6 +284,36 @@
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Local functions
 	 */
+	
+	/**
+	 * Get the class
+	 * @returns 
+	 */
+	function checkboxClass(selector) {
+		var name = DataTable.multiSelect.classes.checkbox;
+
+		return selector
+			? name.replace(/ /g, '.')
+			: name;
+	}
+
+	/**
+	 * Disable mouse selection by removing the selectors
+	 *
+	 * @param {DataTable.Api} dt DataTable to remove events from
+	 * @private
+	 */
+	function disableMouseSelection(dt) {
+		var ctx = dt.settings()[0];
+		var selector = ctx._multiSelect.selector;
+
+		$(dt.table().container())
+			.off('mousedown.dtSelect', selector)
+			.off('mouseup.dtSelect', selector)
+			.off('click.dtSelect', selector);
+
+		$('body').off('click.dtSelect' + _safeId(dt.table().node()));
+	}
 
     /**
      * Attach mouse listeners to the table to allow mouse selection of items
