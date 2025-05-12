@@ -2436,7 +2436,7 @@
 		}
 	});
 	
-	DataTable.render.select = function (valueProp, nameProp) {
+	DataTable.render.multiSelect = function (valueProp, nameProp) {
 		var valueFn = valueProp ? DataTable.util.get(valueProp) : null;
 		var nameFn = nameProp ? DataTable.util.get(nameProp) : null;
 	
