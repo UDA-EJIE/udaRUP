@@ -1912,12 +1912,18 @@
 		},
 		drawCallback: function(settings) {
 			// Aplica las clases necesarias para disponer de unos estilos correctos en el paginador.
-			const $pagination = $('.paginationContainer').find('ul.pagination');
+			const $pagination = $('#' + settings.sTableId + '_wrapper .paginationContainer').find('ul.pagination');
 			const $pageLink = $pagination.find('a.page-link');
 			const $pageInputContainer = $pagination.find('li.dt-paging-input');
 			
 			$pagination.addClass('order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2');
-			
+
+			// Incluir identificadores en los botones de la paginación por retrocompatibilidad.
+			$($pageLink[0]).attr('id', settings.sTableId + '_first');
+			$($pageLink[1]).attr('id', settings.sTableId + '_previous');
+			$($pageLink[2]).attr('id', settings.sTableId + '_next');
+			$($pageLink[3]).attr('id', settings.sTableId + '_last');
+
 			$pageLink.parent().addClass('px-1 py-2 paginate_button');
 			$pageLink.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block');
 			
