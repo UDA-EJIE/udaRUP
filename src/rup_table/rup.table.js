@@ -738,7 +738,8 @@
                 	options.filter.hideLayer();
                 }
 
-                if (options.filter.$filterContainer.valid()) {
+                if (options.filter.validFilter) {//valida en el beforeSend
+					options.filter.type = 'filter';
                     reloadTable();
                 }
             } else {
@@ -760,7 +761,7 @@
 
             options.id = this[0].id;
             $('#' + $.escapeSelector(options.id)).triggerHandler('tableFilterInitialize',options);
-
+			let that = this;
             let ajaxData = {
                 'url': options.urls.filter,
                 'dataSrc': function (json) {
@@ -798,20 +799,13 @@
                     return ret.data;
                 },
                 'type': 'POST',
-                'data': this._ajaxRequestData,
+                'data': that._ajaxRequestData,
                 'contentType': 'application/json',
                 'dataType': 'json',
-				'beforeSend': function(xhr, settings) {
-					if (options.filter.rules !== undefined){
-					    if (options.filter.noValidarOnStart && !options.filter.$filterContainer.valid()) {
-						  $('#'+options.id+"_processing").hide();
-					      return false;
-					    }
-						options.filter.noValidarOnStart = true;
-					    return true;
-					  }
-				  }
-            };
+				'beforeSend': function() {
+					return that._validValidations(options.filter,options.id);
+           		 }
+			};	 
 
             if (options.customError !== undefined) {
                 ajaxData.error = options.customError;
@@ -819,6 +813,47 @@
 
             return ajaxData;
         },
+		/**
+		 * Solicita los datos al servidor
+		 *
+		 * @name _validValidations
+		 * @function
+		 * @since UDA 6.3.0
+		 *
+		 * @param {object} filter Opciones del filtro
+		 * @param {String} id id  del componente table
+		 *
+		 */
+		_validValidations(filter, id) {
+			// Si no hay reglas definidas, no se valida
+			if (!filter || filter.rules === undefined) {
+			  return true;
+			}
+			
+			// Mapeo de tipo a validación adicional esperada
+			const validationMap = {
+			    'operation': 'validOperation',
+			    'order': 'validOrder',
+			    'init': 'validInit',
+				'filter': 'validFilter',
+				'clear': 'validClear'
+			};
+			//validFilter, validClean, validSave, validDelete,validInit
+			const validationKey = validationMap[filter.type];
+			filter.type = "order";//por defecto se deja orden porque no tiene boton asociado.
+			if (validationKey && filter[validationKey] === true) {
+				//validar
+				if (!filter.$filterContainer.valid()) {
+					  $('#'+id+"_processing").hide();
+				      return false;
+				}
+			    return true;
+			 }
+			 //borrar lo anterior, por si  acaso
+			 var $form = $('#' + $.escapeSelector(id) + '_filter_form');
+			 $form.rup_validate("resetForm");
+			 return true;
+		},
         /**
          * Solicita los datos al servidor
          *
@@ -934,9 +969,7 @@
 			});
 
 			$.rup_utils.populateForm([], options.filter.$filterContainer);
-			if(!options.filter.validToClear){
-				options.filter.noValidarOnStart = false;
-			}
+			options.filter.type = 'clear';
 			
 			$(this).DataTable().ajax.reload();
 
@@ -1648,6 +1681,26 @@
                 	if (filterOptions === undefined) {
                 		options.filter = $.fn.rup_table.defaults.filter;
                 	}
+					//la primera vez es la del init de arranque en table
+					options.filter.type = "init";
+					//inicializa validaciones
+					if(options.filter.validFilter == undefined){
+						options.filter.validFilter = true;
+					}
+					if(options.filter.validInit == undefined){
+						options.filter.validInit = false;
+					}
+					if(options.filter.validOrder == undefined){
+						options.filter.validOrder = false;
+					}
+					if(options.filter.validOperation == undefined){
+						options.filter.validOperation = false;
+					}
+
+					if(options.filter.validClear == undefined){
+						options.filter.validClear = false;
+					}
+					
                 	$self._initFilter(options);
                 } else if (filterOptions === 'noFilter' && options.filterForm !== undefined) {
                 	options.filter = {};

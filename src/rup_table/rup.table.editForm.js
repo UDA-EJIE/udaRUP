@@ -1012,6 +1012,9 @@
                 success: function (valor) {
                 	ctx.oInit.formEdit.okCallBack = true;
                 	ctx.oInit.formEdit.lastValue = valor;
+					if(ctx.oInit.filter != undefined){
+						ctx.oInit.filter.type = "operation";
+					}
                     if (url !== '/deleteAll' && actionType !== 'DELETE') {
                         if (continuar) { //Se crea un feedback_ok, para que no se pise con el de los errores
                             var divOkFeedback = idTableDetail.find('#' + feed[0].id + '_ok');
