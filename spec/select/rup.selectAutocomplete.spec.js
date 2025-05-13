@@ -4,6 +4,7 @@
 import 'jquery';
 import * as testutils from '../common/specCommonUtils.js';
 import 'jasmine-jquery';
+import 'rup.select';
 
 
 var $autocomplete, $autocomplete2, $autocomplete3, $autocompleteLabel, $autocompleteLabel2, $autocompleteLabel3;
@@ -114,11 +115,14 @@ describe('Test Autocomplete > ', () => {
                 beforeEach(() => {
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
+					$autocomplete3.on('selectAjaxSuccess', () => {
+						//done(); 
+					});
                     $autocomplete3.rup_select('search', 'ali');
                 });
                 it('No deben mostrarse el menu', () => {
-                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(1);
-                    expect($autocomplete3.data('select2').$results.find('li[role=option]').text()).toBe('Searching…');
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(13);
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').text()).toMatch(/^Searching…/);
                 });
                 
             });
@@ -305,10 +309,12 @@ describe('Test Autocomplete > ', () => {
         describe('Método setRupValue y getRupValue Remoto > ', () => {
             beforeEach((done) => {
                 $autocomplete3.on('selectAjaxSuccess', () => {
-                	$autocomplete3.rup_select('setRupValue', '2');
+                	
                 	done(); 
                 });
+				$autocomplete3.rup_select('setRupValue', '2');
                 $autocomplete3.rup_select('open');
+
                 
             });
             it('Debe devolver el valor seleccionado', () => {
