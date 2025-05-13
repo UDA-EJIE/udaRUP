@@ -924,7 +924,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				}
 				
 				//Convertir a input.
-				var searchRupType = cellColModel.editoptions?.rupType !== undefined ? cellColModel.editoptions.rupType : cellColModel.rupType;
+				const rupType = cellColModel.editoptions?.rupType !== undefined ? cellColModel.editoptions.rupType : cellColModel.rupType;
 				const colModelName = $.escapeSelector(cellColModel.name);
 				var $elem = $('#'+colModelName+'_inline'+child,ctx.nTBody);
 				// Se añade el title de los elementos de acuerdo al colname
