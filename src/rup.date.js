@@ -151,6 +151,10 @@
 				date = [];
 
 				for (let index = 0; index < settings.multiSelect; index++) {
+					if (!param[index]) {
+						break;
+					}
+					
 					const newValue = new Date(element._defineCorrectFormat(element._splitDate(param[index])[0]));
 
 					if (newValue.toString() === 'Invalid Date') {
