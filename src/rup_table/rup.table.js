@@ -2070,7 +2070,7 @@
         primaryKey: ['id'],
         blockPKeditForm: true,
         enableDynamicForms: false,
-        selectFilaDer: true,
+        selectFilaDer: false,
         searchPaginator: true,
         pagingType: 'full',
         createdRow: function (row) {
