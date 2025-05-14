@@ -81,9 +81,9 @@ $checkbox-material-label-padding: .75em;
 		   	}
 		   	~ label:after {
 				$md-checkmark-size: $checkbox-material-size - 2 * $checkbox-material-padding;
-				transform: translate($checkbox-material-padding, ($checkbox-material-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
+				transform: translate($checkbox-material-padding, calc($checkbox-material-size / 2) - calc($md-checkmark-size / 2.6)) rotate(-45deg);
 				width: $md-checkmark-size;
-				height: $md-checkmark-size / 2;
+				height: calc($md-checkmark-size / 2);
 				border: $md-checkmark-width solid $md-checkmark-color;
 				border-top-style: none;
 				border-right-style: none;

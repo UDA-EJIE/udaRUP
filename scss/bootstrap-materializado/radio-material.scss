@@ -84,8 +84,8 @@ $radio-material-ripple-size: 6px;
         &::after {
             background: $radio-material-checked-color;
             height: $radio-material-checked-size;
-            left: $radio-material-size / 2 - $radio-material-checked-size / 2;
-            top: $radio-material-size / 2 - $radio-material-checked-size / 2;
+            left: calc($radio-material-size / 2) - calc($radio-material-checked-size / 2);
+            top: calc($radio-material-size / 2) - calc($radio-material-checked-size / 2);
             transform: scale(0);
             width: $radio-material-checked-size;
         }

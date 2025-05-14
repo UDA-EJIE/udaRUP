@@ -491,7 +491,7 @@ $rup-navbar-icon-text-font-size: 1.2rem;
 
 $rup-navbar-border-radius:              $rup-border-radius !default;
 $rup-navbar-padding-x:                  $rup-spacer !default;
-$rup-navbar-padding-y:                  ($rup-spacer / 2) !default;
+$rup-navbar-padding-y:                  calc($rup-spacer / 2) !default;
 
 $rup-navbar-brand-padding-y:            .25rem !default;
 
