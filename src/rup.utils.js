@@ -359,7 +359,7 @@
 		/**
 		 * Convierte una cadena querystring en un objeto json.
 		 *
-		 * @deprecated desde version 6.2.0. Utilizar $.rup_utils.queryStringToObject() en su lugar: https://github.com/sindresorhus/query-string
+		 * @deprecated desde version 4.5.3. Utilizar $.rup_utils.queryStringToObject() en su lugar: https://github.com/sindresorhus/query-string
 		 * @name jQuery.rup_utils#queryStringToJson
 		 * @function
 		 * @param {string} queryString - Query string a transformar en un objeto json.
@@ -588,10 +588,10 @@
 	    /**
 	     * Método que transforma los datos de un formulario en un query string.
 	     *
-		 * @deprecated desde version 6.2.0. Utilizar $.rup_utils.formDataToQueryString() en su lugar.
+		 * @deprecated desde version 4.5.3. Utilizar $.rup_utils.formDataToQueryString() en su lugar.
 	     * @name editFormSerialize
 	     * @function
-	     * @since UDA 6.2.0
+	     * @since UDA 4.5.3
 	     *
 	     * @param {object} idForm - Formulario que alberga los datos.
 	     * @param {string} [serializerSplitter=&] - Cadena a usar para separar los campos.
@@ -632,7 +632,7 @@
 		 *
 		 * @name formDataToQueryString
 		 * @function
-		 * @since UDA 6.2.0
+		 * @since UDA 4.5.3
 		 *
 		 * @param {object} idForm - Formulario que alberga los datos.
 		 * @param {object} options - Opciones de configuración: https://github.com/sindresorhus/query-string?tab=readme-ov-file#stringifyobject-options
@@ -776,7 +776,7 @@
 			return objectsAreSame;
 		},
 		/**
-		 * @deprecated desde version 6.2.0. Utilizar $.escapeSelector() en su lugar: https://api.jquery.com/jQuery.escapeSelector/
+		 * @deprecated desde version 4.5.3. Utilizar $.escapeSelector() en su lugar: https://api.jquery.com/jQuery.escapeSelector/
 		 */
 		escapeId: function (id) {
 			if (id) {
@@ -1305,7 +1305,7 @@
 	/**
      * Convierte un JSON con múltiples niveles en un JSON con un único nivel.
      *
-	 * @deprecated desde version 6.2.0. Utilizar $.fn.flattenObject() en su lugar: https://github.com/hughsk/flat
+	 * @deprecated desde version 4.5.3. Utilizar $.fn.flattenObject() en su lugar: https://github.com/hughsk/flat
      * @name flattenJSON
      * @function
      * @since UDA 5.0.2
@@ -1332,7 +1332,7 @@
      *
 	 * @name flattenObject
      * @function
-     * @since UDA 6.2.0
+     * @since UDA 4.5.3
      *
      * @param {object} originalObj - Objeto con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
 	 * @param {object} options - Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options
@@ -1348,7 +1348,7 @@
      *
      * @name unflattenObject
      * @function
-     * @since UDA 6.2.0
+     * @since UDA 4.5.3
      *
      * @param {object} originalObj - Objeto plano con varios niveles (admite también un único nivel, pero no tiene sentido llamar a la función en ese caso).
 	 * @param {object} options - Opciones de configuración: https://github.com/hughsk/flat?tab=readme-ov-file#options
