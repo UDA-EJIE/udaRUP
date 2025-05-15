@@ -46,10 +46,10 @@ export function describes() {
             beforeEach((done) => {
                 listGen.createListSelectableSimple('rup-list', 'listFilterForm', () => {
                     if(callback){
-                        callback(done);
+                        setTimeout(callback, 100);
                     } else {
                     	$('#rup-list').on('load', () => {
-                    		done();
+                    		setTimeout(done, 100);
                     	});
                         $('#rup-list').rup_list('filter');
                     }

@@ -851,7 +851,7 @@
 			 }
 			 //borrar lo anterior, por si  acaso
 			 var $form = $('#' + $.escapeSelector(id) + '_filter_form');
-			 $form.rup_validate("resetForm");
+			 $form.rup_validate("resetElements");
 			 return true;
 		},
         /**

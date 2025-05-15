@@ -1,6 +1,6 @@
 @mixin nav-divider($color: #e5e5e5) {
   height: 0;
-  margin: ($rup-spacer / 2) 0;
+  margin: calc($rup-spacer / 2) 0;
   overflow: hidden;
   border-top: 1px solid $color;
 }

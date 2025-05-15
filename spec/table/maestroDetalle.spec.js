@@ -1686,7 +1686,7 @@ function testInline2Form(defer) {
                 });
                 describe('Tabla detalle > ', () => {
                     beforeEach((done) => {
-						$('#example2').on('draw.dt', () => {
+						$('#example2').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
                         $('#example2_next')[0].click();
