@@ -44,7 +44,7 @@ Método que transforma los datos de un formulario en un query string.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario en un query string.  
-**Since**: UDA 6.2.0  
+**Since**: UDA 4.5.3  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -58,7 +58,7 @@ Método que transforma los datos de un formulario en un query string.
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>string</code> - - Devuelve los datos del formulario en un query string.  
-**Since**: UDA 6.2.0  
+**Since**: UDA 4.5.3  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ Convierte un objeto de JavaScript con múltiples niveles en un objeto con un ún
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>object</code> - Objeto con un único nivel.  
-**Since**: UDA 6.2.0  
+**Since**: UDA 4.5.3  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -151,7 +151,7 @@ Convierte un objeto de JavaScript con un único nivel en un objeto con múltiple
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 **Returns**: <code>object</code> - Objeto con múltiples niveles (siempre y cuando el objeto procesado los tuviese).  
-**Since**: UDA 6.2.0  
+**Since**: UDA 4.5.3  
 
 | Param | Type | Description |
 | --- | --- | --- |

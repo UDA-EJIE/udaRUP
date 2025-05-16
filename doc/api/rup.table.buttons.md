@@ -46,7 +46,7 @@ Genera los botones del table
     * [~_reportsPrepareRequestData(dt, ajaxOptions, request, ctx, selectedAll, [deselectedIds], [selectedIds])](#module_rup.table.buttons.._reportsPrepareRequestData) ⇒ <code>object</code>
     * [~_loadDefinedColums(dt, ctx, request)](#module_rup.table.buttons.._loadDefinedColums) ⇒ <code>object</code>
     * [~_reportsRequestData(ajaxOptions, ctx)](#module_rup.table.buttons.._reportsRequestData) ⇒ <code>object</code>
-    * [~_reportsRequestFile(ctx, ajaxOptions)](#module_rup.table.buttons.._reportsRequestFile) ⇒ <code>object</code>
+    * [~_reportsRequestFile(ctx, ajaxOptions, that)](#module_rup.table.buttons.._reportsRequestFile) ⇒ <code>object</code>
     * [~_reportsOpenMessage(dt, ctx, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsOpenMessage)
     * [~_reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea)](#module_rup.table.buttons.._reportsToClipboard)
     * [~_deleteAllSelects(dt)](#module_rup.table.buttons.._deleteAllSelects)
@@ -530,7 +530,7 @@ Se encarga de llamar a la API y de devolver los datos recibidos
 
 <a name="module_rup.table.buttons.._reportsRequestFile"></a>
 
-### rup.table.buttons~\_reportsRequestFile(ctx, ajaxOptions) ⇒ <code>object</code>
+### rup.table.buttons~\_reportsRequestFile(ctx, ajaxOptions, that) ⇒ <code>object</code>
 Se encarga de llamar a la API y de devolver el fichero recibido
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -540,6 +540,7 @@ Se encarga de llamar a la API y de devolver el fichero recibido
 | --- | --- | --- |
 | ctx | <code>object</code> | Contexto |
 | ajaxOptions | <code>object</code> | Parametros de la llamada AJAX |
+| that | <code>object</code> | Api de llamdas |
 
 <a name="module_rup.table.buttons.._reportsOpenMessage"></a>
 

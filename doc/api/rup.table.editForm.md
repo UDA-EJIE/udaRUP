@@ -14,7 +14,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~init(ctx)](#module_rup.table.editForm..init)
     * [~addValidation(ctx)](#module_rup.table.editForm..addValidation)
     * [~loadSaveDialogForm(ctx, actionType, row)](#module_rup.table.editForm..loadSaveDialogForm) ⇒ <code>object</code>
-    * [~formInitializeRUP(ctx, row, form)](#module_rup.table.editForm..formInitializeRUP)
+    * [~_formInitializeFields(ctx, row, form)](#module_rup.table.editForm.._formInitializeFields)
     * [~openSaveDialog(actionType, dt, idRow, customTitle)](#module_rup.table.editForm..openSaveDialog)
     * [~_callSaveAjax(actionType, dt, row, idRow, continuar, idTableDetail, url, isDeleting)](#module_rup.table.editForm.._callSaveAjax)
     * [~callFeedbackOk(ctx, feedback, msgFeedBack, type)](#module_rup.table.editForm..callFeedbackOk)
@@ -30,6 +30,7 @@ Módulo que habilita la edicción mediante un formulario.
     * [~_deleteAllSelects(dt)](#module_rup.table.editForm.._deleteAllSelects)
     * [~_comprobarSeeker(row, ctx, idRow)](#module_rup.table.editForm.._comprobarSeeker)
     * [~_blockPKeditForm(ctx, actionType)](#module_rup.table.editForm.._blockPKeditForm)
+    * [~_haySelectMultipleAutocomplete(colModel)](#module_rup.table.editForm.._haySelectMultipleAutocomplete)
     * [~_addChildIcons(ctx)](#module_rup.table.editForm.._addChildIcons)
 
 <a name="module_rup.table.editForm..preConfigure"></a>
@@ -94,9 +95,9 @@ Función que gestiona la carga del diálogo de añadir o editar.
 | actionType | <code>string</code> | Acción a ajecutar en el formulario para ir al controller, basado en REST. |
 | row | <code>object</code> | Datos para alimentar los campos del formulario. |
 
-<a name="module_rup.table.editForm..formInitializeRUP"></a>
+<a name="module_rup.table.editForm.._formInitializeFields"></a>
 
-### rup.table.editForm~formInitializeRUP(ctx, row, form)
+### rup.table.editForm~\_formInitializeFields(ctx, row, form)
 Detecta los componentes RUP del formulario y los inicializa.
 
 **Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
@@ -317,6 +318,18 @@ Método que gestiona el bloqueo de la edición de las claves primarias.
 | --- | --- | --- |
 | ctx | <code>object</code> | Settings object to operate on. |
 | actionType | <code>string</code> | Método de operación CRUD. |
+
+<a name="module_rup.table.editForm.._haySelectMultipleAutocomplete"></a>
+
+### rup.table.editForm~\_haySelectMultipleAutocomplete(colModel)
+Se verifica si hay algún select multiple con autocomplete.
+
+**Kind**: inner method of [<code>rup.table.editForm</code>](#module_rup.table.editForm)  
+**Since**: UDA 6.3.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| colModel | <code>object</code> | definición de las columnas.. |
 
 <a name="module_rup.table.editForm.._addChildIcons"></a>
 

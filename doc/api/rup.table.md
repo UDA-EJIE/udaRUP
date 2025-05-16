@@ -28,6 +28,7 @@ Genera un table
     * [~_getColumns(options)](#module_rup.table.._getColumns)
     * [~_doFilter(options)](#module_rup.table.._doFilter)
     * [~_ajaxOptions(options)](#module_rup.table.._ajaxOptions)
+    * [~_validValidations(filter, id)](#module_rup.table.._validValidations)
     * [~_ajaxRequestData(data, ctx)](#module_rup.table.._ajaxRequestData)
     * [~_createSearchPaginator(tabla, settingsT)](#module_rup.table.._createSearchPaginator)
     * [~_clearFilter(options)](#module_rup.table.._clearFilter)
@@ -302,6 +303,19 @@ Prepara el objeto necesario para la consulta de registros al servidor
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>object</code> | Opciones del componente |
+
+<a name="module_rup.table.._validValidations"></a>
+
+### rup.table~\_validValidations(filter, id)
+Solicita los datos al servidor
+
+**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
+**Since**: UDA 6.3.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filter | <code>object</code> | Opciones del filtro |
+| id | <code>String</code> | id  del componente table |
 
 <a name="module_rup.table.._ajaxRequestData"></a>
 
