@@ -687,7 +687,7 @@
 					if(!ctx.oInit.formEdit.loadFromModel) {
 						loadPromise = $.rup_ajax(ajaxOptions);
 	                }
-					if(!ctx.oInit.formEdit.notRefreshToAfterSaveEdit) {
+					if(!ctx.oInit.formEdit.noRefreshAfterEdit) {
 		                //Se carga desde bbdd y se actualiza la fila
 		                dt.row(idRow).data(row);
 		                ctx.json.rows[idRow] = row;
