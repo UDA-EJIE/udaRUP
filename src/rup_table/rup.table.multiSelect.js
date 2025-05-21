@@ -909,6 +909,11 @@
 
 			_drawSelectId(api, ctx);
 			
+			$('#divSelectTableHead_' + $.escapeSelector(ctx.sTableId)).closest('th')
+				.removeClass('dt-orderable-none');
+			$('#divSelectTableHead_' + $.escapeSelector(ctx.sTableId)).closest('th')	
+				.off('mousedown.colReorder touchstart.colReorder');
+			
 			//Comprobar si hay algun feedback activado
 			const feedback = ctx.oInit.feedback.$feedbackContainer;
 			if (feedback.type !== undefined && feedback.type === 'eliminar') {
