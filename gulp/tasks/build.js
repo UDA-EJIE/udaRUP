@@ -52,11 +52,6 @@ gulp.task('build:resources', function (callback) {
     gulp.src(['./assets/html/**/*.*'])
         .pipe(gulp.dest('dist/html'));
 
-    // dist/css/images
-    console.log('dist/css/images');
-    gulp.src(['./assets/images/**/*.*'])
-        .pipe(gulp.dest('./dist/css/images'));
-
     // dist/css/cursors
     console.log('dist/css/cursors');
     gulp.src(['./assets/cursors/**/*.*'])

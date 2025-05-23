@@ -3,20 +3,36 @@ const clean = require('gulp-clean');
 const cleanCSS = require('gulp-clean-css');
 const cssWrap = require('gulp-css-wrap');
 const rename = require('gulp-rename');
+const run = require('gulp-run');
 
 gulp.task('dist:x21a:clean', function () {
     return gulp.src('../udaDemoApp/x21aStatics/WebContent/rup/', {allowEmpty: true})
         .pipe(clean({force: true}));
 });
 
-gulp.task('dist:x21a:copy', function () {
-    return gulp.src('./dist/**/*.*')
+const copy = require('gulp-copy');
+
+gulp.task('dist:x21a:copy2', function () {
+	console.log('📁 Ejecutando copia segunda...');
+    return 	gulp.src([
+	        './dist/**/*.*',                  // ✅ Todos los archivos
+	        '!./dist/css/images{,/**}',       // ❌ Excluye dist/css/images y su contenido
+	        '!./dist/css/fonts{,/**}',        // ❌ Excluye dist/css/fonts y su contenido
+	        '!./dist/css/cursors{,/**}',      // ❌ Excluye dist/css/cursors y su contenido
+	    ], { base: './dist' })
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
 });
 
+gulp.task('dist:x21a:copy', function () {	
+    console.log('📁 Ejecutando copia con fs-extra...');
+    return run('node copyDistToStatics.js').exec();
+});
+
+
 gulp.task('dist:x21a', gulp.series(
     'dist:x21a:clean',
-    'dist:x21a:copy'
+    'dist:x21a:copy',
+	'dist:x21a:copy2'
 ));
 
 gulp.task('dist:templates:clean', function () {

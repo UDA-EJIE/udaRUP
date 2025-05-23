@@ -1,17 +1,13 @@
-/* global require */
-/* global module */
-/* global __dirname */
 
-var path = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-
-const env = require('yargs').argv.env; // use --env with webpack 2
+const env = require('yargs').argv.env;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let libraryName = 'rup';
-
 let mode, outputFileJS, outputFileCSS, optimization;
 
 if (env === 'build') {
@@ -21,35 +17,17 @@ if (env === 'build') {
     optimization = {
         minimizer: [
             new TerserPlugin({
-                // https://github.com/terser/terser#minify-options
                 terserOptions: {
                     ecma: 6,
-                    cache: true,
-                    parallel: true,
                     sourceMap: true,
                     warnings: false,
-                    parse: {},
-                    compress: {},
-                    mangle: true, // Note `mangle.properties` is `false` by default.
-                    module: false,
-                    output: null,
-                    toplevel: false,
-                    nameCache: null,
-                    ie8: false,
-                    keep_classnames: undefined,
-                    keep_fnames: false,
-                    safari10: false,
+                    mangle: true
                 },
             }),
             new CssMinimizerPlugin({
-            	test: /\.css$/,
+                test: /\.css$/i,
                 minimizerOptions: {
-                	preset: [
-                		'default',
-                		{
-                			discardComments: { removeAll: true },
-                		},
-                	],
+                    preset: ['default', { discardComments: { removeAll: true } }],
                 },
             }),
         ],
@@ -61,21 +39,10 @@ if (env === 'build') {
     optimization = {};
 }
 
-let plugins = [
-    new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
-    }),
-    new MiniCssExtractPlugin({
-        filename: '/css/' + outputFileCSS,
-        chunkFilename: '/css/' + outputFileCSS
-    }),
-];
-
 module.exports = [{
     mode: mode,
-    entry: ['@babel/polyfill', __dirname + '/src/index.js'],
-    devtool: 'eval',
+    entry: ['@babel/polyfill', path.resolve(__dirname, 'src/index.js')],
+    devtool: 'source-map',
     output: {
         filename: 'js/' + outputFileJS,
         library: libraryName,
@@ -84,117 +51,118 @@ module.exports = [{
     },
     optimization: optimization,
     module: {
-        rules: [{
-            test: require.resolve('jquery-migrate'),
-            loader: 'imports-loader',
-            options: {
-            	additionalCode: 'var define = false;',
-            }
-        }, {
-            test: /\.js$/,
-            // exclude: '/node_modules/',
-            // include: '/src/',
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env']
+        rules: [
+            {
+                test: require.resolve('jquery-migrate'),
+                loader: 'imports-loader',
+                options: { additionalCode: 'var define = false;' }
+            },
+            {
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: { presets: ['@babel/preset-env'] }
                 }
-            }
-        },
-        {
-            test: /\.hbs$/,
-            use: {
-                loader: 'handlebars-loader',
-                query: {
-                    helperDirs: [
-                        __dirname + '/src/helper'
-                    ]
+            },
+            {
+                test: /\.hbs$/,
+                use: {
+                    loader: 'handlebars-loader',
+                    options: {
+                        helperDirs: [path.resolve(__dirname, 'src/helper')]
+                    }
                 }
-            }
-        },
-        {
-            test: /(\.css|\.scss|\.sass)$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-        },
-        {
-            test: /\.(cur)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    name: '[name].[ext]',
-                    publicPath: 'cursors/',
-                    outputPath: 'css/cursors/'
+            },
+            {
+                test: /\.(sa|sc|c)ss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(woff|woff2|otf|ttf|eot)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        publicPath: 'fonts/',
+                        outputPath: 'css/fonts/'
+                    }
                 }
-            }
-        },
-        {
-            test: /\.(gif|jpg|png|ico|svg)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[name].[ext]',
-                    publicPath: 'images/',
-                    outputPath: 'css/images/'
+            },
+            {
+                test: /\.(gif|jpg|jpeg|png|ico|svg)$/i,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]',
+						context: path.resolve(__dirname, 'assets/images'),
+                        publicPath: 'images/',
+                        outputPath: 'css/images/'
+                    }
                 }
-            }
-        },
-        {
-            test: /\.(woff|otf|ttf|eot)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[name].[ext]',
-                    publicPath: 'fonts/',
-                    outputPath: 'css/fonts/'
+            },
+            {
+                test: /\.(cur)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        publicPath: 'cursors/',
+                        outputPath: 'css/cursors/'
+                    }
                 }
+            },
+            {
+                test: require.resolve('tether'),
+                use: [{ loader: 'expose-loader', options: 'Tether' }]
+            },
+            {
+                test: require.resolve('popper.js'),
+                use: [{ loader: 'expose-loader', options: 'Popper' }]
             }
-        },
-        {
-            test: require.resolve('tether'),
-            use: [{
-                loader: 'expose-loader',
-                options: 'Tether'
-            }]
-        }, {
-            test: require.resolve('popper.js'),
-            use: [{
-                loader: 'expose-loader',
-                options: 'Popper'
-            }]
-        },
-        {
-            test: require.resolve('flat')
-        },
-        {
-            test: require.resolve('query-string')
-        }
         ]
     },
-    stats: {
-        colors: true
-    },
-    node: {
-        fs: 'empty'
-    },
-    devServer: {
-        compress: true,
-        port: 9000
-    },
-    plugins: plugins,
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/' + outputFileCSS,
+            chunkFilename: 'css/' + outputFileCSS
+        }),
+			        new CopyWebpackPlugin([
+			            {
+			                from: path.resolve(__dirname, 'assets/images'),
+			                to: 'css/images',
+							context: path.resolve(__dirname, 'assets/images'),
+			                ignore: ['*.txt']
+			            },
+			            {
+			                from: path.resolve(__dirname, 'assets/cursors'),
+			                to: 'css/cursors'
+			            },
+			            {
+			                from: path.resolve(__dirname, 'assets/fonts'),
+			                to: 'css/fonts'
+			            }
+			        ]),
+					{
+					  apply: (compiler) => {
+					    compiler.hooks.afterEmit.tap('CopyLogPlugin', () => {
+					      console.log('✅ Archivos copiados correctamente por CopyWebpackPlugin');
+					    });
+					  }
+					}
+    ],
     resolve: {
         modules: ['node_modules', path.resolve(__dirname, 'src')],
         alias: {
             'jqueryUI': 'jquery-ui-dist/jquery-ui.js',
-            
             'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
             'load-image-meta': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-meta.js',
             'load-image-exif': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-exif.js',
             'load-image-scale': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image-scale.js',
             'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
-
-            // CSS ROUTES
             './images': path.join(__dirname, '/assets/images'),
             './cursors': path.join(__dirname, '/assets/cursors'),
             '../css/images/table': path.join(__dirname, '/assets/images/datatable'),
@@ -203,6 +171,15 @@ module.exports = [{
             './fonts': path.join(__dirname, '/assets/fonts'),
             '../fonts': '@mdi/font/fonts/',
         }
-
+    },
+    devServer: {
+        compress: true,
+        port: 9000
+    },
+    stats: {
+        colors: true
+    },
+    node: {
+        fs: 'empty'
     }
 }];
