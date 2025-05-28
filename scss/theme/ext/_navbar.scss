@@ -1,3 +1,4 @@
+@use "sass:map";
 // Wrapper and base class
 //
 // Provide a static navbar from which we expand to create full-width, fixed, and
@@ -131,7 +132,7 @@
 
 // scss-lint:disable ImportantRule
 .navbar-toggleable {
-  @each $breakpoint in map-keys($rup-grid-breakpoints) {
+  @each $breakpoint in map.keys($rup-grid-breakpoints) {
     $next: breakpoint-next($breakpoint, $rup-grid-breakpoints);
 
     &-#{$breakpoint} {

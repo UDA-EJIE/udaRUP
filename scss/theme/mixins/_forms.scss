@@ -1,4 +1,4 @@
-
+@use "sass:color";
 @mixin button($color: $red, $text_color: $white) {
   display: inline-block;
   outline: none;
@@ -13,21 +13,21 @@
 
   color: $text_color !important;
   font-weight: bold;
-  border: solid 1px darken($color, 18%);
+  border: solid 1px color.scale($color, $lightness: -18%);
   background: $color;
-  @include gradient(saturate($color, 15%), darken($color, 15%));
+  @include gradient(saturate($color, 15%), color.scale($color, $lightness: -15%));
 
   &:hover {
     text-decoration: none;
     background: saturate($color, 10%);
-    @include gradient(saturate($color, 5%), darken($color, 5%));
+    @include gradient(saturate($color, 5%), color.scale($color, $lightness: -5%));
   }
 
   &:active {
     position: relative;
     top: 1px;
     color: saturate($color, 15%);
-    @include gradient(saturate($color, 15%), lighten($color, 15%));
+    @include gradient(saturate($color, 15%), color.scale($color, $lightness: 15%));
   }
 }
 
