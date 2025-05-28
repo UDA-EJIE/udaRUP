@@ -65,11 +65,11 @@ table.dataTable tbody tr {
     background-color: #ffffff
 }
 
-table.dataTable tbody tr.selected.odd {
+table.dataTable tbody tr.selected {
     background-color: #fffa90
 }
 
-table.dataTable tbody tr.selected.even {
+table.dataTable tbody tr.selected {
     background-color: #fffa90
 }
 
@@ -108,13 +108,13 @@ table.dataTable.cell-border tbody tr:first-child td {
     border-top: none
 }
 
-table.dataTable.stripe tbody tr.odd,
-table.dataTable.display tbody tr.odd {
+table.dataTable.stripe tbody tr,
+table.dataTable.display tbody tr {
     background-color: #f9f9f9
 }
 
-table.dataTable.stripe tbody tr.odd.selected,
-table.dataTable.display tbody tr.odd.selected {
+table.dataTable.stripe tbody tr.selected,
+table.dataTable.display tbody tr.selected {
     background-color: #acbad4
 }
 
@@ -146,63 +146,63 @@ table.dataTable.display tbody tr.selected>.sorting_3 {
     background-color: #acbad5
 }
 
-table.dataTable.display tbody tr.odd>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
+table.dataTable.display tbody tr>.sorting_1,
+table.dataTable.order-column.stripe tbody tr>.sorting_1 {
     background-color: #f1f1f1
 }
 
-table.dataTable.display tbody tr.odd>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_2 {
+table.dataTable.display tbody tr>.sorting_2,
+table.dataTable.order-column.stripe tbody tr>.sorting_2 {
     background-color: #f3f3f3
 }
 
-table.dataTable.display tbody tr.odd>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_3 {
+table.dataTable.display tbody tr>.sorting_3,
+table.dataTable.order-column.stripe tbody tr>.sorting_3 {
     background-color: whitesmoke
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_1 {
+table.dataTable.display tbody tr.selected>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_1 {
     background-color: #a6b4cd
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_2 {
+table.dataTable.display tbody tr.selected>.sorting_2,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_2 {
     background-color: #a8b5cf
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_3 {
+table.dataTable.display tbody tr.selected>.sorting_3,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_3 {
     background-color: #a9b7d1
 }
 
-table.dataTable.display tbody tr.even>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
+table.dataTable.display tbody tr>.sorting_1,
+table.dataTable.order-column.stripe tbody tr>.sorting_1 {
     background-color: #fafafa
 }
 
-table.dataTable.display tbody tr.even>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_2 {
+table.dataTable.display tbody tr>.sorting_2,
+table.dataTable.order-column.stripe tbody tr>.sorting_2 {
     background-color: #fcfcfc
 }
 
-table.dataTable.display tbody tr.even>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_3 {
+table.dataTable.display tbody tr>.sorting_3,
+table.dataTable.order-column.stripe tbody tr>.sorting_3 {
     background-color: #fefefe
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_1 {
+table.dataTable.display tbody tr.selected>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_1 {
     background-color: #acbad5
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_2 {
+table.dataTable.display tbody tr.selected>.sorting_2,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_2 {
     background-color: #aebcd6
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_3 {
+table.dataTable.display tbody tr.selected>.sorting_3,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_3 {
     background-color: #afbdd8
 }
 
