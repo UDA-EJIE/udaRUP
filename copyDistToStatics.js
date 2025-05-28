@@ -5,6 +5,7 @@ const sourceDir = path.resolve(__dirname, 'dist');
 const targetDir = path.resolve(__dirname, '../udaDemoApp/x21aStatics/WebContent/rup');
 
 const excludeExtensions = ['.map', '.txt'];
+const excludeFileNames = ['LICENSE'];
 
 async function copy() {
   try {
@@ -21,7 +22,8 @@ async function copy() {
       overwrite: true,
       filter: (src) => {
         const ext = path.extname(src).toLowerCase();
-        return !excludeExtensions.includes(ext);
+		const fileName = path.basename(src);
+        return !excludeExtensions.includes(ext) && !excludeFileNames.includes(fileName);
       }
     });
 
