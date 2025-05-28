@@ -369,9 +369,6 @@
             $.rup.i18n.base = {};
 
             //retrocompatibilidad
-            if (!window.LOCALE_COOKIE_NAME) {
-                window.LOCALE_COOKIE_NAME = 'language';
-            }
             if (!window.LOCALE_PARAM_NAME) {
                 window.LOCALE_PARAM_NAME = 'locale';
             }
@@ -384,14 +381,14 @@
             $.rup.STATICS = window.STATICS;
             $.rup.WAR_NAME = window.WAR_NAME;
             //model
+            $.rup.LANG = window.LANG;
             $.rup.AVAILABLE_LANGS = window.AVAILABLE_LANGS;
             $.rup.AVAILABLE_LANGS_ARRAY = $.map($.rup.AVAILABLE_LANGS.split(','), function (elem) {
                 return elem.replace(/^\s*|\s*$/g, '');
             });
             $.rup.DEFAULT_LANG = window.DEFAULT_LANG;
             $.rup.LAYOUT = window.LAYOUT;
-            //mvc-config.xml
-            $.rup.LOCALE_COOKIE_NAME = window.LOCALE_COOKIE_NAME;
+            //mvc-config
             $.rup.LOCALE_PARAM_NAME = window.LOCALE_PARAM_NAME;
             //metodos http permitidos en la emulacion xhr para el uso con iframes
             $.rup.IFRAME_ONLY_SUPPORTED_METHODS = ['GET', 'POST'];
@@ -412,14 +409,11 @@
             //model
             // delete AVAILABLE_LANGS;
             // delete LAYOUT;
-            //mvc-config.xml
-            // delete LOCALE_COOKIE_NAME;
+            //mvc-config
             // delete LOCALE_PARAM_NAME;
             
             // Obtención de la cookie de idioma.
-            var cookie = $.rup_utils.get($.rup.LOCALE_COOKIE_NAME);
-            const validCookieValue = $.inArray(cookie, $.rup.AVAILABLE_LANGS_ARRAY) !== -1 ? true : false;
-            this.lang = validCookieValue ? cookie : $.rup.DEFAULT_LANG;
+            this.lang = $.rup.LANG;
 
             // Carga de los literales por defecto.
             $.rup.setLiterals().then(() => {
@@ -431,26 +425,6 @@
                 } else {
                     global.initRupI18nPromise.resolve();
                 }
-            });
-            
-            // Esperar a que los recursos idiomáticos estén disponibles.
-            global.initRupI18nPromise.then(() => {
-            	// Si la cookie no es válida o no existe, se lanzarán los mensajes de error correspondientes.
-            	if (!validCookieValue) {
-            		if (cookie) {
-            			$.rup.errorGestor(
-            					$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedError', $.rup.LOCALE_COOKIE_NAME),
-            					$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotSupportedErrorTitle'));
-            			$.rup._avoidRUPFails();
-            			return false;
-            		} else {
-            			$.rup.errorGestor(
-            					$.rup.i18nTemplate($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundError', $.rup.LOCALE_COOKIE_NAME),
-            					$.rup.i18nParse($.rup.i18n.base, 'rup_base.cookieLanguageNotFoundErrorTitle'));
-            			$.rup._avoidRUPFails();
-            			return false;
-            		}
-            	}
             });
         },
         //Función encargada de cargar variables por defecto si no se han cargado los literales (ej. cookies deshabilitadas)
