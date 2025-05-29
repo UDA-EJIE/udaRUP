@@ -1,3 +1,4 @@
+@use '~@mdi/font/scss/materialdesignicons' as mdi;
 @import '../node_modules/jquery-ui/themes/base/theme';
 @import 'theme/all';
 @import 'external/table/jquery.table.scss';
@@ -5,6 +6,5 @@
 @import 'external/table/buttons.table.scss';
 @import 'external/table/responsive.table.scss';
 @import 'bootstrap-materializado/bootstrap-materializado.scss';
-@import '../node_modules/@mdi/font/scss/materialdesignicons.scss';
 @import 'jquery-ui/jquery-ui-timepicker-addon.css';
 @import '../node_modules/select2/dist/css/select2.css';
