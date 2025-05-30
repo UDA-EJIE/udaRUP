@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:map";
 @mixin hover {
   // TODO: re-enable along with mq4-hover-shim
 //  @if $rup-enable-hover-media-query {
@@ -84,9 +86,18 @@
 //    md
 //    >> breakpoint-next(sm, $breakpoint-names: (xs sm md))
 //    md
-@function breakpoint-next($name, $breakpoints: $rup-grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
-  $n: index($breakpoint-names, $name);
-  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+@function breakpoint-next($name, $breakpoints: $rup-grid-breakpoints, $breakpoint-names: map.keys($breakpoints)) {
+  $n: list.index($breakpoint-names, $name);
+
+  @if $n == null {
+    @error "Breakpoint `#{$name}` not found in breakpoint names.";
+  }
+
+  @if $n < list.length($breakpoint-names) {
+    @return list.nth($breakpoint-names, $n + 1);
+  } @else {
+    @return null;
+  }
 }
 
 // Minimum breakpoint width. Null for the smallest (first) breakpoint.
@@ -94,7 +105,7 @@
 //    >> breakpoint-min(sm, (xs: 0, sm: 544px, md: 768px))
 //    544px
 @function breakpoint-min($name, $breakpoints: $rup-grid-breakpoints) {
-  $min: map-get($breakpoints, $name);
+  $min: map.get($breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 

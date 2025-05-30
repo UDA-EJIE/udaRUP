@@ -1,4 +1,4 @@
-
+@use "sass:color";
 
 // Colors
 
@@ -139,47 +139,46 @@ $rup-color-error: $rup-brand-danger;
 $rup-color-info: $rup-brand-info;
 $rup-color-confirm: $rup-color-info;
 
-$rup-color-ok-light: lighten($rup-color-ok,30%);
-$rup-color-alert-light: lighten($rup-color-alert,25%);
-$rup-color-error-light: lighten($rup-color-error,25%);
-$rup-color-info-light: lighten($rup-color-info,25%);
-$rup-color-confirm-light: lighten($rup-color-confirm,25%);
+$rup-color-ok-light: color.adjust($rup-color-ok, $lightness: 30%);
+$rup-color-alert-light: color.adjust($rup-color-alert, $lightness: 25%);
+$rup-color-error-light: color.adjust($rup-color-error, $lightness: 25%);
+$rup-color-info-light: color.adjust($rup-color-info, $lightness: 25%);
+$rup-color-confirm-light: color.adjust($rup-color-confirm, $lightness: 25%);
 
-$rup-color-ok-lightest: lighten($rup-color-ok,40%);
-$rup-color-alert-lightest: lighten($rup-color-alert,40%);
-$rup-color-error-lightest: lighten($rup-color-error,40%);
-$rup-color-info-lightest: lighten($rup-color-info,40%);
-$rup-color-confirm-lightest: lighten($rup-color-confirm,40%);
+$rup-color-ok-lightest: color.adjust($rup-color-ok, $lightness: 40%);
+$rup-color-alert-lightest: color.adjust($rup-color-alert, $lightness: 40%);
+$rup-color-error-lightest: color.adjust($rup-color-error, $lightness: 40%);
+$rup-color-info-lightest: color.adjust($rup-color-info, $lightness: 40%);
+$rup-color-confirm-lightest: color.adjust($rup-color-confirm, $lightness: 40%);
 
-$rup-color-ok-dark: darken($rup-color-ok,25%);
-$rup-color-alert-dark: darken($rup-color-alert,25%);
-$rup-color-error-dark: darken($rup-color-error,25%);
-$rup-color-info-dark: darken($rup-color-info,25%);
-$rup-color-confirm-dark: darken($rup-color-confirm,25%);
+$rup-color-ok-dark:        color.scale($rup-color-ok, $lightness: -25%);
+$rup-color-alert-dark:     color.scale($rup-color-alert, $lightness: -25%);
+$rup-color-error-dark:     color.scale($rup-color-error, $lightness: -25%);
+$rup-color-info-dark:      color.scale($rup-color-info, $lightness: -25%);
+$rup-color-confirm-dark:   color.scale($rup-color-confirm, $lightness: -25%);
 
-$rup-bg-color: #fff;
-$rup-body-color: darken($rup-bg-color, 5%);
-$rup-bg-color-hover: darken($rup-bg-color, 5%);
+$rup-bg-color:             #fff;
+$rup-body-color:           color.scale($rup-bg-color, $lightness: -5%);
+$rup-bg-color-hover:       color.scale($rup-bg-color, $lightness: -5%);
 
+$rup-color-gray:           #aaa;
+$rup-color-gray-hover:     color.scale($rup-color-gray, $lightness: -20%);
 
-$rup-color-gray: #aaa;
-$rup-color-gray-hover: darken($rup-color-gray, 20%);
+$rup-color-transparent:    transparent;
 
-$rup-color-transparent: transparent;
+$rup-color-border:         $rup-gray-border;
+$rup-color-border-hover:   color.scale($rup-color-border, $lightness: -20%);
+$rup-color-border-light:   $rup-gray-lighter;
 
-
-$rup-color-border: $rup-gray-border;
-$rup-color-border-hover: darken($rup-color-border, 20%);
-$rup-color-border-light: $rup-gray-lighter;
-
-$rup-link-color:            $rup-color-primary-4;
-$rup-link-decoration:       none !default;
-$rup-link-hover-color:      darken($rup-link-color, 15%) !default;
+$rup-link-color:           $rup-color-primary-4;
+$rup-link-decoration:      none !default;
+$rup-link-hover-color:     color.scale($rup-link-color, $lightness: -15%) !default;
 $rup-link-hover-decoration: underline !default;
+
 
 // Color: general
 
-$rup-color-ui-widget-hover: lighten($rup-color-primary-2,20%);
+$rup-color-ui-widget-hover: color.adjust($rup-color-primary-2, $lightness: 20%);
 
 $rup-color-component-active: #fff !default;
 $rup-color-component-active-bg:    $rup-brand-primary !default;
@@ -242,7 +241,7 @@ $rup-color-dropdown-border:          rgba(0,0,0,.15) !default;
 $rup-color-dropdown-divider-bg:            #e5e5e5 !default;
 
 $rup-color-dropdown-link:            $rup-gray-dark !default;
-$rup-color-dropdown-link-hover:      darken($rup-gray-dark, 5%) !default;
+$rup-color-dropdown-link-hover: color.scale($rup-gray-dark, $lightness: -5%) !default;
 $rup-color-dropdown-link-hover-bg:         #f5f5f5 !default;
 
 $rup-color-dropdown-link-active:     $rup-color-component-active !default;

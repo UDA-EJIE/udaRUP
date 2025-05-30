@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "./rup-variables";
 // @import "../bootstrap/_custom-bootstrap-variables";
 //
@@ -324,7 +325,7 @@
 
                     .dropdown-submenu {
                         .dropdown-menu {
-                            background-color: darken($rup-color-navbar-dropdown-menu, 10%);
+                            background-color: color.scale($rup-color-navbar-dropdown-menu, $lightness: -10%);
                         }
                     }
                 }
