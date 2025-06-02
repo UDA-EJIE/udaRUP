@@ -1896,7 +1896,7 @@
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
     DataTable.ext.classes.length.container = 'dt-length col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0';
-    DataTable.ext.classes.info.container = 'dt-info col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center';
+    DataTable.ext.classes.info.container = 'dt-info col-6 order-4 text-start align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center';
     
     $.fn.rup_table.defaults = {
         foobar: false,
@@ -1951,7 +1951,7 @@
 				features: [{
 					div: {
 						id: 'select_info',
-						className: 'col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left'
+						className: 'col-6 order-3 text-end align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left'
 					},
 					inputPaging: {},
 					pageLength: {},
