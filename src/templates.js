@@ -144,7 +144,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["bootstrap"] = 
     + alias4(((helper = (helper = lookupProperty(helpers,"resultNumText") || (depth0 != null ? lookupProperty(depth0,"resultNumText") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":2,"column":58},"end":{"line":2,"column":75}}}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_table_selectedElements_"
     + alias4(((helper = (helper = lookupProperty(helpers,"tableId") || (depth0 != null ? lookupProperty(depth0,"tableId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":3,"column":40},"end":{"line":3,"column":51}}}) : helper)))
-    + "\" class=\"ml-1\" >\r\n    	"
+    + "\" class=\"ms-1\" >\r\n    	"
     + alias4(((helper = (helper = lookupProperty(helpers,"resultNumText") || (depth0 != null ? lookupProperty(depth0,"resultNumText") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":4,"column":5},"end":{"line":4,"column":22}}}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
     + alias4(((helper = (helper = lookupProperty(helpers,"tableId") || (depth0 != null ? lookupProperty(depth0,"tableId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":7,"column":13},"end":{"line":7,"column":24}}}) : helper)))
@@ -188,7 +188,7 @@ this["Rup"]["Templates"]["rup"]["table"]["detail"]["navigation"]["material"] = H
     + alias4(((helper = (helper = lookupProperty(helpers,"resultNumText") || (depth0 != null ? lookupProperty(depth0,"resultNumText") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":2,"column":56},"end":{"line":2,"column":73}}}) : helper)))
     + "\"></i>\r\n  	<span id=\"rup_table_selectedElements_"
     + alias4(((helper = (helper = lookupProperty(helpers,"tableId") || (depth0 != null ? lookupProperty(depth0,"tableId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":3,"column":40},"end":{"line":3,"column":51}}}) : helper)))
-    + "\" class=\"ml-1\" >\r\n    	"
+    + "\" class=\"ms-1\" >\r\n    	"
     + alias4(((helper = (helper = lookupProperty(helpers,"resultNumText") || (depth0 != null ? lookupProperty(depth0,"resultNumText") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultNumText","hash":{},"data":data,"loc":{"start":{"line":4,"column":5},"end":{"line":4,"column":22}}}) : helper)))
     + "\r\n  	</span>\r\n</div>\r\n<div id=\"pag_"
     + alias4(((helper = (helper = lookupProperty(helpers,"tableId") || (depth0 != null ? lookupProperty(depth0,"tableId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tableId","hash":{},"data":data,"loc":{"start":{"line":7,"column":13},"end":{"line":7,"column":24}}}) : helper)))

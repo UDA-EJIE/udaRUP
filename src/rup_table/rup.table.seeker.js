@@ -226,12 +226,12 @@
             collapseLayerTmpl = "<div id='{0}' class='search_collapse_layer'></div>",
             collapseIconTmpl = "<span id='{0}' class='collapse_icon mdi mdi-chevron-right'></span>",
             collapseLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline' href='#0'>{1}:</a>",
-            matchedLayerTmpl = "<div id='{0}' class='matched_layer mr-3'></div>",
-            matchedLabelTmpl = "<span id='{0}' class='ml-2'>{1}</span>",
+            matchedLayerTmpl = "<div id='{0}' class='matched_layer me-3'></div>",
+            matchedLabelTmpl = "<span id='{0}' class='ms-2'>{1}</span>",
             navLayerTmpl = "<div id='{0}' class='search_nav_layer row no-gutters'></div>",
-            navButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis col-3 col-sm-auto mr-sm-2' type='button' alt='{1}' disabled>{1}</button>",
-            navClearButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
-            navSearchButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ml-4 mt-2 col-sm-auto ml-sm-0 mt-sm-auto mr-sm-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
+            navButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-secondary-low-emphasis col-3 col-sm-auto me-sm-2' type='button' alt='{1}' disabled>{1}</button>",
+            navClearButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ms-4 mt-2 col-sm-auto ms-sm-0 mt-sm-auto me-sm-2' type='button' alt='{1}'><i class='mdi mdi-eraser'></i><span class='ui-button-text'>{1}</span></button>",
+            navSearchButtonTmpl = "<button id='{0}' class='btn-material btn-material-sm btn-material-primary-low-emphasis col-5 ms-4 mt-2 col-sm-auto ms-sm-0 mt-sm-auto me-sm-2' type='button'><i class='mdi mdi-magnify'></i><span class='ui-button-text'>{1}</span></button>",
 
             // Objetos
             $searchRow = $("<tr class='search_row'></tr>"),

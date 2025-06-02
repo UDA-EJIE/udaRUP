@@ -27,7 +27,7 @@
 //                     <!-- Botonera del formulario de filtrado -->\
 //                     <div id="' + idDatatable + '_filter_buttonSet" class="text-right">\
 //                         <!-- Enlace de limpiar -->\
-//                         <button id="' + idDatatable + '_filter_cleanButton" type="button" class="btn-material btn-material-primary-low-emphasis mr-2">\
+//                         <button id="' + idDatatable + '_filter_cleanButton" type="button" class="btn-material btn-material-primary-low-emphasis me-2">\
 //                         <i class="mdi mdi-eraser"></i>\
 //                         	<span>Limpiar</span>\
 //                         </button>\

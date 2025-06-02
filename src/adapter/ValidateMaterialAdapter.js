@@ -83,7 +83,7 @@
 		if(element[0].type === "checkbox" || element[0].type === "radio") {
 			$container = element.parents(".form-row").find("label[data-title='" + name + "']");
 			
-			$icon.addClass("ml-3");
+			$icon.addClass("ms-3");
 		}
 		
 		// Posicionamiento del label e icon

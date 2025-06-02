@@ -1630,7 +1630,7 @@
                 // Se añaden las clases CSS de los títulos y flechas de las columnas.
                 const displayStyle = {
                 	'block': 'd-block',
-                	'inline': 'd-inline ml-1',
+                	'inline': 'd-inline ms-1',
                 	'none': 'd-none',
                 	'default': 'd-block'
                 };
@@ -1645,7 +1645,7 @@
                 	if (options.columnOrderArrows.showOnlyActive) $this.addClass('sorting_active_only');
                 	
                 	// Crear elementos para las flechas de ordenación.
-                	const $columnDownArrow = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+                	const $columnDownArrow = $('<span></span>').addClass('mdi mdi-arrow-down me-2 me-xl-0');
                 	const $columnUpArrow = $('<span></span>').addClass('mdi mdi-arrow-up');
                 	const $columnArrowsContainer = $('<div></div>').addClass(arrowsStyle).append($columnDownArrow, $columnUpArrow);
 

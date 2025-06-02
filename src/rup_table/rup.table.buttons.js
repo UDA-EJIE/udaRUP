@@ -410,7 +410,7 @@
                 return $.rup.i18nParse($.rup.i18n.base, 'rup_table.toolbar.reports.main');
             },
             id: idTable + 'informes_01',
-            className: 'btn-material-primary-medium-emphasis order-last ml-1 ml-lg-auto',
+            className: 'btn-material-primary-medium-emphasis order-last ms-1 ms-lg-auto',
             displayRegex: ctx.oInit.buttons.informe?.displayRegex ? ctx.oInit.buttons.informe.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             autoClose: true,
             type: 'reports',
