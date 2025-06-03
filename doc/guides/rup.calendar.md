@@ -77,7 +77,7 @@ $('#calendar').rup_calendar({
    events_source: [
       {
          "id": "00001",
-         "title": "<span><strong>Html</strong><ul class='pl-3'><li>Punto 1</li><li>Punto 2</li><li>Punto 3</li><li>Punto 4</li></ul></span>",
+         "title": "<span><strong>Html</strong><ul class='ps-3'><li>Punto 1</li><li>Punto 2</li><li>Punto 3</li><li>Punto 4</li></ul></span>",
          "start": new Date().getTime().toString(),
          "class": " event-info",
          "end": (new Date().getTime() + 1).toString(),

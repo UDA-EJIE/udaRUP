@@ -244,7 +244,7 @@
                 a = $('<a>').attr('href', /*$.rup.CTX_PATH + */ href).text(i18nCaption);
             li.append(a);
             if (separator !== false) {
-                li.append($('<span>').addClass('mdi mdi-chevron-right pr-1 pl-1'));
+                li.append($('<span>').addClass('mdi mdi-chevron-right pe-1 ps-1'));
             }
             return li;
         },
