@@ -32,7 +32,7 @@
     text-decoration: underline;
     text-align:center;
     height: 35px ;
-    background: #EBEBEB url("images/wizard/arrow.gif") no-repeat right top;
+    background: #EBEBEB url("~@assets/images/wizard/arrow.gif") no-repeat right top;
 	font-size: 1.09em; 
 	padding: 9px 25px 0 10px;
 	display: block;
@@ -53,14 +53,14 @@
 	color:white;
 	text-decoration: none;
 	cursor: default;
-	background: #69C url("images/wizard/arrow_current.gif") no-repeat right top;
+	background: #69C url("~@assets/images/wizard/arrow_current.gif") no-repeat right top;
 }
 
 /* Paso ANTERIOR AL ACTIVO */
 .rup-wizard_stepDesc.visited a { 
 	text-decoration: underline;
 	cursor: default;
-	background: #EBEBEB url("images/wizard/arrow_done_last.gif") no-repeat right top;
+	background: #EBEBEB url("~@assets/images/wizard/arrow_done_last.gif") no-repeat right top;
 }
 /* Paso DESHABILITADO */
 .rup-wizard_stepDesc.disabled a { 
@@ -73,7 +73,7 @@
 }
 /* Último PASO */
 .rup-wizard_lastStepDesc a {
-	background: #EBEBEB url("images/wizard/arrow_last.gif") no-repeat right top;
+	background: #EBEBEB url("~@assets/images/wizard/arrow_last.gif") no-repeat right top;
 }
 
 /* Paso RESUMEN  */
@@ -85,7 +85,7 @@
 	color:white;
 	text-decoration: none;
 	cursor: default;
-	background: #69C url("images/wizard/arrow_last_current.gif") no-repeat right top;
+	background: #69C url("~@assets/images/wizard/arrow_last_current.gif") no-repeat right top;
 }
 
 
@@ -100,7 +100,7 @@
 	padding-left:37px;
 	float:left;
 	cursor: pointer;
- 	background: #EBEBEB url("images/wizard/prev.png") no-repeat left center; 
+ 	background: #EBEBEB url("~@assets/images/wizard/prev.png") no-repeat left center; 
  	border: 1px solid #BDBDBD;
  	text-align: center;
  	width: 55px;
@@ -121,7 +121,7 @@
 	padding-right:37px;
 	float:right;
 	cursor: pointer;
- 	background: #EBEBEB url("images/wizard/next.png") no-repeat right center; 
+ 	background: #EBEBEB url("~@assets/images/wizard/next.png") no-repeat right center; 
  	border: 1px solid #BDBDBD;
  	text-align: center;
  	width: 55px;
@@ -131,7 +131,7 @@
 }
 .rup-wizard_next:HOVER {
 	color:#666565;
- 	background: white url("images/wizard/next.png") no-repeat right center; 
+ 	background: white url("~@assets/images/wizard/next.png") no-repeat right center; 
  	text-decoration: underline;
 }
 
@@ -146,7 +146,7 @@
 	padding-top: 11px;
 	float:right;
 	cursor: pointer;
- 	background: #EBEBEB url("images/wizard/submit.png") no-repeat right center; 
+ 	background: #EBEBEB url("~@assets/images/wizard/submit.png") no-repeat right center; 
  	border: 1px solid #BDBDBD;
  	text-align: center;
  	-webkit-border-radius: 5px;
@@ -156,7 +156,7 @@
 
 .rup-wizard_submitButton:HOVER {
 	color:#666565;
- 	background: white url("images/wizard/submit.png") no-repeat right center; 
+ 	background: white url("~@assets/images/wizard/submit.png") no-repeat right center; 
  	text-decoration: underline;
 }
 	

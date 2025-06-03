@@ -79,40 +79,40 @@
 /******************/
 /* ICONOS TOOLBAR */
 /******************/
-.borrar { background:url("images/toolbar/borrar.png") no-repeat !important; }
-.borrar.disabled { background:url("images/toolbar/borrar_disabled.png") no-repeat !important; }
+.borrar { background:url("~@assets/images/toolbar/borrar.png") no-repeat !important; }
+.borrar.disabled { background:url("~@assets/images/toolbar/borrar_disabled.png") no-repeat !important; }
 
-.buscar { background:url("images/toolbar/buscar.png") no-repeat !important; }
-.buscar.disabled { background:url("images/toolbar/buscar_disabled.png") no-repeat !important; }
+.buscar { background:url("~@assets/images/toolbar/buscar.png") no-repeat !important; }
+.buscar.disabled { background:url("~@assets/images/toolbar/buscar_disabled.png") no-repeat !important; }
 
-.cancelar { background:url("images/toolbar/cancelar.png") no-repeat !important; }
-.cancelar.disabled { background:url("images/toolbar/cancelar_disabled.png") no-repeat !important; }
+.cancelar { background:url("~@assets/images/toolbar/cancelar.png") no-repeat !important; }
+.cancelar.disabled { background:url("~@assets/images/toolbar/cancelar_disabled.png") no-repeat !important; }
 
-.editar { background:url("images/toolbar/editar.png") no-repeat !important; }
-.editar.disabled { background:url("images/toolbar/editar_disabled.png") no-repeat !important; }
+.editar { background:url("~@assets/images/toolbar/editar.png") no-repeat !important; }
+.editar.disabled { background:url("~@assets/images/toolbar/editar_disabled.png") no-repeat !important; }
 
-.filtrar { background:url("images/toolbar/filtrar.png") no-repeat !important; }
-.filtrar.disabled { background:url("images/toolbar/filtrar_disabled.png") no-repeat !important; }
+.filtrar { background:url("~@assets/images/toolbar/filtrar.png") no-repeat !important; }
+.filtrar.disabled { background:url("~@assets/images/toolbar/filtrar_disabled.png") no-repeat !important; }
 
-.imprimir { background:url("images/toolbar/imprimir.png") no-repeat !important; }
-.imprimir.disabled { background:url("images/toolbar/imprimir_disabled.png") no-repeat !important; }
+.imprimir { background:url("~@assets/images/toolbar/imprimir.png") no-repeat !important; }
+.imprimir.disabled { background:url("~@assets/images/toolbar/imprimir_disabled.png") no-repeat !important; }
 
-.nuevo { background:url("images/toolbar/nuevo.png") no-repeat !important; }
-.nuevo.disabled { background:url("images/toolbar/nuevo_disabled.png") no-repeat !important; }
+.nuevo { background:url("~@assets/images/toolbar/nuevo.png") no-repeat !important; }
+.nuevo.disabled { background:url("~@assets/images/toolbar/nuevo_disabled.png") no-repeat !important; }
 
 /***************************/
 /* ICONOS FICHEROS (files) */
 /***************************/
-.csv { background:url("images/files/csv.gif") no-repeat !important; }
-.dll { background:url("images/files/dll.gif") no-repeat !important; }
-.doc { background:url("images/files/doc.gif") no-repeat !important; }
-.exe { background:url("images/files/exe.gif") no-repeat !important; }
-.gif { background:url("images/files/gif.gif") no-repeat !important; }
-.jpg { background:url("images/files/jpg.gif") no-repeat !important; }
-.js:not(html)  { background:url("images/files/js.gif")  no-repeat !important; }
-.ods { background:url("images/files/ods.gif") no-repeat !important; }
-.pdf { background:url("images/files/pdf.gif") no-repeat !important; }
-.ppt { background:url("images/files/ppt.gif") no-repeat !important; }
-.txt { background:url("images/files/txt.gif") no-repeat !important; }
-.xls { background:url("images/files/xls.gif") no-repeat !important; }
-.zip { background:url("images/files/zip.gif") no-repeat !important; }
+.csv { background:url("~@assets/images/files/csv.gif") no-repeat !important; }
+.dll { background:url("~@assets/images/files/dll.gif") no-repeat !important; }
+.doc { background:url("~@assets/images/files/doc.gif") no-repeat !important; }
+.exe { background:url("~@assets/images/files/exe.gif") no-repeat !important; }
+.gif { background:url("~@assets/images/files/gif.gif") no-repeat !important; }
+.jpg { background:url("~@assets/images/files/jpg.gif") no-repeat !important; }
+.js:not(html)  { background:url("~@assets/images/files/js.gif")  no-repeat !important; }
+.ods { background:url("~@assets/images/files/ods.gif") no-repeat !important; }
+.pdf { background:url("~@assets/images/files/pdf.gif") no-repeat !important; }
+.ppt { background:url("~@assets/images/files/ppt.gif") no-repeat !important; }
+.txt { background:url("~@assets/images/files/txt.gif") no-repeat !important; }
+.xls { background:url("~@assets/images/files/xls.gif") no-repeat !important; }
+.zip { background:url("~@assets/images/files/zip.gif") no-repeat !important; }

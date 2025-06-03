@@ -17,7 +17,7 @@
  						/* MENSAJES DE ERROR */
  /*Estilo de la capa con la imagen de error*/
  .rup-message_icon-error {
-	background-image:url("images/rup.error.png");
+	background-image:url("~@assets/images/rup.error.png");
 	background-position:center center;
 	background-repeat:no-repeat;
 	float:left;
@@ -40,7 +40,7 @@
  						/* MENSAJES DE CONFIRMACION */
  /*Estilo de la capa con la imagen de confirmacion*/
  .rup-message_icon-confirm {
-	background-image:url("images/rup.confirm.png");
+	background-image:url("~@assets/images/rup.confirm.png");
 	background-position:center center;
 	background-repeat:no-repeat;
 	float:left;
@@ -62,7 +62,7 @@
  						/* MENSAJES DE OK */
  /*Estilo de la capa con la imagen de ok*/
  .rup-message_icon-ok {
- 	background-image:url("images/rup.ok.png");
+ 	background-image:url("~@assets/images/rup.ok.png");
 	background-position:center center;
 	background-repeat:no-repeat;
 	float:left;
@@ -84,7 +84,7 @@
  						/* MENSAJES DE ALERTA */
  /*Estilo de la capa con la imagen de alerta*/
  .rup-message_icon-alert {
- 	background-image:url("images/rup.alert.png");
+ 	background-image:url("~@assets/images/rup.alert.png");
 	background-position:center center;
 	background-repeat:no-repeat;
 	float:left;

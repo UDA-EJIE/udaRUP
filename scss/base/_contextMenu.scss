@@ -16,13 +16,13 @@
 	color: #000;
 }
 
-.context-menu-item.icon-check { background-image: url(images/contextmenu/check.png); }
-.context-menu-item.icon-check_all { background-image: url(images/contextmenu/check_all.png); }
-.context-menu-item.icon-uncheck { background-image: url(images/contextmenu/uncheck.png); }
-.context-menu-item.icon-uncheck_all { background-image: url(images/contextmenu/uncheck_all.png); }
+.context-menu-item.icon-check { background-image: url(~@assets/images/contextmenu/check.png); }
+.context-menu-item.icon-check_all { background-image: url(~@assets/images/contextmenu/check_all.png); }
+.context-menu-item.icon-uncheck { background-image: url(~@assets/images/contextmenu/uncheck.png); }
+.context-menu-item.icon-uncheck_all { background-image: url(~@assets/images/contextmenu/uncheck_all.png); }
 
-.context-menu-item.icon-child { background-image: url(images/contextmenu/child.png); }
-.context-menu-item.icon-descendent { background-image: url(images/contextmenu/descendent.png); }
+.context-menu-item.icon-child { background-image: url(~@assets/images/contextmenu/child.png); }
+.context-menu-item.icon-descendent { background-image: url(~@assets/images/contextmenu/descendent.png); }
 
 
 .context-menu-list {
@@ -108,15 +108,15 @@ li[id$='_contextMenuToolbar'] {
     .context-menu-item.icon:before {}
  */
 .context-menu-item.icon { min-height: 18px; background-repeat: no-repeat; background-position: 4px 2px; }
-.context-menu-item.icon-edit { background-image: url(images/contextmenu/page_white_edit.png); }
-.context-menu-item.icon-cut { background-image: url(images/contextmenu/cut.png); }
-.context-menu-item.icon-copy { background-image: url(images/contextmenu/page_white_copy.png); }
-.context-menu-item.icon-clone { background-image: url(images/contextmenu/page_white_clone.png); }
-.context-menu-item.icon-paste { background-image: url(images/contextmenu/page_white_paste.png); }
-.context-menu-item.icon-delete { background-image: url(images/contextmenu/page_white_delete.png); }
-.context-menu-item.icon-add { background-image: url(images/contextmenu/page_white_add.png); }
-.context-menu-item.icon-quit { background-image: url(images/contextmenu/door.png); }
-.context-menu-item.icon-add { background-image: url(images/contextmenu/page_white_add.png); }
+.context-menu-item.icon-edit { background-image: url(~@assets/images/contextmenu/page_white_edit.png); }
+.context-menu-item.icon-cut { background-image: url(~@assets/images/contextmenu/cut.png); }
+.context-menu-item.icon-copy { background-image: url(~@assets/images/contextmenu/page_white_copy.png); }
+.context-menu-item.icon-clone { background-image: url(~@assets/images/contextmenu/page_white_clone.png); }
+.context-menu-item.icon-paste { background-image: url(~@assets/images/contextmenu/page_white_paste.png); }
+.context-menu-item.icon-delete { background-image: url(~@assets/images/contextmenu/page_white_delete.png); }
+.context-menu-item.icon-add { background-image: url(~@assets/images/contextmenu/page_white_add.png); }
+.context-menu-item.icon-quit { background-image: url(~@assets/images/contextmenu/door.png); }
+.context-menu-item.icon-add { background-image: url(~@assets/images/contextmenu/page_white_add.png); }
 
 /* vertically align inside labels */
 .context-menu-input > label > * { vertical-align: top; }
@@ -172,7 +172,7 @@ li[id$='_contextMenuToolbar'] {
 }
 
 .context-menu-cursor{
-	cursor: url('cursors/context-menu.cur'),default;
+	cursor: url('~@assets/cursors/context-menu.cur'),default;
 }
 
  .context-menu-item.context-menu-visible{

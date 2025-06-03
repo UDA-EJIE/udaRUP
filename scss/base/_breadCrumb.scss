@@ -36,7 +36,7 @@
 }
 .rup-breadCrumb_main LI {
 	border-right: none;
-/*     background: url("images/rup.separatorArrow.gif") no-repeat right center; */
+/*     background: url("~@assets/images/rup.separatorArrow.gif") no-repeat right center; */
     padding-right: 4px;
     padding-left: 10px;
 	height: 16px;
@@ -120,13 +120,13 @@
 .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg{
 	display: inline-block;
 	float: left;
-    background: url("images/rup.padlock.gif") no-repeat right center;
+    background: url("~@assets/images/rup.padlock.gif") no-repeat right center;
 }
 
 .rup-breadCrumb_logoutDiv .rup-breadCrumb_logoutImg_active{
 	display: inline-block;
 	float: left;
-    background: url("images/rup.unlock.png") no-repeat right center;
+    background: url("~@assets/images/rup.unlock.png") no-repeat right center;
 }
 
 .rup-breadCrumb_logoutDiv .rup-breadCrumb_exitImg{

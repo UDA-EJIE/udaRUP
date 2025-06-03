@@ -43,13 +43,13 @@
 }
 
 .rup-language_change a {
-	background: url("images/rup.dropdown.gif") no-repeat right;
+	background: url("~@assets/images/rup.dropdown.gif") no-repeat right;
 	padding: .2em 2.4em .2em .6em;
 }
 
 .rup-language_close_languages {
 	float:right;
-	background-image: url("images/rup.close.png");
+	background-image: url("~@assets/images/rup.close.png");
 	background-repeat: no-repeat;
 	background-position: right;
 	padding-right: 1.8em;
@@ -58,7 +58,7 @@
 	cursor: pointer;
 }
 .rup-language_close_languages:hover {
-	background-image: url("images/rup.close_hover.png");
+	background-image: url("~@assets/images/rup.close_hover.png");
 	text-decoration: none !important;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .rup-language_change_option {
-	background: url("images/rup.dropdown.gif") no-repeat right;
+	background: url("~@assets/images/rup.dropdown.gif") no-repeat right;
 	padding: .2em 2.4em .2em .6em;
 	background-color: #F7F7F7;
 	border-top: 1px solid #ABABAB;

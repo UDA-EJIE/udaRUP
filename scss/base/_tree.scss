@@ -27,7 +27,7 @@
  */
 
 .jstree-rup-default li, 
-.jstree-rup-default ins { background-image:url("images/tree/d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-rup-default ins { background-image:url("~@assets/images/tree/d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-rup-default li { background-position:-93px 0; background-repeat:repeat-y;  }
 .jstree-rup-default li.jstree-last { background:transparent; }
 .jstree-rup-default .jstree-open > ins { background-position:-72px 0; }
@@ -38,7 +38,7 @@
 .jstree-rup-default .jstree-clicked { background:navy; border:1px solid navy; padding:0 2px 0 1px; color:white; }
 .jstree-rup-default a .jstree-icon { background-position:-56px -19px; }
 .jstree-rup-default .jstree-open > a .jstree-icon { background-position:-56px -36px; }
-.jstree-rup-default a.jstree-loading .jstree-icon { background:url("images/tree/throbber.gif") center center no-repeat !important; }
+.jstree-rup-default a.jstree-loading .jstree-icon { background:url("~@assets/images/tree/throbber.gif") center center no-repeat !important; }
 
 .jstree-rup-default.jstree-focused { background:white; }
 
@@ -68,9 +68,9 @@
 .jstree-rup-default .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
 
 #vakata-dragged.jstree-rup-default ins { background:transparent !important; }
-#vakata-dragged.jstree-rup-default .jstree-ok { background:url("images/tree/d.png") -2px -53px no-repeat !important; }
-#vakata-dragged.jstree-rup-default .jstree-invalid { background:url("images/tree/d.png") -18px -53px no-repeat !important; }
-#jstree-marker.jstree-rup-default { background:url("images/tree/d.png") -41px -57px no-repeat !important; text-indent:-100px; }
+#vakata-dragged.jstree-rup-default .jstree-ok { background:url("~@assets/images/tree/d.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-rup-default .jstree-invalid { background:url("~@assets/images/tree/d.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-rup-default { background:url("~@assets/images/tree/d.png") -41px -57px no-repeat !important; text-indent:-100px; }
 
 .jstree-rup-default a.jstree-search { font-weight:bold; }
 .jstree-rup-default .jstree-locked a { color:silver; cursor:default; }
@@ -91,7 +91,7 @@
 .jstree-rup-default ins,
 #vakata-dragged.jstree-rup-default .jstree-invalid, 
 #vakata-dragged.jstree-rup-default .jstree-ok, 
-#jstree-marker.jstree-rup-default { _background-image:url("images/tree/d.gif"); }
+#jstree-marker.jstree-rup-default { _background-image:url("~@assets/images/tree/d.gif"); }
 .jstree-rup-default .jstree-open ins { _background-position:-72px 0; }
 .jstree-rup-default .jstree-closed ins { _background-position:-54px 0; }
 .jstree-rup-default .jstree-leaf ins { _background-position:-36px 0; }

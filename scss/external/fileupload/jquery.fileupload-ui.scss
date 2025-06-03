@@ -15,7 +15,7 @@
 }
 .progress-animated .progress-bar,
 .progress-animated .bar {
-  background: url("./images/progressbar.gif") !important;
+  background: url("~@assets/images/progressbar.gif") !important;
   filter: none;
 }
 
@@ -28,7 +28,7 @@
   display: block;
   width: 32px;
   height: 32px;
-  background: url("./images/loading.gif") center no-repeat;
+  background: url("~@assets/images/loading.gif") center no-repeat;
   background-size: contain;
 }
 .files audio,
@@ -38,7 +38,7 @@
 
 .rup_report .ui-progressbar-value { width: 100%px; height: 20px; }
 
-.rup_report .ui-progressbar-value { background: url(images/pbar-ani.gif); }
+.rup_report .ui-progressbar-value { background: url(~@assets/images/pbar-ani.gif); }
 
 @media (max-width: 767px) {
   .fileupload-buttonbar .toggle,

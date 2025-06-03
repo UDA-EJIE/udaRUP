@@ -27,7 +27,7 @@
 /* Capa de cierre del feedback (enlace+imagen) */
 .rup-feedback_closeLink {
 	float:right;
-	background-image: none;//url("images/rup.close.png"); //Evitar imagen por defecto bootstrap
+	background-image: none;//url("~@assets/images/rup.close.png"); //Evitar imagen por defecto bootstrap
 	background-repeat: no-repeat;
 	background-position: right;
 	padding-right: 1.5em;
@@ -36,17 +36,17 @@
 	cursor: pointer;
 }
 .rup-feedback_closeLink:hover {
-	background-image:none;// url("images/rup.close_hover.png");
+	background-image:none;// url("~@assets/images/rup.close_hover.png");
 	text-decoration: none;
 }
 
 div.rup-feedback_closeLink.rup-jqueryui{
   //visibility: hidden;
-  background-image: url("images/rup.close.png");
+  background-image: url("~@assets/images/rup.close.png");
 
 }
 div.rup-feedback_closeLink.rup-jqueryui:hover {
-  background-image:url("images/rup.close_hover.png");
+  background-image:url("~@assets/images/rup.close_hover.png");
 }
 
 /* Imagen fondo por defecto (valores generales) */
@@ -61,15 +61,15 @@ div.rup-feedback_closeLink.rup-jqueryui:hover {
 
 /* Imagenes por defecto (url fichero) [ok, alert, error] */
 .rup-feedback_image_ok{
-	background-image: url("images/rup.ok.png");
+	background-image: url("~@assets/images/rup.ok.png");
 	background-color: #DFF2DF;
 	border: 1px solid #00B500;
 }
 .rup-feedback_image_alert{
-	background-image: url("images/rup.alert.png");
+	background-image: url("~@assets/images/rup.alert.png");
 }
 .rup-feedback_image_error{
-	background-image: url("images/rup.error.png");
+	background-image: url("~@assets/images/rup.error.png");
 	background-color: #F6CECE;
 	border: 1px solid #FF0000;
 }

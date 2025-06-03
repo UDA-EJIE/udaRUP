@@ -20,19 +20,19 @@
 }
 
 .fileupload-buttonbar span.ui-icon-cancel {
-	background:transparent url("images/rup.cancel.png") no-repeat !important;
+	background:transparent url("~@assets/images/rup.cancel.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
 
 .fileupload-buttonbar span.ui-icon-trash {
-	background:transparent url("images/toolbar/borrar.png") no-repeat !important;
+	background:transparent url("~@assets/images/toolbar/borrar.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
 
 .fileupload-buttonbar span.ui-icon-circle-arrow-e {
-	background:transparent url("images/rup.upload.png") no-repeat !important;
+	background:transparent url("~@assets/images/rup.upload.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
@@ -48,26 +48,26 @@
 }
 
 .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-circle-arrow-e{
-	background:transparent url("images/rup.upload.png") no-repeat !important;
+	background:transparent url("~@assets/images/rup.upload.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
 
 .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-cancel{
-	background:transparent url("images/rup.cancel.png") no-repeat !important;
+	background:transparent url("~@assets/images/rup.cancel.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
 
 .fileupload-content button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-primary span.ui-icon-trash{
-	background:transparent url("images/toolbar/borrar.png") no-repeat !important;
+	background:transparent url("~@assets/images/toolbar/borrar.png") no-repeat !important;
 	width:16px;
 	height: 16px;
 }
 
 
 .fileupload-content .file_icon{
-	background-image:url("images/rup.file.png");
+	background-image:url("~@assets/images/rup.file.png");
 	width: 15px;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .fileupload-content .file_download_icon{
-	background-image:url("images/rup.download.png") ;
+	background-image:url("~@assets/images/rup.download.png") ;
 	width: 15px;
 	margin-top: 0.5em;
 	padding-left: 12px;
