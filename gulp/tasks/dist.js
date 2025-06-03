@@ -19,6 +19,7 @@ gulp.task('dist:x21a:copy2', function () {
 	        '!./dist/css/images{,/**}',       // ❌ Excluye dist/css/images y su contenido
 	        '!./dist/css/fonts{,/**}',        // ❌ Excluye dist/css/fonts y su contenido
 	        '!./dist/css/cursors{,/**}',      // ❌ Excluye dist/css/cursors y su contenido
+			'!./dist/**/*.txt',
 	    ], { base: './dist' })
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
 });
@@ -61,5 +62,6 @@ gulp.task('dist:portal', function (callback) {
         .pipe(gulp.dest('./dist/portal/'));
     gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portal/cursors'));
     gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
+	gulp.src('./dist/css/fonts/**/*.*').pipe(gulp.dest('./dist/portal/fonts'));
     callback();
 });
