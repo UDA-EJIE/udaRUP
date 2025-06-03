@@ -1252,7 +1252,7 @@
 
         //FeedBack
         var countPage = dt.page() + 1;
-        var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
+        var selectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectMsg', '<span class="fw-bold">' + dt.rows()[0].length + '</span>', '<span class="fw-bold">' + countPage + '</span>');
         var countRegister = ctx.json.recordsTotal - ctx.multiselection.selectedIds.length;
         var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.selectRestMsg', countRegister);
         var remainingSelectButton = '<button id=\'rup_table_' + dt.context[0].sTableId + '_selectAll\' class=\'btn-material btn-material-secondary-low-emphasis\'><span>' + selectRestMsg + '</span></button>';
@@ -1292,7 +1292,7 @@
 
         //FeedBack
         var countPage = dt.page() + 1;
-        var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<span class="font-weight-bold">' + dt.rows()[0].length + '</span>', '<span class="font-weight-bold">' + countPage + '</span>');
+        var deselectMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectMsg', '<span class="fw-bold">' + dt.rows()[0].length + '</span>', '<span class="fw-bold">' + countPage + '</span>');
         var selectRestMsg = jQuery.rup.i18nTemplate(jQuery.rup.i18n.base, 'rup_table.deselectRestMsg', ctx.multiselection.numSelected);
         var remainingDeselectButton = '<button id=\'rup_table_' + dt.context[0].sTableId + '_deselectAll\' class=\'btn-material btn-material-secondary-low-emphasis\'><span>' + selectRestMsg + '</span></button>';
         if (ctx.multiselection.numSelected > 0) {
