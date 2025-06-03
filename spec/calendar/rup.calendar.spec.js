@@ -1603,7 +1603,7 @@ function createCalendar(opts, callback) {
     <div class="row">
         <div class="col-xl-12">
             <div class="page-header w-100 mb-3">
-                <div class="pull-right form-inline">
+                <div class="pull-right d-flex flex-row align-items-center flex-wrap">
                     <div class="btn-group mb-3">
                         <span class="btn btn-primary" data-calendar-nav="prev">
                             <i class="mdi mdi-chevron-left-circle" aria-hidden="true"></i>&nbsp;Prev.

@@ -918,11 +918,11 @@ import Printd from 'printd';
 				'<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material">' + 
 					'<div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div>' + 
 					'<form>' + 
-						'<div class="form-row"><div class="form-groupMaterial col-12">' + 
+						'<div class="row"><div class="form-groupMaterial col-12">' + 
 							'<label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label>' + 
 							'<select id="' + opciones.multiFilter._dialogId + '_select"></select>' + 
 						'</div>' +
-						'<div class="form-row">' + 
+						'<div class="row">' + 
 							'<div class="checkbox-material col-12">' + 
 								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-activeFilter" />' + 
 								'<label for="' + opciones.multiFilter._dialogId + '-activeFilter">Filtro por defecto</label>' + 

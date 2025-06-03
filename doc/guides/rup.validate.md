@@ -101,10 +101,10 @@ $("#formValidaciones").rup_validate(properties);
 
 Como ya se profundizará mas adelante, mediante la propiedad rules se indicará para cada campo (identificado mediante su el valor de su propiedad *name*) que validaciones se deben de realizar.
 
-Cabe destacar que cuando se busque validar un *input* de tipo *checkbox* o *radio*, el *label* que se quiera asociar para mostrar el error de validación, debe contener el atributo ***data-title*** con el mismo valor que el atributo name del checkbox o radio. Además, **debe estar dentro de un elemento con clase *form-row***, por ejemplo:
+Cabe destacar que cuando se busque validar un *input* de tipo *checkbox* o *radio*, el *label* que se quiera asociar para mostrar el error de validación, debe contener el atributo ***data-title*** con el mismo valor que el atributo name del checkbox o radio. Además, **debe estar dentro de un elemento con clase *row***, por ejemplo:
 ```html
 <form id="formValidaciones" action="/form">
-	<div class="form-row col-sm-6">
+	<div class="row col-sm-6">
 		<div class="col-12">
 			<label id="alertDayErrorLabel" data-title="alertDay">Alert on</label>
 		</div>

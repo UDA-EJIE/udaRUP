@@ -171,7 +171,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 			<p><c:out value="${fixedMessage}"/></p>
 		</c:if>
 		<!-- Campos del formulario de detalle -->
-		<div class="form-row">
+		<div class="row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="nombre" id="nombre_detail_table" />
 				<label for="nombre_detail_table"><spring:message code="nombre" /></label>
@@ -181,7 +181,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 				<label for="apellido1_detail_table"><spring:message code="apellido1" /></label>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="apellido2" id="apellido2_detail_table" />
 				<label for="apellido2_detail_table"><spring:message code="apellido2" /></label>
@@ -191,7 +191,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 				<label for="fechaBaja_detail_table"><spring:message code="fechaBaja" /></label>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="fechaAlta" id="fechaAlta_detail_table" />
 				<label for="fechaAlta_detail_table"><spring:message code="fechaAlta" /></label>
@@ -201,14 +201,14 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
 				<label for="ejie_detail_table"><spring:message code="ejie" /></label>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="row">
 			<div class="form-groupMaterial col-sm">
 				<form:input path="rol" id="rol_detail_table" />
 				<label for="rol_detail_table"><spring:message code="rol" /></label>
 			</div>
 		</div>
 		<c:if test="${enableMultipart eq true}">
-		<div class="form-row">	
+		<div class="row">	
 			<div class="form-groupMaterial col-sm">
 				<form:input path="imagenAlumno" type="file" id="imagenAlumno_detail_table" />
 				<label for="imagenAlumno_detail_table"><spring:message code="subidaImg" /></label>
@@ -290,7 +290,7 @@ formEdit: {
 Se ha creado tambi�n la posibilidad de tener listas de checkbox, din�micas y deben tener la siguiente estructura:
 ```xml
 <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
-    <div class="form-row">      
+    <div class="row">      
         <div class="checkbox-material col-sm">
             <form:checkbox path="lugares[${status.index}].checkeado" id="checkeado${status.index}_lugares" value="1" data-lista="lugares" data-clave="buzones" data-valor="${lugarapli.id}" />
             <label for="checkeado${status.index}_lugares">${lugarapli.email}</label>

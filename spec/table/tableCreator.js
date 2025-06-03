@@ -12,25 +12,25 @@ function generateHtml(idDatatable) {
         '<fieldset id="' + idDatatable + '_filter_fieldset" class="rup-table-filter-fieldset">' +
         '<div class="row">' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="id_filter_table" class="formulario_linea_label">Id:</label>' +
         '<input type="text" name="id" class="formulario_linea_input form-control" id="id_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="nombre_filter_table" class="formulario_linea_label">Nombre:</label>' +
         '<input type="text" name="nombre" class="formulario_linea_input form-control" id="nombre_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="apellidos_filter_table" class="formulario_linea_label">Apellidos:</label>' +
         '<input type="text" name="apellidos" class="formulario_linea_input form-control" id="apellidos_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="edad_filter_table" class="formulario_linea_label">Edad:</label>' +
         '<input type="text" name="edad" class="formulario_linea_input form-control" id="edad_filter_table" />' +
         '</div>' +

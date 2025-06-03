@@ -132,7 +132,7 @@ La JSP a devolver tiene que ser así:
 	<!-- Formulario -->
 	<spring:url value="${mapping}/add" var="url"/>
 	<form:form modelAttribute="${entity}" id="${tableID}_multiFilter_form" action="${url}" method="POST">
-		<div class="form-row">
+		<div class="row">
             <div id="${tableID}_multifilter_dropdownDialog_lineaCombo" class="${containerClass} col-12">
                 <input id="${tableID}_multifilter_combo" class="rup_multifilter_selector" />
                 <label for="${tableID}_multifilter_combo" class="${labelClass}">
@@ -140,7 +140,7 @@ La JSP a devolver tiene que ser así:
                 </label>
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div id="${tableID}_multifilter_dropdownDialog_lineaDefault" class="${defaultContainerClass} col-12">
                 <input type="checkbox" id="${tableID}_multifilter_defaultFilter" class="${defaultCheckboxClass}"/>
                 <label for="${tableID}_multifilter_defaultFilter" class="${labelClass}">

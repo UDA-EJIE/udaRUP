@@ -47,7 +47,7 @@
 //         <div class="dialog-content-material" >\
 //             <form id="' + idDatatable + '_detail_form">\
 //                 <div id ="' + idDatatable + '_detail_feedback"></div>\
-//                 <div class="form-row">\
+//                 <div class="row">\
 //                     <div class="form-groupMaterial col-sm">\
 //                     	<input type="text" name="id" id="id_detail_table" />\
 //                         <label for="id_detail_table">Id</label>\

@@ -722,7 +722,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["search"] = Handlebars.template({"comp
         return undefined
     };
 
-  return "<form>\r\n    <div class=\"form-group\">\r\n        <label for=\""
+  return "<form>\r\n    <div class=\"mb-3\">\r\n        <label for=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldId") || (depth0 != null ? lookupProperty(depth0,"fieldId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldId","hash":{},"data":data,"loc":{"start":{"line":3,"column":20},"end":{"line":3,"column":31}}}) : helper)))
     + "\" class=\"control-label\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldLabel") || (depth0 != null ? lookupProperty(depth0,"fieldLabel") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldLabel","hash":{},"data":data,"loc":{"start":{"line":3,"column":55},"end":{"line":3,"column":69}}}) : helper)))
@@ -730,7 +730,7 @@ this["Rup"]["Templates"]["rup"]["widget"]["search"] = Handlebars.template({"comp
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldId") || (depth0 != null ? lookupProperty(depth0,"fieldId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldId","hash":{},"data":data,"loc":{"start":{"line":4,"column":52},"end":{"line":4,"column":63}}}) : helper)))
     + "\" placeholder=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"fieldPlaceholder") || (depth0 != null ? lookupProperty(depth0,"fieldPlaceholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"fieldPlaceholder","hash":{},"data":data,"loc":{"start":{"line":4,"column":78},"end":{"line":4,"column":98}}}) : helper)))
-    + "\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-settings\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
+    + "\">\r\n    </div>\r\n    <div class=\"mb-3\">\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-magnify\"></span>\r\n            Consultar</button>\r\n        <button type=\"button\" class=\"btn-material btn-material-primary-high-emphasis\">\r\n            <span class=\"mdi mdi-settings\"></span>\r\n            Tramitar</button>\r\n    </div>\r\n</form> \r\n";
 },"useData":true});
 this["Rup"]["Templates"]["rup"]["widget"]["welcome"] = Handlebars.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
