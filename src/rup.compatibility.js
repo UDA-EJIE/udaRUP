@@ -23,7 +23,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', 'private-jqueryui-menu'], factory);
+        define(['jquery'], factory);
     } else {
 
         // Browser globals
