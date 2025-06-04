@@ -15,6 +15,7 @@ module.exports = {
     filename: 'js/[name].js',  // JS en dist/js/
     assetModuleFilename: 'assets/[hash][ext][query]',
     clean: true,
+	publicPath: '/x21aStatics/rup/',  // o la ruta base desde donde sirves los archivos
 	devtoolModuleFilenameTemplate: info =>
 	    `webpack:///${path.relative(__dirname, info.absoluteResourcePath).replace(/\\/g, '/')}`,
   },

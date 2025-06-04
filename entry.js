@@ -3,8 +3,10 @@ window.jQuery = $;
 window.$ = $;
 
 // Cargar dependencias con orden explícito
-import './src/external/bootstrap-calendar/js/calendar.js';
-import './src/external/bootstrap-calendar/js/app.js'; // usa .calendar()
+import 'jquery-ui/ui/widgets/dialog';
+import 'jquery-ui/ui/widgets/datepicker'; // <- requerido primero
+import './src/index.js'; 
+
 
 const context = require.context('./src', true, /\.js$/);
 context.keys()
