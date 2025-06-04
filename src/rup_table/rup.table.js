@@ -1951,7 +1951,7 @@
 				features: [{
 					div: {
 						id: 'select_info',
-						className: 'col-6 order-3 text-end align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left'
+						className: 'col-6 order-3 text-end align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-start'
 					},
 					inputPaging: {},
 					pageLength: {},
