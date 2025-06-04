@@ -105,7 +105,14 @@ module.exports = {
         { from: 'assets/html', to: 'html' },
         { from: 'assets/cursors', to: 'css/cursors' },
 		{ from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
-		{ from: 'src', to: 'js/src',filter: (resourcePath) => !resourcePath.endsWith('.txt')},
+		{
+		  from: 'src',
+		  to: 'js/src',
+		  filter: (resourcePath) => {
+		    const ignoredFiles = ['.bowerrc', '.gitignore'];
+		    return !ignoredFiles.some(file => resourcePath.endsWith(file)) && !resourcePath.endsWith('.txt');
+		  },
+		},
 		{
 		  from: path.resolve(__dirname, 'spec'),
 		  to: 'js/test/[path][name][ext]',
