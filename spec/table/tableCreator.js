@@ -39,10 +39,10 @@ function generateHtml(idDatatable) {
         '<!-- Botonera del formulario de filtrado -->' +
         '<div id="' + idDatatable + '_filter_buttonSet" class="right_buttons">' +
         '<!-- Enlace de limpiar -->' +
-        '<!-- <button id="' + idDatatable + '_filter_cleanLink" type="button" class="btn btn-warning btn-block">Limpiar</button> -->' +
+        '<!-- <button id="' + idDatatable + '_filter_cleanLink" type="button" class="btn btn-warning d-block w-100">Limpiar</button> -->' +
         '<a id="' + idDatatable + '_filter_cleanLink" href="javascript:void(0)" class="rup-enlaceCancelar">Limpiar</a>' +
         '<!-- Botón de filtrado -->' +
-        '<button id="' + idDatatable + '_filter_filterButton" type="button" class="btn btn-info btn-block rup-filtrar">Filtrar</button>' +
+        '<button id="' + idDatatable + '_filter_filterButton" type="button" class="btn btn-info d-block w-100 rup-filtrar">Filtrar</button>' +
         '</div>' +
         '</fieldset>' +
         '</form>' +
