@@ -84,7 +84,7 @@
 //     </div>\
 //     <div class="row">\
 //         <div class="col-md-12">\
-//             <table id="' + idDatatable + '" class="tableFit table-striped table-bordered table-material" \
+//             <table id="' + idDatatable + '" class="tableFit table table-striped table-bordered table-material align-middle" \
 //                 data-filter-form="#' + idDatatable + '_filter_form">\
 //                 <thead>\
 //                     <tr>\

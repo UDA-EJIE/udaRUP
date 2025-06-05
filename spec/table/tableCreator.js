@@ -92,7 +92,7 @@ function generateHtml(idDatatable) {
         '</div>' +
         '<div class="row">' +
         '<div class="col-md-12">' +
-        '<table id="' + idDatatable + '" class="tableFit table-striped table-bordered" ' +
+        '<table id="' + idDatatable + '" class="tableFit table table-striped table-bordered align-middle" ' +
         'data-filter-form="#' + idDatatable + '_filter_form" ' +
         'cellspacing="0">' +
         '<thead>' +
