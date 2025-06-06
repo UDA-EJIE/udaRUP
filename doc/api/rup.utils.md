@@ -35,7 +35,7 @@ Devuelve un string con los caracteres sencillos.
 <a name="jQuery.module_rup_utils..editFormSerialize"></a>
 
 ### ~~rup_utils~editFormSerialize(idForm, [serializerSplitter]) ⇒ <code>string</code>~~
-***Deprecated***
+***desde version 6.2.0. Utilizar $.rup_utils.formDataToQueryString() en su lugar.***
 
 Método que transforma los datos de un formulario en un query string.
 
@@ -65,7 +65,7 @@ Método que transforma los datos de un formulario en un query string.
 <a name="jQuery.module_rup_utils..escapeId"></a>
 
 ### ~~rup_utils~escapeId()~~
-***Deprecated***
+***desde version 6.2.0. Utilizar $.escapeSelector() en su lugar: https://api.jquery.com/jQuery.escapeSelector/***
 
 **Kind**: inner method of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
 <a name="jQuery.module_rup_utils..isNumeric"></a>
@@ -88,7 +88,7 @@ $.rup_utils.isNumeric(6);
 <a name="jQuery.module_rup_utils..flattenJSON"></a>
 
 ### ~~rup_utils~flattenJSON(originalObj, flattenedObj, extraKey) ⇒ <code>object</code>~~
-***Deprecated***
+***desde version 6.2.0. Utilizar $.fn.flattenObject() en su lugar: https://github.com/hughsk/flat***
 
 Convierte un JSON con múltiples niveles en un JSON con un único nivel.
 
