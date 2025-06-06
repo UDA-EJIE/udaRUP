@@ -34,6 +34,12 @@ module.exports = (PORT) => {
     app.use(cors());
 
     app.use(express.static('./'));
+	
+	// Middleware para permitir rutas con /base
+	app.use('/base', (req, res, next) => {
+	    req.url = req.url.replace(/^\/base/, '');
+	    next();
+	});
 
     app.get('/', function(req, res){
         if (req.cookies.language===undefined){

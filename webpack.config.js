@@ -130,6 +130,7 @@ module.exports = {
       '...', // mantiene minimizador JS por defecto
       new CssMinimizerPlugin({
         test: /\.min\.css$/i, // solo minimiza los archivos .min.css
+		parallel: true,
       }),
     ],
   },
@@ -149,5 +150,13 @@ module.exports = {
     },
     extensions: ['.scss', '.css', '.js'],
   },
-  devtool: 'eval-source-map', // Opcional, para debug
+  devtool: 'eval-cheap-module-source-map', // Opcional, para debug
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+    hot: true,
+  },
 };

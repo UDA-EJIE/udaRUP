@@ -12,7 +12,7 @@
     "webpack:watch": "webpack --progress --watch --env dev",
     "webpack:build": "webpack --env build",
     "webpack:dev": "webpack --env dev",
-    "build": "run-s gulp:build webpack:dev webpack:build",
+    "build": "webpack --env production",
     "build:fast": "run-s gulp:build webpack:dev webpack:build copy-x21a",
     "portal": "gulp dist:portal",
     "copy-x21a": "gulp dist:x21a",
@@ -29,9 +29,10 @@
     "watch:x21a": "gulp watch:x21a",
     "demo": "webpack-dev-server --config=./demo/webpack.config.js",
     "test:karma": "karma start --single-run --no-auto-watch karma.conf.js",
-    "test:karma:dev": "set NODE_OPTIONS=--openssl-legacy-provider && karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
+    "test:karma:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
     "test": "run-s build test:karma",
-    "test:dev": "run-s build test:karma:dev"
+    "test:dev": "run-s build test:karma:dev",
+    "dev": "webpack serve --env dev --open"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -48,13 +49,13 @@
   "homepage": "https://github.com/UDA-EJIE/udaRUP#readme",
   "devDependencies": {
     "@babel/cli": "7.24.8",
-    "@babel/core": "7.24.9",
+    "@babel/core": "^7.24.9",
     "@babel/polyfill": "7.12.1",
-    "@babel/preset-env": "7.24.8",
+    "@babel/preset-env": "^7.24.8",
     "@mdi/font": "^5.9.55",
     "acorn": "8.8.0",
     "autoprefixer": "10.4.12",
-    "babel-loader": "8.4.0",
+    "babel-loader": "^9.2.1",
     "babel-plugin-transform-es2015-modules-amd": "6.24.1",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "backbone": "1.4.1",
@@ -167,6 +168,7 @@
     "blueimp-tmpl": "3.20.0",
     "browserify-sign": "4.2.3",
     "chart.js": "2.9.4",
+    "core-js": "^3.42.0",
     "cors": "2.8.5",
     "datatables.net": "1.13.11",
     "datatables.net-bs4": "1.13.11",
