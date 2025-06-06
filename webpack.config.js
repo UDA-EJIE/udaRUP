@@ -10,6 +10,12 @@ module.exports = {
     rup: ['./scss/rup-base.scss', './entry.js'],
     'rup.min': ['./scss/rup-base.scss', './entry.js'],
   },
+  watchOptions: {
+      ignored: /node_modules/,
+      aggregateTimeout: 300,
+      poll: false,
+  },
+  cache: { type: 'filesystem' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',  // JS en dist/js/
