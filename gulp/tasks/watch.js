@@ -104,6 +104,5 @@ gulp.task('watch:dist', function () {
 });
 
 gulp.task('watch:x21a', function () {
-	gulp.watch(['./dist/**/*.*'], gulp.series('dist:x21a'));
-
+	gulp.watch(['./dist/**/*.*'], { usePolling: true, interval: 1000 }, gulp.series('dist:x21a'));
 });

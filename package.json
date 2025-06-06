@@ -23,7 +23,7 @@
     "all:copy": "run-s build portal copy-x21a copy-templates",
     "doc": "gulp doc",
     "watch": "gulp watch",
-    "watch-x21a": "set NODE_OPTIONS=--openssl-legacy-provider && run-p watch:src webpack:watch watch:x21a",
+	"watch-x21a": "run-p webpack:watch watch:src watch:x21a",
     "watch:fast": "gulp watch:fast",
     "watch:src": "gulp watch:src",
     "watch:x21a": "gulp watch:x21a",
