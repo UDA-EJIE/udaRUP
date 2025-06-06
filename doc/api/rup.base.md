@@ -58,12 +58,6 @@ jQuery definition to anchor JsDoc comments.
 
 **Kind**: global namespace  
 **See**: http://jquery.com/  
-<a name="jQuery.rup"></a>
-
-### jQuery.rup : <code>object</code>
-jQuery object type
-
-**Kind**: static namespace of [<code>jQuery</code>](#jQuery)  
 <a name="i18nParse"></a>
 
 ## i18nParse(properties, i18nCaption, defaultValue) ⇒ <code>string</code>
@@ -111,12 +105,6 @@ A Blob object represents a file-like object of immutable, raw data. Blobs repres
 jQuery object type.
 
 **Kind**: global typedef  
-<a name="jQuery.rup"></a>
-
-### jQuery.rup : <code>object</code>
-jQuery object type
-
-**Kind**: static namespace of [<code>jQuery</code>](#jQuery)  
 <a name="Selector"></a>
 
 ## Selector : <code>object</code>

@@ -38,10 +38,11 @@
     jQuery.migrateMute = true;
 
     global.initRupI18nPromise = jQuery.Deferred();
-
+	
     /**
    * jQuery definition to anchor JsDoc comments.
    *
+   * @global
    * @see http://jquery.com/
    * @name jQuery
    * @namespace jQuery
@@ -49,7 +50,7 @@
 
     /**
    * jQuery object type
-   * @namespace jQuery.rup
+   * @namespace 
    * @memberOf jQuery
    */
 
