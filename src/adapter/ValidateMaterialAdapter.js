@@ -53,7 +53,7 @@
 		let $container = $element.parent();
 		
 		if ($element[0].type === 'checkbox' || $element[0].type === 'radio') {
-			$container = $element.parents('.form-row').find('label[data-title="' + $element.prop('name') + '"]');
+			$container = $element.parents('.row').find('label[data-title="' + $element.prop('name') + '"]');
 		} else if ($element.attr('ruptype') === 'date') {
 			$container = $element.closest('.rup-validate-field-error');
 		}
@@ -81,9 +81,9 @@
 			
 		// Si el elemento a validar es un checkbox/radio elegir otra posicion para su correcto visualizacion
 		if(element[0].type === "checkbox" || element[0].type === "radio") {
-			$container = element.parents(".form-row").find("label[data-title='" + name + "']");
+			$container = element.parents(".row").find("label[data-title='" + name + "']");
 			
-			$icon.addClass("ml-3");
+			$icon.addClass("ms-3");
 		}
 		
 		// Posicionamiento del label e icon

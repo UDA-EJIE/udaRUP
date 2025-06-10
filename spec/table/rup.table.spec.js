@@ -414,11 +414,11 @@ function testDatatable() {
                         $('#example').on('draw.dt', () => {
                             done();
                         });
-                        $('#example_next').click();
+                        $('#example_next')[0].click();
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                        expect($('li.dt-paging-input > input').val()).toBe('2');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -438,17 +438,17 @@ function testDatatable() {
                                 done();
                             });
                             setTimeout(() => {
-                                $('#example_previous').click();
+                                $('#example_previous')[0].click();
                             }, 500);
                         };
                         // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
-                        $('#example_next').click();
+                        $('#example_next')[0].click();
                     });
 
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
+                        expect($('li.dt-paging-input > input').val()).toBe('1');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -473,17 +473,17 @@ function testDatatable() {
                                 done();
                             });
                             setTimeout(() => {
-                                $('#example_first').click();
+                                $('#example_first')[0].click();
                             }, 500);
                         };
                         // FIXME : El evento draw se ejecuta demasiado pronto. Lo que obliga a usar timeout.
                         $('#example').on('draw.dt', fnc);
-                        $('#example_next').click();
+                        $('#example_next')[0].click();
                     });
 
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('1');
+                        expect($('li.dt-paging-input > input').val()).toBe('1');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -505,11 +505,11 @@ function testDatatable() {
                         $('#example').on('draw.dt', () => {
                             done();
                         });
-                        $('#example_last').click();
+                        $('#example_last')[0].click();
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                        expect($('li.dt-paging-input > input').val()).toBe('2');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -526,15 +526,15 @@ function testDatatable() {
                         $('#example').on('draw.dt', () => {
                             done();
                         });
-                        $('.ui-pg-input').val(2);
-                        $('.ui-pg-input').trigger($.Event('keypress', {
-                            keyCode: 13,
-                            which: 13
-                        }));
+                        $('li.dt-paging-input > input').val(2);
+						$('li.dt-paging-input > input')[0].dispatchEvent(new Event('input', {
+							'bubbles': true,
+							'cancelable': true
+						}));
                     });
 
                     it('Cambia el número de página:', () => {
-                        expect($('li.pageSearch.searchPaginator > input').val()).toBe('2');
+                        expect($('li.dt-paging-input > input').val()).toBe('2');
                     });
 
                     it('Los registros deben cambiar:', () => {
@@ -548,11 +548,11 @@ function testDatatable() {
             });
             describe('Variacion de número de registros por página > ', () => {
                 beforeEach((done) => {
-                    $('#example').on('draw.dt', () => {
-                        done();
-                    });
-                    $('[name="example_length"]').val(10);
-                    $('[name="example_length"]').trigger('change');
+					$('#example').on('draw.dt', () => {
+						done();
+					});
+                    $('#example_wrapper .dt-length > select').val(10);
+                    $('#example_wrapper .dt-length > select').trigger('change');
                 });
 
                 it('Debe haber recibido los registros indicados:', () => {
@@ -560,7 +560,7 @@ function testDatatable() {
                 });
 
                 it('Deben haber únicamente 2 páginas disponibles:', () => {
-                    expect($('.pageSearch.searchPaginator:contains(" de 2")', $('#example_wrapper')).length).toBe(1);
+                    expect($('#example_info:contains(" de 1")', $('#example_wrapper')).length).toBe(1);
                 });
             });
             

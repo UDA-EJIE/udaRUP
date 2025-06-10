@@ -363,7 +363,7 @@
          */
         _createCloseLink: function (self, CLOSEFunction) { //Crea el enlace de cerrar junto a la x de cerrar.
             self.prev('div')
-                .append('<i class="mdi mdi-close float-right pointer" aria-hidden="true"></i>')
+                .append('<i class="mdi mdi-close float-end pointer" aria-hidden="true"></i>')
                 .on('click', 'i.mdi', function () {
                     self.dialog('close');
                     if (CLOSEFunction !== undefined) {

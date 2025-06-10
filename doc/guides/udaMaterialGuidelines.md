@@ -288,11 +288,11 @@ En caso de utilizar los estilos de bootstrap a la hora de diseñar los campos de
 ![Input Bootstrap](img/materialGuidelines/input-text-bootstrap.png)
 ```html
 <div class="example">
-  <div class="form-group">
+  <div class="mb-3">
     <label for="textFieldBootstrap">Campo de texto Bootstrap</label>
     <input type="text" class="form-control" id="textFieldBootstrap" placeholder=".form-control">
   </div>
-  <div class="form-group">
+  <div class="mb-3">
     <label for="passwordFieldBootstrap">Password</label>
     <input type="password" class="form-control" id="passwordFieldBootstrap" placeholder="Password">
   </div>
@@ -483,7 +483,7 @@ Textarea básico:
 
 ![Textarea Default](img/materialGuidelines/textarea-default.png)
 ```html
-<div class="form-group">
+<div class="mb-3">
   <label for="textarea">Textarea</label>
   <textarea id="textarea" class="form-control"></textarea>
 </div>
@@ -513,7 +513,7 @@ Textarea con placeholder materializado // Textarea con required y placeholder ma
 
 ![Textarea Placeholder and Required Material](img/materialGuidelines/textarea-required-placeholder-material.png)
 ```html
-<div class="form-row">
+<div class="row">
   <div class="form-groupMaterial col-sm-6">
     <textarea id="textareaPlaceholderMaterial" placeholder="Soy un placeholder..."></textarea>
     <label for="textareaPlaceholderMaterial">Textarea</label>

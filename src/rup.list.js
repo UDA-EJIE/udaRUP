@@ -918,11 +918,11 @@ import Printd from 'printd';
 				'<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material">' + 
 					'<div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div>' + 
 					'<form>' + 
-						'<div class="form-row"><div class="form-groupMaterial col-12">' + 
+						'<div class="row"><div class="form-groupMaterial col-12">' + 
 							'<label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label>' + 
 							'<select id="' + opciones.multiFilter._dialogId + '_select"></select>' + 
 						'</div>' +
-						'<div class="form-row">' + 
+						'<div class="row">' + 
 							'<div class="checkbox-material col-12">' + 
 								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-activeFilter" />' + 
 								'<label for="' + opciones.multiFilter._dialogId + '-activeFilter">Filtro por defecto</label>' + 
@@ -1307,7 +1307,7 @@ import Printd from 'printd';
                     return e.trim();
                 }).forEach((e, i) => {
                     if (e !== '') {
-                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>');
+                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 me-1"></li>');
                         let geti18n = (val) => {
                             let srcVal = opciones.sidx.source.filter(x => x.value == val);
                             return srcVal[0].i18nCaption;
@@ -1739,7 +1739,7 @@ import Printd from 'printd';
                         } else {
                             sordBadge.addClass('mdi mdi-chevron-down');
                         }
-                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>')
+                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 me-1"></li>')
                             .append(geti18n(e)).append(sordBadge.clone())
                             .appendTo(opciones._content.find('.rup_list-mord-summary'));
                     });

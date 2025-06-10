@@ -65,9 +65,13 @@ td>div.centerOnResponsiveContainer {
 }
 
 .dataTable {
-	.sorting_asc {
+	.dt-ordering-asc {
 		&.sorting_active_only {
-			.mdi.mdi-arrow-down {
+			span.mdi.mdi-arrow-up {
+				display: inline;
+			}
+			
+			span.mdi.mdi-arrow-down {
 				display: none;
 			}
 		}
@@ -77,10 +81,14 @@ td>div.centerOnResponsiveContainer {
 		}
 	}
 
-	.sorting_desc {
+	.dt-ordering-desc {
 		&.sorting_active_only {
-			.mdi.mdi-arrow-up {
+			span.mdi.mdi-arrow-up {
 				display: none;
+			}
+			
+			span.mdi.mdi-arrow-down {
+				display: inline;
 			}
 		}
 		
@@ -89,17 +97,11 @@ td>div.centerOnResponsiveContainer {
 		}
 	}
 
-	.sorting {
+	.dt-orderable-asc, .dt-orderable-desc {
 		&.sorting_active_only {
 			.mdi.mdi-arrow-up, .mdi.mdi-arrow-down {
 				display: none;
 			}
 		}
 	}
-}
-
-.custom-select {
-	-webkit-appearance: menulist;
-  	-moz-appearance: menulist;
-  	appearance: menulist;
 }
