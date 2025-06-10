@@ -598,7 +598,7 @@
                 if (data !== '' || data !== null) { //si nos devuelve datos los mostramos como HTML y desbloqueamos el ui
 					const $self = $('#' + $.escapeSelector(settings.id));
 					$self.html(data);
-					settings.dialog._addButtonClasses($self);
+					settings.dialog._addButtonClasses();
                     $.unblockUI();
                     if (settings.autoOpen === true) {
                         $self.rup_dialog('open');
