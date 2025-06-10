@@ -635,8 +635,8 @@
 		 * @private
 		 */
 		_addButtonClasses: function() {
-			this.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			this.data('uiDialog').uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
+			this.data('uiDialog')?.uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			this.data('uiDialog')?.uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
 				addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
 				.removeClass('ui-button ui-corner-all ui-widget');
 		}
