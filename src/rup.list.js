@@ -2034,7 +2034,7 @@ import Printd from 'printd';
             let $btnGroup = $(`
                 <div class="btn-group h-100" role="group">
                     <button id="${selfId + '-display-selectables'}"
-                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         ${opciones._header.selectables.text()}
                     </button>
