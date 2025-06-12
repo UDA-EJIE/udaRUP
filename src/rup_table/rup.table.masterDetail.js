@@ -140,13 +140,11 @@
     function _deselectMaster(dt, ctx, $hiddenPKMaster) {
         $hiddenPKMaster.val('-1');
         $('#' + $.escapeSelector(ctx.sTableId) + ' > tbody tr').remove();
-        var asStripeClasses = ctx.asStripeClasses;
-        var iStripes = asStripeClasses.length;
         var numberVisibles = dt.columns().responsiveHidden().reduce(function (a, b) {
             return b === true ? a + 1 : a;
         }, 0);
         var $tr = $('<tr></tr>', {
-            'class': iStripes ? asStripeClasses[0] : ''
+            'class': ''
         })
             .append($('<td></td>', {
                 'valign': 'top',

@@ -63,7 +63,7 @@ div.formulario_legend {
 
 /* SE CAMBIAN LOS ICONOS DEL REORDENAMIENTO */
 table.dataTable thead {
-	.sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled,.sorting_desc_disabled {
+	.dt-orderable-asc, .dt-orderable-desc, .dt-ordering-asc, .dt-ordering-desc, .sorting_asc_disabled,.sorting_desc_disabled {
 		background-image: none;
 		
 		span.mdi {
@@ -71,7 +71,7 @@ table.dataTable thead {
 		}
 	}
 	
-	.sorting {	
+	.dt-orderable-asc, .dt-orderable-desc {	
 		span.mdi-arrow-up {
 			color: $grey-color-very-light;
 		}
@@ -81,7 +81,7 @@ table.dataTable thead {
 		}
 	}
 	
-	.sorting_asc {	
+	.dt-ordering-asc {	
 		span.mdi-arrow-up {
 			color: $primary-color;
 		}
@@ -91,7 +91,7 @@ table.dataTable thead {
 		}
 	}
 	
-	.sorting_desc {	
+	.dt-ordering-desc {	
 		span.mdi-arrow-up {
 			color: $grey-color-very-light;
 		}
@@ -121,7 +121,7 @@ table.dataTable thead {
 		}
 	}
 	
-	.sorting_disabled > div:not(.divSelectTableHead) {
+	.dt-orderable-none > div:not(.divSelectTableHead) {
 		display: none !important;
 	}
 }
@@ -140,9 +140,32 @@ table.dataTable tbody {
 
 /* ESTILIZA EL INPUT, LABEL Y SELECT DEL PAGINADOR DE LA TABLA */
 .paginationContainer {
-	.searchPaginator {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	
+	ul.pagination li.paginate_button {
+		box-sizing: border-box;
+		display: inline-block;
+		min-width: 1.5em;
+		padding: 0.5em 0.25em;
+		margin-left: 2px;
+		text-align: center;
+		text-decoration: none !important;
+		cursor: pointer;
+		*cursor: hand;
+		color: #333 !important;
+		border: 1px solid transparent;
+		border-radius: 2px;
+		
+		a {
+			line-height: 10px;
+		}
+	}
+	
+	.dt-paging-input {
 		input {
-			width: 50px;
+			width: 6ch;
+			min-width: 6ch;
 			padding: 1px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
@@ -166,31 +189,16 @@ table.dataTable tbody {
 		}
 	}
 	
-	.dataTables_length label {	
-		margin: initial;
-	
+	.dt-length {		
 		select {
+			max-width: 185px;
 			padding: 0 15px 0 5px;
 			border: 1px solid $grey-color-light;
 			border-radius: 5px;
 			box-sizing: border-box;
 			color: $grey-color;
-			background-image: none;
 			background-color: $white-color;
-			appearance: none;
-			-webkit-appearance: none;
-			-moz-appearance: none;
 			transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
-			/* ICONO DROPDOWN */
-			background-image: linear-gradient(45deg, $no-color 50%, #555555 50%), linear-gradient(135deg, #555555 50%, $no-color 50%);
-			background-repeat: no-repeat;
-			background-position: calc(100% - 9.5px) calc(0.8em), calc(100% - 4.5px) calc(0.8em);
-			background-size: 5px 5px, 5px 5px;
-	
-			/* ELIMINA EL ICONO DE DROPDOWN NATIVO EN IE 10/11 */
-			&::-ms-expand {
-				display: none;
-			}
 	
 			&:hover {
 				border-color: $black-color;
@@ -204,19 +212,18 @@ table.dataTable tbody {
 				box-shadow: none;
 			}
 		}
+		
+		label {
+			margin: initial;
+		}
 	}
 }
 	
 /* PARA TABLAS DOBLES */
 @media(min-width: 1200px) {
-	.col-xl-6 .paginationContainer .dataTables_length label select {
+	.col-xl-6 .paginationContainer .dt-length select {
 		padding: 0 10px 0 0;
 		/* ICONO DROPDOWN */
 		background-position: calc(100% - 7.5px) calc(0.8em), calc(100% - 2.5px) calc(0.8em);
 	}
-}
-
-form + div.paginationContainer {
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
 }

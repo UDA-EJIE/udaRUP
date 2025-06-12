@@ -214,10 +214,10 @@
 
 	TableBootstrapAdapter.prototype.multifilter = {
 		classes:{
-			container: "form-group fix-align col-sm",
+			container: "mb-3 fix-align col-sm",
 			label: "formulario_linea_label",
 			activeFilter: {
-				container: "form-group col-sm",
+				container: "mb-3 col-sm",
 				checkBox: "formulario_linea_input form-control"
 			}
 		},

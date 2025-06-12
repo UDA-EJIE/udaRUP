@@ -1,3 +1,4 @@
+var $ = window.$;
 window.APP_RESOURCES = 'demo/x21a';
 window.CTX_PATH = '/x21aResponsive/';
 window.STATICS = '';
@@ -15,5 +16,6 @@ window.DEFAULT_LANG = 'es';
 window.LOGGED_USER = 'NULL';
 window.DESTROY_XLNETS_SESSION = 'false';
 window.IS_EJIE = false;
-
+window.RUPLANG = 'es';
 document.cookie = 'language=es';
+window.LANG = 'es';

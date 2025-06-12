@@ -28,9 +28,10 @@ table.dataTable tfoot td {
     border-top: 1px solid #111
 }
 
-table.dataTable thead .sorting,
-table.dataTable thead .sorting_asc,
-table.dataTable thead .sorting_desc,
+table.dataTable thead .dt-orderable-asc, 
+table.dataTable thead .dt-orderable-desc,
+table.dataTable thead .dt-ordering-asc,
+table.dataTable thead .dt-ordering-desc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc_disabled {
     cursor: pointer;
@@ -39,15 +40,16 @@ table.dataTable thead .sorting_desc_disabled {
     background-position: center right
 }
 
-table.dataTable thead .sorting {
+table.dataTable thead .dt-orderable-asc,
+table.dataTable thead .dt-orderable-desc {
 	background-image: url("../css/images/table/sort_both.png")
 }
 
-table.dataTable thead .sorting_asc {
+table.dataTable thead .dt-ordering-asc {
 	background-image: url("../css/images/table/sort_asc.png")
 }
 
-table.dataTable thead .sorting_desc {
+table.dataTable thead .dt-ordering-desc {
 	background-image: url("../css/images/table/sort_desc.png")
 }
 
@@ -63,11 +65,11 @@ table.dataTable tbody tr {
     background-color: #ffffff
 }
 
-table.dataTable tbody tr.selected.odd {
+table.dataTable tbody tr.selected {
     background-color: #fffa90
 }
 
-table.dataTable tbody tr.selected.even {
+table.dataTable tbody tr.selected {
     background-color: #fffa90
 }
 
@@ -106,13 +108,13 @@ table.dataTable.cell-border tbody tr:first-child td {
     border-top: none
 }
 
-table.dataTable.stripe tbody tr.odd,
-table.dataTable.display tbody tr.odd {
+table.dataTable.stripe tbody tr,
+table.dataTable.display tbody tr {
     background-color: #f9f9f9
 }
 
-table.dataTable.stripe tbody tr.odd.selected,
-table.dataTable.display tbody tr.odd.selected {
+table.dataTable.stripe tbody tr.selected,
+table.dataTable.display tbody tr.selected {
     background-color: #acbad4
 }
 
@@ -144,63 +146,63 @@ table.dataTable.display tbody tr.selected>.sorting_3 {
     background-color: #acbad5
 }
 
-table.dataTable.display tbody tr.odd>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
+table.dataTable.display tbody tr>.sorting_1,
+table.dataTable.order-column.stripe tbody tr>.sorting_1 {
     background-color: #f1f1f1
 }
 
-table.dataTable.display tbody tr.odd>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_2 {
+table.dataTable.display tbody tr>.sorting_2,
+table.dataTable.order-column.stripe tbody tr>.sorting_2 {
     background-color: #f3f3f3
 }
 
-table.dataTable.display tbody tr.odd>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_3 {
+table.dataTable.display tbody tr>.sorting_3,
+table.dataTable.order-column.stripe tbody tr>.sorting_3 {
     background-color: whitesmoke
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_1 {
+table.dataTable.display tbody tr.selected>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_1 {
     background-color: #a6b4cd
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_2 {
+table.dataTable.display tbody tr.selected>.sorting_2,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_2 {
     background-color: #a8b5cf
 }
 
-table.dataTable.display tbody tr.odd.selected>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.odd.selected>.sorting_3 {
+table.dataTable.display tbody tr.selected>.sorting_3,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_3 {
     background-color: #a9b7d1
 }
 
-table.dataTable.display tbody tr.even>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
+table.dataTable.display tbody tr>.sorting_1,
+table.dataTable.order-column.stripe tbody tr>.sorting_1 {
     background-color: #fafafa
 }
 
-table.dataTable.display tbody tr.even>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_2 {
+table.dataTable.display tbody tr>.sorting_2,
+table.dataTable.order-column.stripe tbody tr>.sorting_2 {
     background-color: #fcfcfc
 }
 
-table.dataTable.display tbody tr.even>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_3 {
+table.dataTable.display tbody tr>.sorting_3,
+table.dataTable.order-column.stripe tbody tr>.sorting_3 {
     background-color: #fefefe
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_1 {
+table.dataTable.display tbody tr.selected>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_1 {
     background-color: #acbad5
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_2,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_2 {
+table.dataTable.display tbody tr.selected>.sorting_2,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_2 {
     background-color: #aebcd6
 }
 
-table.dataTable.display tbody tr.even.selected>.sorting_3,
-table.dataTable.order-column.stripe tbody tr.even.selected>.sorting_3 {
+table.dataTable.display tbody tr.selected>.sorting_3,
+table.dataTable.order-column.stripe tbody tr.selected>.sorting_3 {
     background-color: #afbdd8
 }
 
@@ -350,7 +352,7 @@ table.dataTable td {
     box-sizing: content-box
 }
 
-.dataTables_wrapper {
+.dt-container {
     position: relative;
     clear: both;
 	transform: scale(1);
@@ -360,21 +362,21 @@ table.dataTable td {
     margin-top: 5px;
 }
 
-.dataTables_wrapper .dataTables_wrapper .dataTables_filter {
+.dt-container .dt-container .dataTables_filter {
     float: right;
     text-align: right
 }
 
-.dataTables_wrapper .dataTables_filter input {
+.dt-container .dataTables_filter input {
     margin-left: 0.5em
 }
 
-.dataTables_wrapper {
+.dt-container {
     clear: both;
     padding-top: 0.755em
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
+.dt-container .pagination .paginate_button {
     box-sizing: border-box;
     display: inline-block;
     min-width: 1.5em;
@@ -389,8 +391,8 @@ table.dataTable td {
     border-radius: 2px
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+.dt-container .pagination .paginate_button.current,
+.dt-container .pagination .paginate_button.current:hover {
     color: #333 !important;
     border: 1px solid #979797;
     background-color: white;
@@ -402,21 +404,29 @@ table.dataTable td {
     background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%)
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+.dt-container .pagination .paginate_button.disabled,
+.dt-container .pagination .paginate_button.disabled:hover,
+.dt-container .pagination .paginate_button.disabled:active {
     cursor: default;
     color: #666 !important;
     border: 1px solid transparent;
     background: transparent;
-    box-shadow: none
+    box-shadow: none;
+    
+	.page-link {
+		color: #6c757d;
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
+		border-color: #dee2e6;
+	}
 }
 
-.dataTables_wrapper .dataTables_paginate .ellipsis {
+.dt-container .pagination .ellipsis {
     padding: 0 1em
 }
 
-.dataTables_wrapper .dataTables_processing {
+.dt-container .dt-processing {
     position: absolute;
     top: 0;
     left: 50%;
@@ -430,50 +440,50 @@ table.dataTable td {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_processing,
-.dataTables_wrapper .dataTables_paginate {
+.dt-container .dt-length,
+.dt-container .dataTables_filter,
+.dt-container .dt-info,
+.dt-container .dt-processing,
+.dt-container .pagination {
     color: #333
 }
 
-.dataTables_wrapper .dataTables_scroll {
+.dt-container .dataTables_scroll {
     clear: both
 }
 
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+.dt-container .dataTables_scroll div.dataTables_scrollBody {
     *margin-top: -1px;
     -webkit-overflow-scrolling: touch
 }
 
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td {
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td {
     vertical-align: middle
 }
 
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th>div.dataTables_sizing,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td>div.dataTables_sizing,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th>div.dataTables_sizing,
-.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td>div.dataTables_sizing {
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>th>div.dataTables_sizing,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>thead>tr>td>div.dataTables_sizing,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>th>div.dataTables_sizing,
+.dt-container .dataTables_scroll div.dataTables_scrollBody>table>tbody>tr>td>div.dataTables_sizing {
     height: 0;
     overflow: hidden;
     margin: 0 !important;
     padding: 0 !important
 }
 
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
+.dt-container.no-footer .dataTables_scrollBody {
     border-bottom: 1px solid #111
 }
 
-.dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable,
-.dataTables_wrapper.no-footer div.dataTables_scrollBody>table {
+.dt-container.no-footer div.dataTables_scrollHead table.dataTable,
+.dt-container.no-footer div.dataTables_scrollBody>table {
     border-bottom: none
 }
 
-.dataTables_wrapper:after {
+.dt-container:after {
     visibility: hidden;
     display: block;
     content: "";
@@ -482,18 +492,18 @@ table.dataTable td {
 }
 
 @media screen and (max-width: 767px) {
-    .dataTables_wrapper .dataTables_paginate {
+    .dt-container .pagination {
         margin-top: 0.5em
     }
 }
 
 @media screen and (max-width: 640px) {
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
+    .dt-container .dt-length,
+    .dt-container .dataTables_filter {
         float: none;
         text-align: center
     }
-    .dataTables_wrapper .dataTables_filter {
+    .dt-container .dataTables_filter {
         margin-top: 0.5em
     }
 }
@@ -516,11 +526,11 @@ tfoot .rup-date-input-group {
     padding-right: 7px;
 }
 
-.dataTables_length label {
+.dt-length label {
     display: inline-flex;
 }
 
-.dataTables_length select {
+.dt-length select {
     margin: 0px 5px
 }
 
@@ -528,17 +538,15 @@ tfoot .rup-date-input-group {
     border: 1px solid #dad55e;
     background: #fffa90;
     color: #777620;
-    font-weight: bold
 }
 
 table.dataTable tbody>tr:hover {
     background: #b9d4ec !important;
-    font-weight: initial
 }
 
-.dataTables_length select,
-.dataTables_length .ui-multiselect,
-.dataTables_length .ui-selectmenu-dropdown {
+.dt-length select,
+.dt-length .ui-multiselect,
+.dt-length .ui-selectmenu-dropdown {
     margin: 0px 5px
 }
 
@@ -546,7 +554,7 @@ table.dataTable tbody>tr:hover {
     display: inline-block
 }
 
-.dataTables_length {
+.dt-length {
     float: none
 }
 

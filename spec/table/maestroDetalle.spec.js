@@ -456,7 +456,7 @@ function testForm2Form(defer) {
                         $('#example1').on('page.dt', () => {
 							setTimeout(done, 100);
 		                });
-                        $('#example1_next').click();
+                        $('#example1_next')[0].click();
                     });
                     it('Cambia el número de página de #example1:', () => {
                         expect($('.pagination input', $('#example1_wrapper')).val()).toBe('2');
@@ -484,7 +484,7 @@ function testForm2Form(defer) {
 							setTimeout(done, 100);
 						});
 						
-                        $('#example2_next').click();
+                        $('#example2_next')[0].click();
                     });
                     it('Cambia el número de página de #example2:', () => {
                         expect($('.pagination input', $('#example2_wrapper')).val()).toBe('2');
@@ -1037,7 +1037,7 @@ function testForm2Inline(defer) {
                         $('#example1').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#example1_next').click();
+                        $('#example1_next')[0].click();
                     });
                     it('Cambia el número de página de #example1:', () => {
                         expect($('.pagination input', $('#example1_wrapper')).val()).toBe('2');
@@ -1063,7 +1063,7 @@ function testForm2Inline(defer) {
 						$('#inline2').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#inline2_next').click();
+                        $('#inline2_next')[0].click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
                         expect($('.pagination input', $('#inline2_wrapper')).val()).toBe('2');
@@ -1656,7 +1656,7 @@ function testInline2Form(defer) {
 						$('#inline1').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#inline1_next').click();
+                        $('#inline1_next')[0].click();
                     });
 					afterEach((done) => {
 						$('#inline1').on('draw.dt', () => {
@@ -1689,7 +1689,7 @@ function testInline2Form(defer) {
 						$('#example2').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#example2_next').click();
+                        $('#example2_next')[0].click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
                         expect($('.pagination input', $('#example2_wrapper')).val()).toBe('2');
@@ -2275,7 +2275,7 @@ function testInline2Inline(defer) {
                         $('#inline1').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#inline1_next').click();
+                        $('#inline1_next')[0].click();
                     });
                     it('Cambia el número de página de #inline1:', () => {
                         expect($('.pagination input', $('#inline1_wrapper')).val()).toBe('2');
@@ -2301,7 +2301,7 @@ function testInline2Inline(defer) {
                         $('#inline2').on('page.dt', () => {
 							setTimeout(done, 100);
 						});
-                        $('#inline2_next').click();
+                        $('#inline2_next')[0].click();
                     });
                     it('Cambia el número de página de #inline2:', () => {
                         expect($('.pagination input', $('#inline2_wrapper')).val()).toBe('2');

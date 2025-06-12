@@ -30,13 +30,16 @@
             './rup.table.request',
             'datatables.net',
             'datatables.net-bs4',
-            './rup.table.responsive',
+			'datatables.net-responsive',
+			'datatables.net-responsive-bs4',
+            'datatables.net-colreorder',
+            'datatables.net-colreorder-bs4',
+            'datatables.net-feature-inputpaging',
             './rup.table.multiSelect',
             './rup.table.seeker',
             './rup.table.inlineEdit',
             './rup.table.editForm',
             './rup.table.buttons',
-            './rup.table.colReorder',
             './rup.table.select',
             './rup.table.rowGroup',
             './rup.table.masterDetail',
@@ -930,93 +933,6 @@
             cache = null; // Enable garbage collection
             return strJson;
         },
-
-        /**
-         * Gestiona la paginación
-         *
-         * @name _createSearchPaginator
-         * @function
-         * @since UDA 3.4.0
-         *
-         * @param {object} tabla Objeto que contiene la tabla
-         * @param {object} settingsT Opciones del componente
-         *
-         */
-        _createSearchPaginator(tabla, settingsT) {
-            //buscar la paginación.
-            if ($('#' + $.escapeSelector(tabla[0].id) + '_paginate').length === 1 && settingsT.json !== undefined && settingsT.json.total !== '0') {
-                var liSearch = $('<li></li>').addClass('paginate_button page-item pageSearch searchPaginator align-self-center');
-                var textPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'pagina', settingsT.json.total);
-                var toPagina = jQuery.rup.i18nTemplate(settingsT.oLanguage, 'toPagina', settingsT.json.total);
-                var input = $('<input/>').attr({
-                    type: 'text',
-                    size: '3',
-                    value: settingsT.json.page,
-                    maxlength: '6'
-                }).addClass('ui-pg-input text-center');
-
-                liSearch.append(textPagina);
-                liSearch.append(input);
-                liSearch.append(toPagina);
-
-                $('#' + $.escapeSelector(tabla[0].id) + '_previous').after(liSearch);
-                input.keypress(function (e) {
-                    if (e.which === 13) // the enter key code
-                    {
-                        var page = parseInt(this.value);
-                        if ($.rup_utils.isNumeric(page) && page > 0) {
-                            tabla.dataTable().fnPageChange(page - 1);
-                        }
-                        return false;
-                    }
-                });
-            } else {
-                //Sacar un error
-            }
-
-            // Añade iconos para versiones moviles/tablets
-            $('<i class="mdi mdi-page-first d-sm-none"></i>')
-                .insertAfter($('#' + $.escapeSelector(tabla[0].id) + '_first')
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-chevron-left d-sm-none"></i>')
-                .insertAfter($('#' + $.escapeSelector(tabla[0].id) + '_previous')
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-chevron-right d-sm-none"></i>')
-                .insertAfter($('#' + $.escapeSelector(tabla[0].id) + '_next')
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-            $('<i class="mdi mdi-page-last d-sm-none"></i>')
-                .insertAfter($('#' + $.escapeSelector(tabla[0].id) + '_last')
-                    .addClass('recolocatedPagination_iconButton')
-                    .children('a')
-                    .addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block')
-                    .wrapInner(function () {
-                        return '<span></span>';
-                    })
-                );
-
-            // Inserta la lista de botones de paginacion al div anteriormente creado
-            $('#' + $.escapeSelector(tabla[0].id) + '_paginate ul').detach().appendTo($('#' + $.escapeSelector(tabla[0].id) + '_paginate'));
-
-        },
-
         /**
          * Limpia el filtro
          *
@@ -1153,7 +1069,7 @@
                 }
 
                 toggleIcon1Tmpl = "<span id='{0}' class='collapse_icon mdi mdi-arrow-down-drop-circle'></span>";
-                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline font-weight-bold' href='#0'>{1}:</a>";
+                toggleLabelTmpl = "<a id='{0}' class='text-primary text-decoration-underline fw-bold' href='#0'>{1}:</a>";
                 filterSummaryTmpl = "<span id='{0}'></span>";
                 toggleIcon2Tmpl = "<span id='{0}' class='collapse_icon_right mdi mdi-arrow-up-drop-circle'></span>";
 
@@ -1706,22 +1622,15 @@
                     });
                 }
 
-                if (args[0].responsive === undefined) { //si el usuario no cambia el selector
-                    var responsive = {
-                        details: {
-                            type: 'column',
-                            target: 'td span.openResponsive'
-                        },
-                        selectorResponsive: 'td span.dtr-data'
-                    };
-
-                    options.responsive = responsive;
+				// Si la propieadad no ha sido definida, se establece el valor por defecto.
+                if (args[0].responsive === undefined) {
+                    options.responsive = $.fn.rup_table.defaults.responsive;
                 }
 
                 // Se añaden las clases CSS de los títulos y flechas de las columnas.
                 const displayStyle = {
                 	'block': 'd-block',
-                	'inline': 'd-inline ml-1',
+                	'inline': 'd-inline ms-1',
                 	'none': 'd-none',
                 	'default': 'd-block'
                 };
@@ -1736,7 +1645,7 @@
                 	if (options.columnOrderArrows.showOnlyActive) $this.addClass('sorting_active_only');
                 	
                 	// Crear elementos para las flechas de ordenación.
-                	const $columnDownArrow = $('<span></span>').addClass('mdi mdi-arrow-down mr-2 mr-xl-0');
+                	const $columnDownArrow = $('<span></span>').addClass('mdi mdi-arrow-down me-2 me-xl-0');
                 	const $columnUpArrow = $('<span></span>').addClass('mdi mdi-arrow-up');
                 	const $columnArrowsContainer = $('<div></div>').addClass(arrowsStyle).append($columnDownArrow, $columnUpArrow);
 
@@ -1821,39 +1730,19 @@
                 
                 $self._initializeMultiselectionProps(tabla.context[0]);
                 
-               if(options.createTooltipHead !== false){
-	                //Crear tooltips cabecera;
-	                $.each($('#' + $.escapeSelector($self[0].id) + ' thead th'), function () {
-	                    $self._createTooltip($(this));
-	                });
-               }
-                tabla.on('draw', function (e, settingsTable) {
+				if (options.createTooltipHead !== false) {
+					//Crear tooltips cabecera;
+					$.each($('#' + $.escapeSelector($self[0].id) + ' thead th'), function() {
+						$self._createTooltip($(this));
+					});
+				}
+				
+				tabla.on('draw', function (e, settingsTable) {
                     var ctx = tabla.context[0];
                     
 					if (filterOptions != 'noFilter') {
 						$self._showSearchCriteria();
 					}
-                    
-                    if (options.searchPaginator) { //Mirar el crear paginador
-                        $self._createSearchPaginator($(this), settingsTable);
-                        // Deshabilitamos los botones de paginacion si es necesario
-                        $.each($('ul.pagination li.recolocatedPagination_iconButton'), function () {
-                            if ($(this).hasClass('disabled')) {
-                                $('#' + $.escapeSelector(this.id) + ' a').prop('tabindex', '-1');
-                            } else {
-                                $('#' + $.escapeSelector(this.id) + ' a').prop('tabindex', '0');
-                            }
-                        });
-                        //Si el seeker esta vacio ocultarlo
-                        if (settingsTable.seeker !== undefined &&
-                            settingsTable.seeker.search !== undefined && settingsTable.seeker.search.$searchRow !== undefined) {
-                            if (settingsTable._iRecordsDisplay > 0) {
-                                settingsTable.seeker.search.$searchRow.show();
-                            } else {
-                                settingsTable.seeker.search.$searchRow.hide();
-                            }
-                        }
-                    }
 
                     if (options.select !== undefined || options.multiSelect !== undefined) { //AL repintar vigilar el select.
                         if (options.select !== undefined) { //AL repintar vigilar el select.
@@ -2006,6 +1895,10 @@
     //******************************************************
     // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
     //******************************************************
+	DataTable.ext.classes.length.select = '';
+	DataTable.ext.classes.length.container = 'dt-length col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0';
+	DataTable.ext.classes.info.container = 'dt-info col-6 order-4 text-start align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center';
+    
     $.fn.rup_table.defaults = {
         foobar: false,
         headerContextMenu: {
@@ -2026,31 +1919,77 @@
             delay: 2000,
             block: false
         },
-        responsive: {
-            details: {
-                type: 'column',
-                target: 'tr'
-            },
-            selectorResponsive: 'td span.dtr-data'
-        },
-        dom: //i: Info, t: table, p:pagination, r: procesing , l:length 
-            't<"container-fluid paginationContainer"' +
-            '<"row"' +
-            '<"col-6 order-3 text-right align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-left">' +
-            '<"order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2"p>' +
-            '<"col-12 order-2 text-center align-self-center col-sm-2 order-sm-3 col-xl-1 p-0"l>' +
-            '<"col-6 order-4 text-left align-self-center col-sm-5 order-sm-4 col-xl-2 text-xl-center"i>' +
-            '>' +
-            '>' +
-            'r',
+		responsive: {
+			details: {
+				renderer: function(api, rowIdx, columns) {
+					var data = $.map(columns, function(col) {
+						var klass = col.className ? 'class="' + col.className + '"' : '';
+
+						// Elimina las flechas de ordenación.
+						if (col.title.indexOf('d-block') !== -1) {
+							col.title = col.title.substring(col.title.indexOf('<div class="d-block'), col.title.lastIndexOf);
+						}
+
+						return col.hidden ? '<li ' + klass + ' data-dtr-index="' + col.columnIndex + '" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' + '<span class="dtr-title">' + col.title + '</span> ' + '<span class="dtr-data">' + col.data + '</span>' + '</li>' : '';
+					}).join('');
+
+					return data ? $('<ul data-dtr-index="' + rowIdx + '" class="dtr-details"/>').append(data) : false;
+				},
+				type: 'column',
+				target: 'td span.openResponsive'
+			},
+			selectorResponsive: 'td span.dtr-data'
+		},
+		layout: {
+			top2Start: null,
+			top2End: null,
+			topStart: null,
+			topEnd: null,
+			top: null,
+			bottom: {
+				rowClass: 'container-fluid paginationContainer',
+				className: 'row',
+				features: [{
+					div: {
+						id: 'select_info',
+						className: 'col-6 order-3 text-end align-self-center col-sm-5 order-sm-2 col-xl-2 order-xl-1 text-xl-start'
+					},
+					inputPaging: {},
+					pageLength: {},
+					info: {}
+				}]
+			},
+			bottomStart: null,
+			bottomEnd: null,
+			bottom2Start: null,
+			bottom2End: null
+		},
+		drawCallback: function(settings) {
+			// Aplica las clases necesarias para disponer de unos estilos correctos en el paginador.
+			const $pagination = $('#' + settings.sTableId + '_wrapper .paginationContainer').find('ul.pagination');
+			const $pageLink = $pagination.find('a.page-link');
+			const $pageInputContainer = $pagination.find('li.dt-paging-input');
+			
+			$pagination.addClass('order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2');
+
+			// Incluir identificadores en los botones de la paginación por retrocompatibilidad.
+			$($pageLink[0]).attr('id', settings.sTableId + '_first');
+			$($pageLink[1]).attr('id', settings.sTableId + '_previous');
+			$($pageLink[2]).attr('id', settings.sTableId + '_next');
+			$($pageLink[3]).attr('id', settings.sTableId + '_last');
+
+			$pageLink.parent().addClass('px-1 py-2 paginate_button');
+			$pageLink.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block');
+			
+			$pageInputContainer.addClass('align-self-center p-2');
+			$pageInputContainer.find('input').addClass('text-center');
+		},
         multiplePkToken: '~',
         primaryKey: ['id'],
         blockPKeditForm: true,
         enableDynamicForms: false,
         contextMenuActivo: true,
         selectFilaDer: false,
-        searchPaginator: true,
-        pagingType: 'full',
         createdRow: function (row) {
             var ctx = $('#' + $.escapeSelector(this[0].id)).rup_table('getContext');
 

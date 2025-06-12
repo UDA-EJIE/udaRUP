@@ -12,25 +12,25 @@ function generateHtml(idDatatable) {
         '<fieldset id="' + idDatatable + '_filter_fieldset" class="rup-table-filter-fieldset">' +
         '<div class="row">' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="id_filter_table" class="formulario_linea_label">Id:</label>' +
         '<input type="text" name="id" class="formulario_linea_input form-control" id="id_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="nombre_filter_table" class="formulario_linea_label">Nombre:</label>' +
         '<input type="text" name="nombre" class="formulario_linea_input form-control" id="nombre_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="apellidos_filter_table" class="formulario_linea_label">Apellidos:</label>' +
         '<input type="text" name="apellidos" class="formulario_linea_input form-control" id="apellidos_filter_table" />' +
         '</div>' +
         '</div>' +
         '<div class="col-xs-6 col-md-3">' +
-        '<div class="form-group form-group-sm">' +
+        '<div class="mb-3">' +
         '<label for="edad_filter_table" class="formulario_linea_label">Edad:</label>' +
         '<input type="text" name="edad" class="formulario_linea_input form-control" id="edad_filter_table" />' +
         '</div>' +
@@ -39,10 +39,10 @@ function generateHtml(idDatatable) {
         '<!-- Botonera del formulario de filtrado -->' +
         '<div id="' + idDatatable + '_filter_buttonSet" class="right_buttons">' +
         '<!-- Enlace de limpiar -->' +
-        '<!-- <button id="' + idDatatable + '_filter_cleanLink" type="button" class="btn btn-warning btn-block">Limpiar</button> -->' +
+        '<!-- <button id="' + idDatatable + '_filter_cleanLink" type="button" class="btn btn-warning d-block w-100">Limpiar</button> -->' +
         '<a id="' + idDatatable + '_filter_cleanLink" href="javascript:void(0)" class="rup-enlaceCancelar">Limpiar</a>' +
         '<!-- Botón de filtrado -->' +
-        '<button id="' + idDatatable + '_filter_filterButton" type="button" class="btn btn-info btn-block rup-filtrar">Filtrar</button>' +
+        '<button id="' + idDatatable + '_filter_filterButton" type="button" class="btn btn-info d-block w-100 rup-filtrar">Filtrar</button>' +
         '</div>' +
         '</fieldset>' +
         '</form>' +
@@ -92,7 +92,7 @@ function generateHtml(idDatatable) {
         '</div>' +
         '<div class="row">' +
         '<div class="col-md-12">' +
-        '<table id="' + idDatatable + '" class="tableFit table-striped table-bordered" ' +
+        '<table id="' + idDatatable + '" class="tableFit table table-striped table-bordered align-middle" ' +
         'data-filter-form="#' + idDatatable + '_filter_form" ' +
         'cellspacing="0">' +
         '<thead>' +

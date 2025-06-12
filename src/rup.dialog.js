@@ -522,7 +522,7 @@
                             //Se comprueba que no existe el aspa.
                             if($('#' + $.escapeSelector(settings.id) + '_close').length === 0){
 	                            $self.prev('div')
-	                                .append('<a class="float-right text-white" href="#0"><i id="' + settings.id + '_close" class="mdi mdi-close" aria-hidden="true"></i></a>')
+	                                .append('<a class="float-end text-white" href="#0"><i id="' + settings.id + '_close" class="mdi mdi-close" aria-hidden="true"></i></a>')
 	                                .on('click', 'a', function () {
 	                                    $self.dialog('close');
 	                                    return false;
@@ -544,12 +544,11 @@
                             }
                         }
 
-
-                        // Limpieza del componente y añadidas clases restantes de los botones
-                        $self.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-                        $self.data('uiDialog').uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
-                            addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
-                            .removeClass('ui-button ui-corner-all ui-widget');
+						if (settings.type !== $.rup.dialog.AJAX) {
+							dialog._addButtonClasses($self);
+						} else {
+							settings.dialog = dialog;
+						}
 
                         if (autopen) { //si se auto abría lo mostramos
                             if (settings.type !== $.rup.dialog.AJAX) {
@@ -597,10 +596,12 @@
             var ajaxOptions = $.extend({}, settings.ajaxOptions);
             ajaxOptions.success = function (data, textStatus, XMLHttpRequest) {
                 if (data !== '' || data !== null) { //si nos devuelve datos los mostramos como HTML y desbloqueamos el ui
-                    $('#' + $.escapeSelector(settings.id)).html(data);
+					const $self = $('#' + $.escapeSelector(settings.id));
+					$self.html(data);
+					settings.dialog._addButtonClasses();
                     $.unblockUI();
                     if (settings.autoOpen === true) {
-                        $('#' + $.escapeSelector(settings.id)).rup_dialog('open');
+                        $self.rup_dialog('open');
                         //le establecemos el foco
                         $('div[aria-describedby=' + $.escapeSelector(settings.id) + '] .ui-dialog-buttonpane button').last().focus();
                     }
@@ -626,7 +627,19 @@
             ajaxOptions.dataType = 'text';
             //Peticion ajax para obtener los datos a mostrar
             $.rup_ajax(ajaxOptions);
-        }
+        },
+		/**
+		 * Limpia el componente y añade las clases restantes de los botones.
+		 *
+		 * @function  _addButtonClasses
+		 * @private
+		 */
+		_addButtonClasses: function() {
+			this.data('uiDialog')?.uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			this.data('uiDialog')?.uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
+				addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
+				.removeClass('ui-button ui-corner-all ui-widget');
+		}
     });
 
     //*******************************************************

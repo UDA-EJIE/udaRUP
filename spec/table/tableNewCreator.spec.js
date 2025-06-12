@@ -25,9 +25,9 @@
 //                         </div>\
 //                     </div>\
 //                     <!-- Botonera del formulario de filtrado -->\
-//                     <div id="' + idDatatable + '_filter_buttonSet" class="text-right">\
+//                     <div id="' + idDatatable + '_filter_buttonSet" class="text-end">\
 //                         <!-- Enlace de limpiar -->\
-//                         <button id="' + idDatatable + '_filter_cleanButton" type="button" class="btn-material btn-material-primary-low-emphasis mr-2">\
+//                         <button id="' + idDatatable + '_filter_cleanButton" type="button" class="btn-material btn-material-primary-low-emphasis me-2">\
 //                         <i class="mdi mdi-eraser"></i>\
 //                         	<span>Limpiar</span>\
 //                         </button>\
@@ -47,7 +47,7 @@
 //         <div class="dialog-content-material" >\
 //             <form id="' + idDatatable + '_detail_form">\
 //                 <div id ="' + idDatatable + '_detail_feedback"></div>\
-//                 <div class="form-row">\
+//                 <div class="row">\
 //                     <div class="form-groupMaterial col-sm">\
 //                     	<input type="text" name="id" id="id_detail_table" />\
 //                         <label for="id_detail_table">Id</label>\
@@ -69,7 +69,7 @@
 //             </form>\
 //         </div>\
 //         <div class="rup-table-buttonpanel-material">\
-//             <div class="text-right">\
+//             <div class="text-end">\
 //                 <button id="' + idDatatable + '_detail_button_cancel" type="button">\
 //                 	Cancelar\
 //                 </button>\
@@ -84,7 +84,7 @@
 //     </div>\
 //     <div class="row">\
 //         <div class="col-md-12">\
-//             <table id="' + idDatatable + '" class="tableFit table-striped table-bordered table-material" \
+//             <table id="' + idDatatable + '" class="tableFit table table-striped table-bordered table-material align-middle" \
 //                 data-filter-form="#' + idDatatable + '_filter_form">\
 //                 <thead>\
 //                     <tr>\

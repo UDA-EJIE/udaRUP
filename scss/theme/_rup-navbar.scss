@@ -358,8 +358,12 @@ nav.rup-navbar .navbar-collapse {
     color: #333;
 }
 
-nav.rup-navbar a {
-    color: #fffcfb;
+nav.rup-navbar a,
+.navbar-brand:hover,
+.navbar-brand:focus,
+.nav-link:hover,
+.nav-link:focus {
+	color: #fffcfb;
 }
 
 .navbar-toggle .icon-bar {

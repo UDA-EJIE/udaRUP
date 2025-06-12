@@ -1,5 +1,6 @@
 @use '~@mdi/font/scss/materialdesignicons' as mdi;
 @import '../node_modules/jquery-ui/themes/base/theme';
+@import 'external/bootstrap/custom.scss';
 @import 'theme/all';
 @import 'external/table/jquery.table.scss';
 @import 'external/table/select.table.scss';

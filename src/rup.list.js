@@ -918,11 +918,11 @@ import Printd from 'printd';
 				'<div id="' + opciones.multiFilter._dialogId + '" class="dialog-content-material">' + 
 					'<div id="' + opciones.multiFilter._dialogId + '_feedback" role="alert"></div>' + 
 					'<form>' + 
-						'<div class="form-row"><div class="form-groupMaterial col-12">' + 
+						'<div class="row"><div class="form-groupMaterial col-12">' + 
 							'<label for="' + opciones.multiFilter._dialogId + '_select">Filtros</label>' + 
 							'<select id="' + opciones.multiFilter._dialogId + '_select"></select>' + 
 						'</div>' +
-						'<div class="form-row">' + 
+						'<div class="row">' + 
 							'<div class="checkbox-material col-12">' + 
 								'<input type="checkbox" id="' + opciones.multiFilter._dialogId + '-activeFilter" />' + 
 								'<label for="' + opciones.multiFilter._dialogId + '-activeFilter">Filtro por defecto</label>' + 
@@ -1307,7 +1307,7 @@ import Printd from 'printd';
                     return e.trim();
                 }).forEach((e, i) => {
                     if (e !== '') {
-                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>');
+                        let $tmpSum = $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 me-1"></li>');
                         let geti18n = (val) => {
                             let srcVal = opciones.sidx.source.filter(x => x.value == val);
                             return srcVal[0].i18nCaption;
@@ -1453,8 +1453,8 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-				if (!$('#' + $.escapeSelector(obj.id)).rup_select('isDisabled') && obj.selected != opciones.sidx.value) {
-					opciones.sidx.value = obj.selected;
+				if (!$('#' + $.escapeSelector(obj.id)).rup_select('isDisabled') && obj.selected != opciones.rowNum.value) {
+					opciones.rowNum.value = obj.selected;
 					let iden = opciones._header.rowNum[0].id;
 					$('#' + $.escapeSelector(iden)).rup_select('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_select('getRupValue'));
 					if(opciones.createFooter){
@@ -1739,7 +1739,7 @@ import Printd from 'printd';
                         } else {
                             sordBadge.addClass('mdi mdi-chevron-down');
                         }
-                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 mr-1"></li>')
+                        $('<li class="rup_list-mord-summary-badge badge badge-pill badge-primary rounded-0 me-1"></li>')
                             .append(geti18n(e)).append(sordBadge.clone())
                             .appendTo(opciones._content.find('.rup_list-mord-summary'));
                     });
@@ -2034,7 +2034,7 @@ import Printd from 'printd';
             let $btnGroup = $(`
                 <div class="btn-group h-100" role="group">
                     <button id="${selfId + '-display-selectables'}"
-                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         ${opciones._header.selectables.text()}
                     </button>

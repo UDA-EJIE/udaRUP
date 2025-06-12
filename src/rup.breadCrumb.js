@@ -115,7 +115,7 @@
                 var pathname = window.location.pathname,
                     breadCrumbEntry = pathname.substring($.rup.CTX_PATH.length),
                     breadCrumbElems = breadCrumbEntry.split('/'),
-                    breadCrumbSpan = $('<div>').addClass('d-inline-flex col-auto p-0 mr-3'),
+                    breadCrumbSpan = $('<div>').addClass('d-inline-flex col-auto p-0 me-3'),
                     ulBreadCrumb = $('<ul>').addClass('rup-breadCrumb_main d-inline-flex'),
                     breadCrumbStruct = null,
                     lastCrum = null,
@@ -147,7 +147,7 @@
                         if (DESTROY_XLNETS_SESSION === 'false') {
 
                             //función encargada de poner el icono y el literal de salida
-                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-right\'>')
+                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-2 order-last text-end\'>')
                                 .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
@@ -161,7 +161,7 @@
                         } else {
 
                             //función encargada de poner el icono y el literal de desconexion
-                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-right\'>')
+                        	$(this.element.children()[0]).append($('<div class=\'rup-breadCrumb_logoutDiv col-12 col-sm-3 order-last text-sm-end\'>')
                                 .append($('<a>').addClass('rup-breadCrumb_link').attr('logOutHref', logoutUrl).on('click',
                                     function () {
                                         $.rup_messages('msgConfirm', {
@@ -244,7 +244,7 @@
                 a = $('<a>').attr('href', /*$.rup.CTX_PATH + */ href).text(i18nCaption);
             li.append(a);
             if (separator !== false) {
-                li.append($('<span>').addClass('mdi mdi-chevron-right pr-1 pl-1'));
+                li.append($('<span>').addClass('mdi mdi-chevron-right pe-1 ps-1'));
             }
             return li;
         },
