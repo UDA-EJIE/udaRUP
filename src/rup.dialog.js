@@ -598,7 +598,7 @@
                 if (data !== '' || data !== null) { //si nos devuelve datos los mostramos como HTML y desbloqueamos el ui
 					const $self = $('#' + $.escapeSelector(settings.id));
 					$self.html(data);
-					settings.dialog._addButtonClasses($self);
+					settings.dialog._addButtonClasses();
                     $.unblockUI();
                     if (settings.autoOpen === true) {
                         $self.rup_dialog('open');
@@ -635,8 +635,8 @@
 		 * @private
 		 */
 		_addButtonClasses: function() {
-			this.data('uiDialog').uiDialog.find('button.ui-dialog-titlebar-close').remove();
-			this.data('uiDialog').uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
+			this.data('uiDialog')?.uiDialog.find('button.ui-dialog-titlebar-close').remove();
+			this.data('uiDialog')?.uiDialog.find('button:not(.ui-datepicker-trigger,.ui-timepicker-trigger)').
 				addClass($.rup.adapter[$.fn.rup_dialog.defaults.adapter].classComponent())
 				.removeClass('ui-button ui-corner-all ui-widget');
 		}

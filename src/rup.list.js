@@ -1453,8 +1453,8 @@ import Printd from 'printd';
             const opciones = self.options;
 
            let doChange = function(obj, change){
-				if (!$('#' + $.escapeSelector(obj.id)).rup_select('isDisabled') && obj.selected != opciones.sidx.value) {
-					opciones.sidx.value = obj.selected;
+				if (!$('#' + $.escapeSelector(obj.id)).rup_select('isDisabled') && obj.selected != opciones.rowNum.value) {
+					opciones.rowNum.value = obj.selected;
 					let iden = opciones._header.rowNum[0].id;
 					$('#' + $.escapeSelector(iden)).rup_select('setRupValue', $('#' + $.escapeSelector(obj.id)).rup_select('getRupValue'));
 					if(opciones.createFooter){
@@ -2034,7 +2034,7 @@ import Printd from 'printd';
             let $btnGroup = $(`
                 <div class="btn-group h-100" role="group">
                     <button id="${selfId + '-display-selectables'}"
-                        class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         ${opciones._header.selectables.text()}
                     </button>
