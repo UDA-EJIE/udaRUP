@@ -5,6 +5,7 @@ window.$ = $;
 // Cargar dependencias con orden explícito
 import 'jquery-ui/ui/widgets/dialog';
 import 'jquery-ui/ui/widgets/datepicker'; // <- requerido primero
+import 'jquery-ui/ui/widgets/tabs';
 import './src/index.js'; 
 
 
