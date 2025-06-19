@@ -332,11 +332,20 @@
             ctx.oInit.formEdit.idForm.find('.rup-validate-field-error').removeClass('rup-validate-field-error');
         }
 
-
+		if (feedback.length === 0) {
+		    // Si no hay ningún elemento en "feedback", intentamos mirar prevObject[0]
+		    var prev = feedback.prevObject[0];
+		    if (prev.length > 0 && prev[0].className !== '') {
+		        prev.rup_feedback('hide', 0);
+		    }
+		} else {
+		    // Si sí hay elementos en "feedback", comprobamos su className
+		    if (feedback[0].className !== '') {
+		        feedback.rup_feedback('hide', 0);
+		    }
+		}
         //Se cierran los mensajes del feedback
-        if (feedback[0].className !== '') {
-            feedback.rup_feedback('hide',0);
-        }
+        
     }
     
     /**
@@ -358,7 +367,7 @@
         }
         
         if (feed.length === 0) {
-        	feed = $('<div></div>').attr('id', feed[0].id + '_ok').insertBefore(feed);
+        	feed = $('<div></div>').attr('id', feed.prevObject[0].id).insertBefore(feed);
         }
         
     	feed.rup_feedback(ctx.oInit.feedback);
@@ -582,7 +591,7 @@
         	var idForm = ctx.oInit.formEdit.idForm;
         	// Limpiar los errores en caso de haberlos
 	        var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
-	        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed[0].id);
+	        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed.prevObject[0].id);
 	        if (divErrorFeedback.length > 0) {
 	            divErrorFeedback.hide();
 	        }
