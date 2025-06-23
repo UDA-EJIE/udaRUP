@@ -177,8 +177,7 @@
 	            	}
             		
             		// Guardar seleccionado.
-            		settings.selected = param;
-            		
+            		settings.selected = param;					
 	            	$self.val(param).trigger('change');
             	}
 
@@ -1277,6 +1276,7 @@
 								// Aseguramos que mete el valor del padre.
 								params.url = params.url + '?' + datosParent;
 							}
+							
 			        		$request = $.ajax(params);
 			        	}
 			        }else{
@@ -1302,7 +1302,7 @@
 					        }
 							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true && !sameParam) {
 									$('#' + $.escapeSelector(settings.id)).empty();
-								}	
+								}		
 				          success(__cache[__cachekey]);
 						  if (settings.autocomplete && settings.multiple) {
 							  if (settings.cacheUrl === true) {//almacena los datos para no ir al controller
@@ -1393,7 +1393,25 @@
 								  let valorInput = mySelect.selection.$selection.find('input').val() 
 								  $('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								  mySelect.selection.$selection.find('input').val(valorInput); 
-								  mySelect.selection.$selection.find('input').focus();
+								  
+								  if(settings.fromParentChange = true && settings.parent != undefined && settings.parent != ''){
+									const padresConfigurados = Array.isArray(settings.parent)
+									  ? settings.parent
+									  : settings.parent
+									    ? [settings.parent]
+									    : [];
+									  for (const padre of padresConfigurados) {
+									  	const $padre = $('#' + $.escapeSelector(padre));
+									  	const settingsPadre = $padre.data('settings');
+									  	if(settingsPadre.fromSong === true){
+									  		settingsPadre.fromSong = false;
+									  		let select2Padre = $('#' + $.escapeSelector(settingsPadre.id)).data('select2');
+									  		select2Padre.selection.$selection.find('input').focus();
+									  	}
+									  }
+								  }else{
+									mySelect.selection.$selection.find('input').focus();
+								  }	
 								}else{
 									$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', seleccionado.length == 1 ? seleccionado[0].id : settings.blank);
 								}

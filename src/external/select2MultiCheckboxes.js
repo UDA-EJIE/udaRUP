@@ -274,7 +274,10 @@
 						if ($('#' + $.escapeSelector($options.options.id)).select2('isOpen')) {
 							openLast = true;
 						}
-
+						let settingsId = $('#' + $.escapeSelector($options.options.id));
+						let settings = settingsId.data('settings');
+						settings.fromSong = true;
+						settingsId.data('settings',settings)
 						$('#' + $.escapeSelector($options.options.id)).select2('open');
 						$('input.select2-search__field').addClass('d-none');
 						$('input.select2-search__field').val(this.value);
