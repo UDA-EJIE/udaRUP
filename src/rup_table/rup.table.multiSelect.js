@@ -287,7 +287,7 @@
 	
 	/**
 	 * Get the class
-	 * @returns 
+	 * @returns class name
 	 */
 	function checkboxClass(selector) {
 		var name = DataTable.multiSelect.classes.checkbox;

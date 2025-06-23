@@ -2556,7 +2556,7 @@
 	 * Common function for stripping HTML comments
 	 *
 	 * @param {*} input 
-	 * @returns 
+	 * @returns input
 	 */
 	Buttons.stripHtmlComments = function(input) {
 		var previous;
@@ -2573,7 +2573,7 @@
 	 * Common function for stripping HTML script tags
 	 *
 	 * @param {*} input 
-	 * @returns 
+	 * @returns input
 	 */
 	Buttons.stripHtmlScript = function(input) {
 		var previous;
