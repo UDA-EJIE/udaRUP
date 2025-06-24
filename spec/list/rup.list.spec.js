@@ -20,6 +20,22 @@ function clearList(idLista) {
     $('#content').nextAll().remove();
 }
 
+function waitForClass(selector, className, callback, timeout = 1000) {
+    const start = Date.now();
+
+    function check() {
+        if ($(selector).hasClass(className)) {
+            callback();
+        } else if (Date.now() - start < timeout) {
+            setTimeout(check, 20);
+        } else {
+            throw new Error(`Timeout: ${className} no se aplicó a ${selector}`);
+        }
+    }
+
+    check();
+}
+
 describe('Test rup_list', () => {
 
     beforeAll((done) => {
@@ -744,10 +760,10 @@ describe('Test rup_list', () => {
             beforeAll((done) => {
                 testutils.loadCss(done);
             });
-            beforeEach((done) => {
+            beforeEach((done) => {				   
                 listGen.createHeaderSticky('rup-list', 'listFilterForm', () => {
                    	$('#rup-list').on('load', () => {
-                		done();
+                		waitForClass('#rup-list-header', 'rup_list-sticky', done);
                 	});
                     $('#rup-list').rup_list('filter');
                 });
