@@ -2195,6 +2195,9 @@
 	 * 
 	 * @name defaults
 	 * 
+	 * @property {string} [language] - Determina el idioma del componente.
+	 *           Por defecto obtiene el idioma de la aplicación y soporta euskera (eu),
+	 *           castellano (es), inglés (en) y francés (fr).
 	 * @property {jQuery.rup_select~onLoadError} [onLoadError] - Función de
 	 *           callback a ejecutar en caso de que se produzca un error en la
 	 *           petición de obtención de la lista de elementos a mostrar.
