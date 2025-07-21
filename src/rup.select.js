@@ -44,7 +44,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.message', 'select2', './external/select2MultiCheckboxes'], factory);
+        define(['jquery', './rup.base', './rup.message', 'select2', 'select2/dist/js/i18n/eu', 'select2/dist/js/i18n/es', 'select2/dist/js/i18n/en', 'select2/dist/js/i18n/fr', './external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -2252,6 +2252,7 @@
 	 *           a ejecutar cuando se deselecciona una opción de la lista.
 	 */
 	$.fn.rup_select.defaults = {
+		language: window.LANG,
 		onLoadError: null,
 		width: '100%',
 		customClasses: ['select-material'],
