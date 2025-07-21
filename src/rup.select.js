@@ -44,7 +44,7 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.message', 'select2', './external/select2MultiCheckboxes'], factory);
+        define(['jquery', './rup.base', './rup.message', 'select2', 'select2/dist/js/i18n/eu', 'select2/dist/js/i18n/es', 'select2/dist/js/i18n/en', 'select2/dist/js/i18n/fr', './external/select2MultiCheckboxes'], factory);
     } else {
 
         // Browser globals
@@ -1219,18 +1219,25 @@
 					if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
 						// display the cached results
 						success(__cache[__cachekey]);
-						// Marca el valor definido como seleccionado.
-						if (!settings.multiple) {
-							if (!settings.autocomplete && settings.selected) {
-								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
-							}
 
-						}else{
-							//para multiples
-							if (!settings.autocomplete && (settings.selected != "" || settings.selected.length > 0)) {
-								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+						// Marca el valor definido como seleccionado.
+						const $element = $('#' + $.escapeSelector(settings.id));
+						const currentValue = $element.rup_select('getRupValue');
+
+						if (!settings.autocomplete && settings.selected !== currentValue) {
+							if (!settings.multiple) {
+								// Caso simple: solo verificar que settings.selected existe.
+								if (settings.selected) {
+									$element.rup_select('setRupValue', settings.selected);
+								}
+							} else {
+								// Caso múltiple: verificar que no esté vacío o tenga elementos.
+								if (settings.selected !== "" || settings.selected.length > 0) {
+									$element.rup_select('setRupValue', settings.selected);
+								}
 							}
 						}
+
 						return;
 					}
 			        
@@ -2270,6 +2277,7 @@
 	 *           a ejecutar cuando se deselecciona una opción de la lista.
 	 */
 	$.fn.rup_select.defaults = {
+		language: window.LANG,
 		onLoadError: null,
 		width: '100%',
 		customClasses: ['select-material'],
