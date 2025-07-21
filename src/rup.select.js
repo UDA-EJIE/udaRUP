@@ -1220,18 +1220,25 @@
 					if (settings.cache == true && 'undefined' !== typeof __cache[__cachekey]) {
 						// display the cached results
 						success(__cache[__cachekey]);
-						// Marca el valor definido como seleccionado.
-						if (!settings.multiple) {
-							if (!settings.autocomplete && settings.selected) {
-								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
-							}
 
-						}else{
-							//para multiples
-							if (!settings.autocomplete && (settings.selected != "" || settings.selected.length > 0)) {
-								$('#' + $.escapeSelector(settings.id)).rup_select('setRupValue', settings.selected);
+						// Marca el valor definido como seleccionado.
+						const $element = $('#' + $.escapeSelector(settings.id));
+						const currentValue = $element.rup_select('getRupValue');
+
+						if (!settings.autocomplete && settings.selected !== currentValue) {
+							if (!settings.multiple) {
+								// Caso simple: solo verificar que settings.selected existe.
+								if (settings.selected) {
+									$element.rup_select('setRupValue', settings.selected);
+								}
+							} else {
+								// Caso múltiple: verificar que no esté vacío o tenga elementos.
+								if (settings.selected !== "" || settings.selected.length > 0) {
+									$element.rup_select('setRupValue', settings.selected);
+								}
 							}
 						}
+
 						return;
 					}
 			        
