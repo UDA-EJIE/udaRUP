@@ -1310,6 +1310,9 @@
 			                      });
 					        	}
 					        }
+							if (settings.autocomplete != true){// siempre limpiar, vienen datos nuevos
+								$('#' + $.escapeSelector(settings.id)).empty();
+							}
 							if (settings.autocomplete && settings.multiple && settings.cacheUrl !== true && !sameParam) {
 									$('#' + $.escapeSelector(settings.id)).empty();
 								}		
