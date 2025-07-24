@@ -1168,12 +1168,12 @@
         	 	if(settings.selected || (settings.autocomplete && settings.defaultValue != undefined)){
         	 		settings.firstLoad = true;
         	 	}
-        	 	if(settings.parent != undefined 
+        	 	/*if(settings.parent != undefined 
         	 			&& ($('#' + $.escapeSelector(settings.parent)).val() == null ||
 						($.isArray($('#' + $.escapeSelector(settings.parent)).val()) && $('#' + $.escapeSelector(settings.parent)).val().length == 0) ||
 						 (!$.isArray($('#' + $.escapeSelector(settings.parent)).val()) && $('#' + $.escapeSelector(settings.parent)).val().trim() === ''))){
         	 		settings.firstLoad = false;
-        	 	}
+        	 	}*/
 
 				let __cache = [];
 				let __lastQuery = null;
@@ -2131,6 +2131,8 @@
 										}
 										if (settings.autocomplete) {
 											$el.data('select2').$container.find('input').val('');
+										}else if(settings.firstLoad != true){//se inicializa salvo la primera vez xq si estaría marcado
+											settings.selected = '';
 										}
 
 										if ($search != undefined) {
