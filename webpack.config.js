@@ -25,9 +25,6 @@ module.exports = {
 	devtoolModuleFilenameTemplate: info =>
 	    `webpack:///${path.relative(__dirname, info.absoluteResourcePath).replace(/\\/g, '/')}`,
   },
-  externals: {
-    jquery: 'jQuery', // o '$' si lo necesitas como global $
-  },
   module: {
     rules: [
 		{
@@ -125,8 +122,7 @@ module.exports = {
 		  filter: (resourcePath) => resourcePath.endsWith('.js'),
 		  noErrorOnMissing: true,
 		},
-		{ from: 'assets/images', to: 'css/images' },
-		{ from: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js'), to: 'js/jquery.js' },
+		{ from: 'assets/images', to: 'css/images' },		
       ],
     }),	
   ],
