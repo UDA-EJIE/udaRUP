@@ -570,7 +570,7 @@
 							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
 						} else {
 							// Forma de evitar el EVAL
-							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i]);
+							formElem['rup_' + formElem.attr('ruptype')]('setRupValue', aData[i] ?? '');
 						}
 					} else if (formElem.is('input:radio') || formElem.is('input:checkbox')) {
                         formElem.each(populateRadioCheckbox);
