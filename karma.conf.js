@@ -12,7 +12,9 @@ module.exports = function (config) {
 	  { pattern: 'node_modules/jquery/dist/jquery.js', included: true, watched: false },	
 	  { pattern: 'dist/css/**/*.*', watched: false, included: false, served: true },
 	  { pattern: 'dist/js/**/*.*', watched: false, included: false, served: true },
-	  { pattern: 'dist/css/fonts/*.*', watched: false, included: false, served: true },
+	  { pattern: 'dist/fonts/*.*', watched: false, included: false, served: true },
+	  { pattern: 'dist/cursors/*.*', watched: false, included: false, served: true },
+	  { pattern: 'dist/images/**/*.*', watched: false, included: false, served: true },
 	  { pattern: 'dist/html/**/*.*', watched: false, included: false, served: true },
       { pattern: 'test.webpack.js' },
       { pattern: 'i18n/*.json', watched: false, included: false, served: true },
@@ -95,8 +97,8 @@ module.exports = function (config) {
 		// Karma sirve los archivos de tests y assets en /base/
 		'/dist/': '/base/dist/',
 		'/demo/': 'http://localhost:8082/demo/',
-		'/fonts/': '/base/dist/css/fonts/',
-		'/rup/css/images/': '/base/dist/css/images/',
+		'/fonts/': '/base/dist/fonts/',
+		'/rup/css/images/': '/base/dist/images/',
 		// Si usas estas rutas en tu app o tests, las redirige correctamente:
 		'/test/': 'http://localhost:8082/test',
 		'/x21aAppWar/': '/',

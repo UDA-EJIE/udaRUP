@@ -21,7 +21,7 @@ module.exports = {
     filename: 'js/[name].js',  // JS en dist/js/
     assetModuleFilename: 'assets/[hash][ext][query]',
     clean: true,
-	publicPath: '/x21aStatics/rup/',  // o la ruta base desde donde sirves los archivos
+	publicPath: '../',  // URLs relativas que suban un nivel desde css/
 	devtoolModuleFilenameTemplate: info =>
 	    `webpack:///${path.relative(__dirname, info.absoluteResourcePath).replace(/\\/g, '/')}`,
   },
@@ -53,7 +53,7 @@ module.exports = {
       {
         test: /\.cur$/i,
         type: 'asset/resource',
-        generator: { filename: 'css/cursors/[name][ext]' },
+        generator: { filename: 'cursors/[name][ext]' },
       },
       // Imágenes
 	  {
@@ -70,7 +70,7 @@ module.exports = {
 	          relativePath = `/${relativePath}`;
 	        }
 
-	        return `css/images/${relativePath}`;
+	        return `images/${relativePath}`;
 	      },
 	    },
 	  },
@@ -78,7 +78,7 @@ module.exports = {
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
-        generator: { filename: 'css/fonts/[name][ext]' },
+        generator: { filename: 'fonts/[name][ext]' },
       },
       // JS
       {
@@ -106,7 +106,7 @@ module.exports = {
       patterns: [
         { from: 'i18n', to: 'resources' },
         { from: 'assets/html', to: 'html' },
-        { from: 'assets/cursors', to: 'css/cursors' },
+        { from: 'assets/cursors', to: 'cursors' },
 		{ from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
 		{
 		  from: 'src',
@@ -122,7 +122,7 @@ module.exports = {
 		  filter: (resourcePath) => resourcePath.endsWith('.js'),
 		  noErrorOnMissing: true,
 		},
-		{ from: 'assets/images', to: 'css/images' },		
+		{ from: 'assets/images', to: 'images' },		
       ],
     }),	
   ],
@@ -142,6 +142,7 @@ module.exports = {
       '@assets': path.resolve(__dirname, 'assets/'),
       '../jstree': path.resolve(__dirname, 'assets/images/jstree'),
       '../fonts': path.resolve(__dirname, 'node_modules/@mdi/font/fonts'),
+      'fonts/': path.resolve(__dirname, 'dist/fonts/'),
       images: path.resolve(__dirname, 'assets/images'),
 	  'jqueryUI': 'jquery-ui',
 	  'load-image': require.resolve('blueimp-load-image/js/load-image'),
