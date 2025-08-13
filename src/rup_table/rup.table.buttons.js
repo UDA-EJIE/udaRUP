@@ -1433,7 +1433,7 @@
 							config.icon = 'mdi-file-excel';
 							break;
 						case 'pdfButton':
-							config.icon = 'mdi-file-pdf';
+							config.icon = 'mdi-file-pdf-box';
 							break;
 						case 'odsButton':
 							config.icon = 'mdi-file';
