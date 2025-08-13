@@ -1668,12 +1668,37 @@
             		hasOptions = true;
             	}
             	
-                // Añadir filter por defecto o el definido por el usuario
-                $.fn.rup_table.defaults.filter = {
-                    id: hasOptions ? filterOptions.id : $self[0].id + '_filter_form',
-                    filterToolbar: hasOptions ? filterOptions.filterToolbar : $self[0].id + '_filter_toolbar',
-                    collapsableLayerId: hasOptions ? filterOptions.collapsableLayerId : $self[0].id + '_filter_fieldset'
-                };
+				// Añadir filter por defecto o el definido por el usuario
+				$.fn.rup_table.defaults.filter = {
+					id: hasOptions ? filterOptions.id : $self[0].id + '_filter_form',
+					filterToolbar: hasOptions ? filterOptions.filterToolbar : $self[0].id + '_filter_toolbar',
+					collapsableLayerId: hasOptions ? filterOptions.collapsableLayerId : $self[0].id + '_filter_fieldset'
+				};
+
+				// Añadir drawCallback por defecto y el definido por el usuario en caso de haberlo.
+				options.drawCallback = function(settings) {
+					// Aplica las clases necesarias para disponer de unos estilos correctos en el paginador.
+					const $pagination = $('#' + settings.sTableId + '_wrapper .paginationContainer').find('ul.pagination');
+					const $pageLink = $pagination.find('a.page-link');
+					const $pageInputContainer = $pagination.find('li.dt-paging-input');
+
+					$pagination.addClass('order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2');
+
+					// Incluir identificadores en los botones de la paginación por retrocompatibilidad.
+					$($pageLink[0]).attr('id', settings.sTableId + '_first');
+					$($pageLink[1]).attr('id', settings.sTableId + '_previous');
+					$($pageLink[2]).attr('id', settings.sTableId + '_next');
+					$($pageLink[3]).attr('id', settings.sTableId + '_last');
+
+					$pageLink.parent().addClass('px-1 py-2 paginate_button');
+					$pageLink.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block');
+
+					$pageInputContainer.addClass('align-self-center p-2');
+					$pageInputContainer.find('input').addClass('text-center');
+
+					// Invoca al drawCallback del usuario.
+					args[0].drawCallback?.();
+				}
                 
                 // Gestionar la inicialización del formulario de filtrado
                 if (filterOptions !== 'noFilter') {
@@ -1963,26 +1988,6 @@
 			bottomEnd: null,
 			bottom2Start: null,
 			bottom2End: null
-		},
-		drawCallback: function(settings) {
-			// Aplica las clases necesarias para disponer de unos estilos correctos en el paginador.
-			const $pagination = $('#' + settings.sTableId + '_wrapper .paginationContainer').find('ul.pagination');
-			const $pageLink = $pagination.find('a.page-link');
-			const $pageInputContainer = $pagination.find('li.dt-paging-input');
-			
-			$pagination.addClass('order-1 align-self-center col-sm-12 order-sm-1 col-xl-7 order-xl-2');
-
-			// Incluir identificadores en los botones de la paginación por retrocompatibilidad.
-			$($pageLink[0]).attr('id', settings.sTableId + '_first');
-			$($pageLink[1]).attr('id', settings.sTableId + '_previous');
-			$($pageLink[2]).attr('id', settings.sTableId + '_next');
-			$($pageLink[3]).attr('id', settings.sTableId + '_last');
-
-			$pageLink.parent().addClass('px-1 py-2 paginate_button');
-			$pageLink.addClass('btn-material btn-material-sm btn-material-primary-low-emphasis d-none d-sm-block');
-			
-			$pageInputContainer.addClass('align-self-center p-2');
-			$pageInputContainer.find('input').addClass('text-center');
 		},
         multiplePkToken: '~',
         primaryKey: ['id'],
