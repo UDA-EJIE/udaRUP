@@ -708,7 +708,7 @@
 	            }
 	           
 				// Estando loadFromModel a true no se cargan los datos de la fila obtenida a partir de la tabla (se depende de lo cargado a través del modelo).
-				if(!ctx.oInit.formEdit.loadFromModel && typeof row !== 'undefined') {
+				if(typeof row !== 'undefined') {
 					$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormBeforePopulate', [ctx, idForm, row]);
 					$.when($.rup_utils.populateForm($.fn.flattenObject(row, { safe: true }), idForm)).then(function() {
 						$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAfterPopulate', [ctx, idForm, row]);
