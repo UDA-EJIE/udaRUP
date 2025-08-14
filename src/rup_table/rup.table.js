@@ -340,9 +340,9 @@
 
             options.ajax = this._ajaxOptions(options);
 
-            options.language = {
-                'url': $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json'
-            };
+			$.extend(true, options.language !== undefined ? options.language : options.language = {}, {
+				'url': $.rup.RUP + '/resources/rup.i18n_' + $.rup.lang + '.json'
+			});
 
             //Se cargan los metodos en la API, Se referencia al Register
             var apiRegister = DataTable.Api.register;
