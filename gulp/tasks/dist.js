@@ -16,9 +16,9 @@ gulp.task('dist:x21a:copy2', function () {
 	console.log('📁 Ejecutando copia segunda...');
     return 	gulp.src([
 	        './dist/**/*.*',                  // ✅ Todos los archivos
-	        '!./dist/images{,/**}',       // ❌ Excluye dist/images y su contenido
-	        '!./dist/fonts{,/**}',        // ❌ Excluye dist/fonts y su contenido
-	        '!./dist/cursors{,/**}',      // ❌ Excluye dist/cursors y su contenido
+	        '!./dist/css/images{,/**}',       // ❌ Excluye dist/css/images y su contenido
+	        '!./dist/css/fonts{,/**}',        // ❌ Excluye dist/css/fonts y su contenido
+	        '!./dist/css/cursors{,/**}',      // ❌ Excluye dist/css/cursors y su contenido
 			'!./dist/**/*.txt',
 	    ], { base: './dist' })
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
@@ -60,8 +60,8 @@ gulp.task('dist:portal', function (callback) {
         .pipe(cleanCSS({compatibility: 'ie11'}))
         .pipe(rename('rup.min.css'))
         .pipe(gulp.dest('./dist/portal/'));
-    gulp.src('./dist/cursors/**/*.*').pipe(gulp.dest('./dist/portal/cursors'));
-    gulp.src('./dist/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
-	gulp.src('./dist/fonts/**/*.*').pipe(gulp.dest('./dist/portal/fonts'));
+    gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portal/cursors'));
+    gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
+	gulp.src('./dist/css/fonts/**/*.*').pipe(gulp.dest('./dist/portal/fonts'));
     callback();
 });
