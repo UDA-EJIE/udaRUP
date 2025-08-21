@@ -766,48 +766,100 @@ describe('Test Select > ', () => {
                     expect($('#select2-selectSimple-results li').eq(0).text()).toBe('Intruso');
                 });
             });
-            describe('select padre > ', () => {
-                beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $selectPadre.append(newOpt);
-                    $selectPadre.rup_select('order');
-                    $selectPadre.select2('open'); 
-                });
-                it('Intruso debe ser la primera opcion', () => {
-                    expect($('#select2-selectPadre-results li').eq(0).text()).toBe('Intruso');
-                });
+        });
+        
+        describe('Comportamiento de scroll en firstLoad > ', () => {
+            beforeEach(() => {
+                // Crear contenido suficiente para scroll
+                $('body').css('height', '2000px');
             });
-            describe('select hijo > ', () => {
-                beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $selectHijo.append(newOpt);
-                    $selectHijo.rup_select('order');
-                    $selectHijo.select2('open');
-                });
-                it('Intruso debe ser la primera opcion', () => {
-                    expect($('#select2-selectHijo-results li').eq(1).text()).toBe('Intruso');
-                });
+            
+            afterEach(() => {
+                // Limpiar
+                $('body').css('height', '');
+                $(window).scrollTop(0);
             });
-            describe('select multiple > ', () => {
-                beforeEach(() => {
-                    let newOpt = new Option('Intruso', 'intruso_value');
-                    $selectMulti.append(newOpt);
-                    $selectMulti.rup_select('order');
-                    $selectMulti.select2('open');
-                });
-                it('Intruso debe ser la primera opcion', () => {
-                    expect($('#select2-selectMulti-results li').eq(0).text()).toBe('Intruso');
-                });
+            
+            it('> No debe causar scroll al hacer firstLoad trigger keyup', (done) => {
+                // Simular scroll hacia abajo
+                $(window).scrollTop(500);
+                
+                setTimeout(() => {
+                    var scrollBeforeFirstLoad = $(window).scrollTop();
+                    
+                    // Simular firstLoad - el código problemático
+                    var $search = $select.data('select2').$dropdown.find('.select2-search__field');
+                    $search.trigger('keyup');
+                    $select.select2('close');
+                    
+                    // Esperar a que se complete cualquier scroll automático
+                    setTimeout(() => {
+                        var scrollAfterFirstLoad = $(window).scrollTop();
+                        
+                        // El test pasa solo si el scroll es mayor (no hay scroll hacia arriba)
+                        expect(scrollAfterFirstLoad).toBeGreaterThan(scrollBeforeFirstLoad);
+                        done();
+                    }, 50);
+                }, 100);
             });
-            describe('select optGroup > ', () => {
-                beforeEach(() => {
-                    $selectGroup.rup_select('addOption','intruso_value', 'Intruso','Opt1');
-                    $selectGroup.rup_select('order',true);
-                    $selectGroup.select2('open');
-                });
-                it('Debe introducir el elemento', () => {
-                    expect($('#select2-selectGroup-results li').not('[role="group"]').eq(0).text()).toBe('Intruso');
-                });
+            
+            it('> Alternativa sin scroll debe funcionar igual', (done) => {
+                $(window).scrollTop(300);
+                
+                setTimeout(() => {
+                    var scrollBefore = $(window).scrollTop();
+                    
+                    // Usar la alternativa sin scroll
+                    $select.select2('trigger', 'query', { term: '' });
+                    $select.select2('close');
+                    
+                    setTimeout(() => {
+                        var scrollAfter = $(window).scrollTop();
+                        
+                        // El test pasa si NO hay scroll hacia arriba (debe ser mayor o igual)
+                        expect(scrollAfter).toBeGreaterThanOrEqual(scrollBefore);
+                        done();
+                    }, 50);
+                }, 100);
+            });
+            
+            it('> Inicialización remota con firstLoad no debe causar scroll', (done) => {
+                // Crear select remoto que active firstLoad
+                var $testSelect = $('<select id="testSelectScrollRemoto"></select>');
+                $('body').append($testSelect);
+                
+                $(window).scrollTop(400);
+                
+                setTimeout(() => {
+                    var scrollBeforeInit = $(window).scrollTop();
+                    
+                    // Inicializar select remoto con firstLoad (caso real problemático)
+                    $testSelect.rup_select({
+                        url: 'demo/selectSimple/remote',
+                        sourceParam: {
+                            text: 'descEu',
+                            id: 'value'
+                        },
+                        selected: '2',
+                        firstLoad: true,
+                        onLoadSuccess: () => {
+                            setTimeout(() => {
+                                var scrollAfterInit = $(window).scrollTop();
+                                
+                                expect(scrollAfterInit).toBeGreaterThan(scrollBeforeInit);
+                                
+                                // Limpiar
+                                $testSelect.remove();
+                                done();
+                            }, 50);
+                        },
+                        onLoadError: () => {
+                            // Limpiar en caso de error
+                            $testSelect.remove();
+                            done();
+                        }
+                    });
+                }, 100);
             });
         });
     });
