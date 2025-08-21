@@ -1537,8 +1537,9 @@
     	 			mySelect.$container.find('input').val(settings.defaultValue);
     	 		}
     	 		if($search != undefined){
-    	 			$search.trigger('keyup');
-    	 			$el.select2('close');
+					$el.select2('trigger', 'query');
+					mySelect.$container.removeClass('select2-container--open');	
+					mySelect.$dropdown[0].remove();
     	 		}else{
     	 			mySelect.selection.trigger('toggle');
     	 			$el.select2('close');
