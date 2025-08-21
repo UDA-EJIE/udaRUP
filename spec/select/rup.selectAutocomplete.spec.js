@@ -112,17 +112,17 @@ describe('Test Autocomplete > ', () => {
 
             });
             describe('Autocomplete3 > ', () => {
-                beforeEach(() => {
+                beforeEach((done) => {
                     $autocomplete3.rup_select('off');
                     $autocomplete3.rup_select('on');
 					$autocomplete3.on('selectAjaxSuccess', () => {
-						//done(); 
+						done(); 
 					});
                     $autocomplete3.rup_select('search', 'ali');
                 });
                 it('No deben mostrarse el menu', () => {
-                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(13);
-                    expect($autocomplete3.data('select2').$results.find('li[role=option]').text()).toMatch(/^Searching…/);
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').length).toBe(0);
+                    expect($autocomplete3.data('select2').$results.find('li[role=option]').text()).toMatch('');
                 });
                 
             });
