@@ -73,55 +73,54 @@
             active: null,
             modo: 'default' //portal
         },
+
         /**
          * Función encargada de crear en el DOM los elementos necesarios para el componente.
          *
-         * @function	_create
+         * @function _create
          * @private
          */
         _create: function () {
+            const self = this;
+            
             global.initRupI18nPromise.then(() => {
                 var active;
-
                 this.options.active = $.rup.lang == null ? '[lang]' : $.rup.lang;
                 active = this.options.active;
                 this.options.languages = $.rup.AVAILABLE_LANGS.split(',');
-                var self = this.element,
-                    aChangeLang = $(`
-                        <a id="rup_language_choice" class="rup-language_change_option">
-                            ${$.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')}
-                        </a>
-                    `);
+
+                var selfElement = this.element,
+                    aChangeLang = $(`<a id="rup_language_choice" class="rup-language_change_option">${$.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')}</a>`);
 
                 //gestion de estilos de jquery-ui
-                $(self).addClass('ui-widget');
+                $(selfElement).addClass('ui-widget');
 
                 if (this.options.modo === 'default') {
-                    let $parent = self.parent(),
-                        $langCurrentText = self.find('[data-rup-lang-current]'),
+                    let $parent = selfElement.parent(),
+                        $langCurrentText = selfElement.find('[data-rup-lang-current]'),
                         $languagesDropdown;
 
                     $parent.addClass('dropdown');
-                    self.addClass('dropdown-toggle')
-                        .attr({
-                            'data-toogle': 'dropdown',
-                            'aria-haspopup': 'true',
-                            'aria-expanded': 'false'
-                        });
-
+                    selfElement.addClass('dropdown-toggle').attr({
+                        'data-toogle': 'dropdown',
+                        'aria-haspopup': 'true',
+                        'aria-expanded': 'false'
+                    });
 
                     $langCurrentText.text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active));
-                    $languagesDropdown = $parent.find('[aria-labelledby=' + self.attr('id') + ']');
+                    $languagesDropdown = $parent.find('[aria-labelledby=' + selfElement.attr('id') + ']');
+
                     $.each(this.options.languages, function (key, value) {
                         value = value.replace(/^\s*|\s*$/g, '');
                         var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-
-                        $languagesDropdown.append($(`
-                            <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value}" class="dropdown-item">${txt}</a>
-                        `));
+                        
+                        // Usar la función para generar la URL correcta
+                        var localeUrl = self._getLocaleChangeUrl(value);
+                        
+                        $languagesDropdown.append($(`<a href="${localeUrl}" class="dropdown-item">${txt}</a>`));
                     });
-                    $parent.append($languagesDropdown);
 
+                    $parent.append($languagesDropdown);
 
                 } else if (this.options.modo === 'portal') {
                     let ul = $('<ul>').addClass('rup-language_portal'),
@@ -130,45 +129,36 @@
                     $.each(this.options.languages, function (key, value) {
                         value = value.replace(/^\s*|\s*$/g, '');
                         var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value + '_short');
+
                         if (value !== active) {
                             const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) +
                                 $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-                            $(`
-                                <li>
-                                    <a href="${'?' + $.rup.LOCALE_PARAM_NAME + '=' + value}"
-                                        class="rup-language_portal_list ui-corner-all"
-                                        title="${title}">
-                                        ${txt}
-                                    </a>
-                                </li>
-                            `).appendTo(ul);
+                            
+                            // Usar la función para generar la URL correcta
+                            var localeUrl = self._getLocaleChangeUrl(value);
+                            
+                            $(`<li><a href="${localeUrl}"
+                                class="rup-language_portal_list ui-corner-all"
+                                title="${title}">${txt}</a></li>`).appendTo(ul);
                         } else {
                             const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') +
                                 $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-                            $(`
-                                <li class="ui-state-active">
-                                    <a href="javascript:void(0);"
-                                        class="rup-language_portal_list_active ui-corner-all"
-                                        title="${title}">
-                                        ${txt}
-                                    </a>
-                                </li>
-                            `).appendTo(ul);
+                            $(`<li class="ui-state-active"><a href="javascript:void(0);"
+                                class="rup-language_portal_list_active ui-corner-all"
+                                title="${title}">${txt}</a></li>`).appendTo(ul);
                         }
-                        //div.appendTo(ulPrincipal);
+
                         if (key < lng_lenght - 1) {
                             ul.append($('<div>').html('|').addClass('rup-language_portal_separator'));
                         }
                     });
 
-                    self.append(ul);
+                    selfElement.append(ul);
 
                 } else if (this.options.modo === 'classic' || this.options.modo === 'jquery-ui') {
-
                     // Carga de los valores por defecto para los atributos que no ha introducido el usuario
                     let ul = $('<ul>').attr('id', 'ulGeneral'),
-                        liIdiomaActivo = $('<li>').attr('id', 'rup_active_language').addClass('rup-language_active').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active))
-                            .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + active)),
+                        liIdiomaActivo = $('<li>').attr('id', 'rup_active_language').addClass('rup-language_active').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active)).attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + active)),
                         liEnlace = $('<li>').addClass('rup-language_change').attr('id', 'rup_language_link'),
                         liListado = $('<li>').attr('id', 'rup_language_list').addClass('rup-language_change_opened').css('visibility', 'hidden'),
                         divCajaIdiomas = $('<div>'),
@@ -193,12 +183,20 @@
                         value = value.replace(/^\s*|\s*$/g, '');
                         var liIdioma = $('<li>').attr('id', 'rup_language_lng_' + value),
                             txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
+
                         if (value !== active) {
-                            $('<a>').appendTo(liIdioma).attr('href', '?' + $.rup.LOCALE_PARAM_NAME + '=' + value).text(txt)
+                            // Usar la función para generar la URL correcta
+                            var localeUrl = self._getLocaleChangeUrl(value);
+                            
+                            $('<a>').appendTo(liIdioma)
+                                .attr('href', localeUrl)
+                                .text(txt)
                                 .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
                         } else {
                             //hacemos que sea el lenguage actual el activo
-                            $('<a>').appendTo(liIdioma).attr('href', 'javascript:void(0);').text(txt)
+                            $('<a>').appendTo(liIdioma)
+                                .attr('href', 'javascript:void(0);')
+                                .text(txt)
                                 .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
                         }
                         liIdioma.appendTo(ulPrincipal);
@@ -207,7 +205,7 @@
                     divCajaIdiomas.append(listadoIdiomas);
                     liListado.append(divCajaIdiomas);
                     ul.append(liListado);
-                    self.append(ul);
+                    selfElement.append(ul);
 
                     var ajust = listadoIdiomas.css('width', '0.8em').width();
                     var saveMargin = liEnlace.css('margin-right');
@@ -243,13 +241,13 @@
 
                     // gestion de eventos del raton sobre la parte del cambio de idioma
                     liListado.mouseenter(function () {
-                        self.one('mouseleave', function () {
+                        selfElement.one('mouseleave', function () {
                             liListado.hide();
                             liEnlace.show();
                         });
                     });
 
-                    self.on('keydown', function (event) {
+                    selfElement.on('keydown', function (event) {
                         switch (event.code) {
                         case "ArrowUp":
                             if ($(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').length > 0) {
@@ -275,11 +273,41 @@
                 }
 
                 // Se aplica el tooltip
-                self.find('[title]').rup_tooltip({
+                selfElement.find('[title]').rup_tooltip({
                     'applyToPortal': true
                 });
             });
         },
+
+        /**
+         * Genera URL de cambio de idioma manteniendo todos los parámetros existentes.
+         * 
+         * @function _getLocaleChangeUrl
+         * @private
+         * @param {string} newLocale - El nuevo idioma a establecer
+         * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
+         * @returns {string} La URL completa con todos los parámetros preservados
+         */
+        _getLocaleChangeUrl: function(newLocale, paramName) {
+            const url = new URL(window.location);
+            const localeParam = paramName || $.rup.LOCALE_PARAM_NAME;
+            url.searchParams.set(localeParam, newLocale);
+            return url.toString();
+        },
+
+        /**
+         * Cambia el idioma redirigiendo a la nueva URL manteniendo parámetros existentes.
+         * 
+         * @function _changeLocale
+         * @private
+         * @param {string} newLocale - El nuevo idioma a establecer
+         * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
+         */
+        _changeLocale: function(newLocale, paramName) {
+            const newUrl = this._getLocaleChangeUrl(newLocale, paramName);
+            window.location.href = newUrl;
+        },
+
         /**
          * Modifica las opciones de configuración del componente.
          *
@@ -298,6 +326,31 @@
          */
         destroy: function () {
             $.Widget.prototype.destroy.apply(this, arguments);
+        },
+
+        /**
+         * Método público para obtener URL de cambio de idioma.
+         * 
+         * @function getLocaleChangeUrl
+         * @param {string} newLocale - El nuevo idioma a establecer
+         * @returns {string} La URL completa con todos los parámetros preservados
+         * @example
+         * var spanishUrl = $("#idlanguage").rup_language("getLocaleChangeUrl", "es");
+         */
+        getLocaleChangeUrl: function(newLocale) {
+            return this._getLocaleChangeUrl(newLocale);
+        },
+
+        /**
+         * Método público para cambiar idioma programáticamente.
+         * 
+         * @function changeLocale
+         * @param {string} newLocale - El nuevo idioma a establecer
+         * @example
+         * $("#idlanguage").rup_language("changeLocale", "es");
+         */
+        changeLocale: function(newLocale) {
+            this._changeLocale(newLocale);
         }
     });
 
