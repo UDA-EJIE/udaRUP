@@ -1538,18 +1538,15 @@
     	 		
     	 		let $el = $('#' + $.escapeSelector(settings.id));
     	 		let mySelect = $el.data('select2');
-    	 		let $search = mySelect.dropdown.$search || mySelect.selection.$search;
+    	 		
     	 		if(settings.autocomplete && settings.defaultValue != undefined){
     	 			mySelect.$container.find('input').val(settings.defaultValue);
     	 		}
-    	 		if($search != undefined){
-					$el.select2('trigger', 'query');
-					mySelect.$container.removeClass('select2-container--open');	
-					mySelect.$dropdown[0].remove();
-    	 		}else{
-    	 			mySelect.selection.trigger('toggle');
-    	 			$el.select2('close');
-    	 		}
+			    //vale para cualquier select o autocomplete
+				$el.select2('trigger', 'query');
+				mySelect.$container.removeClass('select2-container--open');	
+				mySelect.$dropdown[0].remove();
+
     	 	}
  
         },
