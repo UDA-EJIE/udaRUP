@@ -54,312 +54,307 @@
  * $("#idlanguage").rup_language(properties);
  */
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
+(function(factory) {
+	if (typeof define === 'function' && define.amd) {
 
-        // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.tooltip'], factory);
-    } else {
+		// AMD. Register as an anonymous module.
+		define(['jquery', './rup.base', './rup.tooltip'], factory);
+	} else {
 
-        // Browser globals
-        factory(jQuery);
-    }
-}(function ($) {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function($) {
 
+	$.widget('$.rup_language', {
+		options: {
+			languages: null,
+			active: null,
+			modo: 'default' //portal
+		},
 
-    $.widget('$.rup_language', {
-        options: {
-            languages: null,
-            active: null,
-            modo: 'default' //portal
-        },
+		/**
+		 * Función encargada de crear en el DOM los elementos necesarios para el componente.
+		 *
+		 * @function _create
+		 * @private
+		 */
+		_create: function() {
+			const self = this;
 
-        /**
-         * Función encargada de crear en el DOM los elementos necesarios para el componente.
-         *
-         * @function _create
-         * @private
-         */
-        _create: function () {
-            const self = this;
-            
-            global.initRupI18nPromise.then(() => {
-                var active;
-                this.options.active = $.rup.lang == null ? '[lang]' : $.rup.lang;
-                active = this.options.active;
-                this.options.languages = $.rup.AVAILABLE_LANGS.split(',');
+			global.initRupI18nPromise.then(() => {
+				var active;
+				this.options.active = $.rup.lang == null ? '[lang]' : $.rup.lang;
+				active = this.options.active;
+				this.options.languages = $.rup.AVAILABLE_LANGS.split(',');
 
-                var selfElement = this.element,
-                    aChangeLang = $(`<a id="rup_language_choice" class="rup-language_change_option">${$.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')}</a>`);
+				var selfElement = this.element,
+					aChangeLang = $(`<a id="rup_language_choice" class="rup-language_change_option">${$.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')}</a>`);
 
-                //gestion de estilos de jquery-ui
-                $(selfElement).addClass('ui-widget');
+				//gestion de estilos de jquery-ui
+				$(selfElement).addClass('ui-widget');
 
-                if (this.options.modo === 'default') {
-                    let $parent = selfElement.parent(),
-                        $langCurrentText = selfElement.find('[data-rup-lang-current]'),
-                        $languagesDropdown;
+				if (this.options.modo === 'default') {
+					let $parent = selfElement.parent(),
+						$langCurrentText = selfElement.find('[data-rup-lang-current]'),
+						$languagesDropdown;
 
-                    $parent.addClass('dropdown');
-                    selfElement.addClass('dropdown-toggle').attr({
-                        'data-toogle': 'dropdown',
-                        'aria-haspopup': 'true',
-                        'aria-expanded': 'false'
-                    });
+					$parent.addClass('dropdown');
+					selfElement.addClass('dropdown-toggle').attr({
+						'data-toogle': 'dropdown',
+						'aria-haspopup': 'true',
+						'aria-expanded': 'false'
+					});
 
-                    $langCurrentText.text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active));
-                    $languagesDropdown = $parent.find('[aria-labelledby=' + selfElement.attr('id') + ']');
+					$langCurrentText.text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active));
+					$languagesDropdown = $parent.find('[aria-labelledby=' + selfElement.attr('id') + ']');
 
-                    $.each(this.options.languages, function (key, value) {
-                        value = value.replace(/^\s*|\s*$/g, '');
-                        var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-                        
-                        // Usar la función para generar la URL correcta
-                        var localeUrl = self._getLocaleChangeUrl(value);
-                        
-                        $languagesDropdown.append($(`<a href="${localeUrl}" class="dropdown-item">${txt}</a>`));
-                    });
+					$.each(this.options.languages, function(key, value) {
+						value = value.replace(/^\s*|\s*$/g, '');
+						var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
 
-                    $parent.append($languagesDropdown);
+						// Usar la función para generar la URL correcta
+						var localeUrl = self._getLocaleChangeUrl(value);
 
-                } else if (this.options.modo === 'portal') {
-                    let ul = $('<ul>').addClass('rup-language_portal'),
-                        lng_lenght = $(this.options.languages).length;
+						$languagesDropdown.append($(`<a href="${localeUrl}" class="dropdown-item">${txt}</a>`));
+					});
 
-                    $.each(this.options.languages, function (key, value) {
-                        value = value.replace(/^\s*|\s*$/g, '');
-                        var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value + '_short');
+					$parent.append($languagesDropdown);
 
-                        if (value !== active) {
-                            const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) +
-                                $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-                            
-                            // Usar la función para generar la URL correcta
-                            var localeUrl = self._getLocaleChangeUrl(value);
-                            
-                            $(`<li><a href="${localeUrl}"
+				} else if (this.options.modo === 'portal') {
+					let ul = $('<ul>').addClass('rup-language_portal'),
+						lng_lenght = $(this.options.languages).length;
+
+					$.each(this.options.languages, function(key, value) {
+						value = value.replace(/^\s*|\s*$/g, '');
+						var txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value + '_short');
+
+						if (value !== active) {
+							const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) +
+								$.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
+
+							// Usar la función para generar la URL correcta
+							var localeUrl = self._getLocaleChangeUrl(value);
+
+							$(`<li><a href="${localeUrl}"
                                 class="rup-language_portal_list ui-corner-all"
                                 title="${title}">${txt}</a></li>`).appendTo(ul);
-                        } else {
-                            const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') +
-                                $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
-                            $(`<li class="ui-state-active"><a href="javascript:void(0);"
+						} else {
+							const title = $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') +
+								$.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
+							$(`<li class="ui-state-active"><a href="javascript:void(0);"
                                 class="rup-language_portal_list_active ui-corner-all"
                                 title="${title}">${txt}</a></li>`).appendTo(ul);
-                        }
+						}
 
-                        if (key < lng_lenght - 1) {
-                            ul.append($('<div>').html('|').addClass('rup-language_portal_separator'));
-                        }
-                    });
+						if (key < lng_lenght - 1) {
+							ul.append($('<div>').html('|').addClass('rup-language_portal_separator'));
+						}
+					});
 
-                    selfElement.append(ul);
+					selfElement.append(ul);
 
-                } else if (this.options.modo === 'classic' || this.options.modo === 'jquery-ui') {
-                    // Carga de los valores por defecto para los atributos que no ha introducido el usuario
-                    let ul = $('<ul>').attr('id', 'ulGeneral'),
-                        liIdiomaActivo = $('<li>').attr('id', 'rup_active_language').addClass('rup-language_active').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active)).attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + active)),
-                        liEnlace = $('<li>').addClass('rup-language_change').attr('id', 'rup_language_link'),
-                        liListado = $('<li>').attr('id', 'rup_language_list').addClass('rup-language_change_opened').css('visibility', 'hidden'),
-                        divCajaIdiomas = $('<div>'),
-                        listadoIdiomas = $('<div>').addClass('rup-language_language_list'),
-                        cerrarIdioma = $('<a>')
-                            .addClass('rup-language_close_languages')
-                            .attr('id', 'rup_language_close')
-                            .attr('href', '#')
-                            .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.closingLiteral'))
-                            .html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cerrar')),
-                        ulPrincipal = $('<ul>');
+				} else if (this.options.modo === 'classic' || this.options.modo === 'jquery-ui') {
+					// Carga de los valores por defecto para los atributos que no ha introducido el usuario
+					let ul = $('<ul>').attr('id', 'ulGeneral'),
+						liIdiomaActivo = $('<li>').attr('id', 'rup_active_language').addClass('rup-language_active').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.' + this.options.active)).attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + active)),
+						liEnlace = $('<li>').addClass('rup-language_change').attr('id', 'rup_language_link'),
+						liListado = $('<li>').attr('id', 'rup_language_list').addClass('rup-language_change_opened').css('visibility', 'hidden'),
+						divCajaIdiomas = $('<div>'),
+						listadoIdiomas = $('<div>').addClass('rup-language_language_list'),
+						cerrarIdioma = $('<a>').addClass('rup-language_close_languages').attr('id', 'rup_language_close').attr('href', '#').attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.closingLiteral')).html($.rup.i18nParse($.rup.i18n.base, 'rup_global.cerrar')),
+						ulPrincipal = $('<ul>');
 
-                    ul.append(liIdiomaActivo);
+					ul.append(liIdiomaActivo);
+					$('<a>').attr('href', '#').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')).appendTo(liEnlace);
+					ul.append(liEnlace);
+					divCajaIdiomas.append(aChangeLang);
+					listadoIdiomas.append(cerrarIdioma);
 
-                    $('<a>').attr('href', '#').text($.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguage')).appendTo(liEnlace);
-                    ul.append(liEnlace);
-                    divCajaIdiomas.append(aChangeLang);
+					$.each(this.options.languages, function(key, value) {
+						value = value.replace(/^\s*|\s*$/g, '');
+						var liIdioma = $('<li>').attr('id', 'rup_language_lng_' + value),
+							txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
 
-                    listadoIdiomas.append(cerrarIdioma);
+						if (value !== active) {
+							// Usar la función para generar la URL correcta
+							var localeUrl = self._getLocaleChangeUrl(value);
 
-                    $.each(this.options.languages, function (key, value) {
-                        value = value.replace(/^\s*|\s*$/g, '');
-                        var liIdioma = $('<li>').attr('id', 'rup_language_lng_' + value),
-                            txt = $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value);
+							$('<a>').appendTo(liIdioma)
+								.attr('href', localeUrl)
+								.text(txt)
+								.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
+						} else {
+							//hacemos que sea el lenguage actual el activo
+							$('<a>').appendTo(liIdioma)
+								.attr('href', 'javascript:void(0);')
+								.text(txt)
+								.attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
+						}
+						liIdioma.appendTo(ulPrincipal);
+					});
 
-                        if (value !== active) {
-                            // Usar la función para generar la URL correcta
-                            var localeUrl = self._getLocaleChangeUrl(value);
-                            
-                            $('<a>').appendTo(liIdioma)
-                                .attr('href', localeUrl)
-                                .text(txt)
-                                .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral_' + value) + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
-                        } else {
-                            //hacemos que sea el lenguage actual el activo
-                            $('<a>').appendTo(liIdioma)
-                                .attr('href', 'javascript:void(0);')
-                                .text(txt)
-                                .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_language.changeLanguageLiteral') + $.rup.i18nParse($.rup.i18n.base, 'rup_language.' + value));
-                        }
-                        liIdioma.appendTo(ulPrincipal);
-                    });
-                    listadoIdiomas.append(ulPrincipal);
-                    divCajaIdiomas.append(listadoIdiomas);
-                    liListado.append(divCajaIdiomas);
-                    ul.append(liListado);
-                    selfElement.append(ul);
+					listadoIdiomas.append(ulPrincipal);
+					divCajaIdiomas.append(listadoIdiomas);
+					liListado.append(divCajaIdiomas);
+					ul.append(liListado);
+					selfElement.append(ul);
 
-                    var ajust = listadoIdiomas.css('width', '0.8em').width();
-                    var saveMargin = liEnlace.css('margin-right');
-                    liEnlace.css('margin-right', '0px');
-                    listadoIdiomas.width((liListado.position()).left - ajust);
-                    listadoIdiomas.css('padding-left', '0.6em');
-                    listadoIdiomas.css('padding-right', '0.2em');
-                    listadoIdiomas.css('top', liIdiomaActivo.height() - 1);
-                    liListado.hide();
-                    liListado.css('visibility', '');
-                    liEnlace.css('margin-right', saveMargin);
+					var ajust = listadoIdiomas.css('width', '0.8em').width();
+					var saveMargin = liEnlace.css('margin-right');
+					liEnlace.css('margin-right', '0px');
+					listadoIdiomas.width((liListado.position()).left - ajust);
+					listadoIdiomas.css('padding-left', '0.6em');
+					listadoIdiomas.css('padding-right', '0.2em');
+					listadoIdiomas.css('top', liIdiomaActivo.height() - 1);
+					liListado.hide();
+					liListado.css('visibility', '');
+					liEnlace.css('margin-right', saveMargin);
 
-                    //se aplica el lenguage actual el activo
-                    $('#rup_language_lng_' + $.rup.lang).addClass('ui-state-active');
+					//se aplica el lenguage actual el activo
+					$('#rup_language_lng_' + $.rup.lang).addClass('ui-state-active');
 
-                    //evento click para mostrar el listado de idiomas
-                    liEnlace.click(function () {
-                        liEnlace.hide();
-                        liListado.show();
-                        $('.rup-language_language_list').find('li:not(.rup-language_language_list_active)').first().children('a').focus();
-                    });
+					//evento click para mostrar el listado de idiomas
+					liEnlace.click(function() {
+						liEnlace.hide();
+						liListado.show();
+						$('.rup-language_language_list').find('li:not(.rup-language_language_list_active)').first().children('a').focus();
+					});
 
-                    //evento del enlace de cambio de idioma
-                    aChangeLang.click(function () {
-                        liListado.hide();
-                        liEnlace.show();
-                    });
-                    //evento del boton de cerrar
-                    cerrarIdioma.click(function () {
-                        liListado.hide();
-                        liEnlace.show();
-                    });
+					//evento del enlace de cambio de idioma
+					aChangeLang.click(function() {
+						liListado.hide();
+						liEnlace.show();
+					});
 
-                    // gestion de eventos del raton sobre la parte del cambio de idioma
-                    liListado.mouseenter(function () {
-                        selfElement.one('mouseleave', function () {
-                            liListado.hide();
-                            liEnlace.show();
-                        });
-                    });
+					//evento del boton de cerrar
+					cerrarIdioma.click(function() {
+						liListado.hide();
+						liEnlace.show();
+					});
 
-                    selfElement.on('keydown', function (event) {
-                        switch (event.code) {
-                        case "ArrowUp":
-                            if ($(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').length > 0) {
-                                $(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').first().children().focus();
-                            } else {
-                                $(event.target).parent().siblings('li:not(.rup-language_language_list_active)').last().children().focus();
-                            }
-                            break;
-                        case "ArrowDown":
-                            if ($(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').length > 0) {
-                                $(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').first().children().focus();
-                            } else {
-                                $(event.target).parent().siblings('li:not(.rup-language_language_list_active)').first().children().focus();
-                            }
-                            break;
-                        case "Escape":
-                            liListado.hide();
-                            liEnlace.show();
-                            break;
-                        default:
-                        }
-                    });
-                }
+					// gestion de eventos del raton sobre la parte del cambio de idioma
+					liListado.mouseenter(function() {
+						selfElement.one('mouseleave', function() {
+							liListado.hide();
+							liEnlace.show();
+						});
+					});
 
-                // Se aplica el tooltip
-                selfElement.find('[title]').rup_tooltip({
-                    'applyToPortal': true
-                });
-            });
-        },
+					selfElement.on('keydown', function(event) {
+						switch (event.code) {
+							case "ArrowUp":
+								if ($(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').length > 0) {
+									$(event.target).parent().prevAll('li:not(.rup-language_language_list_active)').first().children().focus();
+								} else {
+									$(event.target).parent().siblings('li:not(.rup-language_language_list_active)').last().children().focus();
+								}
+								break;
+							case "ArrowDown":
+								if ($(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').length > 0) {
+									$(event.target).parent().nextAll('li:not(.rup-language_language_list_active)').first().children().focus();
+								} else {
+									$(event.target).parent().siblings('li:not(.rup-language_language_list_active)').first().children().focus();
+								}
+								break;
+							case "Escape":
+								liListado.hide();
+								liEnlace.show();
+								break;
+							default:
+						}
+					});
+				}
 
-        /**
-         * Genera URL de cambio de idioma manteniendo todos los parámetros existentes.
-         * 
-         * @function _getLocaleChangeUrl
-         * @private
-         * @param {string} newLocale - El nuevo idioma a establecer
-         * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
-         * @returns {string} La URL completa con todos los parámetros preservados
-         */
-        _getLocaleChangeUrl: function(newLocale, paramName) {
-            const url = new URL(window.location);
-            const localeParam = paramName || $.rup.LOCALE_PARAM_NAME;
-            url.searchParams.set(localeParam, newLocale);
-            return url.toString();
-        },
+				// Se aplica el tooltip
+				selfElement.find('[title]').rup_tooltip({
+					'applyToPortal': true
+				});
+			});
+		},
 
-        /**
-         * Cambia el idioma redirigiendo a la nueva URL manteniendo parámetros existentes.
-         * 
-         * @function _changeLocale
-         * @private
-         * @param {string} newLocale - El nuevo idioma a establecer
-         * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
-         */
-        _changeLocale: function(newLocale, paramName) {
-            const newUrl = this._getLocaleChangeUrl(newLocale, paramName);
-            window.location.href = newUrl;
-        },
+		/**
+		 * Genera URL de cambio de idioma manteniendo todos los parámetros existentes.
+		 * 
+		 * @function _getLocaleChangeUrl
+		 * @private
+		 * @param {string} newLocale - El nuevo idioma a establecer
+		 * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
+		 * @returns {string} La URL completa con todos los parámetros preservados
+		 */
+		_getLocaleChangeUrl: function(newLocale, paramName) {
+			const url = new URL(window.location);
+			const localeParam = paramName || $.rup.LOCALE_PARAM_NAME;
+			url.searchParams.set(localeParam, newLocale);
+			return url.toString();
+		},
 
-        /**
-         * Modifica las opciones de configuración del componente.
-         *
-         * @function	_setOption
-         * @private
-         */
-        _setOption: function () {
-            $.Widget.prototype._setOption.apply(this, arguments);
-        },
-        /**
-         * Elimina el componente.
-         *
-         * @function	destroy
-         * @example
-         * $("#idlanguage").rup_language("destroy");
-         */
-        destroy: function () {
-            $.Widget.prototype.destroy.apply(this, arguments);
-        },
+		/**
+		 * Cambia el idioma redirigiendo a la nueva URL manteniendo parámetros existentes.
+		 * 
+		 * @function _changeLocale
+		 * @private
+		 * @param {string} newLocale - El nuevo idioma a establecer
+		 * @param {string} [paramName] - Nombre del parámetro de locale (por defecto usa $.rup.LOCALE_PARAM_NAME)
+		 */
+		_changeLocale: function(newLocale, paramName) {
+			const newUrl = this._getLocaleChangeUrl(newLocale, paramName);
+			window.location.href = newUrl;
+		},
 
-        /**
-         * Método público para obtener URL de cambio de idioma.
-         * 
-         * @function getLocaleChangeUrl
-         * @param {string} newLocale - El nuevo idioma a establecer
-         * @returns {string} La URL completa con todos los parámetros preservados
-         * @example
-         * var spanishUrl = $("#idlanguage").rup_language("getLocaleChangeUrl", "es");
-         */
-        getLocaleChangeUrl: function(newLocale) {
-            return this._getLocaleChangeUrl(newLocale);
-        },
+		/**
+		 * Modifica las opciones de configuración del componente.
+		 *
+		 * @function _setOption
+		 * @private
+		 */
+		_setOption: function() {
+			$.Widget.prototype._setOption.apply(this, arguments);
+		},
 
-        /**
-         * Método público para cambiar idioma programáticamente.
-         * 
-         * @function changeLocale
-         * @param {string} newLocale - El nuevo idioma a establecer
-         * @example
-         * $("#idlanguage").rup_language("changeLocale", "es");
-         */
-        changeLocale: function(newLocale) {
-            this._changeLocale(newLocale);
-        }
-    });
+		/**
+		 * Elimina el componente.
+		 *
+		 * @function destroy
+		 * @example
+		 * $("#idlanguage").rup_language("destroy");
+		 */
+		destroy: function() {
+			$.Widget.prototype.destroy.apply(this, arguments);
+		},
 
-    /**
-     * Opciones por defecto de configuración del componente.
-     * @name defaults
-     *
-     * @property {object} languages - Conjunto de idiomas que serán gestionados con el componente. El listado de los mismos, por configuración general, se gestiona a través de la variable jQuery “$.rup.AVAILABLE_LANGS_ARRAY”. Para mas información, consultar el documento “Anexo-Gestion_idiomatica.doc” de la documentación de UDA.
-     * @property {string} [modo] - Determina el tipo de maquetación que utilizara el componente para presentar las diferentes opciones idiomáticas. Si el valor especificado es “portal”, los idiomas se presentaran en un listado horizontal separado por barras (ver ejemplo visual del capítulo/Sección “2. Ejemplo”). En cualquier otro caso, se mostrara el modo por defecto (ver ejemplo visual del capítulo/Sección “2. Ejemplo”).
-     */
+		/**
+		 * Método público para obtener URL de cambio de idioma.
+		 * 
+		 * @function getLocaleChangeUrl
+		 * @param {string} newLocale - El nuevo idioma a establecer
+		 * @returns {string} La URL completa con todos los parámetros preservados
+		 * @example
+		 * var spanishUrl = $("#idlanguage").rup_language("getLocaleChangeUrl", "es");
+		 */
+		getLocaleChangeUrl: function(newLocale) {
+			return this._getLocaleChangeUrl(newLocale);
+		},
+
+		/**
+		 * Método público para cambiar idioma programáticamente.
+		 * 
+		 * @function changeLocale
+		 * @param {string} newLocale - El nuevo idioma a establecer
+		 * @example
+		 * $("#idlanguage").rup_language("changeLocale", "es");
+		 */
+		changeLocale: function(newLocale) {
+			this._changeLocale(newLocale);
+		}
+	});
+
+	/**
+	 * Opciones por defecto de configuración del componente.
+	 * @name defaults
+	 *
+	 * @property {object} languages - Conjunto de idiomas que serán gestionados con el componente. El listado de los mismos, por configuración general, se gestiona a través de la variable jQuery "$.rup.AVAILABLE_LANGS_ARRAY". Para mas información, consultar el documento "Anexo-Gestion_idiomatica.doc" de la documentación de UDA.
+	 * @property {string} [modo] - Determina el tipo de maquetación que utilizara el componente para presentar las diferentes opciones idiomáticas. Si el valor especificado es "portal", los idiomas se presentaran en un listado horizontal separado por barras (ver ejemplo visual del capítulo/Sección "2. Ejemplo"). En cualquier otro caso, se mostrara el modo por defecto (ver ejemplo visual del capítulo/Sección "2. Ejemplo").
+	 */
 
 }));
