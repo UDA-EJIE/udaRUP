@@ -1668,7 +1668,8 @@
 	                $('#' + $.escapeSelector(settings.id)).on('change', function () {
 	                    
 	                });
-	                
+					
+      
 	                // tratar placeHolder
 	                if(settings.placeholder !== undefined && typeof settings.placeholder == 'string'){
 	                	 if(!settings.allowClear){
@@ -1677,9 +1678,12 @@
 																	// for
 																	// custom
 																	// placeholder
-																	// values,
-																	// restaurar
-		                        	return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
+																	// values,// restaurar
+									let textTemplate = settings.placeholder;	
+									if(typeof settings.placeholder !== 'string'){
+										textTemplate = settings.placeholder.text ;
+									}						
+		                        	return $('<span class="select2-selection__placeholder">' + textTemplate+ '</span>');
 		                        }
 		                        
 		                        chargedStyles(data);
@@ -1696,6 +1700,10 @@
 															// asigna el label
 		                		settings.placeholder = self._getBlankLabel(settings.id)
 		                	}
+							//para admitir blank vacios, debe tener un placeHolder
+							if(settings.blank == ''){
+								settings.placeholder = { id: '__ph__', text: settings.placeholder };
+							}
 		                	if(settings.data !== undefined && !settings.multiple){// y si
 																					// no
 																					// es
@@ -1742,7 +1750,11 @@
 			                	settings.templateResult = function (data,span) {
 			                		chargedStyles(data);
 			                		if (data.id === settings.blank) {
-			                			return $('<span class="select2-selection__placeholder">' + data.text + '</span>');
+										let textTemplate = settings.placeholder;	
+										if(typeof settings.placeholder !== 'string'){
+												textTemplate = settings.placeholder.text ;
+										}
+			                			return $('<span class="select2-selection__placeholder">' + textTemplate + '</span>');
 			                		}else  if (data.style != null && data.id !== settings.blank) { // adjust
 																									// for
 																									// custom
@@ -2168,6 +2180,7 @@
 						});
 					}	
 	                $('#' + $.escapeSelector(settings.id)).data('settings', settings);
+					
 	                //Si es remoto, el último evento es: selectAjaxSuccess
 	                $('#' + $.escapeSelector(settings.id)).triggerHandler('selectFinish', settings);
 	            }
