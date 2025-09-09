@@ -360,7 +360,8 @@
       "noMasterPKField": {
         "msg": "Errorea gertatu da xehetasunezko rup_table-a hasieratzerakoan, ezin izan da \"{1}\" aitaren klabearen input-a \"#{0}\" iragazpen-formularioan gehitu.",
         "title": "Errorea taula hasieratzerakoan"
-      }
+      },
+      "missingDetailForm": "Taula hasieratzean \"detailForm\" definitzea falta da."
     },
     "feedback": {
       "deletedOK": "Elementua zuzen ezabatu da.",

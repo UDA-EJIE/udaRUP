@@ -3127,10 +3127,10 @@
                             DataTable.Api().editForm.openSaveDialog('POST', dt, null, ctx.oInit.formEdit.customTitle);
                         }
                     } else {
-                    	$.rup_messages('msgError', {
-                            title: 'Error grave',
-                            message: '<p>Falta definir "detailForm" en la inicialización de la tabla.</p>'
-                        });
+						$.rup_messages('msgError', {
+							title: $.rup.i18nParse($.rup.i18n.base, 'rup_table.errors.errcap'),
+							message: $.rup.i18nParse($.rup.i18n.base, 'rup_table.errors.missingDetailForm')
+						});
                     }
             	});
             } else { //edicion en linea
