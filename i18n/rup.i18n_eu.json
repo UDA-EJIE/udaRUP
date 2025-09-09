@@ -360,7 +360,8 @@
       "noMasterPKField": {
         "msg": "Errorea gertatu da xehetasunezko rup_table-a hasieratzerakoan, ezin izan da \"{1}\" aitaren klabearen input-a \"#{0}\" iragazpen-formularioan gehitu.",
         "title": "Errorea taula hasieratzerakoan"
-      }
+      },
+      "missingDetailForm": "Taula hasieratzean \"detailForm\" definitzea falta da."
     },
     "feedback": {
       "deletedOK": "Elementua zuzen ezabatu da.",
@@ -774,10 +775,6 @@
   },
   "rup_base": {
   	"i18nRupJsonParseError": "Errorea gertatu da literalen JSON fitxategiaren analisian = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
-  	"i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
-  	"cookieLanguageNotSupportedErrorTitle": "'Cookie'-a ez dago jasanduta",
-  	"cookieLanguageNotSupportedError": "Hizkuntzaren 'cookie' ({0}) ez dator bat jasandako hizkuntzekin.\n\nOrria ez da behar bezala erakutsiko.",
-  	"cookieLanguageNotFoundErrorTitle": "Hizkuntzaren 'cookie' a falta da",
-  	"cookieLanguageNotFoundError": "Ez da aurkitu UDAk eskatutako hizkuntza-cookiea ({0}).\nBerrikusi nabigatzailearen konfigurazioa.\n\nOrrialdea ez da behar bezala erakutsiko."
+  	"i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}"
   }
 }

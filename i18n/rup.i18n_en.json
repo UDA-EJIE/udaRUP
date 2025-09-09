@@ -360,7 +360,8 @@
       "noMasterPKField": {
         "msg": "en_Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "en_Error en la inicialización de la tabla"
-      }
+      },
+      "missingDetailForm": "‘DetailForm’ needs to be defined in the table initialisation."
     },
     "feedback": {
       "deletedOK": "en_El elemento se ha borrado correctamente.",
@@ -773,10 +774,6 @@
   },
   "rup_base": {
   	"i18nRupJsonParseError": "en_Se ha producido un error en el análisis del fichero JSON de literales => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
-  	"i18nAppJsonParseError": "en_Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
-  	"cookieLanguageNotSupportedErrorTitle": "en_'Cookie' de idioma no soportada",
-  	"cookieLanguageNotSupportedError": "en_La 'cookie' de idioma ({0}) no se corresponde con los idiomas soportados.\n\nLa página no se mostrará correctamente.",
-  	"cookieLanguageNotFoundErrorTitle": "en_Falta la 'cookie' de idioma",
-  	"cookieLanguageNotFoundError": "en_No se ha encontrado la 'cookie' de idioma ({0}) requerida por UDA.\nRevise la configuración del navegador.\n\nLa página no se mostrará correctamente."
+  	"i18nAppJsonParseError": "en_Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}"
   }
 }

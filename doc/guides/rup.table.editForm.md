@@ -17,7 +17,12 @@ El uso del plugin en el componente se realiza incluyendo en el array de la propi
 $("#idComponente").rup_table({
     formEdit: {
         // Propiedades de configuraci�n del plugin formEdit
-        detailForm: '#example_detail_div',
+        detailForm: {
+            id: '#example_detail_div',
+            customDialog: {
+                width: 1500
+            }
+        },
         customTitle: jQuery.rup.i18nParse(jQuery.rup.i18n.app, 'table.sampleTitle'),
         validate: {
             rules: {
@@ -63,10 +68,15 @@ $("#idComponente").rup_table({
 ```
 ### Propiedades de configuraci�n
 
-Identificador del formulario de edici�n:
+Identificador del formulario de edici�n y propiedades personalizadas para el diálogo:
 ```js
 formEdit: {
-    detailForm: '#example_detail_div'
+    detailForm: {
+        id: '#example_detail_div',
+        customDialog: {
+            width: 1500
+        }
+    }
 }
 ```
 &nbsp;
