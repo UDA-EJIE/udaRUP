@@ -1,23 +1,28 @@
-# RUP Table - Edición en formulario
+# RUP Table - Ediciï¿½n en formulario
 
-Permite la edición de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
-dentro de un diálogo y ofrece las siguientes funcionalidades:
+Permite la ediciï¿½n de los registros de la tabla utilizando un formulario de detalle. El formulario se muestra
+dentro de un diï¿½logo y ofrece las siguientes funcionalidades:
 
-* Añadir un nuevo registro o modificar uno ya existente.
-* Cancelar la inserción o edición de un registro.
-* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ágil sobre los diferentes elementos.
+* Aï¿½adir un nuevo registro o modificar uno ya existente.
+* Cancelar la inserciï¿½n o ediciï¿½n de un registro.
+* Navegar entre los registros mostrados en la tabla para permitir operar de manera mas ï¿½gil sobre los diferentes elementos.
 
 ![Imagen 1](img/rup.table.formEdit_1.png)
 
-# 1. Declaración y configuración
+# 1. Declaraciï¿½n y configuraciï¿½n
 
-El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor formEdit. La configuración del plugin se especifica en la propiedad formEdit.
+El uso del plugin en el componente se realiza incluyendo en el array de la propiedad usePlugins el valor formEdit. La configuraciï¿½n del plugin se especifica en la propiedad formEdit.
 
 ```js
 $("#idComponente").rup_table({
     formEdit: {
-        // Propiedades de configuración del plugin formEdit
-        detailForm: '#example_detail_div',
+        // Propiedades de configuraciï¿½n del plugin formEdit
+        detailForm: {
+            id: '#example_detail_div',
+            customDialog: {
+                width: 1500
+            }
+        },
         customTitle: jQuery.rup.i18nParse(jQuery.rup.i18n.app, 'table.sampleTitle'),
         validate: {
             rules: {
@@ -37,41 +42,46 @@ $("#idComponente").rup_table({
         },
         serializerSplitter: '&@&',
         cancelDeleteFunction: function () {
-            console.log('Ha cancelado la acción de eliminar.');
+            console.log('Ha cancelado la acciï¿½n de eliminar.');
         },
         confirmDialogs: {
             saveDialog: false,
             saveDialogMessages: {
-                titleOnAddAction: 'Título a mostar en diálogos de añadir',
-                messageOnAddAction: 'Mensaje a mostrar en diálogos de añadir',
-                titleOnEditAction: 'Título a mostar en diálogos de editar',
-                messageOnEditAction: 'Mensaje a mostrar en diálogos de editar'
+                titleOnAddAction: 'Tï¿½tulo a mostar en diï¿½logos de aï¿½adir',
+                messageOnAddAction: 'Mensaje a mostrar en diï¿½logos de aï¿½adir',
+                titleOnEditAction: 'Tï¿½tulo a mostar en diï¿½logos de editar',
+                messageOnEditAction: 'Mensaje a mostrar en diï¿½logos de editar'
             },
             cancelDialog: true,
             cancelDialogMessages: {
-                title: 'Título a mostar en diálogos de cancelación',
-                message: 'Mensaje a mostrar en diálogos de cancelación'
+                title: 'Tï¿½tulo a mostar en diï¿½logos de cancelaciï¿½n',
+                message: 'Mensaje a mostrar en diï¿½logos de cancelaciï¿½n'
             },
             deleteDialog: true,
             deleteDialogMessages: {
-                title: 'Título a mostar en diálogos de eliminación',
-                message: 'Mensaje a mostrar en diálogos de eliminación'
+                title: 'Tï¿½tulo a mostar en diï¿½logos de eliminaciï¿½n',
+                message: 'Mensaje a mostrar en diï¿½logos de eliminaciï¿½n'
             }
         }
     }
 });
 ```
-### Propiedades de configuración
+### Propiedades de configuraciï¿½n
 
-Identificador del formulario de edición:
+Identificador del formulario de ediciï¿½n y propiedades personalizadas para el diÃ¡logo:
 ```js
 formEdit: {
-    detailForm: '#example_detail_div'
+    detailForm: {
+        id: '#example_detail_div',
+        customDialog: {
+            width: 1500
+        }
+    }
 }
 ```
 &nbsp;
 
-Permite definir un título permanente en los diálogos del formulario de edición:
+Permite definir un tï¿½tulo permanente en los diï¿½logos del formulario de ediciï¿½n:
 ```js
 formEdit: {
     customTitle: jQuery.rup.i18nParse(jQuery.rup.i18n.app, 'table.sampleTitle')
@@ -88,7 +98,7 @@ formEdit: {
 ```
 &nbsp;
 
-Propiedad que permitirá evitar errores en aquellos formularios en los que el separador por defecto ("&") sea considerado un carácter válido:
+Propiedad que permitirï¿½ evitar errores en aquellos formularios en los que el separador por defecto ("&") sea considerado un carï¿½cter vï¿½lido:
 ```js
 formEdit: {
     // La cadena por defecto es: '&'
@@ -97,7 +107,7 @@ formEdit: {
 ```
 &nbsp;
 
-Propiedad que habilita la posibilidad de incluir cualquier carácter en los campos:
+Propiedad que habilita la posibilidad de incluir cualquier carï¿½cter en los campos:
 ```js
 formEdit: {
     // Desactivado por defecto
@@ -106,7 +116,7 @@ formEdit: {
 ```
 &nbsp;
 
-Endpoint que devolverá el formulario de edición en aquellos casos en los que se haya activado su dinamismo (más información sobre su activación [aquí](./rup.table.md#95-propiedades-adicionales)):
+Endpoint que devolverï¿½ el formulario de ediciï¿½n en aquellos casos en los que se haya activado su dinamismo (mï¿½s informaciï¿½n sobre su activaciï¿½n [aquï¿½](./rup.table.md#95-propiedades-adicionales)):
 ```js
 formEdit: {
     // El valor por defecto es './editForm' aunque puede variar dependiendo del campo urlBase.
@@ -115,36 +125,36 @@ formEdit: {
     addUrl: '/addMultipart',
     // El valor por defecto es '/edit'. Este campo tiene que apuntar al mismo endpoint que el formulario.
     editUrl: '/editMultipart',
-    // Por defecto, el componente siempre enviará el method (puede sobrescribirse) pero pueden añadirse más parámetros mediante el objeto data.
+    // Por defecto, el componente siempre enviarï¿½ el method (puede sobrescribirse) pero pueden aï¿½adirse mï¿½s parï¿½metros mediante el objeto data.
     data: {
-        'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envío de parámetros desde editForm :)'
+        'fixedMessage': 'Este mensaje fijado demuestra la posibilidad del envï¿½o de parï¿½metros desde editForm :)'
     }
 }
 ```
-Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de edición. Los cambios a realizar serían los siguientes:
-* Ponerle el identificador **XXX_detail_form_container** al elemento **div** que contiene la clase **dialog-content-material**. Cabe decir que las tres equises hay que sustituirlas por el identificador de la tabla, por ejemplo, en una tabla con identificador *example*, el identificador a usar en el *div* sería *example_detail_form_container*. Esto sería un ejemplo real: 
+Para que estos formularios funcionen correctamente, hay que llevar a cabo algunas modificaciones en las JSPs de ediciï¿½n. Los cambios a realizar serï¿½an los siguientes:
+* Ponerle el identificador **XXX_detail_form_container** al elemento **div** que contiene la clase **dialog-content-material**. Cabe decir que las tres equises hay que sustituirlas por el identificador de la tabla, por ejemplo, en una tabla con identificador *example*, el identificador a usar en el *div* serï¿½a *example_detail_form_container*. Esto serï¿½a un ejemplo real: 
     ```html
     <!-- Formulario de detalle -->
     <div id="example_detail_div" class="rup-table-formEdit-detail d-none">
-    	<!-- Barra de navegación del detalle -->
+    	<!-- Barra de navegaciï¿½n del detalle -->
     	<div id ="example_detail_navigation" class="row no-gutters"></div>
     	<!-- Separador -->
     	<hr class="m-1">
     	<div id="example_detail_form_container" class="dialog-content-material">
-    		<!-- El Formulario será insertado mediante JavaScript a partir de la JSP tableEditForm -->
+    		<!-- El Formulario serï¿½ insertado mediante JavaScript a partir de la JSP tableEditForm -->
     	</div>
     	<!-- Botonera del formulario de detalle -->
     	<div class="rup-table-buttonpanel-material">
     		<div class="text-right">
-    			<!-- Botón cancelar -->
+    			<!-- Botï¿½n cancelar -->
     			<button id="example_detail_button_cancel" type="button">
     				<spring:message code="cancel" />
     			</button>
-    			<!-- Botón guardar -->
+    			<!-- Botï¿½n guardar -->
     			<button id="example_detail_button_save" type="button">
     				<spring:message code="save" />
     			</button>
-    			<!-- Botón guardar y continuar -->
+    			<!-- Botï¿½n guardar y continuar -->
     			<button id="example_detail_button_save_repeat" type="button">
     				<spring:message code="saveAndContinue" />
     			</button>
@@ -152,7 +162,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
     	</div>
     </div>
     ```
-* Una nueva JSP que contenga únicamente el formulario a usar pero que genere un *action* de manera dinámica en base al *method* recibido desde la capa de cliente, también puede usarse cualquier otra lógica gracias a que los parámetros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
+* Una nueva JSP que contenga ï¿½nicamente el formulario a usar pero que genere un *action* de manera dinï¿½mica en base al *method* recibido desde la capa de cliente, tambiï¿½n puede usarse cualquier otra lï¿½gica gracias a que los parï¿½metros enviados al controlador son totalmente personalizables (recordar incluirlos como atributo del Model para su uso desde la JSP en caso de ser necesario). La siguiente JSP puede ayudar a entender lo anteriormente descrito:
     ```html
     <!-- Formulario -->
 	<c:choose>
@@ -219,7 +229,7 @@ Para que estos formularios funcionen correctamente, hay que llevar a cabo alguna
     ```
 &nbsp;
 
-Añadir validaciones sobre los campos:
+Aï¿½adir validaciones sobre los campos:
 ```js
 formEdit: {
     validate: {
@@ -242,17 +252,17 @@ formEdit: {
 ```
 &nbsp;
 
-Habilitar la personalización de una función a la hora de cancelar, cuando se va a borrar los registros de la tabla:
+Habilitar la personalizaciï¿½n de una funciï¿½n a la hora de cancelar, cuando se va a borrar los registros de la tabla:
 ```js
 formEdit: {
     cancelDeleteFunction: function () {
-        console.log('Ha cancelado la acción de eliminar.');
+        console.log('Ha cancelado la acciï¿½n de eliminar.');
     }
 }
 ```
 &nbsp;
 
-Permitir habilitar o deshabilitar los diálogos de confirmación:
+Permitir habilitar o deshabilitar los diï¿½logos de confirmaciï¿½n:
 ```js
 formEdit: {
     confirmDialogs: {
@@ -264,30 +274,30 @@ formEdit: {
 ```
 &nbsp;
 
-Configurar los títulos y mensajes mostrados en los diálogos de confirmación:
+Configurar los tï¿½tulos y mensajes mostrados en los diï¿½logos de confirmaciï¿½n:
 ```js
 formEdit: {
     confirmDialogs: {
         saveDialogMessages: {
-            titleOnAddAction: 'Título a mostar en diálogos de añadir',
-            messageOnAddAction: 'Mensaje a mostrar en diálogos de añadir',
-            titleOnEditAction: 'Título a mostar en diálogos de editar',
-            messageOnEditAction: 'Mensaje a mostrar en diálogos de editar'
+            titleOnAddAction: 'Tï¿½tulo a mostar en diï¿½logos de aï¿½adir',
+            messageOnAddAction: 'Mensaje a mostrar en diï¿½logos de aï¿½adir',
+            titleOnEditAction: 'Tï¿½tulo a mostar en diï¿½logos de editar',
+            messageOnEditAction: 'Mensaje a mostrar en diï¿½logos de editar'
         },
         cancelDialogMessages: {
-            title: 'Título a mostar en diálogos de cancelación',
-            message: 'Mensaje a mostrar en diálogos de cancelación'
+            title: 'Tï¿½tulo a mostar en diï¿½logos de cancelaciï¿½n',
+            message: 'Mensaje a mostrar en diï¿½logos de cancelaciï¿½n'
         },
         deleteDialogMessages: {
-            title: 'Título a mostar en diálogos de eliminación',
-            message: 'Mensaje a mostrar en diálogos de eliminación'
+            title: 'Tï¿½tulo a mostar en diï¿½logos de eliminaciï¿½n',
+            message: 'Mensaje a mostrar en diï¿½logos de eliminaciï¿½n'
         }
     }
 }
 ```
 &nbsp;
 
-Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deben tener la siguiente estructura:
+Se ha creado tambiï¿½n la posibilidad de tener listas de checkbox, dinï¿½micas y deben tener la siguiente estructura:
 ```xml
 <c:forEach items="${usuario.lugares}" var="lugarapli" varStatus="status" >
     <div class="form-row">      
@@ -299,12 +309,12 @@ Se ha creado también la posibilidad de tener listas de checkbox, dinámicas y deb
 </c:forEach>
 ```		
 Destacan cuatro elementos:
-1. **PATH**: es donde se colocará el array y seguido un punto, después del punto será el atributo name, en el caso del ejemplo checkeado.
+1. **PATH**: es donde se colocarï¿½ el array y seguido un punto, despuï¿½s del punto serï¿½ el atributo name, en el caso del ejemplo checkeado.
 2. **DATA-LISTA**: nombre de la entidad para mapearlo en el controller, en nuestro caso la entidad se llama 'lugares'.
-3. **DATA-CLAVE**: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirán claves con múltiples pks y en caso de ser una lista de String, este parámetro no hay que ponerlo.
+3. **DATA-CLAVE**: clave de la entidad, en caso de ser una lista de objetos, en nuestro ejemplo la clave primaria es 'buzones', no se admitirï¿½n claves con mï¿½ltiples pks y en caso de ser una lista de String, este parï¿½metro no hay que ponerlo.
 4. **DATA-VALOR**: recoge el valor del identificador, la clave primaria.
 
 # 2. Aspectos a tener en cuenta
-Siempre que se vaya a añadir un campo de tipo "hidden" en el formulario para su envío al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderá que es un campo de gestión interna y lo ignorará por ser el comportamiento esperado para este tipo de campos.
+Siempre que se vaya a aï¿½adir un campo de tipo "hidden" en el formulario para su envï¿½o al servidor, es necesario especificarlo con un identificador (id), de lo contrario, el serializador entenderï¿½ que es un campo de gestiï¿½n interna y lo ignorarï¿½ por ser el comportamiento esperado para este tipo de campos.
 
-En los casos en los que se usen los formularios dinámicos (``enableDynamicForms: true``) se ha de tener en cuenta que el formulario que contiene el diálogo de editForm se carga dinámicamente cuando se pulsa sobre los botones de añadir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para más información sobre cómo crear el `colModel`, leer el documento [rup.table](./rup.table.md).
+En los casos en los que se usen los formularios dinï¿½micos (``enableDynamicForms: true``) se ha de tener en cuenta que el formulario que contiene el diï¿½logo de editForm se carga dinï¿½micamente cuando se pulsa sobre los botones de aï¿½adir, editar o clonar (se queda cacheado cuando se repiten las acciones consecutivamente). Para inicializar los componentes de formulario de UDA como el autocomplete, combo o date, hay que hacerlo mediante el `colModel` de tal manera que UDA pueda encargarse de reinicializar los componentes siempre que sea necesario. Para mï¿½s informaciï¿½n sobre cï¿½mo crear el `colModel`, leer el documento [rup.table](./rup.table.md).

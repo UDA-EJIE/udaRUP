@@ -74,12 +74,12 @@
         }
 
         // DetailForm se convierte en función y se inicializan los botones
-        ctx.oInit.formEdit.detailForm = $(ctx.oInit.formEdit.detailForm);
-        ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.find('form').first();
-        ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm[0].id.replace('_detail_div', '');
+        ctx.oInit.formEdit.detailForm.$dialog = $(ctx.oInit.formEdit.detailForm.id);
+        ctx.oInit.formEdit.idForm = ctx.oInit.formEdit.detailForm.$dialog.find('form').first();
+        ctx.oInit.formEdit.id = ctx.oInit.formEdit.detailForm.$dialog[0].id.replace('_detail_div', '');
         if (ctx.oInit.formEdit.detailForm !== undefined &&
-            $('body').find('[aria-describedby=\'' + ctx.oInit.formEdit.detailForm[0].id + '\']').length > 0) {
-            $('body').find('[aria-describedby=\'' + ctx.oInit.formEdit.detailForm[0].id + '\']').remove();
+            $('body').find('[aria-describedby=\'' + ctx.oInit.formEdit.detailForm.$dialog[0].id + '\']').length > 0) {
+            $('body').find('[aria-describedby=\'' + ctx.oInit.formEdit.detailForm.$dialog[0].id + '\']').remove();
         }
 
         // Obtiene el adapter y crea la barra de navegación en función de si la multiselección está o no activada
@@ -92,11 +92,11 @@
         _updateDetailPagination(ctx, 1, 1);
 
         // Añade el botón de cancelar
-        ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_cancel');
+        ctx.oInit.formEdit.buttoCancel = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_button_cancel');
         ctx.oInit.formEdit.buttoCancel.on('click', function () {
             _cancelPopup(ctx);
             // Cierra el dialog
-            ctx.oInit.formEdit.detailForm.rup_dialog('close');
+            ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('close');
         });
         var idRow;
         var rowsBody = $(ctx.nTBody);
@@ -170,7 +170,7 @@
      */
     DataTable.editForm.init = function (ctx) {
     	// Capturar evento de cierre
-        ctx.oInit.formEdit.detailForm.on('dialogbeforeclose', function (event) {
+        ctx.oInit.formEdit.detailForm.$dialog.on('dialogbeforeclose', function (event) {
             if (event.originalEvent !== undefined) { //el evento es cerrado por el aspa
                 ctx.oInit.formEdit.okCallBack = false;
             }
@@ -190,7 +190,7 @@
                     OKFunction: function () {
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
-                        ctx.oInit.formEdit.detailForm.rup_dialog('close');
+                        ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('close');
                         $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
                     },
                     CANCELFunction: function () {
@@ -321,7 +321,7 @@
 
     function _cancelPopup(ctx) {
         ctx.oInit.formEdit.okCallBack = false;
-        var feedback = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
+        var feedback = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_feedback');
 
         //Despues de cerrar
         //Se limpia los elementos.
@@ -359,7 +359,7 @@
      *
      */
     function _addValidation(ctx) {
-        let idTableDetail = ctx.oInit.formEdit.detailForm;
+        let idTableDetail = ctx.oInit.formEdit.detailForm.$dialog;
         let feed = idTableDetail.find('#' + ctx.sTableId + '_detail_feedback');
         let validaciones;
         if (ctx.oInit.formEdit.validate !== undefined) {
@@ -406,7 +406,7 @@
     	let lastAction = ctx.oInit.formEdit.actionType;
 		
 		// Botón de guardar y continuar
-        let buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
+        let buttonContinue = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_button_save_repeat');
         
         // En caso de ser clonado el method ha de ser POST
         if (actionType === 'CLONE') {
@@ -441,7 +441,7 @@
 				$(formContainerID).prepend(receivedForm);
 				
 				ctx.oInit.formEdit.actionType = actionType;
-				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm).find('form').first();
+				ctx.oInit.formEdit.idForm = $(ctx.oInit.formEdit.detailForm.id).find('form').first();
 				
 				// Si el diálogo no ha sido inicializado, se inicializa
 				if (lastAction === undefined) {
@@ -590,8 +590,8 @@
             let loadPromise = $.Deferred();
         	var idForm = ctx.oInit.formEdit.idForm;
         	// Limpiar los errores en caso de haberlos
-	        var feed = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_feedback');
-	        var divErrorFeedback = ctx.oInit.formEdit.detailForm.find('#' + feed.prevObject[0].id);
+	        var feed = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_feedback');
+	        var divErrorFeedback = ctx.oInit.formEdit.detailForm.$dialog.find('#' + feed.prevObject[0].id);
 	        if (divErrorFeedback.length > 0) {
 	            divErrorFeedback.hide();
 	        }
@@ -601,9 +601,9 @@
 	        }
 	
 	        // Botón de guardar
-	        var button = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save');
+	        var button = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_button_save');
 	        // Botón de guardar y continuar
-	        var buttonContinue = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_button_save_repeat');
+	        var buttonContinue = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_button_save_repeat');
 	
 
 	        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditBeforeInitData',ctx);
@@ -738,9 +738,9 @@
 	        $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditBeforeShowForm',ctx);
 	        
 	        // Establecemos el título del formulario
-	        ctx.oInit.formEdit.detailForm.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
-	        ctx.oInit.formEdit.detailForm.rup_dialog('setOption', 'title', title);
-	        ctx.oInit.formEdit.detailForm.rup_dialog('open');
+	        ctx.oInit.formEdit.detailForm.$dialog.rup_dialog(ctx.oInit.formEdit.detailForm.settings);
+	        ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('setOption', 'title', title);
+	        ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('open');
 			
 			//se desactiva los focos para que  se centren en el buscador de los select.
 			if(_haySelectMultipleAutocomplete(ctx.oInit.colModel)){
@@ -819,7 +819,7 @@
 	                });   
 	            }
 	            
-	        	let idTableDetail = ctx.oInit.formEdit.detailForm;
+	        	let idTableDetail = ctx.oInit.formEdit.detailForm.$dialog;
 	            
 	            // Muestra un feedback de error por caracter ilegal
 	            if(!row) {
@@ -893,7 +893,7 @@
 	                });
 	            }
                 
-	            let idTableDetail = ctx.oInit.formEdit.detailForm;
+	            let idTableDetail = ctx.oInit.formEdit.detailForm.$dialog;
 	            
 	            // Muestra un feedback de error por caracter ilegal
 	            if(!row) {
@@ -998,7 +998,7 @@
                             }
                             _callFeedbackOk(ctx, divOkFeedback, msgFeedBack, 'ok'); //Se informa, feedback del formulario
                         } else {
-                            ctx.oInit.formEdit.detailForm.rup_dialog('close');
+                            ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('close');
                             _callFeedbackOk(ctx, ctx.oInit.feedback.$feedbackContainer, msgFeedBack, 'ok'); //Se informa feedback de la tabla
                         }
 
@@ -1348,7 +1348,7 @@
         	let focusedElement = document.activeElement;
             
         	// Eliminar foco del elemento porque va a ser deshabilitado a continuación
-        	if ($(ctx.oInit.formEdit.detailForm).find(focusedElement).length > 0) {
+        	if ($(ctx.oInit.formEdit.detailForm.id).find(focusedElement).length > 0) {
         		focusedElement.blur();
         	}
         }
@@ -1380,7 +1380,7 @@
     function _callNavigationBar(dt) {
         var ctx = dt.settings()[0];
         ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.defaults.adapter];
-        ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_navigation');
+        ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_navigation');
         var settings = {};
         // Funcion para obtener los parametros de navegacion.
         settings.fncGetNavigationParams = function getNavigationParams_multiselection(linkType) {
@@ -1563,7 +1563,7 @@
     function _callNavigationSelectBar(dt) {
         var ctx = dt.settings()[0];
         ctx.oInit._ADAPTER = $.rup.adapter[jQuery.fn.rup_table.defaults.adapter];
-        ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.find('#' + ctx.sTableId + '_detail_navigation');
+        ctx.oInit.formEdit.$navigationBar = ctx.oInit.formEdit.detailForm.$dialog.find('#' + ctx.sTableId + '_detail_navigation');
         var settings = {};
 
         // Funcion para obtener los parametros de navegacion.
@@ -1907,11 +1907,11 @@
                 } else {
                     row.multiselection.selectedIds = ctx.multiselection.selectedIds;
                 }
-                _callSaveAjax(actionType, dt, row, idRow, false, ctx.oInit.formEdit.detailForm, '/deleteAll', true);
+                _callSaveAjax(actionType, dt, row, idRow, false, ctx.oInit.formEdit.detailForm.$dialog, '/deleteAll', true);
             } else {
                 row = ctx.multiselection.selectedIds[0];
                 row = row.replace(regex, '/');
-                _callSaveAjax(actionType, dt, '', idRow, false, ctx.oInit.formEdit.detailForm, '/' + row, true);
+                _callSaveAjax(actionType, dt, '', idRow, false, ctx.oInit.formEdit.detailForm.$dialog, '/' + row, true);
             }
         };
         
@@ -2194,7 +2194,7 @@
         		let deferred = $.Deferred();
     	        DataTable.editForm.init(ctx);
 	            
-		        $(ctx.oInit.formEdit.detailForm).rup_dialog($.extend({}, {
+		        $(ctx.oInit.formEdit.detailForm.id).rup_dialog($.extend({}, {
 	                type: $.rup.dialog.DIV,
 	                autoOpen: false,
 	                modal: true,

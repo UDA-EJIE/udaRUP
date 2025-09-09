@@ -176,7 +176,12 @@ export function createDatatable1(ctx, callback) {
             collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: '#' + idDatatable + '_detail_div',
+			detailForm: {
+				id: '#' + idDatatable + '_detail_div',
+				customDialog: {
+					width: 1500
+				}
+			},
             titleForm: 'Modificar registro',
             saveContinueEdit: true,
             validate: {
@@ -370,7 +375,12 @@ export function createDatatable2(callback) {
             collapsableLayerId: idDatatable + '_filter_fieldset'
         },
         formEdit: {
-            detailForm: '#' + idDatatable + '_detail_div',
+			detailForm: {
+				id: '#' + idDatatable + '_detail_div',
+				customDialog: {
+					width: 1500
+				}
+			},
             titleForm: 'Modificar registro',
             saveContinueEdit: false,
             validate: {
