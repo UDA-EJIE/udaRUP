@@ -3097,11 +3097,11 @@
         	ctx.oInit.buttons.myLastAction = 'add';
             if (ctx.oInit.formEdit !== undefined) {
             	$.when(DataTable.Api().editForm.loadSaveDialogForm(ctx, 'POST')).then(function () {
-            		let idTableDetail = ctx.oInit.formEdit.detailForm;
+            		let idTableDetail = ctx.oInit.formEdit.detailForm.$dialog;
                     // Limpiamos el formulario
-                    if($(idTableDetail).find('form')[0] !== undefined) {
-                    	$(idTableDetail).find('form')[0].reset();
-                        jQuery.each($('select.rup_select',$(idTableDetail)), function (index, elem) {
+                    if(idTableDetail.find('form')[0] !== undefined) {
+                    	idTableDetail.find('form')[0].reset();
+                        jQuery.each($('select.rup_select', idTableDetail), function (index, elem) {
             				jQuery(elem).rup_select('refresh');
                         });
                         if (ctx.multiselection.numSelected > 0) {
@@ -4207,8 +4207,8 @@
                     ctx.oInit.formEdit.okCallBack = true;
                 }
                 _reportsToClipboard(dt, that, exportDataRows, hiddenDiv, textarea);
-                if (ctx.oInit.formEdit !== undefined && !ctx.oInit.formEdit.detailForm.hasClass('d-none')) {//si esta oculto, no hace falta
-                    ctx.oInit.formEdit.detailForm.rup_dialog('close');
+                if (ctx.oInit.formEdit !== undefined && !ctx.oInit.formEdit.detailForm.$dialog.hasClass('d-none')) {//si esta oculto, no hace falta
+                    ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('close');
                 }
             },
             beforeClose: function () {
