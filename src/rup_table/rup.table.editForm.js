@@ -192,6 +192,7 @@
 
             if (ctx.oInit.formEdit.dataOrigin === formSerializado || !ctx.oInit.formEdit.detailForm.settings.cancelDialog) {
                 _cancelPopup(ctx);
+				$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditAfterCloseForm', ctx);
                 return true;
             }
             if (ctx.oInit.formEdit.dataOrigin !== formSerializado && !ctx.oInit.formEdit.okCallBack) {
@@ -202,6 +203,7 @@
                         _cancelPopup(ctx);
                         ctx.oInit.formEdit.okCallBack = true;
                         ctx.oInit.formEdit.detailForm.$dialog.rup_dialog('close');
+						$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormAddEditAfterCloseForm', ctx);
                         $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableMessageOk', ctx);
                     },
                     CANCELFunction: function () {
