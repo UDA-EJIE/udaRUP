@@ -33,7 +33,8 @@
     "test:karma:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
     "test": "run-s build test:karma",
     "test:dev": "run-s build test:karma:dev",
-    "dev": "webpack serve --env dev --open"
+    "dev": "webpack serve --env dev --open",
+    "test:coverage": "karma start --single-run --reporters=progress,coverage karma.conf.js"
   },
   "engines": {
     "node": ">=18.0.0"
