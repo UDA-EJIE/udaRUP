@@ -4,6 +4,21 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: "develop"
+      time: "04:00"
+      timezone: "Europe/Madrid"
+    target-branch: "develop-6.x"
     labels:
       - "dependencies"
+      - "automated"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    # Agrupar actualizaciones menores
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
