@@ -1464,7 +1464,8 @@
 				        });
 				        $request.fail(failure);
 			        }else{// cerrar
-			        	$('#' + $.escapeSelector(settings.id)).select2('close');
+			        	mySelect.$container.removeClass('select2-container--open');	
+						mySelect.$dropdown[0].remove();
 			            if (settings.parent) {
 			                if (typeof settings.parent === 'string') {
 			                  $('#' + $.escapeSelector(settings.parent)).rup_select("enable");
