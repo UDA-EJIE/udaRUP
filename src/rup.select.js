@@ -2153,8 +2153,10 @@
 										}
 
 										if ($search != undefined) {
-											$search.trigger('keyup');
-											$el.select2('close');
+											let mySelectSong = $el.data('select2');
+											$el.select2('trigger', 'query');
+											mySelectSong.$container.removeClass('select2-container--open');	
+											mySelectSong.$dropdown[0].remove();
 										}
 
 										if (!settings.multiple && $("#" + elemId).val() != null && $("#" + elemId).val().trim() != '') {
