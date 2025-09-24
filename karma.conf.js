@@ -186,7 +186,7 @@ module.exports = function (config) {
       '/dist/': '/base/dist/',
       '/demo/': `http://localhost:${BACKEND_PORT}/demo/`,
 
-      // 🎨 Fuentes - todas las rutas posibles
+      // 🎨 Fuentes
       '/css/fonts/': '/base/dist/css/fonts/',
       '/fonts/': '/base/dist/css/fonts/',
       '/x21aResponsive/css/fonts/': '/base/dist/css/fonts/',
