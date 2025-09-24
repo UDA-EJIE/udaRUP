@@ -102,14 +102,40 @@ module.exports = function (config) {
           // 🔄 Transpilación JavaScript con Babel (con instrumentación de cobertura)
           {
             test: /\.js$/,
-            exclude: /node_modules/,
+            // Excluir directorios externos y dependencias
+            exclude: [
+              /node_modules/,
+              /demo/,
+              /test/,
+              /tests/,
+              /build/,
+              /dist/,
+              /coverage/,
+              /\.webpack/,
+              /src\/external/
+            ],
             use: {
               loader: 'babel-loader',
               options: {
                 cacheDirectory: true, // Caché para una compilación más rápida
                 plugins: [
                   ['babel-plugin-istanbul', {
-                    exclude: ['**/*.spec.js', '**/*.test.js', '**/node_modules/**']
+                    exclude: [
+                      '**/node_modules/**',
+                      '**/*.spec.js',
+                      '**/*.test.js',
+                      '**/*.min.js',
+                      '**/demo/**',
+                      '**/test/**',
+                      '**/tests/**',
+                      '**/docs/**',
+                      '**/vendor/**',
+                      '**/lib/**',
+                      '**/libs/**',
+                      '**/externals/**',
+                      '**/external/**',
+                      '**/*.bundle.js'
+                    ]
                   }]
                 ]
               }
