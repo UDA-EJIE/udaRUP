@@ -99,17 +99,24 @@ module.exports = function (config) {
 
       module: {
         rules: [
-          // 🔄 Transpilación JavaScript con Babel
+          // 🔄 Transpilación JavaScript con Babel (con instrumentación de cobertura)
           {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
-                cacheDirectory: true // Caché para una compilación más rápida
+                cacheDirectory: true, // Caché para una compilación más rápida
+                plugins: [
+                  ['babel-plugin-istanbul', {
+                    exclude: ['**/*.spec.js', '**/*.test.js', '**/node_modules/**']
+                  }]
+                ]
               }
             }
           },
+
+
           // 🎨 Procesamiento de CSS para pruebas (inyección directa en DOM)
           {
             test: /\.css$/,
@@ -211,8 +218,27 @@ module.exports = function (config) {
     // 🌐 Navegadores por defecto (Chrome principal, ChromeHeadlessCI como alternativa)
     browsers: ['Chrome', 'ChromeHeadlessCI'],
 
-    // 📈 Reportes de resultados
-    reporters: ['progress', 'spec'],
+    // 📈 Reportes de resultados (siempre incluye cobertura)
+    reporters: ['progress', 'spec', 'coverage'],
+
+    // 📊 Configuración de cobertura
+    coverageReporter: {
+      dir: 'coverage/',
+      reporters: [
+        { type: 'html', subdir: 'html' },           // Reporte HTML navegable
+        { type: 'lcov', subdir: 'lcov' },           // Para SonarQube, Codecov
+        { type: 'text-summary' },                   // Resumen en consola
+        { type: 'cobertura', subdir: 'cobertura' }  // Para Azure DevOps/Jenkins
+      ],
+      check: {
+        global: {
+          statements: 70,  // Mínimo 70% de cobertura de statements
+          branches: 60,    // Mínimo 60% de cobertura de branches
+          functions: 70,   // Mínimo 70% de cobertura de funciones
+          lines: 70        // Mínimo 70% de cobertura de líneas
+        }
+      }
+    },
 
     // ⏱️ Configuración de tiempos de espera optimizada
     browserNoActivityTimeout: 30000,  // 30s sin actividad antes de exceder el tiempo de espera
