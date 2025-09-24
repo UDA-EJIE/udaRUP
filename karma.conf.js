@@ -102,17 +102,14 @@ module.exports = function (config) {
           // 🔄 Transpilación JavaScript con Babel (con instrumentación de cobertura)
           {
             test: /\.js$/,
-            // Excluir directorios externos y dependencias
+            include: [
+              path.resolve(__dirname, 'src')
+            ],
             exclude: [
-              /node_modules/,
-              /demo/,
-              /test/,
-              /tests/,
-              /build/,
-              /dist/,
-              /coverage/,
-              /\.webpack/,
-              /src\/external/
+              path.resolve(__dirname, 'src/core'), // Librerías de terceros 
+              path.resolve(__dirname, 'src/external'), // Dependencias externas 
+              path.resolve(__dirname, 'src/templates.js'), // Plantillas generadas
+              /src[\/\\]adapter[\/\\].*JQueryUIAdapter\.js$/, // Código deprecado
             ],
             use: {
               loader: 'babel-loader',
@@ -121,20 +118,10 @@ module.exports = function (config) {
                 plugins: [
                   ['babel-plugin-istanbul', {
                     exclude: [
-                      '**/node_modules/**',
-                      '**/*.spec.js',
-                      '**/*.test.js',
-                      '**/*.min.js',
-                      '**/demo/**',
-                      '**/test/**',
-                      '**/tests/**',
-                      '**/docs/**',
-                      '**/vendor/**',
-                      '**/lib/**',
-                      '**/libs/**',
-                      '**/externals/**',
+                      '**/core/**',
                       '**/external/**',
-                      '**/*.bundle.js'
+                      '**/templates.js',
+                      '**/adapter/*JQueryUIAdapter.js'
                     ]
                   }]
                 ]
