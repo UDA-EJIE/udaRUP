@@ -29,12 +29,8 @@
     "watch:src": "gulp watch:src",
     "watch:x21a": "gulp watch:x21a",
     "demo": "webpack-dev-server --config=./demo/webpack.config.js",
-    "test:karma": "karma start --single-run --no-auto-watch karma.conf.js",
-    "test:karma:dev": "karma start --reporters html,kjhtml --browsers Chrome karma.conf.js",
-    "test": "run-s build test:karma",
-    "test:dev": "run-s build test:karma:dev",
-    "dev": "webpack serve --env dev --open",
-    "test:coverage": "karma start --single-run --reporters=progress,coverage karma.conf.js"
+    "test:karma": "karma start --single-run --no-auto-watch karma.conf.js --browsers Chrome",
+    "test:karma:ci": "karma start --single-run --no-auto-watch karma.conf.js --browsers ChromeHeadlessCI"
   },
   "engines": {
     "node": ">=18.0.0"

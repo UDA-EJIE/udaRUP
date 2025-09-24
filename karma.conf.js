@@ -2,43 +2,91 @@ const path = require('path');
 const webpack = require('webpack');
 const createBackendServer = require('./backend.js');
 
-let backendServer; // para almacenar la instancia y cerrarla luego
-createBackendServer(8082);
-console.log('[💬 Createeee back:');
+// 🌐 Capturar puerto desde argumentos de línea de comandos
+function getBackendPort() {
+  const args = process.argv;
+  const portIndex = args.findIndex(arg => arg === '--port');
+
+  if (portIndex !== -1 && args[portIndex + 1]) {
+    const port = parseInt(args[portIndex + 1]);
+    if (!isNaN(port) && port > 0 && port < 65536) {
+      return port;
+    }
+  }
+
+  // Puerto por defecto si no se especifica o es inválido
+  return 8082;
+}
+
+const BACKEND_PORT = getBackendPort();
+
+// 🛡️ Gestión del servidor backend
+let backendServer;
+try {
+  backendServer = createBackendServer(BACKEND_PORT);
+  console.log(`[💬 Backend server created on port ${BACKEND_PORT}]`);
+} catch (error) {
+  console.error(`[❌ Failed to create backend server on port ${BACKEND_PORT}:`, error.message);
+  process.exit(1);
+}
+
+// 🧹 Limpieza al finalizar
+process.on('exit', () => {
+  if (backendServer && backendServer.close) {
+    backendServer.close();
+  }
+});
 
 module.exports = function (config) {
-  // 🔍 Detectar si estamos en CI
-  const isCI = process.env.CI === 'true';
-  
   config.set({
     basePath: '',
-    frameworks: ['jasmine'],
-    
+    frameworks: ['jasmine', 'webpack'],
+
+    // 📁 Archivos y recursos necesarios para las pruebas
     files: [
+      // 📚 Dependencias principales incluidas en el paquete
       { pattern: 'node_modules/jquery/dist/jquery.js', included: true, watched: false },
+      { pattern: 'node_modules/underscore/underscore.js', included: true, watched: false },
+
+      // 🎨 Estáticos servidos pero no incluidos en el paquete
       { pattern: 'dist/css/**/*.*', watched: false, included: false, served: true },
       { pattern: 'dist/js/**/*.*', watched: false, included: false, served: true },
-      { pattern: 'dist/css/fonts/*.*', watched: false, included: false, served: true },
-      { pattern: 'dist/css/cursors/*.*', watched: false, included: false, served: true },
-      { pattern: 'dist/css/images/**/*.*', watched: false, included: false, served: true },
       { pattern: 'dist/html/**/*.*', watched: false, included: false, served: true },
+
+      // 🧪 Archivo principal de pruebas (procesado por webpack)
       { pattern: 'test.webpack.js' },
+
+      // 🌐 Recursos de datos y configuración
       { pattern: 'i18n/*.json', watched: false, included: false, served: true },
       { pattern: 'demo/x21a/resources/*.json', watched: true, served: true, included: false },
-      { pattern: 'node_modules/underscore/underscore.js', included: true, watched: false },
       { pattern: 'dist/resources/*.json', watched: false, included: false, served: true },
       { pattern: 'demo/**/*.*', watched: false, included: false, served: true },
     ],
 
+    // ⚙️ Preprocesamiento: webpack + mapa de fuentes para depuración
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
 
+    // 📦 Configuración de webpack optimizada para pruebas
     webpack: {
       mode: 'development',
-      devtool: 'inline-source-map',
+      devtool: 'cheap-module-source-map',
+
+      // 📦 Cache persistente en sistema de archivos
+      cache: {
+        type: 'filesystem',
+        name: 'karma-tests',
+        cacheDirectory: path.resolve(__dirname, 'node_modules/.cache/karma-webpack'),
+        buildDependencies: {
+          config: [__filename], // Si cambia este archivo, se invalida la caché
+        },
+      },
+
       resolve: {
+        symlinks: false,        // Es más rápido si no usa enlaces simbólicos
         modules: ['node_modules', 'src', path.resolve(__dirname, 'src')],
+        // 🔗 Alias para dependencias específicas de blueimp-file-upload
         alias: {
           jqueryUI: 'jquery-ui-dist/jquery-ui.js',
           'load-image': 'blueimp-file-upload/node_modules/blueimp-load-image/js/load-image.js',
@@ -48,18 +96,26 @@ module.exports = function (config) {
           'canvas-to-blob': 'blueimp-file-upload/node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js',
         }
       },
+
       module: {
         rules: [
+          // 🔄 Transpilación JavaScript con Babel
           {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
-                cacheDirectory: true
+                cacheDirectory: true // Caché para una compilación más rápida
               }
             }
           },
+          // 🎨 Procesamiento de CSS para pruebas (inyección directa en DOM)
+          {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+          },
+          // 📄 Manejo de plantillas HTML para calendario
           {
             test: /\.html$/,
             use: {
@@ -71,10 +127,12 @@ module.exports = function (config) {
               }
             }
           },
+          // 📋 Archivos JSON como módulos
           {
             test: /\.json$/,
             type: 'json'
           },
+          // 🔧 Corrección para jquery-migrate (deshabilitar AMD)
           {
             test: require.resolve('jquery-migrate'),
             loader: 'imports-loader',
@@ -84,7 +142,10 @@ module.exports = function (config) {
           }
         ]
       },
+
+      // 🔌 Plugins de webpack
       plugins: [
+        // 💉 Inyectar jQuery globalmente en todos los módulos
         new webpack.ProvidePlugin({
           $: 'jquery',
           jQuery: 'jquery'
@@ -92,89 +153,89 @@ module.exports = function (config) {
       ]
     },
 
-    // 🎯 Configuración de browsers para CI vs desarrollo local
-    browsers: isCI ? ['ChromeHeadlessCI'] : ['Chrome'],
-    
-    // 🚀 Configuración personalizada para CI
+    // 📊 Configuración de webpack middleware (salida limpia)
+    webpackMiddleware: {
+      stats: 'errors-only', // Solo mostrar errores
+      logLevel: 'warn'
+    },
+
+    // 🌐 Navegadores personalizados
     customLaunchers: {
+      // 🤖 Chrome optimizado para CI/CD con flags de estabilidad mejorados
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
         flags: [
-          '--no-sandbox',              // Necesario para GitHub Actions
-          '--disable-gpu',             // Evita problemas de GPU en CI
-          '--disable-web-security',    // Para CORS en tests
+          '--no-sandbox',                    // Esencial para contenedores Docker
+          '--disable-gpu',                   // Estabilidad en entornos sin GPU
+          '--disable-web-security',          // Evitar problemas CORS
           '--disable-features=VizDisplayCompositor',
-          '--remote-debugging-port=9222',
-          '--disable-dev-shm-usage'    // Evita problemas de memoria compartida
+          '--disable-dev-shm-usage',         // Evitar problemas de memoria compartida
+          '--disable-background-timer-throttling',
+          '--disable-renderer-backgrounding',
+          '--disable-backgrounding-occluded-windows',
+          '--disable-extensions',
+          '--disable-default-apps',
+          '--no-first-run',
+          '--disable-component-update',
         ]
       }
     },
 
-    // 📊 Reporters: diferentes para CI vs desarrollo
-    reporters: isCI 
-      ? ['progress', 'coverage']      // CI: compacto + coverage
-      : ['progress', 'spec', 'html'], // Desarrollo: más detallado
-
-    // 📈 Configuración de coverage
-    coverageReporter: {
-      dir: 'coverage/',
-      reporters: [
-        { type: 'html', subdir: 'html' },      // Para ver en navegador
-        { type: 'lcov', subdir: 'lcov' },      // Para herramientas externas
-        { type: 'text-summary' }               // Para ver en consola
-      ],
-      instrumenterOptions: {
-        istanbul: { noCompact: true }
-      }
-    },
-
-    // 📄 HTML reporter (solo para desarrollo local)
-    htmlReporter: {
-      outputDir: 'spec',
-      reportName: 'karma_report',
-    },
-
-    // 📝 Spec reporter (solo para desarrollo local)
-    specReporter: {
-      suppressPassed: true,
-      suppressSkipped: true,
-      showSpecTiming: true
-    },
-
+    // 🔀 Proxies para rutas de la aplicación
     proxies: {
-      // Karma sirve los archivos de tests y assets en /base/
       '/dist/': '/base/dist/',
-      '/demo/': 'http://localhost:8082/demo/',
+      '/demo/': `http://localhost:${BACKEND_PORT}/demo/`,
+
+      // 🎨 Fuentes - todas las rutas posibles
+      '/css/fonts/': '/base/dist/css/fonts/',
       '/fonts/': '/base/dist/css/fonts/',
+      '/x21aResponsive/css/fonts/': '/base/dist/css/fonts/',
+      '/x21aStatics/css/fonts/': '/base/dist/css/fonts/',
+
+      // 🖼️ Imágenes CSS
+      '/css/images/': '/base/dist/css/images/',
       '/rup/css/images/': '/base/dist/css/images/',
-      // Si usas estas rutas en tu app o tests, las redirige correctamente:
-      '/test/': 'http://localhost:8082/test',
+      '/x21aResponsive/css/images/': '/base/dist/css/images/',
+
+      // 🔗 Resto de proxies
+      '/test/': `http://localhost:${BACKEND_PORT}/test/`,
       '/x21aAppWar/': '/',
       '/externals/icons/': '/base/dist/css/externals/icons/',
       '/x21aStatics/rup/': '/base/dist/',
     },
 
-    port: 9877,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    
-    // ⚡ Configuración diferente para CI vs desarrollo
-    autoWatch: !isCI,           // Solo watch en desarrollo
-    singleRun: isCI,            // Solo single-run en CI
-    
-    concurrency: Infinity,
-    
-    // ⏱️ Timeouts más largos para CI
-    browserNoActivityTimeout: isCI ? 120000 : 60000,
-    browserDisconnectTimeout: isCI ? 60000 : 20000,
-    
+    // 🌐 Navegadores por defecto (Chrome principal, ChromeHeadlessCI como alternativa)
+    browsers: ['Chrome', 'ChromeHeadlessCI'],
+
+    // 📈 Reportes de resultados
+    reporters: ['progress', 'spec'],
+
+    // ⏱️ Configuración de tiempos de espera optimizada
+    browserNoActivityTimeout: 30000,  // 30s sin actividad antes de exceder el tiempo de espera
+    browserDisconnectTimeout: 10000,  // 10s para reconectar navegador
+    captureTimeout: 60000,            // 60s para capturar navegador inicial
+    processKillTimeout: 2000,         // 2s para matar procesos colgados
+
+    // 📋 Configuración del reporter spec (salida limpia y detallada)
+    specReporter: {
+      suppressPassed: true,    // Ocultar pruebas que pasan
+      suppressSkipped: true,   // Ocultar pruebas omitidas
+      showSpecTiming: true     // Mostrar tiempo de ejecución
+    },
+
+    // 🎯 Configuración del cliente (navegador)
     client: {
-      clearContext: true,
+      clearContext: true,      // Limpiar contexto entre pruebas
       jasmine: {
-        random: false,
-        failFast: isCI,         // Fallar rápido solo en CI
-        timeoutInterval: 10000
+        random: false,         // Ejecutar pruebas en orden determinístico
+        failFast: false,       // Continuar tras fallos (mejor para depuración)
+        DEFAULT_TIMEOUT_INTERVAL: 15000  // 15s de tiempo de espera por prueba individual
       }
-    }
+    },
+
+    // 🔧 Configuración general de Karma
+    colors: true,              // Salida con colores en consola
+    logLevel: config.LOG_INFO, // Nivel de logging
+    concurrency: Infinity,     // Sin límite de navegadores concurrentes
   });
 };

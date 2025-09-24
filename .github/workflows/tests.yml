@@ -27,7 +27,7 @@ jobs:
     
     # 🎯 Configuración de versiones a probar
     strategy:
-      fail-fast: false  # No cancelar si falla, continuar con otros jobs
+      fail-fast: false  # No cancelar si falla, continuar con otras tareas
       matrix:
         node-version: [22.x]  # Solo Node.js 22 (versión que usamos)
     
@@ -39,15 +39,15 @@ jobs:
           # Descargar historial completo (útil para análisis)
           fetch-depth: 0
         
-      # 🟢 Configurar Node.js con cache automático de npm
+      # 🟢 Configurar Node.js con caché automático de npm
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'  # Cache automático de dependencias
+          cache: 'npm'  # Caché automático de dependencias
           registry-url: 'https://registry.npmjs.org'
           
-      # ℹ️ Mostrar versiones instaladas (útil para debugging)
+      # ℹ️ Mostrar versiones instaladas (útil para depuración)
       - name: Verify Node.js and npm versions
         run: |
           echo "Node.js version: $(node --version)"
@@ -64,9 +64,9 @@ jobs:
             npm install --no-progress
           fi
           
-      # 🧪 Ejecutar tests unitarios con Jasmine/Karma
+      # 🧪 Ejecutar pruebas unitarias con Jasmine/Karma
       - name: Run unit tests
-        run: npm run test:karma  # OBLIGATORIO: debe existir este script
+        run: npm run test:karma:ci
         env:
           # Variables de entorno para CI
           CI: true
@@ -74,24 +74,24 @@ jobs:
           
       # 📊 Generar reporte de cobertura (opcional)
       - name: Generate coverage report
-        run: npm run test:coverage --if-present  # Solo si existe el script
-        continue-on-error: true  # No fallar si no se puede generar coverage
+        run: npm run test:coverage --if-present
+        continue-on-error: true
         
-      # 💾 Guardar resultados de tests como artefactos
+      # 💾 Guardar resultados de pruebas como artefactos
       - name: Upload test results
         uses: actions/upload-artifact@v4
-        if: always()  # Subir siempre, incluso si fallan los tests
+        if: always()  # Subir siempre, incluso si fallan las pruebas
         with:
           name: test-results-node-${{ matrix.node-version }}
           path: |
             coverage/           # Reportes de cobertura
           retention-days: 30   # Guardar por 30 días
 
-  # 📋 Job resumen: verificar que todos los tests pasaron
+  # 📋 Resumen de la tarea: verificar que todas las pruebas pasaron
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: test  # Esperar a que termine el job 'test'
+    needs: test  # Esperar a que termine la tarea 'test'
     if: always() # Ejecutar siempre, incluso si 'test' falla
     
     steps:
