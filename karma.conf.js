@@ -192,6 +192,10 @@ module.exports = function (config) {
       '/x21aResponsive/css/fonts/': '/base/dist/css/fonts/',
       '/x21aStatics/css/fonts/': '/base/dist/css/fonts/',
 
+      // 🖱️ Cursores
+      '/css/cursors/': '/base/dist/css/cursors/',
+      '/x21aResponsive/css/cursors/': '/base/dist/css/cursors/',
+
       // 🖼️ Imágenes CSS
       '/css/images/': '/base/dist/css/images/',
       '/rup/css/images/': '/base/dist/css/images/',
