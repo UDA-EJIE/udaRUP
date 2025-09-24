@@ -84,8 +84,9 @@ module.exports = function (config) {
       },
 
       resolve: {
-        symlinks: false,        // Es más rápido si no usa enlaces simbólicos
+        symlinks: false, // Es más rápido si no usa enlaces simbólicos
         modules: ['node_modules', 'src', path.resolve(__dirname, 'src')],
+
         // 🔗 Alias para dependencias específicas de blueimp-file-upload
         alias: {
           jqueryUI: 'jquery-ui-dist/jquery-ui.js',
@@ -135,6 +136,7 @@ module.exports = function (config) {
             test: /\.css$/,
             use: ['style-loader', 'css-loader']
           },
+
           // 📄 Manejo de plantillas HTML para calendario
           {
             test: /\.html$/,
@@ -147,11 +149,13 @@ module.exports = function (config) {
               }
             }
           },
+
           // 📋 Archivos JSON como módulos
           {
             test: /\.json$/,
             type: 'json'
           },
+
           // 🔧 Corrección para jquery-migrate (deshabilitar AMD)
           {
             test: require.resolve('jquery-migrate'),
