@@ -75,11 +75,6 @@ jobs:
           # Variable de entorno para CI
           NODE_ENV: test
 
-      # 📊 Generar reporte de cobertura (opcional)
-      - name: Generate coverage report
-        run: npm run test:coverage --if-present
-        continue-on-error: true
-
       # 💾 Guardar resultados de pruebas como artefactos
       - name: Upload test results
         uses: actions/upload-artifact@v4
