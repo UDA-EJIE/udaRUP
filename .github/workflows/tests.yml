@@ -63,7 +63,11 @@ jobs:
           else
             npm install --no-progress
           fi
-          
+
+      # 🏗️ Compilar proyecto (genera carpeta dist/)
+      - name: Build project
+        run: npm run build
+
       # 🧪 Ejecutar pruebas unitarias con Jasmine/Karma
       - name: Run unit tests
         run: npm run test:karma:ci
