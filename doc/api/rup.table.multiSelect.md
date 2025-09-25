@@ -5,13 +5,12 @@ MultiSelect for DataTables
 
 **Summary**: MultiSelect  
 **Contact**: datatables.net  
-**Version**: 1.7.0  
+**Version**: 3.0.0  
 **Author**: SpryMedia Ltd (www.sprymedia.co.uk)  
 **Copyright**: SpryMedia Ltd.This source file is free software, available under the following license:  MIT license - http://datatables.net/license/mitThis source file is distributed in the hope that it will be useful, butWITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITYor FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.For details please refer to: http://www.datatables.net  
 
 * [rup.table.multiSelect](#module_rup.table.multiSelect)
     * [~init(dt)](#module_rup.table.multiSelect..init)
-    * [~cellRange(dt, idx, last)](#module_rup.table.multiSelect..cellRange)
     * [~enableMouseSelection(dt)](#module_rup.table.multiSelect..enableMouseSelection)
     * [~enableKeyboardSelection(dt)](#module_rup.table.multiSelect..enableKeyboardSelection)
     * [~rangeSelection(dt)](#module_rup.table.multiSelect..rangeSelection)
@@ -27,7 +26,6 @@ MultiSelect for DataTables
     * [~deselectAllPage(dt)](#module_rup.table.multiSelect..deselectAllPage)
     * [~selectAll(dt)](#module_rup.table.multiSelect..selectAll)
     * [~deselectAll(dt)](#module_rup.table.multiSelect..deselectAll)
-    * [~rowColumnRange(dt, type, idx, last)](#module_rup.table.multiSelect..rowColumnRange)
     * [~clear(ctx, [force])](#module_rup.table.multiSelect..clear)
     * [~initializeMultiselectionProps()](#module_rup.table.multiSelect..initializeMultiselectionProps)
     * [~maintIdsRows(DataTable, id, select, pagina, line)](#module_rup.table.multiSelect..maintIdsRows)
@@ -44,20 +42,6 @@ Se inicializa el componente multiselect
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Es el objeto table. |
-
-<a name="module_rup.table.multiSelect..cellRange"></a>
-
-### rup.table.multiSelect~cellRange(dt, idx, last)
-Add one or more cells to the selection when shift clicking in OS selectionstyle cell selection.Cell range is more complicated than row and column as we want to selectin the visible grid rather than by index in sequence. For example, if youclick first in cell 1-1 and then shift click in 2-2 - cells 1-2 and 2-1should also be selected (and not 1-3, 1-4. etc)
-
-**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
-**Since**: UDA 3.4.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| dt | <code>DataTable.Api</code> | DataTable |
-| idx | <code>object</code> | Cell index to select to |
-| last | <code>object</code> | Cell index to select from |
 
 <a name="module_rup.table.multiSelect..enableMouseSelection"></a>
 
@@ -244,21 +228,6 @@ Metodo que deselecciona todos los elementos.
 | Param | Type | Description |
 | --- | --- | --- |
 | dt | <code>object</code> | Datatable. |
-
-<a name="module_rup.table.multiSelect..rowColumnRange"></a>
-
-### rup.table.multiSelect~rowColumnRange(dt, type, idx, last)
-Add one or more items (rows or columns) to the selection when shift clickingin OS selection style
-
-**Kind**: inner method of [<code>rup.table.multiSelect</code>](#module_rup.table.multiSelect)  
-**Since**: UDA 3.4.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| dt | <code>DataTable.Api</code> | DataTable |
-| type | <code>string</code> | Row or column range selector |
-| idx | <code>object</code> | Item index to select to |
-| last | <code>object</code> | Item index to select from |
 
 <a name="module_rup.table.multiSelect..clear"></a>
 

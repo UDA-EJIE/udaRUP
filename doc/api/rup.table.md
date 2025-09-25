@@ -30,7 +30,6 @@ Genera un table
     * [~_ajaxOptions(options)](#module_rup.table.._ajaxOptions)
     * [~_validValidations(filter, id)](#module_rup.table.._validValidations)
     * [~_ajaxRequestData(data, ctx)](#module_rup.table.._ajaxRequestData)
-    * [~_createSearchPaginator(tabla, settingsT)](#module_rup.table.._createSearchPaginator)
     * [~_clearFilter(options)](#module_rup.table.._clearFilter)
     * [~preConfigureFilter(options)](#module_rup.table..preConfigureFilter)
     * [~preConfigureFilter(options)](#module_rup.table..preConfigureFilter)
@@ -329,19 +328,6 @@ Solicita los datos al servidor
 | --- | --- | --- |
 | data | <code>object</code> | Opciones del table |
 | ctx | <code>object</code> | contexto  del componente table |
-
-<a name="module_rup.table.._createSearchPaginator"></a>
-
-### rup.table~\_createSearchPaginator(tabla, settingsT)
-Gestiona la paginación
-
-**Kind**: inner method of [<code>rup.table</code>](#module_rup.table)  
-**Since**: UDA 3.4.0  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| tabla | <code>object</code> | Objeto que contiene la tabla |
-| settingsT | <code>object</code> | Opciones del componente |
 
 <a name="module_rup.table.._clearFilter"></a>
 

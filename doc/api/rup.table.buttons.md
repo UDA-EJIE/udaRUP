@@ -5,7 +5,7 @@ Buttons for DataTables
 
 **Summary**: Buttons  
 **Contact**: datatables.net  
-**Version**: 2.4.2  
+**Version**: 3.2.3  
 **Author**: SpryMedia Ltd (www.sprymedia.co.uk)  
 **Copyright**: SpryMedia Ltd.This source file is free software, available under the following license:  MIT license - http://datatables.net/license/mitThis source file is distributed in the hope that it will be useful, butWITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITYor FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.For details please refer to: http://www.datatables.net  
 
@@ -30,15 +30,17 @@ Buttons for DataTables
     * [~_draw([container], [buttons])](#module_rup.table.buttons.._draw)
     * [~_expandButton(attachTo, button, inCollection)](#module_rup.table.buttons.._expandButton)
     * [~_buildButton(config, inCollection)](#module_rup.table.buttons.._buildButton) ⇒ <code>object</code>
+    * [~_checkSplitEnable(buttons)](#module_rup.table.buttons.._checkSplitEnable)
+    * [~_checkAnyEnabled(buttons)](#module_rup.table.buttons.._checkAnyEnabled) ⇒
     * [~_nodeToButton(node, [buttons])](#module_rup.table.buttons.._nodeToButton) ⇒ <code>object</code>
     * [~_nodeToHost(node, [buttons])](#module_rup.table.buttons.._nodeToHost) ⇒ <code>array</code>
     * [~_keypress(character, e)](#module_rup.table.buttons.._keypress)
     * [~_removeKey(conf)](#module_rup.table.buttons.._removeKey)
     * [~_resolveExtends(conf)](#module_rup.table.buttons.._resolveExtends) ⇒ <code>object</code>
     * [~_popover(content, hostButton, inOpts)](#module_rup.table.buttons.._popover)
-    * [~_filename(config, incExtension)](#module_rup.table.buttons.._filename)
-    * [~_stringOrFunction(option)](#module_rup.table.buttons.._stringOrFunction) ⇒ <code>null</code> \| <code>string</code>
-    * [~_title(config)](#module_rup.table.buttons.._title)
+    * [~_filename(config, dt)](#module_rup.table.buttons.._filename)
+    * [~_stringOrFunction(option, config, dt)](#module_rup.table.buttons.._stringOrFunction) ⇒ <code>null</code> \| <code>string</code>
+    * [~_title(config, dt)](#module_rup.table.buttons.._title)
     * [~_enableCollection(id)](#module_rup.table.buttons.._enableCollection)
     * [~_disableCollection(id)](#module_rup.table.buttons.._disableCollection)
     * [~_enableButtonAndContextMenuOption(id)](#module_rup.table.buttons.._enableButtonAndContextMenuOption)
@@ -302,6 +304,29 @@ Create an individual button
 | config | <code>object</code> | Resolved button configuration |
 | inCollection | <code>boolean</code> | `true` if a collection button |
 
+<a name="module_rup.table.buttons.._checkSplitEnable"></a>
+
+### rup.table.buttons~\_checkSplitEnable(buttons)
+Spin over buttons checking if splits should be enabled or not.
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| buttons | <code>\*</code> | Array of buttons to check |
+
+<a name="module_rup.table.buttons.._checkAnyEnabled"></a>
+
+### rup.table.buttons~\_checkAnyEnabled(buttons) ⇒
+Check an array of buttons and see if any are enabled in it
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Returns**: true if a button is enabled, false otherwise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| buttons | <code>\*</code> | Button array |
+
 <a name="module_rup.table.buttons.._nodeToButton"></a>
 
 ### rup.table.buttons~\_nodeToButton(node, [buttons]) ⇒ <code>object</code>
@@ -383,7 +408,7 @@ Display (and replace if there is an existing one) a popover attached to a button
 
 <a name="module_rup.table.buttons.._filename"></a>
 
-### rup.table.buttons~\_filename(config, incExtension)
+### rup.table.buttons~\_filename(config, dt)
 Get the file name for an exported file.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -392,11 +417,11 @@ Get the file name for an exported file.
 | Param | Type | Description |
 | --- | --- | --- |
 | config | <code>object</code> | Button configuration |
-| incExtension | <code>boolean</code> | Include the file name extension |
+| dt | <code>object</code> | DataTable instance |
 
 <a name="module_rup.table.buttons.._stringOrFunction"></a>
 
-### rup.table.buttons~\_stringOrFunction(option) ⇒ <code>null</code> \| <code>string</code>
+### rup.table.buttons~\_stringOrFunction(option, config, dt) ⇒ <code>null</code> \| <code>string</code>
 Simply utility method to allow parameters to be given as a function
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -406,10 +431,12 @@ Simply utility method to allow parameters to be given as a function
 | Param | Type | Description |
 | --- | --- | --- |
 | option | <code>undefined</code> \| <code>string</code> \| <code>function</code> | Option |
+| config | <code>object</code> | Button configuration |
+| dt | <code>object</code> | DataTable instance |
 
 <a name="module_rup.table.buttons.._title"></a>
 
-### rup.table.buttons~\_title(config)
+### rup.table.buttons~\_title(config, dt)
 Get the title for an exported file.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -418,6 +445,7 @@ Get the title for an exported file.
 | Param | Type | Description |
 | --- | --- | --- |
 | config | <code>object</code> | Button configuration |
+| dt | <code>object</code> | DataTable instance |
 
 <a name="module_rup.table.buttons.._enableCollection"></a>
 
