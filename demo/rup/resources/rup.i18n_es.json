@@ -687,7 +687,8 @@
       "noMasterPKField": {
         "msg": "Se ha producido un error a la hora de inicializar la rup_table de detalle, no se ha incluído en el formulario de filtrado \"#{0}\" el input de la clave del padre \"{1}\".",
         "title": "Error en la inicialización de la tabla"
-      }
+      },
+      "missingDetailForm": "Falta definir \"detailForm\" en la inicialización de la tabla."
     },
     "feedback": {
       "deletedOK": "El elemento se ha borrado correctamente.",
