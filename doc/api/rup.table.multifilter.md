@@ -5,17 +5,7 @@ Módulo que permite toda multiFilter
 
 **Summary**: Extensión del componente RUP Datatable  
 **Version**: 1.0.0  
-**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);
-Solo podrá usarse esta obra si se respeta la Licencia.
-Puede obtenerse una copia de la Licencia en
-
-     http://ec.europa.eu/idabc/eupl.html
-
-Salvo cuando lo exija la legislación aplicable o se acuerde por escrito,
-el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,
-SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.
-Véase la Licencia en el idioma concreto que rige los permisos y limitaciones
-que establece la Licencia.  
+**License**: Licencia con arreglo a la EUPL, Versión 1.1 exclusivamente (la «Licencia»);Solo podrá usarse esta obra si se respeta la Licencia.Puede obtenerse una copia de la Licencia en     http://ec.europa.eu/idabc/eupl.htmlSalvo cuando lo exija la legislación aplicable o se acuerde por escrito,el programa distribuido con arreglo a la Licencia se distribuye «TAL CUAL»,SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ni expresas ni implícitas.Véase la Licencia en el idioma concreto que rige los permisos y limitacionesque establece la Licencia.  
 **Copyright**: Copyright 2018 E.J.I.E., S.A.  
 
 * [rup.table.multiFilter](#module_rup.table.multiFilter)
@@ -43,8 +33,7 @@ Se inicializa el componente multiFilter
 <a name="module_rup.table.multiFilter..preConfigureMultifilter"></a>
 
 ### rup.table.multiFilter~preConfigureMultifilter(settings)
-Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.
-Este método se ejecuta antes de la incialización del plugin.
+Metodo que realiza la pre-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la incialización del plugin.
 
 **Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
 
@@ -55,8 +44,7 @@ Este método se ejecuta antes de la incialización del plugin.
 <a name="module_rup.table.multiFilter..postConfigureMultifilter"></a>
 
 ### rup.table.multiFilter~postConfigureMultifilter(settings)
-Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.
-Este método se ejecuta antes de la inicialización del plugin.
+Metodo que realiza la post-configuración del plugin de filtrado múltiple del componente RUP Table.Este método se ejecuta antes de la inicialización del plugin.
 
 **Kind**: inner method of [<code>rup.table.multiFilter</code>](#module_rup.table.multiFilter)  
 **Emits**: <code>module:rup\_table#event:rupTable\_multifilter\_fillForm</code>  

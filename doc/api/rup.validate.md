@@ -7,7 +7,13 @@ Permite al usuario validar los datos introducidos en los campos que se presentan
 **See**: El componente está basado en el plugin [jQuery Validation Plugin](http://jqueryvalidation.org/). Para mas información acerca de las funcionalidades y opciones de configuración pinche [aquí](http://jqueryvalidation.org/).  
 **Example**  
 ```js
-var properties={  rules:{      "campoObligatorio":{required:true},      "dni":{required:true,dni:true}  }};$("#formValidaciones").rup_validate(properties);
+var properties={
+  rules:{
+      "campoObligatorio":{required:true},
+      "dni":{required:true,dni:true}
+  }
+};
+$("#formValidaciones").rup_validate(properties);
 ```
 
 * [rup_validate](#module_rup_validate)

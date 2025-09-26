@@ -6,11 +6,7 @@ Permite al usuario introducir datos en una serie de campos para ser enviados al 
 **Summary**: Componente RUP Form.  
 **Example**  
 ```js
-var properties={
-  // Propiedades de configuración
-};
-
-$("#formulario").rup_form(properties);
+var properties={  // Propiedades de configuración};$("#formulario").rup_form(properties);
 ```
 
 * [rup_form](#module_rup_form)
@@ -72,8 +68,7 @@ Realiza la misma función que ajaxSubmit. Se mantiene para asegurar la retrocomp
 
 **Example**  
 ```js
-var options = {};
-jQuery("#form").rup_form("ajaxFormSubmit", options);
+var options = {};jQuery("#form").rup_form("ajaxFormSubmit", options);
 ```
 <a name="module_rup_form..ajaxSubmit"></a>
 
@@ -88,8 +83,7 @@ Realiza el envío del formulario. La configuración de este método es la misma 
 
 **Example**  
 ```js
-var options = {};
-jQuery("#form").rup_form("ajaxSubmit", options);
+var options = {};jQuery("#form").rup_form("ajaxSubmit", options);
 ```
 <a name="module_rup_form..ajaxNotSubmit"></a>
 
@@ -104,8 +98,7 @@ Realiza el envío del formulario. La configuración de este método es la misma 
 
 **Example**  
 ```js
-var options = {};
-jQuery("#form").rup_form("ajaxNotSubmit", options);
+var options = {};jQuery("#form").rup_form("ajaxNotSubmit", options);
 ```
 <a name="module_rup_form..destroy"></a>
 
@@ -115,8 +108,7 @@ Elimina la configuración realizada por el componente sobre el formulario html.
 **Kind**: inner method of [<code>rup\_form</code>](#module_rup_form)  
 **Example**  
 ```js
-var options = {};
-jQuery("#form").rup_form("destroy");
+var options = {};jQuery("#form").rup_form("destroy");
 ```
 <a name="module_rup_form..formSerialize"></a>
 
@@ -187,10 +179,7 @@ Limpia los elementos del formulario.
 
 **Example**  
 ```js
-// Limpiar los campos del formulario
-jQuery("#form").rup_form("clearForm");
-// Limpiar los campos del formulario inlcuyendo los campos hidden
-jQuery("#form").rup_form("clearForm", true);
+// Limpiar los campos del formulariojQuery("#form").rup_form("clearForm");// Limpiar los campos del formulario inlcuyendo los campos hiddenjQuery("#form").rup_form("clearForm", true);
 ```
 <a name="module_rup_form..clearFields"></a>
 
@@ -206,10 +195,7 @@ Limpia los campos especificados mediante el selector de jQuery.
 
 **Example**  
 ```js
-// Limpiar los campos del formulario
-jQuery("#form .specialFields").rup_form("clearFields");
-// Limpiar los campos del formulario inlcuyendo los campos hidden
-jQuery("#form .specialFields").rup_form("clearFields", true);
+// Limpiar los campos del formulariojQuery("#form .specialFields").rup_form("clearFields");// Limpiar los campos del formulario inlcuyendo los campos hiddenjQuery("#form .specialFields").rup_form("clearFields", true);
 ```
 <a name="module_rup_form..configureOptions"></a>
 

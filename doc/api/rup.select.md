@@ -50,6 +50,7 @@ Opciones por defecto de configuración del componente.
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
+| [language] | <code>string</code> |  | Determina el idioma del componente.           Por defecto obtiene el idioma de la aplicación y soporta euskera (eu),           castellano (es), inglés (en) y francés (fr). |
 | [onLoadError] | [<code>onLoadError</code>](#jQuery.rup_select..onLoadError) |  | Función de           callback a ejecutar en caso de que se produzca un error en la           petición de obtención de la lista de elementos a mostrar. |
 | [width] | <code>string</code> | <code>&quot;&#x27;100%&#x27;&quot;</code> | Determina el tamaño del componente            tanto en píxeles como en porcentaje. Su valor por defecto es '100%'. |
 | [blank] | <code>string</code> | <code>null</code> | Se utiliza para declarar un valor           independiente de la lógica de negocio y en ocasiones se           representa como "Seleccione un elemento". Permite establecer un           mensaje independiente por cada select haciendo uso de           $.rup.i18n.app.id._blank (sustituyendo id por el propio de cada           select) o uno genérico por aplicación haciendo uso de           $.rup.i18n.app.rup_select.blank. En caso de no definir ninguno,           se usará el genérico de UDA,           $.rup.i18n.base.rup_select.blankNotDefined. |
