@@ -27,13 +27,6 @@ module.exports = {
   },
   module: {
     rules: [
-		{
-		  test: require.resolve('jquery'),
-		  loader: 'expose-loader',
-		  options: {
-		    exposes: ['$', 'jQuery'],
-		  },
-		},	
       // SCSS a CSS
       {
         test: /\.(scss|sass|css)$/,
