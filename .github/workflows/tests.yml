@@ -39,12 +39,27 @@ jobs:
           # Descargar historial completo (útil para análisis)
           fetch-depth: 0
 
-      # 🟢 Configurar Node.js con caché automático de npm
+      # 🔍 DEBUG: Verificar estructura del repositorio
+      - name: Debug - Repository structure
+        run: |
+          echo "=== Repository structure ==="
+          find . -name "package.json" | head -10
+          echo "=== Current directory ==="
+          pwd
+          ls -la
+          echo "=== Looking for udaRUP directory ==="
+          find . -name "udaRUP" -type d
+          echo "=== Contents of project root ==="
+          ls -la x21a_v6/ || echo "x21a_v6 directory not found"
+          ls -la x21a_v6/udaRUP/ || echo "udaRUP directory not found"
+          echo "=== Looking for package-lock.json ==="
+          find . -name "package-lock.json"
+
+      # 🟢 Configurar Node.js SIN caché específico (para evitar errores)
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm" # Caché automático de dependencias
           registry-url: "https://registry.npmjs.org"
 
       # ℹ️ Mostrar versiones instaladas (útil para depuración)
@@ -55,7 +70,9 @@ jobs:
 
       # 📦 Instalar dependencias del proyecto
       - name: Install dependencies
+        working-directory: x21a_v6/udaRUP
         run: |
+          echo "=== Installing dependencies in $(pwd) ==="
           # Si existe package-lock.json, usar npm ci (más rápido y determinista)
           # Si no, usar npm install tradicional
           if [ -f package-lock.json ]; then
@@ -66,14 +83,50 @@ jobs:
 
       # 🏗️ Compilar proyecto (genera carpeta dist/)
       - name: Build project
-        run: npm run build
+        working-directory: x21a_v6/udaRUP
+        run: |
+          echo "=== Building project in $(pwd) ==="
+          npm run build
+
+      # 🔍 DEBUG: Verificar estado antes de tests
+      - name: Debug - Pre-test environment
+        working-directory: x21a_v6/udaRUP
+        run: |
+          echo "=== Pre-test directory contents ==="
+          pwd
+          ls -la
+          echo "=== Checking for existing coverage ==="
+          ls -la coverage/ || echo "No coverage directory found (expected)"
+          echo "=== Karma config exists? ==="
+          ls -la karma.conf.js || echo "karma.conf.js not found"
 
       # 🧪 Ejecutar pruebas unitarias con Jasmine/Karma
       - name: Run unit tests
-        run: npm run test:karma:ci
+        working-directory: x21a_v6/udaRUP
+        run: |
+          echo "=== Running tests in $(pwd) ==="
+          npm run test:karma:ci
         env:
           # Variable de entorno para CI
           NODE_ENV: test
+
+      # 🔍 DEBUG: Verificar generación de coverage
+      - name: Debug - Post-test coverage check
+        working-directory: x21a_v6/udaRUP
+        run: |
+          echo "=== Post-test directory contents ==="
+          pwd
+          ls -la
+          echo "=== Coverage directory check ==="
+          ls -la coverage/ || echo "Coverage directory not found!"
+          echo "=== Looking for coverage files recursively ==="
+          find . -name "*coverage*" -type d || echo "No coverage directories found"
+          find . -name "*coverage*" -type f || echo "No coverage files found"
+          find . -name "*.lcov" -type f || echo "No lcov files found"
+          echo "=== Full directory tree (max 3 levels) ==="
+          find . -maxdepth 3 -type d | sort
+          echo "=== Absolute path check ==="
+          find /home/runner/work -name "coverage" -type d 2>/dev/null || echo "No coverage in workspace"
 
       # 💾 Guardar resultados de pruebas como artefactos
       - name: Upload test results
@@ -82,8 +135,9 @@ jobs:
         with:
           name: test-results-node-${{ matrix.node-version }}
           path: |
-            coverage/           # Reportes de cobertura
-          retention-days: 30 # Guardar por 30 días
+            x21a_v6/udaRUP/coverage/
+            **/coverage/
+          retention-days: 30
 
   # 📋 Resumen de la tarea: verificar que todas las pruebas pasaron
   test-summary:
