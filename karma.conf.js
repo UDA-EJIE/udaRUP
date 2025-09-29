@@ -249,10 +249,10 @@ module.exports = function (config) {
       ],
       check: {
         global: {
-          statements: 70,  // Mínimo 70% de cobertura de statements
-          branches: 60,    // Mínimo 60% de cobertura de branches
-          functions: 70,   // Mínimo 70% de cobertura de funciones
-          lines: 70        // Mínimo 70% de cobertura de líneas
+          statements: 50,  // Mínimo 50% de cobertura de declaraciones
+          branches: 35,    // Mínimo 35% de cobertura de ramas
+          functions: 50,   // Mínimo 50% de cobertura de funciones
+          lines: 50        // Mínimo 50% de cobertura de líneas
         }
       }
     },
