@@ -1387,14 +1387,14 @@
         }
         
         if (currentRowNum === 1) {
-        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', true);
         } else {
-        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#first_' + $.escapeSelector(tableId) + ', #back_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', false);
         }
         if (currentRowNum === totalRowNum) {
-        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', true);
+        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', true);
         } else {
-        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm).prop('disabled', false);
+        	$('#forward_' + $.escapeSelector(tableId) + ', #last_' + $.escapeSelector(tableId), ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', false);
         }
 
         $('#rup_table_selectedElements_' + $.escapeSelector(tableId)).text($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.defaults.detailForm_pager'), currentRowNum, totalRowNum));
@@ -1519,7 +1519,7 @@
                 $('#first_' + $.escapeSelector(tableId) + '_detail_navigation' + 
                 		', #back_' + $.escapeSelector(tableId) + '_detail_navigation' +
                 		', #forward_' + $.escapeSelector(tableId) + '_detail_navigation' +
-                		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+                		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', true);
             });
 
             // Actualizar la última posición movida
@@ -1628,7 +1628,7 @@
             $('#first_' + $.escapeSelector(tableId) + '_detail_navigation' + 
             		', #back_' + $.escapeSelector(tableId) + '_detail_navigation' +
             		', #forward_' + $.escapeSelector(tableId) + '_detail_navigation' +
-            		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm).prop('disabled', true);
+            		', #last_' + $.escapeSelector(tableId) + '_detail_navigation', ctx.oInit.formEdit.detailForm.$dialog).prop('disabled', true);
             
             return [linkType, execute, changePage, index - 1, npos, newPage, newPageIndex - 1];
         };
