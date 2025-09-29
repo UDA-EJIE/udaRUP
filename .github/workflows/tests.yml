@@ -53,27 +53,68 @@ jobs:
           echo "Node.js version: $(node --version)"
           echo "npm version: $(npm --version)"
 
+      # 🔍 Encontrar automáticamente el directorio del proyecto
+      - name: Find project directory
+        id: find-project
+        run: |
+          echo "=== Finding project directory ==="
+          PROJECT_DIR=""
+
+          # Buscar karma.conf.js para encontrar el directorio del proyecto
+          KARMA_PATH=$(find . -name "karma.conf.js" -type f | head -1)
+          if [ -n "$KARMA_PATH" ]; then
+            PROJECT_DIR=$(dirname "$KARMA_PATH")
+            echo "Found karma.conf.js at: $KARMA_PATH"
+            echo "Project directory: $PROJECT_DIR"
+          else
+            echo "karma.conf.js not found, looking for package.json with test scripts"
+            # Buscar package.json que contenga scripts de test
+            for pkg in $(find . -name "package.json" -type f); do
+              if grep -q "test.*karma" "$pkg" 2>/dev/null; then
+                PROJECT_DIR=$(dirname "$pkg")
+                echo "Found package.json with karma tests at: $pkg"
+                echo "Project directory: $PROJECT_DIR"
+                break
+              fi
+            done
+          fi
+
+          if [ -z "$PROJECT_DIR" ]; then
+            echo "Could not find project directory, using current directory"
+            PROJECT_DIR="."
+          fi
+
+          echo "project_dir=$PROJECT_DIR" >> $GITHUB_OUTPUT
+          echo "Final project directory: $PROJECT_DIR"
+
       # 📦 Instalar dependencias del proyecto
       - name: Install dependencies
-        working-directory: x21a_v6/udaRUP
+        working-directory: ${{ steps.find-project.outputs.project_dir }}
         run: |
+          echo "=== Installing dependencies in $(pwd) ==="
           # Si existe package-lock.json, usar npm ci (más rápido y determinista)
           # Si no, usar npm install tradicional
           if [ -f package-lock.json ]; then
+            echo "Using npm ci (package-lock.json found)"
             npm ci --no-progress --prefer-offline
           else
+            echo "Using npm install (no package-lock.json)"
             npm install --no-progress
           fi
 
       # 🏗️ Compilar proyecto (genera carpeta dist/)
       - name: Build project
-        working-directory: x21a_v6/udaRUP
-        run: npm run build
+        working-directory: ${{ steps.find-project.outputs.project_dir }}
+        run: |
+          echo "=== Building project in $(pwd) ==="
+          npm run build
 
       # 🧪 Ejecutar pruebas unitarias con Jasmine/Karma
       - name: Run unit tests
-        working-directory: x21a_v6/udaRUP
-        run: npm run test:karma:ci
+        working-directory: ${{ steps.find-project.outputs.project_dir }}
+        run: |
+          echo "=== Running tests in $(pwd) ==="
+          npm run test:karma:ci
         env:
           # Variable de entorno para CI
           NODE_ENV: test
@@ -84,7 +125,7 @@ jobs:
         if: always() # Subir siempre, incluso si fallan las pruebas
         with:
           name: coverage-reports-node-${{ matrix.node-version }}
-          path: x21a_v6/udaRUP/coverage/ # Solo reportes de coverage
+          path: ${{ steps.find-project.outputs.project_dir }}/coverage/ # Solo reportes de coverage
           retention-days: 30 # Guardar por 30 días
 
   # 📋 Resumen de la tarea: verificar que todas las pruebas pasaron
