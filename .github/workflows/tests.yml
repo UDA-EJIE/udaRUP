@@ -45,6 +45,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm" # Caché automático de dependencias
+          cache-dependency-path: x21a_v6/udaRUP/package-lock.json # Path específico para cache
           registry-url: "https://registry.npmjs.org"
 
       # ℹ️ Mostrar versiones instaladas (útil para depuración)
