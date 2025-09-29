@@ -39,27 +39,12 @@ jobs:
           # Descargar historial completo (útil para análisis)
           fetch-depth: 0
 
-      # 🔍 DEBUG: Verificar estructura del repositorio
-      - name: Debug - Repository structure
-        run: |
-          echo "=== Repository structure ==="
-          echo "Current working directory: $(pwd)"
-          echo "Repository contents:"
-          ls -la
-          echo "=== Looking for package.json files ==="
-          find . -name "package.json" -type f
-          echo "=== Looking for karma.conf.js files ==="
-          find . -name "karma.conf.js" -type f
-          echo "=== Looking for any udaRUP directories ==="
-          find . -name "*udaRUP*" -type d
-          echo "=== Full directory tree (first 2 levels) ==="
-          find . -maxdepth 2 -type d | sort
-
-      # 🟢 Configurar Node.js
+      # 🟢 Configurar Node.js con caché automático de npm
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "npm" # Caché automático de dependencias
           registry-url: "https://registry.npmjs.org"
 
       # ℹ️ Mostrar versiones instaladas (útil para depuración)
@@ -68,13 +53,13 @@ jobs:
           echo "Node.js version: $(node --version)"
           echo "npm version: $(npm --version)"
 
-      # 🔍 Encontrar el directorio correcto del proyecto
+      # 🔍 Encontrar automáticamente el directorio del proyecto
       - name: Find project directory
         id: find-project
         run: |
           echo "=== Finding project directory ==="
           PROJECT_DIR=""
-          
+
           # Buscar karma.conf.js para encontrar el directorio del proyecto
           KARMA_PATH=$(find . -name "karma.conf.js" -type f | head -1)
           if [ -n "$KARMA_PATH" ]; then
@@ -93,12 +78,12 @@ jobs:
               fi
             done
           fi
-          
+
           if [ -z "$PROJECT_DIR" ]; then
             echo "Could not find project directory, using current directory"
             PROJECT_DIR="."
           fi
-          
+
           echo "project_dir=$PROJECT_DIR" >> $GITHUB_OUTPUT
           echo "Final project directory: $PROJECT_DIR"
 
@@ -107,7 +92,6 @@ jobs:
         working-directory: ${{ steps.find-project.outputs.project_dir }}
         run: |
           echo "=== Installing dependencies in $(pwd) ==="
-          ls -la
           # Si existe package-lock.json, usar npm ci (más rápido y determinista)
           # Si no, usar npm install tradicional
           if [ -f package-lock.json ]; then
@@ -125,20 +109,6 @@ jobs:
           echo "=== Building project in $(pwd) ==="
           npm run build
 
-      # 🔍 DEBUG: Verificar estado antes de tests
-      - name: Debug - Pre-test environment
-        working-directory: ${{ steps.find-project.outputs.project_dir }}
-        run: |
-          echo "=== Pre-test directory contents ==="
-          pwd
-          ls -la
-          echo "=== Checking for existing coverage ==="
-          ls -la coverage/ || echo "No coverage directory found (expected)"
-          echo "=== Karma config exists? ==="
-          ls -la karma.conf.js || echo "karma.conf.js not found"
-          echo "=== Package.json scripts ==="
-          cat package.json | grep -A 10 '"scripts"' || echo "No scripts found"
-
       # 🧪 Ejecutar pruebas unitarias con Jasmine/Karma
       - name: Run unit tests
         working-directory: ${{ steps.find-project.outputs.project_dir }}
@@ -149,22 +119,6 @@ jobs:
           # Variable de entorno para CI
           NODE_ENV: test
 
-      # 🔍 DEBUG: Verificar generación de coverage
-      - name: Debug - Post-test coverage check
-        working-directory: ${{ steps.find-project.outputs.project_dir }}
-        run: |
-          echo "=== Post-test directory contents ==="
-          pwd
-          ls -la
-          echo "=== Coverage directory check ==="
-          ls -la coverage/ || echo "Coverage directory not found!"
-          echo "=== Looking for coverage files recursively ==="
-          find . -name "*coverage*" -type d || echo "No coverage directories found"
-          find . -name "*coverage*" -type f || echo "No coverage files found"
-          find . -name "*.lcov" -type f || echo "No lcov files found"
-          echo "=== Full directory tree (max 3 levels) ==="
-          find . -maxdepth 3 -type d | sort
-
       # 💾 Guardar resultados de pruebas como artefactos
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -173,7 +127,15 @@ jobs:
           name: test-results-node-${{ matrix.node-version }}
           path: |
             ${{ steps.find-project.outputs.project_dir }}/coverage/
-            **/coverage/
+            ${{ steps.find-project.outputs.project_dir }}/test-results/
+            ${{ steps.find-project.outputs.project_dir }}/reports/
+          # 🚫 Excluir explícitamente node_modules y otros archivos innecesarios
+          exclude: |
+            **/node_modules/**
+            **/.git/**
+            **/.cache/**
+            **/tmp/**
+            **/*.log
           retention-days: 30
 
   # 📋 Resumen de la tarea: verificar que todas las pruebas pasaron
