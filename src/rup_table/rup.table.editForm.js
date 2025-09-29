@@ -1200,7 +1200,7 @@
 					$.fn.deleteAutocompleteLabelFromObject(ajaxOptions.data);
 
 					// Elimina los campos autogenerados por los multicombos que no forman parte de la entidad
-					$.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm);
+					$.fn.deleteMulticomboLabelFromObject(ajaxOptions.data, ctx.oInit.formEdit.detailForm.$dialog);
 
 					// Comprueba si debe enviarse como multipart.
 					if (ctx.oInit.formEdit.multipart === true) {
