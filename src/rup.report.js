@@ -175,9 +175,6 @@
                 }
 
             }
-
-            //Se audita el componente
-            $.rup.auditComponent('rup_report', 'init');
         },
         _checkButton: function (button, errors) {
             var buttonId = button.id.substring(button.id.lastIndexOf('##') + 2);
