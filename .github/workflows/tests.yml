@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "=== Finding project directory ==="
           PROJECT_DIR=""
-          
+
           # Buscar karma.conf.js para encontrar el directorio del proyecto
           KARMA_PATH=$(find . -name "karma.conf.js" -type f | head -1)
           if [ -n "$KARMA_PATH" ]; then
@@ -78,12 +78,12 @@ jobs:
               fi
             done
           fi
-          
+
           if [ -z "$PROJECT_DIR" ]; then
             echo "Could not find project directory, using current directory"
             PROJECT_DIR="."
           fi
-          
+
           echo "project_dir=$PROJECT_DIR" >> $GITHUB_OUTPUT
           echo "Final project directory: $PROJECT_DIR"
 
