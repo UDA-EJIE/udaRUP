@@ -1381,7 +1381,8 @@
 								  return v.id == settings.selected;
 							  }
 						  });
-				          if( $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') != ''){
+				          if( $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') != '' && 
+							  $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue') != settings.blank){
 				        	  seleccionado = $.grep(data, function (v) {
 				                    return v.id == $('#' + $.escapeSelector(settings.id)).rup_select('getRupValue');
 				                  });
