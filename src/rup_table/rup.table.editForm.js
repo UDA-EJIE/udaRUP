@@ -1218,7 +1218,7 @@
                         _callFeedbackOk(ctx, divErrorFeedback, xhr.responseText, 'error');
     				}
 
-                    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjax', [ctx, actionType]);
+                    $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditFormErrorCallSaveAjax', [ctx, actionType, xhr]);
                 },
                 validate: validaciones,
                 feedback: feed.rup_feedback({
