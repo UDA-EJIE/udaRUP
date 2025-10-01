@@ -1198,13 +1198,13 @@
     				if (xhr.status === 406 && xhr.responseText !== '') {
     					try {
     						let responseJSON = JSON.parse(xhr.responseText);
-    						if (responseJSON.rupErrorFields) {
-    							if (responseJSON.rupErrorFields !== undefined || responseJSON.rupFeedback !== undefined) {
+    						if (responseJSON.rupErrorFields || responseJSON.rupFeedback) {
+    							if (responseJSON.rupErrorFields !== undefined) {
     								let $form = ctx.oInit.formEdit.idForm;
     								$form.validate().submitted = $.extend(true, $form.validate().submitted, responseJSON.rupErrorFields);
     								$form.validate().invalid = responseJSON.rupErrorFields;
     								$form.validate().showErrors(responseJSON.rupErrorFields);
-    							} else if (errors.rupFeedback !== undefined) {
+    							} else if (responseJSON.rupFeedback !== undefined) {
     								let mensajeJSON = $.rup_utils.printMsg(responseJSON.rupFeedback.message);
     								_callFeedbackOk(ctx, divErrorFeedback, mensajeJSON, 'error');
     							}
