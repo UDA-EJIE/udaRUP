@@ -52,19 +52,19 @@
          * @name options
          *
          * @property {string}  [type=null] - Tipo de feedback a mostrar [ok, alert, error].
+         * @property {string}  [adapter=feedback_material] - Adaptador a utilizar para el renderizado del feedback.
          * @property {string}  [message]  -  Mensaje que se mostrará en el feedback. Si no se define simplemente se creará el objeto donde se mostrarán los mensajes
          * @property {Number}  [imgClass=null] - Clase que determina el estilo que se va a aplicar en el icono del feedback.
          * @property {Number}  [delay=null] - Espera (ms) que va a aplicarse antes de ocultar el feedback.
          * @property {Number}  [fadeSpeed=null] - Tiempo (ms) que va a durar la animación de ocultación del feedback.
-         * @property {boolean} [gotoTop=true] - Drmina si cuando se muestre el feedback se debe desplazar la
-         * @property {boolean} [customGoTo=null] - Drmina si cuando se muestre el feedback donde se debe desplazar la página.
-         * @property {boolean}  [block=true] - Indica si la capa que contendrá el mensaje de feedback debe tener o
-no un espacio fijo en la pantalla.
-         * @property {closeLink}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario
-de la aplicación pueda cerrar la capa manualmente.
+         * @property {boolean} [gotoTop=true] - Determina si cuando se muestre el feedback se debe desplazar la página al inicio.
+         * @property {boolean} [customGoTo=null] - Determina si cuando se muestre el feedback donde se debe desplazar la página.
+         * @property {boolean}  [block=true] - Indica si la capa que contendrá el mensaje de feedback debe tener o no un espacio fijo en la pantalla.
+         * @property {boolean}  [closeLink=true] - Indica si la capa de feedback tendrá un enlace para que el usuario de la aplicación pueda cerrar la capa manualmente.
          */
         options: {
-            type: null, //[ok, alert, error]
+            type: null,
+            adapter: 'feedback_material',
             imgClass: null,
             delay: null,
             fadeSpeed: null,
@@ -123,24 +123,24 @@ de la aplicación pueda cerrar la capa manualmente.
             var opciones = this.options;
             opciones._idFeedback =
                 this.element
-                    .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].containerClass())
+                    .addClass($.rup.adapter[opciones.adapter].containerClass())
                     .addClass(opciones.imgClass != null ? opciones.imgClass : opciones.type != null ? 'rup-feedback_image rup-feedback_image_' + opciones.type : '')
                     .attr({
                         role: 'alert'
                     })
                     .css('display', opciones.block ? 'block' : 'none')
                     .css('visibility', 'hidden')
-                    .append($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(opciones.type))
+                    .append($.rup.adapter[opciones.adapter].feedbackIcon(opciones.type))
                     .attr('id');
 
             //Crear capa cierre
             opciones._divClose = $('<div></div>')
-                .html($.rup.adapter[$.fn.rup_feedback.defaults.adapter].closeIcon())
+                .html($.rup.adapter[opciones.adapter].closeIcon())
                 .attr('id', opciones._idFeedback + '_closeDiv')
                 .attr('title', $.rup.i18nParse($.rup.i18n.base, 'rup_feedback.closingLiteral'))
                 .addClass('rup-feedback_closeLink')
-                .addClass($.rup.adapter[$.fn.rup_feedback.defaults.adapter].classComponent());
-			
+                .addClass($.rup.adapter[opciones.adapter].classComponent());
+
             //Si se define texto sacarlo
             if (opciones.message) {
                 this.set(opciones.message, opciones.type, opciones.imgClass);
@@ -214,7 +214,7 @@ de la aplicación pueda cerrar la capa manualmente.
                 }
                 type = type.toLowerCase();
                 element.find('i').not('.mdi.mdi-close').eq(0).remove();
-                element.prepend($.rup.adapter[$.fn.rup_feedback.defaults.adapter].feedbackIcon(type));
+                element.prepend($.rup.adapter[opciones.adapter].feedbackIcon(type));
                 element.addClass('rup-feedback_image_' + type);
                 opciones.type = type;
             } else if (type === null) {
@@ -353,44 +353,11 @@ de la aplicación pueda cerrar la capa manualmente.
        */
             jQuery(this.element).triggerHandler('rupFeedback_show');
         }
-
-        //*******************************************************
-        // DEFINICIÓN DE LA CONFIGURACION POR DEFECTO DEL PATRON
-        //*******************************************************
-        /*  $.fn.rup_feedback.defaults = {
-        adapter = "feedback_material"
-      };*/
-
-        /**
-     * Permite cambiar las propiedades definidas en el feedback.<br/><br/>
-     * Puede invocarase antes que la funcion set(…) para modificar cualquiera de los parámetros del mensaje a mostar: icono, imagen personalizada, tiempo de espera hasta desaparecer…
-     *
-     * @name jQuery.rup_feedback#option
-     * @function
-     * @param {Object|string} param1 - Primer parámetro de invocación.<br/>
-     * Puede tratarse de un Object que contenga varios parámetros o un string que indica el nombre del parámetro.
-     * @param {*} [param2] - Segundo parámetro de invocación.<br/>
-     * En caso de que el primer parámetro sea un string este será el valor correspondiente del parámetro identificado con el nombre de param1.
-     * @example
-     * // Feedback cambio propiedad simple
-     * $("#id_capa").rup_feedback("option","closeLink", false);
-     * @example
-     * //Feedback cambio varias propiedades
-     * var properties = {"closeLink":false, "block":false};
-     * $("#id_capa").rup_feedback("option", properties);
-     */
     });
-    /*  $.fn.rup_feedback.defaults = {
-      adapter = "feedback_material"
-    };*/
 
     var rup_feedback = {};
 
     //Se configura el arranque de UDA para que alberge el nuevo patrón
     $.extend($.rup.iniRup, $.rup.rupSelectorObjectConstructor('rup_feedback', rup_feedback));
-
-    $.fn.rup_feedback.defaults = {
-        adapter: 'feedback_material'
-    };
 
 }));
