@@ -1,25 +1,56 @@
 /*global jQuery */
 /*global define */
 
+/**
+ * @fileoverview ToolbarJQueryUIAdapter - Adaptador para toolbar jQuery UI
+ * @deprecated Este adaptador está deprecado desde v6.3.0. Usar ToolbarMaterialAdapter en su lugar.
+ * @todo Será eliminado en v7.0.0
+ * @see ToolbarMaterialAdapter Para el reemplazo recomendado
+ */
+
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-
         // AMD. Register as an anonymous module.
         define(['jquery', '../rup.base', '../templates'], factory);
     } else {
-
         // Browser globals
         root.ToolbarJQueryUIAdapter = factory(jQuery);
     }
 }(this, function ($) {
 
+    /**
+     * @deprecated Desde v6.3.0 - Usar ToolbarMaterialAdapter en su lugar
+     * @constructor
+     */
     function ToolbarJQueryUIAdapter() {
-
+        // Sin advertencia en el constructor para no saturar la consola con mensajes incluso cuando no se usa el adaptador
     }
 
     ToolbarJQueryUIAdapter.prototype.NAME = 'toolbar_jqueryui';
 
+    /**
+     * Muestra una advertencia de deprecación una sola vez por método
+     * @private
+     * @param {string} methodName Nombre del método deprecado
+     * @param {string} flagName Nombre de la bandera para controlar si ya se mostró
+     */
+    ToolbarJQueryUIAdapter._showDeprecationWarning = function (methodName, flagName) {
+        if (!ToolbarJQueryUIAdapter[flagName]) {
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn(`ToolbarJQueryUIAdapter.${methodName} está deprecado desde v6.3.0. Migrar a ToolbarMaterialAdapter.`);
+            }
+            ToolbarJQueryUIAdapter[flagName] = true;
+        }
+    };
+
+    /**
+     * @deprecated Desde v6.3.0 - Usar addButton de ToolbarMaterialAdapter
+     * @param {Object} obj Configuración del botón
+     * @param {Object} json_i18n Objeto de internacionalización
+     * @returns {jQuery} Elemento botón
+     */
     ToolbarJQueryUIAdapter.prototype.addButton = function (obj, json_i18n) { //añade a la toolbar un 'button'
+        ToolbarJQueryUIAdapter._showDeprecationWarning('addButton', '_addButtonWarningShown');
 
         var buttonId, rightObjects;
 
@@ -39,14 +70,11 @@
             'id': buttonId
         });
 
-
         boton.rup_button(obj);
         boton.button('option', 'icons', {
             primary: obj.css,
             secondary: null
         });
-
-
 
         // Si fuera necesario, se añade el estilo para la ubicación derecha y se gestiona su indexado
         if (obj.right !== undefined && obj.right === true) {
@@ -80,12 +108,19 @@
         return boton;
     };
 
-
+    /**
+     * @deprecated Desde v6.3.0 - Usar addMButton de ToolbarMaterialAdapter
+     * @param {Object} obj Configuración del botón menú
+     * @param {Object} json_i18n Objeto de internacionalización
+     * @returns {jQuery} Elemento botón menú
+     */
     ToolbarJQueryUIAdapter.prototype.addMButton = function (obj, json_i18n) { //añade a la toolbar un 'mbutton' (sin botones)
+        ToolbarJQueryUIAdapter._showDeprecationWarning('addMButton', '_addMButtonWarningShown');
+
         var boton = '',
             buttonId;
         if (obj.id === undefined) {
-        	$.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_toolbar.mbuttonsIdError'));
+            $.rup.errorGestor($.rup.i18nParse($.rup.i18n.base, 'rup_toolbar.mbuttonsIdError'));
             boton = null;
         } else {
             buttonId = obj.id;
@@ -129,7 +164,15 @@
         return boton;
     };
 
+    /**
+     * @deprecated Desde v6.3.0 - Usar addButtonsToMButton de ToolbarMaterialAdapter
+     * @param {Array} buttons Array de botones a añadir
+     * @param {jQuery} menuButton Elemento botón menú
+     * @param {Object} json_i18n Objeto de internacionalización
+     */
     ToolbarJQueryUIAdapter.prototype.addButtonsToMButton = function (buttons, menuButton, json_i18n) { //añade botones al 'mbutton'
+        ToolbarJQueryUIAdapter._showDeprecationWarning('addButtonsToMButton', '_addButtonsToMButtonWarningShown');
+
         var div, ul,
             //numero de botones a añadir
             length = buttons.length,
