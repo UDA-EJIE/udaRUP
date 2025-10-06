@@ -1,30 +1,67 @@
 /*global jQuery */
 /*global define */
 
-( function(root, factory ) {
-	if ( typeof define === 'function' && define.amd ) {
+/**
+ * @fileoverview UploadJQueryUIAdapter - Adaptador para upload jQuery UI
+ * @deprecated Este adaptador está deprecado desde v6.3.0. Usar UploadBootstrapAdapter en su lugar.
+ * @todo Será eliminado en v7.0.0
+ * @see UploadBootstrapAdapter Para el reemplazo recomendado
+ */
 
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define( ['jquery','../rup.base'], factory );
+		define(['jquery', '../rup.base'], factory);
 	} else {
-
 		// Browser globals
-		root.UploadJQueryUIAdapter = factory( jQuery );
+		root.UploadJQueryUIAdapter = factory(jQuery);
 	}
-} (this,  function( $ ) {
+}(this, function ($) {
 
-	function UploadJQueryUIAdapter(){
-
+	/**
+	 * @deprecated Desde v6.3.0 - Usar UploadBootstrapAdapter en su lugar
+	 * @constructor
+	 */
+	function UploadJQueryUIAdapter() {
+		// Sin advertencia en el constructor para no saturar la consola con mensajes incluso cuando no se usa el adaptador
 	}
 
 	UploadJQueryUIAdapter.prototype.NAME = 'upload_jqueryui';
 
+	/**
+	 * Muestra una advertencia de deprecación una sola vez por método
+	 * @private
+	 * @param {string} methodName Nombre del método deprecado
+	 * @param {string} flagName Nombre de la bandera para controlar si ya se mostró
+	 */
+	UploadJQueryUIAdapter._showDeprecationWarning = function (methodName, flagName) {
+		if (!UploadJQueryUIAdapter[flagName]) {
+			if (typeof console !== 'undefined' && console.warn) {
+				console.warn(`UploadJQueryUIAdapter.${methodName} está deprecado desde v6.3.0. Migrar a UploadBootstrapAdapter.`);
+			}
+			UploadJQueryUIAdapter[flagName] = true;
+		}
+	};
+
+	/**
+	 * @deprecated Desde v6.3.0 - Usar processdone de UploadBootstrapAdapter
+	 * @param {Event} e Evento
+	 * @param {Object} data Datos del upload
+	 */
 	UploadJQueryUIAdapter.prototype.processdone = function (e, data) {
+		UploadJQueryUIAdapter._showDeprecationWarning('processdone', '_processdoneWarningShown');
+
 		$(e.target).find('.start').button('enable');
 	};
 
+	/**
+	 * @deprecated Desde v6.3.0 - Usar downloadTemplate de UploadBootstrapAdapter
+	 * @param {Object} o Objeto con archivos y opciones
+	 * @returns {jQuery} Filas de template de descarga
+	 */
+	UploadJQueryUIAdapter.prototype.downloadTemplate = function (o) {
+		UploadJQueryUIAdapter._showDeprecationWarning('downloadTemplate', '_downloadTemplateWarningShown');
 
-	UploadJQueryUIAdapter.prototype.downloadTemplate = function(o){
 		var that = this,
 			rows = $(),
 			files = o.files,
@@ -32,30 +69,30 @@
 		$.each(files, function (index, file) {
 			// file = that._downloadTemplateHelper(file);
 			var row = $('<tr class="template-download"><td>' +
-														(file.error ?
-															'<td class="file_icon"></td>' +
-																		'<td class="name"></td>' +
-																		'<td class="size"></td>' +
-																		'<td class="error" colspan="2"></td>'
-															:
-															'<div class="formulario_columna_cnt">' +
-																'<span class="izq_float file_icon">&nbsp;</span>' +
-																'<div class="izq_float name"><a></a></div>' +
-																'</div>' +
-																'<div class="formulario_columna_cnt">' +
-																'<div class="izq_float type"></div>' +
-																'<div class="izq_float size"></div>' +
-																'</div>'+
-																'<div class="formulario_columna_cnt">' +
-																'<a><div class="izq_float">'+
-																'<div class="file_download" >'+
-																'<span class="file_download_icon">&nbsp;</span>'+
-																'<span class="file_download_text">'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.openUploaded')+'</span></div>'+
-																'</div></a>' +
-																'<div class="izq_float delete"><button>'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.deleteUploaded')+'</button></div>' +
-																'</div>'
-														) +
-														'</td></tr>');
+				(file.error ?
+					'<td class="file_icon"></td>' +
+					'<td class="name"></td>' +
+					'<td class="size"></td>' +
+					'<td class="error" colspan="2"></td>'
+					:
+					'<div class="formulario_columna_cnt">' +
+					'<span class="izq_float file_icon">&nbsp;</span>' +
+					'<div class="izq_float name"><a></a></div>' +
+					'</div>' +
+					'<div class="formulario_columna_cnt">' +
+					'<div class="izq_float type"></div>' +
+					'<div class="izq_float size"></div>' +
+					'</div>' +
+					'<div class="formulario_columna_cnt">' +
+					'<a><div class="izq_float">' +
+					'<div class="file_download" >' +
+					'<span class="file_download_icon">&nbsp;</span>' +
+					'<span class="file_download_text">' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.openUploaded') + '</span></div>' +
+					'</div></a>' +
+					'<div class="izq_float delete"><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.deleteUploaded') + '</button></div>' +
+					'</div>'
+				) +
+				'</td></tr>');
 
 			row.find('.size').text(file.sizef);
 			row.find('.type').text(file.type);
@@ -75,15 +112,21 @@
 				row.find('a').prop('href', $.rup_utils.setNoPortalParam(file.url));
 				row.find('.delete button')
 					.attr('data-type', file.delete_type)
-					.attr('data-url',  $.rup_utils.setNoPortalParam(file.delete_url));
+					.attr('data-url', $.rup_utils.setNoPortalParam(file.delete_url));
 			}
 			rows = rows.add(row);
 		});
 		return rows;
 	};
 
+	/**
+	 * @deprecated Desde v6.3.0 - Usar uploadTemplate de UploadBootstrapAdapter
+	 * @param {Object} o Objeto con archivos y opciones
+	 * @returns {jQuery} Filas de template de upload
+	 */
+	UploadJQueryUIAdapter.prototype.uploadTemplate = function (o) {
+		UploadJQueryUIAdapter._showDeprecationWarning('uploadTemplate', '_uploadTemplateWarningShown');
 
-	UploadJQueryUIAdapter.prototype.uploadTemplate = function(o) {
 		var that = this,
 			rows = $(),
 			files = o.files,
@@ -91,32 +134,31 @@
 
 		// var settings = $.data(this.element[0], "settings");
 
-
 		$.each(files, function (index, file) {
 			// file = that._uploadTemplateHelper(file);
 			var row = $(
 				'<tr class="template-upload"><td>' +
-														'<div class="formulario_columna_cnt">' +
-																'<span class="izq_float file_icon">&nbsp;</span>' +
-																'<div class="izq_float name"><b></b></div>' +
-																'<div class="formulario_columna_cnt">' +
-																'<div class="izq_float type"></div>' +
-																'<div class="izq_float size"></div>' +
-																(options.submitInForm ?
-																	'<div class="izq_float cancel" style><button>'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.cancelUpload')+'</button></div>'
-																	: '') +
-																'</div>' +
-																(!options.submitInForm ?
-																	'<div class="formulario_columna_cnt">' +
-																(file.error ?
-																	'<div class="izq_float error" ></div>'
-																	:
-																	'<div class="izq_float progress"><div></div></div>' +
-																				'<div class="izq_float fileupload-buttonbar"><button class="start">'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.startUpload')+'</button>'
-																) +
-																'<button class="cancel">'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.cancelUpload')+'</button>' +
-																'</div>':'<div class="izq_float start fileupload-buttonbar ui-button" style="display:none"><button>'+$.rup.i18nParse($.rup.i18n.base,'rup_upload.startUpload')+'</button></div>') +
-																'</td></tr>');
+				'<div class="formulario_columna_cnt">' +
+				'<span class="izq_float file_icon">&nbsp;</span>' +
+				'<div class="izq_float name"><b></b></div>' +
+				'<div class="formulario_columna_cnt">' +
+				'<div class="izq_float type"></div>' +
+				'<div class="izq_float size"></div>' +
+				(options.submitInForm ?
+					'<div class="izq_float cancel" style><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.cancelUpload') + '</button></div>'
+					: '') +
+				'</div>' +
+				(!options.submitInForm ?
+					'<div class="formulario_columna_cnt">' +
+					(file.error ?
+						'<div class="izq_float error" ></div>'
+						:
+						'<div class="izq_float progress"><div></div></div>' +
+						'<div class="izq_float fileupload-buttonbar"><button class="start">' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.startUpload') + '</button>'
+					) +
+					'<button class="cancel">' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.cancelUpload') + '</button>' +
+					'</div>' : '<div class="izq_float start fileupload-buttonbar ui-button" style="display:none"><button>' + $.rup.i18nParse($.rup.i18n.base, 'rup_upload.startUpload') + '</button></div>') +
+				'</td></tr>');
 			row.find('.name b').text(file.name);
 			row.find('.size').text(file.sizef);
 			row.find('.type').text(file.type);
@@ -135,7 +177,7 @@
 	$.rup = $.rup || {};
 	$.rup.adapter = $.rup.adapter || {};
 
-	$.rup.adapter[UploadJQueryUIAdapter.prototype.NAME ] = new UploadJQueryUIAdapter;
+	$.rup.adapter[UploadJQueryUIAdapter.prototype.NAME] = new UploadJQueryUIAdapter;
 
 	return $;
 }));
