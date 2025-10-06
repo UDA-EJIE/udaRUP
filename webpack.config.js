@@ -2,14 +2,18 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = {
-  mode: 'development', // o 'production' según necesites
-  entry: {
-    rup: ['./scss/rup-base.scss', './entry.js'],
-    'rup.min': ['./scss/rup-base.scss', './entry.js'],
-  },
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production';
+  
+  return {
+    mode: isProduction ? 'production' : 'development',
+    entry: {
+      rup: ['./scss/rup-base.scss', './entry.js'],
+      'rup.min': ['./scss/rup-base.scss', './entry.js'],
+    },
   watchOptions: {
       ignored: /node_modules/,
       aggregateTimeout: 300,
@@ -78,9 +82,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // si usas babel, si no puedes quitar esta regla
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'], // personaliza según tu setup
+            presets: ['@babel/preset-env'],
+            sourceMap: true,
           },
         },
       },
@@ -91,6 +96,7 @@ module.exports = {
 	  $: 'jquery',
 	  jQuery: 'jquery',
 	  'window.jQuery': 'jquery',
+	  'window.$': 'jquery',
 	}),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
@@ -120,14 +126,23 @@ module.exports = {
     }),	
   ],
   optimization: {
-    minimize: true,
-    minimizer: [
-      '...', // mantiene minimizador JS por defecto
-      new CssMinimizerPlugin({
-        test: /\.min\.css$/i, // solo minimiza los archivos .min.css
-		parallel: true,
+    minimize: isProduction,
+    minimizer: isProduction ? [
+      new TerserPlugin({
+        test: /\.min\.js$/i,
+        parallel: true,
+        terserOptions: {
+          compress: {
+            drop_console: false,
+          },
+          mangle: true,
+        },
       }),
-    ],
+      new CssMinimizerPlugin({
+        test: /\.min\.css$/i,
+        parallel: true,
+      }),
+    ] : [],
   },
   resolve: {
     alias: {
@@ -146,7 +161,7 @@ module.exports = {
     },
     extensions: ['.scss', '.css', '.js'],
   },
-  devtool: 'eval-cheap-module-source-map', // Opcional, para debug
+  devtool: isProduction ? false : 'eval-source-map',
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'dist'),
@@ -155,4 +170,5 @@ module.exports = {
     port: 9000,
     hot: true,
   },
+  };
 };
