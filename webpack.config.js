@@ -218,6 +218,18 @@ module.exports = (env, argv) => {
     {
       ...baseConfig,
       mode: 'production',
+      plugins: [
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery',
+          'window.$': 'jquery',
+        }),
+        new MiniCssExtractPlugin({
+          filename: 'css/rup.css',
+        }),
+        // Sin CopyPlugin para evitar conflictos
+      ],
       output: {
         ...baseConfig.output,
         filename: 'js/rup.min.js',
