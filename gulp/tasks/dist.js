@@ -19,7 +19,8 @@ gulp.task('dist:x21a:copy2', function () {
 	        '!./dist/css/images{,/**}',       // ❌ Excluye dist/css/images y su contenido
 	        '!./dist/css/fonts{,/**}',        // ❌ Excluye dist/css/fonts y su contenido
 	        '!./dist/css/cursors{,/**}',      // ❌ Excluye dist/css/cursors y su contenido
-			'!./dist/**/*.txt',
+			'!./dist/**/*.txt',               // ❌ Excluye archivos .txt
+			'!./dist/**/*LICENSE*',           // ❌ Excluye archivos LICENSE
 	    ], { base: './dist' })
         .pipe(gulp.dest('../udaDemoApp/x21aStatics/WebContent/rup/'));
 });
