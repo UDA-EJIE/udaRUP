@@ -226,7 +226,7 @@ module.exports = (env, argv) => {
           'window.$': 'jquery',
         }),
         new MiniCssExtractPlugin({
-          filename: 'css/rup.css',
+          filename: 'css/rup.min.css',
         }),
         // Sin CopyPlugin para evitar conflictos
       ],
