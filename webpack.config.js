@@ -146,6 +146,7 @@ const baseConfig = {
 
 module.exports = (env, argv) => {
   const devOnly = env?.devonly;
+  const prodOnly = env?.build;
   const isProduction = argv.mode === 'production';
   
   if (devOnly) {
@@ -161,6 +162,38 @@ module.exports = (env, argv) => {
       devtool: 'eval-source-map',
       optimization: {
         minimize: false,
+      },
+    };
+  }
+  
+  if (prodOnly) {
+    // Solo rup.min.js para producción
+    return {
+      ...baseConfig,
+      mode: 'production',
+      output: {
+        ...baseConfig.output,
+        filename: 'js/rup.min.js',
+        clean: true,
+      },
+      devtool: false,
+      optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            parallel: true,
+            terserOptions: {
+              compress: {
+                drop_console: false,
+              },
+              mangle: true,
+            },
+          }),
+          new CssMinimizerPlugin({
+            test: /\.min\.css$/i,
+            parallel: true,
+          }),
+        ],
       },
     };
   }
