@@ -52,7 +52,10 @@ gulp.task('dist:templates', gulp.series(
 ));
 
 gulp.task('dist:portal', function (callback) {
-    gulp.src('./dist/css/rup.css')
+    // Buscar rup.css o rup.min.css
+    const cssFile = require('fs').existsSync('./dist/css/rup.css') ? './dist/css/rup.css' : './dist/css/rup.min.css';
+    
+    gulp.src(cssFile)
         .pipe(cssWrap({
             selector: '.r01gContainer'
         }))

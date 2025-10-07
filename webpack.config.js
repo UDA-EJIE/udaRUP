@@ -171,6 +171,40 @@ module.exports = (env, argv) => {
     return {
       ...baseConfig,
       mode: 'production',
+      plugins: [
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery',
+          'window.$': 'jquery',
+        }),
+        new MiniCssExtractPlugin({
+          filename: 'css/rup.min.css',
+        }),
+        new CopyPlugin({
+          patterns: [
+            { from: 'i18n', to: 'resources' },
+            { from: 'assets/html', to: 'html' },
+            { from: 'assets/cursors', to: 'css/cursors' },
+            { from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
+            {
+              from: 'src',
+              to: 'js/src',
+              filter: (resourcePath) => {
+                const ignoredFiles = ['.bowerrc', '.gitignore'];
+                return !ignoredFiles.some(file => resourcePath.endsWith(file)) && !resourcePath.endsWith('.txt');
+              },
+            },
+            {
+              from: path.resolve(__dirname, 'spec'),
+              to: 'js/test/[path][name][ext]',
+              filter: (resourcePath) => resourcePath.endsWith('.js'),
+              noErrorOnMissing: true,
+            },
+            { from: 'assets/images', to: 'css/images' },
+          ],
+        }),
+      ],
       output: {
         ...baseConfig.output,
         filename: 'js/rup.min.js',
