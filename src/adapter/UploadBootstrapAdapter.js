@@ -37,17 +37,35 @@
 	};
 
 	UploadBootstrapAdapter.prototype.uploadTemplate = function(o) {
-		var that = this,
-			rows = $(),
-			files = o.files,
+		var files = o.files,
 			options = o.options;
-		let templates = {
-			files:files,
+		
+		function formatFileSize(bytes) {
+			if (bytes === 0) return '0 Bytes';
+			var k = 1024;
+			var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+			var i = Math.floor(Math.log(bytes) / Math.log(k));
+			return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+		}
+		
+		var processedFiles = [];
+		if (files && files.length > 0) {
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				processedFiles.push({
+					name: file.name,
+					type: file.type,
+					size: file.size,
+					sizef: file.sizef || formatFileSize(file.size)
+				});
+			}
+		}
+		
+		return Rup.Templates.rup.upload.uploadTemplate({
+			files: processedFiles,
 			submitInForm: options.submitInForm===true?true:undefined,
 			notSubmitInForm: !(options.submitInForm===true?true:undefined)
-		};
-
-		return Rup.Templates.rup.upload.uploadTemplate(templates);
+		});
 	};
 
 	$.rup = $.rup || {};
