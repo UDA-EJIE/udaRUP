@@ -8,13 +8,10 @@ table.table-material {
 			background-color: $primary-color-ultra-light;
 		}
 		
-		tr {
-			background-color: $whitish-grey-color-light;
-		}
-		
 		tr > th {
 			border: none;
 			border-bottom: 1px solid $whitish-grey-color;
+			background-color: $whitish-grey-color-light;
 		
 			&:first-child {
 				border-top-left-radius: 5px;
