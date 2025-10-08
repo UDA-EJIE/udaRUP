@@ -10,6 +10,27 @@
             factory( Handlebars );
          }
         } ( function( Handlebars ) {
+          // Configurar Handlebars para suprimir warnings de acceso a propiedades del prototipo
+          if (typeof Handlebars !== 'undefined') {
+            // Interceptar y suprimir warnings específicos
+            var originalLog = Handlebars.logger.log;
+            if (Handlebars.logger && originalLog) {
+              Handlebars.logger.log = function(level, message) {
+                if (typeof message === 'string' && message.includes('Access has been denied to resolve the property')) {
+                  return; // Suprimir este warning
+                }
+                return originalLog.apply(this, arguments);
+              };
+            }
+            
+            // Configurar opciones de runtime globalmente
+            if (Handlebars.Utils && Handlebars.Utils.extend) {
+              Handlebars.Utils.extend(Handlebars, {
+                allowProtoPropertiesByDefault: true,
+                allowProtoMethodsByDefault: true
+              });
+            }
+          }
           this["Rup"] = this["Rup"] || {};
 this["Rup"]["Templates"] = this["Rup"]["Templates"] || {};
 this["Rup"]["Templates"]["rup"] = this["Rup"]["Templates"]["rup"] || {};
