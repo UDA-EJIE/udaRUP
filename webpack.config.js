@@ -162,6 +162,51 @@ module.exports = (env, argv) => {
     return {
       ...baseConfig,
       mode: 'development',
+      plugins: [
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery',
+          'window.$': 'jquery',
+          Handlebars: 'handlebars/runtime',
+        }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('development'),
+          'Handlebars.Utils.allowProtoPropertiesByDefault': true,
+          'Handlebars.Utils.allowProtoMethodsByDefault': true,
+        }),
+        new MiniCssExtractPlugin({
+          filename: 'css/rup.css',
+        }),
+        new CopyPlugin({
+          patterns: [
+            { from: 'i18n', to: 'resources' },
+            { from: 'assets/html', to: 'html' },
+            { from: 'assets/cursors', to: 'css/cursors' },
+            { from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
+            {
+              from: 'src',
+              to: 'js/src',
+              filter: (resourcePath) => {
+                const fileName = path.basename(resourcePath).toLowerCase();
+                return !fileName.endsWith('.txt') && 
+                       !fileName.includes('license') && 
+                       !fileName.endsWith('.bowerrc') && 
+                       !fileName.endsWith('.gitignore') &&
+                       !resourcePath.includes('\\portal\\') &&
+                       !resourcePath.includes('/portal/');
+              },
+            },
+            {
+              from: path.resolve(__dirname, 'spec'),
+              to: 'js/test/[path][name][ext]',
+              filter: (resourcePath) => resourcePath.endsWith('.js'),
+              noErrorOnMissing: true,
+            },
+            { from: 'assets/images', to: 'css/images' },
+          ],
+        }),
+      ],
       output: {
         ...baseConfig.output,
         filename: 'js/rup.js',
@@ -244,80 +289,102 @@ module.exports = (env, argv) => {
     };
   }
   
-  // Configuración única que genera ambos archivos
-  return {
-    ...baseConfig,
-    mode: 'development',
-    entry: {
-      rup: ['./scss/rup-base.scss', './entry.js'],
-      'rup.min': ['./scss/rup-base.scss', './entry.js'],
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        'window.$': 'jquery',
-      }),
-      new MiniCssExtractPlugin({
-        filename: (pathData) => {
-          return pathData.chunk.name === 'rup.min' ? 'css/rup.min.css' : 'css/rup.css';
-        },
-      }),
-      new CopyPlugin({
-        patterns: [
-          { from: 'i18n', to: 'resources' },
-          { from: 'assets/html', to: 'html' },
-          { from: 'assets/cursors', to: 'css/cursors' },
-          { from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
-          {
-            from: 'src',
-            to: 'js/src',
-            filter: (resourcePath) => {
-              const fileName = path.basename(resourcePath).toLowerCase();
-              return !fileName.endsWith('.txt') && 
-                     !fileName.includes('license') && 
-                     !fileName.endsWith('.bowerrc') && 
-                     !fileName.endsWith('.gitignore');
-            },
-          },
-          {
-            from: path.resolve(__dirname, 'spec'),
-            to: 'js/test/[path][name][ext]',
-            filter: (resourcePath) => resourcePath.endsWith('.js'),
-            noErrorOnMissing: true,
-          },
-          { from: 'assets/images', to: 'css/images' },
-        ],
-      }),
-    ],
-    output: {
-      ...baseConfig.output,
-      filename: (pathData) => {
-        return pathData.chunk.name === 'rup.min' ? 'js/rup.min.js' : 'js/rup.js';
-      },
-      clean: true,
-    },
-    devtool: 'eval-source-map',
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          test: /rup\.min\.js$/,
-          parallel: true,
-          extractComments: false,
-          terserOptions: {
-            compress: {
-              drop_console: false,
-            },
-            mangle: true,
-          },
+  // Configuración que genera ambos archivos por separado
+  return [
+    // Configuración para rup.js (desarrollo)
+    {
+      ...baseConfig,
+      name: 'development',
+      mode: 'development',
+      entry: ['./scss/rup-base.scss', './entry.js'],
+      plugins: [
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery',
+          'window.$': 'jquery',
         }),
-        new CssMinimizerPlugin({
-          test: /rup\.min\.css$/,
-          parallel: true,
+        new MiniCssExtractPlugin({
+          filename: 'css/rup.css',
+        }),
+        new CopyPlugin({
+          patterns: [
+            { from: 'i18n', to: 'resources' },
+            { from: 'assets/html', to: 'html' },
+            { from: 'assets/cursors', to: 'css/cursors' },
+            { from: path.resolve(__dirname, 'demo/demo-idx.html'),to: path.resolve(__dirname, 'dist/html/demo-idx.html'),},
+            {
+              from: 'src',
+              to: 'js/src',
+              filter: (resourcePath) => {
+                const fileName = path.basename(resourcePath).toLowerCase();
+                return !fileName.endsWith('.txt') && 
+                       !fileName.includes('license') && 
+                       !fileName.endsWith('.bowerrc') && 
+                       !fileName.endsWith('.gitignore');
+              },
+            },
+            {
+              from: path.resolve(__dirname, 'spec'),
+              to: 'js/test/[path][name][ext]',
+              filter: (resourcePath) => resourcePath.endsWith('.js'),
+              noErrorOnMissing: true,
+            },
+            { from: 'assets/images', to: 'css/images' },
+          ],
         }),
       ],
+      output: {
+        ...baseConfig.output,
+        filename: 'js/rup.js',
+        clean: true,
+      },
+      devtool: 'eval-source-map',
+      optimization: {
+        minimize: false,
+      },
     },
-  };
+    // Configuración para rup.min.js (producción)
+    {
+      ...baseConfig,
+      name: 'production',
+      mode: 'production',
+      entry: ['./scss/rup-base.scss', './entry.js'],
+      plugins: [
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery',
+          'window.$': 'jquery',
+        }),
+        new MiniCssExtractPlugin({
+          filename: 'css/rup.min.css',
+        }),
+      ],
+      output: {
+        ...baseConfig.output,
+        filename: 'js/rup.min.js',
+        clean: false,
+      },
+      devtool: false,
+      optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            parallel: true,
+            extractComments: false,
+            terserOptions: {
+              compress: {
+                drop_console: false,
+              },
+              mangle: true,
+            },
+          }),
+          new CssMinimizerPlugin({
+            parallel: true,
+          }),
+        ],
+      },
+    },
+  ];
 };
