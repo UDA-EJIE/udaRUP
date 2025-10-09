@@ -53,19 +53,24 @@ gulp.task('dist:templates', gulp.series(
 ));
 
 gulp.task('dist:portal', function (callback) {
+    const fs = require('fs');
+
     // Buscar rup.css o rup.min.css
-    const cssFile = require('fs').existsSync('./dist/css/rup.css') ? './dist/css/rup.css' : './dist/css/rup.min.css';
-    
+    const cssFile = fs.existsSync('./dist/css/rup.css') ? './dist/css/rup.css' : './dist/css/rup.min.css';
+
+    // Procesar CSS
     gulp.src(cssFile)
         .pipe(cssWrap({
             selector: '.r01gContainer'
         }))
         .pipe(gulp.dest('./dist/portal/'))
-        .pipe(cleanCSS({compatibility: 'ie11'}))
+        .pipe(cleanCSS({ level: 1 }))
         .pipe(rename('rup.min.css'))
         .pipe(gulp.dest('./dist/portal/'));
-    gulp.src('./dist/css/cursors/**/*.*').pipe(gulp.dest('./dist/portal/cursors'));
-    gulp.src('./dist/css/images/**/*.*').pipe(gulp.dest('./dist/portal/images'));
-	gulp.src('./dist/css/fonts/**/*.*').pipe(gulp.dest('./dist/portal/fonts'));
+
+    // Copiar assets en una sola operación
+    gulp.src('./dist/css/{cursors,images,fonts}/**/*.*', { base: './dist/css' })
+        .pipe(gulp.dest('./dist/portal/'));
+
     callback();
 });
