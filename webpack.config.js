@@ -1,9 +1,12 @@
 const path = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+
+
 
 // Configuración base compartida
 const baseConfig = {
@@ -210,7 +213,7 @@ module.exports = (env, argv) => {
       output: {
         ...baseConfig.output,
         filename: 'js/rup.js',
-        clean: true,
+        clean: false,
       },
       devtool: 'eval-source-map',
       optimization: {
@@ -264,7 +267,7 @@ module.exports = (env, argv) => {
       output: {
         ...baseConfig.output,
         filename: 'js/rup.min.js',
-        clean: true,
+        clean: false,
       },
       devtool: false,
       optimization: {
@@ -337,7 +340,7 @@ module.exports = (env, argv) => {
       output: {
         ...baseConfig.output,
         filename: 'js/rup.js',
-        clean: true,
+        clean: false,
       },
       devtool: 'eval-source-map',
       optimization: {
