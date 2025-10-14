@@ -28,7 +28,7 @@
     "ajaxError": "Errorea gertatu da datuak berreskuratzen saiatzean",
     "blankNotDefined": "[Literala falta da]",
     "loadingText": "Kargatzen...",
-	"appendToError": "{0} identifikatzailea duen konboan, beharrezkoa da appendTo propietatearentzako baliozko hautatzaile bat zehaztea.",
+    "appendToError": "{0} identifikatzailea duen konboan, beharrezkoa da appendTo propietatearentzako baliozko hautatzaile bat zehaztea.",
     "multiselect": {
       "checkAllText": "Hautatu dena",
       "checkAllTitle": "Aukera guztiak hautatu",
@@ -47,15 +47,65 @@
     "closeText": "Itxi",
     "currentText": "Gaur",
     "dateFormat": "yy/mm/dd",
-    "dayNames": ["Igandea", "Astelehena", "Asteartea", "Asteazkena", "Osteguna", "Ostirala", "Larunbata"],
-    "dayNamesMin": ["Ig", "Al", "Ar", "Az", "Og", "Or", "La"],
-    "dayNamesShort": ["Iga", "Asl", "Asr", "Asz", "Osg", "Osr", "Lar"],
+    "dayNames": [
+      "Igandea",
+      "Astelehena",
+      "Asteartea",
+      "Asteazkena",
+      "Osteguna",
+      "Ostirala",
+      "Larunbata"
+    ],
+    "dayNamesMin": [
+      "Ig",
+      "Al",
+      "Ar",
+      "Az",
+      "Og",
+      "Or",
+      "La"
+    ],
+    "dayNamesShort": [
+      "Iga",
+      "Asl",
+      "Asr",
+      "Asz",
+      "Osg",
+      "Osr",
+      "Lar"
+    ],
     "firstDay": "1",
     "mask": "(aaaa/mm/dd)",
     "maskDateTime": "(aaaa/mm/dd hh:mm)",
     "maskDateTimeSec": "(aaaa/mm/dd hh:mm:ss)",
-    "monthNames": ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza", "Ekaina", "Uztaila", "Abuztua", "Iraila", "Urria", "Azaroa", "Abendua"],
-    "monthNamesShort": ["Urt", "Ots", "Mar", "Api", "Mai", "Eka", "Uzt", "Abu", "Ira", "Urr", "Aza", "Abe"],
+    "monthNames": [
+      "Urtarrila",
+      "Otsaila",
+      "Martxoa",
+      "Apirila",
+      "Maiatza",
+      "Ekaina",
+      "Uztaila",
+      "Abuztua",
+      "Iraila",
+      "Urria",
+      "Azaroa",
+      "Abendua"
+    ],
+    "monthNamesShort": [
+      "Urt",
+      "Ots",
+      "Mar",
+      "Api",
+      "Mai",
+      "Eka",
+      "Uzt",
+      "Abu",
+      "Ira",
+      "Urr",
+      "Aza",
+      "Abe"
+    ],
     "nextText": "Hurrengoa",
     "prevText": "Aurrekoa",
     "weekHeader": "&nbsp;&nbsp;&nbsp;",
@@ -84,7 +134,7 @@
     "error": "Errorea",
     "initError": "Elementu bat baino gehiago aukeratu egin da.<br> Honako ID-a daukan funtzioa berrikusi, mesedez:",
     "metodError": "Metodoan Errorea:",
-	"functionNotSupportedError": "Funtzioa ez dago jasanduta.",
+    "functionNotSupportedError": "Funtzioa ez dago jasanduta.",
     "parameterError": "Funtzioaren parametroak zehaztean akats bat gertatu da. Edozein parametro txarto zehaztu da ala derrigorrezkoa izanez gero ez da zehaztu egin.",
     "parametro": "eu_Parametro: ",
     "charError": "eu_Caracter no aceptable",
@@ -226,8 +276,8 @@
       "decimal": "^[+-]?((\\d*)|(\\d{1,3}(\\.\\d{3})+))(,\\d+)?$"
     },
     "errors": {
-		"numberValidation": "Zenbakizko baliozkotzea testu motako eremu baten gainean egin behar da."	
-	}
+      "numberValidation": "Zenbakizko baliozkotzea testu motako eremu baten gainean egin behar da."
+    }
   },
   "rup_wizard": {
     "next": "Hurrengoa",
@@ -256,7 +306,7 @@
         "csvButton": "Csv"
       },
       "feedback": {
-      	"keyNameError": "Bezeroaren primaryKey-en arteko inkontsistentzia eta zerbitzaria. Mesedez, ikuska ezazu rup_table-definizioa."
+        "keyNameError": "Bezeroaren primaryKey-en arteko inkontsistentzia eta zerbitzaria. Mesedez, ikuska ezazu rup_table-definizioa."
       }
     },
     "copyButton": {
@@ -311,8 +361,8 @@
     "deselectRestMsg": "Gainerako {0}ak hautaketatik kendu.",
     "detailTitle": "Detalle de registro",
     "add": {
-    	"save": "Gehitu",
-    	"saveData": "Ziur zaude erregistro hau sortu nahi duzula?"
+      "save": "Gehitu",
+      "saveData": "Ziur zaude erregistro hau sortu nahi duzula?"
     },
     "edit": {
       "addCaption": "Gehitu erregistroa",
@@ -560,7 +610,8 @@
       "Find": "Bilatu",
       "Reset": "Garbitu",
       "caption": "Bilaketa...",
-      "groupOps": [{
+      "groupOps": [
+        {
           "op": "AND",
           "text": "dena"
         },
@@ -657,21 +708,17 @@
     "error_loadurl": "Egutegia: URL de carga de eventos no configurada",
     "error_where": "Egutegia: Dirección de navegación incorrecta {0}. Los valores correctos son \"next\" o \"prev\" o \"today\"",
     "error_timedevide": "Egutegia: parámetro para el separador de hora debe dividir 60 por un entero. Por ejemplo 10, 15, 30",
-
     "no_events_in_day": "No hay eventos hoy",
-
     "title_year": "{0} urtea",
     "title_month": "{0} {1}",
     "title_week": "Semana {0} del {1}",
     "title_day": "{0} {1} {2} {3}",
-
     "week": "Semana {0}",
     "all_day": "Todo el día",
     "time": "Denbora",
     "events": "Eventos",
     "before_time": "Horas previas",
     "after_time": "Horas posteriores",
-
     "m0": "Urtarrila",
     "m1": "Otsaila",
     "m2": "Martxoa",
@@ -684,7 +731,6 @@
     "m9": "Urria",
     "m10": "Azaroa",
     "m11": "Abendua",
-
     "ms0": "Urt",
     "ms1": "Ots",
     "ms2": "Mar",
@@ -697,7 +743,6 @@
     "ms9": "Urr",
     "ms10": "Aza",
     "ms11": "Abe",
-
     "d0": "Igandea",
     "d1": "Astelehena",
     "d2": "Asteartea",
@@ -705,13 +750,10 @@
     "d4": "Osteguna",
     "d5": "Ostirala",
     "d6": "Larunbata",
-
     "easter": "Pascua",
     "easterMonday": "Lunes de Pascua",
-
     "first_day": 1,
     "week_numbers_iso_8601": true,
-
     "holidays": {
       "01-01": "Año Nuevo",
       "06-01": "Día de Reyes",
@@ -764,17 +806,17 @@
     "ariaSummary": "Gaur eguneko ordenazio aukerak dira: ",
     "ariaSummaryEmpty": "Ez dira ordenazio aukerak hautatu",
     "rowPerPage": {
-		"5": "Bost",
-		"10": "Hamar",
-		"20": "Hogei",
-		"30": "Hogeita hamar"
-	}
+      "5": "Bost",
+      "10": "Hamar",
+      "20": "Hogei",
+      "30": "Hogeita hamar"
+    }
   },
   "rup_toolbar": {
-  	"mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
+    "mbuttonsIdError": "ID atributua nahitaezkoa da MButtonetan."
   },
   "rup_base": {
-  	"i18nRupJsonParseError": "Errorea gertatu da literalen JSON fitxategiaren analisian = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
-  	"i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}"
+    "i18nRupJsonParseError": "Errorea gertatu da literalen JSON fitxategiaren analisian = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}",
+    "i18nAppJsonParseError": "Errorea gertatu da aplikazioaren literalen JSON fitxategiaren parseoan = > {0}.\n\nErrorea itzulita:\n {1}: {2} - {3}"
   }
 }

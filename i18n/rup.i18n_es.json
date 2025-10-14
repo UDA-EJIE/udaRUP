@@ -24,11 +24,11 @@
     "userAre": " está en:",
     "youAre": "Usted está en:"
   },
-    "rup_select": {
+  "rup_select": {
     "ajaxError": "Se ha producido un error al recuperar los datos del servidor",
     "blankNotDefined": "[Falta literal]",
     "loadingText": "Cargando...",
-	"appendToError": "En el combo con identificador {0}, es necesario especificar un selector v�lido para la propiedad appendTo.",
+    "appendToError": "En el combo con identificador {0}, es necesario especificar un selector v�lido para la propiedad appendTo.",
     "multiselect": {
       "checkAllText": "Seleccionar todo",
       "checkAllTitle": "Seleccionar todos los elementos",
@@ -47,15 +47,65 @@
     "closeText": "Cerrar",
     "currentText": "Hoy",
     "dateFormat": "dd/mm/yy",
-    "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-    "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-    "dayNamesShort": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    "dayNames": [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado"
+    ],
+    "dayNamesMin": [
+      "Do",
+      "Lu",
+      "Ma",
+      "Mi",
+      "Ju",
+      "Vi",
+      "Sa"
+    ],
+    "dayNamesShort": [
+      "Dom",
+      "Lun",
+      "Mar",
+      "Mie",
+      "Jue",
+      "Vie",
+      "Sab"
+    ],
     "firstDay": "1",
     "mask": "(dd/mm/aaaa)",
     "maskDateTime": "(dd/mm/aaaa hh:mm)",
     "maskDateTimeSec": "(dd/mm/aaaa hh:mm:ss)",
-    "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    "monthNamesShort": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    "monthNames": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    "monthNamesShort": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ],
     "nextText": "Siguiente",
     "prevText": "Anterior",
     "weekHeader": "&nbsp;&nbsp;&nbsp;",
@@ -84,7 +134,7 @@
     "error": "Error",
     "initError": "Se ha especificado más de un elemento en el constructor.</br> Por favor revise la función de creación para el objeto con ID:",
     "metodError": "Error en el método:",
-	"functionNotSupportedError": "Función no soportada.",
+    "functionNotSupportedError": "Función no soportada.",
     "parameterError": "Error al especificar los parámetros de la función. Se ha especificado algún parámetro mal o no se ha especificado (siendo obligatorio).",
     "parametro": "Parametro: ",
     "charError": "Carácter no aceptable",
@@ -226,8 +276,8 @@
       "decimal": "^[+-]?((\\d*)|(\\d{1,3}(\\.\\d{3})+))(,\\d+)?$"
     },
     "errors": {
-		"numberValidation": "La validación numérica debe realizarse sobre un campo de tipo texto."	
-	}
+      "numberValidation": "La validación numérica debe realizarse sobre un campo de tipo texto."
+    }
   },
   "rup_wizard": {
     "next": "Siguiente",
@@ -256,7 +306,7 @@
         "csvButton": "Csv"
       },
       "feedback": {
-      	"keyNameError": "Inconsistencia entre las primaryKey del cliente y el servidor. Por favor, revise la definición de rup_table."
+        "keyNameError": "Inconsistencia entre las primaryKey del cliente y el servidor. Por favor, revise la definición de rup_table."
       }
     },
     "copyButton": {
@@ -311,8 +361,8 @@
     "deselectRestMsg": "Deseleccionar los {0} restantes",
     "detailTitle": "Detalle de registro",
     "add": {
-    	"save": "Añadir",
-    	"saveData": "¿Está seguro que desea crear el siguiente registro?"
+      "save": "Añadir",
+      "saveData": "¿Está seguro que desea crear el siguiente registro?"
     },
     "edit": {
       "addCaption": "Agregar registro",
@@ -386,9 +436,29 @@
         "thousandsSeparator": "."
       },
       "date": {
-        "AmPm": ["am", "pm", "AM", "PM"],
+        "AmPm": [
+          "am",
+          "pm",
+          "AM",
+          "PM"
+        ],
         "S": "return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] :'th';",
-        "dayNames": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "dayNames": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa",
+          "Domingo",
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado"
+        ],
         "masks": {
           "FullDateTime": "l, F d, Y g:i:s A",
           "ISO8601Long": "Y-m-d H:i:s",
@@ -407,7 +477,32 @@
           "UniversalSortableDateTime": "Y-m-d H:i:sO",
           "YearMonth": "F, Y"
         },
-        "monthNames": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
         "newformat": "d/m/Y",
         "reformatAfterEdit": "false",
         "srcformat": "d/m/y H:i:s"
@@ -515,7 +610,8 @@
       "Find": "Buscar",
       "Reset": "Limpiar",
       "caption": "Búsqueda...",
-      "groupOps": [{
+      "groupOps": [
+        {
           "op": "AND",
           "text": "todo"
         },
@@ -612,21 +708,17 @@
     "error_loadurl": "Calendario: URL de carga de eventos no configurada",
     "error_where": "Calendario: Dirección de navegación incorrecta {0}. Los valores correctos son \"next\" o \"prev\" o \"today\"",
     "error_timedevide": "Calendario: parámetro para el separador de hora debe dividir 60 por un entero. Por ejemplo 10, 15, 30",
-
     "no_events_in_day": "No hay eventos hoy",
-
     "title_year": "Año {0}",
     "title_month": "{0} {1}",
     "title_week": "Semana {0} del {1}",
     "title_day": "{0} {1} {2} {3}",
-
     "week": "Semana {0}",
     "all_day": "Todo el día",
     "time": "Tiempo",
     "events": "Eventos",
     "before_time": "Horas previas",
     "after_time": "Horas posteriores",
-
     "m0": "Enero",
     "m1": "Febrero",
     "m2": "Marzo",
@@ -639,7 +731,6 @@
     "m9": "Octubre",
     "m10": "Noviembre",
     "m11": "Diciembre",
-
     "ms0": "Ene",
     "ms1": "Feb",
     "ms2": "Mar",
@@ -652,7 +743,6 @@
     "ms9": "Oct",
     "ms10": "Nov",
     "ms11": "Dic",
-
     "d0": "Domingo",
     "d1": "Lunes",
     "d2": "Martes",
@@ -660,13 +750,10 @@
     "d4": "Jueves",
     "d5": "Viernes",
     "d6": "Sábado",
-
     "easter": "Pascua",
     "easterMonday": "Lunes de Pascua",
-
     "first_day": 1,
     "week_numbers_iso_8601": true,
-
     "holidays": {
       "01-01": "Año Nuevo",
       "06-01": "Día de Reyes",
@@ -719,17 +806,17 @@
     "ariaSummary": "Las opciones de ordenación actuales son: ",
     "ariaSummaryEmpty": "No se han seleccionado opciones de ordenación",
     "rowPerPage": {
-		"5": "Cinco",
-		"10": "Diez",
-		"20": "Veinte",
-		"30": "Treinta"
-	}
+      "5": "Cinco",
+      "10": "Diez",
+      "20": "Veinte",
+      "30": "Treinta"
+    }
   },
   "rup_toolbar": {
-  	"mbuttonsIdError": "El atributo ID es obligatorio en los MButtons."
+    "mbuttonsIdError": "El atributo ID es obligatorio en los MButtons."
   },
   "rup_base": {
-  	"i18nRupJsonParseError": "Se ha producido un error en el análisis del fichero JSON de literales => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
-  	"i18nAppJsonParseError": "Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}"
+    "i18nRupJsonParseError": "Se ha producido un error en el análisis del fichero JSON de literales => {0}.\n\nError devuelto:\n {1}: {2} - {3}",
+    "i18nAppJsonParseError": "Se ha producido un error en el análisis del fichero JSON de literales de la aplicación => {0}.\n\nError devuelto:\n {1}: {2} - {3}"
   }
 }
