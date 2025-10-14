@@ -1,110 +1,180 @@
-#	Componentes RUP – Select
+# 🧭 Componente RUP – Select
 
 <!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
-
--   [1 Introducción](#1-introducción)   
--   [2 Ejemplo](#2-ejemplo)   
--   [3 Casos de uso](#3-casos-de-uso)   
--   [4 Infraestructura](#4-infraestructura)   
-    -   [4.1 Ficheros](#41-ficheros)   
-    -   [4.2 Dependencias](#42-dependencias)   
-    -   [4.3 Versión minimizada](#43-versión-minimizada)   
--   [5 Invocación](#5-invocación)   
--   [6 API](#6-api)   
--   [7 Sobreescritura del theme](#7-sobreescritura-del-theme)   
--   [8  Internacionalización (i18n)](#8-internacionalización-i18n)   
--   [9 Integración con UDA](#9-integración-con-uda)   
--   [10 Select enlazados](#10-selects-enlazados)
--   [11 Aspectos a tener en cuenta](#11-aspectos-a-tener-en-cuenta)
-
+- [1. Introducción](#1-introducción)
+- [2. Ejemplos](#2-ejemplos)
+- [3. Infraestructura](#3-infraestructura)
+  - [3.1 Ficheros](#31-ficheros)
+  - [3.2 Dependencias](#32-dependencias)
+  - [3.3 Versión minimizada](#33-versión-minimizada)
+- [4. Inicialización del componente](#4-inicialización-del-componente)
+  - [4.1 Propiedades disponibles](#41-propiedades-disponibles)
+- [5. API](#5-api)
+- [6. Personalización de estilos](#6-personalización-de-estilos)
+- [7. Internacionalización (i18n)](#7-internacionalización-i18n)
+- [8. Integración con UDA / Backend](#8-integración-con-uda--backend)
+- [9. Selects enlazados](#9-selects-enlazados)
+- [10. Buenas prácticas y advertencias](#10-buenas-prácticas-y-advertencias)
+- [11. Errores comunes y troubleshooting](#11-errores-comunes-y-troubleshooting)
 <!-- /MDTOC -->
 
-## 1 Introducción
+## 1. Introducción
 
-La descripción del Componente Select, visto desde el punto de vista de RUP, es la siguiente:
+El componente **RUP Select** permite enriquecer campos `<select>` estándar con funcionalidades avanzadas como:
 
-*En cuanto el usuario comienza a escribir una búsqueda se le sugieren búsquedas relacionadas con lo que ha escrito que pueden ser de su interés.*
+- Sugerencias dinámicas al escribir.
+- Búsquedas remotas con autocompletado.
+- Selects enlazados.
+- Soporte para i18n.
+- Estilos personalizables mediante temas.
 
+👉 Basado en **jQuery** y **Select2**.
 
-## 2 Ejemplo
+---
 
-Se presentan a continuación un ejemplo de este componente:
-
+## 2. Ejemplos
+### 🌐 Ejemplo visual selectbox local con autocomplete
 ![Imagen1](img/rup.select_1.png)
+### 🟢 Ejemplo local básico
 
-## 3 Casos de uso
+```html
+<select id="lenguaje">
+  <option value="js">JavaScript</option>
+  <option value="py">Python</option>
+  <option value="java">Java</option>
+</select>
 
-Se recomienda el uso del componente:
+<script>
+  $("#lenguaje").rup_select({
+    placeholder: "Selecciona un lenguaje",
+    allowClear: true,
+    width: "100%"
+  });
+</script>
+```
 
-*   Cuando se desea mejorar la búsqueda ofreciendo sugerencias a los usuarios.
+### 🌐 Ejemplo remoto con autocompletado
 
-## 4 Infraestructura
-A continuación se comenta la infraestructura necesaria para el correcto funcionamiento del componente.
+```html
+<select id="selectRemoto" name="code"></select>
 
-*   Únicamente se requiere la inclusión de los ficheros que implementan el componente (js y css) comentados en los apartados Ficheros y Dependencias.
+<script>
+  $("#selectRemoto").rup_select({
+    source: "http://localhost:8080/app/select/remote",
+    autocomplete: true,
+    combo: true,
+    placeholder: "Buscar...",
+    width: "100%"
+  });
+</script>
+```
 
-### 4.1 Ficheros
+---
 
--   Ruta Javascript: rup/scripts/
--   Fichero de plugin: rup.select-x.y.z.js
--   Ruta theme: rup/css/
--   Fichero CSS del theme: theme.rup.select-x.y.z.css
+## 3. Infraestructura
 
-### 4.2 Dependencias
+### 3.1 Ficheros
 
-Por la naturaleza de desarrollo de los componentes (patrones) como plugins basados en la librería JavaScript jQuery, es necesaria la inclusión de esta como capa base.
-*   jQuery: <http://jquery.com/>
+| Tipo  | Ruta                                        | Descripción                                       | Obligatorio |
+|-------|---------------------------------------------|---------------------------------------------------|-------------|
+| JS    | rup/scripts/rup.select-x.y.z.js             | Componente principal                              | ✅          |
+| CSS   | rup/css/theme.rup.select-x.y.z.css          | Tema visual por defecto                           | ✅          |
+| JS    | jquery-3.y.z.js                             | Base de jQuery                                    | ✅          |
+| JS    | rup.base-x.y.z.js                           | Core de RUP                                       | ✅          |
 
-Los ficheros necesarios para el correcto funcionamiento del componente son:
+---
 
-*   jquery-3.y.z.js
-*   rup.base-x.y.z.js
-*   rup.select-x.y.z.js
-*   theme.rup.select-x.y.z.css
+### 3.2 Dependencias
 
-### 4.3 Versión minimizada
+- [jQuery](http://jquery.com/)
+- RUP Base
+- RUP Select
 
-A partir de la versión v2.4.0 se distribuye la versión minimizada de los componentes RUP. Estos ficheros contienen la versión compactada y minimizada de los ficheros javascript y de estilos necesarios para el uso de todos los compontente RUP.
+👉 Asegúrate de cargar las dependencias **antes** de inicializar el componente.
 
-Los ficheros minimizados de RUP son los siguientes:
-*   rup/scripts/min/rup.min-x.y.z.js
-*   rup/css/rup.min-x.y.z.css
+---
 
-Estos ficheros son los que deben utilizarse por las aplicaciones. Las versiones individuales de cada uno de los componentes solo deberán de emplearse en tareas de desarrollo o depuración.
+### 3.3 Versión minimizada
 
-## 5 Invocación
+Para entornos productivos, utiliza los ficheros minimizados:
 
-Este componente se invocará mediante un selector que indicará todos los elementos sobre los que se va a aplicar el componente select. Por ejemplo:
+```
+rup/scripts/min/rup.min-x.y.z.js
+rup/css/rup.min-x.y.z.css
+```
+
+> 🧪 Las versiones individuales se usan solo en desarrollo o depuración.
+
+---
+
+## 4. Inicialización del componente
+
+### HTML base
+
+```html
+<select id="miSelect" name="miSelect"></select>
+```
+
+### JavaScript
 
 ```js
-$("#id_select").rup_select(properties);
+$("#miSelect").rup_select({
+  placeholder: "Seleccione un valor",
+  allowClear: true
+});
 ```
 
-Donde el parámetro “properties” es un objeto ( var properties = {}; ) o bien directamente la declaración de lo valores directamente. Sus posibles valores se detallan en el siguiente apartado.
+---
 
+### 4.1 Propiedades destacadas disponibles
 
-1.  Se define el select sobre el que se aplica el componente:
-```html
-<select id=lenguaje name=lenguaje />
-```
-2.  Se invoca el componente sobre el select:
+| Propiedad         | Tipo              | Valor por defecto | Descripción                                                                 |
+|-------------------|--------------------|--------------------|-----------------------------------------------------------------------------|
+| `source`          | string / objeto   | -                  | URL o array de datos para cargar opciones.                                  |
+| `placeholder`     | string            | ""                 | Texto mostrado cuando no hay selección.                                     |
+| `allowClear`      | boolean           | false              | Muestra botón de limpiar selección.                                         |
+| `autocomplete`    | boolean           | false              | Activa búsqueda remota.                                                    |
+| `combo`           | boolean           | false              | Añade funcionalidad de combo a autocomplete.                               |
+| `width`           | string            | auto               | Ancho del componente (`auto`, `100%`, etc.).                                |
+| `parent`          | array             | []                 | IDs de selects de los que depende (selects enlazados).                      |
+| `escapeMarkup`    | function          | escape estándar    | Permite personalizar caracteres escapados.                                 |
+
+---
+
+## 5. API
+
+Para un detalle completo de métodos públicos, consulte [rup.select API](../api/rup.select.md).
+
+Ejemplos comunes:
+
 ```js
-$("#lenguaje").rup_select({...});
-```
-3.  Se modifica el código HTML y se convierte en:
-```html
-<select id=”lenguaje_label” name=”lenguaje_label” ruptype=”select”... />
+$("#miSelect").rup_select("clear"); // Limpia selección
+$("#miSelect").rup_select("disable"); // Deshabilita
+$("#miSelect").rup_select("enable"); // Habilita
 ```
 
-## 6 API
+---
 
-Para ver en detalle la API del componente vaya al siguiente [documento](../api/rup.select.md).
+## 6. Personalización de estilos
 
-## 7 Sobreescritura del theme
+El estilo base se encuentra en:
 
-El componente select se presenta con una apariencia visual definida en el fichero de estilos **theme.rup.select-x.y.z.css**.
+```
+rup/css/theme.rup.select-x.y.z.css
+```
 
-Si se quiere modificar la apariencia del componente, se recomienda redefinir el/los estilos necesarios en un fichero de estilos propio de la aplicación situado dentro del proyecto de estáticos (*codAppStatics/WebContent/codApp/styles*).
+Para personalizar:
+
+1. Crea un CSS en `codAppStatics/WebContent/codApp/styles`.
+2. Sobrescribe las clases necesarias.
+3. Evita modificar directamente el theme base.
+
+```css
+.select2-selection {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+```
 
 Ejemplo base de la estructura generada por el componente:
 
@@ -129,31 +199,39 @@ Ejemplo base de la estructura generada por el componente:
 </span>
 <label for="selectRemoto" class="select-material">Select remoto</label>
 ```
+---
 
-### 8 Internacionalización i18n
-La internacionalización se realiza mediante el fichero de recursos definido para la aplicación que se encontrará en la parte estática bajo *codAplic/resources/codAplic.i18n.json* (con sus variantes según idioma ej: *codAplic/resources/codAplic.i18n_es.json*). En dicho fichero se deberá declarar un objeto JSON cuyo nombre sea el mismo que el id del elemento *html* sobre el que se aplica el componente.
+## 7. Internacionalización (i18n)
 
-Ejemplo:
+1. Crea el fichero de recursos:
+   ```
+   codAplic/resources/codAplic.i18n_es.json
+   ```
 
-```js
-"lenguaje" : {
-		"asp":"asp_es",
-		"c":"c_es",
-		"c++":"c++_es",
-		"coldfusion":"coldfusion_es",
-		"groovy":"groovy_es",
-		"haskell":"haskell_es",
-		"java":"java_es",
-		"javascript":"javascript_es",
-		"perl":"perl_es",
-		"php":"php_es",
-		"python":"python_es",
-		"ruby":"ruby_es",
-		"scala":"scala_es"
+2. Define un objeto con el mismo ID que el select.
+
+```json
+"lenguaje": {
+  "js": "JavaScript",
+  "py": "Python",
+  "java": "Java"
 }
 ```
 
-## 9 Integración con UDA
+3. Inicializa el componente y se aplicará automáticamente.
+
+> 🌍 También puedes usar `codAplic.i18n_eu.json` u otros idiomas.
+
+---
+
+## 8. Integración con UDA / Backend
+
+### Flujo de datos remoto
+
+```
+Cliente (Select) → Controller (Spring) → Service → BD → JSON → Cliente
+```
+
 El componente Select permite recuperar los datos almacenados en base de datos. Para ello se requiere cierta configuración en el *Controller* al que se invoca.
 
 Se deben declarar dos parámetros (que el componente envía automáticamente):
@@ -232,23 +310,13 @@ patronesList :
                         css = print
 …
 ```
-*   **JSON**:
 
-```js
+#### Estructura JSON esperada
+
+```json
 [
-	{
-    	code="Autocomplete",
-    	descEs="Autocomplete_es",
-		descEu="Autcomplete_eu",
-        css="filter"
-    },
-	{
-    	code="Combo",
-        descEs="Combo_es",
-		descEu="Combo_eu",  
-        css="print"
-   }
-   ...
+  {"text": "Autocomplete_es", "id": "Autocomplete", "style": "filter"},
+  {"text": "Combo_es", "id": "Combo", "style": "print"}
 ]
 ```
 
@@ -270,60 +338,32 @@ Para que la serialización se realice correctamente, el componente envía en la 
 {"text":"descEs","id":"code","style":"css"}
 ```
 
-**NOTA**: Al generar el código con el *plugin* de **UDA**, se añade este serializador para todos los objetos del modelo creados.
+---
 
-## 10 Selects enlazados
-Estos selects enlazados, pueden ser tanto locales como remotos. Para indicar que un select depende directamente de otro se utilizará el atributo ***parent***, que será un *array* con los identificador(es) del padre(s). Veamos un ejemplo:
+## 9. Selects enlazados
+
+Permiten encadenar selects dependientes:
+
 ```js
-parent: ["departamento", "provincia"]
-```
-Las dependencias entre los selects pueden encadenarse de tal manera que se tenga un select que depende de otro select que a su vez depende de otro select y así sucesivamente (incluso se pueden combinar select locales con remotos indistintamente). Además, es posible que un select dependa a su vez de dos selects o más y no se cargarán ni se activarán hasta que todos sus padres hayan tomado un valor.
-
-Al ser selects enlazados, si un select elimina su selección todos sus selects hijos se vaciarán y se deshabilitarán. Además, si un select se deshabilita (o se inicializa deshabilitado), todos sus hijos se cargarán, pero se mostrarán deshabilitados.
-
-Cabe decir que en el atributo name de los campos definidos como parents de un select remoto, ha de definirse el nombre de la entidad, por ejemplo:
-```html
-<select id="padre" name="provincia" />
+$("#provincia").rup_select({
+  parent: ["departamento"],
+  source: "api/provincias"
+});
 ```
 
-## 11 Aspectos a tener en cuenta
-* Para que la obtención de los datos de forma remota funcione, es necesario serializar la entidad mediante Jackson. Para ello, bastará con añadir la clase en el mapa de la propiedad serializers del bean udaModule. Por ejemplo:
-```java
-// Ejemplo de configuración en Java
-@Bean
-public UdaModule udaModule() {
-	UdaModule udaModule = new UdaModule();
+- Si el padre cambia → el hijo se actualiza.
+- Se pueden encadenar múltiples niveles.
+- También pueden combinar selects locales y remotos.
 
-	Map<Class<? extends Object>, JsonSerializer<Object>> serializers = new HashMap<Class<? extends Object>, JsonSerializer<Object>>();
-	serializers.put(Usuario.class, customSerializer());
+---
 
-	udaModule.setSerializers(serializers);
-	udaModule.setSerializationInclusions(serializationInclusions());
-	udaModule.setSerializationFeature(serializationFeature());
-	udaModule.setDeserializationFeature(deserializationFeature());
+## 10. Buenas prácticas y advertencias
 
-	return udaModule;
-}
-```
-
-```xml
-<!-- Ejemplo de configuración en XML  -->
-<bean id="udaModule" class="com.ejie.x38.serialization.UdaModule" >
-	<property name="serializers">
-		<util:map>
-			<entry key="#{T(com.ejie.x21a.model.Usuario)}" value-ref="customSerializer" />
-		 </util:map>
-	</property>
-	<property name="serializationInclusions" ref="serializationInclusions" />
-	<property name="serializationFeature" ref="serializationFeature" />
-	<property name="deserializationFeature" ref="deserializationFeature" />
-</bean>
-```
-
-* En los casos en los que se utilice el método *clear* del componente, como por ejemplo lo hace el módulo de edición de la tabla para limpiar los valores previos que pudiera contener el formulario, **es necesario disponer de algún valor en la propiedad `blank`** si se espera que el componente no esté vacío una vez se ejecute el método.
-* Cuando no se usen los formularios dinámicos de la tabla (propiedad `enableDynamicForms`), es necesario establecer el valor de la propiedad `menuAppendTo` del componente a **body** u otro elemento que no sea el por defecto (a continuación del componente). Esto evitará la creación de un scroll vertical interno en el formulario.
-
-* En los inputs del select si se quieren usar estos caracteres:
+- ⚡ Usa siempre la versión minimizada en producción.
+- 🧼 Usa `blank` si quieres que el componente tenga valor vacío por defecto tras un `.clear()`.
+- 🧩 Evita dependencias cíclicas entre selects enlazados.
+- 🧠 Para evitar problemas con caracteres especiales, sobreescribe `escapeMarkup` si es necesario.
+    * En los inputs del select si se quieren usar estos caracteres:
 	  '\\': '&#92;',
       '&': '&amp;',
       '<': '&lt;',
@@ -331,14 +371,13 @@ public UdaModule udaModule() {
       '"': '&quot;',
       '\'': '&#39;',
       '/': '&#47;'
-   Se debe sobreescibir la propiedad escapeMarkup del plugin subyacente, ejemplo para poder usar "vista/vista":  
-   
-```javascript
-escapeMarkup: escapeExceptSlash
-  function escapeExceptSlash(markup) {
-  return String(markup).replace(/[&<>"'\\]/g, function (ch) {
+   Se debe sobreescibir la propiedad escapeMarkup del plugin subyacente, ejemplo para poder usar "vista/vista":
+
+```js
+escapeMarkup: function (markup) {
+  return markup.replace(/[&<>"'\]/g, function (ch) {
     return {
-      '\\': '&#92;',
+      '\': '&#92;',
       '&': '&amp;',
       '<': '&lt;',
       '>': '&gt;',
@@ -347,4 +386,19 @@ escapeMarkup: escapeExceptSlash
     }[ch];
   });
 }
-```   
+```
+
+---
+
+## 11. Errores comunes y troubleshooting
+
+| Error                                       | Causa probable                                             | Solución                                                  |
+|--------------------------------------------|-------------------------------------------------------------|-----------------------------------------------------------|
+| `Cannot read properties of undefined`     | No se incluyeron dependencias en orden                      | Verifica carga de jQuery y RUP Base                        |
+| No carga datos remotos                     | URL mal definida o sin serializador                         | Revisa endpoint y cabecera RUP                             |
+| No traduce textos                          | JSON i18n mal formado o sin ID coincidente                   | Revisa fichero `codAplic.i18n_xx.json`                     |
+| Select enlazado no actualiza               | `parent` no declarado correctamente                         | Verifica ID del padre y dependencias                       |
+
+---
+
+
