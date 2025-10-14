@@ -90,7 +90,144 @@ describe('Test Select > ', () => {
                 expect($selectGroup.rup_select('getRupValue')).toBe('2.1');
             });
         });
-
+        describe('Configuración dropdownParent > ', () => {
+            let $modal, $contenedor;
+            
+            beforeEach(() => {
+                $('body').append('<div id="modalPrueba" class="modal"></div>');
+                $('body').append('<div id="contenedorPrueba" class="container"></div>');
+                $modal = $('#modalPrueba');
+                $contenedor = $('#contenedorPrueba');
+            });
+            
+            afterEach(() => {
+                $('#modalPrueba, #contenedorPrueba').remove();
+            });
+        
+            it('debería usar auto como dropdownParent por defecto', (done) => {
+                let $selectPrueba = $('<select id="selectPruebaAuto"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({});
+                
+                // Esperar a que se inicialice
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+            
+            it('debería aceptar selector CSS como dropdownParent', (done) => {
+                let $selectPrueba = $('<select id="selectPruebaCSS"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    dropdownParent: '#modalPrueba'
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($modal)).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+            
+            it('debería aceptar objeto jQuery como dropdownParent', (done) => {
+                let $selectPrueba = $('<select id="selectPruebajQuery"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    dropdownParent: $contenedor
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($contenedor)).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+            
+            it('debería usar fallback al padre cuando el elemento dropdownParent no existe', (done) => {
+                let $selectPrueba = $('<select id="selectPruebaFallback"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select({
+                    dropdownParent: '#elementoInexistente'
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    expect(console.warn).toHaveBeenCalled();
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+            
+            it('debería manejar dropdownParent null', (done) => {
+                let $selectPrueba = $('<select id="selectPruebaNull"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    dropdownParent: null
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+            
+            it('debería mantener la funcionalidad del dropdown con dropdownParent personalizado', (done) => {
+                let $selectPrueba = $('<select id="selectPruebaPosicionamiento"><option value="1">Opción 1</option><option value="2">Opción 2</option></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    dropdownParent: $modal
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    
+                    // Verificar que el select sigue funcionando normalmente
+                    $selectPrueba.rup_select('setRupValue', '2');
+                    expect($selectPrueba.rup_select('getRupValue')).toBe('2');
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 100);
+            });
+        });
     });
     describe('Métodos públicos > ', () => {
         describe('Métodos getRupValue y setRupValue > ', () => {
@@ -900,6 +1037,94 @@ describe('Test Select > ', () => {
                 }, testutils.isHeadlessEnvironment() ? 300 : 100); // Más tiempo inicial en headless
             });            
         });
+
+        describe('setDropdownParent > ', () => {
+            let $selectPrueba, $modal, $contenedor;
+            
+            beforeEach((done) => {
+                $('body').append('<div id="modalPrueba" class="modal"></div>');
+                $('body').append('<div id="contenedorPrueba" class="container"></div>');
+                $modal = $('#modalPrueba');
+                $contenedor = $('#contenedorPrueba');
+                
+                $selectPrueba = $('<select id="selectPruebaMetodo"><option value="1">Opción 1</option></select>');
+                $('#content').append($selectPrueba);
+                $selectPrueba.rup_select({});
+                
+                // Esperar a que se inicialice
+                setTimeout(() => {
+                    done();
+                }, 100);
+            });
+            
+            afterEach(() => {
+                if ($selectPrueba && $selectPrueba.data('select2')) {
+                    $selectPrueba.rup_select('destroy');
+                }
+                $('#modalPrueba, #contenedorPrueba').remove();
+            });
+            
+            it('debería cambiar dropdownParent a elemento válido', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                const configuracionInicial = configuracion.dropdownParent;
+                
+                $selectPrueba.rup_select('setDropdownParent', '#modalPrueba');
+                
+                // Verificar que la configuración cambió
+                const nuevaConfiguracion = $selectPrueba.data('settings');
+                expect(nuevaConfiguracion.dropdownParent.is($modal)).toBe(true);
+                expect(nuevaConfiguracion.dropdownParent.is(configuracionInicial)).toBe(false);
+            });
+            
+            it('debería mostrar advertencia al establecer dropdownParent inválido', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', '#elementoInvalido');
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+            
+            it('debería aceptar objeto jQuery en setDropdownParent', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                const configuracionInicial = configuracion.dropdownParent;
+                
+                $selectPrueba.rup_select('setDropdownParent', $contenedor);
+                
+                // Verificar que la configuración cambió
+                const nuevaConfiguracion = $selectPrueba.data('settings');
+                expect(nuevaConfiguracion.dropdownParent.is($contenedor)).toBe(true);
+                expect(nuevaConfiguracion.dropdownParent.is(configuracionInicial)).toBe(false);
+            });
+            
+            it('debería manejar null en setDropdownParent', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', null);
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+            
+            it('debería manejar cadena vacía en setDropdownParent', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', '');
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+        });
     });
 });
 
@@ -956,6 +1181,182 @@ describe('Test Select Remoto> ', () => {
             });
             it('El valor se debe corresponder a getRupValue:', () => {
                 expect($selectHijoRemoto.rup_select('getRupValue')).toBe('11');
+            });
+        });
+
+        describe('Configuración dropdownParent > ', () => {
+            let $modal, $contenedor;
+            
+            beforeEach(() => {
+                $('body').append('<div id="modalPruebaRemoto" class="modal"></div>');
+                $('body').append('<div id="contenedorPruebaRemoto" class="container"></div>');
+                $modal = $('#modalPruebaRemoto');
+                $contenedor = $('#contenedorPruebaRemoto');
+            });
+            
+            afterEach(() => {
+                $('#modalPruebaRemoto, #contenedorPruebaRemoto').remove();
+            });
+        
+            it('debería usar auto como dropdownParent por defecto en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotoAuto"></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    }
+                });
+                
+                // Esperar a que se inicialice
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
+            });
+            
+            it('debería aceptar selector CSS como dropdownParent en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotoCSS"></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    },
+                    dropdownParent: '#modalPruebaRemoto'
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($modal)).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
+            });
+            
+            it('debería aceptar objeto jQuery como dropdownParent en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotojQuery"></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    },
+                    dropdownParent: $contenedor
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($contenedor)).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
+            });
+            
+            it('debería usar fallback al padre cuando el elemento dropdownParent no existe en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotoFallback"></select>');
+                $('#content').append($selectPrueba);
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    },
+                    dropdownParent: '#elementoInexistenteRemoto'
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    expect(console.warn).toHaveBeenCalled();
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
+            });
+            
+            it('debería manejar dropdownParent null en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotoNull"></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    },
+                    dropdownParent: null
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($selectPrueba.parent())).toBe(true);
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
+            });
+            
+            it('debería mantener la funcionalidad del dropdown con dropdownParent personalizado en select remoto', (done) => {
+                let $selectPrueba = $('<select id="selectRemotoPosicionamiento"></select>');
+                $('#content').append($selectPrueba);
+                
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    },
+                    dropdownParent: $modal
+                });
+                
+                setTimeout(() => {
+                    const configuracion = $selectPrueba.data('settings');
+                    
+                    expect(configuracion).toBeDefined();
+                    expect(configuracion.dropdownParent).toBeDefined();
+                    expect(configuracion.dropdownParent.is($modal)).toBe(true);
+                    
+                    // Verificar que el select remoto sigue funcionando normalmente
+                    expect(() => {
+                        if ($selectPrueba.data('select2')) {
+                            $selectPrueba.select2('open');
+                            $selectPrueba.select2('close');
+                        }
+                    }).not.toThrow();
+                    
+                    $selectPrueba.rup_select('destroy');
+                    done();
+                }, 200);
             });
         });
     });
@@ -1356,6 +1757,118 @@ describe('Test Select Remoto> ', () => {
             
             it('Debe recuperar su estado anterior a los cambios, en options:', () => {
             	expect($('#selectRemoto option:contains("intruso")').length).toBe(1);
+            });
+        });
+
+        describe('setDropdownParent > ', () => {
+            let $selectPrueba, $modal, $contenedor;
+            
+            beforeEach((done) => {
+                $('body').append('<div id="modalPruebaRemoto" class="modal"></div>');
+                $('body').append('<div id="contenedorPruebaRemoto" class="container"></div>');
+                $modal = $('#modalPruebaRemoto');
+                $contenedor = $('#contenedorPruebaRemoto');
+                
+                $selectPrueba = $('<select id="selectRemotoMetodo"></select>');
+                $('#content').append($selectPrueba);
+                $selectPrueba.rup_select({
+                    url: '/selectSimple/remote',
+                    sourceParam: {
+                        text: 'desc',
+                        id: 'code'
+                    }
+                });
+                
+                // Esperar a que se inicialice el select remoto
+                setTimeout(() => {
+                    done();
+                }, 200);
+            });
+            
+            afterEach(() => {
+                if ($selectPrueba && $selectPrueba.data('select2')) {
+                    $selectPrueba.rup_select('destroy');
+                }
+                $('#modalPruebaRemoto, #contenedorPruebaRemoto').remove();
+            });
+            
+            it('debería cambiar dropdownParent a elemento válido en select remoto', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                const configuracionInicial = configuracion.dropdownParent;
+                
+                $selectPrueba.rup_select('setDropdownParent', '#modalPruebaRemoto');
+                
+                // Verificar que la configuración cambió
+                const nuevaConfiguracion = $selectPrueba.data('settings');
+                expect(nuevaConfiguracion.dropdownParent.is($modal)).toBe(true);
+                expect(nuevaConfiguracion.dropdownParent.is(configuracionInicial)).toBe(false);
+            });
+            
+            it('debería mostrar advertencia al establecer dropdownParent inválido en select remoto', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', '#elementoInvalidoRemoto');
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+            
+            it('debería aceptar objeto jQuery en setDropdownParent en select remoto', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                const configuracionInicial = configuracion.dropdownParent;
+                
+                $selectPrueba.rup_select('setDropdownParent', $contenedor);
+                
+                // Verificar que la configuración cambió
+                const nuevaConfiguracion = $selectPrueba.data('settings');
+                expect(nuevaConfiguracion.dropdownParent.is($contenedor)).toBe(true);
+                expect(nuevaConfiguracion.dropdownParent.is(configuracionInicial)).toBe(false);
+            });
+            
+            it('debería manejar null en setDropdownParent en select remoto', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', null);
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+            
+            it('debería manejar cadena vacía en setDropdownParent en select remoto', () => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                spyOn(console, 'warn');
+                
+                $selectPrueba.rup_select('setDropdownParent', '');
+                
+                expect(console.warn).toHaveBeenCalled();
+            });
+            
+            it('debería mantener configuración remota después de setDropdownParent', (done) => {
+                const configuracion = $selectPrueba.data('settings');
+                expect(configuracion).toBeDefined();
+                
+                $selectPrueba.rup_select('setDropdownParent', $modal);
+                
+                // Esperar a que se complete el reload
+                setTimeout(() => {
+                    const nuevaConfiguracion = $selectPrueba.data('settings');
+                    expect(nuevaConfiguracion).toBeDefined();
+                    expect(nuevaConfiguracion.url).toBe('/selectSimple/remote');
+                    expect(nuevaConfiguracion.sourceParam).toBeDefined();
+                    expect(nuevaConfiguracion.dropdownParent.is($modal)).toBe(true);
+                    
+                    done();
+                }, 200);
             });
         });
     });
