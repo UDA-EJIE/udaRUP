@@ -44,7 +44,17 @@
     if (typeof define === 'function' && define.amd) {
 
         // AMD. Register as an anonymous module.
-        define(['jquery', './rup.base', './rup.message', 'select2', 'select2/dist/js/i18n/eu', 'select2/dist/js/i18n/es', 'select2/dist/js/i18n/en', 'select2/dist/js/i18n/fr', './external/select2MultiCheckboxes'], factory);
+		define([
+            'jquery', 
+            './rup.base', 
+            './rup.message',
+            'select2/dist/js/select2.full.min',
+            'select2/dist/js/i18n/eu', 
+            'select2/dist/js/i18n/es', 
+            'select2/dist/js/i18n/en', 
+            'select2/dist/js/i18n/fr', 
+            './external/select2MultiCheckboxes'
+        ], factory);
     } else {
 
         // Browser globals
@@ -836,6 +846,47 @@
         		$(this).find('option').remove();
         	}
 		},
+
+		/**
+		 * Configura el contenedor padre para el dropdown del select.
+		 * Permite cambiar dinámicamente dónde se adjunta el dropdown del componente.
+		 * 
+		 * @function setDropdownParent
+		 * @param {string|jQuery|null} parent - Elemento contenedor donde se adjuntará el dropdown.
+		 *        Acepta los siguientes valores:
+		 *        - 'auto': utiliza automáticamente el elemento padre del select
+		 *        - string: selector CSS del elemento contenedor (ej: '#miModal', '.contenedor')
+		 *        - jQuery object: objeto jQuery que representa el elemento contenedor
+		 *        - null: utiliza el comportamiento por defecto de Select2 (adjunta al body)
+		 * @throws {Warning} Muestra una advertencia en consola si el elemento especificado no existe
+		 * @example 
+		 * // Cambiar a un modal específico
+		 * $("#miSelect").rup_select("setDropdownParent", "#miModal");
+		 * 
+		 * @example
+		 * // Usar el padre automático del select
+		 * $("#miSelect").rup_select("setDropdownParent", "auto");
+		 * 
+		 * @example
+		 * // Usar comportamiento por defecto de Select2
+		 * $("#miSelect").rup_select("setDropdownParent", null);
+		 * 
+		 * @example
+		 * // Usar objeto jQuery
+		 * $("#miSelect").rup_select("setDropdownParent", $('.mi-contenedor'));
+		 */
+		setDropdownParent: function(parent) {
+			var $self = $(this);
+			var settings = $self.data('settings');
+			
+			if ($(parent).length > 0) {
+				settings.dropdownParent = $(parent);
+				// Reinicializar el componente con la nueva configuración
+				$self.rup_select('reload');
+			} else {
+				console.warn($.rup.i18nParse($.rup.i18n.base, 'rup_select.warnings.parentElementNotExists'), parent);
+			}
+		}
     });
 
     // *******************************
@@ -1639,6 +1690,21 @@
 	                    html, loadAsLocal = false,
 	                    isValidableElem = false,
 	                    attrs;
+
+					// Configurar AttachContainer
+					if (settings.dropdownParent === 'auto' || !settings.dropdownParent) {
+						// Usar el padre del select2 por defecto
+						settings.dropdownParent = $self.parent();
+					} else {
+						// Si se especifica un dropdownParent personalizado, verificar que existe
+						if ($(settings.dropdownParent).length > 0) {
+							settings.dropdownParent = $(settings.dropdownParent);
+						} else {
+							console.warn($.rup.i18nParse($.rup.i18n.base, 'rup_select.warnings.dropdownParentNotExists'), settings.dropdownParent);
+							// Fallback al padre del select2
+							settings.dropdownParent = $self.parent();
+						}
+					}
 	
 	                // Se recoge el tabindex indicado en el elemento
 	                settings.tabindex = $self.attr('tabindex');
@@ -2294,10 +2360,50 @@
 	 * @property {boolean} [autocomplete=false] - Habilita la funcionalidad de
 	 *           autocompletado, permitiendo hacer búsquedas sobre los resultados.
 	 * @property {boolean} [spaceEnable=true] - Habilita la funcionalidad de búsquedas con barra espaciadora.
+	 * @property {string|jQuery|null} [dropdownParent='auto'] - Especifica el elemento contenedor 
+	 *           donde se adjuntará el dropdown del select. Acepta los siguientes valores:
+	 *           - 'auto': utiliza automáticamente el elemento padre del select (comportamiento por defecto)
+	 *           - string: selector CSS del elemento contenedor (ej: '#miModal', '.mi-contenedor')
+	 *           - jQuery object: objeto jQuery que representa el elemento contenedor
+	 *           - null: utiliza el comportamiento por defecto de Select2 (adjunta al body)
+	 *           Esta opción es útil para resolver problemas de z-index en modales o contenedores 
+	 *           con overflow:hidden.
 	 * @property {jQuery.rup_select~select} [select] - Función de callback
 	 *           a ejecutar cuando se selecciona una opción de la lista.
 	 * @property {jQuery.rup_select~deselect} [deselect] - Función de callback
 	 *           a ejecutar cuando se deselecciona una opción de la lista.
+	 *  
+	 * @example
+	 * // Uso básico con dropdownParent automático
+	 * $("#miSelect").rup_select({
+	 *     url: "selectSimple/remote",
+	 *     sourceParam: {
+	 *         text: "desc" + $.rup_utils.capitalizedLang(),
+	 *         id: "code"
+	 *     }
+	 *     // dropdownParent: 'auto' es el valor por defecto
+	 * });
+	 * 
+	 * @example
+	 * // Select dentro de un modal
+	 * $("#selectEnModal").rup_select({
+	 *     data: [{id: 1, text: "Opción 1"}, {id: 2, text: "Opción 2"}],
+	 *     dropdownParent: '#miModal' // El dropdown se adjuntará al modal
+	 * });
+	 * 
+	 * @example
+	 * // Select con contenedor personalizado usando objeto jQuery
+	 * $("#miSelect").rup_select({
+	 *     url: "datos/remote",
+	 *     dropdownParent: $('.mi-contenedor-personalizado')
+	 * });
+	 * 
+	 * @example
+	 * // Usar comportamiento por defecto de Select2 (adjuntar al body)
+	 * $("#miSelect").rup_select({
+	 *     data: misDatos,
+	 *     dropdownParent: null
+	 * });
 	 */
 	$.fn.rup_select.defaults = {
 		language: window.LANG,
@@ -2312,7 +2418,8 @@
 		multiple: false,
 		defaultValueAutocompleteNotLoaded: false,
 		multiValueToken: '##',
-		spaceEnable: true
+		spaceEnable: true,
+		dropdownParent: 'auto'
 	};
 }));
 

@@ -40,6 +40,10 @@
       "selectedText": "Seleccionado(s) {0} de {1}",
       "uncheckAllText": "Deseleccionar todo",
       "uncheckAllTitle": "Deseleccionar todos los elementos"
+    },
+    "warnings": {
+      "dropdownParentNotExists": "El elemento dropdownParent especificado no existe",
+      "parentElementNotExists": "El elemento padre especificado no existe"
     }
   },
   "rup_date": {

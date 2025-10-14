@@ -39,6 +39,7 @@ $("#idSelect").rup_select({				url: "selectSimple/remote",         	sourcePara
     * [~open(notOthersClose)](#module_rup_select..open)
     * [~close(notOthersClose)](#module_rup_select..close)
     * [~destroy()](#module_rup_select..destroy)
+    * [~setDropdownParent(parent)](#module_rup_select..setDropdownParent)
 
 <a name="module_rup_select..defaults"></a>
 
@@ -69,9 +70,26 @@ Opciones por defecto de configuración del componente.
 | [legacyWrapMode] | <code>number</code> | <code>false</code> | Determina si se emplea el           método obsoleto a la hora de empaquetar en objetos json los           elementos seleccionados. Su propósito es mantener la           retrocompatibilidad. |
 | [autocomplete] | <code>boolean</code> | <code>false</code> | Habilita la funcionalidad de           autocompletado, permitiendo hacer búsquedas sobre los resultados. |
 | [spaceEnable] | <code>boolean</code> | <code>true</code> | Habilita la funcionalidad de búsquedas con barra espaciadora. |
+| [dropdownParent] | <code>string</code> \| <code>jQuery</code> \| <code>null</code> | <code>&quot;&#x27;auto&#x27;&quot;</code> | Especifica el elemento contenedor            donde se adjuntará el dropdown del select. Acepta los siguientes valores:           - 'auto': utiliza automáticamente el elemento padre del select (comportamiento por defecto)           - string: selector CSS del elemento contenedor (ej: '#miModal', '.mi-contenedor')           - jQuery object: objeto jQuery que representa el elemento contenedor           - null: utiliza el comportamiento por defecto de Select2 (adjunta al body)           Esta opción es útil para resolver problemas de z-index en modales o contenedores            con overflow:hidden. |
 | [select] | <code>jQuery.rup\_select~select</code> |  | Función de callback           a ejecutar cuando se selecciona una opción de la lista. |
 | [deselect] | <code>jQuery.rup\_select~deselect</code> |  | Función de callback           a ejecutar cuando se deselecciona una opción de la lista. |
 
+**Example**  
+```js
+// Uso básico con dropdownParent automático$("#miSelect").rup_select({    url: "selectSimple/remote",    sourceParam: {        text: "desc" + $.rup_utils.capitalizedLang(),        id: "code"    }    // dropdownParent: 'auto' es el valor por defecto});
+```
+**Example**  
+```js
+// Select dentro de un modal$("#selectEnModal").rup_select({    data: [{id: 1, text: "Opción 1"}, {id: 2, text: "Opción 2"}],    dropdownParent: '#miModal' // El dropdown se adjuntará al modal});
+```
+**Example**  
+```js
+// Select con contenedor personalizado usando objeto jQuery$("#miSelect").rup_select({    url: "datos/remote",    dropdownParent: $('.mi-contenedor-personalizado')});
+```
+**Example**  
+```js
+// Usar comportamiento por defecto de Select2 (adjuntar al body)$("#miSelect").rup_select({    data: misDatos,    dropdownParent: null});
+```
 <a name="module_rup_select..getRupValue"></a>
 
 ### rup_select~getRupValue() ⇒ <code>string</code> \| <code>number</code>
@@ -420,4 +438,35 @@ Elimina el autocomplete.
 **Example**  
 ```js
 $("#idSelect").rup_select("destroy");
+```
+<a name="module_rup_select..setDropdownParent"></a>
+
+### rup_select~setDropdownParent(parent)
+Configura el contenedor padre para el dropdown del select.Permite cambiar dinámicamente dónde se adjunta el dropdown del componente.
+
+**Kind**: inner method of [<code>rup\_select</code>](#module_rup_select)  
+**Throws**:
+
+- <code>Warning</code> Muestra una advertencia en consola si el elemento especificado no existe
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parent | <code>string</code> \| <code>jQuery</code> \| <code>null</code> | Elemento contenedor donde se adjuntará el dropdown.        Acepta los siguientes valores:        - 'auto': utiliza automáticamente el elemento padre del select        - string: selector CSS del elemento contenedor (ej: '#miModal', '.contenedor')        - jQuery object: objeto jQuery que representa el elemento contenedor        - null: utiliza el comportamiento por defecto de Select2 (adjunta al body) |
+
+**Example**  
+```js
+// Cambiar a un modal específico$("#miSelect").rup_select("setDropdownParent", "#miModal");
+```
+**Example**  
+```js
+// Usar el padre automático del select$("#miSelect").rup_select("setDropdownParent", "auto");
+```
+**Example**  
+```js
+// Usar comportamiento por defecto de Select2$("#miSelect").rup_select("setDropdownParent", null);
+```
+**Example**  
+```js
+// Usar objeto jQuery$("#miSelect").rup_select("setDropdownParent", $('.mi-contenedor'));
 ```

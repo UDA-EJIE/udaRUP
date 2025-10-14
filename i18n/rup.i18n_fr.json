@@ -40,6 +40,10 @@
       "selectedText": "# selectionnés",
       "uncheckAllText": "Tout décocher",
       "uncheckAllTitle": "Deseleccionar todos los elementos_fr"
+    },
+    "warnings": {
+      "dropdownParentNotExists": "L'élément dropdownParent spécifié n'existe pas",
+      "parentElementNotExists": "L'élément parent spécifié n'existe pas"
     }
   },
   "rup_date": {

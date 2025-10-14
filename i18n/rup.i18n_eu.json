@@ -40,6 +40,10 @@
       "selectedText": "{1}-tik {0} hautatuta",
       "uncheckAllText": "Garbitu hautapena",
       "uncheckAllTitle": "Aukera guztiak garbitu"
+    },
+    "warnings": {
+      "dropdownParentNotExists": "Zehaztutako dropdownParent elementua ez da existitzen",
+      "parentElementNotExists": "Zehaztutako guraso elementua ez da existitzen"
     }
   },
   "rup_date": {
