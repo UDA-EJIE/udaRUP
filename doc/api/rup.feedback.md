@@ -41,14 +41,15 @@ Opciones por defecto de configuración del widget.
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | [type] | <code>string</code> | <code>null</code> | Tipo de feedback a mostrar [ok, alert, error]. |
+| [adapter] | <code>string</code> | <code>&quot;feedback_material&quot;</code> | Adaptador a utilizar para el renderizado del feedback. |
 | [message] | <code>string</code> |  | Mensaje que se mostrará en el feedback. Si no se define simplemente se creará el objeto donde se mostrarán los mensajes |
 | [imgClass] | <code>Number</code> | <code></code> | Clase que determina el estilo que se va a aplicar en el icono del feedback. |
 | [delay] | <code>Number</code> | <code></code> | Espera (ms) que va a aplicarse antes de ocultar el feedback. |
 | [fadeSpeed] | <code>Number</code> | <code></code> | Tiempo (ms) que va a durar la animación de ocultación del feedback. |
-| [gotoTop] | <code>boolean</code> | <code>true</code> | Drmina si cuando se muestre el feedback se debe desplazar la |
-| [customGoTo] | <code>boolean</code> | <code></code> | Drmina si cuando se muestre el feedback donde se debe desplazar la página. |
+| [gotoTop] | <code>boolean</code> | <code>true</code> | Determina si cuando se muestre el feedback se debe desplazar la página al inicio. |
+| [customGoTo] | <code>boolean</code> | <code></code> | Determina si cuando se muestre el feedback donde se debe desplazar la página. |
 | [block] | <code>boolean</code> | <code>true</code> | Indica si la capa que contendrá el mensaje de feedback debe tener o no un espacio fijo en la pantalla. |
-| [closeLink] | <code>closeLink</code> | <code>true</code> | Indica si la capa de feedback tendrá un enlace para que el usuario de la aplicación pueda cerrar la capa manualmente. |
+| [closeLink] | <code>boolean</code> | <code>true</code> | Indica si la capa de feedback tendrá un enlace para que el usuario de la aplicación pueda cerrar la capa manualmente. |
 
 <a name="module_rup_feedback..destroy"></a>
 
