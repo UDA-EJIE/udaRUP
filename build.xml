@@ -156,8 +156,8 @@
     
         <replace file="${udaDemoAppBaseDir}/x21aEAR/pom.xml">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
         </replace>
         
         <replace file="${udaDemoAppBaseDir}/x21aAppWar/WebContent/WEB-INF/views/welcome.jsp">
@@ -212,8 +212,8 @@
         
         <replace file="${udaTemplatesSrcDir}/proyecto/{{project_name}}EAR/pom.xml.jinja">
            <replacefilter 
-            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;" 
-            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-SNAPSHOT&lt;/com.ejie.x38.version&gt;"/>
+            token="&lt;com.ejie.x38.version&gt;${previousUdaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;" 
+            value="&lt;com.ejie.x38.version&gt;${udaLibVersion}-RELEASE&lt;/com.ejie.x38.version&gt;"/>
         </replace>
     </target>  
     
