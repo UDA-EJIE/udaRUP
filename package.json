@@ -59,7 +59,7 @@
     "@mdi/font": "^7.4.47",
     "acorn": "8.8.0",
     "autoprefixer": "10.4.12",
-    "babel-loader": "^9.2.1",
+    "babel-loader": "^10.0.0",
     "babel-plugin-istanbul": "^7.0.1",
     "babel-plugin-transform-es2015-modules-amd": "6.24.1",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",
