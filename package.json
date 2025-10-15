@@ -154,7 +154,7 @@
     "sass": "^1.89.0",
     "sass-loader": "13.0.0",
     "sass-module-importer": "1.4.0",
-    "style-loader": "0.23.1",
+    "style-loader": "4.0.0",
     "terser": "^5.44.0",
     "terser-webpack-plugin": "^5.3.14",
     "tether": "1.4.6",
