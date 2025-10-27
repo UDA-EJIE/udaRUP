@@ -1,4 +1,23 @@
 // Estilos personalizados
+// Variables CSS de DataTables
+:root {
+    // Color de fondo y texto para filas seleccionadas
+    --dt-row-selected: 255, 250, 144;
+	--dt-row-selected-hover: 255, 235, 100;
+    --dt-row-selected-text: 0, 0, 0;
+}
+
+// Cambiar color de fondo y texto en filas seleccionadas
+table.dataTable tbody > tr.selected > *,
+table.dataTable tbody > tr.selected {
+    box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.9);
+    color: rgb(var(--dt-row-selected-text));
+}
+
+table.dataTable tbody > tr.selected:hover > *,
+table.dataTable tbody > tr.selected:hover {
+    box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected-hover), 1);
+}
 
 // Spinner de carga que aparece antes de cargar formEdit (cuando haya sido activado)
 div.formEdit_dialog_loading_container {

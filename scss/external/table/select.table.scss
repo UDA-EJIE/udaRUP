@@ -1,22 +1,3 @@
-table.dataTable tbody>tr.selected,
-table.dataTable tbody>tr>.selected {
-    background-color: #fffa90
-}
-
-table.dataTable.stripe tbody>tr.selected,
-table.dataTable.stripe tbody>tr>.selected,
-table.dataTable.display tbody>tr.selected,
-table.dataTable.display tbody>tr>.selected {
-    background-color: #acbad4
-}
-
-table.dataTable.hover tbody>tr.selected:hover,
-table.dataTable.hover tbody>tr>.selected:hover,
-table.dataTable.display tbody>tr.selected:hover,
-table.dataTable.display tbody>tr>.selected:hover {
-    background-color: #aab7d1
-}
-
 table.dataTable.order-column tbody>tr.selected>.sorting_1,
 table.dataTable.order-column tbody>tr.selected>.sorting_2,
 table.dataTable.order-column tbody>tr.selected>.sorting_3,
