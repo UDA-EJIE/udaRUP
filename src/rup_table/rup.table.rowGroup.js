@@ -280,7 +280,7 @@
 					if (row) {
 						row.insertBefore(dt.row(rows[0]).node());
 						
-						$('td', row).prepend(span);
+						$('th, td', row).prepend(span);
 						row.click(function() {
 							let span = $(this).find('span')[0];
 							let position = Number(span.getAttribute("identificador"));
@@ -301,7 +301,7 @@
 					if (row) {
 						row.insertAfter(dt.row(rows[rows.length - 1]).node());
 						
-						$('td', row).prepend(span);
+						$('th, td', row).prepend(span);
 						row.click(function() {
 							let span = $(this).find('span')[0];
 							let position = Number(span.getAttribute("identificador"));
