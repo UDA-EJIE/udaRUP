@@ -121,8 +121,10 @@ table.dataTable thead {
 		}
 	}
 	
-	.dt-orderable-none > div:not(.divSelectTableHead) {
-		display: none !important;
+	.dt-orderable-none .dt-column-title div.d-block {
+		span.mdi-arrow-up, span.mdi-arrow-down {
+			visibility: hidden;
+		}
 	}
 }
 
