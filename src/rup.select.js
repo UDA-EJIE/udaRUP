@@ -352,25 +352,27 @@
          * $("#idSelect").rup_select("select", [0,2]);
          */
         select: function (param) {
-        	let settings = $(this).data().settings;
+			let settings = $(this).data().settings;
         	let datas = settings.data || settings.options;
-    		if(settings.groups){
-    			datas = settings.optionsGroups;
-    		}
-        	if(settings.multiple){
-            	let datos = [];
-            	$.each(param, function (key, value) {
-              		if(datas.length >= value){
-              			datos.push(datas[value].id);
-             		}
-                });
-            	$(this).rup_select('setRupValue', datos);
-        	}else{
-        		if(datas.length >= param){
-        			$(this).rup_select('setRupValue', datas[param].id);
-        		}
-        	}
-        },
+			if(settings.groups){
+				datas = settings.optionsGroups;
+			}
+			if(settings.multiple){
+				let datos = [];
+				$.each(param, function (key, value) {
+					const idx = Number(value);
+					if (!Number.isNaN(idx) && idx >= 0 && idx < datas.length) {
+						datos.push(datas[idx].id);
+					}
+				});
+				$(this).rup_select('setRupValue', datos);
+			}else{
+				const idx = Number(param);
+				if (!Number.isNaN(idx) && idx >= 0 && idx < datas.length) {
+					$(this).rup_select('setRupValue', datas[idx].id);
+				}
+			}
+		},
 		/**
 		 * Método que lanza el evento deselect del componente.
 		 * 
