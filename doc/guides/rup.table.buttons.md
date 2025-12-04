@@ -11,7 +11,7 @@ $("#idComponente").rup_table({
 	buttons: {
 		activate: true,
 		blackListButtons: ['deleteButton', 'reportsButton'],
-		contextMenu: true
+		contextMenu: true,
 		myButtons: [{
 			text: function () {
 				return $.rup.i18n.app.iberdokTable.ver;
