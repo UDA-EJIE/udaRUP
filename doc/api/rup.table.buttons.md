@@ -45,7 +45,9 @@ Buttons for DataTables
     * [~_disableCollection(id)](#module_rup.table.buttons.._disableCollection)
     * [~_enableButtonAndContextMenuOption(id)](#module_rup.table.buttons.._enableButtonAndContextMenuOption)
     * [~_disableButtonAndContextMenuOption(id)](#module_rup.table.buttons.._disableButtonAndContextMenuOption)
-    * [~_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject)](#module_rup.table.buttons.._manageButtonsAndButtonsContextMenu)
+    * [~_evaluateDisplay(displayProperty, numOfSelectedRows, ctx)](#module_rup.table.buttons.._evaluateDisplay) ⇒ <code>boolean</code> \| <code>undefined</code>
+    * [~_manageButtonsAndContextMenu(opts, numOfSelectedRows, collectionObject, ctx)](#module_rup.table.buttons.._manageButtonsAndContextMenu)
+    * ~~[~_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject, ctx)](#module_rup.table.buttons.._manageButtonsAndButtonsContextMenu)~~
     * [~_reports(dt, that, config)](#module_rup.table.buttons.._reports)
     * [~ConvertToTabulador(reportsExportAllColumns, columns, objArray, true)](#module_rup.table.buttons..ConvertToTabulador) ⇒ <code>object</code>
     * [~_reportsTypeOfCopy(dt, type, request, multiselection, selectedAll, [deselectedIds])](#module_rup.table.buttons.._reportsTypeOfCopy) ⇒ <code>object</code>
@@ -495,9 +497,45 @@ Desactiva el boton y su opcion dentro del context menu
 | --- | --- | --- |
 | id | <code>string</code> | Id of the button |
 
+<a name="module_rup.table.buttons.._evaluateDisplay"></a>
+
+### rup.table.buttons~\_evaluateDisplay(displayProperty, numOfSelectedRows, ctx) ⇒ <code>boolean</code> \| <code>undefined</code>
+Evalúa la propiedad display para determinar si un botón debe habilitarse.Admite RegExp o Function.
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Returns**: <code>boolean</code> \| <code>undefined</code> - - true si debe habilitarse, false si debe deshabilitarse, undefined si no está definido  
+**Since**: UDA 6.4.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| displayProperty | <code>RegExp</code> \| <code>function</code> \| <code>undefined</code> | Propiedad display (admite RegExp o Function) |
+| numOfSelectedRows | <code>number</code> | Número de filas seleccionadas |
+| ctx | <code>object</code> | Contexto de DataTables |
+
+<a name="module_rup.table.buttons.._manageButtonsAndContextMenu"></a>
+
+### rup.table.buttons~\_manageButtonsAndContextMenu(opts, numOfSelectedRows, collectionObject, ctx)
+Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesdentro del context menu usando la propiedad 'display'.
+
+**Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
+**Since**: UDA 6.4.0  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| opts | <code>object</code> | Propiedades del botón |
+| numOfSelectedRows | <code>number</code> | Número de filas seleccionadas |
+| collectionObject | <code>null</code> \| <code>object</code> | Propiedades del botón de colección (si aplica) |
+| ctx | <code>object</code> | Contexto de DataTables |
+
+**Example**  
+```js
+_manageButtonsAndContextMenu(buttonOpts, 5, null, ctx);
+```
 <a name="module_rup.table.buttons.._manageButtonsAndButtonsContextMenu"></a>
 
-### rup.table.buttons~\_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject)
+### ~~rup.table.buttons~\_manageButtonsAndButtonsContextMenu(opts, numOfSelectedRows, collectionObject, ctx)~~
+***UDA 6.4.0 - Use _manageButtonsAndContextMenu con la propiedad 'display' en lugar de 'displayRegex'***
+
 Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesdentro del context menu.
 
 **Kind**: inner method of [<code>rup.table.buttons</code>](#module_rup.table.buttons)  
@@ -505,10 +543,15 @@ Gestiona la propiedad de activado/desactivado de los botones y de sus opcionesd
 
 | Param | Type | Description |
 | --- | --- | --- |
-| opts | <code>object</code> | Buttons properties |
-| numOfSelectedRows | <code>int</code> | Number of selected rows |
-| collectionObject | <code>null</code> \| <code>object</code> | Collection button properties |
+| opts | <code>object</code> | Propiedades del botón |
+| numOfSelectedRows | <code>number</code> | Número de filas seleccionadas |
+| collectionObject | <code>null</code> \| <code>object</code> | Propiedades del botón de colección (si aplica) |
+| ctx | <code>object</code> | Contexto de DataTables |
 
+**Example**  
+```js
+_manageButtonsAndButtonsContextMenu(buttonOpts, 5, null, ctx);
+```
 <a name="module_rup.table.buttons.._reports"></a>
 
 ### rup.table.buttons~\_reports(dt, that, config)

@@ -70,7 +70,7 @@ $("#idTable").rup_table("createButton", {
 				},
 				id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 				className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
-				displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+				display: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 				insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
 				type: 'edit',
 				init: function (dt, button, config) {

@@ -11,7 +11,7 @@ $("#idComponente").rup_table({
 	buttons: {
 		activate: true,
 		blackListButtons: ['deleteButton', 'reportsButton'],
-		contextMenu: true
+		contextMenu: true,
 		myButtons: [{
 			text: function () {
 				return $.rup.i18n.app.iberdokTable.ver;
@@ -19,7 +19,7 @@ $("#idComponente").rup_table({
 			id: 'iberdokTableVerDocumento', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'btn-material-primary-high-emphasis table_toolbar_btnView',
 			icon: "mdi-file-find",
-			displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+			display: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'view',
 			init: function (dt, node, config) {
@@ -36,7 +36,17 @@ $("#idComponente").rup_table({
 Propiedades del propio botón:
 * __id:__ campo obligatorio si se quiere usar desde el contextMenu.
 * __icon:__ campo para asignar algún icono. Por ejemplo, `mdi-file-excel`.
-* __displayRegex:__ se muestra siempre que sea un número positivo o neutro, es el regex para mostrar el botón tirando contra la popiedad de multiselección.
+* __display:__ controla la visibilidad del botón. Acepta una expresión regular o una función que recibe el contexto de la tabla (ctx) y retorna true/false. Por ejemplo:
+	``` js
+	// Con expresión regular
+	display: /^[1-9][0-9]*$/  // Se muestra siempre que sea un numero mayor a 0
+	
+	// Con función
+	display: function(ctx) {
+		return ctx.multiselection.numSelected === 1;
+	}
+	```
+* __displayRegex:__ ⚠️ **DEPRECADO** - Usar `display` en su lugar. Expresión regular para mostrar el botón.
 * __insideContextMenu:__ sirve para insertar el botón en el contextMenu. Independientemente de este valor, será `false` si no tiene un identificador definido.
 * __size:__ permite aumentar el tamaño o disminuirlo. El valor de la propiedad `lg` los hace más grandes y `sm` más pequeños. Por ejemplo:
 	``` js
@@ -54,7 +64,7 @@ Propiedades del propio botón:
 		sheetTitle: 'Usuario'
 	}
 	```
-* __custom:__ todos los botones deben ir con esta propiedad a `true`, a menos que se quiere usar la propiedad `displayRegex` con la propiedad de multiselección.
+* __custom:__ todos los botones deben ir con esta propiedad a `true`, a menos que se quiere usar la propiedad `display` con la propiedad de multiselección.
 * __blackListButtons:__ lista dónde se definen los botones predefinidos que no deben de ser mostrados. La lista completa de botones predefinidos es: `'addButton'`, `'editButton'`, `'cloneButton'`, `'deleteButton'`, `'reportsButton'`, `'copyButton'`, `'excelButton'`, `'pdfButton'`, `'odsButton'`, `'csvButton'`. Por ejemplo:
 	``` js
 	plugins.buttons.blackListButtons = ['csvButton'];
@@ -78,6 +88,53 @@ Propiedades del propio botón:
 	``` js
 	plugins.buttons.insertAfter = true;
 	```
+
+### Ejemplos de uso de display
+
+**Con expresión regular:**
+```js
+buttons: {
+	activate: true,
+	add: {
+		display: /^\d+$/  // Se muestra siempre que sea un numero positivo o neutro
+	},
+	edit: {
+		display: /^[1-9][0-9]*$/  // Se muestra siempre que sea un numero mayor a 0
+	},
+	clone: {
+		display: /^1$/  // Se muestra solo cuando sea igual a 1
+	}
+}
+```
+
+**Con función:**
+```js
+buttons: {
+	activate: true,
+	add: {
+		display: function(ctx) {
+			return ctx.multiselection.numSelected >= 0;
+		}
+	},
+	edit: {
+		display: function(ctx) {
+			return ctx.multiselection.numSelected > 0;
+		}
+	},
+	delete: {
+		display: function(ctx) {
+			return ctx.multiselection.numSelected > 0 && window.userPermissions.canDelete;
+		}
+	}
+}
+```
+
+**Propiedades disponibles en ctx:**
+- `ctx.multiselection.numSelected`: Número de filas seleccionadas
+- `ctx.multiselection.selectedIds`: Array de IDs seleccionados
+- `ctx.multiselection.selectedAll`: Boolean indicando si todas las filas están seleccionadas
+- `ctx.json`: Datos JSON de la respuesta del servidor
+- `ctx.oInit`: Configuración inicial de la tabla
 		
 Ejemplo del controller:
 ``` java

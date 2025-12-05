@@ -587,7 +587,7 @@ function testDatatable() {
                                 setTimeout(done, 300);
                             },
                             classname: 'btn-material-primary-high-emphasis',
-                            displayRegex: 1,
+                            display: /^\d+$/,
                             id: 'exampleaddedButton_1',
                             insideContextMenu: true
                         };
@@ -604,6 +604,678 @@ function testDatatable() {
                     });
                     it('Se añade la opcion al contextMenu: ', () => {
                         expect($('#contextMenu1 > li:contains(addedBtn)').length).toBe(1);
+                    });
+                });
+
+                describe('Propiedad display > ', () => {
+                    describe('Display con Function > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return ctx.multiselection.numSelected > 0;
+                                    }
+                                });
+                            });
+                        });
+
+                        it('Debe tener los botones con display Function configurados correctamente', () => {
+                            expect($('#exampleDisplayaddButton_1').length).toBe(1);
+                            expect($('#exampleDisplayeditButton_1').length).toBe(1);
+                            expect($('#exampleDisplaycloneButton_1').length).toBe(1);
+                            expect($('#exampleDisplaydeleteButton_1').length).toBe(1);
+                        });
+
+                        it('Solo el botón add debe estar habilitado sin selección', () => {
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+
+                        describe('Con una fila seleccionada > ', () => {
+                            beforeEach(() => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            });
+
+                            it('Todos los botones deben estar habilitados', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+
+                        describe('Con dos filas seleccionadas > ', () => {
+                            beforeEach(() => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                            });
+
+                            it('Los botones edit y clone deben estar deshabilitados', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+                    });
+
+                    describe('Display con Function que retorna valor inválido > ', () => {
+                        beforeEach((done) => {
+                            spyOn(console, 'warn');
+                            
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return 'invalid'; // Retorna string en lugar de boolean
+                                    },
+                                    edit: function(ctx) {
+                                        return undefined; // Retorna undefined en lugar de boolean
+                                    },
+                                    clone: function(ctx) {
+                                        return null; // Retorna null en lugar de boolean
+                                    },
+                                    delete: function(ctx) {
+                                        return 123; // Retorna número en lugar de boolean
+                                    }
+                                });
+                            });
+                        });
+
+                        it('Debe mostrar warnings en consola para valores inválidos', () => {
+                            // Seleccionar una fila para disparar la evaluación
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            // Verificar que se llamó console.warn
+                            expect(console.warn).toHaveBeenCalled();
+                        });
+
+                        it('Los botones deben estar deshabilitados cuando la función retorna valor inválido', () => {
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+                    });
+
+                    describe('Retrocompatibilidad con displayRegex > ', () => {
+                        beforeEach(function(done) {
+                            clearDatatable(() => {
+                                dtGen.createDatatable1(0, done);
+                            });
+                        });
+
+                        it('Los botones deben funcionar correctamente con displayRegex (retrocompatibilidad)', function() {
+                            // Verificar que los botones funcionan con displayRegex
+                            // Sin selección
+                            expect($('#exampleaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#examplecloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampledeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+
+                        it('Los botones deben habilitarse correctamente con displayRegex al seleccionar', function(done) {
+                            $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(function() {
+                                expect($('#exampleaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#examplecloneButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampledeleteButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 200);
+                        });
+                    });
+
+                    describe('Display con RegExp > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: /^\d+$/,
+                                    edit: /^[1-9][0-9]*$/,
+                                    clone: /^1$/,
+                                    delete: /^[1-9][0-9]*$/
+                                });
+                            });
+                        });
+
+                        it('Debe tener los botones con display RegExp configurados correctamente', () => {
+                            expect($('#exampleDisplayaddButton_1').length).toBe(1);
+                            expect($('#exampleDisplayeditButton_1').length).toBe(1);
+                            expect($('#exampleDisplaycloneButton_1').length).toBe(1);
+                            expect($('#exampleDisplaydeleteButton_1').length).toBe(1);
+                        });
+
+                        it('Solo el botón add debe estar habilitado sin selección', () => {
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+
+                        describe('Con una fila seleccionada > ', () => {
+                            beforeEach(() => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            });
+
+                            it('Los botones edit, clone y delete deben estar habilitados', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+
+                        describe('Con dos filas seleccionadas > ', () => {
+                            beforeEach(() => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                            });
+
+                            it('El botón clone debe estar deshabilitado', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+                    });
+
+                    describe('Display con tipos inválidos > ', () => {
+                        describe('Display con string > ', () => {
+                            beforeEach((done) => {
+                                spyOn(console, 'warn');
+                                clearDatatable(() => {
+                                    dtGen.createDatatableWithInvalidDisplay(done, 'string');
+                                });
+                            });
+
+                            it('Debe mostrar warning en consola', () => {
+                                expect(console.warn).toHaveBeenCalled();
+                            });
+
+                            it('Todos los botones deben estar deshabilitados', () => {
+                                expect($('#exampleInvalidDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                            });
+                        });
+
+                        describe('Display con number > ', () => {
+                            beforeEach((done) => {
+                                spyOn(console, 'warn');
+                                clearDatatable(() => {
+                                    dtGen.createDatatableWithInvalidDisplay(done, 'number');
+                                });
+                            });
+
+                            it('Debe mostrar warning en consola', () => {
+                                expect(console.warn).toHaveBeenCalled();
+                            });
+
+                            it('Todos los botones deben estar deshabilitados', () => {
+                                expect($('#exampleInvalidDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                            });
+                        });
+
+                        describe('Display con object (no RegExp) > ', () => {
+                            beforeEach((done) => {
+                                spyOn(console, 'warn');
+                                clearDatatable(() => {
+                                    dtGen.createDatatableWithInvalidDisplay(done, 'object');
+                                });
+                            });
+
+                            it('Debe mostrar warning en consola', () => {
+                                expect(console.warn).toHaveBeenCalled();
+                            });
+
+                            it('Todos los botones deben estar deshabilitados', () => {
+                                expect($('#exampleInvalidDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                            });
+                        });
+
+                        describe('Display con array > ', () => {
+                            beforeEach((done) => {
+                                spyOn(console, 'warn');
+                                clearDatatable(() => {
+                                    dtGen.createDatatableWithInvalidDisplay(done, 'array');
+                                });
+                            });
+
+                            it('Debe mostrar warning en consola', () => {
+                                expect(console.warn).toHaveBeenCalled();
+                            });
+
+                            it('Todos los botones deben estar deshabilitados', () => {
+                                expect($('#exampleInvalidDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                expect($('#exampleInvalidDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                            });
+                        });
+                    });
+
+                    describe('Combinación de display y displayRegex > ', () => {
+                        beforeEach((done) => {
+                            spyOn(console, 'warn');
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithBothDisplayProperties(done);
+                            });
+                        });
+
+                        it('Debe mostrar warning sobre uso de displayRegex', () => {
+                            expect(console.warn).toHaveBeenCalledWith(
+                                jasmine.stringContaining('displayRegex'),
+                                jasmine.any(Object)
+                            );
+                        });
+
+                        it('Debe usar display y no displayRegex (prioridad a display)', () => {
+                            // Sin selección, display retorna false
+                            expect($('#exampleBothDisplayaddButton_1').is(':disabled')).toBeTruthy();
+                        });
+
+                        describe('Con una fila seleccionada > ', () => {
+                            beforeEach((done) => {
+                                $('#exampleBothDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                setTimeout(done, 100);
+                            });
+
+                            it('Debe habilitar el botón según display (no displayRegex)', () => {
+                                // Con selección, display retorna true
+                                expect($('#exampleBothDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+                    });
+
+                    describe('Cambio dinámico de display > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return ctx.multiselection.numSelected > 0;
+                                    }
+                                });
+                            });
+                        });
+
+                        it('Debe actualizar el estado al seleccionar una fila', (done) => {
+                            // Estado inicial
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            
+                            // Seleccionar una fila
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                // Estado actualizado
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 100);
+                        });
+
+                        it('Debe actualizar el estado al deseleccionar una fila', (done) => {
+                            // Seleccionar una fila
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                
+                                // Deseleccionar
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                
+                                setTimeout(() => {
+                                    expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                    done();
+                                }, 100);
+                            }, 100);
+                        });
+                    });
+
+                    describe('Display undefined (fallback a displayRegex) > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                // Usar createDatatable1 que tiene displayRegex pero no display
+                                dtGen.createDatatable1(0, done);
+                            });
+                        });
+                    
+                        it('Debe usar displayRegex cuando display es undefined', () => {
+                            // Sin selección
+                            expect($('#exampleaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#examplecloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampledeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+                    
+                        describe('Con selección > ', () => {
+                            beforeEach((done) => {
+                                $('#example > tbody > tr:eq(0) > td:eq(0)').click();
+                                setTimeout(done, 100);
+                            });
+                    
+                            it('Debe habilitar botones según displayRegex', () => {
+                                expect($('#exampleaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#examplecloneButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampledeleteButton_1').is(':disabled')).toBeFalsy();
+                            });
+                        });
+                    });
+                    
+                    describe('Display con contexto completo > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return ctx.multiselection.numSelected > 0;
+                                    }
+                                });
+                            });
+                        });
+                    
+                        it('La función display debe recibir el contexto correcto', () => {
+                            // El botón add debe estar habilitado porque la función verifica el contexto
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                        });
+                    
+                        it('El contexto debe contener información de multiselección', (done) => {
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                // Si el contexto es correcto, los botones deben habilitarse
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 100);
+                        });
+                    });
+                    
+                    describe('Display con múltiples selecciones y deselecciones > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return ctx.multiselection.numSelected > 0;
+                                    }
+                                });
+                            });
+                        });
+                    
+                        it('Debe actualizar correctamente con múltiples selecciones', (done) => {
+                            // Seleccionar primera fila
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                
+                                // Seleccionar segunda fila
+                                $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                                
+                                setTimeout(() => {
+                                    // Con 2 selecciones, edit y clone deben deshabilitarse
+                                    expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                    expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                                    expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                                    done();
+                                }, 100);
+                            }, 100);
+                        });
+                    
+                        it('Debe actualizar correctamente al deseleccionar parcialmente', (done) => {
+                            // Seleccionar dos filas
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                                
+                                setTimeout(() => {
+                                    expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                    
+                                    // Deseleccionar una fila
+                                    $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                                    
+                                    setTimeout(() => {
+                                        // Volver a tener solo 1 selección
+                                        expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                        expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                        done();
+                                    }, 100);
+                                }, 100);
+                            }, 100);
+                        });
+                    });
+                    
+                    describe('Display con RegExp complejos > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: /^(0|[1-9]\d*)$/, // Números >= 0
+                                    edit: /^[1-9]$/, // Solo 1-9
+                                    clone: /^(1|3|5|7|9)$/, // Solo números impares 1-9
+                                    delete: /^([2-9]|[1-9]\d+)$/ // >= 2
+                                });
+                            });
+                        });
+                    
+                        it('Debe evaluar correctamente RegExp complejos sin selección', () => {
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy();
+                            expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                        });
+                    
+                        describe('Con una selección > ', () => {
+                            beforeEach((done) => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                setTimeout(done, 100);
+                            });
+                    
+                            it('Debe habilitar botones según RegExp complejos', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeTruthy();
+                            });
+                        });
+                    
+                        describe('Con dos selecciones > ', () => {
+                            beforeEach((done) => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                setTimeout(() => {
+                                    $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                                    setTimeout(done, 100);
+                                }, 100);
+                            });
+                    
+                            it('Debe evaluar correctamente con número par de selecciones', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy(); // 2 está en rango 1-9
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy(); // 2 no es impar
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy(); // 2 >= 2
+                            });
+                        });
+                    
+                        describe('Con tres selecciones > ', () => {
+                            beforeEach((done) => {
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                setTimeout(() => {
+                                    $('#exampleDisplay > tbody > tr:eq(1) > td:eq(0)').click();
+                                    setTimeout(() => {
+                                        $('#exampleDisplay > tbody > tr:eq(2) > td:eq(0)').click();
+                                        setTimeout(done, 100);
+                                    }, 100);
+                                }, 100);
+                            });
+                    
+                            it('Debe evaluar correctamente con número impar de selecciones', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy(); // 3 >= 0
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy(); // 3 está en rango 1-9
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy(); // 3 es impar
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy(); // 3 >= 2
+                            });
+                        });
+                    
+                        describe('Con diez selecciones > ', () => {
+                            beforeEach((done) => {
+                                // Seleccionar 10 filas
+                                for (let i = 0; i < 10; i++) {
+                                    $('#exampleDisplay > tbody > tr:eq(' + i + ') > td:eq(0)').click();
+                                }
+                                setTimeout(done, 300);
+                            });
+                    
+                            it('Debe evaluar correctamente con números de dos dígitos', () => {
+                                expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy(); // 10 >= 0
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy(); // 10 no está en rango 1-9
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeTruthy(); // 10 no es impar de 1-9
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy(); // 10 >= 2
+                            });
+                        });
+                    });                    
+                    
+                    describe('Display con funciones que acceden a propiedades del contexto > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.oInit !== undefined && 
+                                               ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.selectedIds !== undefined &&
+                                               ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.selectedAll === false &&
+                                               ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return (ctx.multiselection.selectedIds.length ?? 0) > 0;
+                                    }
+                                });
+                            });
+                        });
+                    
+                        it('Debe poder acceder a oInit del contexto', () => {
+                            expect($('#exampleDisplayaddButton_1').is(':disabled')).toBeFalsy();
+                        });
+                    
+                        it('Debe poder acceder a selectedIds del contexto', (done) => {
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                expect($('#exampleDisplaydeleteButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 100);
+                        });
+                    
+                        it('Debe poder acceder a selectedAll del contexto', (done) => {
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplaycloneButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 100);
+                        });
+                    });
+                    
+                    describe('Interacción entre display y eventos de tabla > ', () => {
+                        beforeEach((done) => {
+                            clearDatatable(() => {
+                                dtGen.createDatatableWithFunctionDisplay(done, {
+                                    add: function(ctx) {
+                                        return ctx.multiselection.numSelected >= 0;
+                                    },
+                                    edit: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    clone: function(ctx) {
+                                        return ctx.multiselection.numSelected === 1;
+                                    },
+                                    delete: function(ctx) {
+                                        return ctx.multiselection.numSelected > 0;
+                                    }
+                                });
+                            });
+                        });
+                    
+                        it('Debe actualizar display al disparar evento select', (done) => {
+                            var table = $('#exampleDisplay').DataTable();
+                            
+                            expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                            
+                            // Disparar evento select
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                done();
+                            }, 100);
+                        });
+                    
+                        it('Debe actualizar display al disparar evento deselect', (done) => {
+                            $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                            
+                            setTimeout(() => {
+                                expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeFalsy();
+                                
+                                // Disparar evento deselect
+                                $('#exampleDisplay > tbody > tr:eq(0) > td:eq(0)').click();
+                                
+                                setTimeout(() => {
+                                    expect($('#exampleDisplayeditButton_1').is(':disabled')).toBeTruthy();
+                                    done();
+                                }, 100);
+                            }, 100);
+                        });
                     });
                 });
             });

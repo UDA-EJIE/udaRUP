@@ -608,6 +608,12 @@
         "matchedRecords": "{0} elementu aurkitu dira",
         "matchedRecordsCount": "{1}-tik {0} erakusten",
         "searchCriteria": "Bilaketa irizpideak"
+      },
+      "buttons": {
+        "display": {
+          "invalidReturnType": "Display propietateari lotutako funtzioak balio boolearra itzuli behar du. Jaso da: {0}",
+          "invalidDisplayPropertyType": "\"Display\" propietateak RegExp edo Function izan behar du. Jasotako mota: {0}"
+        }
       }
     },
     "previous": "Aurrekoa",

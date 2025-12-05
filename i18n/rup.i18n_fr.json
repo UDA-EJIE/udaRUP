@@ -606,6 +606,12 @@
         "matchedRecords": "fr_{0} elementos encontrados",
         "matchedRecordsCount": "fr_Elemento {0} de {1} encontrados",
         "searchCriteria": "fr_Criterios de búsqueda"
+      },
+      "buttons": {
+        "display": {
+          "invalidReturnType": "La fonction associée à la propriété display doit renvoyer une valeur booléenne. Reçu : {0}",
+          "invalidDisplayPropertyType": "La propriété « display » doit être RegExp ou Function. Type reçu : {0}"
+        }
       }
     },
     "previous": "Précédent",

@@ -606,6 +606,12 @@
         "matchedRecords": "en_{0} elementos encontrados",
         "matchedRecordsCount": "en_Elemento {0} de {1} encontrados",
         "searchCriteria": "en_Criterios de búsqueda"
+      },
+      "buttons": {
+        "display": {
+          "invalidReturnType": "The function associated with the display property must return a boolean value. Received: {0}",
+          "invalidDisplayPropertyType": "The ‘display’ property must be RegExp or Function. Received type: {0}"
+        }
       }
     },
     "previous": "Previous",

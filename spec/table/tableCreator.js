@@ -108,6 +108,7 @@ function generateHtml(idDatatable) {
         '</div>';
     return html;
 }
+
 export function createDatatable1(ctx, callback) {
     var idDatatable = '';
     var opts = {};
@@ -168,7 +169,37 @@ export function createDatatable1(ctx, callback) {
             setTimeout(callback, 100);
         },
         buttons: {
-            activate: true
+            activate: true,
+            add: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            edit: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            clone: {
+                display: /^1$/ // Se muestra solo cuando sea igual a 1
+            },
+            delete: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            copy: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            excel: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            pdf: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            ods: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            csv: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            informe: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            }
         },
         filter: {
             id: idDatatable + '_filter_form',
@@ -228,6 +259,7 @@ export function createDatatable1(ctx, callback) {
     $('#' + idDatatable).rup_table(opts);
 
 }
+
 export function createDatatableInlineEdit(callback, idDatatable) {
     if(!idDatatable) {
         idDatatable = 'exampleInline';
@@ -284,7 +316,37 @@ export function createDatatableInlineEdit(callback, idDatatable) {
             }
         }],
         buttons: {
-            activate: true
+            activate: true,
+            add: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            edit: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            clone: {
+                display: /^1$/ // Se muestra solo cuando sea igual a 1
+            },
+            delete: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            copy: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            excel: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            pdf: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            ods: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            csv: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            informe: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            }
         },
         filter: {
             id: idDatatable + '_filter_form',
@@ -316,6 +378,7 @@ export function createDatatableInlineEdit(callback, idDatatable) {
 
     $('#' + idDatatable).rup_table(opts);
 }
+
 export function createDatatable2(callback) {
     var idDatatable = 'example2';
     var opts = {
@@ -367,7 +430,37 @@ export function createDatatable2(callback) {
             }, 100);
         },
         buttons: {
-            activate: true
+            activate: true,
+            add: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            edit: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            clone: {
+                display: /^1$/ // Se muestra solo cuando sea igual a 1
+            },
+            delete: {
+                display: /^[1-9][0-9]*$/ // Se muestra siempre que sea un numero mayor a 0
+            },
+            copy: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            excel: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            pdf: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            ods: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            csv: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            },
+            informe: {
+                display: /^\d+$/ // Se muestra siempre que sea un numero positivo o neutro
+            }
         },
         filter: {
             id: idDatatable + '_filter_form',
@@ -402,6 +495,250 @@ export function createDatatable2(callback) {
     if ($('#content').length == 0) {
         $('body').append('<div id="content" class="container mt-4"></div>');
     }
+    var html = generateHtml(idDatatable);
+    $('#content').append(html);
+    $('#' + idDatatable).rup_table(opts);
+}
+
+export function createDatatableWithFunctionDisplay(callback, customDisplayFunctions) {
+    var idDatatable = 'exampleDisplay';
+    
+    var opts = {
+        urlBase: '/demo/table/remote',
+        selector: 'td',
+        multiSelect: {
+            style: 'multi'
+        },
+        colModel: [{
+            name: 'id',
+            index: 'id',
+            editable: false
+        }, {
+            name: 'nombre',
+            index: 'nombre',
+            editable: true
+        }, {
+            name: 'apellidos',
+            index: 'apellidos',
+            editable: true
+        }, {
+            name: 'edad',
+            index: 'edad',
+            editable: true
+        }],
+        pageLength: 10,
+        initComplete: function () {
+            setTimeout(callback, 100);
+        },
+        buttons: {
+            activate: true,
+            add: {
+                display: customDisplayFunctions.add
+            },
+            edit: {
+                display: customDisplayFunctions.edit
+            },
+            clone: {
+                display: customDisplayFunctions.clone
+            },
+            delete: {
+                display: customDisplayFunctions.delete
+            }
+        },
+        filter: {
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
+        },
+        formEdit: {
+            detailForm: {
+                id: '#' + idDatatable + '_detail_div',
+                customDialog: {
+                    width: 1500
+                }
+            },
+            titleForm: 'Modificar registro',
+            validate: {
+                rules: {
+                    nombre: {
+                        required: true
+                    }
+                }
+            }
+        },
+        seeker: {
+            activate: true
+        },
+        colReorder: {
+            fixedColumnsLeft: 1
+        }
+    };
+
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content" class="container mt-4"></div>');
+    }
+
+    var html = generateHtml(idDatatable);
+    $('#content').append(html);
+    $('#' + idDatatable).rup_table(opts);
+}
+
+export function createDatatableWithInvalidDisplay(callback, invalidDisplayType) {
+    var idDatatable = 'exampleInvalidDisplay';
+    
+    var invalidDisplayValue;
+    switch(invalidDisplayType) {
+        case 'string':
+            invalidDisplayValue = "invalid";
+            break;
+        case 'number':
+            invalidDisplayValue = 123;
+            break;
+        case 'object':
+            invalidDisplayValue = { foo: 'bar' };
+            break;
+        case 'null':
+            invalidDisplayValue = null;
+            break;
+        case 'array':
+            invalidDisplayValue = [1, 2, 3];
+            break;
+        default:
+            invalidDisplayValue = undefined;
+    }
+    
+    var opts = {
+        urlBase: '/demo/table/remote',
+        selector: 'td',
+        multiSelect: {
+            style: 'multi'
+        },
+        colModel: [{
+            name: 'id',
+            index: 'id',
+            editable: false
+        }, {
+            name: 'nombre',
+            index: 'nombre',
+            editable: true
+        }, {
+            name: 'apellidos',
+            index: 'apellidos',
+            editable: true
+        }, {
+            name: 'edad',
+            index: 'edad',
+            editable: true
+        }],
+        pageLength: 10,
+        initComplete: function () {
+            setTimeout(callback, 100);
+        },
+        buttons: {
+            activate: true,
+            add: {
+                display: invalidDisplayValue
+            },
+            edit: {
+                display: invalidDisplayValue
+            },
+            clone: {
+                display: invalidDisplayValue
+            },
+            delete: {
+                display: invalidDisplayValue
+            }
+        },
+        filter: {
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
+        },
+        formEdit: {
+            detailForm: {
+                id: '#' + idDatatable + '_detail_div',
+                customDialog: {
+                    width: 1500
+                }
+            },
+            titleForm: 'Modificar registro'
+        },
+        seeker: {
+            activate: true
+        }
+    };
+
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content" class="container mt-4"></div>');
+    }
+
+    var html = generateHtml(idDatatable);
+    $('#content').append(html);
+    $('#' + idDatatable).rup_table(opts);
+}
+
+export function createDatatableWithBothDisplayProperties(callback) {
+    var idDatatable = 'exampleBothDisplay';
+    
+    var opts = {
+        urlBase: '/demo/table/remote',
+        selector: 'td',
+        multiSelect: {
+            style: 'multi'
+        },
+        colModel: [{
+            name: 'id',
+            index: 'id',
+            editable: false
+        }, {
+            name: 'nombre',
+            index: 'nombre',
+            editable: true
+        }, {
+            name: 'apellidos',
+            index: 'apellidos',
+            editable: true
+        }, {
+            name: 'edad',
+            index: 'edad',
+            editable: true
+        }],
+        pageLength: 10,
+        initComplete: function () {
+            setTimeout(callback, 100);
+        },
+        buttons: {
+            activate: true,
+            add: {
+                display: function(ctx) {
+                    return ctx.multiselection.numSelected > 0;
+                },
+                displayRegex: /^\d+$/ // Este debería ser ignorado
+            }
+        },
+        filter: {
+            id: idDatatable + '_filter_form',
+            filterToolbar: idDatatable + '_filter_toolbar',
+            collapsableLayerId: idDatatable + '_filter_fieldset'
+        },
+        formEdit: {
+            detailForm: {
+                id: '#' + idDatatable + '_detail_div',
+                customDialog: {
+                    width: 1500
+                }
+            },
+            titleForm: 'Modificar registro'
+        },
+        seeker: {
+            activate: true
+        }
+    };
+
+    if ($('#content').length == 0) {
+        $('body').append('<div id="content" class="container mt-4"></div>');
+    }
+
     var html = generateHtml(idDatatable);
     $('#content').append(html);
     $('#' + idDatatable).rup_table(opts);

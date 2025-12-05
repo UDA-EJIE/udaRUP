@@ -177,7 +177,8 @@
             },
             id: idTable + 'copyButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: ctx.oInit.buttons.copy?.displayRegex ? ctx.oInit.buttons.copy.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.copy?.displayRegex ? ctx.oInit.buttons.copy.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.copy?.display ? ctx.oInit.buttons.copy.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'copyButton',
             request: {
@@ -209,7 +210,8 @@
             },
             id: idTable + 'excelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: ctx.oInit.buttons.excel?.displayRegex ? ctx.oInit.buttons.excel.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.excel?.displayRegex ? ctx.oInit.buttons.excel.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.excel?.display ? ctx.oInit.buttons.excel.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'excelButton',
             request: {
@@ -240,7 +242,8 @@
             },
             id: idTable + 'pdfButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: ctx.oInit.buttons.pdf?.displayRegex ? ctx.oInit.buttons.pdf.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.pdf?.displayRegex ? ctx.oInit.buttons.pdf.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.pdf?.display ? ctx.oInit.buttons.pdf.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'pdfButton',
             request: {
@@ -270,7 +273,8 @@
             },
             id: idTable + 'odsButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: ctx.oInit.buttons.ods?.displayRegex ? ctx.oInit.buttons.ods.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.ods?.displayRegex ? ctx.oInit.buttons.ods.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.ods?.display ? ctx.oInit.buttons.ods.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'odsButton',
             request: {
@@ -301,7 +305,8 @@
             },
             id: idTable + 'csvButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-low-emphasis buttons-copyButton',
-            displayRegex: ctx.oInit.buttons.csv?.displayRegex ? ctx.oInit.buttons.csv.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.csv?.displayRegex ? ctx.oInit.buttons.csv.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.csv?.display ? ctx.oInit.buttons.csv.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'csvButton',
             request: {
@@ -332,7 +337,8 @@
             },
             id: idTable + 'addButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnAdd order-1',
-            displayRegex: ctx.oInit.buttons.add?.displayRegex ? ctx.oInit.buttons.add.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.add?.displayRegex ? ctx.oInit.buttons.add.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.add?.display ? ctx.oInit.buttons.add.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'add',
             init: function (dt, button, config) {
@@ -351,7 +357,8 @@
             },
             id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
-            displayRegex: ctx.oInit.buttons.edit?.displayRegex ? ctx.oInit.buttons.edit.displayRegex : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+            displayRegex: ctx.oInit.buttons.edit?.displayRegex ? ctx.oInit.buttons.edit.displayRegex : /^[1-9][0-9]*$/,
+            display: ctx.oInit.buttons.edit?.display ? ctx.oInit.buttons.edit.display : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'edit',
             init: function (dt, button, config) {
@@ -370,7 +377,8 @@
             },
             id: idTable + 'cloneButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnClone order-3',
-            displayRegex: ctx.oInit.buttons.clone?.displayRegex ? ctx.oInit.buttons.clone.displayRegex : /^1$/, // Se muestra solo cuando sea igual a 1
+            displayRegex: ctx.oInit.buttons.clone?.displayRegex ? ctx.oInit.buttons.clone.displayRegex : /^1$/,
+            display: ctx.oInit.buttons.clone?.display ? ctx.oInit.buttons.clone.display : /^1$/, // Se muestra solo cuando sea igual a 1
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'clone',
             init: function (dt, button, config) {
@@ -389,7 +397,8 @@
             },
             id: idTable + 'deleteButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
             className: 'btn-material-primary-high-emphasis table_toolbar_btnDelete order-4',
-            displayRegex: ctx.oInit.buttons.delete?.displayRegex ? ctx.oInit.buttons.delete.displayRegex : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+            displayRegex: ctx.oInit.buttons.delete?.displayRegex ? ctx.oInit.buttons.delete.displayRegex : /^[1-9][0-9]*$/,
+            display: ctx.oInit.buttons.delete?.display ? ctx.oInit.buttons.delete.display : /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
             type: 'delete',
             init: function (dt, button, config) {
@@ -411,7 +420,8 @@
             },
             id: idTable + 'informes_01',
             className: 'btn-material-primary-medium-emphasis order-last ms-1 ms-lg-auto',
-            displayRegex: ctx.oInit.buttons.informe?.displayRegex ? ctx.oInit.buttons.informe.displayRegex : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
+            displayRegex: ctx.oInit.buttons.informe?.displayRegex ? ctx.oInit.buttons.informe.displayRegex : /^\d+$/,
+            display: ctx.oInit.buttons.informe?.display ? ctx.oInit.buttons.informe.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             autoClose: true,
             type: 'reports',
             reportsExportAllColumns: false,
@@ -508,7 +518,8 @@
             dt: new DataTable.Api(dt),
             buttons: [],
             listenKeys: '',
-            namespace: 'dtb' + (_instCounter++)
+            namespace: 'dtb' + (_instCounter++),
+            deprecationKeys: []
         };
 
         this.dom = {
@@ -767,6 +778,11 @@
                     break;
                 }
             }
+
+            // Limpiar solo los warnings de esta instancia
+            this.s.deprecationKeys?.forEach(function (key) {
+                $.rup_utils.deprecation.clear(key);
+            });
 
             return this;
         },
@@ -1145,6 +1161,10 @@
                     continue;
                 }
 
+                // Incluir configuración del padre antes de construir el botón.
+                // TODO: eliminar la asignación una vez se elimine la propiedad displayRegex
+                conf.parent = parentConf;
+
 				var built = this._buildButton(
 					conf,
 					inCollection,
@@ -1222,7 +1242,8 @@
 					);
 				}
 				
-				built.conf.parent = parentConf;
+                // TODO: descomentar asignación una vez se elimine displayRegex
+				//built.conf.parent = parentConf;
 
                 // init call is made here, rather than buildButton as it needs to
                 // be selectable, and for that it needs to be in the buttons array
@@ -1449,6 +1470,33 @@
 				if (config.config !== undefined && config.config.split) {
 					config.split = config.config.split;
 				}
+
+                // Verificar si es un botón personalizado (o hijo de colección personalizada)
+                let isCustomButton = ctx.ext.buttons.custom?.includes(config.id);
+                
+                // Si no está entre los botones personalizados, verificar si pertenece a una colección
+                if (!isCustomButton && ctx.ext.buttons.custom?.includes(config.parent?.id)) {
+                    isCustomButton = true;
+                }
+                
+                // Mostrar aviso solo para botones personalizados que usen displayRegex sin display
+                if (isCustomButton && 
+                    config.displayRegex !== undefined && 
+                    config.display === undefined) {
+                    const key = `${ctx.sTableId}_${config.id}_customButton_displayRegex`;
+                    $.rup_utils.deprecation.warn(
+                        button,
+                        'displayRegex',
+                        'display',
+                        key
+                    );
+                    // Registrar la clave en la instancia
+                    if (ctx._buttons?.[0]?.inst.s.deprecationKeys) {
+                        if (!ctx._buttons[0].inst.s.deprecationKeys.includes(key)) {
+                            ctx._buttons[0].inst.s.deprecationKeys.push(key);
+                        }
+                    }
+                }
 			}
 			else {
 				button = $(config.html);
@@ -3190,8 +3238,85 @@
         }
     });
 
-    // Detecta el numero de filas seleccionadas y en funcion de eso muestra u oculta los botones.
+    /**
+     * Evalúa la propiedad 'display' de cada botón para determinar su visibilidad. Soporta regex y funciones.
+     *
+     * La propiedad 'display' puede ser:
+     * - RegExp: /^\d+$/ (se evalúa con .test(numSelected))
+     * - Function: function(numSelected) { return numSelected > 0; }
+     *
+     * Tiene prioridad sobre 'displayRegex' (deprecado).
+     *
+     * @name buttons.display
+     * @function
+     * @since UDA 6.4.0
+     *
+     * @param {object} ctx - Contexto de DataTables
+     *
+     * @example
+     * // Llamada manual
+     * DataTable.Api().buttons.display(ctx);
+     *
+     * @example
+     * // Configuración de botón con display
+     * {
+     *     text: 'Mi Botón',
+     *     display: function(numSelected) {
+     *         return numSelected > 0 && numSelected < 10;
+     *     }
+     * }
+     */
+    DataTable.Api.register('buttons.display()', function (ctx) {
+        if (ctx._buttons[0].inst.s.disableAllButtons === undefined) {
+            var opts = ctx._buttons[0].inst.s.buttons;
+            var collectionObject;
+            $.each(opts, function (i) {
+                collectionObject = null;
+                var numOfSelectedRows = ctx.multiselection.numSelected;
+                
+                if (ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId + 'addButton_1') {
+                    // Si es maestro-detalle, para el botón add solo se renderiza cuando hay selección en el padre
+                    var table = $(ctx.oInit.masterDetail.master).DataTable();
+                    // Nums del padre
+                    numOfSelectedRows = table.context[0].multiselection.numSelected;
+                    // Se cambia expresion regular
+                    this.conf.display = /^[1-9][0-9]*$/;
+                }
+                
+                _manageButtonsAndContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+                
+                // Comprueba si tiene botones hijos
+                if (this.buttons.length > 0) {
+                    collectionObject = this;
+                    _manageButtonsAndContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+                }
+            });
+        }
+    });
+
+    /**
+     * Detecta el número de filas seleccionadas y en función de eso muestra u oculta los botones.
+     *
+     * @name buttons.displayRegex
+     * @function
+     * @since UDA 3.4.0
+     * @deprecated Usar buttons.display() en su lugar
+     *
+     * @param {object} ctx - Settings object to operate on
+     *
+     * @example
+     * // ⚠️ Obsoleto
+     * var dt = $('#example').DataTable();
+     * dt.buttons.displayRegex(dt.context[0]);
+     *
+     * // ✅ Usar en su lugar
+     * dt.buttons.display(dt.context[0]);
+     */
     DataTable.Api.register('buttons.displayRegex()', function (ctx) {
+        console.warn(
+            $.rup.i18nTemplate($.rup.i18n.base, 'rup_utils.deprecated', 'displayRegex', 'display')
+        );
+
         if (ctx._buttons[0].inst.s.disableAllButtons === undefined) {
             var opts = ctx._buttons[0].inst.s.buttons;
             var collectionObject;
@@ -3556,19 +3681,212 @@
     };
 
     /**
+     * Evalúa la propiedad display para determinar si un botón debe habilitarse.
+     * Admite RegExp o Function.
+     * 
+     * @name _evaluateDisplay
+     * @function
+     * @since UDA 6.4.0
+     * 
+     * @param {RegExp|Function|undefined} displayProperty - Propiedad display (admite RegExp o Function)
+     * @param {number} numOfSelectedRows - Número de filas seleccionadas
+     * @param {object} ctx - Contexto de DataTables
+     * @returns {boolean|undefined} - true si debe habilitarse, false si debe deshabilitarse, undefined si no está definido
+     */
+    var _evaluateDisplay = function(displayProperty, numOfSelectedRows, ctx, element) {
+        if (displayProperty === undefined) {
+            return undefined;
+        }
+        
+        if (typeof displayProperty === 'function') {
+            const result = displayProperty(ctx);
+
+            // Validar que la función devuelva un booleano
+            if (typeof result !== 'boolean') {
+                console.warn(
+                    $.rup.i18nTemplate($.rup.i18n.base, 'rup_table.plugins.buttons.display.invalidReturnType', [typeof result]),
+                    element
+                );
+                return false;
+            }
+            return result;
+        }
+        
+        // Si es un RegExp, evaluar contra el número de filas seleccionadas
+        if (displayProperty instanceof RegExp) {
+            return displayProperty.test(numOfSelectedRows);
+        }
+        
+        // Si no es ninguno de los tipos esperados, mostrar aviso
+        console.warn(
+            $.rup.i18nTemplate(
+                $.rup.i18n.base, 
+                'rup_table.plugins.buttons.display.invalidDisplayPropertyType', 
+                [typeof displayProperty]
+            ),
+            element
+        );
+        return false;
+    };
+
+    /**
+     * Gestiona la propiedad de activado/desactivado de los botones y de sus opciones
+     * dentro del context menu usando la propiedad 'display'.
+     *
+     * @name _manageButtonsAndContextMenu
+     * @function
+     * @since UDA 6.4.0
+     *
+     * @param {object} opts - Propiedades del botón
+     * @param {number} numOfSelectedRows - Número de filas seleccionadas
+     * @param {null|object} collectionObject - Propiedades del botón de colección (si aplica)
+     * @param {object} ctx - Contexto de DataTables
+     * 
+     * @example
+     * _manageButtonsAndContextMenu(buttonOpts, 5, null, ctx);
+     */
+    var _manageButtonsAndContextMenu = function (opts, numOfSelectedRows, collectionObject, ctx) {
+        if (opts.conf.custom === undefined || !opts.conf.custom) {
+            // Avisar si se usan ambas propiedades (solo una vez por botón)
+            if (opts.conf.display !== undefined && opts.conf.displayRegex !== undefined) {
+                const key = `${ctx.sTableId}_${opts.conf.id}_displayRegex`;
+                $.rup_utils.deprecation.warn(
+                    $(opts.node),
+                    'displayRegex',
+                    'display',
+                    key
+                );
+                // Registrar la clave en la instancia
+                if (ctx._buttons && ctx._buttons[0] && ctx._buttons[0].inst.s.deprecationKeys) {
+                    if (!ctx._buttons[0].inst.s.deprecationKeys.includes(key)) {
+                        ctx._buttons[0].inst.s.deprecationKeys.push(key);
+                    }
+                }
+            }
+    
+            // Evaluar la propiedad display
+            let result = _evaluateDisplay(opts.conf.display, numOfSelectedRows, ctx, opts.node);
+            
+            if (result === undefined) {
+                // Si display no está definido, usar displayRegex (retrocompatibilidad)
+                if (opts.conf.displayRegex !== undefined) {
+                    result = opts.conf.displayRegex.test(numOfSelectedRows);
+                } else {
+                    // Si ninguno está definido, deshabilitar
+                    result = false;
+                }
+            }
+            
+            // Habilitar o deshabilitar explícitamente
+            if (result === true) {
+                _enableButtonAndContextMenuOption(opts.conf.id);
+            } else {
+                _disableButtonAndContextMenuOption(opts.conf.id);
+            }
+            
+            // Gestión de collections
+            if (opts.collection !== null && collectionObject) {
+                const collectionId = collectionObject.conf.id;
+                let collectionResult = _evaluateDisplay(collectionObject.conf.display, numOfSelectedRows, ctx, collectionObject.node);
+                
+                if (collectionResult === undefined && collectionObject.conf.displayRegex !== undefined) {
+                    collectionResult = collectionObject.conf.displayRegex.test(numOfSelectedRows);
+                }
+                
+                let alreadyExecuted = false;
+                
+                // Recorre todos los botones dentro del collection
+                $.each(collectionObject.buttons, function (key, value) {
+                    // Avisar si el hijo usa ambas propiedades (solo una vez)
+                    if (value.conf.display !== undefined && value.conf.displayRegex !== undefined) {
+                        const childKey = `${ctx.sTableId}_${value.conf.id}_displayRegex`;
+                        $.rup_utils.deprecation.warn(
+                            $(value.node),
+                            'displayRegex',
+                            'display',
+                            childKey
+                        );
+                        // Registrar la clave en la instancia
+                        if (ctx._buttons && ctx._buttons[0] && ctx._buttons[0].inst.s.deprecationKeys) {
+                            if (!ctx._buttons[0].inst.s.deprecationKeys.includes(childKey)) {
+                                ctx._buttons[0].inst.s.deprecationKeys.push(childKey);
+                            }
+                        }
+                    }
+                    
+                    let childResult = _evaluateDisplay(value.conf.display, numOfSelectedRows, ctx, value.node);
+                    
+                    if (childResult === undefined && value.conf.displayRegex !== undefined) {
+                        childResult = value.conf.displayRegex.test(numOfSelectedRows);
+                    }
+                    
+                    // Habilitar/deshabilitar botón hijo
+                    if (childResult === true) {
+                        _enableButtonAndContextMenuOption(value.conf.id);
+                        
+                        // Habilitar la colección si al menos un hijo está habilitado
+                        if (!alreadyExecuted) {
+                            _enableCollection(collectionId);
+                            alreadyExecuted = true;
+                        }
+                    } else {
+                        _disableButtonAndContextMenuOption(value.conf.id);
+                    }
+                });
+                
+                // Si ningún hijo está habilitado, deshabilitar la colección
+                if (!alreadyExecuted) {
+                    _disableCollection(collectionId);
+                }
+                
+                // Evento para actualizar botones dentro del collection al abrirlo
+                $('#' + $.escapeSelector(collectionId) + ':not(.listening)').addClass('listening').on('click', function (e) {
+                    const currentNumSelected = ctx.multiselection.numSelected;
+                    
+                    $.each(collectionObject.buttons, function (key, value) {
+                        let childResult = _evaluateDisplay(value.conf.display, currentNumSelected, ctx, value.node);
+                        
+                        if (childResult === undefined && value.conf.displayRegex !== undefined) {
+                            childResult = value.conf.displayRegex.test(currentNumSelected);
+                        }
+                        
+                        if (childResult === true) {
+                            _enableButtonAndContextMenuOption(value.conf.id);
+                        } else {
+                            _disableButtonAndContextMenuOption(value.conf.id);
+                        }
+                    });
+                });
+            }
+        }
+    };
+
+    /**
      * Gestiona la propiedad de activado/desactivado de los botones y de sus opciones
      * dentro del context menu.
      *
      * @name _manageButtonsAndButtonsContextMenu
      * @function
      * @since UDA 3.4.0
+     * @deprecated UDA 6.4.0 - Use _manageButtonsAndContextMenu con la propiedad 'display' en lugar de 'displayRegex'
      *
-     * @param {object} opts	Buttons properties
-     * @param {int} numOfSelectedRows	Number of selected rows
-     * @param {null|object} collectionObject	Collection button properties
-     *
+     * @param {object} opts - Propiedades del botón
+     * @param {number} numOfSelectedRows - Número de filas seleccionadas
+     * @param {null|object} collectionObject - Propiedades del botón de colección (si aplica)
+     * @param {object} ctx - Contexto de DataTables
+     * 
+     * @example
+     * _manageButtonsAndButtonsContextMenu(buttonOpts, 5, null, ctx);
      */
     var _manageButtonsAndButtonsContextMenu = function (opts, numOfSelectedRows, collectionObject, ctx) {
+        // Si el botón o la colección tienen la propiedad 'display' definida, no se continúa
+        // La función _manageButtonsAndContextMenu será invocada desde otro lugar
+        if (opts.conf.display !== undefined || 
+            (collectionObject && collectionObject.conf.display !== undefined)) {
+            return;
+        }
+        
+        // Si la ejecución llega aquí, significa que la propiedad display no está activa
         if (opts.conf.custom === undefined || !opts.conf.custom) {
             // Si pertenece a un collection o es un collection
             if (opts.collection !== null && collectionObject) {
@@ -4526,23 +4844,46 @@
      *
      */
     var _initButtons = function (ctx, opts) {
+        /**
+         * Función auxiliar para gestionar la habilitación/deshabilitación de un botón
+         * @param {object} button - Objeto del botón
+         * @param {number} numOfSelectedRows - Número de filas seleccionadas
+         * @param {object|null} collectionObject - Objeto de colección (si aplica)
+         */
+        const manageButton = function(button, numOfSelectedRows, collectionObject) {
+            // Usar la nueva función si tiene 'display' definido
+            if (button.conf.display !== undefined) {
+                _manageButtonsAndContextMenu(button, numOfSelectedRows, collectionObject, ctx);
+            }
+            // Fallback a displayRegex si no tiene display (retrocompatibilidad)
+            else if (button.conf.displayRegex !== undefined) {
+                _manageButtonsAndButtonsContextMenu(button, numOfSelectedRows, collectionObject, ctx);
+            }
+        };
+        
         $.each(opts, function (i) {
             // Activa/desactiva los botones en el inicio en funcion de la propiedad
-            // 'displayRegex' que tengan asociada
+            // 'display' o 'displayRegex' que tengan asociada
             var collectionObject = null;
             var numOfSelectedRows = ctx.multiselection.numSelected;
             if (ctx.oInit.masterDetail !== undefined && this.conf.id === ctx.sTableId + 'addButton_1') {
                 //si es maestro detalle para el boton add ,solo se renderiza cuando hay selección en el padre.
                 var table = $(ctx.oInit.masterDetail.master).DataTable();
                 numOfSelectedRows = table.context[0].multiselection.numSelected; //Nums del padre
-                this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular
+                this.conf.display = /^[1-9][0-9]*$/; //se cambia expresion regular
+                this.conf.displayRegex = /^[1-9][0-9]*$/; //se cambia expresion regular (retrocompatibilidad)
             }
-            _manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+            
+            // Gestionar el botón principal
+            manageButton(opts[i], numOfSelectedRows, collectionObject);
+            
             // Comprueba si tiene botones hijos
             if (this.buttons.length > 0) {
                 collectionObject = this;
-                _manageButtonsAndButtonsContextMenu(opts[i], numOfSelectedRows, collectionObject, ctx);
+                // Gestionar el botón de colección
+                manageButton(opts[i], numOfSelectedRows, collectionObject);
             }
+            
             // Comprueba si tiene un icono asociado
             if (this.conf.icon !== undefined) {
                 // Establece el icono de los botones
@@ -4593,7 +4934,6 @@
         $('#' + $.escapeSelector(ctx.sTableId)).after($defaultDialog);
     };
 
-
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      * DataTables interface
      */
@@ -4630,7 +4970,7 @@
 
         // Detecta cuando se selecciona o se deselecciona una fila en el table
         $('#' + $.escapeSelector(ctx.sTableId)).DataTable().on('select deselect contextmenu', function (event) {
-            DataTable.Api().buttons.displayRegex(ctx);
+            DataTable.Api().buttons.display(ctx);
         });
         
         // Si la edición está deshabilitada, se deshabilitan todos los botones menos el de informes.
@@ -4647,7 +4987,7 @@
         	
         	DataTable.Api().buttons.disableAllButtons(ctx, exceptions);
             ctx._buttons[0].inst.s.disableAllButtons = undefined;
-            DataTable.Api().buttons.displayRegex(ctx);
+            DataTable.Api().buttons.display(ctx);
         }
         
         $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableButtonsAfterToolbarInit');

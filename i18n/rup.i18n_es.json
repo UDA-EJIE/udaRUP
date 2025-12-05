@@ -608,6 +608,12 @@
         "matchedRecords": "{0} elementos encontrados",
         "matchedRecordsCount": "Elemento {0} de {1} encontrados",
         "searchCriteria": "Criterios de búsqueda"
+      },
+      "buttons": {
+        "display": {
+          "invalidReturnType": "La función asociada a la propiedad display debe devolver un valor booleano. Se recibió: {0}",
+          "invalidDisplayPropertyType": "La propiedad \"display\" debe ser RegExp o Function. Tipo recibido: {0}"
+        }
       }
     },
     "previous": "Anterior",
