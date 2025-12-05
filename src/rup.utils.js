@@ -1135,7 +1135,94 @@
 	     */
 		isNumeric: function (field) {
 			return !isNaN(parseFloat(field)) && isFinite(field);
-		}
+		},
+		/**
+		 * Sistema de gestión de avisos de deprecación.
+		 * Permite mostrar warnings de deprecación una sola vez por clave única,
+		 * evitando la saturación de la consola con mensajes repetidos.
+		 *
+		 * @name deprecation
+		 * @namespace
+		 * @since UDA 6.4.0
+		 *
+		 * @property {function} warn - Muestra un warning de deprecación solo una vez por clave única.
+		 * @property {function} hasWarned - Verifica si un warning específico ya ha sido mostrado.
+		 * @property {function} clear - Limpia uno o todos los warnings registrados.
+		 *
+		 * @example
+		 * // Mostrar warning con clave automática
+		 * var $button = $('#myButton');
+		 * $.rup_utils.deprecation.warn($button, 'displayRegex', 'display');
+		 *
+		 * @example
+		 * // Verificar si un warning ya fue mostrado
+		 * if ($.rup_utils.deprecation.hasWarned('myButton_displayRegex')) {
+		 *     console.log('Este warning ya fue mostrado');
+		 * }
+		 *
+		 * @example
+		 * // Limpiar un warning específico
+		 * $.rup_utils.deprecation.clear('myButton_displayRegex');
+		 *
+		 * @example
+		 * // Limpiar todos los warnings
+		 * $.rup_utils.deprecation.clear();
+		 */
+		deprecation: (function() {
+			const _warnings = new Set();
+			
+			return {
+				warn: function(element, deprecatedProperty, newProperty, customKey, customMessage) {
+					let key;
+					
+					// Validar elemento
+					if (!element || !(element instanceof jQuery)) {
+						console.error($.rup.i18nParse($.rup.i18n.base, 'rup_utils.errorNotjQueryElement'));
+						return false;
+					}
+					
+					// Si se proporciona una clave personalizada, usarla
+					if (customKey) {
+						key = customKey;
+					} else {
+						// Generar clave automáticamente a partir del id del elemento
+						const elementId = element.attr('id');
+						if (!elementId) {
+							console.error($.rup.i18nParse($.rup.i18n.base, 'rup_utils.errorjQueryElementMissingId'));
+							return false;
+						}
+						
+						// Generar clave: "elementId_deprecatedProperty"
+						key = `${elementId}_${deprecatedProperty}`;
+					}
+					
+					if (!_warnings.has(key)) {
+						// Generar mensaje
+						const message = customMessage || 
+							$.rup.i18nTemplate($.rup.i18n.base, 'rup_utils.deprecated', deprecatedProperty, newProperty);
+						
+						console.warn(message, element);
+						_warnings.add(key);
+						return key; // Devolver la clave para que pueda ser registrada
+					}
+					
+					return false;
+				},
+				
+				hasWarned: function(key) {
+					return _warnings.has(key);
+				},
+				
+				clear: function(key) {
+					if (key === undefined) {
+						_warnings.clear();
+						return true;
+					}
+					
+					return _warnings.delete(key);
+				}
+			};
+		})()
 	});
 
 	//Utilidades de los formularios

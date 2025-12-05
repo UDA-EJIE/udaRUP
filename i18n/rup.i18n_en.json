@@ -236,7 +236,9 @@
     "relToAbsUrlParamError": "La url => <b style='color:red'>&#34",
     "relToAbsUrlParamErrorEnd": "&#34</b><br/> del metodo &#34$.rup_utils.relToAbsUrl&#34; es incorrecta._en",
     "relToAbsUrlParamFormatError": "Parametro del metodo &#34$.rup_utils.relToAbsUrl&#34; incorrecto.<br/>La url debe ser de tipo String._en",
-    "deprecated": "The '{0}' property is deprecated. Please use '{1}' instead."
+    "deprecated": "The '{0}' property is deprecated. Please use '{1}' instead.",
+    "errorNotjQueryElement": "The warn method of rup_utils requires a jQuery element.",
+    "errorjQueryElementMissingId": "The jQuery element must have an id attribute or provide a custom key."
   },
   "rup_validate": {
     "format": {

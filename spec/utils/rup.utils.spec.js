@@ -4,6 +4,7 @@ import 'jquery';
 import 'handlebars';
 import queryString from 'query-string';
 import { flatten, unflatten } from 'flat';
+import 'rup.base';
 import 'rup.utils';
 
 global.queryString = queryString;
@@ -11,38 +12,6 @@ global.flatten = flatten;
 global.unflatten = unflatten;
 
 describe('RUP Utils Tests', function () {
-
-    // 🔧 Setup global
-    beforeAll(function () {
-        // Asegurar que existe el objeto rup
-        if (!$.rup) {
-            $.rup = {
-                lang: 'es',
-                i18n: {
-                    base: {
-                        'rup_global.metodError': 'Error en método',
-                        'rup_utils.paramsError': 'Parámetros incorrectos',
-                        'rup_utils.illegalChar': 'Carácter ilegal detectado',
-                        'rup_utils.relToAbsUrlParamError': 'Error en parámetro URL: ',
-                        'rup_utils.relToAbsUrlParamErrorEnd': ' no es válida',
-                        'rup_utils.relToAbsUrlParamFormatError': 'Formato de parámetro incorrecto'
-                    }
-                }
-            };
-        }
-
-        // Mock para errorGestor si no existe
-        if (!$.rup.errorGestor) {
-            $.rup.errorGestor = jasmine.createSpy('errorGestor');
-        }
-
-        // Mock para i18nParse si no existe
-        if (!$.rup.i18nParse) {
-            $.rup.i18nParse = function (obj, key) {
-                return obj[key] || key;
-            };
-        }
-    });
 
     // 🧹 Limpieza después de cada test
     afterEach(function () {
@@ -688,6 +657,185 @@ describe('RUP Utils Tests', function () {
                 document.elementFromPoint = originalElementFromPoint;
             });
         });
+
+        // ========================================
+        // ⚠️ TESTS DE DEPRECATION
+        // ========================================
+
+        describe('Tests del sistema de deprecación', function () {
+            
+            beforeEach(function () {
+                $.rup_utils.deprecation.clear();
+                spyOn(console, 'warn');
+            });
+
+            afterEach(function () {
+                $.rup_utils.deprecation.clear();
+            });
+
+            describe('Método warn', function () {
+                
+                it('debería mostrar error si no se proporciona un elemento jQuery', function () {
+                    spyOn(console, 'error');
+                    
+                    var result = $.rup_utils.deprecation.warn(null, 'oldProp', 'newProp');
+                    
+                    expect(console.error).toHaveBeenCalled();
+                    expect(result).toBe(false);
+                });
+                
+                it('debería mostrar error si el elemento no tiene id y no hay customKey', function () {
+                    spyOn(console, 'error');
+                    
+                    var $element = $('<div></div>');
+                    var result = $.rup_utils.deprecation.warn($element, 'oldProp', 'newProp');
+                    
+                    expect(console.error).toHaveBeenCalled();
+                    expect(result).toBe(false);
+                });
+                
+                it('debería generar clave automáticamente a partir del id del elemento', function () {
+                    var $element = $('<button id="myButton"></button>');
+                    
+                    var key = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    
+                    expect(key).toBe('myButton_displayRegex');
+                    expect(console.warn).toHaveBeenCalled();
+                });
+                
+                it('debería usar customKey si se proporciona', function () {
+                    var $element = $('<button></button>');
+                    
+                    var key = $.rup_utils.deprecation.warn(
+                        $element,
+                        'displayRegex',
+                        'display',
+                        'myCustomKey'
+                    );
+                    
+                    expect(key).toBe('myCustomKey');
+                    expect(console.warn).toHaveBeenCalled();
+                });
+                
+                it('debería usar mensaje i18n por defecto', function () {
+                    var $element = $('<button id="testButton"></button>');
+                    
+                    $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    
+                    expect(console.warn).toHaveBeenCalledWith(
+                        jasmine.stringContaining('displayRegex'),
+                        $element
+                    );
+                });
+                
+                it('debería usar customMessage si se proporciona', function () {
+                    var $element = $('<button id="testButton"></button>');
+                    var customMsg = 'Mensaje personalizado';
+                    
+                    $.rup_utils.deprecation.warn($element, 'oldProp', 'newProp', null, customMsg);
+                    
+                    expect(console.warn).toHaveBeenCalledWith(customMsg, $element);
+                });
+                
+                it('debería mostrar warning solo una vez para la misma clave', function () {
+                    var $element = $('<button id="duplicateTest"></button>');
+                    
+                    var key1 = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    expect(console.warn).toHaveBeenCalledTimes(1);
+                    
+                    var key2 = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    expect(key2).toBe(false);
+                    expect(console.warn).toHaveBeenCalledTimes(1);
+                });
+                
+                it('debería permitir diferentes claves para el mismo elemento', function () {
+                    var $element = $('<button id="multiWarning"></button>');
+                    
+                    var key1 = $.rup_utils.deprecation.warn($element, 'oldProp1', 'newProp1');
+                    var key2 = $.rup_utils.deprecation.warn($element, 'oldProp2', 'newProp2');
+                    
+                    expect(key1).toBe('multiWarning_oldProp1');
+                    expect(key2).toBe('multiWarning_oldProp2');
+                    expect(console.warn).toHaveBeenCalledTimes(2);
+                });
+                
+                it('debería permitir la misma propiedad en diferentes elementos', function () {
+                    var $element1 = $('<button id="button1"></button>');
+                    var $element2 = $('<button id="button2"></button>');
+                    
+                    var key1 = $.rup_utils.deprecation.warn($element1, 'displayRegex', 'display');
+                    var key2 = $.rup_utils.deprecation.warn($element2, 'displayRegex', 'display');
+                    
+                    expect(key1).toBe('button1_displayRegex');
+                    expect(key2).toBe('button2_displayRegex');
+                    expect(console.warn).toHaveBeenCalledTimes(2);
+                });
+            });
+            
+            describe('Método hasWarned', function () {
+                
+                it('debería retornar false si el warning no ha sido mostrado', function () {
+                    expect($.rup_utils.deprecation.hasWarned('nonExistentKey')).toBe(false);
+                });
+                
+                it('debería retornar true si el warning ya fue mostrado', function () {
+                    var $element = $('<button id="testHasWarned"></button>');
+                    var key = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    
+                    expect($.rup_utils.deprecation.hasWarned(key)).toBe(true);
+                });
+            });
+            
+            describe('Método clear', function () {
+                
+                it('debería limpiar un warning específico', function () {
+                    var $element = $('<button id="clearSpecific"></button>');
+                    var key = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    
+                    expect($.rup_utils.deprecation.hasWarned(key)).toBe(true);
+                    
+                    var result = $.rup_utils.deprecation.clear(key);
+                    
+                    expect(result).toBe(true);
+                    expect($.rup_utils.deprecation.hasWarned(key)).toBe(false);
+                });
+                
+                it('debería retornar false si la clave no existe', function () {
+                    expect($.rup_utils.deprecation.clear('nonExistentKey')).toBe(false);
+                });
+                
+                it('debería limpiar todos los warnings si no se proporciona clave', function () {
+                    var $element1 = $('<button id="clearAll1"></button>');
+                    var $element2 = $('<button id="clearAll2"></button>');
+                    
+                    var key1 = $.rup_utils.deprecation.warn($element1, 'prop1', 'newProp1');
+                    var key2 = $.rup_utils.deprecation.warn($element2, 'prop2', 'newProp2');
+                    
+                    $.rup_utils.deprecation.clear();
+                    
+                    expect($.rup_utils.deprecation.hasWarned(key1)).toBe(false);
+                    expect($.rup_utils.deprecation.hasWarned(key2)).toBe(false);
+                });
+                
+                it('debería permitir mostrar el mismo warning después de limpiarlo', function () {
+                    var $element = $('<button id="reuseAfterClear"></button>');
+                    
+                    var key1 = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    expect(console.warn).toHaveBeenCalledTimes(1);
+                    
+                    var key2 = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    expect(key2).toBe(false);
+                    expect(console.warn).toHaveBeenCalledTimes(1);
+                    
+                    $.rup_utils.deprecation.clear(key1);
+                    
+                    var key3 = $.rup_utils.deprecation.warn($element, 'displayRegex', 'display');
+                    expect(key3).toBe('reuseAfterClear_displayRegex');
+                    expect(console.warn).toHaveBeenCalledTimes(2);
+                });
+            });
+        });
+        
         // ========================================
         // 📝 TESTS ADICIONALES PARA COBERTURA
         // ========================================

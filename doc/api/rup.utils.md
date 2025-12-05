@@ -6,6 +6,7 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
 **Summary**: Librería de utilidades para los componentes RUP.  
 
 * [rup_utils](#jQuery.module_rup_utils)
+    * [~deprecation](#jQuery.module_rup_utils..deprecation) : <code>object</code>
     * [~normalize(texto)](#jQuery.module_rup_utils..normalize) ⇒ <code>string</code>
     * ~~[~editFormSerialize(idForm, [serializerSplitter])](#jQuery.module_rup_utils..editFormSerialize) ⇒ <code>string</code>~~
     * [~formDataToQueryString(idForm, options)](#jQuery.module_rup_utils..formDataToQueryString) ⇒ <code>string</code>
@@ -15,6 +16,37 @@ Módulo de utilidades comunes a todos los componentes RUP. <br/><br/>Implementa
     * [~flattenObject(originalObj, options)](#jQuery.module_rup_utils..flattenObject) ⇒ <code>object</code>
     * [~unflattenObject(originalObj, options)](#jQuery.module_rup_utils..unflattenObject) ⇒ <code>object</code>
 
+<a name="jQuery.module_rup_utils..deprecation"></a>
+
+### rup_utils~deprecation : <code>object</code>
+Sistema de gestión de avisos de deprecación.Permite mostrar warnings de deprecación una sola vez por clave única,evitando la saturación de la consola con mensajes repetidos.
+
+**Kind**: inner namespace of [<code>rup\_utils</code>](#jQuery.module_rup_utils)  
+**Since**: UDA 6.4.0  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| warn | <code>function</code> | Muestra un warning de deprecación solo una vez por clave única. |
+| hasWarned | <code>function</code> | Verifica si un warning específico ya ha sido mostrado. |
+| clear | <code>function</code> | Limpia uno o todos los warnings registrados. |
+
+**Example**  
+```js
+// Mostrar warning con clave automáticavar $button = $('#myButton');$.rup_utils.deprecation.warn($button, 'displayRegex', 'display');
+```
+**Example**  
+```js
+// Verificar si un warning ya fue mostradoif ($.rup_utils.deprecation.hasWarned('myButton_displayRegex')) {    console.log('Este warning ya fue mostrado');}
+```
+**Example**  
+```js
+// Limpiar un warning específico$.rup_utils.deprecation.clear('myButton_displayRegex');
+```
+**Example**  
+```js
+// Limpiar todos los warnings$.rup_utils.deprecation.clear();
+```
 <a name="jQuery.module_rup_utils..normalize"></a>
 
 ### rup_utils~normalize(texto) ⇒ <code>string</code>
