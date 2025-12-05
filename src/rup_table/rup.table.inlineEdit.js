@@ -174,7 +174,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 	         id: ctx.sTableId+'saveButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 	         className: 'btn-material-primary-high-emphasis table_toolbar_btnSave order-5',
 	         icon: 'mdi-content-save',
-	         displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+			display: function () {
+				// El botón se habilita/deshabilita manualmente en el código
+				return false;
+			},
 	         insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 	         type: 'save',
 	         action: function ( e, dt, button, config ) {
@@ -193,7 +196,10 @@ DataTable.inlineEdit.init = function ( dt ) {
 			id: ctx.sTableId+'cancelButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 			className: 'btn-material-primary-high-emphasis table_toolbar_btnCancel order-6',
 			icon: 'mdi-cancel',
-			displayRegex: /asss/, // Se muestra siempre que sea un numero positivo o neutro
+			display: function () {
+				// El botón se habilita/deshabilita manualmente en el código
+				return false;
+			},
 			insideContextMenu: true, // Independientemente de este valor, sera 'false' si no tiene un id definido
 			type: 'cancel',
 			action: function () {
@@ -838,7 +844,7 @@ function _restaurarFila(ctx,limpiar){
 		}
 		//se habilitan los botones.
 		ctx._buttons[0].inst.s.disableAllButtons = undefined;
-		DataTable.Api().buttons.displayRegex(ctx);
+		DataTable.Api().buttons.display(ctx);
 	}
 	$('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableEditLineRestaurarFilaEnd',ctx);
 }

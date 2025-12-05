@@ -108,7 +108,7 @@
 				},
 				id: idTable + 'editButton_1', // Campo obligatorio si se quiere usar desde el contextMenu
 				className: 'btn-material-primary-high-emphasis table_toolbar_btnEdit order-2',
-				displayRegex: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
+				display: /^[1-9][0-9]*$/, // Se muestra siempre que sea un numero mayor a 0
 				insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
 				type: 'edit',
 				init: function (dt, button, config) {
@@ -137,7 +137,7 @@
                     id: props.id, // Campo obligatorio si se quiere usar desde el contextMenu
                     className: props.className,
                     icon: props.icon,
-                    displayRegex: props.regex, // Se muestra siempre que sea un numero positivo o neutro
+                    display: props.regex, // Se muestra siempre que sea un numero positivo o neutro
                     insideContextMenu: props.insideContextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
                     action: props.action,
                     custom: props.custom
@@ -397,7 +397,7 @@
                 // Detecta cuando se pulsa sobre el boton de filtrado o de limpiar lo filtrado
                 if (ctx.oInit.buttons !== undefined && ctx._buttons !== undefined) {
                     ctx._buttons[0].inst.s.disableAllButtons = undefined;
-                    DataTable.Api().buttons.displayRegex(ctx);
+                    DataTable.Api().buttons.display(ctx);
                 }
                 $('#' + $.escapeSelector(ctx.sTableId)).triggerHandler('tableAfterReorderData',ctx);
             });

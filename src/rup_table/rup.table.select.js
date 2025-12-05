@@ -191,7 +191,7 @@
             }
         }
         if (ctx.oInit.buttons !== undefined) {
-            DataTable.Api().buttons.displayRegex(ctx);
+            DataTable.Api().buttons.display(ctx);
         }
     }
 
@@ -227,7 +227,7 @@
         $('tr', rowsBody).removeClass('selected tr-highlight');
         ctx.multiselection.numSelected = 0;
         ctx.multiselection.selectedIds = [];
-        DataTable.Api().buttons.displayRegex(ctx);
+        DataTable.Api().buttons.display(ctx);
         $('#' + $.escapeSelector(ctx.sTableId)).trigger('rupTable_deselect',ctx);
     });
 
