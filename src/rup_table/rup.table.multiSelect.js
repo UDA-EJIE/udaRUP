@@ -1165,7 +1165,6 @@
             jQuery.extend(items, {
                 'selectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAllPage'),
-                    icon: 'check',
                     disabled: function () {},
                     callback: function () {
                         selectAllPage(dt);
@@ -1178,7 +1177,6 @@
             jQuery.extend(items, {
                 'deselectAllPage': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAllPage'),
-                    icon: 'uncheck',
                     disabled: function () {},
                     callback: function () {
                         deselectAllPage(dt);
@@ -1195,7 +1193,6 @@
             jQuery.extend(items, {
                 'selectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.selectAll'),
-                    icon: 'check_all',
                     disabled: function () {},
                     callback: function () {
                         selectAll(dt);
@@ -1207,7 +1204,6 @@
             $.extend(items, {
                 'deselectAll': {
                     name: $.rup.i18nParse($.rup.i18n.base, 'rup_table.plugins.multiselection.deselectAll'),
-                    icon: 'uncheck_all',
                     disabled: function () {},
                     callback: function () {
                         deselectAll(dt);
