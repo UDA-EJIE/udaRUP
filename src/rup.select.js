@@ -359,16 +359,22 @@
     		}
         	if(settings.multiple){
             	let datos = [];
-            	$.each(param, function (key, value) {
-              		if(datas.length >= value){
-              			datos.push(datas[value].id);
-             		}
-                });
-            	$(this).rup_select('setRupValue', datos);
+				// Siempre convertir param a array
+				let params = Array.isArray(param) ? param : [param];
+
+				  params.forEach(p => {
+				      const id = getIdFromParam(p,datas);
+				      if (id !== null) {
+				          datos.push(id);
+				      }
+				  });
+
+				  $(this).rup_select('setRupValue', datos);
         	}else{
-        		if(datas.length >= param){
-        			$(this).rup_select('setRupValue', datas[param].id);
-        		}
+				let id = getIdFromParam(param,datas);
+				if (id !== null) {
+				     $(this).rup_select('setRupValue', id);
+				}
         	}
         },
 		/**
@@ -2221,6 +2227,18 @@
 
 										if ($search != undefined) {
 											let mySelectSong = $el.data('select2');
+											$el.on('select2:open', function(e){
+											    const evt = 'scroll.select2';
+												$(e.target)
+												       .parents()
+												       .filter(function () {
+												           return (
+												               this.scrollHeight > this.clientHeight || 
+												               this.scrollWidth > this.clientWidth
+												           );
+												       })
+												       .off(evt);  // Quitar solo en ellos los watchers de Select2
+											  });
 											$el.select2('trigger', 'query');
 											mySelectSong.$container.removeClass('select2-container--open');	
 											mySelectSong.$dropdown[0].remove();
@@ -2476,3 +2494,19 @@ function udaMatcher(params, data) {
 
     return null;
   }
+  
+  // Función auxiliar: encontrar ID por valor o por índice
+     function getIdFromParam(p,datas) {
+         // CASO 1: p = número → seleccionar por posición
+         if (Number.isInteger(p) && p >= 0 && p < datas.length) {
+             return datas[p].id;
+         }
+
+         // CASO 2: p = string → seleccionar por valor del id
+         if (typeof p === "string") {
+             let found = datas.find(d => d.id == p);
+             return found ? found.id : null;
+         }
+
+         return null;
+     }
