@@ -593,7 +593,7 @@
                             }
 
 							// Inicializar componente.
-							element['rup_' + rupType](column.editoptions);
+							element.rup_select(column.editoptions);
 						}
 					} else {
 						// Inicializar componente.
