@@ -500,7 +500,7 @@
         	// Para cuando el formulario actual sigue siendo válido (ya sea dinámico o no)
 			let deferred = $.Deferred();
 			ctx.oInit.formEdit.actionType = actionType;
-			$(ctx.oInit.formEdit.idForm).rup_form('clearForm', true);
+			$(ctx.oInit.formEdit.idForm).rup_form('clearForm', !ctx.oInit.enableDynamicForms);
 			deferred.resolve();
 			return deferred.promise();
         }
@@ -548,7 +548,8 @@
 				const element = rupType !== 'tree' ? form.find('[name="' + column.name + '"]') : form.find('div[class*="rup_tree"]');
 
 				// Comprobar si el campo debe ser mostrado, si debe serlo, se verificará si es editable y un componente RUP, de no cumplir, 
-				// se terminará verificando si es o no editable y en caso de no serlo, se añadirá el atributo readonly.
+				// se terminará verificando si es o no editable y en caso de no serlo, se añadirá el atributo readonly. La propiedad editable
+                // solo aplica cuando se trate de una edición, nunca de una creación o clonación.
 				if (column.hidden) {
 					element.prop('hidden', true);
 
@@ -559,7 +560,7 @@
 						form.find('label[for="' + element.attr('id') + '"]').addClass('d-none');
 					}
 				}
-				else if (column.editable && rupType !== undefined) {
+				else if (rupType !== undefined) {
 					if (rupType === 'select') {
 						if (column.editoptions === undefined) {
 							// El componente rup_select necesita recibir propiedades para la inicialización.
@@ -570,15 +571,55 @@
 								column.editoptions.selected = column.name.includes('.') ? $.fn.flattenJSON(row)[column.name] : row[column.name];
 							}
 
+                            // Si el campo no es editable y es una edición, se deshabilita una vez se inicialice el componente.
+                            if (column.editable === false && ctx.oInit.formEdit.actionType === 'PUT') {
+                                element.on(column.editoptions?.url ? 'selectAjaxSuccess' : 'selectFinish', function (e) {
+                                    const $this = $(this);
+
+                                    // Eliminar el handler en el primer disparo.
+                                    $this.off(e.type);
+
+                                    // Deshabilita el componente.
+                                    $this.rup_select('disable');
+
+                                    // Crear campo oculto con el valor para que formToArray() pueda procesarlo.
+                                    $('<input>', {
+										type: 'hidden',
+                                        id: $this.attr('id') + '_hidden',
+										name: $this.attr('name'),
+                                        value: $this.rup_select('getRupValue')
+									}).appendTo($this.parent());
+                                });
+                            }
+
 							// Inicializar componente.
 							element['rup_' + rupType](column.editoptions);
 						}
 					} else {
 						// Inicializar componente.
 						element['rup_' + rupType](column.editoptions);
+
+                        if (column.editable === false && ctx.oInit.formEdit.actionType === 'PUT') {
+                            // Deshabilitar usando la API del componente.
+                            element['rup_' + rupType]('disable');
+                        }
 					}
-				} else if (!column.editable) {
-					element.prop('readonly', true);
+				} else if (column.editable === false && ctx.oInit.formEdit.actionType === 'PUT') {
+					// Campos no editables y sin componente RUP
+                    if (element.prop('type') === 'checkbox') {
+                        // Checkbox no soporta el atributo readonly, por ese motivo se opta por disabled
+                        // y se crea un campo oculto con el valor para que formToArray() pueda procesarlo.
+                        element.prop('disabled', true);
+
+                        $('<input>', {
+                            type: 'hidden',
+                            id: element.attr('id') + '_hidden',
+                            name: element.attr('name'),
+                            value: element.val()
+                        }).appendTo(element.parent());
+                    } else {
+                        element.prop('readonly', true);
+                    }
 				}
 			});
 		}
