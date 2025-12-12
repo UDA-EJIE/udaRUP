@@ -1939,6 +1939,11 @@
 		    			}
 	                	self._loadRemote(settings,true);
 		           } else {// por si viene cargado de un select
+					   if(typeof settings.sortered === 'function'){
+							let options = $('#' + $.escapeSelector(settings.id)).find('option').get();
+							options.sort(settings.sortered);
+							$('#' + $.escapeSelector(settings.id)).empty().append(options);		  
+					   }	
 		        	   settings.data = true;
 		        	   if(settings.parent){//convertir el data, formato parent	
 		        		   settings.data = [];
