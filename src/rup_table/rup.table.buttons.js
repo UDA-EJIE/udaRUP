@@ -180,7 +180,7 @@
             displayRegex: ctx.oInit.buttons.copy?.displayRegex ? ctx.oInit.buttons.copy.displayRegex : /^\d+$/,
             display: ctx.oInit.buttons.copy?.display ? ctx.oInit.buttons.copy.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
-            type: 'copyButton',
+            type: 'copy',
             request: {
 	        	url: $.rup_utils.aplicatioInPortal() ? '/clipboardReport?R01HNoPortal=true' : '/clipboardReport',
 	            method: 'POST',
@@ -213,7 +213,7 @@
             displayRegex: ctx.oInit.buttons.excel?.displayRegex ? ctx.oInit.buttons.excel.displayRegex : /^\d+$/,
             display: ctx.oInit.buttons.excel?.display ? ctx.oInit.buttons.excel.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
-            type: 'excelButton',
+            type: 'excel',
             request: {
 	        	url: $.rup_utils.aplicatioInPortal() ? '/xlsxReport?R01HNoPortal=true' : '/xlsxReport',
 	            method: 'POST',
@@ -245,7 +245,7 @@
             displayRegex: ctx.oInit.buttons.pdf?.displayRegex ? ctx.oInit.buttons.pdf.displayRegex : /^\d+$/,
             display: ctx.oInit.buttons.pdf?.display ? ctx.oInit.buttons.pdf.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
-            type: 'pdfButton',
+            type: 'pdf',
             request: {
 	        	url: $.rup_utils.aplicatioInPortal() ? '/pdfReport?R01HNoPortal=true' : '/pdfReport',
 	            method: 'POST',
@@ -276,7 +276,7 @@
             displayRegex: ctx.oInit.buttons.ods?.displayRegex ? ctx.oInit.buttons.ods.displayRegex : /^\d+$/,
             display: ctx.oInit.buttons.ods?.display ? ctx.oInit.buttons.ods.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
-            type: 'odsButton',
+            type: 'ods',
             request: {
 	        	url: $.rup_utils.aplicatioInPortal() ? '/odsReport?R01HNoPortal=true' : '/odsReport',
 	            method: 'POST',
@@ -308,7 +308,7 @@
             displayRegex: ctx.oInit.buttons.csv?.displayRegex ? ctx.oInit.buttons.csv.displayRegex : /^\d+$/,
             display: ctx.oInit.buttons.csv?.display ? ctx.oInit.buttons.csv.display : /^\d+$/, // Se muestra siempre que sea un numero positivo o neutro
             insideContextMenu: ctx.oInit.buttons.contextMenu, // Independientemente de este valor, sera 'false' si no tiene un id definido
-            type: 'csvButton',
+            type: 'csv',
             request: {
 	        	url: $.rup_utils.aplicatioInPortal() ? '/csvReport?R01HNoPortal=true' : '/csvReport',
 	            method: 'POST',
