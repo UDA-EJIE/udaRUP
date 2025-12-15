@@ -697,9 +697,22 @@
 	                pk = pk.replace(regexSlash, '-');
 	                var regex = new RegExp(ctx.oInit.multiplePkToken, 'g');
 	                pk = pk.replace(regex, '/');
+					let url;
+					if (ctx.oInit.formEdit.useQueryParam) {
+						let keys   = ctx.oInit.primaryKey;                 // Array de nombres PK
+						let values = pk.split(ctx.oInit.multiplePkToken);  // Valores PK
+
+						let params = keys.map((key, i) =>
+						    key + '=' + encodeURIComponent(values[i])
+						 ).join('&');
+
+						url = ctx.oInit.urlBase + '?' + params;
+					} else {
+					    url = ctx.oInit.urlBase + '/' + pk; // comportamiento por defecto
+					}
 	
 	                var ajaxOptions = {
-	                    url: ctx.oInit.urlBase + '/' + pk,
+	                    url: url,
 	                    accepts: {
 	                        '*': '*/*',
 	                        'html': 'text/html',
