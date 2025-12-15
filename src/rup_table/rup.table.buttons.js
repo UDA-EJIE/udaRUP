@@ -3747,8 +3747,11 @@
      */
     var _manageButtonsAndContextMenu = function (opts, numOfSelectedRows, collectionObject, ctx) {
         if (opts.conf.custom === undefined || !opts.conf.custom) {
-            // Avisar si se usan ambas propiedades (solo una vez por botón)
-            if (opts.conf.display !== undefined && opts.conf.displayRegex !== undefined) {
+            // Avisar si se usa la propiedad deprecada displayRegex (solo una vez por botón).
+            // Cabe destacar que aunque los botones por defecto siempre disponen de las propiedades
+            // display y displayRegex, solo se lanzará un aviso por consola cuando en las propiedades
+            // de inicialización se haya especificado el uso de la deprecada displayRegex.
+            if (ctx.oInit.buttons[opts.conf.type]?.displayRegex) {
                 const key = `${ctx.sTableId}_${opts.conf.id}_displayRegex`;
                 $.rup_utils.deprecation.warn(
                     $(opts.node),
@@ -3797,8 +3800,11 @@
                 
                 // Recorre todos los botones dentro del collection
                 $.each(collectionObject.buttons, function (key, value) {
-                    // Avisar si el hijo usa ambas propiedades (solo una vez)
-                    if (value.conf.display !== undefined && value.conf.displayRegex !== undefined) {
+                    // Avisar si se usa la propiedad deprecada displayRegex (solo una vez por botón).
+                    // Cabe destacar que aunque los botones por defecto siempre disponen de las propiedades
+                    // display y displayRegex, solo se lanzará un aviso por consola cuando en las propiedades
+                    // de inicialización se haya especificado el uso de la deprecada displayRegex.
+                    if (ctx.oInit.buttons[value.conf.type]?.displayRegex) {
                         const childKey = `${ctx.sTableId}_${value.conf.id}_displayRegex`;
                         $.rup_utils.deprecation.warn(
                             $(value.node),
