@@ -1,6 +1,6 @@
 {
   "name": "uda-rup",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "description": "RUP components repository",
   "main": "index.js",
   "directories": {
