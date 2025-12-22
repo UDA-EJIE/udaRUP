@@ -919,6 +919,20 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	if($fila.hasClass('new') || ctx.oInit.inlineEdit.alta){
 		edicion = false;
 	}
+
+	// CAMBIO: coger datos reales de DataTables para ESTA fila (incluye el clon)
+	var table = $('#' + $.escapeSelector(ctx.sTableId)).DataTable();
+	var rowData = table.row($fila).data();
+	// CAMBIO: helper mínimo para soportar nombres con puntos
+	function _getValueByName(obj, name){
+		if (!obj || name == null) return undefined;
+		if (Object.prototype.hasOwnProperty.call(obj, name)) return obj[name];
+		if (typeof name === "string" && name.indexOf('.') !== -1){
+			return name.split('.').reduce(function(acc,k){ return acc == null ? undefined : acc[k]; }, obj);
+		}
+		return obj[name];
+	}
+
 	$celdas.each( function() {
 		var celda = $(this);
 		var $celda = $(celda);
@@ -936,8 +950,12 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 				if(cellColModel.rupType !== undefined && cellColModel.rupType === 'select'){
 					$input = $('<select />');
 				}
+
+				// CAMBIO: valor desde DataTables rowData en vez de ctx.json.rows[$fila.idx]
+				var valueToSet = ctx.oInit.inlineEdit.useLocalValues ? $celda.text() : _getValueByName(rowData, cellColModel.name);
+
 				$input
-					.val(ctx.oInit.inlineEdit.useLocalValues ? $celda.text() : ctx.json.rows[$fila.idx][cellColModel.name])
+					.val(valueToSet)
 					.attr('name', cellColModel.name+'_inline'+child);
 					
 				var title = cellColModel.name.charAt(0).toUpperCase() + cellColModel.name.slice(1);
@@ -989,7 +1007,11 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 						console.error($.rup_utils.format(jQuery.rup.i18nParse(jQuery.rup.i18n.base, 'rup_table.errors.treeInlineEdit'), cellColModel.name));
 					} else {
 						if (rupType === 'select') {
-							cellColModel.editoptions.selected = ctx.oInit.inlineEdit.useLocalValues ? ctx.inlineEdit.lastRow.cellValues[cont] : ctx.json.rows[$fila.idx][cellColModel.name] + '';
+
+							// CAMBIO: selected desde DataTables rowData (no desde ctx.json.rows[$fila.idx] ni cellValues HTML)
+							var selectedVal = ctx.oInit.inlineEdit.useLocalValues ? $elem.val() : _getValueByName(rowData, cellColModel.name);
+
+							cellColModel.editoptions.selected = (selectedVal ?? '') + '';
 							cellColModel.editoptions.inlineEditFieldName = cellColModel.name;
 
 							// Permite inicializar el componente con el source correcto.
@@ -1046,6 +1068,7 @@ function _recorrerCeldas(ctx,$fila,$celdas,cont){
 	
 	return cont - ocultos;
 }
+
 
 /**
 * Método para restaurar las celdas.
