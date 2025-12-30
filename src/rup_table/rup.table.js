@@ -348,14 +348,20 @@
             var apiRegister = DataTable.Api.register;
 
             apiRegister('rupTable.selectPencil()', function (ctx, idRow) {
-                //Se elimina el lapicero indicador.
-                $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox i.selected-pencil').remove();
-                //se añade el span con el lapicero
-                if (idRow >= 0) {
-                    var spanPencil = $('<i></i>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
-                    $($('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
-                }
-            });
+			    //Se elimina el lapicero indicador.
+			    $('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox i.selected-pencil').remove();
+			
+			    // Ajuste de idRow según el modo de edición
+			    if (ctx.oInit.formEdit === undefined && ctx.oInit.inlineEdit !== undefined) {
+			        idRow = idRow + 1;
+			    }
+			
+			    //se añade el span con el lapicero
+			    if (idRow >= 0) {
+			        var spanPencil = $('<i></i>').addClass('mdi mdi-pencil ui-icon-rupInfoCol selected-pencil');
+			        $($('#' + $.escapeSelector(ctx.sTableId) + ' tbody tr td.select-checkbox')[idRow]).append(spanPencil);
+			    }
+			});
 
             apiRegister('rupTable.reorderDataFromServer()', function (json, ctx) {
                 //Se mira la nueva reordenacion y se ordena.
