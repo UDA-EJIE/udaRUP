@@ -749,7 +749,7 @@
     	autoFillFromField: true,
     	showMillisec: false,
     	showMicrosec: false,
-    	timezoneOffset: 60
+    	timezoneOffset: -new Date().getTimezoneOffset()
     };
 
     //EVENTOS
